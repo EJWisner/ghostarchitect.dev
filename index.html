@@ -4,248 +4,879 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ghost Architect™ — AI-Powered Codebase Intelligence | Code Audit Tool</title>
-  <meta name="description" content="Ghost Architect™ scans your entire codebase and surfaces architectural risks, security vulnerabilities, and hidden defects in minutes. Any platform. Any scale. Your code never leaves your machine." />
-  <link rel="canonical" href="https://ghostarchitect.dev/" />
-  <meta name="keywords" content="codebase intelligence, AI code audit, codebase analysis tool, code review automation, Adobe Commerce security audit, Magento code audit, architecture review tool, codebase archaeology, static code analysis, CLI code audit tool, security vulnerability scanner, Ghost Architect" />
-  <meta name="author" content="Ghost Architect" />
-  <meta name="robots" content="index, follow" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://ghostarchitect.dev/" />
-  <meta property="og:title" content="Ghost Architect™ — AI-Powered Codebase Intelligence" />
-  <meta property="og:description" content="Ghost Architect™ scans your entire codebase and surfaces architectural risks, security vulnerabilities, and hidden defects in minutes. Any platform. Any scale. Your code never leaves your machine." />
-  <meta property="og:image" content="https://ghostarchitect.dev/GHOSTLOGO.JPG" />
-  <meta property="og:site_name" content="Ghost Architect" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://ghostarchitect.dev/" />
-  <meta name="twitter:title" content="Ghost Architect™ — AI-Powered Codebase Intelligence" />
-  <meta name="twitter:description" content="Ghost Architect™ scans your entire codebase and surfaces architectural risks, security vulnerabilities, and hidden defects in minutes. Any platform. Any scale. Your code never leaves your machine." />
-  <meta name="twitter:image" content="https://ghostarchitect.dev/GHOSTLOGO.JPG" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <meta name="description" content="Ghost Architect™ triages your codebase — categorizes risk, prioritizes findings, gives your team a map of where to start. AI-powered codebase intelligence for any platform, any scale." />
   <style>
     :root {
-      --navy: #0a1628;
-      --navy-mid: #0d1f38;
-      --navy-light: #132540;
-      --cyan: #38b6e8;
-      --cyan-dim: #1e7aad;
-      --cyan-glow: rgba(56, 182, 232, 0.15);
-      --white: #f0f4f8;
-      --white-dim: rgba(240, 244, 248, 0.6);
-      --white-faint: rgba(240, 244, 248, 0.15);
-      --border: rgba(56, 182, 232, 0.2);
-      --border-faint: rgba(240, 244, 248, 0.08);
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #1a1a24;
+      --border: #2a2a3a;
+      --accent: #4a9eff;
+      --accent2: #00d4aa;
+      --danger: #ff4a6b;
+      --warning: #ffaa00;
+      --text: #e8e8f0;
+      --text-muted: #888899;
+      --text-dim: #555566;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     html { scroll-behavior: smooth; }
-    body { background: var(--navy); color: var(--white); font-family: 'Syne', sans-serif; overflow-x: hidden; }
-    body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(56,182,232,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(56,182,232,0.04) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 72px; background: rgba(10,22,40,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-faint); }
-    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .nav-logo img { height: 36px; width: auto; }
-    .nav-wordmark { font-size: 1.1rem; font-weight: 700; color: var(--white); letter-spacing: -0.02em; }
-    .nav-wordmark sup { font-size: 0.6em; color: var(--cyan); vertical-align: super; }
-    .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
-    .nav-links a { color: var(--white-dim); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--white); }
-    .nav-cta { background: var(--cyan) !important; color: var(--navy) !important; padding: 10px 24px !important; border-radius: 4px; font-weight: 700 !important; font-size: 0.88rem !important; transition: background 0.2s, transform 0.15s !important; }
-    .nav-cta:hover { background: #5cc8f0 !important; transform: translateY(-1px); }
-    .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 48px 80px; overflow: hidden; }
-    .hero::after { content: ''; position: absolute; top: 20%; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(56,182,232,0.08) 0%, transparent 70%); pointer-events: none; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(56,182,232,0.1); border: 1px solid var(--border); border-radius: 100px; padding: 6px 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--cyan); letter-spacing: 0.05em; margin-bottom: 40px; animation: fadeInDown 0.6s ease both; }
-    .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
-    .hero h1 { font-size: clamp(1.6rem, 6vw, 4rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; max-width: 900px; margin-bottom: 28px; animation: fadeInUp 0.7s ease 0.1s both; }
-    .hero h1 em { font-style: normal; color: var(--cyan); }
-    .hero-sub { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--white-dim); font-weight: 400; max-width: 560px; line-height: 1.6; margin-bottom: 48px; animation: fadeInUp 0.7s ease 0.2s both; }
-    .hero-actions { display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap; animation: fadeInUp 0.7s ease 0.3s both; }
-    .btn-primary { background: var(--cyan); color: var(--navy); padding: 16px 36px; border-radius: 4px; font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; text-decoration: none; letter-spacing: 0.02em; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
-    .btn-primary:hover { background: #5cc8f0; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(56,182,232,0.3); }
-    .btn-secondary { color: var(--white-dim); padding: 16px 24px; font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 500; text-decoration: none; border: 1px solid var(--border-faint); border-radius: 4px; transition: all 0.2s; }
-    .btn-secondary:hover { color: var(--white); border-color: var(--border); background: var(--white-faint); }
-    .hero-proof { margin-top: 80px; display: flex; gap: 48px; justify-content: center; flex-wrap: wrap; animation: fadeInUp 0.7s ease 0.4s both; }
-    .proof-stat { text-align: center; }
-    .proof-stat .number { font-size: 2rem; font-weight: 800; color: var(--cyan); letter-spacing: -0.03em; display: block; }
-    .proof-stat .label { font-size: 0.8rem; color: var(--white-dim); letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500; }
-    section { position: relative; z-index: 1; padding: 100px 48px; max-width: 1100px; margin: 0 auto; }
-    .section-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--cyan); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; display: block; }
-    .section-title { font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; }
-    .section-body { font-size: 1.1rem; color: var(--white-dim); line-height: 1.7; max-width: 640px; }
-    .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 60px; border: 1px solid var(--border-faint); border-radius: 8px; overflow: hidden; }
-    .feature-card { background: var(--navy-mid); padding: 40px; transition: background 0.2s; }
-    .feature-card:hover { background: var(--navy-light); }
-    .feature-icon { font-size: 1.5rem; margin-bottom: 20px; display: block; }
-    .feature-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
-    .feature-desc { font-size: 0.92rem; color: var(--white-dim); line-height: 1.65; }
-    .security-section { background: var(--navy-mid); border: 1px solid var(--border-faint); border-radius: 12px; padding: 72px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1100px; margin: 0 auto; }
-    .security-pillars { display: flex; flex-direction: column; gap: 28px; }
-    .pillar { display: flex; gap: 16px; align-items: flex-start; }
-    .pillar-icon { width: 40px; height: 40px; background: var(--cyan-glow); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
-    .pillar-text h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
-    .pillar-text p { font-size: 0.85rem; color: var(--white-dim); line-height: 1.55; }
-    .security-quote { border-left: 3px solid var(--cyan); padding-left: 28px; }
-    .security-quote blockquote { font-size: 1.4rem; font-weight: 700; line-height: 1.4; letter-spacing: -0.02em; margin-bottom: 20px; }
-    .security-quote p { font-size: 0.95rem; color: var(--white-dim); line-height: 1.65; }
-    .proof-section { background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%); border: 1px solid var(--border); border-radius: 12px; padding: 72px 80px; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center; }
-    .proof-numbers { display: flex; gap: 48px; margin-top: 32px; flex-wrap: wrap; }
-    .proof-num .n { font-size: 2.5rem; font-weight: 800; color: var(--cyan); letter-spacing: -0.04em; line-height: 1; display: block; }
-    .proof-num .l { font-size: 0.78rem; color: var(--white-dim); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
-    .proof-cta { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
-    .proof-cta small { font-size: 0.78rem; color: var(--white-dim); font-family: 'JetBrains Mono', monospace; }
-    .adopters-section { max-width: 1100px; margin: 0 auto; padding: 100px 48px; }
-    .adopters-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 60px; background: var(--border-faint); border-radius: 12px; overflow: hidden; }
-    .adopters-get { background: var(--navy-mid); padding: 48px; }
-    .adopters-give { background: var(--navy-light); padding: 48px; }
-    .adopters-get h3, .adopters-give h3 { font-size: 0.78rem; font-family: 'JetBrains Mono', monospace; color: var(--cyan); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 28px; }
-    .adopters-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
-    .adopters-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; line-height: 1.5; color: var(--white-dim); }
-    .adopters-list li::before { content: '→'; color: var(--cyan); font-weight: 700; flex-shrink: 0; }
-    .adopters-cta { margin-top: 48px; text-align: center; }
-    .adopters-cta .btn-primary { font-size: 1.05rem; padding: 18px 48px; }
-    .adopters-note { margin-top: 16px; font-size: 0.82rem; color: var(--white-dim); font-family: 'JetBrains Mono', monospace; }
-    .typeform-wrapper { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; height: 580px; display: flex; align-items: center; justify-content: center; }
-    .typeform-placeholder { text-align: center; color: var(--white-dim); }
-    .typeform-placeholder p { font-size: 0.9rem; margin-top: 12px; font-family: 'JetBrains Mono', monospace; }
-    footer { position: relative; z-index: 1; border-top: 1px solid var(--border-faint); padding: 40px 48px; display: flex; align-items: center; justify-content: space-between; }
-    .footer-logo { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 600; color: var(--white-dim); }
-    .footer-logo img { height: 28px; }
-    .footer-copy { font-size: 0.8rem; color: var(--white-faint); font-family: 'JetBrains Mono', monospace; }
-    .divider { width: 100%; height: 1px; background: var(--border-faint); max-width: 1100px; margin: 0 auto; }
-    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-    @media (max-width: 768px) { nav { padding: 0 24px; } .nav-links { display: none; } section { padding: 60px 24px; } .hero { padding: 100px 24px 60px; } .hero h1 { font-size: 1.5rem !important; letter-spacing: -0.02em; } .features-grid { grid-template-columns: 1fr; } .security-section { grid-template-columns: 1fr; padding: 48px 32px; gap: 48px; } .proof-section { grid-template-columns: 1fr; padding: 48px 32px; } .adopters-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 16px; text-align: center; } }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,15,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo img {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(74,158,255,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0,212,170,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .version-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(74,158,255,0.1);
+      border: 1px solid rgba(74,158,255,0.3);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: var(--accent);
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+    }
+
+    .version-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent2);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+      max-width: 900px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 4rem;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+      letter-spacing: -0.01em;
+    }
+
+    .btn-primary:hover {
+      background: #6bb3ff;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .stat {
+      background: var(--surface);
+      padding: 1.25rem 1.5rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.6rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--accent);
+      letter-spacing: -0.03em;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 2px;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    section h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    section p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 680px;
+      margin-bottom: 3rem;
+    }
+
+    /* CAPABILITIES */
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .capability-card {
+      background: var(--surface);
+      padding: 2rem;
+      transition: background 0.2s;
+    }
+
+    .capability-card:hover { background: var(--surface2); }
+
+    .capability-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .capability-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .capability-card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* SECURITY */
+    .security-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3rem;
+      margin: 0 2rem;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .security-quote {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--accent2);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .security-sub {
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+    }
+
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .security-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .security-item-icon {
+      font-size: 1.4rem;
+    }
+
+    .security-item h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .security-item p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* AGENCY SECTION */
+    .agency-section {
+      background: linear-gradient(135deg, rgba(74,158,255,0.05) 0%, rgba(0,212,170,0.05) 100%);
+      border: 1px solid rgba(74,158,255,0.2);
+      border-radius: 20px;
+      padding: 3rem;
+      margin: 0 2rem;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .agency-section .section-label {
+      color: var(--accent);
+    }
+
+    .agency-section h2 {
+      margin-bottom: 1rem;
+    }
+
+    .agency-intro {
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 680px;
+    }
+
+    .agency-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .agency-card {
+      background: rgba(10,10,15,0.6);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .agency-card:hover {
+      border-color: rgba(74,158,255,0.4);
+    }
+
+    .agency-card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .agency-card h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .agency-card p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .agency-tier-note {
+      background: rgba(74,158,255,0.08);
+      border: 1px solid rgba(74,158,255,0.2);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .agency-tier-note strong {
+      color: var(--accent);
+    }
+
+    /* PROOF */
+    .proof-section {
+      text-align: center;
+    }
+
+    .proof-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .proof-stat {
+      background: var(--surface);
+      padding: 1.5rem;
+    }
+
+    .proof-stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--accent2);
+      letter-spacing: -0.04em;
+    }
+
+    .proof-stat-label {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+
+    .proof-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      transition: all 0.2s;
+    }
+
+    .proof-download:hover {
+      border-color: var(--accent2);
+      color: var(--accent2);
+    }
+
+    /* EARLY ADOPTERS */
+    .adopters-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3rem;
+      margin: 0 2rem;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .how-it-works {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(74,158,255,0.15);
+      border: 1px solid rgba(74,158,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .adopters-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .adopters-col h3 {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .adopters-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .adopters-col li {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .adopters-col li::before {
+      content: '→';
+      color: var(--accent);
+      font-family: var(--font-mono);
+      flex-shrink: 0;
+    }
+
+    .adopters-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .adopters-note {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
+
+    /* APPLY / TYPEFORM */
+    .apply-section {
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+
+    .apply-section h2 {
+      margin-bottom: 1rem;
+    }
+
+    .typeform-container {
+      margin-top: 2rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .footer-logo img {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .proof-stats { grid-template-columns: repeat(2, 1fr); }
+      .adopters-cols { grid-template-columns: 1fr; }
+      .security-section, .agency-section, .adopters-section { margin: 0 1rem; padding: 2rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
   </style>
 </head>
 <body>
-  <nav>
-    <a href="#" class="nav-logo">
-      <img src="GHOSTLOGO.JPG" alt="Ghost Architect" onerror="this.style.display='none'" />
-      <span class="nav-wordmark">Ghost Architect<sup>™</sup></span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#what-it-does">What It Does</a></li>
-      <li><a href="#security">Security</a></li>
-      <li><a href="#first-adopters">First Adopters</a></li>
-      <li><a href="#apply" class="nav-cta">Join the Family</a></li>
-    </ul>
-  </nav>
-  <section class="hero">
-    <div class="hero-badge">v4.5 — Now Available</div>
-    <h1>Your codebase has secrets.<br /><em style="white-space: nowrap;">Ghost Architect™</em> finds them first.</h1>
-    <p class="hero-sub">AI-powered codebase intelligence for any platform, any scale.</p>
-    <div class="hero-actions">
-      <a href="#apply" class="btn-primary">Join the Family →</a>
-      <a href="#what-it-does" class="btn-secondary">See How It Works</a>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" />
+    Ghost Architect™
+  </a>
+  <ul class="nav-links">
+    <li><a href="#what-it-does">What It Does</a></li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#for-agencies">For Agencies</a></li>
+    <li><a href="#early-adopters">Early Adopters</a></li>
+    <li><a href="#apply">Join the Family</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="version-badge">v4.5 — Now Available</div>
+  <h1>Your codebase has secrets.<br><em>Ghost Architect™</em> finds them first.</h1>
+  <p class="hero-sub">AI-powered codebase intelligence for any platform, any scale.</p>
+  <div class="hero-cta">
+    <a href="#apply" class="btn-primary">Join the Family →</a>
+    <a href="#what-it-does" class="btn-secondary">See How It Works</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-value">658</div>
+      <div class="stat-label">Files Analyzed</div>
     </div>
-    <div class="hero-proof">
-      <div class="proof-stat"><span class="number">658</span><span class="label">Files Analyzed</span></div>
-      <div class="proof-stat"><span class="number">18</span><span class="label">Findings Surfaced</span></div>
-      <div class="proof-stat"><span class="number">&lt;10</span><span class="label">Minutes</span></div>
-      <div class="proof-stat"><span class="number">100%</span><span class="label">Local Execution</span></div>
+    <div class="stat">
+      <div class="stat-value">18</div>
+      <div class="stat-label">Findings Surfaced</div>
     </div>
-  </section>
-  <div class="divider"></div>
-  <section id="what-it-does">
-    <span class="section-label">// capabilities</span>
-    <h2 class="section-title">Everything hiding in your codebase.<br />Surfaced in minutes.</h2>
-    <p class="section-body">Ghost Architect™ analyzes your entire codebase and surfaces architectural risks, conflicts, and vulnerabilities — before they become production incidents.</p>
-    <div class="features-grid">
-      <div class="feature-card"><span class="feature-icon">🗺</span><h3 class="feature-title">Points of Interest Scan</h3><p class="feature-desc">Auto-map red flags, dead zones, fault lines, and landmarks across your entire codebase. Know what matters before you touch it.</p></div>
-      <div class="feature-card"><span class="feature-icon">⚡</span><h3 class="feature-title">Conflict Detection</h3><p class="feature-desc">Find contract mismatches, schema conflicts, config errors, and constant disagreements — across any language or platform.</p></div>
-      <div class="feature-card"><span class="feature-icon">💥</span><h3 class="feature-title">Blast Radius Analysis</h3><p class="feature-desc">Before you make a change, understand the full impact. Every dependency, every affected flow, with a rollback plan included.</p></div>
-      <div class="feature-card"><span class="feature-icon">📑</span><h3 class="feature-title">Client-Ready Reports</h3><p class="feature-desc">Every scan produces a branded PDF your clients can read, a TXT your developers can act on, and a MD your team can commit. Immediately actionable.</p></div>
+    <div class="stat">
+      <div class="stat-value">&lt;10</div>
+      <div class="stat-label">Minutes</div>
     </div>
-  </section>
-  <div class="divider"></div>
-  <div style="padding: 100px 48px; position: relative; z-index: 1;" id="security">
-    <div class="security-section">
-      <div class="security-quote">
-        <span class="section-label">// security</span>
-        <blockquote>"Your client's code stays yours."</blockquote>
-        <p>Ghost Architect™ runs locally on your machine. Your codebase is never uploaded, never stored, and never transmitted to Ghost Architect™ servers — because there are no Ghost Architect™ servers.</p>
-        <br />
-        <p>Analysis calls go directly from your machine to Anthropic's API using your own key, under your own data agreement. No SaaS. No upload. No data retention.</p>
-      </div>
-      <div class="security-pillars">
-        <div class="pillar"><div class="pillar-icon">🖥</div><div class="pillar-text"><h4>Runs Locally</h4><p>Ghost Architect™ is a CLI tool that runs entirely on your machine. Zero cloud dependency.</p></div></div>
-        <div class="pillar"><div class="pillar-icon">🔑</div><div class="pillar-text"><h4>Your API Key, Your Agreement</h4><p>You bring your own Anthropic API key. Ghost Architect™ is never in the middle.</p></div></div>
-        <div class="pillar"><div class="pillar-icon">🚫</div><div class="pillar-text"><h4>No Persistence</h4><p>Nothing is stored, logged, or retained outside your own filesystem. Ever.</p></div></div>
-        <div class="pillar"><div class="pillar-icon">🌐</div><div class="pillar-text"><h4>Any Repo, Any Platform</h4><p>GitHub, GitLab, Bitbucket, ZIP, or local folder. Any language. Any framework.</p></div></div>
-      </div>
+    <div class="stat">
+      <div class="stat-value">100%</div>
+      <div class="stat-label">Local Execution</div>
     </div>
   </div>
-  <div class="divider"></div>
-  <div style="padding: 100px 48px; position: relative; z-index: 1;">
-    <div class="proof-section">
-      <div>
-        <span class="section-label">// proof of concept</span>
-        <h2 class="section-title">Real analysis.<br />Real findings.</h2>
-        <p style="color: var(--white-dim); font-size: 0.95rem; line-height: 1.65; margin-top: 16px;">Ghost Architect™ analyzed 658 files in a real Meta Magento extension and surfaced 18 architectural findings — conflict mismatches, security risks, and integration vulnerabilities — in under 10 minutes.</p>
-        <div class="proof-numbers">
-          <div class="proof-num"><span class="n">658</span><span class="l">Files</span></div>
-          <div class="proof-num"><span class="n">18</span><span class="l">Findings</span></div>
-          <div class="proof-num"><span class="n">&lt;10</span><span class="l">Minutes</span></div>
-          <div class="proof-num"><span class="n">7</span><span class="l">PDF Pages</span></div>
-        </div>
-      </div>
-      <div class="proof-cta">
-        <a href="ghost-poi-meta-for-magento2.pdf" class="btn-primary" download>Download Report ↓</a>
-        <small>// PDF · 7 pages · real codebase</small>
-      </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="what-it-does">
+  <div class="section-label">// capabilities</div>
+  <h2>Everything hiding in your codebase.<br>Surfaced in minutes.</h2>
+  <p>Ghost Architect™ analyzes your entire codebase and surfaces architectural risks, conflicts, and vulnerabilities — before they become production incidents.</p>
+  <div class="capabilities-grid">
+    <div class="capability-card">
+      <div class="capability-icon">🗺</div>
+      <h3>Points of Interest Scan</h3>
+      <p>Auto-map red flags, dead zones, fault lines, and landmarks across your entire codebase. Know what matters before you touch it.</p>
+    </div>
+    <div class="capability-card">
+      <div class="capability-icon">⚡</div>
+      <h3>Conflict Detection</h3>
+      <p>Find contract mismatches, schema conflicts, config errors, and constant disagreements — across any language or platform.</p>
+    </div>
+    <div class="capability-card">
+      <div class="capability-icon">💥</div>
+      <h3>Blast Radius Analysis</h3>
+      <p>Before you make a change, understand the full impact. Every dependency, every affected flow, with a rollback plan included.</p>
+    </div>
+    <div class="capability-card">
+      <div class="capability-icon">📑</div>
+      <h3>Client-Ready Reports</h3>
+      <p>Every scan produces a branded PDF your clients can read, a TXT your developers can act on, and a MD your team can commit. Immediately actionable.</p>
     </div>
   </div>
-  <div class="divider"></div>
-  <div class="adopters-section" id="first-adopters">
-    <span class="section-label">// first adopters</span>
-    <h2 class="section-title">Be part of the<br />Ghost Architect™ family.</h2>
-    <p class="section-body" style="margin-top: 16px;">Ghost Architect™ exists today. The people who come in as First Adopters help shape what it becomes tomorrow. A limited number of licenses are still available.</p>
-    <div class="adopters-grid">
-      <div class="adopters-get">
+</section>
+
+<!-- SECURITY -->
+<div id="security">
+  <section class="security-section" style="max-width:1100px;padding:3rem;">
+    <div class="section-label">// security</div>
+    <div class="security-quote">"Your client's code stays yours."</div>
+    <p class="security-sub">Ghost Architect™ runs entirely on your local machine. Your codebase is never uploaded, never stored, and never transmitted to Ghost Architect™ servers — because there are no Ghost Architect™ servers.<br><br>Analysis calls go directly from your machine to Anthropic's API using your own key, under your own data agreement. No SaaS. No upload. No data retention.</p>
+    <div class="security-grid">
+      <div class="security-item">
+        <div class="security-item-icon">🖥</div>
+        <h4>Runs Locally</h4>
+        <p>Ghost Architect™ is a CLI tool that runs entirely on your machine. Zero cloud dependency.</p>
+      </div>
+      <div class="security-item">
+        <div class="security-item-icon">🔑</div>
+        <h4>Your API Key, Your Agreement</h4>
+        <p>You bring your own Anthropic API key. Ghost Architect™ is never in the middle.</p>
+      </div>
+      <div class="security-item">
+        <div class="security-item-icon">🚫</div>
+        <h4>No Persistence</h4>
+        <p>Nothing is stored, logged, or retained outside your own filesystem. Ever.</p>
+      </div>
+      <div class="security-item">
+        <div class="security-item-icon">🌐</div>
+        <h4>Any Repo, Any Platform</h4>
+        <p>GitHub, GitLab, Bitbucket — public or private. Authenticate with a personal access token and scan. No ZIP download required. Any language. Any framework.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOR AGENCIES -->
+<div id="for-agencies" style="padding: 5rem 0;">
+  <div class="agency-section">
+    <div class="section-label">// for agencies</div>
+    <h2>Built for how agency teams<br>actually work.</h2>
+    <p class="agency-intro">Your developers aren't pulling client codebases to their laptops. They're working from repos. Ghost Architect™ works the same way. Point Ghost at any GitHub, GitLab, or Bitbucket repository — public or private — authenticate with a personal access token, and run your scan. The entire analysis happens on your local machine. No code is uploaded. No third party ever sees your client's codebase.</p>
+    <div class="agency-grid">
+      <div class="agency-card">
+        <div class="agency-card-icon">🔗</div>
+        <h4>Private Repo Support</h4>
+        <p>Authenticate with a personal access token. Ghost clones the repo locally, scans it, and removes the clone when done. Your client's code never touches our infrastructure — because there is no our infrastructure.</p>
+      </div>
+      <div class="agency-card">
+        <div class="agency-card-icon">📁</div>
+        <h4>Selective Path Scanning</h4>
+        <p>Point Ghost at a specific directory within a large repo. Scan the module you're working on, not the entire monorepo.</p>
+      </div>
+      <div class="agency-card">
+        <div class="agency-card-icon">📑</div>
+        <h4>Client-Ready Reports</h4>
+        <p>Every scan produces a branded PDF for stakeholders, a TXT for developers, and a MD for your team to commit. Hand it to the client the same day.</p>
+      </div>
+      <div class="agency-card">
+        <div class="agency-card-icon">💰</div>
+        <h4>Per-Seat Cost Visibility</h4>
+        <p>Each developer runs Ghost with their own Anthropic API key — giving your agency complete visibility into usage and cost at the individual seat level. No black box billing.</p>
+      </div>
+    </div>
+    <div class="agency-tier-note">
+      <strong>Agency-tier plans available.</strong> Ghost Architect™ offers plans designed for multi-client portfolios, team access, and enterprise delivery workflows. Start with the Early Adopter program and grow from there.
+    </div>
+  </div>
+</div>
+
+<!-- PROOF OF CONCEPT -->
+<section id="proof" class="proof-section">
+  <div class="section-label">// proof of concept</div>
+  <h2>Real analysis. Real findings.</h2>
+  <p style="margin-left:auto;margin-right:auto;text-align:center;">Ghost Architect™ analyzed 658 files in a real Meta Magento extension and surfaced 18 architectural findings — conflict mismatches, security risks, and integration vulnerabilities — in under 10 minutes.</p>
+  <div class="proof-stats">
+    <div class="proof-stat">
+      <div class="proof-stat-value">658</div>
+      <div class="proof-stat-label">Files</div>
+    </div>
+    <div class="proof-stat">
+      <div class="proof-stat-value">18</div>
+      <div class="proof-stat-label">Findings</div>
+    </div>
+    <div class="proof-stat">
+      <div class="proof-stat-value">&lt;10</div>
+      <div class="proof-stat-label">Minutes</div>
+    </div>
+    <div class="proof-stat">
+      <div class="proof-stat-value">7</div>
+      <div class="proof-stat-label">PDF Pages</div>
+    </div>
+  </div>
+  <a href="ghost-poi-meta-for-magento2.pdf" class="proof-download">Download Report ↓ &nbsp;<span style="color:var(--text-dim)">// PDF · 7 pages · real codebase</span></a>
+</section>
+
+<!-- EARLY ADOPTERS -->
+<div id="early-adopters" style="padding: 2rem 0 5rem;">
+  <div class="adopters-section">
+    <div class="section-label">// early adopters</div>
+    <h2>Be part of the Ghost Architect™ family.</h2>
+    <p style="margin-bottom:2rem;">Ghost Architect™ exists today. The people who come in as Early Adopters help shape what it becomes tomorrow.</p>
+    <p style="margin-bottom:2rem;color:var(--text-muted);">There's no infrastructure to set up. No upload. No contract. You bring an Anthropic API key — free to create — and you're scanning your first codebase in minutes.</p>
+
+    <div class="section-label" style="margin-bottom:1rem;">// how it works</div>
+    <div class="how-it-works">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>Apply — 60 seconds, four questions</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Get your Anthropic API key (free account, pay only for what you scan)</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>Install Ghost Architect™ and run your first scan</p>
+      </div>
+    </div>
+    <p style="margin-bottom:2.5rem;font-size:0.875rem;">That's it. Your code never leaves your machine.</p>
+
+    <div class="adopters-cols">
+      <div class="adopters-col">
         <h3>// what you get</h3>
-        <ul class="adopters-list">
-          <li>Full Ghost Architect™ access — free while in First Adopter program</li>
+        <ul>
+          <li>Full Ghost Architect™ access — free while in the Early Adopter program</li>
           <li>Direct line to the founder</li>
-          <li>Ability to shape the roadmap</li>
+          <li>Shape the roadmap — your feedback drives what gets built next</li>
           <li>Referral bonus on every paying customer you send our way</li>
           <li>Early access to every new feature before general release</li>
         </ul>
       </div>
-      <div class="adopters-give">
+      <div class="adopters-col">
         <h3>// what we ask</h3>
-        <ul class="adopters-list">
+        <ul>
           <li>Honest feedback — the good and the bad</li>
           <li>A testimonial if Ghost Architect™ delivers value</li>
           <li>A case study if your results are compelling</li>
-          <li>BYOK — bring your own Anthropic API key</li>
         </ul>
       </div>
     </div>
+
     <div class="adopters-cta">
-      <a href="#apply" class="btn-primary">Apply for First Adopter Access →</a>
-      <p class="adopters-note">// limited licenses available · application required</p>
+      <a href="#apply" class="btn-primary">Apply for Early Adopter Access →</a>
+      <span class="adopters-note">// Limited licenses available. Application takes 60 seconds.</span>
     </div>
   </div>
-  <div class="divider"></div>
-  <div style="padding: 80px 48px 100px; max-width: 800px; margin: 0 auto;" id="apply">
-    <div style="text-align: center; margin-bottom: 40px;">
-      <span class="section-label" style="display: block; text-align: center;">// apply</span>
-      <h2 class="section-title">Join the Family</h2>
-      <p style="color: var(--white-dim); font-size: 0.95rem; margin-top: 12px;">Tell us about yourself and what you'd analyze first.</p>
-    </div>
-    <iframe
-      id="typeform-embed"
-      src="https://form.typeform.com/to/Zg0xzlJM"
-      style="width:100%;height:580px;border:none;border-radius:12px;"
-      allow="camera; microphone; autoplay; encrypted-media;"
-    ></iframe>
+</div>
+
+<!-- APPLY -->
+<section id="apply" class="apply-section">
+  <h2>Join the Family</h2>
+  <p style="margin-left:auto;margin-right:auto;text-align:center;">Tell us about yourself and what you'd analyze first.</p>
+  <div class="typeform-container">
+    <div data-tf-live="Zg0xzlJM"></div>
+    <script src="//embed.typeform.com/next/embed.js"></script>
   </div>
-  <footer>
-    <div class="footer-logo">
-      <img src="GHOSTLOGO.JPG" alt="Ghost Architect" onerror="this.style.display='none'" />
-      Ghost Architect™
-    </div>
-    <span class="footer-copy">© 2026 Ghost Architect™. All rights reserved.</span>
-  </footer>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">
+    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" />
+    Ghost Architect™
+  </a>
+  <span class="footer-copy">© 2026 Ghost Architect™. All rights reserved.</span>
+</footer>
+
 </body>
 </html>
