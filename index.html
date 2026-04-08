@@ -767,6 +767,44 @@
     @media (max-width: 768px) {
       .pricing-grid { grid-template-columns: 1fr; }
     }
+
+    .enterprise-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 2rem;
+      background: linear-gradient(135deg, rgba(74,158,255,0.08), rgba(0,212,170,0.06));
+      border: 1px solid var(--accent);
+      border-radius: 16px;
+      padding: 2.5rem 3rem;
+      text-align: left;
+      box-shadow: 0 0 0 1px rgba(74,158,255,0.15), 0 8px 40px rgba(74,158,255,0.1);
+    }
+    .enterprise-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .enterprise-right {
+      border-left: 1px solid var(--border);
+      padding-left: 3rem;
+    }
+    .enterprise-features-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .enterprise-features-list {
+      margin: 0;
+    }
+    @media (max-width: 768px) {
+      .enterprise-card { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem; }
+      .enterprise-right { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -1054,7 +1092,29 @@
       </div>
 
     </div>
-    <p class="pricing-note">Need enterprise pricing for 5+ seats or a custom agreement? <a href="mailto:support@ghostarchitect.dev" style="color:var(--accent);text-decoration:none;">Contact us →</a></p>
+
+    <!-- Enterprise Card -->
+    <div class="enterprise-card">
+      <div class="enterprise-left">
+        <div class="pricing-tier" style="text-align:left;">Ghost Enterprise</div>
+        <div class="pricing-price" style="text-align:left;font-size:1.75rem;">Custom<span> / contact us</span></div>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin:0.75rem 0 1.5rem;line-height:1.6;">For agencies running multiple client engagements, larger teams, or organizations that need a custom agreement, SLA, and dedicated support.</p>
+        <a href="mailto:support@ghostarchitect.dev" class="btn-pricing-primary" style="display:inline-block;width:auto;">Contact Us →</a>
+      </div>
+      <div class="enterprise-right">
+        <div class="enterprise-features-title">Everything in Ghost Team, plus:</div>
+        <ul class="pricing-features enterprise-features-list">
+          <li>Unlimited seats</li>
+          <li>Custom MSA &amp; contract</li>
+          <li>Dedicated onboarding &amp; training</li>
+          <li>SLA-backed priority support</li>
+          <li>White-label report branding</li>
+          <li>Custom scan profiles &amp; rulesets</li>
+          <li>Invoicing &amp; NET terms available</li>
+          <li>Direct line to the founder</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 
