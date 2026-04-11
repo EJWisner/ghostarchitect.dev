@@ -1001,7 +1001,22 @@
       <div style="padding: 0.85rem 1.5rem; border-bottom: 1px solid #2a1a1a; display: flex; gap: 2rem; font-family: var(--font-mono); font-size: 0.95rem; align-items: center;">
         <span style="flex: 1; color: var(--text);">Magento 2.4.4</span>
         <span style="flex: 1; color: var(--text-muted);">April 14, 2026</span>
-        <span style="flex: 1;"><span style="background: rgba(255,74,107,0.15); color: var(--danger); border: 1px solid rgba(255,74,107,0.3); border-radius: 4px; padding: 0.2rem 0.6rem; font-size: 0.8rem;">⚠ DAYS REMAINING</span></span>
+        <span style="flex: 1;"><span id="eol-244-badge" style="background: rgba(255,74,107,0.15); color: var(--danger); border: 1px solid rgba(255,74,107,0.3); border-radius: 4px; padding: 0.2rem 0.6rem; font-size: 0.8rem;">⚠ CALCULATING...</span>
+<script>
+(function(){
+  var eol = new Date("2026-04-14");
+  var now = new Date();
+  now.setHours(0,0,0,0);
+  var diff = Math.ceil((eol - now) / (1000*60*60*24));
+  var badge = document.getElementById("eol-244-badge");
+  if(diff > 0){
+    badge.textContent = "⚠ " + diff + " DAY" + (diff === 1 ? "" : "S") + " LEFT";
+  } else {
+    badge.textContent = "✕ EXPIRED";
+    badge.style.background = "rgba(255,74,107,0.25)";
+  }
+})();
+</script></span>
       </div>
       <div style="padding: 0.85rem 1.5rem; border-bottom: 1px solid #2a1a1a; display: flex; gap: 2rem; font-family: var(--font-mono); font-size: 0.95rem; align-items: center;">
         <span style="flex: 1; color: var(--text);">Magento 2.4.5</span>
