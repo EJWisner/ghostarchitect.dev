@@ -894,9 +894,9 @@
   </div>
 
   <!-- LIVE FINDING CALLOUT -->
-  <div style="margin-top: 1.75rem; background: rgba(255,74,107,0.08); border: 1px solid rgba(255,74,107,0.35); border-left: 4px solid var(--danger); border-radius: 10px; padding: 1.25rem 1.75rem; font-family: var(--font-mono); max-width: 720px; text-align: left;">
+  <div style="margin-top: 1.75rem; background: rgba(255,74,107,0.08); border: 1px solid rgba(255,74,107,0.35); border-left: 4px solid var(--danger); border-radius: 10px; padding: 1.25rem 1.75rem; font-family: var(--font-mono); max-width: 720px; width: 90%; text-align: left; box-sizing: border-box;">
     <div style="font-size: 0.72rem; color: var(--danger); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.6rem;">// last scan caught</div>
-    <div style="font-size: 1rem; color: var(--text); font-weight: 600; line-height: 1.5; margin-bottom: 0.5rem;">OAuth access tokens exposed in <code style="color: var(--accent); background: rgba(74,158,255,0.1); padding: 0.1rem 0.4rem; border-radius: 4px;">window.facebookBusinessExtensionConfig</code></div>
+    <div style="font-size: 1rem; color: var(--text); font-weight: 600; line-height: 1.5; margin-bottom: 0.5rem; word-break: break-word;">OAuth access tokens exposed in <code style="color: var(--accent); background: rgba(74,158,255,0.1); padding: 0.1rem 0.4rem; border-radius: 4px; word-break: break-all;">window.facebookBusinessExtensionConfig</code></div>
     <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Readable via DevTools by any attacker. Est. impact: <strong style="color: var(--danger);">full Facebook Business account takeover.</strong></div>
   </div>
 </section>
