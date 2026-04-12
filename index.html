@@ -3,10 +3,119 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ghost Architect™ — AI-Powered Codebase Intelligence | Code Audit Tool</title>
-  <meta name="description" content="Ghost Architect™ triages your codebase — categorizes risk, prioritizes findings, gives your team a map of where to start. AI-powered codebase intelligence for any platform, any scale." />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <title>Ghost Architect™ — AI-Powered Code Audit Tool</title>
+  <meta name="description" content="Ghost Architect™ triages your codebase — categorizes risk, prioritizes findings, gives your team a map of where to start. Any platform, any language." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev" />
+  <meta property="og:title" content="Ghost Architect™ — Your codebase has secrets. We find them first." />
+  <meta property="og:description" content="AI-powered codebase intelligence for architects and agencies who inherit codebases they didn't write. Triage risk. Prioritize findings. Ship with confidence." />
+  <meta property="og:image" content="https://ghostarchitect.dev/GHOSTLOGO.JPG" />
+  <meta property="og:site_name" content="Ghost Architect™" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://ghostarchitect.dev" />
+  <meta name="twitter:title" content="Ghost Architect™ — Your codebase has secrets. We find them first." />
+  <meta name="twitter:description" content="AI-powered codebase intelligence for architects and agencies who inherit codebases they didn't write. Triage risk. Prioritize findings. Ship with confidence." />
+  <meta name="twitter:image" content="https://ghostarchitect.dev/GHOSTLOGO.JPG" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Ghost Architect",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "macOS, Windows, Linux",
+    "url": "https://ghostarchitect.dev",
+    "description": "AI-powered codebase intelligence tool that triages codebases, categorizes risk, prioritizes findings, and generates structured reports for any platform or language.",
+    "softwareVersion": "4.7.0",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Ghost Open",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free open-source tier with Critical and High findings"
+      },
+      {
+        "@type": "Offer",
+        "name": "Ghost Pro",
+        "price": "99",
+        "priceCurrency": "USD",
+        "description": "Full-featured codebase intelligence with PDF reports and multi-pass analysis"
+      },
+      {
+        "@type": "Offer",
+        "name": "Ghost Team",
+        "price": "399",
+        "priceCurrency": "USD",
+        "description": "Up to 5 seats for agency teams running multi-client engagements"
+      }
+    ],
+    "author": {
+      "@type": "Person",
+      "name": "Ernst J. Wisner"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Ernst J. Wisner"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Ghost Architect?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ghost Architect is an AI-powered codebase intelligence tool that triages codebases, categorizes risk by severity, prioritizes findings, and generates structured PDF, TXT, and MD reports. It runs entirely locally — your code never leaves your machine."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Ghost Architect upload my code?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Ghost Architect runs entirely on your local machine. Your source code is never uploaded to any server. Analysis calls go directly from your machine to Anthropic's API using your own API key."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What programming languages does Ghost Architect support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ghost Architect works on any codebase, any language, any platform. It is not limited to Adobe Commerce or Magento."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does Ghost Architect cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ghost Open is free and open-source. Ghost Pro is $99/month. Ghost Team is $399/month for up to 5 seats. Ghost Enterprise pricing is custom."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Canonical -->
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://ghostarchitect.dev" />
   <style>
-    :root {
       --bg: #0a0a0f;
       --surface: #111118;
       --surface2: #1a1a24;
@@ -811,8 +920,8 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">
-    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" />
+  <a href="/" class="nav-logo">
+    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" width="28" height="28" fetchpriority="high" />
     Ghost Architect™
   </a>
   <ul class="nav-links">
@@ -821,6 +930,7 @@
     <li><a href="#security">Security</a></li>
     <li><a href="#for-agencies">For Agencies</a></li>
     <li><a href="/pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
   </ul>
 </nav>
 
@@ -858,7 +968,7 @@
   <p class="hero-sub">Built for architects and agencies who inherit codebases they didn't write and need to know what's in them — fast.</p>
   <div class="hero-cta">
     <a href="/pricing" class="btn-primary">See Plans →</a>
-    <a href="https://github.com/EJWisner/ghost-architect-open" class="btn-secondary" target="_blank">Try Ghost Open Free →</a>
+    <a href="https://github.com/EJWisner/ghost-architect-open" class="btn-secondary" target="_blank" rel="noopener noreferrer">Try Ghost Open Free →</a>
   </div>
   <div style="margin: 2rem 0; background: #111118; border: 1px solid #00d4aa; border-radius: 10px; padding: 1rem 2rem; display: inline-flex; align-items: center; gap: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; box-shadow: 0 0 24px rgba(0,212,170,0.15); position: relative;">
     <span style="color: #00d4aa; font-size: 1rem;">$</span>
@@ -939,27 +1049,27 @@
     <div class="security-grid">
       <div class="security-item">
         <div class="security-item-icon">🖥</div>
-        <h4>Runs Locally</h4>
+        <h3>Runs Locally</h3>
         <p>Ghost Architect™ is a CLI tool that runs entirely on your machine. Zero cloud dependency.</p>
       </div>
       <div class="security-item">
         <div class="security-item-icon">🔑</div>
-        <h4>Your API Key, Your Agreement</h4>
+        <h3>Your API Key, Your Agreement</h3>
         <p>You bring your own Anthropic API key. Ghost Architect™ is never in the middle.</p>
       </div>
       <div class="security-item">
         <div class="security-item-icon">🚫</div>
-        <h4>No Persistence</h4>
+        <h3>No Persistence</h3>
         <p>Nothing is stored, logged, or retained outside your own filesystem. Ever.</p>
       </div>
       <div class="security-item">
         <div class="security-item-icon">✅</div>
-        <h4>Zero Vulnerabilities</h4>
+        <h3>Zero Vulnerabilities</h3>
         <p>Ghost Architect™ has been audited with <code>npm audit</code> and contains zero known vulnerabilities across all dependencies. Verifiable by anyone.</p>
       </div>
       <div class="security-item">
         <div class="security-item-icon">🌐</div>
-        <h4>Any Repo, Any Platform</h4>
+        <h3>Any Repo, Any Platform</h3>
         <p>GitHub, GitLab, Bitbucket — public or private. Authenticate with a personal access token and scan. No ZIP download required. Any language. Any framework.</p>
       </div>
     </div>
@@ -975,22 +1085,22 @@
     <div class="agency-grid">
       <div class="agency-card">
         <div class="agency-card-icon">🔗</div>
-        <h4>Private Repo Support</h4>
+        <h3>Private Repo Support</h3>
         <p>Authenticate with a personal access token. Ghost clones the repo locally, scans it, and removes the clone when done. Your client's code never touches our infrastructure — because there is no our infrastructure.</p>
       </div>
       <div class="agency-card">
         <div class="agency-card-icon">📁</div>
-        <h4>Selective Path Scanning</h4>
+        <h3>Selective Path Scanning</h3>
         <p>Point Ghost at a specific directory within a large repo. Scan the module you're working on, not the entire monorepo.</p>
       </div>
       <div class="agency-card">
         <div class="agency-card-icon">📑</div>
-        <h4>Client-Ready Reports</h4>
+        <h3>Same-Day Client Deliverables</h3>
         <p>Every scan produces a branded PDF for stakeholders, a TXT for developers, and a MD for your team to commit. Hand it to the client the same day.</p>
       </div>
       <div class="agency-card">
         <div class="agency-card-icon">💰</div>
-        <h4>Per-Seat Cost Visibility</h4>
+        <h3>Per-Seat Cost Visibility</h3>
         <p>Each developer runs Ghost with their own Anthropic API key — giving your agency complete visibility into usage and cost at the individual seat level. No black box billing.</p>
       </div>
     </div>
@@ -1124,17 +1234,53 @@
 
     <div style="text-align: center;">
       <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1.5rem;">Know what's in your codebase before Adobe's clock runs out.</p>
-      <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" style="display: inline-block; background: var(--danger); color: white; padding: 0.9rem 2.5rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1rem; margin-right: 1rem;">Run a Free Scan →</a>
+      <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener noreferrer" style="display: inline-block; background: var(--danger); color: white; padding: 0.9rem 2.5rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1rem; margin-right: 1rem;">Run a Free Scan →</a>
       <a href="/pricing" style="display: inline-block; border: 1px solid var(--border); color: var(--text-muted); padding: 0.9rem 2.5rem; border-radius: 8px; text-decoration: none; font-size: 1rem;">See Pricing</a>
     </div>
   </div>
 </div>
 
 
+<!-- FAQ -->
+<section id="faq" style="max-width: 860px; margin: 0 auto; padding: 2rem 2rem 5rem;">
+  <div class="section-label">// frequently asked</div>
+  <h2>Common questions.</h2>
+
+  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
+    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">What exactly does Ghost Architect do?</h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Ghost Architect scans your codebase and produces a structured triage report — categorizing every finding by severity (Critical, High, Medium, Low), flagging architectural risks, security vulnerabilities, and conflict mismatches. It gives your team a prioritized map of where to start, not a raw list of every issue. Output is a branded PDF for stakeholders, a TXT for developers, and a Markdown file your team can commit.</p>
+  </div>
+
+  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
+    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Does Ghost Architect upload my code anywhere?</h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">No. Ghost Architect runs entirely on your local machine. Your source code is never uploaded to any Ghost Architect server — because there are no Ghost Architect servers. Analysis calls go directly from your machine to Anthropic's API using your own API key. Anthropic deletes API inputs and outputs within 7 days per their data retention policy.</p>
+  </div>
+
+  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
+    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">What languages and platforms does it support?</h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Ghost Architect works on any codebase, any language, any platform. PHP, JavaScript, TypeScript, Python, Ruby, Java — it doesn't matter. It's framework-aware and analyzes code structure, dependency relationships, configuration files, and integration patterns regardless of what stack you're running. Adobe Commerce and Magento are common use cases, but they're not requirements.</p>
+  </div>
+
+  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
+    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">How much does an Anthropic API key cost to run?</h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">A typical Ghost Architect scan costs $0.23 in Anthropic API usage. Most Pro users run 10–20 scans per month, putting their total API cost at $2–5/month on top of the subscription. You can verify this yourself — Ghost prints the exact cost of every scan in the terminal output. There are no hidden fees or usage caps imposed by Ghost Architect.</p>
+  </div>
+
+  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
+    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">How is Ghost Architect different from running a linter or static analysis tool?</h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Linters catch syntax errors and style violations. Static analysis tools find known vulnerability patterns. Ghost Architect does something different — it reasons about your codebase architecturally. It identifies how components relate to each other, where integrations are fragile, what the blast radius of a change would be, and which findings represent real business risk versus noise. It's triage intelligence, not a rule-based scanner.</p>
+  </div>
+
+  <div style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem 0;">
+    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Can I use Ghost Architect on a client's private repository?</h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes. Ghost Architect supports private GitHub, GitLab, and Bitbucket repositories. You authenticate with a personal access token, Ghost clones the repo locally, runs the scan, and removes the local clone when done. Your client's code never touches any third-party infrastructure beyond your own Anthropic API key. This makes it safe to use under NDA with enterprise clients.</p>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
-  <a href="#" class="footer-logo">
-    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" />
+  <a href="/" class="footer-logo">
+    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" width="20" height="20" loading="lazy" />
     Ghost Architect™
   </a>
   <span class="footer-copy">© 2026 Ernst J. Wisner · Ghost Architect™ · All rights reserved. · US Copyright Reg. #1-15123488721 · <a href="/privacy.html" style="color:var(--text-muted);text-decoration:none;">Privacy Policy</a> · <a href="/msa.html" style="color:var(--text-muted);text-decoration:none;">Terms of Service</a></span>
