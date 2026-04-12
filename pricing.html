@@ -106,9 +106,9 @@
       padding-bottom: 0;
     }
     .hero-logo-wrap img {
-      height: 110px;
+      height: 220px;
       width: auto;
-      border-radius: 16px;
+      border-radius: 24px;
       display: block;
     }
 
@@ -173,23 +173,6 @@
     }
     .eol-banner strong { color: #ef4444; }
     .eol-banner span { color: var(--text-muted); }
-
-    /* BILLING TOGGLE */
-    .toggle-wrap {
-      display: flex; align-items: center; justify-content: center;
-      gap: 1rem; margin-bottom: 3rem;
-      font-size: 0.875rem; color: var(--text-muted);
-    }
-    .toggle-wrap strong { color: var(--text); }
-    .badge-save {
-      background: var(--green-dim);
-      color: var(--green);
-      border: 1px solid rgba(34,197,94,0.2);
-      border-radius: 20px;
-      padding: 0.2rem 0.6rem;
-      font-size: 0.75rem;
-      font-family: var(--font-mono);
-    }
 
     /* CARDS */
     .plans {
@@ -294,12 +277,6 @@
       margin-bottom: 1.75rem;
     }
 
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 1.5rem 0;
-    }
-
     .features {
       list-style: none;
       margin-bottom: 2rem;
@@ -320,7 +297,6 @@
       margin-top: 1px;
       color: var(--green);
     }
-    .features li .icon.dim { color: var(--text-muted); }
     .features li.section-label {
       font-family: var(--font-mono);
       font-size: 0.7rem;
@@ -365,15 +341,6 @@
       border-color: var(--accent);
       color: var(--accent);
     }
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-    }
-    .btn-ghost:hover {
-      border-color: rgba(74,158,255,0.4);
-      color: var(--text);
-    }
 
     /* OPEN TIER */
     .open-tier {
@@ -405,7 +372,6 @@
       flex-shrink: 0;
     }
     .open-text strong { display: block; font-size: 0.95rem; margin-bottom: 0.2rem; }
-    .open-text span { font-size: 0.82rem; color: var(--text-muted); font-family: var(--font-mono); }
     .open-actions { display: flex; gap: 0.75rem; align-items: center; flex-shrink: 0; }
     .open-actions a {
       font-size: 0.82rem;
@@ -415,7 +381,7 @@
     }
     .open-actions a:hover { text-decoration: underline; }
 
-    /* FAQ / TRUST SECTION */
+    /* TRUST */
     .trust {
       max-width: 860px;
       margin: 0 auto;
@@ -457,7 +423,7 @@
     }
     .faq-item { border-top: 1px solid var(--border); padding: 1.25rem 0; }
     .faq-item:last-child { border-bottom: 1px solid var(--border); }
-    .faq-q { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; cursor: pointer; }
+    .faq-q { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; }
     .faq-a { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; }
     .faq-a a { color: var(--accent); text-decoration: none; }
     .faq-a a:hover { text-decoration: underline; }
@@ -473,14 +439,13 @@
     footer a { color: var(--text-muted); text-decoration: none; }
     footer a:hover { color: var(--accent); }
 
-    /* EOL countdown */
     #eol-days { color: #ef4444; font-weight: 700; }
 
     @media (max-width: 640px) {
       .plans { grid-template-columns: 1fr; }
       .open-card { flex-direction: column; align-items: flex-start; }
       .hero h1 { font-size: 1.8rem; }
-      .hero-logo-wrap img { height: 80px; }
+      .hero-logo-wrap img { height: 160px; }
     }
   </style>
 </head>
@@ -551,39 +516,15 @@
     <div class="price-note">Billed monthly · Cancel anytime</div>
     <ul class="features">
       <li class="section-label">what you get</li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Private repo access — Ghost Pro v4.6+
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Full PDF, TXT, and MD report output
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Executive-ready PDF with business impact framing
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Unlimited scans · BYOK (your Anthropic API key)
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Multi-pass analysis with checkpoint recovery
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Priority email support
-      </li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Private repo access — Ghost Pro v4.6+</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Full PDF, TXT, and MD report output</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Executive-ready PDF with business impact framing</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited scans · BYOK (your Anthropic API key)</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Multi-pass analysis with checkpoint recovery</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority email support</li>
       <li class="section-label">privacy</li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Your code never leaves your machine
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        API data deleted by Anthropic within 7 days
-      </li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Your code never leaves your machine</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>API data deleted by Anthropic within 7 days</li>
     </ul>
     <a href="https://buy.stripe.com/00w00j8jl9eQdzJ9yZbEA00" class="btn btn-secondary">Get Ghost Pro →</a>
   </div>
@@ -602,35 +543,14 @@
     <div class="price-note">Up to 5 seats · $80/seat · Cancel anytime</div>
     <ul class="features">
       <li class="section-label">everything in pro, plus</li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        5 architect seats on one subscription
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Parallel client scans across seats
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Shared project history and compare mode
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Dedicated onboarding session
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Slack / Teams support channel
-      </li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>5 architect seats on one subscription</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Parallel client scans across seats</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Shared project history and compare mode</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Dedicated onboarding session</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Slack / Teams support channel</li>
       <li class="section-label">great for</li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Pre-sales audits for new client acquisitions
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Inherited codebase triage before sprint planning
-      </li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Pre-sales audits for new client acquisitions</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Inherited codebase triage before sprint planning</li>
     </ul>
     <a href="https://buy.stripe.com/5kQfZhdDFeza7blbH7bEA01" class="btn btn-primary">Get Ghost Team →</a>
   </div>
@@ -648,35 +568,14 @@
     <div class="price-note">Custom seats · MSA included · Invoiced billing available</div>
     <ul class="features">
       <li class="section-label">everything in team, plus</li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Unlimited seats across your organization
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Custom MSA and NDA execution
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Dedicated architect sessions (EJ Wisner)
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Priority roadmap input
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Invoice / NET-30 billing on request
-      </li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited seats across your organization</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom MSA and NDA execution</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Dedicated architect sessions (EJ Wisner)</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority roadmap input</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Invoice / NET-30 billing on request</li>
       <li class="section-label">built for</li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Multi-brand and multi-platform portfolios
-      </li>
-      <li>
-        <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Pre-migration audit and risk assessment
-      </li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Multi-brand and multi-platform portfolios</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Pre-migration audit and risk assessment</li>
     </ul>
     <a href="https://buy.stripe.com/4gM3cvartaiU2V5fXnbEA02" class="btn btn-secondary">Get Ghost Enterprise →</a>
   </div>
@@ -712,8 +611,8 @@
   </div>
 
   <div class="faq-item">
-  <div class="faq-q">Do I need my own Anthropic API key?</div>
-  <div class="faq-a">Yes — Ghost Architect is BYOK (Bring Your Own Key). This is by design: your code goes directly from your machine to Anthropic's API. We never see it. A typical scan costs <strong>$0.23 in Anthropic API usage</strong>. Most Pro users run 10–20 scans/month — that's $2–5 in API costs on top of the subscription. You can verify this yourself: the cost of every scan is printed in the output.</div>
+    <div class="faq-q">Do I need my own Anthropic API key?</div>
+    <div class="faq-a">Yes — Ghost Architect is BYOK (Bring Your Own Key). This is by design: your code goes directly from your machine to Anthropic's API. We never see it. A typical scan costs <strong>$0.23 in Anthropic API usage</strong>. Most Pro users run 10–20 scans/month — that's $2–5 in API costs on top of the subscription. You can verify this yourself: the cost of every scan is printed in the output.</div>
   </div>
 
   <div class="faq-item">
@@ -746,17 +645,13 @@
 </footer>
 
 <script>
-  // EOL countdown
   function updateEOL() {
     const eol = new Date('2026-04-14T23:59:59');
     const now = new Date();
     const diff = eol - now;
     const el = document.getElementById('eol-days');
     if (!el) return;
-    if (diff <= 0) {
-      el.textContent = '0';
-      return;
-    }
+    if (diff <= 0) { el.textContent = '0'; return; }
     const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
     el.textContent = days === 1 ? '1 day' : days + ' days';
   }
