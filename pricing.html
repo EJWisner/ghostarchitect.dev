@@ -93,15 +93,29 @@
       padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px;
     }
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem; }
-    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
     .nav-links { display: flex; gap: 1.5rem; }
     .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
 
+    /* HERO LOGO */
+    .hero-logo-wrap {
+      display: flex;
+      justify-content: center;
+      padding-top: 3.5rem;
+      padding-bottom: 0;
+    }
+    .hero-logo-wrap img {
+      height: 110px;
+      width: auto;
+      border-radius: 16px;
+      display: block;
+    }
+
     /* HERO */
     .hero {
       text-align: center;
-      padding: 5rem 2rem 3rem;
+      padding: 2rem 2rem 3rem;
       position: relative;
     }
     .hero::before {
@@ -466,6 +480,7 @@
       .plans { grid-template-columns: 1fr; }
       .open-card { flex-direction: column; align-items: flex-start; }
       .hero h1 { font-size: 1.8rem; }
+      .hero-logo-wrap img { height: 80px; }
     }
   </style>
 </head>
@@ -473,7 +488,7 @@
 
 <nav>
   <a href="/" class="nav-logo">
-    <img src="ga-icon.png" alt="Ghost Architect" width="28" height="28" fetchpriority="high" />
+    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" width="28" height="28" fetchpriority="high" />
     Ghost Architect™
   </a>
   <div class="nav-links">
@@ -483,11 +498,16 @@
   </div>
 </nav>
 
+<!-- PAGE LOGO -->
+<div class="hero-logo-wrap">
+  <img src="GHOSTLOGO.JPG" alt="Ghost Architect™" />
+</div>
+
 <!-- HERO -->
 <div class="hero">
   <div class="hero-eyebrow">// pricing</div>
   <h1>Know what's in your codebase.<br>Before it knows you.</h1>
-  <p>Ghost Architect triages your Adobe Commerce codebase — categorizes risk, prioritizes findings, gives your team a map of where to start.</p>
+  <p>Ghost Architect triages your codebase — categorizes risk, prioritizes findings, gives your team a map of where to start. Any language. Any platform.</p>
 
   <div class="eol-banner">
     <div class="eol-dot"></div>
@@ -573,7 +593,7 @@
     <div class="plan-badge">Most Popular</div>
     <div class="plan-name">// ghost team</div>
     <div class="plan-title">Agency Team</div>
-    <div class="plan-desc">For Adobe Commerce agencies running audits across multiple client engagements.</div>
+    <div class="plan-desc">For agencies running audits across multiple client engagements on any stack.</div>
     <div class="plan-price">
       <span class="price-currency">$</span>
       <span class="price-amount">399</span>
@@ -619,7 +639,7 @@
   <div class="card">
     <div class="plan-name">// ghost enterprise</div>
     <div class="plan-title">Enterprise</div>
-    <div class="plan-desc">For enterprise retailers and large agencies with complex multi-store Adobe Commerce environments.</div>
+    <div class="plan-desc">For enterprise teams and large agencies with complex multi-project environments.</div>
     <div class="plan-price">
       <span class="price-currency">$</span>
       <span class="price-amount">1,200</span>
@@ -651,11 +671,11 @@
       <li class="section-label">built for</li>
       <li>
         <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Multi-brand Adobe Commerce portfolios
+        Multi-brand and multi-platform portfolios
       </li>
       <li>
         <svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Pre-ACO migration audit and risk assessment
+        Pre-migration audit and risk assessment
       </li>
     </ul>
     <a href="https://buy.stripe.com/4gM3cvartaiU2V5fXnbEA02" class="btn btn-secondary">Get Ghost Enterprise →</a>
@@ -702,18 +722,18 @@
   </div>
 
   <div class="faq-item">
-    <div class="faq-q">Is there an Early Adopter program?</div>
-    <div class="faq-a">Yes — the Early Adopter cohort is still open for qualified Adobe Commerce architects and agencies. <a href="/#apply">Apply on the homepage</a> for priority access and locked-in pricing.</div>
-  </div>
-
-  <div class="faq-item">
     <div class="faq-q">Can I get a demo before subscribing?</div>
     <div class="faq-a">Yes. Email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> or connect on <a href="https://linkedin.com/in/ernst-wisner-9357b2186" target="_blank" rel="noopener noreferrer">LinkedIn</a> and we'll schedule a 15-minute Teams call with a live scan of a sample codebase.</div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-q">What Magento / Adobe Commerce versions are supported?</div>
-    <div class="faq-a">Ghost Architect supports Magento 2.x through Adobe Commerce 2.4.7. It's framework-aware and also analyzes PHP, JavaScript, and extension code regardless of version.</div>
+    <div class="faq-q">What languages and platforms does Ghost Architect support?</div>
+    <div class="faq-a">Ghost Architect works on any codebase, any language, any platform — PHP, JavaScript, TypeScript, Python, Ruby, Java, and more. It's framework-aware and analyzes code structure, dependency relationships, configuration files, and integration patterns regardless of what stack you're running.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Can I use Ghost Architect on a client's private repository?</div>
+    <div class="faq-a">Yes. Ghost Architect supports private GitHub, GitLab, and Bitbucket repositories. Authenticate with a personal access token, Ghost clones the repo locally, runs the scan, and removes the local clone when done. Your client's code never touches any third-party infrastructure beyond your own Anthropic API key.</div>
   </div>
 </div>
 

@@ -172,6 +172,7 @@
       width: 28px;
       height: 28px;
       border-radius: 6px;
+      object-fit: cover;
     }
 
     .nav-links {
@@ -190,15 +191,31 @@
 
     .nav-links a:hover { color: var(--accent); }
 
+    /* HERO LOGO */
+    .hero-logo-wrap {
+      display: flex;
+      justify-content: center;
+      padding-top: 4rem;
+      padding-bottom: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-logo-wrap img {
+      height: 120px;
+      width: auto;
+      border-radius: 18px;
+      display: block;
+    }
+
     /* HERO */
     .hero {
-      min-height: 92vh;
+      min-height: 80vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 4rem 2rem;
+      padding: 2rem 2rem 4rem;
       position: relative;
       overflow: hidden;
     }
@@ -730,6 +747,7 @@
       width: 20px;
       height: 20px;
       border-radius: 4px;
+      object-fit: cover;
     }
 
     .footer-copy {
@@ -745,6 +763,7 @@
       .adopters-cols { grid-template-columns: 1fr; }
       .security-section, .agency-section, .adopters-section { margin: 0 1rem; padding: 2rem; }
       footer { padding-bottom: 5rem; flex-direction: column; gap: 1rem; text-align: center; }
+      .hero-logo-wrap img { height: 90px; }
     }
 
     /* PRICING SECTION */
@@ -960,6 +979,11 @@
 })();
 </script>
 
+<!-- PAGE LOGO -->
+<div class="hero-logo-wrap">
+  <img src="GHOSTLOGO.JPG" alt="Ghost Architect™" />
+</div>
+
 <!-- HERO -->
 <section class="hero">
   <div class="version-badge">v4.7.0 — Now Available</div>
@@ -1084,22 +1108,22 @@
     <div class="agency-grid">
       <div class="agency-card">
         <div class="agency-card-icon">🔗</div>
-        <h3>Private Repo Support</h3>
+        <h4>Private Repo Support</h4>
         <p>Authenticate with a personal access token. Ghost clones the repo locally, scans it, and removes the clone when done. Your client's code never touches our infrastructure — because there is no our infrastructure.</p>
       </div>
       <div class="agency-card">
         <div class="agency-card-icon">📁</div>
-        <h3>Selective Path Scanning</h3>
+        <h4>Selective Path Scanning</h4>
         <p>Point Ghost at a specific directory within a large repo. Scan the module you're working on, not the entire monorepo.</p>
       </div>
       <div class="agency-card">
         <div class="agency-card-icon">📑</div>
-        <h3>Same-Day Client Deliverables</h3>
+        <h4>Same-Day Client Deliverables</h4>
         <p>Every scan produces a branded PDF for stakeholders, a TXT for developers, and a MD for your team to commit. Hand it to the client the same day.</p>
       </div>
       <div class="agency-card">
         <div class="agency-card-icon">💰</div>
-        <h3>Per-Seat Cost Visibility</h3>
+        <h4>Per-Seat Cost Visibility</h4>
         <p>Each developer runs Ghost with their own Anthropic API key — giving your agency complete visibility into usage and cost at the individual seat level. No black box billing.</p>
       </div>
     </div>
