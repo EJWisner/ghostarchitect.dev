@@ -826,6 +826,33 @@
   </ul>
 </nav>
 
+<!-- MOBILE EOL BANNER -->
+<div id="mobile-eol-banner" style="display:none; background: var(--danger); color: white; text-align: center; padding: 0.75rem 1rem; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600;">
+  ⚠ Magento 2.4.4 ends <span id="mobile-eol-days"></span> — <a href="#eol-warning" style="color: white; text-decoration: underline;">See what's at risk →</a>
+</div>
+<style>
+  @media (max-width: 768px) {
+    #mobile-eol-banner { display: block !important; }
+  }
+</style>
+<script>
+(function(){
+  var eol = new Date("2026-04-14");
+  var now = new Date();
+  now.setHours(0,0,0,0);
+  var diff = Math.ceil((eol - now) / (1000*60*60*24));
+  var el = document.getElementById("mobile-eol-days");
+  if(el){
+    if(diff > 0){
+      el.textContent = "in " + diff + " day" + (diff === 1 ? "" : "s");
+    } else {
+      el.textContent = "— EXPIRED";
+      document.getElementById("mobile-eol-banner").style.background = "#8B0000";
+    }
+  }
+})();
+</script>
+
 <!-- HERO -->
 <section class="hero">
   <div class="version-badge">v4.7.2 — Now Available</div>
