@@ -974,6 +974,7 @@
   <a href="/blog.html" onclick="closeMenu()">Blog</a>
 </div>
 <script>
+document.addEventListener('DOMContentLoaded', function(){
   const btn=document.getElementById('hamburger'),menu=document.getElementById('mobile-menu'),navLinks=document.querySelector('.nav-links');
   function closeMenu(){btn.classList.remove('open');menu.classList.remove('open');}
   btn.addEventListener('click',()=>{btn.classList.toggle('open');menu.classList.toggle('open');});
@@ -992,6 +993,7 @@
   }
   handleResize();
   window.addEventListener('resize',handleResize);
+});
 </script>
 
 <!-- MOBILE EOL BANNER -->
