@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <title>Why Claude Code Is Not Your Starting Point — Ghost Architect™</title>
+  <meta name="description" content="AI coding tools are powerful. But pointing an autonomous agent at a codebase you don't understand is how you create expensive, hard-to-reverse problems. Triage first. Agent second." />
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/why-claude-code-is-not-your-starting-point" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/why-claude-code-is-not-your-starting-point" />
+  <meta property="og:title" content="Why Claude Code Is Not Your Starting Point" />
+  <meta property="og:description" content="AI coding tools are powerful. But pointing an autonomous agent at a codebase you don't understand is how you create expensive, hard-to-reverse problems. Triage first. Agent second." />
+  <meta property="og:image" content="https://ghostarchitect.dev/GHOSTLOGO.JPG" />
+  <meta property="og:site_name" content="Ghost Architect™" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Why Claude Code Is Not Your Starting Point",
+    "datePublished": "2026-03-24",
+    "dateModified": "2026-03-24",
+    "author": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "publisher": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "url": "https://ghostarchitect.dev/blog/why-claude-code-is-not-your-starting-point"
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #0a0a0f; --surface: #111118; --surface2: #1a1a24; --border: #2a2a3a;
+      --accent: #4a9eff; --accent2: #00d4aa; --danger: #ff4a6b; --warning: #ffaa00;
+      --text: #e8e8f0; --text-muted: #b0b0c0; --text-dim: #777788;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.6; overflow-x: hidden; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-family: var(--font-mono); transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .footer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-muted); font-weight: 600; margin-bottom: 0.25rem; }
+    .footer-logo img { width: 20px; height: 20px; border-radius: 4px; }
+    .article-wrap { max-width: 760px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .article-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); margin-bottom: 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+    .article-tag { background: rgba(74,158,255,0.1); border: 1px solid rgba(74,158,255,0.2); border-radius: 4px; padding: 2px 10px; color: var(--accent); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 1.5rem; }
+    .article-body h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; margin: 2.5rem 0 1rem; color: var(--text); }
+    .article-body h3 { font-size: 1rem; font-weight: 700; margin: 2rem 0 0.75rem; color: var(--accent2); font-family: var(--font-mono); }
+    .article-body p { color: var(--text-muted); font-size: 1rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .article-body strong { color: var(--text); font-weight: 700; }
+    .article-body ul, .article-body ol { color: var(--text-muted); padding-left: 1.5rem; margin-bottom: 1.25rem; }
+    .article-body li { margin-bottom: 0.5rem; line-height: 1.7; }
+    .callout { background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 1.25rem 1.5rem; margin: 2rem 0; }
+    .callout.warning { border-color: var(--warning); }
+    .callout p { margin: 0; color: var(--text-muted); font-size: 0.95rem; }
+    .callout strong { color: var(--text); }
+    .cta-block { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; margin: 3rem 0; text-align: center; }
+    .cta-block h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.03em; }
+    .cta-block p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .btn-primary { background: var(--accent); color: #000; font-weight: 700; font-size: 0.9rem; padding: 12px 28px; border-radius: 8px; text-decoration: none; display: inline-block; margin-right: 0.75rem; margin-bottom: 0.5rem; }
+    .btn-secondary { background: transparent; color: var(--text-muted); font-size: 0.9rem; padding: 12px 28px; border-radius: 8px; text-decoration: none; border: 1px solid var(--border); display: inline-block; margin-bottom: 0.5rem; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+    .back-link { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color 0.2s; }
+    .back-link:hover { color: var(--accent); }
+    @media (max-width: 640px) { .nav-links { gap: 1rem; } .article-wrap { padding: 2rem 1.25rem 4rem; } }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo"><img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />Ghost Architect™</a>
+  <ul class="nav-links">
+    <li><a href="/#what-it-does">What It Does</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+    <li><a href="/blog.html" class="active">Blog</a></li>
+  </ul>
+</nav>
+
+<div class="article-wrap">
+  <a href="/blog.html" class="back-link">← Back to Blog</a>
+
+  <div class="article-meta">
+    <span class="article-tag">AI &amp; Engineering</span>
+    <span class="article-tag">Strategy</span>
+    <span>March 24, 2026</span>
+    <span>By Ernst J. Wisner</span>
+    <span>7 min read</span>
+  </div>
+
+  <h1>Why Claude Code Is Not Your Starting Point</h1>
+
+  <div class="article-body">
+
+    <p>Claude Code is impressive. So is Cursor. So is GitHub Copilot in agent mode. The new generation of AI coding tools can generate, refactor, test, and ship code at a pace that would have seemed impossible two years ago. If you haven't spent serious time with one of these tools on a real project, you're behind — and that's worth saying plainly.</p>
+
+    <p>But there's a failure mode that's becoming more common as these tools get more capable, and it's worth naming before it becomes a standard way teams work. The failure mode is this: treating the AI agent as your starting point on a codebase you don't fully understand.</p>
+
+    <p>This post is about why that's a problem, what it costs you in practice, and what the right sequence looks like.</p>
+
+    <hr class="divider" />
+
+    <h2>The Agent Confidence Problem</h2>
+
+    <p>AI coding agents are extraordinarily confident. They don't hedge. They don't say "I noticed a pattern here that I'm not sure about — you might want to check this before I proceed." They generate code, make changes, and move forward with the same tone and velocity regardless of whether they're working on a simple CRUD endpoint or a payment integration with five years of accumulated complexity.</p>
+
+    <p>That confidence is part of what makes them useful. It's also what makes them dangerous on inherited codebases. When you point Claude Code at a Magento store that's been through three agency handoffs, two platform upgrades, and a decade of extension accumulation, the agent doesn't know what it doesn't know. It sees the code it can see and makes changes based on what's visible. What it can't see — the implicit dependencies, the undocumented integration contracts, the configuration overrides buried in files it didn't load — becomes invisible risk.</p>
+
+    <p>The changes it makes may be individually correct. They may even look great in a code review. The problem surfaces six weeks later when a deployment to production triggers an edge case in an integration nobody remembered was there, because the agent's changes modified something that was load-bearing in a way that wasn't obvious from the code alone.</p>
+
+    <h2>Inherited Codebases Are Not Greenfield Projects</h2>
+
+    <p>The tooling conversation in AI-assisted development has largely been framed around greenfield work. You're building something new. You describe what you want. The agent scaffolds it. You iterate. That workflow is genuinely excellent and it's changing how new software gets built.</p>
+
+    <p>But most senior engineers and agencies are not primarily working on greenfield projects. They're working on codebases that have been running in production for years. Codebases that were built by people who are no longer on the team, extended by contractors who worked from incomplete documentation, and upgraded through platform version changes that left legacy patterns in place because they still worked, even if they weren't the right approach anymore.</p>
+
+    <p>On these codebases, the starting point cannot be "tell the agent what to change." The starting point has to be "understand what's actually in here." Those are different activities with different tools and different outputs.</p>
+
+    <div class="callout warning">
+      <p><strong>The classic failure pattern:</strong> A senior dev is brought in to modernize a client's Magento store. They spend the first two weeks making changes with an AI coding assistant. On day 15 they discover a custom ERP integration that touches the exact models they refactored. The integration hasn't broken yet, but it's now fragile in ways that weren't there before. Rolling it back takes longer than the original work.</p>
+    </div>
+
+    <h2>What "Understanding the Codebase" Actually Requires</h2>
+
+    <p>Developers who are honest about their workflow will tell you that understanding an inherited codebase is slow work. You grep for patterns. You follow dependency chains. You read commit history. You run the application and watch what happens. You find things by accident while working on something else. Over weeks or months, you build a mental model of how things fit together.</p>
+
+    <p>That's the right approach, and it works. The problem is that it's slow, it's manual, and it doesn't produce a document you can share with a client or hand to a new team member. The knowledge lives in your head, which means it disappears when you roll off the project.</p>
+
+    <p>There's also a more fundamental problem: the mental model you build through organic exploration is shaped by what you encounter, which means it's systematically incomplete in the areas you haven't had reason to explore yet. You know the checkout flow well because you worked on a performance issue there last month. You're less certain about the catalog importer because nobody's touched it in two years. The areas you're least certain about are often the areas where the most risk lives.</p>
+
+    <p>A structured triage pass changes this. Instead of building your mental model through organic exploration, you start with a systematic map — every component, every integration pattern, every finding categorized by severity and flagged with estimated remediation effort. You can see the shape of the codebase before you start making changes to it. That changes how you plan the work, what you prioritize, and what you tell an AI agent to do.</p>
+
+    <h2>The Right Sequence</h2>
+
+    <p>The workflow that actually works on complex, inherited codebases looks like this:</p>
+
+    <h3>// Step 1: Triage First</h3>
+
+    <p>Before you write a line of code, before you open Claude Code, before you even fully scope the engagement — run a triage pass on the codebase. Map what's there. Understand the severity distribution of what you're working with. Identify the areas that are load-bearing, the integrations that are fragile, and the patterns that will complicate any changes downstream.</p>
+
+    <p>This doesn't take days. A Ghost Architect scan on a full Magento installation with a typical extension stack runs in under 15 minutes and produces a structured report you can review in another 20. In under an hour, you have a map of the codebase that would have taken a week to build through manual exploration — and it's documented, shareable, and reproducible.</p>
+
+    <h3>// Step 2: Scope the Work Against the Map</h3>
+
+    <p>With the triage report in hand, scope the work differently. You know which components are safe to refactor and which are load-bearing. You know where the integration risks are. You know which Critical and High findings need to be addressed before or during any significant changes, because leaving them in place while doing major refactoring compounds the risk.</p>
+
+    <p>This is also when you have the client conversation. If the triage report surfaces five Critical findings and twelve High findings, the client needs to know that before work begins — not as a surprise partway through the engagement. The report is the conversation.</p>
+
+    <h3>// Step 3: Brief the Agent Correctly</h3>
+
+    <p>Now you can use Claude Code — and use it well. The difference is that you're not pointing an agent at an unknown system and hoping it navigates safely. You're directing it with specific context: here is what's in this codebase, here are the areas I need you to work in, here are the constraints you need to respect, here are the integration patterns that are off-limits until we've addressed the findings that touch them.</p>
+
+    <p>An AI agent with good context is dramatically more effective than an AI agent operating in a vacuum. The triage report is that context. It's the briefing document that turns a powerful but undirected tool into a precisely targeted one.</p>
+
+    <h3>// Step 4: Validate Against the Map</h3>
+
+    <p>After significant changes, run another triage pass. Compare the new report against the baseline. Did the changes introduce new findings? Did they resolve the ones they were supposed to address? Did the blast radius analysis shift in ways you'd expect? The triage report is not a one-time input — it's a baseline you can measure against throughout the engagement.</p>
+
+    <h2>This Is Not Anti-AI</h2>
+
+    <p>Nothing in this post is an argument against AI coding tools. Claude Code is genuinely excellent. The point is that tools are most effective when they're used in the right sequence for the right task. A torque wrench is an excellent tool. Reaching for it before you've identified which bolt you need to tighten is how you strip threads.</p>
+
+    <p>Triage and agentic coding are complementary, not competitive. Triage tells you what's there and what matters. Agentic coding changes it fast and well. The sequence is triage first, then agent. Reversing that sequence on a complex codebase is how teams create problems that are more expensive than the ones they were trying to solve.</p>
+
+    <p>The codebases that are worth the most attention — the large, complex, revenue-critical systems that agencies and senior architects work on — are exactly the ones where that sequence matters most. They're also the ones where the cost of getting it wrong is highest.</p>
+
+    <p>Start with the map. Then build.</p>
+
+    <hr class="divider" />
+
+    <div class="cta-block">
+      <h3>Get the map before you start building.</h3>
+      <p>Ghost Architect triages your codebase in minutes. Categorizes risk, prioritizes findings, gives your team the context they need before an AI agent — or anyone else — starts making changes.</p>
+      <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener noreferrer" class="btn-primary">Try Ghost Open Free →</a>
+      <a href="/pricing" class="btn-secondary">See All Plans</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <a href="/" class="footer-logo"><img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />Ghost Architect™</a>
+  <span>© 2026 Ernst J. Wisner · Ghost Architect™ · All rights reserved. · US Copyright Reg. #1-15123488721 · <a href="/privacy.html" style="color:var(--text-dim);text-decoration:none;">Privacy Policy</a> · <a href="/msa.html" style="color:var(--text-dim);text-decoration:none;">Terms of Service</a></span>
+</footer>
+</body>
+</html>

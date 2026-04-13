@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <title>The $0.23 Audit: How Much Does AI Codebase Analysis Actually Cost? — Ghost Architect™</title>
+  <meta name="description" content="658 files. 18 findings. $0.23 in API costs. We break down exactly what AI codebase analysis costs, where the money goes, and why the economics change everything about how often teams should be doing this." />
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/cost-of-ai-codebase-analysis" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/cost-of-ai-codebase-analysis" />
+  <meta property="og:title" content="The $0.23 Audit: How Much Does AI Codebase Analysis Actually Cost?" />
+  <meta property="og:description" content="658 files. 18 findings. $0.23. We break down exactly what AI codebase analysis costs and why the economics change everything." />
+  <meta property="og:image" content="https://ghostarchitect.dev/GHOSTLOGO.JPG" />
+  <meta property="og:site_name" content="Ghost Architect™" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "The $0.23 Audit: How Much Does AI Codebase Analysis Actually Cost?",
+    "datePublished": "2026-04-01",
+    "dateModified": "2026-04-01",
+    "author": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "publisher": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "url": "https://ghostarchitect.dev/blog/cost-of-ai-codebase-analysis"
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #0a0a0f; --surface: #111118; --surface2: #1a1a24; --border: #2a2a3a;
+      --accent: #4a9eff; --accent2: #00d4aa; --danger: #ff4a6b; --warning: #ffaa00;
+      --text: #e8e8f0; --text-muted: #b0b0c0; --text-dim: #777788;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.6; overflow-x: hidden; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-family: var(--font-mono); transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .footer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-muted); font-weight: 600; margin-bottom: 0.25rem; }
+    .footer-logo img { width: 20px; height: 20px; border-radius: 4px; }
+    .article-wrap { max-width: 760px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .article-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); margin-bottom: 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+    .article-tag { background: rgba(74,158,255,0.1); border: 1px solid rgba(74,158,255,0.2); border-radius: 4px; padding: 2px 10px; color: var(--accent); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 1.5rem; }
+    .big-number { font-size: clamp(4rem, 12vw, 8rem); font-weight: 900; font-family: var(--font-mono); color: var(--accent); letter-spacing: -0.05em; line-height: 1; text-align: center; padding: 2rem 0; }
+    .big-number-sub { text-align: center; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); margin-top: -1rem; margin-bottom: 2rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .article-body h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; margin: 2.5rem 0 1rem; color: var(--text); }
+    .article-body h3 { font-size: 1rem; font-weight: 700; margin: 2rem 0 0.75rem; color: var(--accent2); font-family: var(--font-mono); }
+    .article-body p { color: var(--text-muted); font-size: 1rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .article-body strong { color: var(--text); font-weight: 700; }
+    .article-body ul, .article-body ol { color: var(--text-muted); padding-left: 1.5rem; margin-bottom: 1.25rem; }
+    .article-body li { margin-bottom: 0.5rem; line-height: 1.7; }
+    .cost-table { width: 100%; border-collapse: collapse; margin: 2rem 0; font-size: 0.9rem; }
+    .cost-table th { text-align: left; padding: 0.75rem 1rem; background: var(--surface2); color: var(--text-dim); font-size: 0.7rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid var(--border); }
+    .cost-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+    .cost-table tr:last-child td { border-bottom: none; }
+    .cost-table .highlight { color: var(--accent2); font-weight: 700; font-family: var(--font-mono); }
+    .cost-table .dim-row td { color: var(--text-dim); }
+    .callout { background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 1.25rem 1.5rem; margin: 2rem 0; }
+    .callout.warning { border-color: var(--warning); }
+    .callout p { margin: 0; color: var(--text-muted); font-size: 0.95rem; }
+    .callout strong { color: var(--text); }
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+    .comparison-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; }
+    .comparison-card h4 { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
+    .comparison-card .price { font-size: 1.6rem; font-weight: 800; font-family: var(--font-mono); margin-bottom: 0.5rem; }
+    .comparison-card .price.old { color: var(--danger); }
+    .comparison-card .price.new { color: var(--accent2); }
+    .comparison-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
+    .cta-block { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; margin: 3rem 0; text-align: center; }
+    .cta-block h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.03em; }
+    .cta-block p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .btn-primary { background: var(--accent); color: #000; font-weight: 700; font-size: 0.9rem; padding: 12px 28px; border-radius: 8px; text-decoration: none; display: inline-block; margin-right: 0.75rem; margin-bottom: 0.5rem; }
+    .btn-secondary { background: transparent; color: var(--text-muted); font-size: 0.9rem; padding: 12px 28px; border-radius: 8px; text-decoration: none; border: 1px solid var(--border); display: inline-block; margin-bottom: 0.5rem; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+    .back-link { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color 0.2s; }
+    .back-link:hover { color: var(--accent); }
+    @media (max-width: 640px) { .nav-links { gap: 1rem; } .article-wrap { padding: 2rem 1.25rem 4rem; } .comparison-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo"><img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />Ghost Architect™</a>
+  <ul class="nav-links">
+    <li><a href="/#what-it-does">What It Does</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+    <li><a href="/blog.html" class="active">Blog</a></li>
+  </ul>
+</nav>
+
+<div class="article-wrap">
+  <a href="/blog.html" class="back-link">← Back to Blog</a>
+
+  <div class="article-meta">
+    <span class="article-tag">Cost &amp; Economics</span>
+    <span class="article-tag">AI Analysis</span>
+    <span>April 1, 2026</span>
+    <span>By Ernst J. Wisner</span>
+    <span>6 min read</span>
+  </div>
+
+  <h1>The $0.23 Audit: How Much Does AI Codebase Analysis Actually Cost?</h1>
+
+  <div class="article-body">
+
+    <div class="big-number">$0.23</div>
+    <div class="big-number-sub">658 files · 18 findings · 9 minutes 42 seconds</div>
+
+    <p>That's the actual Anthropic API cost of the Ghost Architect scan we ran on Meta's public Magento 2 Business Extension. Not a promotional figure. Not a best-case scenario. The actual number printed in the terminal at the end of the scan, which you can verify yourself because Ghost shows you the exact cost of every scan it runs.</p>
+
+    <p>Twenty-three cents.</p>
+
+    <p>This post is about why that number matters — not just as a price point, but as a signal that something fundamental has changed about how often teams can and should be doing codebase analysis.</p>
+
+    <hr class="divider" />
+
+    <h2>Where the $0.23 Goes</h2>
+
+    <p>Ghost Architect doesn't have its own AI infrastructure. It uses the Anthropic API directly — your API key, your account, your data agreement. The $0.23 is the raw cost of the API calls that ran during the scan. There's no markup, no hidden processing fee, no subscription charge embedded in the per-scan cost. Ghost Architect's subscription pricing is separate and flat. The API cost is yours, transparent, and verifiable.</p>
+
+    <p>The cost comes from three types of API calls across three analysis passes:</p>
+
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th>Pass</th>
+          <th>What It Does</th>
+          <th>Approx. Cost Share</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Prioritization</td>
+          <td>Maps the codebase structure, identifies high-risk files, builds the dependency graph</td>
+          <td class="highlight">~$0.04</td>
+        </tr>
+        <tr>
+          <td>Deep Analysis</td>
+          <td>Full analysis of the highest-priority files — security patterns, integration risks, architectural issues</td>
+          <td class="highlight">~$0.15</td>
+        </tr>
+        <tr>
+          <td>Conflict Detection</td>
+          <td>Cross-references how components interact, identifies compound risks and integration mismatches</td>
+          <td class="highlight">~$0.04</td>
+        </tr>
+        <tr class="dim-row">
+          <td colspan="2"><strong>Total</strong></td>
+          <td class="highlight">$0.23</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The cost scales roughly with codebase size and complexity. A smaller module or a focused directory scan might run $0.05–$0.10. A large, deeply interconnected codebase might run $0.40–$0.60. Ghost estimates this before the scan runs so you can see the projected cost before you confirm.</p>
+
+    <h2>What Codebase Analysis Used to Cost</h2>
+
+    <p>To understand why $0.23 is significant, you need the comparison. Before AI-assisted analysis, a thorough codebase triage required a senior engineer to sit down with the code and work through it systematically. Here's what that actually costs.</p>
+
+    <div class="comparison-grid">
+      <div class="comparison-card">
+        <h4>// Manual Review</h4>
+        <div class="price old">$3,000–$8,000</div>
+        <p>3–5 days of a senior developer's time at agency rates. Produces a findings document that lives in someone's head as much as on paper. Not reproducible. Not standardized. Scope varies by who does it and what they happen to look at.</p>
+      </div>
+      <div class="comparison-card">
+        <h4>// Ghost Architect Scan</h4>
+        <div class="price new">$0.23</div>
+        <p>Under 15 minutes. Systematic, reproducible analysis across every file. Structured output in three formats. Standardized severity classification. Blast radius analysis. Same methodology every time.</p>
+      </div>
+    </div>
+
+    <p>The comparison isn't entirely fair — a senior developer brings judgment, context, and expertise that AI analysis doesn't replicate. Ghost Architect findings are starting points, not conclusions. But the order-of-magnitude cost difference changes what's economically rational to do and how often it's rational to do it.</p>
+
+    <h2>The Frequency Problem</h2>
+
+    <p>Here's the economic reality of manual codebase auditing: it was expensive enough that teams only did it when they had to. Before a major platform upgrade. At the start of a long-term engagement. After a security incident. Once a year if the budget allowed and the stakeholder pushed hard enough.</p>
+
+    <p>That infrequency is the underlying problem. Codebases are not static. Extensions get updated. Custom modules get modified. Platform upgrades change dependency relationships. Configurations drift. The triage report you did eighteen months ago is an increasingly inaccurate picture of what's actually in the codebase today.</p>
+
+    <p>At $0.23 per scan, the frequency calculation changes completely.</p>
+
+    <div class="callout">
+      <p><strong>What the economics actually allow:</strong> A team managing 10 client codebases, running a full scan on each at the start of every engagement, before every major upgrade, and quarterly as a standing check — 50 scans per year — spends $11.50 in API costs. The workflow that was economically irrational at $5,000 per audit is economically trivial at $0.23.</p>
+    </div>
+
+    <h2>How Ghost Pro Users Actually Use It</h2>
+
+    <p>Ghost Pro subscribers — who pay $99/month for the full feature set including PDF reports, multi-pass analysis, and complete severity coverage — typically run 10–20 scans per month. At $0.23 average per scan, that's $2–$5 in monthly API costs on top of the subscription.</p>
+
+    <p>The practical patterns we see:</p>
+
+    <p><strong>At project kickoff:</strong> Run a baseline scan before any work begins. This is the map you use to scope the engagement accurately. It's also the document you bring to the kickoff meeting instead of showing up with nothing but a checklist of questions.</p>
+
+    <p><strong>Before a platform upgrade:</strong> Run a scan specifically scoped to the components that will be affected by the upgrade path. Understand what will break, what needs to be refactored first, and where the integration risks are before you're in the middle of the migration.</p>
+
+    <p><strong>After major extension updates:</strong> Third-party extension updates can introduce new integration risks, change API contracts, or alter the configuration surface area. A post-update scan catches these before they cause problems in production.</p>
+
+    <p><strong>As a client deliverable:</strong> Some agencies include a Ghost Architect triage report as a standard part of their onboarding process. The client gets a PDF of their codebase's current state as part of the engagement kickoff. It demonstrates rigor, it surfaces findings that justify additional scope, and it creates a baseline for measuring improvement over the course of the engagement.</p>
+
+    <p><strong>Before presenting to a new client:</strong> Running a scan before a sales conversation gives you specific, accurate information about the client's codebase instead of general observations. You can walk into the meeting and say "we found three Critical findings in your current extension stack" — which is a very different conversation starter than "we'd need to do a review before we can give you a real scope."</p>
+
+    <h2>Transparency as a Feature</h2>
+
+    <p>Ghost Architect prints the exact API cost of every scan in the terminal output. This is intentional. There are no hidden costs, no usage-based billing surprises, no black-box infrastructure charges. You know exactly what each scan costs before it runs (from the estimate) and exactly what it cost after it runs (from the output).</p>
+
+    <p>For agencies, this matters in a specific way: each developer runs Ghost with their own Anthropic API key. That means each developer's API usage is visible to them individually. There's no aggregated billing that obscures individual usage. A developer running 30 scans in a month can see exactly what that cost. An agency managing team usage can see it too, if they choose to centralize the API key. The cost structure is transparent at every level.</p>
+
+    <h2>The Real Cost Question</h2>
+
+    <p>The question about cost that actually matters isn't "how much does a scan cost?" It's "what is the cost of not knowing what's in your codebase?"</p>
+
+    <p>A security breach on a Magento store averages hundreds of thousands of dollars in direct costs — forensics, remediation, notification, regulatory response, reputational damage — before you count the indirect costs of customer loss and churn. A migration project that discovers an unknown integration three weeks in typically adds 30–50% to the timeline and budget. A client relationship that ends because a launch went badly due to something that was findable in the codebase is worth years of recurring revenue.</p>
+
+    <p>Against those numbers, $0.23 per scan — or $99/month for unlimited scans — is not a cost question. It's an ROI question. And the math is obvious.</p>
+
+    <p>The teams that build regular codebase triage into their workflow — not as a one-time audit, but as a standing practice — are the ones that stop being surprised by their codebases. That's the actual value. The $0.23 is just how little it costs to get there.</p>
+
+    <hr class="divider" />
+
+    <div class="cta-block">
+      <h3>Run your first scan for less than a quarter.</h3>
+      <p>Ghost Open is free — bring your own Anthropic API key and see exactly what your scan costs. Ghost Pro is $99/month for the full feature set including PDF reports.</p>
+      <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener noreferrer" class="btn-primary">Try Ghost Open Free →</a>
+      <a href="/pricing" class="btn-secondary">See All Plans</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <a href="/" class="footer-logo"><img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />Ghost Architect™</a>
+  <span>© 2026 Ernst J. Wisner · Ghost Architect™ · All rights reserved. · US Copyright Reg. #1-15123488721 · <a href="/privacy.html" style="color:var(--text-dim);text-decoration:none;">Privacy Policy</a> · <a href="/msa.html" style="color:var(--text-dim);text-decoration:none;">Terms of Service</a></span>
+</footer>
+</body>
+</html>

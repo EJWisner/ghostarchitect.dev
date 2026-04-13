@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <title>We Ran Ghost Architect on a Real Meta Magento Extension — 18 Findings in 10 Minutes — Ghost Architect™</title>
+  <meta name="description" content="We scanned Meta's public Magento 2 Business Extension with Ghost Architect. 658 files. 18 findings. Critical credential exposures, a race condition inflating ad spend, and a mass assignment vulnerability. Here's the full breakdown." />
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/meta-extension-scan" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/meta-extension-scan" />
+  <meta property="og:title" content="We Ran Ghost Architect on a Real Meta Magento Extension — 18 Findings in 10 Minutes" />
+  <meta property="og:description" content="658 files. 18 findings. Critical credential exposures, a race condition inflating ad spend, and a mass assignment vulnerability. Here's the full breakdown." />
+  <meta property="og:image" content="https://ghostarchitect.dev/GHOSTLOGO.JPG" />
+  <meta property="og:site_name" content="Ghost Architect™" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "We Ran Ghost Architect on a Real Meta Magento Extension — 18 Findings in 10 Minutes",
+    "datePublished": "2026-04-13",
+    "dateModified": "2026-04-13",
+    "author": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "publisher": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "url": "https://ghostarchitect.dev/blog/meta-extension-scan",
+    "description": "We scanned Meta's public Magento 2 Business Extension with Ghost Architect. 658 files. 18 findings. Here's the full breakdown."
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #0a0a0f; --surface: #111118; --surface2: #1a1a24; --border: #2a2a3a;
+      --accent: #4a9eff; --accent2: #00d4aa; --danger: #ff4a6b; --warning: #ffaa00;
+      --text: #e8e8f0; --text-muted: #b0b0c0; --text-dim: #777788;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.6; overflow-x: hidden; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-family: var(--font-mono); transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .footer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-muted); font-weight: 600; margin-bottom: 0.25rem; }
+    .footer-logo img { width: 20px; height: 20px; border-radius: 4px; }
+    .article-wrap { max-width: 760px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .article-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); margin-bottom: 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+    .article-tag { background: rgba(74,158,255,0.1); border: 1px solid rgba(74,158,255,0.2); border-radius: 4px; padding: 2px 10px; color: var(--accent); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .article-tag.danger { background: rgba(255,74,107,0.1); border-color: rgba(255,74,107,0.2); color: var(--danger); }
+    .article-tag.warning { background: rgba(255,170,0,0.1); border-color: rgba(255,170,0,0.2); color: var(--warning); }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 1.5rem; }
+    .article-body h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; margin: 2.5rem 0 1rem; color: var(--text); }
+    .article-body h3 { font-size: 1rem; font-weight: 700; margin: 2rem 0 0.75rem; color: var(--accent2); font-family: var(--font-mono); }
+    .article-body p { color: var(--text-muted); font-size: 1rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .article-body strong { color: var(--text); font-weight: 700; }
+    .article-body ul, .article-body ol { color: var(--text-muted); padding-left: 1.5rem; margin-bottom: 1.25rem; }
+    .article-body li { margin-bottom: 0.5rem; line-height: 1.7; }
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin: 2rem 0; }
+    .stat { background: var(--surface); padding: 1.25rem; text-align: center; }
+    .stat-value { font-size: 1.8rem; font-weight: 800; font-family: var(--font-mono); color: var(--accent); letter-spacing: -0.03em; }
+    .stat-label { font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+    .finding-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.5rem 0; }
+    .finding-card.critical { border-left: 3px solid var(--danger); }
+    .finding-card.high { border-left: 3px solid var(--warning); }
+    .finding-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+    .severity-badge { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .severity-badge.critical { background: rgba(255,74,107,0.15); color: var(--danger); border: 1px solid rgba(255,74,107,0.3); }
+    .severity-badge.high { background: rgba(255,170,0,0.15); color: var(--warning); border: 1px solid rgba(255,170,0,0.3); }
+    .finding-title { font-weight: 700; font-size: 1rem; color: var(--text); }
+    .finding-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 0.75rem; }
+    .finding-card p:last-child { margin-bottom: 0; }
+    .finding-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .callout { background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 1.25rem 1.5rem; margin: 2rem 0; }
+    .callout p { margin: 0; color: var(--text-muted); font-size: 0.95rem; }
+    .callout strong { color: var(--text); }
+    .cta-block { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; margin: 3rem 0; text-align: center; }
+    .cta-block h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.03em; }
+    .cta-block p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .btn-primary { background: var(--accent); color: #000; font-weight: 700; font-size: 0.9rem; padding: 12px 28px; border-radius: 8px; text-decoration: none; display: inline-block; margin-right: 0.75rem; margin-bottom: 0.5rem; }
+    .btn-secondary { background: transparent; color: var(--text-muted); font-size: 0.9rem; padding: 12px 28px; border-radius: 8px; text-decoration: none; border: 1px solid var(--border); display: inline-block; margin-bottom: 0.5rem; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+    .back-link { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color 0.2s; }
+    .back-link:hover { color: var(--accent); }
+    code { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-family: var(--font-mono); font-size: 0.85em; color: var(--accent2); }
+    @media (max-width: 640px) { .nav-links { gap: 1rem; } .article-wrap { padding: 2rem 1.25rem 4rem; } .stats-row { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo"><img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />Ghost Architect™</a>
+  <ul class="nav-links">
+    <li><a href="/#what-it-does">What It Does</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+    <li><a href="/blog.html" class="active">Blog</a></li>
+  </ul>
+</nav>
+
+<div class="article-wrap">
+  <a href="/blog.html" class="back-link">← Back to Blog</a>
+
+  <div class="article-meta">
+    <span class="article-tag danger">Case Study</span>
+    <span class="article-tag">Security</span>
+    <span class="article-tag">Magento</span>
+    <span>April 13, 2026</span>
+    <span>By Ernst J. Wisner</span>
+    <span>10 min read</span>
+  </div>
+
+  <h1>We Ran Ghost Architect on a Real Meta Magento Extension — 18 Findings in 10 Minutes</h1>
+
+  <div class="article-body">
+
+    <p>Ghost Architect is a codebase triage tool. The best way to demonstrate what it actually does is to show it working on real code. So we pointed it at a real, publicly available production extension — the Meta for Magento 2 Business Extension — and ran a full scan.</p>
+
+    <p>658 files. 18 findings. Under 10 minutes. $0.23 in API costs.</p>
+
+    <p>Here's exactly what we found, why it matters, and what it tells you about what might be hiding in your own codebase.</p>
+
+    <div class="stats-row">
+      <div class="stat"><div class="stat-value">658</div><div class="stat-label">Files Scanned</div></div>
+      <div class="stat"><div class="stat-value">18</div><div class="stat-label">Findings</div></div>
+      <div class="stat"><div class="stat-value">&lt;10</div><div class="stat-label">Minutes</div></div>
+      <div class="stat"><div class="stat-value">$0.23</div><div class="stat-label">API Cost</div></div>
+    </div>
+
+    <hr class="divider" />
+
+    <h2>Why the Meta Extension?</h2>
+
+    <p>We chose the Meta for Magento 2 Business Extension specifically because it's publicly available, widely deployed across Magento stores, and represents the kind of third-party integration that agencies install on behalf of clients and often never revisit. It handles Facebook Pixel events, Conversion API calls, product catalog syncing, and ad attribution — which means it sits at the intersection of your storefront code, your customer data, and your advertising spend.</p>
+
+    <p>Extensions like this are ideal candidates for a triage pass precisely because they're trusted by default. They came from a recognized vendor, they passed a quick install check, and then they ran in the background for months or years while the team focused on other things. Trusted-by-default is where the interesting findings live.</p>
+
+    <p>We notified Meta's security team at security@fb.com before publishing any of these findings publicly.</p>
+
+    <h2>The Findings: A Full Walkthrough</h2>
+
+    <p>Ghost Architect returned 18 findings across the severity spectrum. We'll walk through the most significant ones in detail. The full 7-page PDF report is available for download on the Ghost Architect homepage.</p>
+
+    <div class="finding-card critical">
+      <div class="finding-header">
+        <span class="severity-badge critical">Critical</span>
+        <span class="finding-title">Finding #1 — Client-Side Credential Exposure</span>
+      </div>
+      <p>Meta OAuth access tokens are stored in <code>window.facebookBusinessExtensionConfig</code> — a JavaScript object rendered directly into the page DOM and readable by any browser extension, third-party script, or XSS payload with access to the window object.</p>
+      <p>In practical terms, this means that any cross-site scripting vulnerability anywhere on the page — in the theme, in another extension, in a user-generated content field — can be leveraged to exfiltrate a live OAuth token with full Facebook Business account access. No additional exploitation is required. The token is sitting in the window object.</p>
+      <p>The correct pattern here is to keep OAuth tokens server-side and expose only non-sensitive configuration to the client. This is a well-documented security practice that the extension does not follow.</p>
+      <div class="finding-meta">
+        <span>Est. fix: 8–12 hrs</span>
+        <span>Complexity: HIGH</span>
+        <span>Impact: Full Facebook Business account takeover</span>
+      </div>
+    </div>
+
+    <div class="finding-card critical">
+      <div class="finding-header">
+        <span class="severity-badge critical">Critical</span>
+        <span class="finding-title">Finding #9 — Ad Spend Inflation Race Condition</span>
+      </div>
+      <p>Ghost flagged this as the most expensive bug in the codebase — and expensive is the right word. The extension uses event ID deduplication to prevent the same conversion event from being counted twice across the browser Pixel and the server-side Conversion API. When both fire for the same event, Meta uses the event ID to deduplicate them.</p>
+      <p>The issue is a race condition in the deduplication logic. Under load — which is exactly the condition that occurs during high-traffic periods like promotions, product launches, or seasonal peaks — the race condition causes duplicate Conversion API events to slip through deduplication and get counted as separate conversions by Meta's attribution system.</p>
+      <p>Ghost's analysis estimated this causes 10–20% duplicate event reporting. On a store spending $50,000/month in Meta ads, that's $5,000–$10,000 per month in inflated ad spend attributable to this single bug. The store appears to be performing better than it actually is, which distorts optimization decisions on top of the direct cost impact.</p>
+      <div class="finding-meta">
+        <span>Est. fix: 10–14 hrs</span>
+        <span>Complexity: CRITICAL</span>
+        <span>Impact: 10–20% duplicate ad attribution</span>
+      </div>
+    </div>
+
+    <div class="finding-card critical">
+      <div class="finding-header">
+        <span class="severity-badge critical">Critical</span>
+        <span class="finding-title">Finding #3 — Mass Assignment Configuration Vulnerability</span>
+      </div>
+      <p>Arbitrary POST parameters submitted by an attacker are saved directly to <code>core_config_data</code> with no validation, no allowlist, and no CSRF protection on the endpoint. <code>core_config_data</code> is Magento's central configuration store — it controls everything from payment gateway settings to admin URLs to email routing.</p>
+      <p>Combine the missing allowlist with missing CSRF protection and you have a situation where any authenticated user — or an unauthenticated user who can trigger the right request via CSRF — can write arbitrary values to any configuration key in the system. The blast radius is essentially the entire store configuration.</p>
+      <p>This class of vulnerability — mass assignment with no input restriction — is well understood and has been a common finding in Magento extension security audits for years. Its presence here in a widely deployed Meta extension is a reminder that even extensions from recognized publishers warrant scrutiny.</p>
+      <div class="finding-meta">
+        <span>Est. fix: 6–8 hrs</span>
+        <span>Complexity: HIGH</span>
+        <span>Impact: Arbitrary system configuration write access</span>
+      </div>
+    </div>
+
+    <p>Beyond the three Critical findings above, Ghost surfaced 15 additional findings at High, Medium, and Low severity. These included deprecated API usage patterns that will break against current Magento versions, missing output escaping in template files that create XSS surface area, inconsistent error handling that leaks internal path information, and several integration patterns with the Conversion API that don't follow Meta's current recommended implementation.</p>
+
+    <div class="callout">
+      <p><strong>Important context:</strong> Ghost Architect findings are pattern-based starting points, not proof of exploitation. These findings represent architectural risks and code patterns that warrant investigation and remediation — they are not evidence that these vulnerabilities have been actively exploited in any specific installation. Always validate findings in the context of your specific deployment before assigning remediation priority.</p>
+    </div>
+
+    <h2>What This Tells You About Your Own Codebase</h2>
+
+    <p>The Meta extension is not an outlier. It's a well-resourced extension from a major platform vendor, written by professional developers, and it contains three Critical findings in 658 files. That's not a commentary on Meta's engineering team — it's a commentary on the reality of complex software in complex integration environments.</p>
+
+    <p>Most Magento stores are running 20, 30, or 50 extensions. They're running custom modules built by contractors whose names nobody remembers. They're running theme overrides that reach into core functionality in ways the original developers didn't document. They're running payment and shipping integrations that were installed years ago and touched only when they break.</p>
+
+    <p>Each of those components is a surface area. Each has its own integration patterns, its own configuration touchpoints, its own potential for the kinds of findings we surfaced in the Meta extension. And in most cases, nobody has ever run a structured triage pass on any of them.</p>
+
+    <h3>// The "it came from a trusted vendor" assumption</h3>
+
+    <p>One of the most common responses we hear when agencies first see a triage report is surprise at findings in extensions they considered safe because they came from established vendors. The Meta extension is a good illustration of why trusted-by-default is not the same as reviewed. Vendor reputation is not a substitute for code review. The size of the company that wrote the extension is not a proxy for the security of the integration patterns it uses.</p>
+
+    <h3>// The compound risk of multiple extensions</h3>
+
+    <p>Individual extension findings are meaningful. But the more important analysis is how multiple extensions interact. A credential exposure in Extension A can be exploited through an XSS surface in Extension B. A mass assignment vulnerability in Extension C can be triggered via an unauthenticated endpoint introduced by Extension D. Ghost Architect's conflict detection looks for these interaction patterns — not just individual findings in isolation, but places where the combination of two or more extensions creates risk that neither creates alone.</p>
+
+    <h3>// Third-party code is your responsibility</h3>
+
+    <p>When a store has a security incident, the origin of the vulnerable code doesn't matter to the customer whose data was exposed, the card brand that initiates a forensic investigation, or the regulator reviewing the breach. Third-party extension code that runs on your platform is your responsibility to understand and manage. The extension vendor wrote it. You chose to deploy it. That choice carries an obligation to know what you deployed.</p>
+
+    <h2>Why $0.23 Matters</h2>
+
+    <p>The total API cost of this scan was $0.23. That's not a promotional figure — it's the actual Anthropic API cost printed in the terminal output at the end of the scan. Ghost Architect shows you exactly what each scan costs, every time.</p>
+
+    <p>The reason this matters is that cost has historically been the barrier to regular codebase auditing. Comprehensive manual code review is expensive and slow. Running it on 658 files across a full extension would take a senior developer multiple days. The economics of that don't work for most agencies on most projects.</p>
+
+    <p>At $0.23, the economics change. You can run a triage pass at project kickoff, after a major extension update, before a platform upgrade, before a client presentation, before a security audit. You can make codebase triage a regular part of your workflow rather than a project-milestone deliverable that only happens once every few years.</p>
+
+    <h2>The Output: What You Actually Get</h2>
+
+    <p>Every Ghost Architect scan produces three outputs simultaneously. The PDF is a branded, formatted report designed to be handed to a stakeholder or client — it includes an executive summary, severity-categorized findings, estimated remediation effort, and blast radius analysis for each finding. The TXT file is optimized for developers — it's structured for readability in a terminal or code editor and includes the technical detail developers need to action findings immediately. The MD file is designed to be committed to a repository, integrated into a project wiki, or dropped into a ticket system.</p>
+
+    <p>You don't have to choose between a document for your client and a document for your team. The scan produces both, simultaneously, from the same analysis pass.</p>
+
+    <h2>Running It on Your Own Codebase</h2>
+
+    <p>Ghost Architect runs entirely on your local machine. Your code is never uploaded anywhere. The analysis calls go directly from your terminal to the Anthropic API using your own API key — Ghost Architect is never in the middle. The full report from this Meta extension scan is available for download on the Ghost Architect homepage if you want to see the complete output format before running your own scan.</p>
+
+    <p>Ghost Open is the free tier — available on npm, MIT licensed, no account required. It surfaces Critical and High findings. If you want the full severity range plus multi-pass analysis and PDF reports, Ghost Pro starts at $99/month.</p>
+
+    <hr class="divider" />
+
+    <div class="cta-block">
+      <h3>Run a triage pass on your own codebase.</h3>
+      <p>Install Ghost Open in under a minute. Point it at any local folder, GitHub repo, or zip file. See your Critical and High findings in under 10 minutes.</p>
+      <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener noreferrer" class="btn-primary">Try Ghost Open Free →</a>
+      <a href="https://ghostarchitect.dev/ghost-poi-meta-for-magento2.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Download the Full Report ↓</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <a href="/" class="footer-logo"><img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />Ghost Architect™</a>
+  <span>© 2026 Ernst J. Wisner · Ghost Architect™ · All rights reserved. · US Copyright Reg. #1-15123488721 · <a href="/privacy.html" style="color:var(--text-dim);text-decoration:none;">Privacy Policy</a> · <a href="/msa.html" style="color:var(--text-dim);text-decoration:none;">Terms of Service</a></span>
+</footer>
+</body>
+</html>
