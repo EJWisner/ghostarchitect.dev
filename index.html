@@ -974,9 +974,24 @@
   <a href="/blog.html" onclick="closeMenu()">Blog</a>
 </div>
 <script>
-  const btn=document.getElementById('hamburger'),menu=document.getElementById('mobile-menu');
+  const btn=document.getElementById('hamburger'),menu=document.getElementById('mobile-menu'),navLinks=document.querySelector('.nav-links');
   function closeMenu(){btn.classList.remove('open');menu.classList.remove('open');}
   btn.addEventListener('click',()=>{btn.classList.toggle('open');menu.classList.toggle('open');});
+  function handleResize(){
+    if(window.innerWidth<=768){
+      btn.style.display='flex';
+      btn.style.flexDirection='column';
+      btn.style.gap='5px';
+      if(navLinks) navLinks.style.display='none';
+    } else {
+      btn.style.display='none';
+      if(navLinks) navLinks.style.display='flex';
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+    }
+  }
+  handleResize();
+  window.addEventListener('resize',handleResize);
 </script>
 
 <!-- MOBILE EOL BANNER -->
