@@ -101,6 +101,17 @@
     .back-link { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color 0.2s; }
     .back-link:hover { color: var(--accent); }
     @media (max-width: 640px) { .nav-links { gap: 1rem; } .article-wrap { padding: 2rem 1.25rem 4rem; } }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; transition: all 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 56px; left: 0; right: 0; background: rgba(10,10,15,0.98); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem 1.5rem; z-index: 99; flex-direction: column; gap: 0; backdrop-filter: blur(12px); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-family: var(--font-mono); padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--accent); }
+    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } }
   </style>
 </head>
 <body>
@@ -118,7 +129,25 @@
     <li><a href="/#faq">FAQ</a></li>
     <li><a href="/blog.html" class="active">Blog</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/#what-it-does" onclick="closeMenu()">What It Does</a>
+  <a href="/#eol-warning" onclick="closeMenu()">⚠ EOL Warning</a>
+  <a href="/#security" onclick="closeMenu()">Security</a>
+  <a href="/#for-agencies" onclick="closeMenu()">For Agencies</a>
+  <a href="/pricing" onclick="closeMenu()">Pricing</a>
+  <a href="/#faq" onclick="closeMenu()">FAQ</a>
+  <a href="/blog.html" onclick="closeMenu()">Blog</a>
+</div>
+<script>
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  function closeMenu() { btn.classList.remove('open'); menu.classList.remove('open'); }
+  btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+</script>
 
 <div class="article-wrap">
   <a href="/blog.html" class="back-link">← Back to Blog</a>
