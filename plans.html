@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <title>Plan Details — Ghost Architect™</title>
+  <meta name="description" content="Full feature comparison across Ghost Open, Pro, Team, and Enterprise. See exactly what's included in each tier." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev/plans" />
+  <meta property="og:title" content="Ghost Architect™ — Full Plan Details & Feature Comparison" />
+  <meta property="og:description" content="See exactly what's included in Ghost Open, Pro, Team, and Enterprise. Full feature comparison table." />
+  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
+  <meta property="og:site_name" content="Ghost Architect™" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://ghostarchitect.dev/plans" />
+
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #16161f;
+      --border: #2a2a3a;
+      --accent: #4a9eff;
+      --accent-dim: rgba(74,158,255,0.12);
+      --accent-glow: rgba(74,158,255,0.25);
+      --text: #e8e8f0;
+      --text-muted: #888899;
+      --green: #22c55e;
+      --green-dim: rgba(34,197,94,0.1);
+      --purple: #a855f7;
+      --purple-dim: rgba(168,85,247,0.1);
+      --red: #ef4444;
+      --red-dim: rgba(239,68,68,0.1);
+      --amber: #f59e0b;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --open-color: #22c55e;
+      --pro-color: #4a9eff;
+      --team-color: #a855f7;
+      --ent-color: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.6; min-height: 100vh; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,15,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem; }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; transition: all 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 56px; left: 0; right: 0; background: rgba(10,10,15,0.98); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem 1.5rem; z-index: 99; flex-direction: column; gap: 0; backdrop-filter: blur(12px); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-family: var(--font-mono); padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--accent); }
+    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem 3rem;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse at center, rgba(74,158,255,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* TIER QUICK CARDS */
+    .tier-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      max-width: 1100px;
+      margin: 0 auto 3.5rem;
+      padding: 0 2rem;
+    }
+    .tier-card {
+      border-radius: 12px;
+      padding: 1.25rem 1.25rem 1.5rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .tier-card:hover { transform: translateY(-2px); }
+    .tier-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .tier-card.open::before  { background: var(--open-color); }
+    .tier-card.pro::before   { background: var(--pro-color); }
+    .tier-card.team::before  { background: var(--team-color); }
+    .tier-card.ent::before   { background: var(--ent-color); }
+    .tier-card.open  { border-color: rgba(34,197,94,0.2); }
+    .tier-card.pro   { border-color: rgba(74,158,255,0.25); }
+    .tier-card.team  { border-color: rgba(168,85,247,0.25); }
+    .tier-card.ent   { border-color: rgba(239,68,68,0.2); }
+    .tc-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .tier-card.open  .tc-tag { color: var(--open-color); }
+    .tier-card.pro   .tc-tag { color: var(--pro-color); }
+    .tier-card.team  .tc-tag { color: var(--team-color); }
+    .tier-card.ent   .tc-tag { color: var(--ent-color); }
+    .tc-name { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .tc-price { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.15rem; }
+    .tc-sub { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 1rem; font-family: var(--font-mono); }
+    .tc-tagline { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 1.25rem; }
+    .tc-btn {
+      display: block;
+      width: 100%;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .tier-card.open  .tc-btn { background: rgba(34,197,94,0.15);  color: var(--open-color); border: 1px solid rgba(34,197,94,0.3); }
+    .tier-card.pro   .tc-btn { background: rgba(74,158,255,0.15); color: var(--pro-color);  border: 1px solid rgba(74,158,255,0.3); }
+    .tier-card.team  .tc-btn { background: var(--team-color);     color: #fff; }
+    .tier-card.ent   .tc-btn { background: rgba(239,68,68,0.15);  color: var(--ent-color);  border: 1px solid rgba(239,68,68,0.3); }
+    .tier-card.team  .tc-btn:hover { background: #9333ea; }
+    .tier-card.open  .tc-btn:hover, .tier-card.pro .tc-btn:hover, .tier-card.ent .tc-btn:hover { opacity: 0.85; }
+
+    /* FEATURE TABLE */
+    .table-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 2rem;
+      overflow-x: auto;
+    }
+    .section-label-outer {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      padding: 0 0.25rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    thead th {
+      padding: 0.75rem 1rem;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 56px;
+      z-index: 10;
+    }
+    thead th:first-child { text-align: left; min-width: 240px; }
+    thead th.th-open  { color: var(--open-color); border-top: 2px solid var(--open-color); }
+    thead th.th-pro   { color: var(--pro-color);  border-top: 2px solid var(--pro-color); }
+    thead th.th-team  { color: var(--team-color); border-top: 2px solid var(--team-color); background: rgba(168,85,247,0.07); }
+    thead th.th-ent   { color: var(--ent-color);  border-top: 2px solid var(--ent-color); }
+
+    .section-row td {
+      padding: 0.6rem 1rem;
+      background: var(--surface2);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-row td:first-child { color: var(--accent); }
+
+    tbody tr:not(.section-row) {
+      border-bottom: 1px solid rgba(42,42,58,0.5);
+      transition: background 0.15s;
+    }
+    tbody tr:not(.section-row):hover { background: rgba(74,158,255,0.03); }
+    tbody tr:not(.section-row):nth-child(even) { background: rgba(17,17,24,0.5); }
+    tbody tr:not(.section-row):nth-child(even):hover { background: rgba(74,158,255,0.04); }
+
+    td {
+      padding: 0.75rem 1rem;
+      vertical-align: middle;
+    }
+    td:first-child {
+      color: var(--text);
+      font-size: 0.875rem;
+    }
+    td .feat-name { font-weight: 500; }
+    td .feat-sub  { font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 0.1rem; }
+
+    td.check { text-align: center; }
+    .yes {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(34,197,94,0.12);
+      color: var(--green);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .no {
+      color: var(--border);
+      font-size: 1rem;
+    }
+    .custom-val {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .partial {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--amber);
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: 4px;
+      padding: 0.1rem 0.4rem;
+    }
+
+    /* Team column highlight */
+    td.team-col { background: rgba(168,85,247,0.04); }
+    thead th.th-team { }
+
+    /* PRIVACY BLOCK */
+    .privacy-block {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .privacy-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+    }
+    .privacy-item h4 {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--green);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .privacy-item p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* CTA BAND */
+    .cta-band {
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+    .cta-inner {
+      background: linear-gradient(135deg, rgba(74,158,255,0.08) 0%, rgba(168,85,247,0.06) 100%);
+      border: 1px solid rgba(74,158,255,0.2);
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+    }
+    .cta-inner h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+    .cta-inner p { color: var(--text-muted); font-size: 0.95rem; max-width: 480px; margin: 0 auto 2rem; }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-cta-primary {
+      background: var(--accent); color: #000;
+      padding: 0.875rem 1.75rem; border-radius: 10px;
+      font-size: 0.9rem; font-weight: 700;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .btn-cta-primary:hover { background: #6db3ff; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(74,158,255,0.35); }
+    .btn-cta-secondary {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.875rem 1.75rem; border-radius: 10px;
+      font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .btn-cta-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      margin-top: 2rem;
+    }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    @media (max-width: 900px) {
+      .tier-cards { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .tier-cards { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .tc-price { font-size: 1.2rem; }
+      .tc-name { font-size: 0.9rem; }
+      table { font-size: 0.8rem; }
+      td, thead th { padding: 0.6rem 0.5rem; }
+      td:first-child { min-width: 140px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" width="28" height="28" />
+    Ghost Architect™
+  </a>
+  <div class="nav-links">
+    <a href="/#what-it-does">What It Does</a>
+    <a href="/#security">Security</a>
+    <a href="/#for-agencies">For Agencies</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/plans.html" style="color: var(--accent);">Plan Details</a>
+    <a href="/blog.html">Blog</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/#what-it-does" onclick="closeMenu()">What It Does</a>
+  <a href="/#security" onclick="closeMenu()">Security</a>
+  <a href="/#for-agencies" onclick="closeMenu()">For Agencies</a>
+  <a href="/pricing" onclick="closeMenu()">Pricing</a>
+  <a href="/plans.html" onclick="closeMenu()">Plan Details</a>
+  <a href="/blog.html" onclick="closeMenu()">Blog</a>
+</div>
+<script>
+  const btn=document.getElementById('hamburger'),menu=document.getElementById('mobile-menu');
+  function closeMenu(){btn.classList.remove('open');menu.classList.remove('open');}
+  btn.addEventListener('click',()=>{btn.classList.toggle('open');menu.classList.toggle('open');});
+</script>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">// plan details</div>
+  <h1>Everything. Side by side.<br>No surprises.</h1>
+  <p>Every feature, every tier. Know exactly what you're getting before you commit a dollar.</p>
+</div>
+
+<!-- TIER QUICK CARDS -->
+<div class="tier-cards">
+  <div class="tier-card open">
+    <div class="tc-tag">// ghost open</div>
+    <div class="tc-name">Ghost Open</div>
+    <div class="tc-price">Free</div>
+    <div class="tc-sub">MIT license · BYOK</div>
+    <div class="tc-tagline">Solo developers. Critical &amp; High findings only. One command to start.</div>
+    <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener noreferrer" class="tc-btn">Start Free →</a>
+  </div>
+  <div class="tier-card pro">
+    <div class="tc-tag">// ghost pro</div>
+    <div class="tc-name">Ghost Pro</div>
+    <div class="tc-price">$99<span style="font-size:1rem;font-weight:400">/mo</span></div>
+    <div class="tc-sub">1 seat · cancel anytime</div>
+    <div class="tc-tagline">Solo architects. Full findings, branded PDF, all analysis modes.</div>
+    <a href="https://buy.stripe.com/00w00j8jl9eQdzJ9yZbEA00" class="tc-btn">Get Ghost Pro →</a>
+  </div>
+  <div class="tier-card team">
+    <div class="tc-tag">// ghost team</div>
+    <div class="tc-name">Ghost Team</div>
+    <div class="tc-price">$399<span style="font-size:1rem;font-weight:400">/mo</span></div>
+    <div class="tc-sub">5 seats · $80/seat</div>
+    <div class="tc-tagline">Agency teams. Shared project sync, multi-seat collaboration, dashboard PDF.</div>
+    <a href="https://buy.stripe.com/5kQfZhdDFeza7blbH7bEA01" class="tc-btn">Get Ghost Team →</a>
+  </div>
+  <div class="tier-card ent">
+    <div class="tc-tag">// ghost enterprise</div>
+    <div class="tc-name">Ghost Enterprise</div>
+    <div class="tc-price">$1,200<span style="font-size:1rem;font-weight:400">/mo</span></div>
+    <div class="tc-sub">custom seats · MSA included</div>
+    <div class="tc-tagline">Enterprise orgs. Admin controls, audit log, usage reporting, white-label PDF.</div>
+    <a href="mailto:support@ghostarchitect.dev" class="tc-btn">Contact Us →</a>
+  </div>
+</div>
+
+<!-- FEATURE TABLE -->
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th class="th-open">Open</th>
+        <th class="th-pro">Pro</th>
+        <th class="th-team">Team</th>
+        <th class="th-ent">Enterprise</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- ANALYSIS -->
+      <tr class="section-row">
+        <td colspan="5">Analysis Modes</td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Points of Interest Scan</div><div class="feat-sub">Multi-pass codebase triage — red flags, landmarks, dead zones, fault lines</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Blast Radius Analysis</div><div class="feat-sub">Impact map + rollback plan for proposed changes</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Conflict Detection</div><div class="feat-sub">Schema, contract, and config mismatches across integration points</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Chat Mode</div><div class="feat-sub">Ask anything about the codebase — architecture, patterns, decisions</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Compare Reports</div><div class="feat-sub">Before/after diff of two saved reports — proves remediation progress</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Multi-pass analysis</div><div class="feat-sub">4–20 passes with checkpoint recovery — picks up where it left off</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Agent Recon Planner</div><div class="feat-sub">Cost and time estimate before every scan — no surprises on your API bill</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+
+      <!-- FINDINGS & REPORTS -->
+      <tr class="section-row">
+        <td colspan="5">Findings &amp; Reports</td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Critical &amp; High findings</div><div class="feat-sub">Severity-ranked with file references and remediation steps</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Medium &amp; Low findings</div><div class="feat-sub">Full severity spectrum in Pro, Team, and Enterprise</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Remediation cost table</div><div class="feat-sub">Effort hours, complexity, and dollar estimates by finding — stakeholder-ready</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">TXT report</div><div class="feat-sub">Plain text, terminal-friendly, developer-ready</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Markdown report</div><div class="feat-sub">Formatted for GitHub, Confluence, Notion — paste anywhere</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">PDF report</div><div class="feat-sub">Branded, client-ready — Ghost Architect header, severity badges, cost table</div></td>
+        <td class="check"><span class="partial">top 4 only</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+
+      <!-- PROJECT INTELLIGENCE -->
+      <tr class="section-row">
+        <td colspan="5">Project Intelligence</td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Project label tracking</div><div class="feat-sub">Baseline established on first scan, compared on every subsequent scan</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Baseline comparison</div><div class="feat-sub">Resolved / remaining / new findings delta on every scan</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Remediation velocity tracking</div><div class="feat-sub">Average findings resolved per scan, projected scans to clear baseline</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Project Intelligence Dashboard</div><div class="feat-sub">All projects in one view — progress bars, scan counts, new issue flags</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Dashboard PDF export</div><div class="feat-sub">Client-ready stakeholder report — one page per project with progress bars</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+
+      <!-- TEAM SYNC -->
+      <tr class="section-row">
+        <td colspan="5">Team Sync</td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Shared project sync</div><div class="feat-sub">GitHub private repo as shared data store — no Ghost servers involved</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Auto-push after every scan</div><div class="feat-sub">Projects and reports sync automatically — every seat sees the same data</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Pull from any seat</div><div class="feat-sub">ghost --team-sync pulls the latest project data from your shared repo</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Multi-workspace support</div><div class="feat-sub">Multiple sync repos — separate workspaces per client or project</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Cross-platform support</div><div class="feat-sub">macOS, Windows, Linux — tested on iMac, MacBook, and Surface</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+
+      <!-- ENTERPRISE -->
+      <tr class="section-row">
+        <td colspan="5">Enterprise</td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Seat management</div><div class="feat-sub">Admin and member roles — register seats, view who's active</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check team-col"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Admin controls</div><div class="feat-sub">Promote seats to admin, remove seats that leave the org</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check team-col"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Audit log</div><div class="feat-sub">Who scanned what codebase and when — stored in your private sync repo</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check team-col"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Usage reporting</div><div class="feat-sub">Scans and cost aggregated by seat and by project — exportable</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check team-col"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Org-level API key</div><div class="feat-sub">One Anthropic key for the whole org — seats don't need their own</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check team-col"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">White-label PDF</div><div class="feat-sub">Your client's logo in the PDF header instead of Ghost Architect branding</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check team-col"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Dedicated enterprise sync repo</div><div class="feat-sub">Created and controlled by Ghost Architect — the access gate for Enterprise</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check team-col"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+
+      <!-- PRIVACY & SECURITY -->
+      <tr class="section-row">
+        <td colspan="5">Privacy &amp; Security</td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Local execution</div><div class="feat-sub">Your code runs on your machine. Zero Ghost Architect servers in the loop.</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">BYOK</div><div class="feat-sub">Bring Your Own Anthropic API Key — your key, your pipeline, your bill</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">7-day API deletion</div><div class="feat-sub">Anthropic deletes API inputs and outputs within 7 days per their data retention policy</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Never used for AI training</div><div class="feat-sub">Anthropic does not use API data to train models</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Security hardening</div><div class="feat-sub">Path traversal protection, ReDoS-safe redactor, env validation</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+
+      <!-- PRICING ROW -->
+      <tr class="section-row">
+        <td colspan="5">Pricing &amp; Access</td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Price</div></td>
+        <td class="custom-val">Free</td>
+        <td class="custom-val">$99/mo</td>
+        <td class="custom-val team-col">$399/mo</td>
+        <td class="custom-val">$1,200/mo</td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Seats</div></td>
+        <td class="custom-val">1</td>
+        <td class="custom-val">1</td>
+        <td class="custom-val team-col">5</td>
+        <td class="custom-val">Custom</td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Installation</div></td>
+        <td class="custom-val" style="font-family:var(--font-mono);font-size:0.7rem;">npx ghost-architect<br>@latest</td>
+        <td class="custom-val">Stripe + GitHub<br>collaborator access</td>
+        <td class="custom-val team-col">Stripe + direct<br>delivery</td>
+        <td class="custom-val">Contact<br>support@ghostarchitect.dev</td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Support</div></td>
+        <td class="custom-val">Community</td>
+        <td class="custom-val">Email</td>
+        <td class="custom-val team-col">Email + priority</td>
+        <td class="custom-val">Dedicated</td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Cancel anytime</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="custom-val">MSA terms</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+<!-- PRIVACY BLOCK -->
+<div class="privacy-block">
+  <div class="privacy-grid">
+    <div class="privacy-item">
+      <h4>// your code stays yours</h4>
+      <p>Ghost runs locally. Your source code is never uploaded to our servers. BYOK — your Anthropic API key, your pipeline, your data.</p>
+    </div>
+    <div class="privacy-item">
+      <h4>// api data deleted in 7 days</h4>
+      <p>Anthropic deletes API inputs and outputs within 7 days per their data retention policy. We have no access to that data.</p>
+    </div>
+    <div class="privacy-item">
+      <h4>// team sync stays private</h4>
+      <p>Team and Enterprise sync data lives in your own private GitHub repo. Ghost Architect has no visibility into what you push or pull.</p>
+    </div>
+    <div class="privacy-item">
+      <h4>// cancel anytime</h4>
+      <p>No contracts on Pro or Team. Cancel before your next billing date and you're done. Enterprise is governed by a formal MSA.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-band">
+  <div class="cta-inner">
+    <h2>Start free. Upgrade when you're ready.</h2>
+    <p>Ghost Open runs in one command. No account. No credit card. Know what's in your codebase in under 15 minutes.</p>
+    <div class="cta-btns">
+      <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener noreferrer" class="btn-cta-primary">Try Ghost Open Free →</a>
+      <a href="/pricing" class="btn-cta-secondary">See Pricing →</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 EJ Wisner · Ghost Architect™ · All rights reserved. · US Copyright Reg. #1-15123488721 ·
+  <a href="/">Home</a> ·
+  <a href="/pricing">Pricing</a> ·
+  <a href="/msa.html">MSA</a> ·
+  <a href="/privacy.html">Privacy Policy</a> ·
+  <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a>
+</footer>
+
+</body>
+</html>
