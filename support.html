@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — Ghost Architect™</title>
+  <meta name="description" content="Support and help for Ghost Architect™ — the CLI codebase triage tool and companion mobile app." />
+  <link rel="canonical" href="https://ghostarchitect.dev/support" />
+  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --border: #2a2a3a;
+      --accent: #4a9eff;
+      --text: #e8e8f0;
+      --text-muted: #888899;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.8; }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,15,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem; display: flex; align-items: center; height: 56px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem; }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; }
+    .content { max-width: 760px; margin: 0 auto; padding: 4rem 2rem; }
+    h1 { font-size: 2rem; margin-bottom: 0.5rem; color: var(--text); }
+    .tagline { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 3rem; font-family: var(--font-mono); }
+    h2 { font-size: 1.2rem; color: var(--accent); margin: 2.5rem 0 1rem; font-family: var(--font-mono); }
+    h3 { font-size: 1rem; color: var(--text); margin: 1.5rem 0 0.5rem; font-weight: 600; }
+    p { margin-bottom: 1rem; color: var(--text); }
+    ul { margin: 0 0 1rem 1.5rem; }
+    li { margin-bottom: 0.5rem; color: var(--text); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: var(--font-mono); background: var(--surface); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; border: 1px solid var(--border); }
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .contact-card p { margin-bottom: 0.5rem; }
+    .contact-card p:last-child { margin-bottom: 0; }
+    .response-time { color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-mono); }
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 4rem; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" />
+    Ghost Architect™
+  </a>
+</nav>
+<div class="content">
+  <h1>Support</h1>
+  <p class="tagline">Help for Ghost Architect™ CLI and the Ghost Architect Mobile app.</p>
+
+  <h2>// contact</h2>
+  <div class="contact-card">
+    <p><strong>Email:</strong> <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a></p>
+    <p class="response-time">Typical response time: within 1 business day</p>
+  </div>
+
+  <h2>// ghost architect mobile</h2>
+  <p>Ghost Architect Mobile is the iOS and iPadOS companion app for Ghost Architect™. It gives architects, CTOs, and agency leaders a portfolio view of all their Ghost reports — remediation progress, critical findings, and estimated cost — on their phone or tablet.</p>
+
+  <h3>What does the app do?</h3>
+  <p>Ghost Architect Mobile reads Ghost Architect™ reports from a private GitHub repository and displays them as an interactive portfolio. You can see overall remediation progress across all your projects, drill into any individual project's findings, and present results to stakeholders in a client-ready Present Mode.</p>
+
+  <h3>Do I need a Ghost Architect™ subscription to use the app?</h3>
+  <p>You need Ghost Architect™ Pro, Team, or Enterprise to generate reports that can be published to the mobile app. Ghost Open (the free tier) does not include mobile publishing.</p>
+
+  <h3>How do I connect my own data?</h3>
+  <p>The app uses a GitHub Personal Access Token (PAT) to read reports from a private repository you control. Tap <strong>Settings</strong> in the app, enter your GitHub PAT and repository URL, and your reports will sync. Your PAT is stored only on your device — it is never transmitted to Ghost Architect™ servers.</p>
+
+  <h3>What is Demo Mode?</h3>
+  <p>When you first install the app, you see a seeded demo portfolio with a single example project (<code>meta-for-magento2</code>) showing what Ghost Architect™ reports look like. Demo data stays until you connect your own GitHub repository in Settings. You can revisit Demo Mode at any time from Settings.</p>
+
+  <h3>Why is my report not showing up?</h3>
+  <ul>
+    <li>Confirm your GitHub PAT has <code>repo</code> scope for the repository</li>
+    <li>Confirm the repository contains Ghost Architect report files at the expected path</li>
+    <li>Confirm you are on a Ghost Pro, Team, or Enterprise plan (reports from Ghost Open are not published to the mobile app)</li>
+    <li>Pull down on the portfolio screen to force a refresh</li>
+  </ul>
+
+  <h2>// ghost architect cli</h2>
+
+  <h3>What is Ghost Architect™?</h3>
+  <p>Ghost Architect™ is an AI-powered codebase triage tool that runs locally in your terminal. It reads your codebase, categorizes findings by severity and business impact, estimates remediation cost, and generates reports you can share with clients or stakeholders. It works on any language, any platform, any codebase.</p>
+
+  <h3>How do I install it?</h3>
+  <p>Ghost Open (free tier) is available on npm:</p>
+  <p><code>npm install -g ghost-architect-open</code></p>
+  <p>Ghost Pro, Team, and Enterprise are distributed via private npm with installation instructions delivered after purchase at <a href="/pricing">ghostarchitect.dev/pricing</a>.</p>
+
+  <h3>What are the requirements?</h3>
+  <ul>
+    <li>Node.js 18 or later</li>
+    <li>An Anthropic API key (BYOK — Bring Your Own Key)</li>
+    <li>macOS, Windows, or Linux</li>
+  </ul>
+
+  <h3>Is my code sent to your servers?</h3>
+  <p>No. Ghost Architect™ runs entirely on your machine. Your code is sent directly from your machine to the Anthropic API using your own API key — Ghost Architect™ servers never see your code. See the <a href="/privacy">Privacy Policy</a> for details.</p>
+
+  <h2>// billing and subscriptions</h2>
+
+  <h3>How do I cancel my subscription?</h3>
+  <p>Ghost Architect™ Pro, Team, and Enterprise subscriptions are managed through Stripe. You will receive a billing portal link in your purchase confirmation email. If you cannot locate the link, email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> and we will send you one.</p>
+
+  <h3>Do you offer refunds?</h3>
+  <p>Refund requests are handled on a case-by-case basis. Contact <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with your subscription details and we will work with you directly.</p>
+
+  <h2>// bug reports and feature requests</h2>
+  <p>For Ghost Open, please file issues on <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank">GitHub</a>.</p>
+  <p>For Ghost Pro, Team, Enterprise, and Ghost Architect Mobile, email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with:</p>
+  <ul>
+    <li>A clear description of the issue or requested feature</li>
+    <li>Your Ghost Architect™ version (run <code>ghost --version</code> in the CLI)</li>
+    <li>Your operating system</li>
+    <li>Any relevant error messages or screenshots</li>
+  </ul>
+
+  <h2>// security disclosures</h2>
+  <p>If you discover a security issue in Ghost Architect™, please disclose it responsibly by emailing <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with "SECURITY" in the subject line. Please do not file public GitHub issues for security vulnerabilities.</p>
+
+</div>
+<footer>
+  © 2026 Ghost Architect™. All rights reserved. · <a href="/">Home</a> · <a href="/privacy">Privacy</a> · <a href="/pricing">Pricing</a>
+</footer>
+</body>
+</html>
