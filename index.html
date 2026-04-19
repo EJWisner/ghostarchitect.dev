@@ -6,22 +6,22 @@
   <meta name="color-scheme" content="dark" />
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
-  <title>Ghost Architect™ — AI-Powered Code Audit Tool</title>
-  <meta name="description" content="Ghost Architect™ triages your codebase — categorizes risk, prioritizes findings, gives your team a map of where to start. Any platform, any language." />
+  <title>Ghost Architect™ — Pre-Engagement Codebase Triage</title>
+  <meta name="description" content="Ghost Architect™ triages your codebase before the next migration, SOW, or audit. Categorizes risk, prioritizes findings, gives your team a map of where to start. Any codebase, any language, any platform." />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ghostarchitect.dev" />
-  <meta property="og:title" content="Ghost Architect™ — Your codebase has secrets. We find them first." />
-  <meta property="og:description" content="AI-powered codebase intelligence for architects and agencies who inherit codebases they didn't write. Triage risk. Prioritize findings. Ship with confidence." />
+  <meta property="og:title" content="Ghost Architect™ — Pre-Engagement Codebase Triage" />
+  <meta property="og:description" content="Triage any codebase before you sign the SOW, scope the migration, or pitch the audit. Any codebase, any language, any platform. Built for developers, architects, agencies, and CTOs." />
   <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
   <meta property="og:site_name" content="Ghost Architect™" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://ghostarchitect.dev" />
-  <meta name="twitter:title" content="Ghost Architect™ — Your codebase has secrets. We find them first." />
-  <meta name="twitter:description" content="AI-powered codebase intelligence for architects and agencies who inherit codebases they didn't write. Triage risk. Prioritize findings. Ship with confidence." />
+  <meta name="twitter:title" content="Ghost Architect™ — Pre-Engagement Codebase Triage" />
+  <meta name="twitter:description" content="Triage any codebase before you sign the SOW, scope the migration, or pitch the audit. Any codebase, any language, any platform." />
   <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
@@ -35,7 +35,7 @@
     "operatingSystem": "macOS, Windows, Linux",
     "url": "https://ghostarchitect.dev",
     "description": "AI-powered codebase intelligence tool that triages codebases, categorizes risk, prioritizes findings, and generates structured reports for any platform or language.",
-    "softwareVersion": "4.7.5",
+    "softwareVersion": "4.7.8",
     "offers": [
       {
         "@type": "Offer",
@@ -105,6 +105,14 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Ghost Open is free and open-source. Ghost Pro is $99/month. Ghost Team is $399/month for up to 5 seats. Ghost Enterprise pricing is custom."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Ghost Architect different from AI code review tools like CodeRabbit or Kodus?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AI code review tools like CodeRabbit and Kodus comment on pull requests inside your team's Git workflow. They run continuously, after the engagement has started and the team is already in the codebase. Ghost Architect runs before that, during due diligence, scoping, or pre-engagement audit, when you need to understand a codebase you do not own yet. Different moment, different buyer, different deliverable. We produce a report; they produce PR comments. Teams often use both."
         }
       }
     ]
@@ -1032,9 +1040,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <!-- HERO -->
 <section class="hero">
-  <div class="version-badge">v4.7.5 — Now Available</div>
-  <h1>Your codebase has secrets.<br><em>Ghost Architect™</em> finds them first.</h1>
-  <p class="hero-sub">Built for architects and agencies who inherit codebases they didn't write and need to know what's in them — fast.</p>
+  <div class="version-badge">v4.7.8 · Now Available</div>
+  <h1>Pre-engagement triage for<br><em>codebases you didn't write.</em></h1>
+  <p class="hero-sub">Know what is in the codebase before the next migration, SOW, or audit. Any codebase, any language, any platform.</p>
   <div class="hero-cta">
     <a href="/pricing" class="btn-primary">See Plans →</a>
     <a href="https://github.com/EJWisner/ghost-architect-open" class="btn-secondary" target="_blank" rel="noopener noreferrer">Try Ghost Open Free →</a>
@@ -1047,8 +1055,8 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
   <div class="hero-stats">
     <div class="stat">
-      <div class="stat-value">568</div>
-      <div class="stat-label">Weekly Downloads</div>
+      <div class="stat-value">$0.23</div>
+      <div class="stat-label">Cost Per Scan</div>
     </div>
     <div class="stat">
       <div class="stat-value">18</div>
@@ -1069,6 +1077,7 @@ document.addEventListener('DOMContentLoaded', function(){
     <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--accent2);"><span>✓</span> Senior architects on inherited codebases</div>
     <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--accent2);"><span>✓</span> Agencies managing 3+ client projects</div>
     <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--accent2);"><span>✓</span> CTOs doing pre-acquisition due diligence</div>
+    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--accent2);"><span>✓</span> Fractional CTOs evaluating new engagements</div>
     <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-dim);"><span>✕</span> Greenfield projects on modern stacks</div>
   </div>
 
@@ -1083,8 +1092,8 @@ document.addEventListener('DOMContentLoaded', function(){
 <!-- CAPABILITIES -->
 <section id="what-it-does">
   <div class="section-label">// capabilities</div>
-  <h2>Everything hiding in your codebase.<br>Surfaced in minutes.</h2>
-  <p>Ghost Architect™ analyzes your entire codebase and surfaces architectural risks, conflicts, and vulnerabilities — before they become production incidents.</p>
+  <h2>Everything hiding in the codebase<br>before you sign the contract.</h2>
+  <p>Ghost Architect™ analyzes the entire codebase and surfaces architectural risks, conflicts, and vulnerabilities before they become production incidents.</p>
   <div class="capabilities-grid">
     <div class="capability-card">
       <div class="capability-icon">🗺</div>
@@ -1094,7 +1103,7 @@ document.addEventListener('DOMContentLoaded', function(){
     <div class="capability-card">
       <div class="capability-icon">⚡</div>
       <h3>Conflict Detection</h3>
-      <p>Find contract mismatches, schema conflicts, config errors, and constant disagreements — across any language or platform.</p>
+      <p>Find contract mismatches, schema conflicts, config errors, and constant disagreements across any language or platform.</p>
     </div>
     <div class="capability-card">
       <div class="capability-icon">💥</div>
