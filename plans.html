@@ -432,22 +432,22 @@
 
 <!-- TIER QUICK CARDS -->
 <div class="tier-cards">
-  <div class="tier-card open">
-    <div class="tc-tag">// ghost open</div>
-    <div class="tc-name">Ghost Open</div>
-    <div class="tc-price">Free</div>
-    <div class="tc-sub">MIT license · BYOK</div>
-    <div class="tc-tagline">Solo developers. Critical &amp; High findings only. One command to start.</div>
-    <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener noreferrer" class="tc-btn">Start Free →</a>
-  </div>
-  <div class="tier-card pro">
-    <div class="tc-tag">// ghost pro</div>
-    <div class="tc-name">Ghost Pro</div>
-    <div class="tc-price">$99<span style="font-size:1rem;font-weight:400">/mo</span></div>
-    <div class="tc-sub">1 seat · cancel anytime</div>
-    <div class="tc-tagline">Solo architects. Full findings, branded PDF, all analysis modes.</div>
-    <a href="https://buy.stripe.com/00w00j8jl9eQdzJ9yZbEA00" class="tc-btn">Get Ghost Pro →</a>
-  </div>
+    <div class="tier-card open">
+      <div class="tc-tag">// ghost open</div>
+      <div class="tc-name">Ghost Open</div>
+      <div class="tc-price">Free</div>
+      <div class="tc-sub">MIT license · BYOK</div>
+      <div class="tc-tagline">Solo developers and architects. Full scan engine, every finding, every severity. One command to start.</div>
+      <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener noreferrer" class="tc-btn">Start Free →</a>
+    </div>
+    <div class="tier-card pro">
+      <div class="tc-tag">// ghost pro</div>
+      <div class="tc-name">Ghost Pro</div>
+      <div class="tc-price">$99<span style="font-size:1rem;font-weight:400">/mo</span></div>
+      <div class="tc-sub">1 seat · cancel anytime</div>
+      <div class="tc-tagline">Solo architects. Open features plus project tracking, baseline comparison, and Ghost Partner™ profiles.</div>
+      <a href="https://buy.stripe.com/00w00j8jl9eQdzJ9yZbEA00" class="tc-btn">Get Ghost Pro →</a>
+    </div>
   <div class="tier-card team">
     <div class="tc-tag">// ghost team</div>
     <div class="tc-name">Ghost Team</div>
@@ -483,7 +483,14 @@
 
       <!-- ANALYSIS -->
       <tr class="section-row">
-        <td colspan="5">Analysis Modes</td>
+        <td colspan="5">Scan Modes</td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Chat Mode</div><div class="feat-sub">Interactive Q&amp;A with the codebase — ask anything in plain English</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
       </tr>
       <tr>
         <td><div class="feat-name">Points of Interest Scan</div><div class="feat-sub">Multi-pass codebase triage — red flags, landmarks, dead zones, fault lines</div></td>
@@ -494,48 +501,41 @@
       </tr>
       <tr>
         <td><div class="feat-name">Blast Radius Analysis</div><div class="feat-sub">Impact map + rollback plan for proposed changes</div></td>
-        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
         <td class="check"><span class="yes">✓</span></td>
         <td class="check team-col"><span class="yes">✓</span></td>
         <td class="check"><span class="yes">✓</span></td>
       </tr>
       <tr>
         <td><div class="feat-name">Conflict Detection</div><div class="feat-sub">Schema, contract, and config mismatches across integration points</div></td>
-        <td class="check"><span class="no">—</span></td>
-        <td class="check"><span class="yes">✓</span></td>
-        <td class="check team-col"><span class="yes">✓</span></td>
-        <td class="check"><span class="yes">✓</span></td>
-      </tr>
-      <tr>
-        <td><div class="feat-name">Chat Mode</div><div class="feat-sub">Ask anything about the codebase — architecture, patterns, decisions</div></td>
-        <td class="check"><span class="no">—</span></td>
-        <td class="check"><span class="yes">✓</span></td>
-        <td class="check team-col"><span class="yes">✓</span></td>
-        <td class="check"><span class="yes">✓</span></td>
-      </tr>
-      <tr>
-        <td><div class="feat-name">Compare Reports</div><div class="feat-sub">Before/after diff of two saved reports — proves remediation progress</div></td>
         <td class="check"><span class="yes">✓</span></td>
         <td class="check"><span class="yes">✓</span></td>
         <td class="check team-col"><span class="yes">✓</span></td>
         <td class="check"><span class="yes">✓</span></td>
       </tr>
       <tr>
-        <td><div class="feat-name">Multi-pass analysis</div><div class="feat-sub">4–20 passes with checkpoint recovery — picks up where it left off</div></td>
+        <td><div class="feat-name">Recon (sizing)</div><div class="feat-sub">Pre-engagement sizing and engagement plan — ~$0.05, single planner call</div></td>
         <td class="check"><span class="yes">✓</span></td>
         <td class="check"><span class="yes">✓</span></td>
         <td class="check team-col"><span class="yes">✓</span></td>
         <td class="check"><span class="yes">✓</span></td>
       </tr>
       <tr>
-        <td><div class="feat-name">Agent Recon Planner</div><div class="feat-sub">Cost and time estimate before every scan — no surprises on your API bill</div></td>
+        <td><div class="feat-name">Multi-pass analysis</div><div class="feat-sub">Multiple passes with checkpoint recovery — picks up where it left off</div></td>
         <td class="check"><span class="yes">✓</span></td>
         <td class="check"><span class="yes">✓</span></td>
         <td class="check team-col"><span class="yes">✓</span></td>
         <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Context cap</div><div class="feat-sub">Maximum tokens of code analyzed per pass</div></td>
+        <td class="custom-val">50K</td>
+        <td class="custom-val">100K</td>
+        <td class="custom-val team-col">150K</td>
+        <td class="custom-val">200K</td>
       </tr>
 
-      <!-- FINDINGS & REPORTS -->
+      <!-- FINDINGS &amp; REPORTS -->
       <tr class="section-row">
         <td colspan="5">Findings &amp; Reports</td>
       </tr>
@@ -547,15 +547,15 @@
         <td class="check"><span class="yes">✓</span></td>
       </tr>
       <tr>
-        <td><div class="feat-name">Medium &amp; Low findings</div><div class="feat-sub">Full severity spectrum in Pro, Team, and Enterprise</div></td>
-        <td class="check"><span class="no">—</span></td>
+        <td><div class="feat-name">Medium &amp; Low findings</div><div class="feat-sub">Full severity spectrum — every finding ships in every report</div></td>
+        <td class="check"><span class="yes">✓</span></td>
         <td class="check"><span class="yes">✓</span></td>
         <td class="check team-col"><span class="yes">✓</span></td>
         <td class="check"><span class="yes">✓</span></td>
       </tr>
       <tr>
         <td><div class="feat-name">Remediation cost table</div><div class="feat-sub">Effort hours, complexity, and dollar estimates by finding — stakeholder-ready</div></td>
-        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
         <td class="check"><span class="yes">✓</span></td>
         <td class="check team-col"><span class="yes">✓</span></td>
         <td class="check"><span class="yes">✓</span></td>
@@ -575,8 +575,15 @@
         <td class="check"><span class="yes">✓</span></td>
       </tr>
       <tr>
-        <td><div class="feat-name">PDF report</div><div class="feat-sub">Branded, client-ready — Ghost Architect header, severity badges, cost table</div></td>
-        <td class="check"><span class="partial">top 4 only</span></td>
+        <td><div class="feat-name">PDF report (full)</div><div class="feat-sub">Branded, client-ready — every finding, every severity, every scan</div></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Built-in redactor</div><div class="feat-sub">API keys, DB credentials, and secrets stripped before any code touches the model</div></td>
+        <td class="check"><span class="yes">✓</span></td>
         <td class="check"><span class="yes">✓</span></td>
         <td class="check team-col"><span class="yes">✓</span></td>
         <td class="check"><span class="yes">✓</span></td>
@@ -608,6 +615,13 @@
         <td class="check"><span class="yes">✓</span></td>
       </tr>
       <tr>
+        <td><div class="feat-name">Compare Reports (before/after diff)</div><div class="feat-sub">Diff two saved reports — proves remediation progress to stakeholders</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
         <td><div class="feat-name">Project Intelligence Dashboard</div><div class="feat-sub">All projects in one view — progress bars, scan counts, new issue flags</div></td>
         <td class="check"><span class="no">—</span></td>
         <td class="check"><span class="yes">✓</span></td>
@@ -619,6 +633,32 @@
         <td class="check"><span class="no">—</span></td>
         <td class="check"><span class="yes">✓</span></td>
         <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+
+      <!-- GHOST PARTNER -->
+      <tr class="section-row">
+        <td colspan="5">Ghost Partner™ (consultant edition)</td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Partner profile loading</div><div class="feat-sub">YAML profile injects your firm's methodology, severity weighting, and signature</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">Per-profile billing rates</div><div class="feat-sub">Override the default $85 / $125 / $200 tiers with your own consulting rates</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+        <td class="check team-col"><span class="yes">✓</span></td>
+        <td class="check"><span class="yes">✓</span></td>
+      </tr>
+      <tr>
+        <td><div class="feat-name">White-label PDF output</div><div class="feat-sub">Your client's logo on the PDF header instead of Ghost Architect branding</div></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check"><span class="no">—</span></td>
+        <td class="check team-col"><span class="no">—</span></td>
         <td class="check"><span class="yes">✓</span></td>
       </tr>
 
@@ -702,13 +742,6 @@
         <td class="check"><span class="yes">✓</span></td>
       </tr>
       <tr>
-        <td><div class="feat-name">White-label PDF</div><div class="feat-sub">Your client's logo in the PDF header instead of Ghost Architect branding</div></td>
-        <td class="check"><span class="no">—</span></td>
-        <td class="check"><span class="no">—</span></td>
-        <td class="check team-col"><span class="no">—</span></td>
-        <td class="check"><span class="yes">✓</span></td>
-      </tr>
-      <tr>
         <td><div class="feat-name">Dedicated enterprise sync repo</div><div class="feat-sub">Created and controlled by Ghost Architect — the access gate for Enterprise</div></td>
         <td class="check"><span class="no">—</span></td>
         <td class="check"><span class="no">—</span></td>
@@ -716,7 +749,7 @@
         <td class="check"><span class="yes">✓</span></td>
       </tr>
 
-      <!-- PRIVACY & SECURITY -->
+      <!-- PRIVACY &amp; SECURITY -->
       <tr class="section-row">
         <td colspan="5">Privacy &amp; Security</td>
       </tr>
@@ -776,7 +809,7 @@
       </tr>
       <tr>
         <td><div class="feat-name">Installation</div></td>
-        <td class="custom-val" style="font-family:var(--font-mono);font-size:0.7rem;">npx ghost-architect<br>@latest</td>
+        <td class="custom-val" style="font-family:var(--font-mono);font-size:0.7rem;">npm i -g<br>ghost-architect-open</td>
         <td class="custom-val">Stripe + GitHub<br>collaborator access</td>
         <td class="custom-val team-col">Stripe + direct<br>delivery</td>
         <td class="custom-val">Contact<br>support@ghostarchitect.dev</td>

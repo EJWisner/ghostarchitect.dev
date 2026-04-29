@@ -35,14 +35,14 @@
     "operatingSystem": "macOS, Windows, Linux",
     "url": "https://ghostarchitect.dev",
     "description": "AI-powered codebase intelligence tool that triages codebases, categorizes risk, prioritizes findings, and generates structured reports for any platform or language.",
-    "softwareVersion": "4.9.0",
+    "softwareVersion": "5.0.0",
     "offers": [
       {
         "@type": "Offer",
         "name": "Ghost Open",
         "price": "0",
         "priceCurrency": "USD",
-        "description": "Free open-source tier with Critical and High findings"
+        "description": "Free open-source tier — full scan engine, every finding, every severity. Five scan modes: Chat, POI, Blast Radius, Conflict Detection, Recon."
       },
       {
         "@type": "Offer",
@@ -104,7 +104,7 @@
         "name": "How much does Ghost Architect cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ghost Open is free and open-source. Ghost Pro is $99/month. Ghost Team is $399/month for up to 5 seats. Ghost Enterprise pricing is custom."
+          "text": "Ghost Open is free and open-source under the MIT license — full scan engine with every finding at every severity. Ghost Pro is $99/month and adds project tracking, baseline comparison, and Ghost Partner profile support. Ghost Team is $399/month for up to 5 seats with shared project sync. Ghost Enterprise is $1,200/month with seat management, audit logging, and white-label PDF."
         }
       },
       {
@@ -962,7 +962,8 @@
     Ghost Architect™
   </a>
   <ul class="nav-links">
-    <li><a href="#what-it-does">What It Does</a></li>
+    <li><a href="/#what-it-does">What It Does</a></li>
+    <li><a href="/#ghost-partner" style="color: var(--accent);">Ghost Partner™</a></li>
     <li><a href="#eol-warning" style="color: var(--danger);">⚠ EOL Warning</a></li>
     <li><a href="#security">Security</a></li>
     <li><a href="#for-agencies">For Agencies</a></li>
@@ -975,6 +976,7 @@
 </nav>
 <div class="mobile-menu" id="mobile-menu">
   <a href="/#what-it-does" onclick="closeMenu()">What It Does</a>
+  <a href="/#ghost-partner" onclick="closeMenu()">Ghost Partner™</a>
   <a href="/#eol-warning" onclick="closeMenu()">⚠ EOL Warning</a>
   <a href="/#security" onclick="closeMenu()">Security</a>
   <a href="/#for-agencies" onclick="closeMenu()">For Agencies</a>
@@ -1040,7 +1042,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <!-- HERO -->
 <section class="hero">
-  <div class="version-badge">v4.9.0 · Now Available</div>
+  <div class="version-badge">v5.0.0 · Now Available</div>
   <h1>Pre-engagement triage for<br><em>codebases you didn't write.</em></h1>
   <p class="hero-sub">Know what is in the codebase before the next migration, SOW, or audit. Any codebase, any language, any platform.</p>
   <div class="hero-cta">
@@ -1189,6 +1191,42 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 </div>
 
+<!-- GHOST PARTNER -->
+<div id="ghost-partner" style="padding: 5rem 0;">
+  <section style="max-width:1100px;margin:0 auto;padding:0 2rem;">
+    <div class="section-label">// new in v5.0</div>
+    <h2>Ghost Architect Partner™<br><span style="color: var(--accent);">your methodology, your branding, your rates.</span></h2>
+    <p style="max-width:680px;">Ghost Partner™ is the consultant edition of Ghost Architect. Load a profile YAML that injects your audit methodology, billing rates, and branding into every scan. The findings are still Ghost's. The framing, the priorities, and the dollar estimates are yours.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:2rem;">
+      <div class="capability-card">
+        <div class="capability-icon">📜</div>
+        <h3>Profile Loading</h3>
+        <p>Drop a partner profile YAML at scan time. Ghost picks up your firm's methodology, severity weighting, and remediation framework automatically.</p>
+      </div>
+      <div class="capability-card">
+        <div class="capability-icon">💰</div>
+        <h3>Per-Profile Billing Rates</h3>
+        <p>Override the default tiered billing ($85 / $125 / $200) with your own rates. Junior, mid, and senior dollar estimates reflect what you actually charge clients.</p>
+      </div>
+      <div class="capability-card">
+        <div class="capability-icon">🎨</div>
+        <h3>Branded PDF Output</h3>
+        <p>Your firm's logo on the PDF header. Your brand colors. Your methodology signature in the executive summary. Hand it to the client without re-skinning anything.</p>
+      </div>
+      <div class="capability-card">
+        <div class="capability-icon">🎯</div>
+        <h3>Methodology Injection</h3>
+        <p>If your firm runs every audit through a specific framework — OWASP, SANS Top 25, your own internal checklist — the partner profile makes it part of every scan output.</p>
+      </div>
+    </div>
+
+    <div style="background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.2);border-radius:10px;padding:1.25rem 1.5rem;font-size:0.875rem;color:var(--text-muted);line-height:1.6;">
+      <strong style="color:var(--accent);">Available on Ghost Pro and above.</strong> Ghost Partner profile loading and per-profile billing rates ship with Pro ($99/mo). White-label PDF output ships with Enterprise ($1,200/mo). <a href="/pricing" style="color:var(--accent);">See pricing →</a>
+    </div>
+  </section>
+</div>
+
 <!-- PROOF OF CONCEPT -->
 <section id="proof" class="proof-section">
   <div class="section-label">// proof of concept</div>
@@ -1247,7 +1285,7 @@ document.addEventListener('DOMContentLoaded', function(){
   <div style="max-width: 900px; margin: 0 auto; padding: 0 2rem;">
     <div class="section-label" style="color: var(--danger);">// end of life</div>
     <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 1.5rem;">Adobe stopped patching<br>your platform.<br><span style="color: var(--danger);">Your codebase didn't<br>get the memo.</span></h2>
-    <p style="font-size: 1.15rem; color: var(--text-muted); max-width: 680px; margin-bottom: 3rem;">Extended support is available to Adobe Commerce customers only. If you're running Magento Open Source — you're on your own. No patches. No safety net. Just you, your extensions, and whatever is hiding in your code.</p>
+    <p style="font-size: 1.15rem; color: var(--text-muted); max-width: 680px; margin-bottom: 3rem;">Magento 2.4.4 went end of life on April 14, 2026. Extended support is available to Adobe Commerce customers only. If you're running Magento Open Source — you're on your own. No patches. No safety net. Just you, your extensions, and whatever is hiding in your code.</p>
 
     <div style="border: 1px solid #3a1a1a; border-radius: 12px; overflow: hidden; margin-bottom: 3rem;">
       <div style="background: #1a0808; padding: 1rem 1.5rem; border-bottom: 1px solid #3a1a1a; display: flex; gap: 2rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">
@@ -1300,8 +1338,8 @@ document.addEventListener('DOMContentLoaded', function(){
       </div>
       <div style="background: var(--surface); border: 1px solid #3a1a1a; border-radius: 10px; padding: 1.5rem;">
         <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">⏱</div>
-        <h3 style="font-size: 1rem; margin-bottom: 0.5rem; color: var(--danger);">The Clock Is Running</h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">2.4.4 ends April 14, 2026. If you haven't audited your codebase yet, you are already behind.</p>
+        <h3 style="font-size: 1rem; margin-bottom: 0.5rem; color: var(--danger);">The Window Has Closed</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">2.4.4 ended April 14, 2026. If you haven't audited your codebase yet, you are running on a platform Adobe is no longer patching.</p>
       </div>
       <div style="background: var(--surface); border: 1px solid #3a1a1a; border-radius: 10px; padding: 1.5rem;">
         <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">👻</div>

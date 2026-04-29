@@ -34,7 +34,7 @@
     "operatingSystem": "macOS, Windows, Linux",
     "url": "https://ghostarchitect.dev",
     "description": "AI-powered codebase intelligence tool that triages codebases, categorizes risk, prioritizes findings, and generates structured reports for any platform or language.",
-    "softwareVersion": "4.9.0",
+    "softwareVersion": "5.0.0",
     "offers": [
       {
         "@type": "Offer",
@@ -521,7 +521,7 @@
     <div class="open-card-left">
       <span class="open-tag">FREE / OPEN SOURCE</span>
       <div class="open-text">
-        <strong>Ghost Open — Try it now, no account needed</strong>
+        <strong>Ghost Open v5.0.0 — full scan engine, free</strong>
         <span style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;"><span id="npm-cmd-pricing">npm i -g ghost-architect-open</span> &nbsp;·&nbsp; MIT license &nbsp;·&nbsp; 1,215 installs so far &nbsp;<button onclick="navigator.clipboard.writeText('npm i -g ghost-architect-open').then(function(){ var b = document.getElementById('copy-btn-pricing'); b.textContent = 'Copied!'; setTimeout(function(){ b.textContent = 'Copy'; }, 2000); })" id="copy-btn-pricing" style="background: rgba(0,212,170,0.15); border: 1px solid #00d4aa; color: #00d4aa; border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.72rem; cursor: pointer; font-family: var(--font-mono); white-space: nowrap;">Copy</button></span>
       </div>
     </div>
@@ -539,7 +539,7 @@
   <div class="card">
     <div class="plan-name">// ghost pro</div>
     <div class="plan-title">Solo Architect</div>
-    <div class="plan-desc">For independent architects and consultants running full audits on client codebases.</div>
+    <div class="plan-desc">For independent architects and consultants tracking audit progress across multiple client engagements. Ghost Partner™ profile support included.</div>
     <div class="plan-price">
       <span class="price-currency">$</span>
       <span class="price-amount">99</span>
@@ -548,11 +548,12 @@
     <div class="price-note">Billed monthly · Cancel anytime</div>
     <ul class="features">
       <li class="section-label">what you get</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Private repo access — Ghost Pro v4.6+</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Full PDF, TXT, and MD report output</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Executive-ready PDF with business impact framing</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited scans · BYOK (your Anthropic API key)</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Multi-pass analysis with checkpoint recovery</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Ghost Open, plus:</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Project label tracking with baseline comparison</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Project Intelligence Dashboard with PDF export</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Compare Reports — before/after diff</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Partner™ profile loading + custom billing rates</li>
+      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>100K context cap (vs 50K on Open)</li>
       <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority email support</li>
       <li class="section-label">privacy</li>
       <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Your code never leaves your machine</li>
@@ -639,7 +640,7 @@
 
   <div class="faq-item">
     <div class="faq-q">What's the difference between Ghost Open and Ghost Pro?</div>
-    <div class="faq-a">Ghost Open (free, MIT) outputs a truncated report with Critical and High findings only, top 4 in PDF. Ghost Pro outputs the full report across all severity levels, with executive-ready PDF framing including business impact tags and dollar estimates. Pro also includes compare mode, checkpoint recovery, and multi-pass analysis.</div>
+    <div class="faq-a">Ghost Open (free, MIT) ships the full scan engine — every finding, every severity, full PDF/MD/TXT for every scan. All five scan modes (Chat, POI, Blast Radius, Conflict Detection, Recon) are included. Ghost Pro adds project intelligence on top of that: project label tracking, baseline comparison, remediation velocity, the Project Dashboard, Compare Reports, and Ghost Partner™ profile support with per-profile billing rate overrides. Pro is for teams that need to track audit progress over time. Open is for one-shot triage.</div>
   </div>
 
   <div class="faq-item">
