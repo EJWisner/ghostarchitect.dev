@@ -53,6 +53,19 @@
         "name": "Ghost Team",
         "price": "399",
         "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Ghost Enterprise",
+        "price": "1200",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "1200",
+          "priceCurrency": "USD",
+          "minPrice": "1200",
+          "description": "Starting price. Custom seats and MSA terms available."
+        }
       }
     ],
     "author": {
@@ -469,7 +482,7 @@
   </a>
   <div class="nav-links">
     <a href="/#what-it-does">What It Does</a>
-    <a href="/#eol-warning">⚠ EOL Warning</a>
+    <a href="/#magento-249" style="color: #ef4444;">⚠ May 12 Deadline</a>
     <a href="/#security">Security</a>
     <a href="/#for-agencies">For Agencies</a>
     <a href="/pricing">Pricing</a>
@@ -481,7 +494,7 @@
 </nav>
 <div class="mobile-menu" id="mobile-menu">
   <a href="/#what-it-does" onclick="closeMenu()">What It Does</a>
-  <a href="/#eol-warning" onclick="closeMenu()">⚠ EOL Warning</a>
+  <a href="/#magento-249" onclick="closeMenu()">⚠ May 12 Deadline</a>
   <a href="/#security" onclick="closeMenu()">Security</a>
   <a href="/#for-agencies" onclick="closeMenu()">For Agencies</a>
   <a href="/pricing" onclick="closeMenu()">Pricing</a>
@@ -509,8 +522,8 @@
   <div class="eol-banner">
     <div class="eol-dot"></div>
     <div>
-      <strong>Magento 2.4.4 EOL is <span id="eol-days">today</span>.</strong>
-      <span> Unaudited legacy codebases are now exposed. Adobe has cut support — know your risk now.</span>
+      <strong>Magento 2.4.9 ships <span id="eol-days">May 12</span>.</strong>
+      <span> PHP 8.2 dropped, 8.4+ required. Custom modules need an audit before upgrade day. <a href="/blog/magento-249-upgrade.html" style="color:#ef4444;text-decoration:underline;">Read the breakdown →</a></span>
     </div>
   </div>
 </div>
@@ -522,7 +535,7 @@
       <span class="open-tag">FREE / OPEN SOURCE</span>
       <div class="open-text">
         <strong>Ghost Open v5.0.0 — full scan engine, free</strong>
-        <span style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;"><span id="npm-cmd-pricing">npm i -g ghost-architect-open</span> &nbsp;·&nbsp; MIT license &nbsp;·&nbsp; 1,215 installs so far &nbsp;<button onclick="navigator.clipboard.writeText('npm i -g ghost-architect-open').then(function(){ var b = document.getElementById('copy-btn-pricing'); b.textContent = 'Copied!'; setTimeout(function(){ b.textContent = 'Copy'; }, 2000); })" id="copy-btn-pricing" style="background: rgba(0,212,170,0.15); border: 1px solid #00d4aa; color: #00d4aa; border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.72rem; cursor: pointer; font-family: var(--font-mono); white-space: nowrap;">Copy</button></span>
+        <span style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;"><span id="npm-cmd-pricing">npm i -g ghost-architect-open</span> &nbsp;·&nbsp; MIT license &nbsp;·&nbsp; 1,725 installs so far &nbsp;<button onclick="navigator.clipboard.writeText('npm i -g ghost-architect-open').then(function(){ var b = document.getElementById('copy-btn-pricing'); b.textContent = 'Copied!'; setTimeout(function(){ b.textContent = 'Copy'; }, 2000); })" id="copy-btn-pricing" style="background: rgba(0,212,170,0.15); border: 1px solid #00d4aa; color: #00d4aa; border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.72rem; cursor: pointer; font-family: var(--font-mono); white-space: nowrap;">Copy</button></span>
       </div>
     </div>
     <div class="open-actions">
@@ -593,6 +606,7 @@
     <div class="plan-name">// ghost enterprise</div>
     <div class="plan-title">Enterprise</div>
     <div class="plan-desc">For enterprise teams and large agencies with complex multi-project environments.</div>
+    <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.35rem;">starts at</div>
     <div class="plan-price">
       <span class="price-currency">$</span>
       <span class="price-amount">1,200</span>
@@ -679,18 +693,23 @@
 </footer>
 
 <script>
-  function updateEOL() {
-    const eol = new Date('2026-04-14T23:59:59');
-    const now = new Date();
-    const diff = eol - now;
-    const el = document.getElementById('eol-days');
+  function updateBanner() {
+    var target = new Date('2026-05-12T00:00:00');
+    var now = new Date();
+    var diff = target - now;
+    var el = document.getElementById('eol-days');
     if (!el) return;
-    if (diff <= 0) { el.textContent = '0'; return; }
-    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-    el.textContent = days === 1 ? '1 day' : days + ' days';
+    if (diff > 0) {
+      var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+      el.textContent = days === 1 ? 'in 1 day' : 'in ' + days + ' days';
+    } else {
+      var daysSince = Math.floor(-diff / (1000 * 60 * 60 * 24));
+      if (daysSince === 0) { el.textContent = 'today'; return; }
+      el.textContent = daysSince === 1 ? '1 day ago' : daysSince + ' days ago';
+    }
   }
-  updateEOL();
-  setInterval(updateEOL, 60000);
+  updateBanner();
+  setInterval(updateBanner, 60000);
 </script>
 
 </body>

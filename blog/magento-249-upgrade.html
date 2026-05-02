@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <title>Magento 2.4.9 Ships May 12 — Your Custom Modules Don't Speak PHP 8.4 Yet — Ghost Architect™</title>
+  <meta name="description" content="Magento 2.4.9 lands May 12, 2026. PHP 8.2 dropped, 8.4+ required, Laminas MVC removed, Valkey replacing Redis. The largest architectural shift since 2.4.4. Here's what every agency and merchant needs to audit before upgrade day." />
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/magento-249-upgrade" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/magento-249-upgrade" />
+  <meta property="og:title" content="Magento 2.4.9 Ships May 12 — Your Custom Modules Don't Speak PHP 8.4 Yet" />
+  <meta property="og:description" content="The largest architectural shift since 2.4.4. PHP 8.2 dropped, 8.4+ required, Laminas MVC removed, Valkey replacing Redis. Here's what to audit before upgrade day." />
+  <meta property="og:image" content="https://ghostarchitect.dev/GHOSTLOGO.JPG" />
+  <meta property="og:site_name" content="Ghost Architect™" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://ghostarchitect.dev/blog/magento-249-upgrade" />
+  <meta name="twitter:title" content="Magento 2.4.9 Ships May 12 — Your Custom Modules Don't Speak PHP 8.4 Yet" />
+  <meta name="twitter:description" content="The largest architectural shift since 2.4.4. PHP 8.2 dropped, 8.4+ required, Laminas MVC removed, Valkey replacing Redis. Here's what to audit before upgrade day." />
+  <meta name="twitter:image" content="https://ghostarchitect.dev/GHOSTLOGO.JPG" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Magento 2.4.9 Ships May 12 — Your Custom Modules Don't Speak PHP 8.4 Yet",
+    "datePublished": "2026-05-02",
+    "dateModified": "2026-05-02",
+    "author": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "publisher": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "url": "https://ghostarchitect.dev/blog/magento-249-upgrade",
+    "description": "Magento 2.4.9 lands May 12, 2026. PHP 8.2 dropped, 8.4+ required, Laminas MVC removed, Valkey replacing Redis. The largest architectural shift since 2.4.4. Here's what every agency and merchant needs to audit before upgrade day."
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #1a1a24;
+      --border: #2a2a3a;
+      --accent: #4a9eff;
+      --accent2: #00d4aa;
+      --danger: #ff4a6b;
+      --warning: #ffaa00;
+      --text: #e8e8f0;
+      --text-muted: #b0b0c0;
+      --text-dim: #777788;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.6; overflow-x: hidden; }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,15,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-family: var(--font-mono); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.active { color: var(--accent); }
+    footer {
+      border-top: 1px solid var(--border); padding: 2rem; text-align: center;
+      font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-muted); font-weight: 600; margin-bottom: 0.25rem; }
+    .footer-logo img { width: 20px; height: 20px; border-radius: 4px; }
+
+    .article-wrap { max-width: 760px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .article-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); margin-bottom: 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .article-tag { background: rgba(74,158,255,0.1); border: 1px solid rgba(74,158,255,0.2); border-radius: 4px; padding: 2px 10px; color: var(--accent); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .article-tag.danger { background: rgba(255,74,107,0.1); border-color: rgba(255,74,107,0.2); color: var(--danger); }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 1.5rem; }
+    .article-body h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; margin: 2.5rem 0 1rem; color: var(--text); }
+    .article-body h3 { font-size: 1.1rem; font-weight: 700; margin: 2rem 0 0.75rem; color: var(--accent2); font-family: var(--font-mono); }
+    .article-body p { color: var(--text-muted); font-size: 1rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .article-body strong { color: var(--text); font-weight: 700; }
+    .article-body ul, .article-body ol { color: var(--text-muted); padding-left: 1.5rem; margin-bottom: 1.25rem; }
+    .article-body li { margin-bottom: 0.5rem; line-height: 1.7; }
+    .article-body code { background: rgba(74,158,255,0.1); color: var(--accent); padding: 0.1rem 0.4rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.85rem; }
+    .callout { background: var(--surface2); border-left: 3px solid var(--danger); border-radius: 0 8px 8px 0; padding: 1.25rem 1.5rem; margin: 2rem 0; }
+    .callout.warning { border-color: var(--warning); }
+    .callout.info { border-color: var(--accent); }
+    .callout p { margin: 0; color: var(--text-muted); font-size: 0.95rem; }
+    .callout strong { color: var(--text); }
+    .version-table { width: 100%; border-collapse: collapse; margin: 2rem 0; font-family: var(--font-mono); font-size: 0.85rem; }
+    .version-table th { text-align: left; padding: 0.75rem 1rem; background: var(--surface2); color: var(--text-dim); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid var(--border); }
+    .version-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+    .version-table tr:last-child td { border-bottom: none; }
+    .status-expired { color: var(--danger); font-weight: 700; }
+    .status-warning { color: var(--warning); font-weight: 700; }
+    .status-ok { color: var(--accent2); font-weight: 700; }
+    .cta-block { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; margin: 3rem 0; text-align: center; }
+    .cta-block h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.03em; }
+    .cta-block p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .btn-primary { background: var(--accent); color: #000; font-weight: 700; font-size: 0.9rem; padding: 12px 28px; border-radius: 8px; text-decoration: none; display: inline-block; margin-right: 0.75rem; margin-bottom: 0.5rem; }
+    .btn-secondary { background: transparent; color: var(--text-muted); font-size: 0.9rem; padding: 12px 28px; border-radius: 8px; text-decoration: none; border: 1px solid var(--border); display: inline-block; margin-bottom: 0.5rem; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+    .back-link { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color 0.2s; }
+    .back-link:hover { color: var(--accent); }
+    .countdown-banner { background: linear-gradient(135deg, rgba(255,74,107,0.12), rgba(255,170,0,0.08)); border: 1px solid rgba(255,74,107,0.3); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 2rem 0; display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+    .countdown-banner-num { font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--danger); line-height: 1; flex-shrink: 0; min-width: 3rem; }
+    .countdown-banner-text { color: var(--text); font-size: 0.95rem; line-height: 1.5; flex: 1; }
+    .countdown-banner-text strong { color: var(--danger); }
+    @media (max-width: 640px) { .nav-links { gap: 1rem; } .article-wrap { padding: 2rem 1.25rem 4rem; } }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; transition: all 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 56px; left: 0; right: 0; background: rgba(10,10,15,0.98); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem 1.5rem; z-index: 99; flex-direction: column; gap: 0; backdrop-filter: blur(12px); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-family: var(--font-mono); padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--accent); }
+    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />
+    Ghost Architect™
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#what-it-does">What It Does</a></li>
+    <li><a href="/#magento-249" style="color: var(--danger);">⚠ May 12 Deadline</a></li>
+    <li><a href="/#security">Security</a></li>
+    <li><a href="/#for-agencies">For Agencies</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+    <li><a href="/plans.html">Plan Details</a></li>
+    <li><a href="/blog.html" class="active">Blog</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/#what-it-does" onclick="closeMenu()">What It Does</a>
+  <a href="/#magento-249" onclick="closeMenu()">⚠ May 12 Deadline</a>
+  <a href="/#security" onclick="closeMenu()">Security</a>
+  <a href="/#for-agencies" onclick="closeMenu()">For Agencies</a>
+  <a href="/pricing" onclick="closeMenu()">Pricing</a>
+  <a href="/plans.html" onclick="closeMenu()">Plan Details</a>
+  <a href="/blog.html" onclick="closeMenu()">Blog</a>
+</div>
+<script>
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  function closeMenu() { btn.classList.remove('open'); menu.classList.remove('open'); }
+  btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+</script>
+
+<div class="article-wrap">
+  <a href="/blog.html" class="back-link">← Back to Blog</a>
+
+  <div class="article-meta">
+    <span class="article-tag danger">May 12 Deadline</span>
+    <span class="article-tag">Adobe Commerce</span>
+    <span>May 2, 2026</span>
+    <span>By Ernst J. Wisner</span>
+    <span>11 min read</span>
+  </div>
+
+  <h1>Magento 2.4.9 Ships May 12 — Your Custom Modules Don't Speak PHP 8.4 Yet</h1>
+
+  <div class="article-body">
+
+    <div class="countdown-banner">
+      <div class="countdown-banner-num" id="countdown-days">—</div>
+      <div class="countdown-banner-text" id="countdown-text">until <strong>Magento 2.4.9 General Availability</strong>. PHP 8.2 dropped. PHP 8.4+ mandatory. Laminas MVC removed. The largest architectural shift since 2.4.4.</div>
+    </div>
+    <script>
+      (function(){
+        function render(){
+          var target = new Date('2026-05-12T00:00:00');
+          var now = new Date();
+          var diff = target - now;
+          var numEl = document.getElementById('countdown-days');
+          var textEl = document.getElementById('countdown-text');
+          if (!numEl || !textEl) return;
+          if (diff > 0) {
+            var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+            numEl.textContent = days;
+            textEl.innerHTML = (days === 1 ? 'day' : 'days') + ' until <strong>Magento 2.4.9 General Availability</strong>. PHP 8.2 dropped. PHP 8.4+ mandatory. Laminas MVC removed. The largest architectural shift since 2.4.4.';
+          } else {
+            var daysSince = Math.floor(-diff / (1000 * 60 * 60 * 24));
+            if (daysSince === 0) {
+              numEl.textContent = 'GA';
+              textEl.innerHTML = '<strong>Magento 2.4.9 ships today.</strong> PHP 8.2 dropped. PHP 8.4+ mandatory. Laminas MVC removed. The largest architectural shift since 2.4.4.';
+            } else {
+              numEl.textContent = '+' + daysSince;
+              textEl.innerHTML = (daysSince === 1 ? 'day' : 'days') + ' since <strong>Magento 2.4.9 General Availability</strong>. PHP 8.2 dropped. PHP 8.4+ mandatory. Laminas MVC removed. The largest architectural shift since 2.4.4.';
+            }
+          }
+        }
+        render();
+        setInterval(render, 60000);
+      })();
+    </script>
+
+    <p>On May 12, 2026, Adobe ships Magento 2.4.9. This is not a routine patch. It is the largest architectural shift in the 2.4.x line since 2.4.4 — and most of the codebases that need to upgrade have not been audited against any of the breaking changes yet.</p>
+
+    <p>If you run an Adobe Commerce agency, your inbox is about to fill with "can you upgrade us?" requests. If you're a merchant, your platform partner is about to send you a quote based on assumptions about your custom modules that nobody has actually verified. If you're a fractional CTO advising a client through this window, you're about to be asked questions that need real codebase data behind them, not vibes.</p>
+
+    <p>This post is what's actually changing in 2.4.9, why your custom modules are the riskiest part of the upgrade, and what to do in the days before GA so you walk into the upgrade conversation with real information instead of guesswork.</p>
+
+    <hr class="divider" />
+
+    <h2>What's Actually Changing on May 12</h2>
+
+    <p>The Magento community has been calling 2.4.9 a "PHP version bump" for months. That framing is wrong. PHP is the most visible change, but it's one of several foundational shifts shipping in the same release. Here's the real list.</p>
+
+    <table class="version-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Before (2.4.8)</th>
+          <th>After (2.4.9)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>PHP</td>
+          <td>8.3, 8.4 supported</td>
+          <td class="status-expired">8.2 dropped · 8.3 upgrade-only · 8.4+ required</td>
+        </tr>
+        <tr>
+          <td>MVC framework</td>
+          <td>Laminas MVC</td>
+          <td class="status-expired">Native PHP MVC (Laminas removed)</td>
+        </tr>
+        <tr>
+          <td>WYSIWYG editor</td>
+          <td>TinyMCE 5</td>
+          <td class="status-warning">HugeRTE (TinyMCE fork)</td>
+        </tr>
+        <tr>
+          <td>Cache layer</td>
+          <td>Redis (default)</td>
+          <td class="status-warning">Valkey 8 (Redis wire-compatible)</td>
+        </tr>
+        <tr>
+          <td>Search engine</td>
+          <td>OpenSearch 2.x</td>
+          <td class="status-warning">OpenSearch 3.x</td>
+        </tr>
+        <tr>
+          <td>Symfony</td>
+          <td>Symfony 6.x</td>
+          <td class="status-ok">Symfony 7.4 LTS</td>
+        </tr>
+        <tr>
+          <td>Database</td>
+          <td>MySQL 8.0 / MariaDB 10.6</td>
+          <td class="status-expired">MySQL 8.4 LTS / MariaDB 11.4 minimum</td>
+        </tr>
+        <tr>
+          <td>Cache component</td>
+          <td>Zend_Cache</td>
+          <td class="status-warning">Symfony Cache</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>That's seven simultaneous architectural changes. Plus 500+ bug fixes in Magento Open Source (560+ in Adobe Commerce), security improvements including CAPTCHA enforcement on REST and GraphQL APIs, and modernized JWT and OAuth handling.</p>
+
+    <p>Any one of these would be a meaningful upgrade in a typical release cycle. All seven landing on the same day is what makes 2.4.9 the largest shift in years — and what makes "we'll just upgrade after GA" the riskiest answer your agency or merchant team can give right now.</p>
+
+    <h2>Why Your Custom Modules Are the Hardest Part</h2>
+
+    <p>Adobe upgrades the core. Adobe does not upgrade the custom modules in your codebase. That's the single sentence you need internalized before reading anything else about the 2.4.9 timeline.</p>
+
+    <p>Most legacy Magento 2 stores carry between 30 and 100 custom modules accumulated over the platform's lifetime. They were written by vendors who have moved on, by internal developers who have moved on, and by agencies that no longer hold the relationship. Many of them were last meaningfully updated when PHP 8.1 was the supported target. They run today because the runtime is forgiving — but that runtime is about to change in five different ways at once.</p>
+
+    <p>Here's what specifically breaks in 2.4.9 against the kind of custom code you actually have in your codebase.</p>
+
+    <h3>// Deprecated PHP functions become fatal errors</h3>
+
+    <p>PHP 8.4 removed and changed behavior on dozens of functions and patterns that were merely deprecated in 8.2 and 8.3. <code>utf8_encode</code> and <code>utf8_decode</code> are gone. Implicit nullable parameter declarations are gone. <code>${var}</code> string interpolation throws fatal errors. Dynamic property creation requires the <code>#[\AllowDynamicProperties]</code> attribute or it throws. Calling <code>trim()</code> with null throws.</p>
+
+    <p>Code written for PHP 8.2 typically ran with deprecation warnings turned off. That code is going to fail loudly in production on PHP 8.4. The question for every custom module in the codebase is: which deprecated patterns is it using, and on what code paths.</p>
+
+    <h3>// Laminas MVC class extensions break entirely</h3>
+
+    <p>Magento 2.4.9 replaces the Laminas MVC framework with native PHP MVC implementations. Any custom module or third-party extension that imports from <code>Laminas\Mvc\</code> namespaces — controllers, event managers, routers — will fail at compile time. Not at runtime. At compile time. The module will not load.</p>
+
+    <p>This is the change that catches teams who think they're upgrade-ready because their code "compiles on PHP 8.4." Compiling on the new PHP runtime is necessary but nowhere near sufficient. You also need every dependency tree in every custom module to be free of Laminas MVC references that 2.4.9 has removed.</p>
+
+    <h3>// Custom checkout flows hit the new CAPTCHA enforcement</h3>
+
+    <p>2.4.9 enforces CAPTCHA validation on REST and GraphQL customer account creation when CAPTCHA is enabled for the Create Account form. If your store has a custom checkout flow, a custom B2B account creation path, a headless storefront calling the customer creation API, or any third-party integration that creates accounts programmatically, those flows will start failing the CAPTCHA validation that 2.4.9 newly applies at the API layer.</p>
+
+    <p>This is exactly the kind of change that doesn't surface in a typical staging test because the staging environment usually has CAPTCHA disabled. It surfaces in production, on a Tuesday, when the merchant calls saying customers can't create accounts anymore.</p>
+
+    <h3>// Extension authors are not all on the same timeline</h3>
+
+    <p>Major extension vendors typically release 2.4.9 compatibility updates within a few weeks of GA. Smaller vendors take months. Vendors who have stopped actively maintaining their extensions never ship a compatibility update at all — and you find out by upgrading and watching the extension fail.</p>
+
+    <p>Most stores have a long tail of small-vendor and unmaintained extensions in their composer.json. Identifying which extensions in your tail will not ship a 2.4.9 update is a discovery exercise that takes weeks if you do it the manual way — vendor by vendor, support ticket by support ticket. It takes minutes if you start with a triage scan that flags every custom and third-party module in the codebase up front.</p>
+
+    <h3>// The 500+ core fixes expose latent assumptions in your code</h3>
+
+    <p>Every Magento release includes a long list of core fixes that "fix" behavior other code may have been quietly relying on. A fix to a quote calculation that previously returned the wrong total now returns the correct total — and the custom module that was compensating for the wrong total now produces the wrong total in the opposite direction. A fix to a CMS page rendering edge case now correctly handles null headings — and the custom helper that was working around the old null-handling bug now throws an exception.</p>
+
+    <p>Every store has a small number of these dependencies on broken behavior. They are invisible until the upgrade. The only way to find them at scale is to scan the codebase for the patterns that touch the systems Magento 2.4.9 fixed — checkout, quote totals, indexers, search, the admin grid layer.</p>
+
+    <div class="callout warning">
+      <p><strong>The pattern that catches every team:</strong> the upgrade compiles, the unit tests pass, staging looks clean. Then a Critical bug surfaces in production three days after go-live, in a code path the team didn't know existed because nobody ever read the relevant custom module end-to-end. This pattern does not require negligence. It requires only a codebase larger than any one person can hold in their head — which is every Magento 2 store of any meaningful age.</p>
+    </div>
+
+    <h2>The Window That Just Opened</h2>
+
+    <p>Beta1 shipped on March 10, 2026. GA is May 12. This is the window where every Adobe Commerce agency in the world is fielding the same question from clients: "are we ready for 2.4.9, and how much will it cost?"</p>
+
+    <p>The agencies that win these conversations in the days ahead are the ones who can answer with data instead of caveats. "We scanned your codebase. You have 47 custom modules. 14 of them touch areas 2.4.9 changes. 6 of those 14 have deprecated PHP patterns that will fail on 8.4. Here's the prioritized list, here's the estimated remediation effort, here's the upgrade scope based on what's actually in your code." That conversation closes engagements. The other one — "we'll need a few weeks of discovery before we can quote" — loses them to whoever scanned faster.</p>
+
+    <p>If you're a merchant rather than an agency, the same logic applies in reverse. Walk into the conversation with your platform partner already knowing what's in your codebase. You'll get a more accurate estimate, you'll catch over-scoping faster, and you'll have a real basis for asking why a particular line item is priced the way it is.</p>
+
+    <h2>The Five-Step Pre-Upgrade Audit</h2>
+
+    <p>Here's the practical sequence. This works the same whether you're an agency triaging a portfolio of clients, a merchant preparing your own store, or a fractional CTO advising on a single engagement.</p>
+
+    <h3>// Step 1: Inventory every custom and third-party module</h3>
+
+    <p>You cannot scope an upgrade against a list you don't have. The first deliverable is a complete inventory of every module in <code>app/code</code>, every package in <code>vendor/</code>, and every extension referenced in <code>composer.json</code>. Note which ones are first-party custom code, which are third-party paid extensions, and which are open-source packages with active maintenance. This list is the spine of every other step.</p>
+
+    <h3>// Step 2: Flag the modules that touch areas 2.4.9 changes</h3>
+
+    <p>Not every module is at equal upgrade risk. The high-risk surface areas in 2.4.9 are: checkout flows, customer account creation, REST and GraphQL API endpoints, admin grid layer, indexers, quote totals, the cache layer, and any code that imports from Laminas namespaces. A module that does not touch any of these is probably fine. A module that touches three of them needs a full read-through before upgrade day.</p>
+
+    <h3>// Step 3: Audit for deprecated PHP patterns</h3>
+
+    <p>Run the codebase against PHP 8.4 deprecation patterns. The static analyzer finds the obvious ones — removed functions, signature changes, fatal-on-null cases. The non-obvious ones live in custom code that conditionally executes, and a static analyzer will not catch them because the offending code path is reached only at runtime under specific conditions. This is exactly the kind of finding that surfaces in a structured triage scan that reasons about code architecturally rather than syntactically.</p>
+
+    <h3>// Step 4: Surface the conflict mismatches</h3>
+
+    <p>When the core changes underneath custom code that was overriding it, the override either still works, partially works, or silently no-ops. All three outcomes are bad. The middle two are the worst because they look correct under casual inspection. Conflict Detection scans surface every place custom code overrides core behavior in ways the new core no longer expects — schema mismatches, contract drift, configuration overrides that target paths the new core has moved.</p>
+
+    <h3>// Step 5: Build the engagement plan from what you actually found</h3>
+
+    <p>The last step is the one most upgrade engagements skip: scoping the work based on real data rather than templated estimates. With the four previous steps done, you have a prioritized finding list, a custom-module risk profile, and a concrete catalog of what will break and what won't. That data drives an honest engagement plan with realistic phase boundaries — discovery, remediation, staged upgrade, regression testing, go-live, and a real rollback procedure for each phase.</p>
+
+    <div class="callout info">
+      <p><strong>What this whole sequence is not:</strong> running the upgrade. None of these steps execute the actual migration. They produce the map you need to execute the migration without surprises. Triage compresses the discovery phase from days or weeks of manual reading into minutes of structured output. The upgrade itself still happens the way it always happens — phased, tested, with proper checkpoints and rollback plans.</p>
+    </div>
+
+    <h2>Where Ghost Architect Fits</h2>
+
+    <p>Ghost Architect was built for exactly this kind of pre-engagement triage. Point it at any Magento codebase — public or private repo, any scale — and within minutes it produces the structured output the five-step audit needs.</p>
+
+    <p>The Points of Interest scan inventories every custom module, flags the ones touching areas 2.4.9 changes, and severity-ranks every finding it surfaces. Conflict Detection finds the schema mismatches and contract drift between custom overrides and the new 2.4.9 core. Blast Radius analysis tells you, for any specific module you might need to refactor, what else in the codebase depends on it and what the impact map looks like. Recon mode produces a sized engagement plan in five minutes for about $0.05 in API cost — exactly the artifact an agency needs to quote the engagement.</p>
+
+    <p>Every scan ships with a branded PDF for the client, a TXT for developers, and a Markdown file your team can commit to the repo. Ghost Open is free under MIT license and runs on any codebase, any language, any platform — Magento is the use case where the May 12 timing matters, but the same scan engine works on whatever stack you're triaging.</p>
+
+    <p>What Ghost does not do: run the upgrade itself, write the migration code, test in staging, or guarantee zero runtime surprises post-upgrade. It is a triage tool that compresses discovery from days to minutes. The migration work is still your team's work to execute. But you walk into that work with a real map, not a fog of war.</p>
+
+    <h2>The Honest Assessment</h2>
+
+    <p>Most Magento 2.4.9 upgrades are going to go fine. Adobe ships these releases on a predictable cadence and the ecosystem responds. Major extension vendors will ship compatibility updates. Documentation will improve. By July, the upgrade path will be well-trodden.</p>
+
+    <p>The teams that struggle in the meantime are the ones who walked in without knowing what was in their codebase. Every Magento upgrade I've ever seen that went badly went badly for the same reason: the team scoped the work based on what they thought was in the code, hit something they didn't know was there, and the project blew past its timeline by 30 to 50 percent. The breaking changes in 2.4.9 are larger than usual, which makes the scoping risk larger than usual, which makes the discovery phase more important than usual.</p>
+
+    <p>The window is enough time. It is not a lot of time. The merchants and agencies who arrive at May 12 with a tested, validated, codebase-aware upgrade plan will be in a far stronger position than the ones who arrive at May 12 with a Slack thread that starts "so what's our plan for 2.4.9."</p>
+
+    <p>Triage first. Migrate with a map. That sequencing is the difference between a clean upgrade and a six-month rescue.</p>
+
+    <hr class="divider" />
+
+    <div class="cta-block">
+      <h3>Audit your codebase against 2.4.9 — before May 12.</h3>
+      <p>Ghost Architect triages your Magento codebase in minutes. Inventories every custom module, flags the ones that break against PHP 8.4 and the new core, gives you a prioritized engagement plan you can hand to a client. Ghost Open is free. No account required.</p>
+      <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener noreferrer" class="btn-primary">Try Ghost Open Free →</a>
+      <a href="/pricing" class="btn-secondary">See All Plans</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <a href="/" class="footer-logo">
+    <img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />
+    Ghost Architect™
+  </a>
+  <span>© 2026 Ernst J. Wisner · Ghost Architect™ · All rights reserved. · US Copyright Reg. #1-15123488721 · <a href="/privacy.html" style="color:var(--text-dim);text-decoration:none;">Privacy Policy</a> · <a href="/msa.html" style="color:var(--text-dim);text-decoration:none;">Terms of Service</a></span>
+</footer>
+</body>
+</html>
