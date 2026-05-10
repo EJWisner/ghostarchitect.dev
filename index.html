@@ -35,14 +35,14 @@
     "operatingSystem": "macOS, Windows, Linux",
     "url": "https://ghostarchitect.dev",
     "description": "AI-powered codebase intelligence tool that triages codebases, categorizes risk, prioritizes findings, and generates structured reports for any platform or language.",
-    "softwareVersion": "5.0.0",
+    "softwareVersion": "5.2.0",
     "offers": [
       {
         "@type": "Offer",
         "name": "Ghost Open",
         "price": "0",
         "priceCurrency": "USD",
-        "description": "Free open-source tier — full scan engine, every finding, every severity. Five scan modes: Chat, POI, Blast Radius, Conflict Detection, Recon."
+        "description": "Free open-source tier — full scan engine, every finding, every severity. Six scan modes: Chat, POI, Blast Radius, Conflict Detection, Recon, Prompt Triage."
       },
       {
         "@type": "Offer",
@@ -977,6 +977,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="/#what-it-does">What It Does</a></li>
+    <li><a href="/prompt-triage.html" style="color: var(--accent2);">Prompt Triage</a></li>
     <li><a href="/#ghost-partner" style="color: var(--accent);">Ghost Partner™</a></li>
     <li><a href="#magento-249" style="color: var(--danger);">⚠ May 12 Deadline</a></li>
     <li><a href="#security">Security</a></li>
@@ -990,6 +991,7 @@
 </nav>
 <div class="mobile-menu" id="mobile-menu">
   <a href="/#what-it-does" onclick="closeMenu()">What It Does</a>
+  <a href="/prompt-triage.html" onclick="closeMenu()">Prompt Triage</a>
   <a href="/#ghost-partner" onclick="closeMenu()">Ghost Partner™</a>
   <a href="/#magento-249" onclick="closeMenu()">⚠ May 12 Deadline</a>
   <a href="/#security" onclick="closeMenu()">Security</a>
@@ -1058,7 +1060,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <!-- HERO -->
 <section class="hero">
-  <div class="version-badge">v5.0.0 · Now Available</div>
+  <div class="version-badge">v5.2.0 · Prompt Triage now in Open</div>
   <h1>Pre-engagement triage for<br><em>codebases you didn't write.</em></h1>
   <p class="hero-sub">Know what is in the codebase before the next migration, SOW, or audit. Any codebase, any language, any platform.</p>
   <div class="hero-cta">
@@ -1107,6 +1109,68 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 </section>
 
+<!-- PROMPT TRIAGE FEATURE SPOTLIGHT -->
+<section id="prompt-triage-spotlight" style="padding: 4rem 2rem; max-width: 1100px; margin: 0 auto;">
+  <div style="background: linear-gradient(135deg, rgba(0,212,170,0.06) 0%, rgba(74,158,255,0.04) 100%); border: 1px solid rgba(0,212,170,0.30); border-radius: 20px; padding: 3rem; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 1.25rem; right: 1.5rem; background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #000; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; padding: 0.3rem 0.7rem; border-radius: 4px;">NEW IN v5.2</div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;" class="pt-spotlight-grid">
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent2); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem;">// feature spotlight · prompt triage</div>
+        <h2 style="font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.25rem; color: var(--text);">Your prompts are <span style="color: var(--accent2);">production code.</span><br>Find the bugs.</h2>
+        <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem;">If you ship AI features, your prompts are running in production. Most teams have <strong style="color: var(--text);">zero review process</strong> for them. Ghost Architect™ reads a folder of LLM prompts and surfaces 16 categories of defects: ambiguous instructions, conflicting directives, prompt injection patterns, token overflows, undefined output formats, and more.</p>
+        <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem;">Cleaner prompts behave more predictably in production. They also <strong style="color: var(--text);">burn fewer tokens and cut your API bill.</strong></p>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="/prompt-triage.html" style="display: inline-block; background: var(--accent2); color: #000; font-weight: 700; font-size: 0.9rem; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: all 0.2s;">See the 16 detectors →</a>
+          <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener noreferrer" style="display: inline-block; background: transparent; color: var(--text-muted); border: 1px solid var(--border); font-size: 0.9rem; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: all 0.2s;">Try Free on GitHub →</a>
+        </div>
+      </div>
+
+      <div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(0,212,170,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
+            <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--accent2); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">16</div>
+            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">Defect Categories</div>
+          </div>
+          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(0,212,170,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
+            <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--accent2); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">$0.41</div>
+            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">Live Test Cost</div>
+          </div>
+          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(0,212,170,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
+            <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--accent2); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">116</div>
+            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">Findings, One Run</div>
+          </div>
+          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(0,212,170,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
+            <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--accent2); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">100%</div>
+            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">Local Execution</div>
+          </div>
+        </div>
+
+        <div style="background: rgba(10,10,15,0.7); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; margin-top: 0.75rem;">
+          <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;">// caught in 16 categories</div>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Ambiguity</span>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Conflicts</span>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Token Overflow</span>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Injection Patterns</span>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Undefined Output</span>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Unbounded Output</span>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Role Bleed</span>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Integration Mismatch</span>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent2); background: rgba(0,212,170,0.10); border: 1px solid rgba(0,212,170,0.30); border-radius: 4px; padding: 0.2rem 0.5rem;">+8 more</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (max-width: 768px) {
+    .pt-spotlight-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  }
+</style>
+
 <!-- CAPABILITIES -->
 <section id="what-it-does">
   <div class="section-label">// capabilities</div>
@@ -1129,9 +1193,15 @@ document.addEventListener('DOMContentLoaded', function(){
       <p>Before you make a change, understand the full impact. Every dependency, every affected flow, with a rollback plan included.</p>
     </div>
     <div class="capability-card">
-      <div class="capability-icon">📑</div>
-      <h3>Client-Ready Reports</h3>
-      <p>Every scan produces a branded PDF your clients can read, a TXT your developers can act on, and a MD your team can commit. Immediately actionable.</p>
+      <div class="capability-icon">🔍</div>
+      <h3>Recon &mdash; Engagement Sizing</h3>
+      <p>Walk into the scoping call with data. Recon counts files, gauges complexity, projects scan cost, and proposes a multi-pass plan before you spend a cent on analysis.</p>
+    </div>
+    <div class="capability-card" style="border-left:3px solid var(--accent2);position:relative;">
+      <div style="position:absolute;top:0.75rem;right:0.85rem;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#000;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">NEW v5.2</div>
+      <div class="capability-icon">🧪</div>
+      <h3>Prompt Triage</h3>
+      <p>If you ship AI features, your prompts are production code. Ghost audits a folder of LLM prompts and surfaces 16 categories of defects backed by the Tian et al. 2025 academic taxonomy. <a href="/prompt-triage.html" style="color:var(--accent2);font-weight:600;">Learn more &rarr;</a></p>
     </div>
   </div>
 </section>
