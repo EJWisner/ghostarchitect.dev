@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <title>Inheritance Audit Mode — Ghost Architect™</title>
+  <meta name="description" content="The independent codebase audit trusted before the LOI, the SOW, and the board meeting. Four analyzers, one deal-grade PDF, in roughly 60 seconds for roughly $0.02 in API charges." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev/inheritance-audit" />
+  <meta property="og:title" content="Inheritance Audit Mode — Ghost Architect™" />
+  <meta property="og:description" content="Know what's in the codebase before you sign. Four analyzers, one deal-grade PDF, in ~60 seconds for ~$0.02. Built for agencies, PE diligence, and fractional CTOs." />
+  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
+  <meta property="og:site_name" content="Ghost Architect™" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Inheritance Audit Mode — Ghost Architect™" />
+  <meta name="twitter:description" content="Know what's in the codebase before you sign. Four analyzers, one deal-grade PDF, in ~60 seconds for ~$0.02." />
+  <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
+
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://ghostarchitect.dev/inheritance-audit" />
+
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #1a1a24;
+      --border: #2a2a3a;
+      --accent: #4a9eff;
+      --accent2: #00d4aa;
+      --danger: #ff4a6b;
+      --warning: #ffaa00;
+      --text: #e8e8f0;
+      --text-muted: #b0b0c0;
+      --text-dim: #777788;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.6; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-family: var(--font-mono); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .hamburger { display: none; cursor: pointer; padding: 4px; background: none; border: none; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; transition: all 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 56px; left: 0; right: 0; background: rgba(10,10,15,0.98); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem 1.5rem; z-index: 99; flex-direction: column; gap: 0; backdrop-filter: blur(12px); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-family: var(--font-mono); padding: 0.85rem 0; border-bottom: 1px solid var(--border); }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--accent); }
+    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex !important; } }
+
+    /* HERO */
+    .hero { padding: 5rem 2rem 4rem; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(74,158,255,0.12) 0%, transparent 70%); pointer-events: none; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #000; font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; padding: 6px 14px; border-radius: 4px; margin-bottom: 1.5rem; text-transform: uppercase; }
+    .hero h1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 1.5rem; max-width: 900px; margin-left: auto; margin-right: auto; }
+    .hero h1 .accent { color: var(--accent); }
+    .hero-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 660px; margin: 0 auto 2.5rem; line-height: 1.5; }
+    .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; max-width: 760px; margin: 0 auto 2.5rem; }
+    .stat { background: var(--surface); padding: 1.25rem 1rem; text-align: center; }
+    .stat-value { font-size: 1.7rem; font-weight: 800; font-family: var(--font-mono); color: var(--accent); letter-spacing: -0.03em; }
+    .stat-label { font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+    .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--accent); color: #000; font-weight: 700; font-size: 0.95rem; padding: 14px 32px; border-radius: 8px; text-decoration: none; transition: all 0.2s; }
+    .btn-primary:hover { background: #6bb3ff; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(74,158,255,0.35); }
+    .btn-secondary { background: transparent; color: var(--text-muted); font-size: 0.95rem; padding: 14px 32px; border-radius: 8px; text-decoration: none; border: 1px solid var(--border); transition: all 0.2s; }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .hero-note { margin-top: 1.25rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); }
+    @media (max-width: 768px) { .hero-stats { grid-template-columns: repeat(2, 1fr); } }
+
+    /* PROBLEM SECTION */
+    .problem { padding: 4rem 2rem; max-width: 880px; margin: 0 auto; text-align: center; }
+    .problem h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 1.25rem; }
+    .problem p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.65; margin-bottom: 1rem; max-width: 720px; margin-left: auto; margin-right: auto; }
+    .problem p strong { color: var(--text); }
+
+    /* ANALYZERS */
+    .analyzers { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-eyebrow { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
+    .analyzers h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 0.5rem; }
+    .analyzers-sub { color: var(--text-muted); font-size: 1rem; margin-bottom: 3rem; max-width: 660px; }
+    .analyzer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .analyzer-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; position: relative; transition: border-color 0.2s, transform 0.2s; }
+    .analyzer-card:hover { border-color: rgba(74,158,255,0.4); transform: translateY(-2px); }
+    .analyzer-num { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 0.75rem; }
+    .analyzer-card h3 { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .analyzer-card p.lead { color: var(--text); font-size: 0.95rem; line-height: 1.55; margin-bottom: 1rem; }
+    .analyzer-card ul { list-style: none; padding: 0; margin: 0; }
+    .analyzer-card li { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; padding: 0.4rem 0; display: flex; align-items: flex-start; gap: 0.6rem; }
+    .analyzer-card li::before { content: '→'; color: var(--accent); font-family: var(--font-mono); flex-shrink: 0; font-size: 0.9rem; margin-top: 0.05rem; }
+    @media (max-width: 768px) { .analyzer-grid { grid-template-columns: 1fr; } }
+
+    /* SAMPLE REPORT */
+    .report-section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .report-mockup { background: #fafafa; color: #1a1a24; border-radius: 16px; padding: 2.5rem 3rem; box-shadow: 0 20px 60px rgba(0,0,0,0.4); position: relative; max-width: 760px; margin: 0 auto; font-family: 'Times New Roman', Georgia, serif; }
+    .report-stamp { position: absolute; top: 1.5rem; right: 1.5rem; transform: rotate(-8deg); background: var(--bg); color: var(--accent2); border: 2px solid var(--accent2); border-radius: 8px; padding: 0.5rem 1rem; font-family: var(--font-mono); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-align: center; line-height: 1.2; }
+    .report-stamp .big { font-size: 1.2rem; display: block; margin: 0.15rem 0; }
+    .report-header { font-family: var(--font-mono); font-size: 0.7rem; color: #666; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .report-section-title { font-size: 1.8rem; font-weight: 700; color: #1a1a24; margin-bottom: 1.5rem; }
+    .report-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; font-family: var(--font-sans); }
+    .report-pill { background: #1a1a24; color: #fafafa; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 6px; letter-spacing: 0.05em; }
+    .report-row .value { font-size: 1.1rem; font-weight: 700; color: #1a1a24; }
+    .report-row .label { font-size: 0.85rem; color: #666; }
+    .report-bar { display: inline-block; width: 200px; height: 12px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 6px; }
+    .report-divider { height: 1px; background: #e0e0e0; margin: 1.5rem 0; }
+    .report-findings-title { font-family: var(--font-sans); font-size: 1rem; font-weight: 700; color: #1a1a24; margin-bottom: 1rem; }
+    .report-finding { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.85rem; font-family: var(--font-sans); }
+    .report-finding-bar { width: 4px; align-self: stretch; min-height: 36px; border-radius: 2px; }
+    .report-finding-body { flex: 1; }
+    .report-finding-tag { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .report-finding-desc { font-size: 0.9rem; color: #444; margin-top: 0.15rem; line-height: 1.4; }
+    .tag-deal { color: #ff4a6b; } .bar-deal { background: #ff4a6b; }
+    .tag-post { color: #ffaa00; } .bar-post { background: #ffaa00; }
+    .tag-day91 { color: #ffd700; } .bar-day91 { background: #ffd700; }
+    .report-footer { font-family: var(--font-mono); font-size: 0.7rem; color: #999; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e0e0e0; }
+
+    /* PERSONAS */
+    .personas { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .personas h2 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+    .personas-sub { color: var(--text-muted); font-size: 1rem; margin-bottom: 3rem; max-width: 660px; }
+    .persona-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .persona-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; position: relative; transition: border-color 0.2s; }
+    .persona-card:hover { border-color: rgba(74,158,255,0.4); }
+    .persona-tag { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.85rem; }
+    .persona-card h3 { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; line-height: 1.3; }
+    .persona-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.55; }
+    @media (max-width: 768px) { .persona-grid { grid-template-columns: 1fr; } }
+
+    /* USE CASE QUOTE */
+    .quote-band { padding: 3rem 2rem; max-width: 900px; margin: 0 auto; text-align: center; }
+    .quote-band .pre { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent2); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .quote-band blockquote { font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 600; line-height: 1.35; font-style: italic; color: var(--text); border-left: 4px solid var(--accent2); padding-left: 2rem; text-align: left; max-width: 720px; margin: 0 auto; }
+
+    /* PRICING / TIER GATE */
+    .tier-gate { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .tier-gate-inner { background: linear-gradient(135deg, rgba(74,158,255,0.08) 0%, rgba(0,212,170,0.05) 100%); border: 1px solid rgba(74,158,255,0.3); border-radius: 20px; padding: 3rem; text-align: center; }
+    .tier-gate h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem; }
+    .tier-gate p.lead { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.55; }
+    .tier-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; max-width: 880px; margin: 0 auto 2.5rem; }
+    .tier-card { background: rgba(10,10,15,0.7); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; text-align: left; transition: border-color 0.2s, transform 0.2s; }
+    .tier-card:hover { border-color: rgba(74,158,255,0.4); transform: translateY(-2px); }
+    .tier-card.featured { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 8px 32px rgba(74,158,255,0.15); }
+    .tier-card .tier-name { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .tier-card .tier-price { font-size: 2rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1; }
+    .tier-card .tier-price span { font-size: 0.9rem; font-weight: 400; color: var(--text-muted); }
+    .tier-card .tier-desc { font-size: 0.85rem; color: var(--text-muted); margin: 0.75rem 0 1.5rem; line-height: 1.5; }
+    .tier-card .tier-btn { display: block; text-align: center; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: opacity 0.2s; }
+    .tier-card.featured .tier-btn { background: var(--accent); color: #000; }
+    .tier-card:not(.featured) .tier-btn { background: rgba(74,158,255,0.12); color: var(--accent); border: 1px solid rgba(74,158,255,0.3); }
+    .tier-card .tier-btn:hover { opacity: 0.85; }
+    .tier-gate .note { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); }
+    @media (max-width: 768px) { .tier-cards { grid-template-columns: 1fr; } .tier-gate-inner { padding: 2rem; } }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2rem; display: flex; align-items: center; justify-content: space-between; max-width: 1100px; margin: 4rem auto 0; }
+    .footer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-muted); font-size: 0.85rem; }
+    .footer-logo img { width: 20px; height: 20px; border-radius: 4px; object-fit: cover; }
+    .footer-copy { font-size: 0.75rem; color: var(--text-dim); }
+    @media (max-width: 768px) { footer { flex-direction: column; gap: 1rem; text-align: center; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" width="28" height="28" />
+    Ghost Architect™
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#what-it-does">What It Does</a></li>
+    <li><a href="/inheritance-audit.html" style="color: var(--accent);">Inheritance Audit</a></li>
+    <li><a href="/prompt-triage.html" style="color: var(--accent2);">Prompt Triage</a></li>
+    <li><a href="/#security">Security</a></li>
+    <li><a href="/#for-agencies">For Agencies</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+    <li><a href="/plans.html">Plan Details</a></li>
+    <li><a href="/blog.html">Blog</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/#what-it-does" onclick="closeMenu()">What It Does</a>
+  <a href="/inheritance-audit.html" onclick="closeMenu()">Inheritance Audit</a>
+  <a href="/prompt-triage.html" onclick="closeMenu()">Prompt Triage</a>
+  <a href="/#security" onclick="closeMenu()">Security</a>
+  <a href="/#for-agencies" onclick="closeMenu()">For Agencies</a>
+  <a href="/pricing" onclick="closeMenu()">Pricing</a>
+  <a href="/plans.html" onclick="closeMenu()">Plan Details</a>
+  <a href="/blog.html" onclick="closeMenu()">Blog</a>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var btn = document.getElementById('hamburger'), menu = document.getElementById('mobile-menu');
+  window.closeMenu = function(){ btn.classList.remove('open'); menu.classList.remove('open'); };
+  btn.addEventListener('click', function(){ btn.classList.toggle('open'); menu.classList.toggle('open'); });
+});
+</script>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">NEW · INHERITANCE AUDIT MODE · v5.4.0 LIVE NOW</div>
+  <h1>Know what's actually in the codebase<br><span class="accent">before you sign.</span></h1>
+  <p class="hero-sub">The independent codebase audit trusted before the LOI, the SOW, and the board meeting. Four analyzers, one deal-grade PDF, in roughly 60 seconds for roughly $0.02 in API charges.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-value">~$0.02</div>
+      <div class="stat-label">API Charges</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">~60s</div>
+      <div class="stat-label">Runtime</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">4</div>
+      <div class="stat-label">Analyzers</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">5-page</div>
+      <div class="stat-label">Deal-Grade PDF</div>
+    </div>
+  </div>
+  <div class="hero-cta">
+    <a href="/pricing" class="btn-primary">Unlock on Ghost Pro →</a>
+    <a href="#analyzers" class="btn-secondary">See the analyzers</a>
+  </div>
+  <div class="hero-note">Premium feature · Ghost Pro $99/mo · Team $399/mo · Enterprise</div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <h2>You're about to inherit a codebase you didn't write.</h2>
+  <p>Maybe it's an agency engagement. Maybe a PE deal. Maybe a CTO seat someone just walked out of.</p>
+  <p><strong>The pitch deck says "modern stack." The repo says something else.</strong></p>
+  <p>The README lies, the docs are 18 months stale, and the person who actually understood the architecture left in Q2. You spend the first 30 days of every engagement just trying to figure out what's actually in there before you can do anything useful.</p>
+  <p style="color: var(--accent2); font-weight: 700; font-size: 1.15rem; margin-top: 1.5rem;">Inheritance Audit Mode compresses those 30 days into 60 seconds.</p>
+</section>
+
+<!-- ANALYZERS -->
+<section class="analyzers" id="analyzers">
+  <div class="section-eyebrow">// four analyzers · one deal-grade report</div>
+  <h2>What you actually get.</h2>
+  <p class="analyzers-sub">Each analyzer runs independently against the codebase, then synthesizes into a single executive-summary PDF you can hand to a deal committee, a board, or a client without an apology.</p>
+
+  <div class="analyzer-grid">
+    <div class="analyzer-card">
+      <div class="analyzer-num">01 · STACK REALITY</div>
+      <h3>What's there.</h3>
+      <p class="lead">An independent inventory of every framework, runtime, and dependency actually running in production. No reliance on what the seller said in the pitch deck.</p>
+      <ul>
+        <li>Framework and runtime detection across any language</li>
+        <li>EOL flags with publication dates</li>
+        <li>Version drift across services</li>
+        <li>Verified against actual repo contents, not docs</li>
+      </ul>
+    </div>
+
+    <div class="analyzer-card">
+      <div class="analyzer-num">02 · KEY-PERSON RISK</div>
+      <h3>Who wrote it.</h3>
+      <p class="lead">Bus factor math from anonymized git authorship. Identifies the people whose departure would meaningfully impact your ability to operate or modify the codebase.</p>
+      <ul>
+        <li>Anonymized authorship analysis</li>
+        <li>Bus factor calculation</li>
+        <li>Departed-contributor flagging</li>
+        <li>Concentration risk per subsystem</li>
+      </ul>
+    </div>
+
+    <div class="analyzer-card">
+      <div class="analyzer-num">03 · HIDDEN DEPENDENCIES</div>
+      <h3>What you owe.</h3>
+      <p class="lead">The license-and-EOL map you should have asked for before signing. Surfaces copyleft licenses in commercial code, deprecated libraries, and dependencies that hit EOL months or years ago.</p>
+      <ul>
+        <li>License classification across the dep tree</li>
+        <li>Copyleft exposure in commercial code</li>
+        <li>EOL dependency flagging</li>
+        <li>Transitive dependency risk</li>
+      </ul>
+    </div>
+
+    <div class="analyzer-card">
+      <div class="analyzer-num">04 · MODERNIZATION ROADMAP</div>
+      <h3>What to do.</h3>
+      <p class="lead">A confidence-rated, AI-synthesized 90-day plan. Stabilize or rebuild recommendation, prioritized by deal impact. Source-grounded, with traceable evidence.</p>
+      <ul>
+        <li>Stabilize-or-rebuild recommendation</li>
+        <li>Confidence rating (LOW / MEDIUM / HIGH)</li>
+        <li>90-day plan with deal-tier prioritization</li>
+        <li>Source-grounded; no hallucinated findings</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SAMPLE REPORT MOCKUP -->
+<section class="report-section">
+  <div class="section-eyebrow" style="text-align: center; margin-bottom: 2rem;">// what page 1 looks like</div>
+  <div class="report-mockup">
+    <div class="report-stamp">THIS REPORT<span class="big">~$0.02</span>IN API CHARGES</div>
+    <div class="report-header">Inheritance Audit Report</div>
+    <div class="report-section-title">Executive Summary</div>
+
+    <div class="report-row">
+      <span class="report-pill">RECOMMENDATION:</span>
+      <span class="value">STABILIZE</span>
+    </div>
+    <div class="report-row">
+      <span class="label">CONFIDENCE</span>
+      <span class="report-bar"></span>
+      <span class="value" style="color: var(--accent);">MEDIUM</span>
+    </div>
+
+    <div class="report-divider"></div>
+
+    <div class="report-findings-title">Key Findings</div>
+
+    <div class="report-finding">
+      <div class="report-finding-bar bar-deal"></div>
+      <div class="report-finding-body">
+        <div class="report-finding-tag tag-deal">DEAL-BLOCKER</div>
+        <div class="report-finding-desc">PHP 7.4 in production · EOL since Nov 2022</div>
+      </div>
+    </div>
+
+    <div class="report-finding">
+      <div class="report-finding-bar bar-post"></div>
+      <div class="report-finding-body">
+        <div class="report-finding-tag tag-post">POST-CLOSE RISK</div>
+        <div class="report-finding-desc">Bus factor of 2 · 3 of top 5 authors departed</div>
+      </div>
+    </div>
+
+    <div class="report-finding">
+      <div class="report-finding-bar bar-post"></div>
+      <div class="report-finding-body">
+        <div class="report-finding-tag tag-post">POST-CLOSE RISK</div>
+        <div class="report-finding-desc">7 copyleft deps in commercial codebase</div>
+      </div>
+    </div>
+
+    <div class="report-finding">
+      <div class="report-finding-bar bar-day91"></div>
+      <div class="report-finding-body">
+        <div class="report-finding-tag tag-day91">DAY-91 CLEANUP</div>
+        <div class="report-finding-desc">28 frameworks detected · 4 past EOL</div>
+      </div>
+    </div>
+
+    <div class="report-footer">Page 1 of 5 · Ghost Architect v5.4.0 · Confidential</div>
+  </div>
+</section>
+
+<!-- USE CASE QUOTE -->
+<section class="quote-band">
+  <div class="pre">// the use case</div>
+  <blockquote>
+    Run it before your stakeholder call. Show up with the freshest read on the codebase in the room.
+  </blockquote>
+</section>
+
+<!-- PERSONAS -->
+<section class="personas">
+  <div class="section-eyebrow">// built for the people writing the check</div>
+  <h2>Three buyers. One report.</h2>
+  <p class="personas-sub">Inheritance Audit Mode is purpose-built for the moments where the cost of being wrong is measured in commas, not cents.</p>
+
+  <div class="persona-grid">
+    <div class="persona-card">
+      <div class="persona-tag">AGENCIES &amp; CONTRACTORS</div>
+      <h3>Price the SOW correctly. Spot the deal-breakers before the first sprint.</h3>
+      <p>You've been burned by SOWs that priced 200 hours and consumed 800. Inheritance Audit gives you the independent codebase read you need to price with confidence — and the deal-grade PDF you can attach to the proposal.</p>
+    </div>
+
+    <div class="persona-card">
+      <div class="persona-tag">PE &amp; M&amp;A DILIGENCE</div>
+      <h3>Independent intelligence before the LOI. Renegotiate, restructure, or walk.</h3>
+      <p>Sellers tell their story. The codebase tells its own. Inheritance Audit gives the deal team an independent technical read before the term sheet — surfacing EOL risk, key-person concentration, and license exposure in time to negotiate or walk.</p>
+    </div>
+
+    <div class="persona-card">
+      <div class="persona-tag">FRACTIONAL CTOs</div>
+      <h3>Show up to the board meeting with a 90-day plan, not vibes.</h3>
+      <p>You walk into engagements where the last CTO left, the team is two engineers thin, and the board wants a roadmap by Friday. Inheritance Audit gives you the deal-grade artifact in 60 seconds — and the 90-day plan you can defend on slide 4.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIER GATE / PRICING -->
+<section class="tier-gate" id="pricing-gate">
+  <div class="tier-gate-inner">
+    <div class="section-eyebrow" style="margin-bottom: 1rem;">// premium feature</div>
+    <h2>Inheritance Audit unlocks on Ghost Pro.</h2>
+    <p class="lead">Audit Mode is a premium feature. Ghost Pro, Team, and Enterprise unlock the full deal-grade workflow: all four analyzers, the deal-tier severity recast, and the modernization roadmap synthesis.</p>
+
+    <div class="tier-cards">
+      <div class="tier-card featured">
+        <div class="tier-name">Ghost Pro</div>
+        <div class="tier-price">$99<span>/mo</span></div>
+        <p class="tier-desc">Solo operators. The full deal-grade audit, every mode, every analyzer. Most popular tier.</p>
+        <a href="https://buy.stripe.com/00w00j8jl9eQdzJ9yZbEA00" class="tier-btn" target="_blank" rel="noopener">Start Ghost Pro →</a>
+      </div>
+
+      <div class="tier-card">
+        <div class="tier-name">Ghost Team</div>
+        <div class="tier-price">$399<span>/mo</span></div>
+        <p class="tier-desc">Agencies and diligence teams. 5 seats, shared project sync, full audit on every seat.</p>
+        <a href="https://buy.stripe.com/5kQfZhdDFeza7blbH7bEA01" class="tier-btn" target="_blank" rel="noopener">Start Ghost Team →</a>
+      </div>
+
+      <div class="tier-card">
+        <div class="tier-name">Ghost Enterprise</div>
+        <div class="tier-price">$1,200<span>/mo+</span></div>
+        <p class="tier-desc">PE firms, enterprises, and platform agencies. Custom seats, white-label PDF, MSA included.</p>
+        <a href="https://buy.stripe.com/4gM3cvartaiU2V5fXnbEA02" class="tier-btn" target="_blank" rel="noopener">Start Enterprise →</a>
+      </div>
+    </div>
+
+    <div class="note">All tiers BYOK (Bring Your Own Anthropic API key) · Your code never leaves your machine · Cancel anytime</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="/" class="footer-logo">
+    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" />
+    Ghost Architect™
+  </a>
+  <div class="footer-copy">© 2026 Ghost Platform™ · <a href="/privacy.html" style="color: var(--text-dim); text-decoration: underline;">Privacy</a> · <a href="/support.html" style="color: var(--text-dim); text-decoration: underline;">Support</a></div>
+</footer>
+
+</body>
+</html>

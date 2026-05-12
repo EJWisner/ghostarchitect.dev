@@ -35,14 +35,14 @@
     "operatingSystem": "macOS, Windows, Linux",
     "url": "https://ghostarchitect.dev",
     "description": "AI-powered codebase intelligence tool that triages codebases, categorizes risk, prioritizes findings, and generates structured reports for any platform or language.",
-    "softwareVersion": "5.3.0",
+    "softwareVersion": "5.4.0",
     "offers": [
       {
         "@type": "Offer",
         "name": "Ghost Open",
         "price": "0",
         "priceCurrency": "USD",
-        "description": "Free open-source tier — full scan engine, every finding, every severity. Six scan modes: Chat, POI, Blast Radius, Conflict Detection, Recon, Prompt Triage."
+        "description": "Free open-source tier (BYOK). Six scan modes: Chat, Points of Interest, Blast Radius, Conflict Detection, Recon, and Prompt Triage. Inheritance Audit Mode is available on Ghost Pro and above."
       },
       {
         "@type": "Offer",
@@ -977,6 +977,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="/#what-it-does">What It Does</a></li>
+    <li><a href="/inheritance-audit.html" style="color: var(--accent);">Inheritance Audit</a></li>
     <li><a href="/prompt-triage.html" style="color: var(--accent2);">Prompt Triage</a></li>
     <li><a href="/#ghost-partner" style="color: var(--accent);">Ghost Partner™</a></li>
     <li><a href="#magento-249" style="color: var(--danger);">⚠ May 12 Deadline</a></li>
@@ -991,6 +992,7 @@
 </nav>
 <div class="mobile-menu" id="mobile-menu">
   <a href="/#what-it-does" onclick="closeMenu()">What It Does</a>
+  <a href="/inheritance-audit.html" onclick="closeMenu()">Inheritance Audit</a>
   <a href="/prompt-triage.html" onclick="closeMenu()">Prompt Triage</a>
   <a href="/#ghost-partner" onclick="closeMenu()">Ghost Partner™</a>
   <a href="/#magento-249" onclick="closeMenu()">⚠ May 12 Deadline</a>
@@ -1060,7 +1062,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <!-- HERO -->
 <section class="hero">
-  <div class="version-badge">v5.3.0 · Prompt Triage report clarity</div>
+  <div class="version-badge">v5.4.0 · Inheritance Audit Mode · LIVE NOW</div>
   <h1>Pre-engagement triage for<br><em>codebases you didn't write.</em></h1>
   <p class="hero-sub">Know what is in the codebase before the next migration, SOW, or audit. Any codebase, any language, any platform.</p>
   <div class="hero-cta">
@@ -1108,6 +1110,64 @@ document.addEventListener('DOMContentLoaded', function(){
     <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Readable via DevTools by any attacker. Est. impact: <strong style="color: var(--danger);">full Facebook Business account takeover.</strong></div>
   </div>
 </section>
+
+<!-- INHERITANCE AUDIT FEATURE SPOTLIGHT -->
+<section id="inheritance-audit-spotlight" style="padding: 4rem 2rem 2rem; max-width: 1100px; margin: 0 auto;">
+  <div style="background: linear-gradient(135deg, rgba(74,158,255,0.08) 0%, rgba(0,212,170,0.05) 100%); border: 1px solid rgba(74,158,255,0.35); border-radius: 20px; padding: 3rem; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 1.25rem; right: 1.5rem; background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #000; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; padding: 0.3rem 0.7rem; border-radius: 4px;">NEW IN v5.4</div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;" class="ia-spotlight-grid">
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem;">// feature spotlight · inheritance audit</div>
+        <h2 style="font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.25rem; color: var(--text);">Know what's in the codebase<br><span style="color: var(--accent);">before you sign.</span></h2>
+        <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem;">The independent codebase audit trusted before the LOI, the SOW, and the board meeting. Four analyzers, one deal-grade PDF. Run it in roughly 60 seconds for roughly <strong style="color: var(--text);">$0.02 in API charges.</strong></p>
+        <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem;">Built for the people writing the check. <strong style="color: var(--text);">Agency founders</strong> pricing the SOW, <strong style="color: var(--text);">PE diligence teams</strong> pre-LOI, and <strong style="color: var(--text);">fractional CTOs</strong> walking into engagements cold.</p>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="/inheritance-audit.html" style="display: inline-block; background: var(--accent); color: #000; font-weight: 700; font-size: 0.9rem; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: all 0.2s;">See the audit →</a>
+          <a href="/pricing" style="display: inline-block; background: transparent; color: var(--text-muted); border: 1px solid var(--border); font-size: 0.9rem; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: all 0.2s;">Unlock on Ghost Pro →</a>
+        </div>
+        <div style="margin-top: 1rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);">Premium feature · Ghost Pro, Team, Enterprise</div>
+      </div>
+
+      <div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(74,158,255,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
+            <div style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: var(--accent); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">~$0.02</div>
+            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">API Charges</div>
+          </div>
+          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(74,158,255,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
+            <div style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: var(--accent); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">~60s</div>
+            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">Runtime</div>
+          </div>
+          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(74,158,255,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
+            <div style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: var(--accent); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">4</div>
+            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">Analyzers</div>
+          </div>
+          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(74,158,255,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
+            <div style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: var(--accent); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">5-page</div>
+            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">Deal-Grade PDF</div>
+          </div>
+        </div>
+
+        <div style="background: rgba(10,10,15,0.7); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; margin-top: 0.75rem;">
+          <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.6rem;">// four analyzers · one report</div>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <div style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text-muted);"><span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); flex-shrink: 0;">01</span><span><strong style="color: var(--text);">Stack Reality.</strong> Frameworks, runtimes, EOL flags.</span></div>
+            <div style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text-muted);"><span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); flex-shrink: 0;">02</span><span><strong style="color: var(--text);">Key-Person Risk.</strong> Bus factor, departed contributors.</span></div>
+            <div style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text-muted);"><span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); flex-shrink: 0;">03</span><span><strong style="color: var(--text);">Hidden Deps.</strong> License risk, EOL exposure.</span></div>
+            <div style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text-muted);"><span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); flex-shrink: 0;">04</span><span><strong style="color: var(--text);">Modernization Roadmap.</strong> Stabilize or rebuild, 90-day plan.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (max-width: 768px) {
+    .ia-spotlight-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  }
+</style>
 
 <!-- PROMPT TRIAGE FEATURE SPOTLIGHT -->
 <section id="prompt-triage-spotlight" style="padding: 4rem 2rem; max-width: 1100px; margin: 0 auto;">
@@ -1196,6 +1256,12 @@ document.addEventListener('DOMContentLoaded', function(){
       <div class="capability-icon">🔍</div>
       <h3>Recon &mdash; Engagement Sizing</h3>
       <p>Walk into the scoping call with data. Recon counts files, gauges complexity, projects scan cost, and proposes a multi-pass plan before you spend a cent on analysis.</p>
+    </div>
+    <div class="capability-card" style="border-left:3px solid var(--accent);position:relative;">
+      <div style="position:absolute;top:0.75rem;right:0.85rem;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#000;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">NEW v5.4</div>
+      <div class="capability-icon">📋</div>
+      <h3>Inheritance Audit</h3>
+      <p>Four analyzers, one deal-grade PDF in ~60s for ~$0.02. Stack reality, key-person risk, hidden deps, and a 90-day modernization roadmap. Built for agencies, PE diligence, and fractional CTOs. <a href="/inheritance-audit.html" style="color:var(--accent);font-weight:600;">See the audit &rarr;</a></p>
     </div>
     <div class="capability-card" style="border-left:3px solid var(--accent2);position:relative;">
       <div style="position:absolute;top:0.75rem;right:0.85rem;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#000;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">NEW v5.2</div>
