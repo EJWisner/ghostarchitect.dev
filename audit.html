@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <title>Ghost Inheritance Audit™ — $497 Done-For-You Magento Codebase Audit | Ghost Architect™</title>
+  <meta name="description" content="A senior-architect-grade codebase audit on your Magento extensions and custom modules. Delivered as a branded PDF report and 1-page executive summary in 48 hours. $497, signed NDA on request." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="product" />
+  <meta property="og:url" content="https://ghostarchitect.dev/audit.html" />
+  <meta property="og:title" content="Ghost Inheritance Audit™ — $497 Done-For-You Magento Codebase Audit" />
+  <meta property="og:description" content="Senior-architect-grade audit of your Magento codebase. Vendor extensions and custom app/code modules. PDF report and executive summary in 48 hours." />
+  <meta property="og:image" content="https://ghostarchitect.dev/assets/audit-hero.png" />
+  <meta property="og:site_name" content="Ghost Architect™" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://ghostarchitect.dev/audit.html" />
+  <meta name="twitter:title" content="Ghost Inheritance Audit™ — $497" />
+  <meta name="twitter:description" content="Done-for-you Magento codebase audit. PDF + executive summary in 48 hours." />
+  <meta name="twitter:image" content="https://ghostarchitect.dev/assets/audit-hero.png" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Ghost Inheritance Audit",
+    "description": "Done-for-you Magento codebase audit delivered as a branded PDF report and 1-page written executive summary within 48 hours. Covers vendor extensions and custom app/code modules.",
+    "image": "https://ghostarchitect.dev/assets/audit-hero.png",
+    "brand": {
+      "@type": "Brand",
+      "name": "Ghost Architect"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "497.00",
+      "priceCurrency": "USD",
+      "url": "https://ghostarchitect.dev/audit.html",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-page: #050a14;
+      --bg-card: #0a1528;
+      --bg-card-top: #122440;
+      --border: rgba(0, 191, 216, 0.28);
+      --border-strong: rgba(0, 191, 216, 0.55);
+      --cyan: #00bfd8;
+      --cyan-bright: #00e5ff;
+      --cyan-dim: #4d8a99;
+      --text-primary: #f5f9ff;
+      --text-secondary: #b8c5d6;
+      --text-tertiary: #8a9aaf;
+      --good: #00e5a8;
+      --warn: #ffc266;
+      --grid: rgba(0, 191, 216, 0.05);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      background: var(--bg-page);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+
+    body {
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    a { color: var(--cyan-bright); text-decoration: none; }
+    a:hover { color: var(--cyan); }
+
+    /* ── Header ─────────────────────────────────────────────────── */
+    .topbar {
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+    }
+    .topbar-brand img { height: 28px; }
+    .topbar-links { display: flex; gap: 22px; }
+    .topbar-links a {
+      color: var(--text-secondary);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+    .topbar-links a:hover { color: var(--cyan-bright); }
+
+    /* ── Hero ───────────────────────────────────────────────────── */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px 32px;
+    }
+    .hero-eyebrow {
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .hero-headline {
+      font-size: clamp(34px, 5vw, 54px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      margin-bottom: 18px;
+    }
+    .hero-subhead {
+      font-size: clamp(16px, 1.4vw, 19px);
+      color: var(--text-secondary);
+      max-width: 760px;
+      margin-bottom: 28px;
+      line-height: 1.55;
+    }
+    .hero-img {
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      margin-top: 18px;
+    }
+
+    /* ── Buy band ───────────────────────────────────────────────── */
+    .buy-band {
+      background: linear-gradient(180deg, var(--bg-card-top), var(--bg-card));
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-top: 40px;
+    }
+    .buy-band-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .buy-band-left {
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .buy-band-price {
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--cyan-bright);
+      letter-spacing: -0.01em;
+    }
+    .buy-band-product {
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+    .buy-band-product strong { color: var(--text-primary); }
+    .buy-btn {
+      display: inline-block;
+      background: var(--cyan);
+      color: var(--bg-page);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.04em;
+      padding: 16px 28px;
+      border-radius: 6px;
+      transition: background 0.12s ease;
+    }
+    .buy-btn:hover { background: var(--cyan-bright); color: var(--bg-page); }
+
+    /* ── Sections ───────────────────────────────────────────────── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    .section-eyebrow {
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    .section-body {
+      color: var(--text-secondary);
+      font-size: 16px;
+      line-height: 1.65;
+      max-width: 820px;
+      margin-bottom: 12px;
+    }
+    .section-body strong { color: var(--text-primary); }
+
+    /* ── Get card grid ──────────────────────────────────────────── */
+    .get-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+    .get-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px 22px 20px;
+    }
+    .get-card-num {
+      font-family: 'SF Mono', Menlo, monospace;
+      color: var(--cyan-bright);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .get-card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .get-card-body {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ── Sample box ─────────────────────────────────────────────── */
+    .sample-box {
+      background: linear-gradient(180deg, var(--bg-card-top), var(--bg-card));
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 32px;
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .sample-box-icon {
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+      background: var(--cyan);
+      color: var(--bg-page);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0.04em;
+    }
+    .sample-box-text { flex: 1; min-width: 280px; }
+    .sample-box-title { font-weight: 700; font-size: 18px; margin-bottom: 4px; }
+    .sample-box-sub { color: var(--text-secondary); font-size: 14px; }
+    .sample-btn {
+      display: inline-block;
+      border: 1px solid var(--cyan);
+      color: var(--cyan-bright);
+      padding: 12px 22px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      transition: background 0.12s ease;
+    }
+    .sample-btn:hover { background: rgba(0, 191, 216, 0.12); color: var(--cyan-bright); }
+
+    /* ── Why $497 ───────────────────────────────────────────────── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+    .why-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px;
+    }
+    .why-card-label {
+      color: var(--cyan-bright);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .why-card-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .why-card-detail {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ── FAQ ────────────────────────────────────────────────────── */
+    .faq-item {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+    }
+    .faq-q {
+      font-weight: 700;
+      color: var(--text-primary);
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+    .faq-a {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* ── Credibility band ───────────────────────────────────────── */
+    .cred-band {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 24px;
+    }
+    .cred-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .cred-headline {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .cred-body {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.65;
+      max-width: 760px;
+    }
+
+    /* ── Final CTA ──────────────────────────────────────────────── */
+    .final-cta {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 64px 24px;
+      text-align: center;
+    }
+    .final-cta-title {
+      font-size: clamp(28px, 3.5vw, 38px);
+      font-weight: 700;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .final-cta-sub {
+      color: var(--text-secondary);
+      font-size: 17px;
+      margin-bottom: 28px;
+    }
+    .final-cta .buy-btn {
+      padding: 20px 36px;
+      font-size: 17px;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      color: var(--text-tertiary);
+      font-size: 13px;
+    }
+    footer a { color: var(--text-tertiary); margin-left: 16px; }
+    footer a:hover { color: var(--cyan-bright); }
+
+    /* ── Mobile ─────────────────────────────────────────────────── */
+    @media (max-width: 720px) {
+      .topbar-links { display: none; }
+      .buy-band-inner { flex-direction: column; align-items: flex-start; }
+      .buy-band-left { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .sample-box { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ────────── Topbar ────────── -->
+  <div class="topbar">
+    <a href="/" class="topbar-brand">
+      <img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />
+      <span>GHOST ARCHITECT™</span>
+    </a>
+    <div class="topbar-links">
+      <a href="/">Home</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/audit.html">Audit</a>
+      <a href="/blog.html">Blog</a>
+    </div>
+  </div>
+
+  <!-- ────────── Hero ────────── -->
+  <section class="hero">
+    <div class="hero-eyebrow">Ghost Inheritance Audit™ · Done-For-You</div>
+    <h1 class="hero-headline">
+      A senior-architect-grade audit of your Magento codebase.<br />
+      Delivered in 48 hours.
+    </h1>
+    <p class="hero-subhead">
+      Inheriting a merchant codebase before the 2.4.9 upgrade? Considering a Magento agency engagement, an M&amp;A diligence target, or your own production stack? Ghost Inheritance Audit™ surfaces the license, dependency, and key-person risks hiding in your vendor extensions and custom app/code modules. Branded PDF report. 1-page executive summary. Senior-architect interpretation.
+    </p>
+    <img src="/assets/audit-hero.png" alt="Ghost Inheritance Audit sample teaser. Five Magento extensions, nine risk findings, one PDF a buyer can read." class="hero-img" />
+  </section>
+
+  <!-- ────────── Buy band ────────── -->
+  <div class="buy-band">
+    <div class="buy-band-inner">
+      <div class="buy-band-left">
+        <span class="buy-band-price">$497</span>
+        <span class="buy-band-product">
+          One <strong>Ghost Inheritance Audit™</strong>. PDF report + executive summary. <strong>48-hour delivery.</strong>
+        </span>
+      </div>
+      <a href="https://buy.stripe.com/4gM14neHJ3Uw7bl12tbEA03" class="buy-btn">
+        Order Your Audit →
+      </a>
+    </div>
+  </div>
+
+  <!-- ────────── Sample download ────────── -->
+  <section class="section">
+    <div class="section-eyebrow">See What You Get</div>
+    <h2 class="section-title">A real audit. Five real extensions. Public-domain proof.</h2>
+    <p class="section-body">
+      Before you spend $497, read the sample. We audited five widely-deployed third-party Magento extensions from three vendors (Mageplaza, Amasty, Magefan) against the Magento 2.4.9 baseline. The findings, the report format, and the executive summary in this sample are exactly what you receive on your codebase.
+    </p>
+    <div class="sample-box">
+      <div class="sample-box-icon">PDF</div>
+      <div class="sample-box-text">
+        <div class="sample-box-title">Sample Executive Summary &amp; Audit Report</div>
+        <div class="sample-box-sub">Magento 2.4.9 Extension Risk Survey · 2 pages · 122 KB</div>
+      </div>
+      <a href="/assets/ghost-inheritance-audit-sample.pdf" class="sample-btn" target="_blank" rel="noopener">
+        Download Sample (PDF) ↓
+      </a>
+    </div>
+  </section>
+
+  <!-- ────────── What you get ────────── -->
+  <section class="section">
+    <div class="section-eyebrow">What You Get When You Buy</div>
+    <h2 class="section-title">Four deliverables. One price. No surprises.</h2>
+    <div class="get-grid">
+      <div class="get-card">
+        <div class="get-card-num">01</div>
+        <div class="get-card-title">Full audit on your entire codebase</div>
+        <div class="get-card-body">
+          No size cap. Whether you have one custom app/code module or a hundred vendor extensions, you get the complete scan.
+        </div>
+      </div>
+      <div class="get-card">
+        <div class="get-card-num">02</div>
+        <div class="get-card-title">5-section deal-grade PDF report</div>
+        <div class="get-card-body">
+          Stack Reality Check, Key-Person Risk, Hidden Dependency Map, Modernization Roadmap. Customized to your repository.
+        </div>
+      </div>
+      <div class="get-card">
+        <div class="get-card-num">03</div>
+        <div class="get-card-title">1-page written executive summary</div>
+        <div class="get-card-body">
+          Technical findings translated into business risk language a deal committee or executive sponsor can act on.
+        </div>
+      </div>
+      <div class="get-card">
+        <div class="get-card-num">04</div>
+        <div class="get-card-title">Delivery within 48 hours</div>
+        <div class="get-card-body">
+          From payment to your inbox. Signed NDA on request. No discovery calls, no scheduling.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────── Credibility ────────── -->
+  <div class="cred-band">
+    <div class="cred-inner">
+      <div class="cred-headline">Who's running your audit</div>
+      <p class="cred-body">
+        Ghost Architect™ is built and operated by Ernst J. Wisner, a Senior Adobe Commerce Architect with nine years of enterprise Magento experience. Prior engagements include Stellantis, Medline Industries, British American Tobacco, and Visual Comfort &amp; Co. Deep work on SAP integrations, Azure infrastructure, payment gateways, and PHP version migrations. Your audit isn't run by a junior reviewer with a checklist. It's run by the architect who built the tool.
+      </p>
+    </div>
+  </div>
+
+  <!-- ────────── Why $497 ────────── -->
+  <section class="section">
+    <div class="section-eyebrow">Why $497</div>
+    <h2 class="section-title">Less than the cost of a single consulting call.</h2>
+    <p class="section-body">
+      A senior Adobe Commerce consultant performing the same analysis manually takes 4 to 6 hours and bills $150 to $250 per hour. That's $600 to $1,500 in consultant time, scheduled days or weeks out.
+    </p>
+    <p class="section-body">
+      You get the same depth of findings, interpreted through nine years of Adobe Commerce architecture experience, in 48 hours. No scheduling, no discovery calls. You get the report.
+    </p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-card-label">Consultant Path</div>
+        <div class="why-card-value">$600 – $1,500</div>
+        <div class="why-card-detail">4 to 6 hours at $150 to $250/hr. Scheduled days or weeks out. Discovery calls required.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-label">Ghost Audit Path</div>
+        <div class="why-card-value">$497 flat</div>
+        <div class="why-card-detail">48 hours from payment to inbox. Senior-architect interpretation included. No call required.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-label">What You Skip</div>
+        <div class="why-card-value">Hours of back-and-forth</div>
+        <div class="why-card-detail">No discovery call. No SOW negotiation. No scheduling. The report is the deliverable.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────── What this audit does NOT do ────────── -->
+  <section class="section">
+    <div class="section-eyebrow">Honesty Section</div>
+    <h2 class="section-title">What this audit does not do.</h2>
+    <p class="section-body">
+      Ghost Inheritance Audit™ is a <strong>pre-engagement triage tool</strong>. It surfaces risk patterns so a qualified engineer or diligence team knows where to look. Specifically:
+    </p>
+    <ul style="color: var(--text-secondary); margin-left: 20px; line-height: 1.85; max-width: 820px;">
+      <li>It identifies risk patterns. It does not prove exploitable bugs.</li>
+      <li>It does not run CVE scans against transitive dependencies.</li>
+      <li>It does not test runtime behavior, integration paths, or production data flows.</li>
+      <li>It does not replace a full security audit, penetration test, or operational due diligence.</li>
+    </ul>
+    <p class="section-body" style="margin-top: 16px;">
+      The report's value is in identifying <strong>where to look</strong>, not in delivering final answers. Findings should be validated by qualified personnel before any acquisition or modernization decision.
+    </p>
+  </section>
+
+  <!-- ────────── FAQ ────────── -->
+  <section class="section">
+    <div class="section-eyebrow">Frequently Asked</div>
+    <h2 class="section-title">Common questions, answered.</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">How do I send you my codebase?</div>
+      <div class="faq-a">
+        Three options. Easiest: send a GitHub repository link (private repos with a read-only collaborator invite work great). Alternatively: a Git clone URL with credentials, or a ZIP file uploaded to a temporary cloud storage link. We sign an NDA on request before any code transfer.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What if my codebase is huge?</div>
+      <div class="faq-a">
+        No size cap. Whether you're auditing one custom app/code module or a hundred vendor extensions, your audit covers the complete scan. Larger codebases just take longer to process, but the 48-hour delivery window holds.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Can I get a custom scope?</div>
+      <div class="faq-a">
+        Yes. If you want the audit focused on a specific module, branch, pull request, or extension subset, just tell us in your order confirmation email. Custom scope is included at the same $497 price. Larger custom engagements (multiple repositories, recurring audits, agency programs) are quoted separately.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Will my code be shared with anyone?</div>
+      <div class="faq-a">
+        No. Your code is processed through Anthropic's Claude API for the synthesis step (under their zero-data-retention policy) and analyzed locally otherwise. Nothing is retained, shared, sold, or used for training. A signed NDA is available on request.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What if I'm not satisfied?</div>
+      <div class="faq-a">
+        Email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> within 7 days of delivery with what didn't meet your expectations. If the report doesn't deliver substantive findings on your codebase, we'll either re-run the audit at no charge or refund the order. We have not had a refund request to date.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Do I need this if I already have Ghost Pro?</div>
+      <div class="faq-a">
+        Probably not. Ghost Pro ($99/mo) lets you run Inheritance Audit yourself on as many repositories as you need. The $497 Audit is for buyers who want it done for them — typically PE diligence teams, M&amp;A advisors, agency owners doing pre-engagement reviews, or executive sponsors who need the analysis interpreted into deal-committee language. If you're comfortable running the CLI yourself, Pro is a better fit.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Does this only work on Magento?</div>
+      <div class="faq-a">
+        No. Ghost Architect™ runs on any codebase, any language, any platform. The sample report focuses on Magento because the 2.4.9 upgrade is creating active demand. The same analyzers work on Laravel, Symfony, Drupal, WordPress, Node, Python, Go, Ruby, Java, .NET, and more. Tell us your stack in the order email.
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────── Final CTA ────────── -->
+  <section class="final-cta">
+    <h2 class="final-cta-title">Know what you're inheriting<br />before you sign the SOW.</h2>
+    <p class="final-cta-sub">
+      $497. 48 hours. Senior-architect judgment. The report is the deliverable.
+    </p>
+    <a href="https://buy.stripe.com/4gM14neHJ3Uw7bl12tbEA03" class="buy-btn">
+      Order Your Ghost Inheritance Audit™ →
+    </a>
+    <p style="color: var(--text-tertiary); font-size: 13px; margin-top: 18px;">
+      Payment via Stripe · Signed NDA on request · Questions: <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a>
+    </p>
+  </section>
+
+  <!-- ────────── Footer ────────── -->
+  <footer>
+    <div>© 2026 Ghost Architect™. All rights reserved.</div>
+    <div>
+      <a href="/">Home</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/msa.html">MSA</a>
+      <a href="mailto:support@ghostarchitect.dev">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>
