@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Ghost Pulse">
+  <meta name="theme-color" content="#0a1528">
+  <link rel="apple-touch-icon" href="/icon.png">
+  <title>Ghost Pulse</title>
+  <style>
+    :root {
+      --bg-page: #050a14;
+      --bg-card: rgba(10, 21, 40, 0.94);
+      --bg-card-top: rgba(18, 36, 64, 0.97);
+      --border: rgba(0, 191, 216, 0.28);
+      --border-strong: rgba(0, 191, 216, 0.55);
+      --cyan: #00bfd8;
+      --cyan-bright: #00e5ff;
+      --cyan-dim: #4d8a99;
+      --navy: #0a2540;
+      --text-primary: #f5f9ff;
+      --text-secondary: #b8c5d6;
+      --text-tertiary: #8a9aaf;
+      --good: #00e5a8;
+      --warn: #ffc266;
+      --bad: #ff7a7a;
+      --grid: rgba(0, 191, 216, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      background: var(--bg-page);
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      padding: env(safe-area-inset-top) env(safe-area-inset-right)
+              env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+
+    .page {
+      max-width: 460px;
+      margin: 0 auto;
+      padding: 14px 14px 28px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--bg-card-top) 0%, var(--bg-card) 100%);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 20px 20px;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .titlebar {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8, 14, 26, 0.4);
+      position: relative;
+      z-index: 2;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 0.18em;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    .brand-text {
+      background: linear-gradient(90deg, var(--cyan-bright), var(--cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .refresh-pill {
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+    }
+
+    .body {
+      padding: 18px 18px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+
+    .hero-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .hero-value {
+      font-size: 48px;
+      font-weight: 200;
+      line-height: 1;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-sub {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+    }
+
+    .hero-right { text-align: right; flex-shrink: 0; }
+
+    .hero-delta {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--good);
+      font-variant-numeric: tabular-nums;
+    }
+    .hero-delta.flat { color: var(--text-secondary); }
+    .hero-delta.down { color: var(--bad); }
+
+    .hero-delta-label {
+      font-size: 9px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-top: 2px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .metric {
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 13px;
+    }
+
+    .metric-label {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .metric-value {
+      font-size: 24px;
+      font-weight: 300;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+
+    .metric-sub {
+      font-size: 10px;
+      color: var(--text-tertiary);
+      margin-top: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .section { padding-top: 4px; }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+
+    .section-label {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    .section-note {
+      font-size: 9px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.05em;
+      text-align: right;
+    }
+    .section-note.up { color: var(--good); }
+    .section-note.down { color: var(--bad); }
+
+    .bars { display: flex; flex-direction: column; gap: 7px; }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 86px 1fr 36px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bar-label {
+      font-size: 10px;
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+    }
+
+    .bar-track {
+      height: 14px;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 191, 216, 0.12);
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--cyan-bright));
+      border-radius: 2px;
+      transition: width 0.6s ease-out;
+      min-width: 1px;
+    }
+
+    .bar-count {
+      font-size: 11px;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .bar-count.empty { color: var(--text-tertiary); }
+
+    .empty-state {
+      font-size: 10px;
+      color: var(--text-tertiary);
+      text-align: center;
+      padding: 12px 0;
+      font-style: italic;
+    }
+
+    .spark-svg {
+      width: 100%;
+      height: 64px;
+      display: block;
+    }
+
+    .footer {
+      padding: 10px 18px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      font-size: 10px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.06em;
+      position: relative;
+      z-index: 1;
+      background: rgba(8, 14, 26, 0.3);
+    }
+
+    .footer-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--good);
+      box-shadow: 0 0 6px var(--good);
+    }
+    .status-dot.stale { background: var(--warn); box-shadow: 0 0 6px var(--warn); }
+    .status-dot.error { background: var(--bad); box-shadow: 0 0 6px var(--bad); }
+
+    .loading .hero-value,
+    .loading .metric-value { opacity: 0.55; }
+
+    .error-overlay {
+      position: absolute;
+      inset: 44px 0 28px;
+      background: rgba(10, 21, 40, 0.97);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      z-index: 10;
+    }
+    .error-overlay.show { display: flex; }
+
+    .error-title {
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--bad);
+      margin-bottom: 12px;
+    }
+
+    .error-body {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      max-width: 320px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="card loading" id="card">
+      <div class="titlebar">
+        <div class="brand">
+          <div class="brand-mark"></div>
+          <span class="brand-text">GHOST PULSE</span>
+        </div>
+        <div class="refresh-pill" id="refresh-pill">LIVE · 60S</div>
+      </div>
+
+      <div class="body">
+        <div class="hero">
+          <div>
+            <div class="hero-label">Active Today</div>
+            <div class="hero-value" id="active-today">—</div>
+            <div class="hero-sub" id="active-sub">unique installs pinged in last 24h</div>
+          </div>
+          <div class="hero-right">
+            <div class="hero-delta" id="weekly-delta">—</div>
+            <div class="hero-delta-label">vs last week</div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="metric">
+            <div class="metric-label">New This Week</div>
+            <div class="metric-value" id="new-week">—</div>
+            <div class="metric-sub" id="new-week-sub">first-run events</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Total Opt-Ins</div>
+            <div class="metric-value" id="optins">—</div>
+            <div class="metric-sub" id="optins-sub">all-time confirmed</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Opt-In Rate</div>
+            <div class="metric-value" id="optin-rate">—</div>
+            <div class="metric-sub" id="optin-rate-sub">of prompted users</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">On Latest</div>
+            <div class="metric-value" id="version-adoption">—</div>
+            <div class="metric-sub" id="version-sub">—</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-label">Days Active · Last 7d</div>
+            <div class="section-note" id="days-active-note"></div>
+          </div>
+          <div class="bars" id="days-active-bars">
+            <div class="empty-state">Waiting for usage data...</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-label">Event Sources · Last 7d</div>
+            <div class="section-note" id="sources-note"></div>
+          </div>
+          <div class="bars" id="sources-bars">
+            <div class="empty-state">No events yet...</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-label">Version Distribution</div>
+            <div class="section-note" id="versions-note"></div>
+          </div>
+          <div class="bars" id="versions-bars">
+            <div class="empty-state">Waiting for active users...</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-label">Active Users · 14d</div>
+            <div class="section-note" id="active-trend"></div>
+          </div>
+          <svg class="spark-svg" id="active-sparkline" viewBox="0 0 400 64" preserveAspectRatio="none"></svg>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-label">New Installs · 14d</div>
+            <div class="section-note" id="installs-trend"></div>
+          </div>
+          <svg class="spark-svg" id="installs-sparkline" viewBox="0 0 400 64" preserveAspectRatio="none"></svg>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="footer-status">
+          <div class="status-dot" id="status-dot"></div>
+          <span id="status-text">Connecting...</span>
+        </div>
+        <div id="last-updated">—</div>
+      </div>
+
+      <div class="error-overlay" id="error-overlay">
+        <div class="error-title">Connection Error</div>
+        <div class="error-body" id="error-body">Could not reach pulse endpoint. Will retry in 60s.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const PULSE_ENDPOINT = 'https://signup.ghostarchitect.dev/pulse-stats';
+    const REFRESH_INTERVAL_MS = 60 * 1000;
+    const STALE_THRESHOLD_MS = 5 * 60 * 1000;
+    let lastSuccessfulFetch = null;
+
+    const SOURCE_LABELS = {
+      'cli-firstrun': 'Opt-in',
+      'cli-firstrun-no': 'Declined',
+      'cli-firstrun-skip': 'Skipped',
+      'cli-firstrun-retraction': 'Retracted',
+      'cli-firstrun-invalid': 'Invalid',
+      'cli-firstrun-error': 'Error',
+      'cli-firstrun-retry': 'Retry sync',
+      'cli-upgrade': 'Upgrade opt-in',
+      'cli-upgrade-no': 'Upgrade decline',
+      'cli-upgrade-skip': 'Upgrade skip',
+      'cli-usage': 'Heartbeat',
+      'manual-test': 'Manual test',
+    };
+
+    function computeForecast(series, minDays, forwardDays) {
+      const nonZero = series.filter(v => v > 0).length;
+      if (nonZero < minDays) return null;
+      const n = series.length;
+      const xs = series.map((_, i) => i);
+      const ys = series;
+      const meanX = xs.reduce((a, b) => a + b, 0) / n;
+      const meanY = ys.reduce((a, b) => a + b, 0) / n;
+      let num = 0, den = 0;
+      for (let i = 0; i < n; i++) {
+        num += (xs[i] - meanX) * (ys[i] - meanY);
+        den += (xs[i] - meanX) ** 2;
+      }
+      if (den === 0) return null;
+      const slope = num / den;
+      const intercept = meanY - slope * meanX;
+      let ssr = 0;
+      for (let i = 0; i < n; i++) {
+        const predicted = slope * i + intercept;
+        ssr += (ys[i] - predicted) ** 2;
+      }
+      const residualStd = Math.sqrt(ssr / Math.max(n - 2, 1));
+      if (residualStd < 0.1 && Math.abs(slope) < 0.05) return null;
+      const forecast = [], upper = [], lower = [];
+      for (let i = 1; i <= forwardDays; i++) {
+        const x = n - 1 + i;
+        const predicted = slope * x + intercept;
+        const widening = 1 + (i / forwardDays) * 0.8;
+        const band = residualStd * 1.96 * widening;
+        forecast.push(Math.max(predicted, 0));
+        upper.push(Math.max(predicted + band, 0));
+        lower.push(Math.max(predicted - band, 0));
+      }
+      const direction = slope > 0.05 ? 'up' : (slope < -0.05 ? 'down' : 'flat');
+      return { forecast, upper, lower, slope, direction };
+    }
+
+    function trendDirection(series) {
+      const half = Math.floor(series.length / 2);
+      const recent = series.slice(half).reduce((a, b) => a + b, 0);
+      const prior = series.slice(0, half).reduce((a, b) => a + b, 0);
+      if (prior === 0 && recent === 0) return { dir: 'flat', text: '—' };
+      if (prior === 0) return { dir: 'up', text: '↗ starting' };
+      const pct = Math.round(((recent - prior) / prior) * 100);
+      if (pct > 5) return { dir: 'up', text: `↗ +${pct}% vs prior week` };
+      if (pct < -5) return { dir: 'down', text: `↘ ${pct}% vs prior week` };
+      return { dir: 'flat', text: '→ flat' };
+    }
+
+    function render(agg) {
+      document.getElementById('card').classList.remove('loading');
+
+      document.getElementById('active-today').textContent = agg.activeToday;
+      const deltaEl = document.getElementById('weekly-delta');
+      deltaEl.classList.remove('up', 'down', 'flat');
+      deltaEl.classList.add(agg.weeklyDeltaDir);
+      deltaEl.textContent = agg.weeklyDeltaText;
+
+      document.getElementById('new-week').textContent = agg.newThisWeek;
+      document.getElementById('optins').textContent = agg.totalOptIns;
+      document.getElementById('optin-rate').textContent = agg.optInRate + '%';
+      document.getElementById('optin-rate-sub').textContent = `of ${agg.promptedUsers} prompted`;
+      document.getElementById('version-adoption').textContent = agg.versionPct + '%';
+      document.getElementById('version-sub').textContent =
+        `${agg.onLatest} of ${agg.recentCount} on v${agg.latestVersion}`;
+
+      renderHistogram('days-active-bars', 'days-active-note', [
+        ['1 day', agg.buckets['1']],
+        ['2 days', agg.buckets['2']],
+        ['3 days', agg.buckets['3']],
+        ['4 days', agg.buckets['4']],
+        ['5–7 days', agg.buckets['5-7']],
+      ], `${agg.activeUsersInBuckets} users tracked`);
+
+      const sourceRows = agg.sourcesSorted.map(([src, count]) => [
+        SOURCE_LABELS[src] || src, count
+      ]);
+      renderHistogram('sources-bars', 'sources-note', sourceRows,
+        `${agg.totalSourceEvents} events total`);
+
+      const versionRows = agg.versionsSorted.map(([v, count]) => [
+        v === 'unknown' ? 'unknown' : `v${v}`, count
+      ]);
+      renderHistogram('versions-bars', 'versions-note', versionRows,
+        `${agg.recentCount} active users`);
+
+      renderSparkline('active-sparkline', 'active-trend',
+        agg.activeSeries, agg.forecastConfig);
+      renderSparkline('installs-sparkline', 'installs-trend',
+        agg.installSeries, agg.forecastConfig);
+
+      document.getElementById('status-dot').classList.remove('stale', 'error');
+      document.getElementById('status-text').textContent = 'Live';
+      document.getElementById('last-updated').textContent = formatClock(new Date());
+      document.getElementById('error-overlay').classList.remove('show');
+    }
+
+    function renderHistogram(containerId, noteId, rows, noteText) {
+      const container = document.getElementById(containerId);
+      const note = document.getElementById(noteId);
+      note.textContent = noteText;
+
+      const total = rows.reduce((sum, [, count]) => sum + count, 0);
+      if (total === 0) {
+        container.innerHTML = '<div class="empty-state">No data yet — check back as users come in</div>';
+        return;
+      }
+
+      const max = Math.max(...rows.map(([, count]) => count), 1);
+      container.innerHTML = rows.map(([label, count]) => {
+        const pct = (count / max) * 100;
+        const isEmpty = count === 0;
+        return `
+          <div class="bar-row">
+            <div class="bar-label">${escapeHtml(label)}</div>
+            <div class="bar-track"><div class="bar-fill" style="width: ${pct}%"></div></div>
+            <div class="bar-count ${isEmpty ? 'empty' : ''}">${count}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderSparkline(svgId, noteId, series, forecastCfg) {
+      const svg = document.getElementById(svgId);
+      const note = document.getElementById(noteId);
+      svg.innerHTML = '';
+      if (!series || series.length === 0) {
+        note.textContent = '';
+        return;
+      }
+      const trend = trendDirection(series);
+      note.textContent = trend.text;
+      note.classList.remove('up', 'down', 'flat');
+      note.classList.add(trend.dir);
+
+      const forecast = computeForecast(
+        series, forecastCfg.minDaysWithData, forecastCfg.forwardDays
+      );
+
+      const w = 400, h = 64, padX = 2, padY = 4;
+      const totalDays = forecast ? series.length + forecastCfg.forwardDays : series.length;
+      const stepX = (w - 2 * padX) / Math.max(totalDays - 1, 1);
+
+      const seriesMax = Math.max(...series, 1);
+      const forecastMax = forecast ? Math.max(...forecast.upper, 0) : 0;
+      const max = Math.max(seriesMax, forecastMax, 1);
+
+      const ns = 'http://www.w3.org/2000/svg';
+      const defs = document.createElementNS(ns, 'defs');
+      const grad = document.createElementNS(ns, 'linearGradient');
+      grad.setAttribute('id', svgId + '-grad');
+      grad.setAttribute('x1', '0'); grad.setAttribute('y1', '0');
+      grad.setAttribute('x2', '0'); grad.setAttribute('y2', '1');
+      const s1 = document.createElementNS(ns, 'stop');
+      s1.setAttribute('offset', '0%');
+      s1.setAttribute('stop-color', '#00bfd8');
+      s1.setAttribute('stop-opacity', '0.5');
+      const s2 = document.createElementNS(ns, 'stop');
+      s2.setAttribute('offset', '100%');
+      s2.setAttribute('stop-color', '#00bfd8');
+      s2.setAttribute('stop-opacity', '0');
+      grad.appendChild(s1); grad.appendChild(s2);
+      defs.appendChild(grad);
+      svg.appendChild(defs);
+
+      const historyPoints = series.map((v, i) => {
+        const x = padX + i * stepX;
+        const y = h - padY - ((v / max) * (h - 2 * padY));
+        return [x, y];
+      });
+
+      const areaPath = `M ${historyPoints[0][0].toFixed(1)},${(h - padY).toFixed(1)} ` +
+        historyPoints.map(p => `L ${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ') +
+        ` L ${historyPoints[historyPoints.length - 1][0].toFixed(1)},${(h - padY).toFixed(1)} Z`;
+      const area = document.createElementNS(ns, 'path');
+      area.setAttribute('d', areaPath);
+      area.setAttribute('fill', `url(#${svgId}-grad)`);
+      svg.appendChild(area);
+
+      const line = document.createElementNS(ns, 'polyline');
+      line.setAttribute('points', historyPoints.map(p => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' '));
+      line.setAttribute('fill', 'none');
+      line.setAttribute('stroke', '#00e5ff');
+      line.setAttribute('stroke-width', '1.5');
+      line.setAttribute('stroke-linecap', 'round');
+      line.setAttribute('stroke-linejoin', 'round');
+      svg.appendChild(line);
+
+      const lastH = historyPoints[historyPoints.length - 1];
+      const dot = document.createElementNS(ns, 'circle');
+      dot.setAttribute('cx', lastH[0]);
+      dot.setAttribute('cy', lastH[1]);
+      dot.setAttribute('r', '2.5');
+      dot.setAttribute('fill', '#00e5ff');
+      svg.appendChild(dot);
+
+      if (forecast) {
+        const forecastStartIdx = series.length;
+        const forecastPoints = forecast.forecast.map((v, i) => {
+          const x = padX + (forecastStartIdx + i) * stepX;
+          const y = h - padY - ((v / max) * (h - 2 * padY));
+          return [x, y];
+        });
+        const upperPoints = forecast.upper.map((v, i) => {
+          const x = padX + (forecastStartIdx + i) * stepX;
+          const y = h - padY - ((v / max) * (h - 2 * padY));
+          return [x, y];
+        });
+        const lowerPoints = forecast.lower.map((v, i) => {
+          const x = padX + (forecastStartIdx + i) * stepX;
+          const y = h - padY - ((v / max) * (h - 2 * padY));
+          return [x, y];
+        });
+        const bandPath =
+          `M ${lastH[0].toFixed(1)},${lastH[1].toFixed(1)} ` +
+          upperPoints.map(p => `L ${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ') +
+          ' ' + lowerPoints.slice().reverse().map(p => `L ${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ') +
+          ' Z';
+        const band = document.createElementNS(ns, 'path');
+        band.setAttribute('d', bandPath);
+        band.setAttribute('fill', '#00bfd8');
+        band.setAttribute('opacity', '0.12');
+        svg.appendChild(band);
+
+        const forecastLine = document.createElementNS(ns, 'polyline');
+        const allFcPoints = [lastH, ...forecastPoints];
+        forecastLine.setAttribute('points',
+          allFcPoints.map(p => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' '));
+        forecastLine.setAttribute('fill', 'none');
+        forecastLine.setAttribute('stroke', '#00e5ff');
+        forecastLine.setAttribute('stroke-width', '1.5');
+        forecastLine.setAttribute('stroke-dasharray', '3,3');
+        forecastLine.setAttribute('stroke-linecap', 'round');
+        forecastLine.setAttribute('opacity', '0.7');
+        svg.appendChild(forecastLine);
+
+        const lastFc = forecastPoints[forecastPoints.length - 1];
+        const fcDot = document.createElementNS(ns, 'circle');
+        fcDot.setAttribute('cx', lastFc[0]);
+        fcDot.setAttribute('cy', lastFc[1]);
+        fcDot.setAttribute('r', '2');
+        fcDot.setAttribute('fill', '#00e5ff');
+        fcDot.setAttribute('opacity', '0.6');
+        svg.appendChild(fcDot);
+
+        const fcArrow = forecast.direction === 'up' ? '▲'
+          : (forecast.direction === 'down' ? '▼' : '·');
+        note.textContent = `${trend.text}  ·  PROJECTED ${fcArrow} 7d`;
+      }
+    }
+
+    function formatClock(d) {
+      const hh = String(d.getHours()).padStart(2, '0');
+      const mm = String(d.getMinutes()).padStart(2, '0');
+      const ss = String(d.getSeconds()).padStart(2, '0');
+      return `${hh}:${mm}:${ss}`;
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+    }
+
+    function setStatus(state, text) {
+      const dot = document.getElementById('status-dot');
+      dot.classList.remove('stale', 'error');
+      if (state === 'stale') dot.classList.add('stale');
+      if (state === 'error') dot.classList.add('error');
+      document.getElementById('status-text').textContent = text;
+    }
+
+    function showError(body) {
+      const overlay = document.getElementById('error-overlay');
+      overlay.classList.add('show');
+      overlay.querySelector('.error-body').textContent = body;
+    }
+
+    async function tick() {
+      try {
+        const res = await fetch(PULSE_ENDPOINT, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const agg = await res.json();
+        render(agg);
+        lastSuccessfulFetch = Date.now();
+      } catch (err) {
+        console.error('[ghost-pulse-web] tick failed:', err);
+        if (lastSuccessfulFetch && Date.now() - lastSuccessfulFetch < STALE_THRESHOLD_MS) {
+          setStatus('stale', 'Stale · retrying');
+        } else {
+          setStatus('error', 'Connection error');
+          showError('Could not reach pulse endpoint. Will retry in 60s.');
+        }
+      }
+    }
+
+    tick();
+    setInterval(tick, REFRESH_INTERVAL_MS);
+  </script>
+</body>
+</html>
