@@ -53,15 +53,19 @@
       --bg-card-top: #122440;
       --border: rgba(0, 191, 216, 0.28);
       --border-strong: rgba(0, 191, 216, 0.55);
+      --border-dim: #2a2a3a;
       --cyan: #00bfd8;
       --cyan-bright: #00e5ff;
       --cyan-dim: #4d8a99;
+      --accent: #4a9eff;
       --text-primary: #f5f9ff;
       --text-secondary: #b8c5d6;
       --text-tertiary: #8a9aaf;
+      --text-muted: #888899;
       --good: #00e5a8;
       --warn: #ffc266;
       --grid: rgba(0, 191, 216, 0.05);
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -85,32 +89,102 @@
     a { color: var(--cyan-bright); text-decoration: none; }
     a:hover { color: var(--cyan); }
 
-    /* ── Header ─────────────────────────────────────────────────── */
-    .topbar {
-      border-bottom: 1px solid var(--border);
-      padding: 14px 24px;
+    /* ── NAV (matches main site pattern) ────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(5, 10, 20, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-dim);
+      padding: 0 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      max-width: 1200px;
-      margin: 0 auto;
+      height: 56px;
     }
-    .topbar-brand {
+    .nav-logo {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+      text-decoration: none;
       color: var(--text-primary);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
     }
-    .topbar-brand img { height: 28px; }
-    .topbar-links { display: flex; gap: 22px; }
-    .topbar-links a {
-      color: var(--text-secondary);
-      font-size: 13px;
-      letter-spacing: 0.04em;
+    .nav-logo img {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      object-fit: cover;
     }
-    .topbar-links a:hover { color: var(--cyan-bright); }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan-bright); }
+    .nav-links a.active { color: var(--cyan); }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-muted);
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background: rgba(5, 10, 20, 0.98);
+      border-bottom: 1px solid var(--border-dim);
+      padding: 1rem 1.5rem 1.5rem;
+      z-index: 99;
+      flex-direction: column;
+      gap: 0;
+      backdrop-filter: blur(12px);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-family: var(--font-mono);
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border-dim);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--cyan-bright); }
+    .mobile-menu a.active { color: var(--cyan); }
+    @media (max-width: 968px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
 
     /* ── Hero ───────────────────────────────────────────────────── */
     .hero {
@@ -417,7 +491,6 @@
 
     /* ── Mobile ─────────────────────────────────────────────────── */
     @media (max-width: 720px) {
-      .topbar-links { display: none; }
       .buy-band-inner { flex-direction: column; align-items: flex-start; }
       .buy-band-left { flex-direction: column; align-items: flex-start; gap: 4px; }
       .sample-box { padding: 22px; }
@@ -425,19 +498,42 @@
   </style>
 </head>
 <body>
-  <!-- ────────── Topbar ────────── -->
-  <div class="topbar">
-    <a href="/" class="topbar-brand">
-      <img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />
-      <span>GHOST ARCHITECT™</span>
+  <!-- ────────── Nav (matches main site) ────────── -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="/GHOSTLOGO.JPG" alt="Ghost Architect" width="28" height="28" />
+      Ghost Architect™
     </a>
-    <div class="topbar-links">
-      <a href="/">Home</a>
-      <a href="/pricing.html">Pricing</a>
-      <a href="/audit.html">Audit</a>
+    <div class="nav-links">
+      <a href="/#what-it-does">What It Does</a>
+      <a href="/inheritance-audit.html">Inheritance Audit</a>
+      <a href="/prompt-triage.html">Prompt Triage</a>
+      <a href="/audit.html" class="active">Done-For-You Audit</a>
+      <a href="/#security">Security</a>
+      <a href="/#for-agencies">For Agencies</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/plans.html">Plan Details</a>
       <a href="/blog.html">Blog</a>
     </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/#what-it-does" onclick="closeMenu()">What It Does</a>
+    <a href="/inheritance-audit.html" onclick="closeMenu()">Inheritance Audit</a>
+    <a href="/prompt-triage.html" onclick="closeMenu()">Prompt Triage</a>
+    <a href="/audit.html" class="active" onclick="closeMenu()">Done-For-You Audit</a>
+    <a href="/#security" onclick="closeMenu()">Security</a>
+    <a href="/#for-agencies" onclick="closeMenu()">For Agencies</a>
+    <a href="/pricing" onclick="closeMenu()">Pricing</a>
+    <a href="/plans.html" onclick="closeMenu()">Plan Details</a>
+    <a href="/blog.html" onclick="closeMenu()">Blog</a>
   </div>
+  <script>
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    function closeMenu() { btn.classList.remove('open'); menu.classList.remove('open'); }
+    btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
+  </script>
 
   <!-- ────────── Hero ────────── -->
   <section class="hero">
