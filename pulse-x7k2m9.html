@@ -492,6 +492,17 @@
       'cli-upgrade-skip': 'Upgrade skip',
       'cli-usage': 'Heartbeat',
       'manual-test': 'Manual test',
+      // Mode-usage events (v5.4.2+) — fire on mode entry from the CLI
+      // menu. Each tag corresponds to a value in the inquirer mode
+      // selector (chat/poi/blast/conflict/recon/audit) plus the
+      // prompt-triage branch which uses its own input-method selector.
+      'mode-chat': 'Chat Mode',
+      'mode-poi': 'POI Scan',
+      'mode-blast': 'Blast Radius',
+      'mode-conflict': 'Conflict Detection',
+      'mode-recon': 'Recon',
+      'mode-audit': 'Inheritance Audit',
+      'mode-prompt-triage': 'Prompt Triage',
     };
 
     function computeForecast(series, minDays, forwardDays) {
