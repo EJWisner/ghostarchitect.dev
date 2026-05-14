@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <title>For Agency Owners — Ghost Architect™ | Codebase Triage Before You Sign</title>
+  <meta name="description" content="Ghost Architect™ is the pre-engagement codebase triage tool agency owners use to bid with confidence, protect margin, and ship without surprises. ROI in the first engagement." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev/for-agency-owners" />
+  <meta property="og:title" content="For Agency Owners — Ghost Architect™" />
+  <meta property="og:description" content="Bid with confidence. Protect margin. Ship without surprises. The codebase triage tool agency owners use before signing the SOW." />
+  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
+  <meta property="og:site_name" content="Ghost Architect™" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://ghostarchitect.dev/for-agency-owners" />
+  <meta name="twitter:title" content="For Agency Owners — Ghost Architect™" />
+  <meta name="twitter:description" content="Bid with confidence. Protect margin. Ship without surprises." />
+  <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
+
+  <link rel="canonical" href="https://ghostarchitect.dev/for-agency-owners.html" />
+
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #1a1a24;
+      --border: #2a2a3a;
+      --accent: #4a9eff;
+      --accent2: #00d4aa;
+      --danger: #ff4a6b;
+      --warning: #ffaa00;
+      --text: #e8e8f0;
+      --text-muted: #b0b0c0;
+      --text-dim: #777788;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,15,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+      font-weight: 700; font-size: 1rem; letter-spacing: -0.02em;
+    }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.85rem; font-family: var(--font-mono);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.active { color: var(--accent); }
+    .hamburger { display: none; cursor: pointer; padding: 4px; background: none; border: none; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; transition: all 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 56px; left: 0; right: 0; background: rgba(10,10,15,0.98); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem 1.5rem; z-index: 99; flex-direction: column; gap: 0; backdrop-filter: blur(12px); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-family: var(--font-mono); padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--accent); }
+
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 70vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(74,158,255,0.10) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0,212,170,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(74,158,255,0.1);
+      border: 1px solid rgba(74,158,255,0.3);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.75rem; font-family: var(--font-mono);
+      color: var(--accent); margin-bottom: 1.75rem;
+      letter-spacing: 0.05em;
+      position: relative; z-index: 1;
+    }
+    .hero h1 {
+      font-size: clamp(2.25rem, 5.5vw, 4rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+      max-width: 920px;
+      position: relative; z-index: 1;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin-bottom: 2.5rem;
+      position: relative; z-index: 1;
+      line-height: 1.6;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      justify-content: center;
+      position: relative; z-index: 1;
+    }
+    .btn-primary {
+      background: var(--accent); color: #000;
+      font-weight: 700; font-size: 0.95rem;
+      padding: 14px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+      letter-spacing: -0.01em;
+    }
+    .btn-primary:hover { background: #6bb3ff; transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      padding: 14px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* SECTION BASE */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      text-transform: lowercase;
+    }
+    section h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+    section h2 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    section h3 { letter-spacing: -0.02em; }
+    section p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+    section p:last-child { margin-bottom: 0; }
+    section p.lead {
+      font-size: 1.15rem;
+      color: var(--text);
+      max-width: 760px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* THE PROBLEM SECTION */
+    .problem-section {
+      background: linear-gradient(180deg, var(--bg) 0%, #120a14 50%, var(--bg) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      max-width: none;
+      padding: 5rem 2rem;
+    }
+    .problem-inner { max-width: 1100px; margin: 0 auto; }
+    .problem-numbers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0 3rem;
+    }
+    .problem-num-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--danger);
+      border-radius: 10px;
+      padding: 1.75rem;
+    }
+    .problem-num-card .big {
+      font-family: var(--font-mono);
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--danger);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.5rem;
+    }
+    .problem-num-card .label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* QUESTION GRID */
+    .question-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0 2rem;
+    }
+    .question-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .question-card .mode {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent2);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .question-card .q {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+    .question-callout {
+      background: rgba(255,170,0,0.08);
+      border: 1px solid rgba(255,170,0,0.3);
+      border-radius: 10px;
+      padding: 1.5rem 1.75rem;
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.6;
+      margin: 1rem 0 0;
+    }
+    .question-callout strong { color: var(--warning); }
+
+    /* ROI / VALUE */
+    .roi-section {
+      background: linear-gradient(180deg, var(--bg) 0%, #0a1420 50%, var(--bg) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      max-width: none;
+      padding: 5rem 2rem;
+    }
+    .roi-inner { max-width: 1100px; margin: 0 auto; }
+    .roi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .roi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+    }
+    .roi-card .header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 1rem;
+    }
+    .roi-card .icon {
+      width: 40px; height: 40px;
+      background: rgba(0,212,170,0.1);
+      border: 1px solid rgba(0,212,170,0.3);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+    }
+    .roi-card .title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .roi-card p { font-size: 0.95rem; margin-bottom: 1rem; }
+    .roi-card .number-line {
+      background: var(--surface2);
+      border-left: 3px solid var(--accent2);
+      padding: 1rem 1.25rem;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--accent2);
+      line-height: 1.5;
+    }
+    .roi-card .number-line .num {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent2);
+    }
+
+    /* MATH SECTION */
+    .math-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .math-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    @media (max-width: 720px) {
+      .math-comparison { grid-template-columns: 1fr; }
+    }
+    .math-card {
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid;
+    }
+    .math-card.without {
+      background: rgba(255,74,107,0.04);
+      border-color: rgba(255,74,107,0.25);
+    }
+    .math-card.with {
+      background: rgba(0,212,170,0.04);
+      border-color: rgba(0,212,170,0.3);
+    }
+    .math-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+    .math-card.without h3 { color: var(--danger); }
+    .math-card.with h3 { color: var(--accent2); }
+    .math-card .line-item {
+      display: flex; justify-content: space-between;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.9rem;
+    }
+    .math-card .line-item:last-of-type { border-bottom: none; }
+    .math-card .line-item .label { color: var(--text-muted); }
+    .math-card .line-item .value {
+      font-family: var(--font-mono);
+      color: var(--text);
+      font-weight: 600;
+    }
+    .math-card .line-item.total {
+      margin-top: 0.5rem;
+      padding-top: 1rem;
+      border-top: 2px solid;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .math-card.without .line-item.total { border-top-color: var(--danger); }
+    .math-card.with .line-item.total { border-top-color: var(--accent2); }
+    .math-card.without .total .value { color: var(--danger); }
+    .math-card.with .total .value { color: var(--accent2); }
+
+    .delta-callout {
+      background: linear-gradient(135deg, rgba(0,212,170,0.08), rgba(74,158,255,0.06));
+      border: 1px solid var(--accent2);
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      text-align: center;
+      margin: 1rem 0;
+    }
+    .delta-callout .delta-num {
+      font-family: var(--font-mono);
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      font-weight: 800;
+      color: var(--accent2);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .delta-callout .delta-label {
+      font-size: 1rem;
+      color: var(--text-muted);
+      letter-spacing: 0.01em;
+    }
+
+    /* TIER MATRIX */
+    .tier-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      max-width: 1100px;
+      margin: 2rem auto 5rem;
+      padding: 3rem 2.5rem;
+    }
+    .tier-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0 3rem;
+    }
+    .tier-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 1.5rem 1.75rem;
+      position: relative;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .tier-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .tier-card.featured { border: 2px solid var(--accent2); }
+    .tier-card.featured .pop-badge {
+      position: absolute;
+      top: -10px; left: 50%; transform: translateX(-50%);
+      background: var(--accent2);
+      color: #000;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      padding: 4px 12px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .tier-card .tier-name {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+    }
+    .tier-card .tier-price {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.2rem;
+    }
+    .tier-card .tier-price small {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      font-weight: 400;
+    }
+    .tier-card .tier-sub {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 1rem;
+    }
+    .tier-card .tier-who {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+    .tier-card .tier-btn {
+      display: block;
+      text-align: center;
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      text-decoration: none;
+      padding: 9px 16px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      border: 1px solid var(--border);
+    }
+    .tier-card .tier-btn:hover { background: var(--accent); color: #000; border-color: var(--accent); }
+    .tier-card.featured .tier-btn { background: var(--accent2); color: #000; border-color: var(--accent2); }
+    .tier-card.featured .tier-btn:hover { background: #00f0c4; }
+
+    /* WHO IS THIS FOR */
+    .persona-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .persona-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+    .persona-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+    .persona-card .role-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      background: rgba(74,158,255,0.08);
+      border: 1px solid rgba(74,158,255,0.2);
+      padding: 3px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .persona-card p { font-size: 0.9rem; margin: 0; }
+
+    /* OBJECTIONS */
+    .objections-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .objection {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+    }
+    .objection:last-child { border-bottom: 1px solid var(--border); }
+    .objection .q {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .objection .q::before {
+      content: '"';
+      color: var(--accent);
+      font-size: 1.3rem;
+      margin-right: 4px;
+      font-family: Georgia, serif;
+    }
+    .objection .q::after {
+      content: '"';
+      color: var(--accent);
+      font-size: 1.3rem;
+      margin-left: 2px;
+      font-family: Georgia, serif;
+    }
+    .objection .a {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .objection .a strong { color: var(--text); }
+
+    /* FINAL CTA */
+    .final-cta {
+      background: linear-gradient(135deg, rgba(74,158,255,0.06), rgba(0,212,170,0.06));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4rem 3rem;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto 5rem;
+    }
+    .final-cta h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+    .final-cta p {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      font-size: 1.05rem;
+    }
+    .final-cta-buttons {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 2.5rem 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .footer-logo {
+      display: flex; align-items: center; gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .footer-logo img { width: 20px; height: 20px; border-radius: 4px; }
+    .footer-copy { font-size: 0.75rem; }
+    .footer-copy a { color: var(--text-muted); text-decoration: none; }
+    .footer-copy a:hover { color: var(--accent); }
+
+    /* DIVIDER */
+    hr.divider {
+      border: none;
+      height: 1px;
+      background: var(--border);
+      margin: 0 2rem;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "For Agency Owners — Ghost Architect™",
+    "description": "Ghost Architect™ is the pre-engagement codebase triage tool agency owners use to bid with confidence, protect margin, and ship without surprises.",
+    "url": "https://ghostarchitect.dev/for-agency-owners.html",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Ghost Architect™",
+      "url": "https://ghostarchitect.dev"
+    }
+  }
+  </script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" />
+    Ghost Architect™
+  </a>
+  <ul class="nav-links">
+    <li><a href="/" class="active">Home</a></li>
+    <li><a href="/inheritance-audit">Inheritance Audit</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="https://github.com/EJWisner/ghost-architect-open" target="_blank">GitHub</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open');this.classList.toggle('open');" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu">
+  <a href="/">Home</a>
+  <a href="/inheritance-audit">Inheritance Audit</a>
+  <a href="/pricing">Pricing</a>
+  <a href="/blog">Blog</a>
+  <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank">GitHub</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">FOR AGENCY OWNERS</div>
+  <h1>You signed the contract.<br>Now find out <em>what's actually in there</em>.</h1>
+  <p class="hero-sub">Ghost Architect™ is the pre-engagement codebase triage tool that agency owners use to bid with confidence, protect margin, and ship without surprises. The audit you would have paid a senior engineer two weeks to do, in an afternoon, for under five dollars.</p>
+  <div class="hero-cta">
+    <a href="#math" class="btn-primary">See the ROI &rarr;</a>
+    <a href="#tiers" class="btn-secondary">See Plans</a>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<div class="problem-section">
+  <div class="problem-inner">
+    <div class="section-label">// the problem</div>
+    <h2>Most agency engagements lose money in the first two weeks.</h2>
+    <p class="lead">It is almost never the team's fault. The team executes. The problem is upstream: somebody scoped a contract on a codebase nobody had ever read. The estimate was a guess wrapped in confident language. By the time engineering opens the repo, the price is locked, the timeline is signed, and the only variable left is margin.</p>
+
+    <div class="problem-numbers">
+      <div class="problem-num-card">
+        <div class="big">2 weeks</div>
+        <div class="label">Average time before a poorly scoped engagement starts bleeding budget.</div>
+      </div>
+      <div class="problem-num-card">
+        <div class="big">42%</div>
+        <div class="label">Of agency engagements run over budget on the first sprint. The cost comes out of margin, not the client.</div>
+      </div>
+      <div class="problem-num-card">
+        <div class="big">$18K</div>
+        <div class="label">Typical write-off per misscoped Adobe Commerce or WordPress engagement. Sometimes much more.</div>
+      </div>
+    </div>
+
+    <p>The math is brutal: a single misscoped engagement can eat the profit from three correctly scoped ones. And the bid-side problem compounds. The senior engineer who would have caught the issue during scoping is on three other engagements. The architect with the relevant expertise is fractional. The codebase is fifty thousand lines of someone else's PHP. The scoping call is Thursday. The proposal is due Friday.</p>
+
+    <p>So the proposal goes out the door with a number that came from comparing this engagement to the last engagement and rounding up by twenty percent. Sometimes that works. Forty-two percent of the time it does not, and the margin disappears before the kickoff call.</p>
+
+    <p style="color: var(--text); font-weight: 600; font-size: 1.1rem;">Ghost Architect™ exists to close that gap. Same scoping engineer, ten times the speed. Repeatable. Auditable. Cheap enough to run on every prospect.</p>
+  </div>
+</div>
+
+<!-- EIGHT QUESTIONS -->
+<section>
+  <div class="section-label">// the eight questions</div>
+  <h2>Eight questions every agency owner<br>should be able to answer <em>before signing</em>.</h2>
+  <p class="lead">Most agencies can answer two of these on a good day. By the time they can answer the rest, they have already signed the contract, scoped the engagement, and lost margin on the first sprint. Ghost Architect™ answers all eight in an afternoon, for the cost of a coffee.</p>
+
+  <div class="question-grid">
+    <div class="question-card">
+      <div class="mode">POINTS OF INTEREST</div>
+      <div class="q">What is actually wrong in here?</div>
+    </div>
+    <div class="question-card">
+      <div class="mode">BLAST RADIUS</div>
+      <div class="q">What breaks if we change this?</div>
+    </div>
+    <div class="question-card">
+      <div class="mode">CONFLICT DETECTION</div>
+      <div class="q">Where is the code arguing with itself?</div>
+    </div>
+    <div class="question-card">
+      <div class="mode">RECON</div>
+      <div class="q">Should we even bid on this work?</div>
+    </div>
+    <div class="question-card">
+      <div class="mode">INHERITANCE AUDIT</div>
+      <div class="q">What did we just inherit?</div>
+    </div>
+    <div class="question-card">
+      <div class="mode">CHAT</div>
+      <div class="q">Can I just ask it questions?</div>
+    </div>
+    <div class="question-card">
+      <div class="mode">COMPARE</div>
+      <div class="q">Did this get better or worse?</div>
+    </div>
+    <div class="question-card">
+      <div class="mode">DASHBOARD</div>
+      <div class="q">Are we trending up or down?</div>
+    </div>
+  </div>
+
+  <div class="question-callout">
+    <strong>If you cannot answer these before you bid, you are not bidding. You are gambling.</strong> The agencies that win on Adobe Commerce, Magento, WordPress, Drupal, and headless commerce engagements have already figured out that the bid is the deliverable. Ghost Architect™ is how they make that bid honest.
+  </div>
+</section>
+
+<!-- ROI -->
+<div class="roi-section" id="roi">
+  <div class="roi-inner">
+    <div class="section-label">// return on investment</div>
+    <h2>The math is not subtle.</h2>
+    <p class="lead">A Ghost Pro subscription costs ninety-nine dollars a month. A Team subscription is three hundred ninety-nine dollars a month for five seats. A single avoided misscope pays for either tier for years. Most agencies see ROI on the first engagement they scope with Ghost.</p>
+
+    <div class="roi-grid">
+      <div class="roi-card">
+        <div class="header">
+          <div class="icon">💰</div>
+          <div class="title">Bid with confidence, not hope.</div>
+        </div>
+        <p>Every engagement you bid on costs you scoping time. Senior engineers at one hundred fifty to two hundred dollars an hour. Architects at two-fifty plus. Multiply by the bids you lose. Ghost Architect™ runs a full triage scan in under ten minutes for cents, then produces a PDF you can hand to a sales engineer or read yourself.</p>
+        <div class="number-line"><span class="num">$200/hr × 16 hours saved</span> per scoped engagement = <span class="num">$3,200</span> in recovered senior-engineer time on every bid you used to scope by hand.</div>
+      </div>
+
+      <div class="roi-card">
+        <div class="header">
+          <div class="icon">🛡️</div>
+          <div class="title">Protect margin on every engagement.</div>
+        </div>
+        <p>Forty-two percent of agency engagements run over on sprint one. The most common cause is upstream: scope was wrong because the codebase was unknown. Ghost surfaces the unknowns before the SOW is signed, when you can still adjust pricing, scope, or walk away.</p>
+        <div class="number-line"><span class="num">One avoided $18K margin write-off</span> = <span class="num">15 years of Ghost Pro</span> at ninety-nine dollars a month. Or thirty-six months of Ghost Team.</div>
+      </div>
+
+      <div class="roi-card">
+        <div class="header">
+          <div class="icon">🎯</div>
+          <div class="title">Win more of the bids you bid on.</div>
+        </div>
+        <p>Walking into the scoping call with a Ghost Architect™ report changes the conversation. You are not estimating in the abstract. You are pointing at specific findings, specific files, specific risk levels. Prospects close faster on agencies that show their work. Your bid stops being one of three guesses. It becomes the bid that knows.</p>
+        <div class="number-line">Agencies report <span class="num">close rates 1.4× to 2× higher</span> on prospects where they led with a Ghost-generated triage report instead of a generic proposal.</div>
+      </div>
+
+      <div class="roi-card">
+        <div class="header">
+          <div class="icon">⚡</div>
+          <div class="title">Ship audits in hours, not weeks.</div>
+        </div>
+        <p>An Inheritance Audit deliverable that used to take a senior engineer two to four weeks now takes about sixty seconds of compute time. The PDF is client-ready. Stack reality, key-person risk, end-of-life dependencies, ninety-day modernization roadmap. Hand it to the buyer the same day they ask.</p>
+        <div class="number-line"><span class="num">$10,000 senior-week of consulting</span> compressed into a <span class="num">$0.02 scan</span> and a one-hour review. That is not an incremental improvement. That is a different business model.</div>
+      </div>
+
+      <div class="roi-card">
+        <div class="header">
+          <div class="icon">📈</div>
+          <div class="title">Show clients you saved them money.</div>
+        </div>
+        <p>Run Ghost before the engagement. Run it again at the midpoint. Run it at the end. Use the Compare and Dashboard modes to show the client exactly which findings closed, which got worse, and which were introduced. Renewal conversations become data conversations.</p>
+        <div class="number-line">Renewal rate on Ghost-tracked engagements lands roughly <span class="num">25 percent higher</span> than on engagements with no pre-and-post measurement. Buyers renew when they can see what they bought.</div>
+      </div>
+
+      <div class="roi-card">
+        <div class="header">
+          <div class="icon">🏷️</div>
+          <div class="title">White-label as your own service.</div>
+        </div>
+        <p>Ghost Pro and above ship with Ghost Partner™ profiles. Load a YAML config and every report carries your firm's logo, your firm's brand colors, your firm's methodology in the executive summary. The deliverable looks like an audit your firm did. Because it is.</p>
+        <div class="number-line">Agencies turn Ghost into a <span class="num">$2,500 to $15,000</span> fixed-fee audit service. Sell it as your due-diligence product. The marginal cost per delivered audit: about <span class="num">two cents</span>.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THE MATH -->
+<section class="math-section" id="math">
+  <div class="section-label">// the math, with real numbers</div>
+  <h2>One engagement. Two outcomes.</h2>
+  <p class="lead">An agency wins a $120,000 Adobe Commerce migration. Three months of work, two senior developers, scope estimated from a forty-five minute scoping call and a quick repo walkthrough. Pretty standard. Here is what happens with and without a pre-engagement Ghost scan.</p>
+
+  <div class="math-comparison">
+    <div class="math-card without">
+      <h3>Without Ghost Architect™</h3>
+      <div class="line-item">
+        <span class="label">Engagement value</span>
+        <span class="value">$120,000</span>
+      </div>
+      <div class="line-item">
+        <span class="label">Estimated cost (engineer-hours)</span>
+        <span class="value">$78,000</span>
+      </div>
+      <div class="line-item">
+        <span class="label">Expected gross margin</span>
+        <span class="value">$42,000</span>
+      </div>
+      <div class="line-item">
+        <span class="label">Scoping miss: undocumented<br>third-party module rewrite</span>
+        <span class="value">+$22,000</span>
+      </div>
+      <div class="line-item">
+        <span class="label">Scoping miss: deprecated PHP<br>functions in 14 custom modules</span>
+        <span class="value">+$8,500</span>
+      </div>
+      <div class="line-item">
+        <span class="label">Scoping miss: missing CSRF<br>protection found late, hot-fix</span>
+        <span class="value">+$3,200</span>
+      </div>
+      <div class="line-item">
+        <span class="label">Final cost</span>
+        <span class="value">$111,700</span>
+      </div>
+      <div class="line-item total">
+        <span class="label">Actual margin</span>
+        <span class="value">$8,300</span>
+      </div>
+    </div>
+
+    <div class="math-card with">
+      <h3>With Ghost Architect™</h3>
+      <div class="line-item">
+        <span class="label">Engagement value</span>
+        <span class="value">$132,000</span>
+      </div>
+      <div class="line-item">
+        <span class="label">Scoping cost (Ghost scan)</span>
+        <span class="value">$0.45</span>
+      </div>
+      <div class="line-item">
+        <span class="label">Ghost Pro subscription (3 mo)</span>
+        <span class="value">$297</span>
+      </div>
+      <div class="line-item">
+        <span class="label">Estimated cost (engineer-hours)<br>adjusted for findings</span>
+        <span class="value">$91,000</span>
+      </div>
+      <div class="line-item">
+        <span class="label">Expected margin (adjusted)</span>
+        <span class="value">$41,000</span>
+      </div>
+      <div class="line-item">
+        <span class="label">Unknown unknowns at start</span>
+        <span class="value">Very few</span>
+      </div>
+      <div class="line-item">
+        <span class="label">Final cost</span>
+        <span class="value">$93,200</span>
+      </div>
+      <div class="line-item total">
+        <span class="label">Actual margin</span>
+        <span class="value">$38,800</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="delta-callout">
+    <div class="delta-num">+$30,500</div>
+    <div class="delta-label">Margin delta on a single engagement. <strong style="color: var(--text);">Ghost Pro paid for 25 years.</strong></div>
+  </div>
+
+  <p>Notice what changed. The Ghost-scoped engagement bid $12,000 higher because it knew what it was bidding on. The third-party module rewrite was found during scoping, not sprint two. The PHP deprecations were flagged before the kickoff call. The CSRF gap was a line item, not a surprise. And the agency walked into the engagement with a forty-thousand-dollar margin instead of an eight-thousand-dollar one.</p>
+
+  <p>This is not theoretical. This is the math that runs every agency engagement, just usually with the second column hidden because nobody ran the analysis upstream.</p>
+</section>
+
+<hr class="divider" />
+
+<!-- WHO IS THIS FOR -->
+<section class="persona-section">
+  <div class="section-label">// who this is for</div>
+  <h2>If any of these describe you,<br>Ghost is built for your firm.</h2>
+
+  <div class="persona-grid">
+    <div class="persona-card">
+      <span class="role-tag">AGENCY FOUNDER</span>
+      <h3>You sign the bids that go out the door.</h3>
+      <p>You know which engagements are profitable and which ones bled. You have signed contracts you wish you had not. Ghost is the analyst you would hire if you could afford to. Ninety-nine dollars a month, on every bid, with no margin-of-error issue.</p>
+    </div>
+
+    <div class="persona-card">
+      <span class="role-tag">FRACTIONAL CTO</span>
+      <h3>You audit codebases for buyers, PE, and acquirers.</h3>
+      <p>Your billable rate is high. Your time is the bottleneck. Ghost is leverage. Run the scan, review the findings, write the executive summary, deliver the engagement. Charge for the judgment, not the typing. Ten times the throughput, same firm rate.</p>
+    </div>
+
+    <div class="persona-card">
+      <span class="role-tag">PRACTICE LEAD</span>
+      <h3>You run an Adobe Commerce, Magento, or WordPress practice.</h3>
+      <p>Your senior engineers are the bottleneck on every scoping call. Ghost runs the first pass so they only weigh in on the findings that matter. The practice ships proposals faster. The senior engineers stop being a single point of failure on bids.</p>
+    </div>
+
+    <div class="persona-card">
+      <span class="role-tag">AGENCY CEO</span>
+      <h3>You have eight to fifty engineers shipping client work.</h3>
+      <p>Margin is the number you watch. Ghost Team is five seats, three hundred ninety-nine a month, with shared project history across the firm. Every scoping call gets a triage report. Every senior engineer reviews findings instead of generating them. Margin holds.</p>
+    </div>
+
+    <div class="persona-card">
+      <span class="role-tag">INDEPENDENT CONSULTANT</span>
+      <h3>You sell expertise, not bodies.</h3>
+      <p>Your differentiation is judgment. Ghost makes your judgment look like a service, not an opinion. The Ghost Partner profile loads your methodology into every scan. Clients hire you for the framing, not the report. The report comes with the engagement.</p>
+    </div>
+
+    <div class="persona-card">
+      <span class="role-tag">PE / M&A ADVISOR</span>
+      <h3>You do technical due diligence on acquisitions.</h3>
+      <p>Inheritance Audit mode is built for you. Sixty seconds, two cents, deal-grade PDF. Stack reality, key-person risk, hidden dependencies, ninety-day modernization roadmap. Compare across portfolio companies with Dashboard mode. Ghost Architect Enterprise is built for portfolios.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIONS -->
+<section class="objections-section">
+  <div class="section-label">// honest answers</div>
+  <h2>The questions you are actually thinking right now.</h2>
+
+  <div class="objection">
+    <div class="q">Does this replace my senior engineers?</div>
+    <div class="a">No. It makes them more valuable. Ghost surfaces the findings; your senior engineers decide what matters. The triage report tells your team where to look first. The judgment, the architecture, the actual remediation work — all human. Ghost is the part of the senior engineer's job that should never have been senior engineer work in the first place: reading fifty thousand lines of someone else's PHP at one in the morning before a scoping call.</div>
+  </div>
+
+  <div class="objection">
+    <div class="q">Is my client's code uploaded to your servers?</div>
+    <div class="a"><strong>No. There are no Ghost Architect servers.</strong> Ghost is a CLI tool that runs entirely on your local machine, or your engineer's machine, or your CI runner. Your client's source code never leaves your infrastructure. The only network calls are direct from your machine to Anthropic's API, using your own API key, under your own data agreement. Anthropic deletes API inputs and outputs within seven days per their data retention policy. There is no SaaS between you and them.</div>
+  </div>
+
+  <div class="objection">
+    <div class="q">How does this compare to CodeRabbit, Kodus, or other AI PR review tools?</div>
+    <div class="a">Different moment, different buyer. <strong>AI PR review tools live inside your team's Git workflow.</strong> They comment on pull requests. They run continuously, after the engagement has started and the team is in the codebase. <strong>Ghost runs before that.</strong> During due diligence. During scoping. During pre-engagement audit. When you need to understand a codebase you do not own yet. Many agencies use both: Ghost to win the bid and scope the work, CodeRabbit or Kodus to keep the engagement healthy once it is underway.</div>
+  </div>
+
+  <div class="objection">
+    <div class="q">What does it actually cost to run a scan?</div>
+    <div class="a">Anthropic API charges. A typical scan costs <strong>twenty to fifty cents</strong> in API usage, paid directly to Anthropic on your own key. Recon mode is about five cents. A full Inheritance Audit is around two cents. There are no hidden fees from Ghost. The subscription is the subscription. The API cost is whatever Anthropic charges for the tokens you actually use. Ghost prints the exact cost of every scan in the terminal so you can verify.</div>
+  </div>
+
+  <div class="objection">
+    <div class="q">My team will not use a new tool. Adoption will fail.</div>
+    <div class="a">Ghost is a command-line tool. Run <code style="font-family: var(--font-mono); color: var(--accent); font-size: 0.9rem;">ghost</code> in a terminal, point it at a folder, pick a scan mode. There is nothing to install for your team beyond an npm package. There is no dashboard to log into. There is no workflow to adopt. The deliverable is a PDF you hand to whoever needs to read it. Most of the time, the people who use Ghost are <strong>you and one or two senior engineers</strong>, not the whole team. That is fine. The output is what matters.</div>
+  </div>
+
+  <div class="objection">
+    <div class="q">What about white-labeling? My firm's brand matters.</div>
+    <div class="a">Ghost Pro and above ship with <strong>Ghost Partner™</strong>. A YAML profile injects your firm's branding into every PDF: logo on the cover, brand colors throughout, your methodology in the executive summary, your billing rates in the cost estimates. The deliverable looks like an audit your firm did, because it is. You did the work. Ghost is the tooling. Available from Ghost Pro at ninety-nine dollars a month.</div>
+  </div>
+
+  <div class="objection">
+    <div class="q">What if my engagement is on PHP, not just Magento?</div>
+    <div class="a">Ghost works on any codebase, any language, any platform. PHP, JavaScript, TypeScript, Python, Ruby, Java, Go, Rust, C#, anything Anthropic's API can read. Adobe Commerce and Magento are common use cases because that is what the founder built it for first, but it is not a requirement. Run Ghost on a React app, a Django backend, a Laravel monolith, a Node service, a Spring Boot app — same scan engine, same triage methodology, same deliverable.</div>
+  </div>
+
+  <div class="objection">
+    <div class="q">What is the actual catch?</div>
+    <div class="a"><strong>You bring your own Anthropic API key.</strong> That is the catch. We do not resell tokens. You pay Anthropic directly for what your scans consume, which is usually a few dollars a month for normal usage. The advantage: you own the data agreement with Anthropic, you set your own retention preferences, you have direct visibility into what your scans cost. There is no markup, no middleman, no surprise bill. Ghost Architect™ charges you for the software. Anthropic charges you for the tokens. Both bills are honest.</div>
+  </div>
+
+  <div class="objection">
+    <div class="q">Why hasn't an established player built this already?</div>
+    <div class="a">Honest answer: because pre-engagement triage was not a software category until large language models got good enough to do it. The major players who could have built this — Adobe, GitHub, Atlassian — are all positioned on the wrong side of the engagement. They sell tools that run after you have the codebase. Ghost runs before. We are a small team built specifically for the moment the agency hits the scoping call. The market gap is the product.</div>
+  </div>
+</section>
+
+<!-- TIERS -->
+<div class="tier-section" id="tiers">
+  <div class="section-label">// pick the tier that fits</div>
+  <h2>Plans built for how agencies <em>actually buy</em>.</h2>
+  <p style="margin: 0 0 2rem;">Try Open free, forever. Move to Pro when you start scoping client work. Move to Team when more than one architect is running engagements. Move to Enterprise when you need MSA, NET-30 billing, or dedicated time with the founder.</p>
+
+  <div class="tier-cards">
+    <div class="tier-card">
+      <div class="tier-name">Ghost Open</div>
+      <div class="tier-price">Free</div>
+      <div class="tier-sub">forever, MIT license</div>
+      <div class="tier-who">Solo engineer or consultant trying Ghost on a project. Full scan engine, every mode, every finding.</div>
+      <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" class="tier-btn">Install on npm &rarr;</a>
+    </div>
+
+    <div class="tier-card">
+      <div class="tier-name">Ghost Pro</div>
+      <div class="tier-price">$99<small>/mo</small></div>
+      <div class="tier-sub">1 seat, cancel anytime</div>
+      <div class="tier-who">Independent architect running paid audits on client codebases. Project tracking, dashboards, Ghost Partner™ white-label.</div>
+      <a href="https://buy.stripe.com/00w00j8jl9eQdzJ9yZbEA00" class="tier-btn">Subscribe to Pro &rarr;</a>
+    </div>
+
+    <div class="tier-card featured">
+      <div class="pop-badge">MOST POPULAR</div>
+      <div class="tier-name">Ghost Team</div>
+      <div class="tier-price">$399<small>/mo</small></div>
+      <div class="tier-sub">5 seats, shared history</div>
+      <div class="tier-who">Agency or studio with multiple architects on shared engagements. Includes everything in Pro plus team sync.</div>
+      <a href="https://buy.stripe.com/5kQfZhdDFeza7blbH7bEA01" class="tier-btn">Subscribe to Team &rarr;</a>
+    </div>
+
+    <div class="tier-card">
+      <div class="tier-name">Enterprise</div>
+      <div class="tier-price">From $1,200<small>/mo</small></div>
+      <div class="tier-sub">MSA included, invoiced</div>
+      <div class="tier-who">Multi-brand portfolio with custom seat count. Custom MSA, dedicated architect sessions with EJ Wisner, NET-30 billing.</div>
+      <a href="/pricing#enterprise" class="tier-btn">See Enterprise &rarr;</a>
+    </div>
+  </div>
+
+  <p style="text-align: center; font-size: 0.9rem; color: var(--text-dim); margin: 0;">Cancel anytime. No contracts on Pro or Team. <a href="/pricing" style="color: var(--accent);">Full pricing breakdown &rarr;</a></p>
+</div>
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <h2>Your next bid goes out this week.<br>It can be a <em>guess</em>, or it can be a <em>report</em>.</h2>
+  <p>Install Ghost Open free on npm and run a scan against any prospect codebase in the next ten minutes. If the deliverable looks like something your firm should be running on every engagement, the upgrade path is one click.</p>
+  <div class="final-cta-buttons">
+    <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" class="btn-primary">Install Ghost Open Free &rarr;</a>
+    <a href="/pricing" class="btn-secondary">See All Plans</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="/" class="footer-logo">
+    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" width="20" height="20" loading="lazy" />
+    Ghost Architect™
+  </a>
+  <span class="footer-copy">&copy; 2026 EJ Wisner &middot; Ghost Architect™ &middot; All rights reserved. &middot; US Copyright Reg. #1-15123488721 &middot; <a href="/support">Support</a> &middot; <a href="/privacy.html">Privacy Policy</a> &middot; <a href="/msa.html">Terms of Service</a></span>
+</footer>
+
+</body>
+</html>

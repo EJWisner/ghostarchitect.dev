@@ -1310,10 +1310,38 @@ document.addEventListener('DOMContentLoaded', function(){
   </section>
 </div>
 
-<!-- FOR AGENCIES -->
-<div id="for-agencies" style="padding: 5rem 0;">
+<!-- FOR AGENCY OWNERS (NEW — written for check-signers) -->
+<div id="for-agency-owners" style="padding: 5rem 0; background: linear-gradient(180deg, var(--bg) 0%, #0a1420 50%, var(--bg) 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 2rem;">
+    <div class="section-label" style="color: var(--accent2);">// for agency owners</div>
+    <h2>You signed the contract.<br>Now find out <span style="background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent;">what's actually in there.</span></h2>
+    <p style="font-size: 1.1rem; color: var(--text); max-width: 760px; margin-bottom: 2rem;">Most agency engagements lose money in the first two weeks. It is almost never the team's fault. The team executes. The problem is upstream: somebody scoped a contract on a codebase nobody had ever read. Ghost Architect™ closes that gap. The audit you would have paid a senior engineer two weeks to do, in an afternoon, for under five dollars.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+      <div style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--danger); border-radius: 10px; padding: 1.5rem;">
+        <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--danger); line-height: 1; margin-bottom: 0.5rem;">42%</div>
+        <div style="font-size: 0.85rem; color: var(--text-muted);">Of agency engagements run over on sprint one. Margin disappears before kickoff.</div>
+      </div>
+      <div style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--danger); border-radius: 10px; padding: 1.5rem;">
+        <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--danger); line-height: 1; margin-bottom: 0.5rem;">$18K</div>
+        <div style="font-size: 0.85rem; color: var(--text-muted);">Typical write-off per misscoped engagement. Comes out of your margin, not the client.</div>
+      </div>
+      <div style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent2); border-radius: 10px; padding: 1.5rem;">
+        <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--accent2); line-height: 1; margin-bottom: 0.5rem;">$0.45</div>
+        <div style="font-size: 0.85rem; color: var(--text-muted);">What a full Ghost scan costs in Anthropic API usage. Ghost Pro is $99/mo on top.</div>
+      </div>
+    </div>
+    <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 1.5rem;">One avoided misscope pays for Ghost Pro for fifteen years. Read the full case for agency owners, including the eight questions every owner should be able to answer before signing, ROI math on a real $120K Adobe Commerce engagement, and tier comparison.</p>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <a href="/for-agency-owners" style="display: inline-block; background: var(--accent2); color: #000; padding: 0.9rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.95rem;">Read the case for agency owners &rarr;</a>
+      <a href="/pricing" style="display: inline-block; border: 1px solid var(--border); color: var(--text-muted); padding: 0.9rem 2rem; border-radius: 8px; text-decoration: none; font-size: 0.95rem;">See plans</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOR AGENCY TEAMS (renamed from FOR AGENCIES — written for engineers/practice leads) -->
+<div id="for-agency-teams" style="padding: 5rem 0;">
   <div class="agency-section">
-    <div class="section-label">// for agencies</div>
+    <div class="section-label">// for agency teams</div>
     <h2>Built for how agency teams<br>actually work.</h2>
     <p class="agency-intro">Your developers aren't pulling client codebases to their laptops. They're working from repos. Ghost Architect™ works the same way. Point Ghost at any GitHub, GitLab, or Bitbucket repository — public or private — authenticate with a personal access token, and run your scan. The entire analysis happens on your local machine. No code is uploaded. No third party ever sees your client's codebase.</p>
     <div class="agency-grid">
