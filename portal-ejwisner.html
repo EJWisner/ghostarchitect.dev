@@ -130,6 +130,7 @@
       display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-bottom: 16px;
       border-bottom: 1px solid var(--border);
     }
+    .export-btn { margin-left: auto; }
     .back-btn {
       background: var(--bg-tile); border: 1px solid var(--border);
       border-radius: 8px; padding: 8px 14px; font-size: 12px; color: var(--text-secondary);
@@ -190,6 +191,10 @@
 
     .download-bar {
       display: flex; gap: 10px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border);
+    }
+    .download-bar-top {
+      margin-top: 0; padding-top: 0; padding-bottom: 18px; margin-bottom: 18px;
+      border-top: none; border-bottom: 1px solid var(--border);
     }
     .download-btn {
       background: var(--bg-tile); border: 1px solid var(--border); border-radius: 8px;
@@ -354,6 +359,7 @@
         <div class="back-bar">
           <button class="back-btn" onclick="navigate('level0')">← Back</button>
           <div class="breadcrumb">${PORTAL_SLUG} / <b>${modeInfo.label}</b></div>
+          <button class="back-btn export-btn" onclick="exportCurrentModeCsv()">Export CSV</button>
         </div>
         <div class="mode-stats">
           <div class="mode-stat">
@@ -384,12 +390,20 @@
         return;
       }
 
-      // Show shell + loading state immediately
+      // Show shell + loading state immediately. Download buttons now at top.
+      const dlBar = `
+        <div class="download-bar download-bar-top">
+          ${report.files.md ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.md)}" target="_blank">MD</a>` : ''}
+          ${report.files.pdf ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.pdf)}" target="_blank">PDF</a>` : ''}
+          ${report.files.txt ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.txt)}" target="_blank">TXT</a>` : ''}
+        </div>
+      `;
       document.getElementById('app-root').innerHTML = `
         <div class="back-bar">
           <button class="back-btn" onclick="navigate('level1','${currentMode}')">← Back</button>
           <div class="breadcrumb">${PORTAL_SLUG} / ${modeInfo.label} / <b>${escapeHtml(report.project)}</b></div>
         </div>
+        ${dlBar}
         <div class="report-detail" id="report-body">
           <div class="loading">Loading report…</div>
         </div>
@@ -425,14 +439,49 @@
       const html = isPlainText
         ? `<pre style="white-space: pre-wrap; font-family: 'SF Mono', Menlo, Monaco, monospace; font-size: 12px; background: transparent; border: none; padding: 0;">${escapeHtml(body)}</pre>`
         : mdToHtml(body);
-      const dlBar = `
-        <div class="download-bar">
-          ${report.files.md ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.md)}" target="_blank">MD</a>` : ''}
-          ${report.files.pdf ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.pdf)}" target="_blank">PDF</a>` : ''}
-          ${report.files.txt ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.txt)}" target="_blank">TXT</a>` : ''}
-        </div>
-      `;
-      document.getElementById('report-body').innerHTML = html + dlBar;
+      document.getElementById('report-body').innerHTML = html;
+    }
+
+    // ── CSV export for current mode ───────────────────────────────
+    function exportCurrentModeCsv() {
+      if (!currentMode || !manifest) return;
+      const reports = manifest.reports.filter(r => r.mode === currentMode);
+      const modeInfo = manifest.modeSummary[currentMode];
+
+      const headers = ['Project', 'Generated', 'Tool', 'Files Analyzed', 'Summary', 'MD', 'PDF', 'TXT'];
+      const rows = reports.map(r => [
+        r.project,
+        r.generated,
+        r.tool,
+        r.filesAnalyzed || '',
+        (r.summary || '').replace(/\s+/g, ' ').trim(),
+        r.files.md  ? `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(r.files.md)}`  : '',
+        r.files.pdf ? `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(r.files.pdf)}` : '',
+        r.files.txt ? `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(r.files.txt)}` : '',
+      ]);
+
+      // Escape CSV: double-quote fields, escape internal quotes by doubling them.
+      const escape = (v) => {
+        const s = String(v == null ? '' : v);
+        return `"${s.replace(/"/g, '""')}"`;
+      };
+      const lines = [
+        headers.map(escape).join(','),
+        ...rows.map(row => row.map(escape).join(',')),
+      ];
+      // Excel-friendly: prepend BOM so UTF-8 is detected correctly.
+      const csv = '\uFEFF' + lines.join('\n');
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const today = new Date().toISOString().slice(0, 10);
+      a.href = url;
+      a.download = `${PORTAL_SLUG}-${currentMode}-reports-${today}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
 
     // ── Markdown → HTML (lightweight, no external lib) ───────────────
