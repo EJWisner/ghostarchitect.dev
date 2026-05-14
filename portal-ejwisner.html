@@ -125,6 +125,69 @@
     }
     .tile:hover .tile-arrow { color: var(--cyan); transform: translate(2px, -2px); }
 
+    .info-icon {
+      position: absolute; top: 16px; left: 16px;
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(8, 14, 26, 0.6);
+      color: var(--text-tertiary);
+      font-size: 11px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      cursor: help;
+      transition: all 0.15s;
+      font-family: 'Times New Roman', serif;
+      font-style: italic;
+      line-height: 1;
+    }
+    .info-icon:hover { color: var(--cyan); border-color: var(--cyan); background: rgba(0, 191, 216, 0.1); }
+
+    /* Modal overlay */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(2, 6, 14, 0.78);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 100;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.15s ease-out;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal {
+      background: linear-gradient(180deg, var(--bg-card-top) 0%, var(--bg-card) 100%);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      max-width: 500px; width: 100%;
+      padding: 26px 28px 22px;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+      animation: slideUp 0.2s ease-out;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .modal-close {
+      position: absolute; top: 12px; right: 14px;
+      width: 28px; height: 28px;
+      background: transparent; border: none;
+      color: var(--text-tertiary); font-size: 20px;
+      cursor: pointer; transition: color 0.15s;
+      line-height: 1; padding: 0;
+    }
+    .modal-close:hover { color: var(--cyan); }
+    .modal-mode {
+      font-size: 11px; letter-spacing: 0.18em; color: var(--cyan);
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .modal-title {
+      font-size: 22px; font-weight: 300; color: var(--text-primary);
+      margin-bottom: 14px; line-height: 1.2;
+    }
+    .modal-body {
+      font-size: 14px; line-height: 1.65; color: var(--text-secondary);
+    }
+
     /* LEVEL 1: MODE DASHBOARD */
     .back-bar {
       display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-bottom: 16px;
@@ -256,6 +319,42 @@
     const PORTAL_SLUG = 'ejwisner';
     const API_BASE = 'https://signup.ghostarchitect.dev';
 
+    // ── Mode descriptions (plain English, for non-technical readers) ──
+    const MODE_DESCRIPTIONS = {
+      poi: {
+        title: 'Points of Interest',
+        body: "A first pass through the codebase that surfaces the issues most likely to matter — security risks, fragile patterns, hidden complexity. Think of it as a doctor's intake exam: it doesn't fix anything, but it tells you where to look first.",
+      },
+      blast: {
+        title: 'Blast Radius',
+        body: 'Before you change a piece of code, this tells you what else might break. Shows the ripple effect of touching a file — what depends on it, what it depends on, and how risky the change really is.',
+      },
+      conflict: {
+        title: 'Conflict',
+        body: 'Finds places where two parts of the codebase disagree with each other — different files claiming different things, configuration that contradicts the code, rules that fight each other. These are the bugs that only surface in production.',
+      },
+      recon: {
+        title: 'Recon',
+        body: "A scouting report on a codebase you don't know yet. Maps the major systems, the riskiest files, the team patterns, and the technical debt — everything you'd want to know before bidding on the work or hiring engineers to maintain it.",
+      },
+      audit: {
+        title: 'Inheritance Audit',
+        body: 'A done-for-you report on a codebase someone else built. Designed for the buyer, not the engineer — executive summary, dead extensions, end-of-life dependencies, and what an upgrade or rebuild would actually require.',
+      },
+      chat: {
+        title: 'Chat',
+        body: "An interactive conversation with the codebase. Ask questions in plain language, get answers grounded in the actual code. Useful for due diligence or onboarding when you don't know what to look for yet.",
+      },
+      compare: {
+        title: 'Compare',
+        body: 'Side-by-side analysis of two versions of the same codebase. Shows what changed, what got better, what got worse, and where the risk moved.',
+      },
+      dashboard: {
+        title: 'Dashboard',
+        body: 'A live overview of every scan run against this codebase. Tracks trends over time so you can see whether the situation is improving or getting worse.',
+      },
+    };
+
     // ── State ────────────────────────────────────────────────────────
     let manifest = null;
     let currentView = 'level0';  // 'level0' | 'level1' | 'level2'
@@ -329,10 +428,12 @@
       const tilesHtml = modes.map(([modeKey, m]) => {
         const isEmpty = m.count === 0;
         const lastSeen = m.lastGenerated ? relativeTime(m.lastGenerated) : '—';
+        const hasDescription = !!MODE_DESCRIPTIONS[modeKey];
         return `
-          <div class="tile ${isEmpty ? 'empty' : ''}" ${!isEmpty ? `onclick="navigate('level1','${modeKey}')"` : ''}>
+          <div class="tile ${isEmpty ? 'empty' : ''}" ${!isEmpty ? `onclick="if(!event.target.closest('.info-icon'))navigate('level1','${modeKey}')"` : ''}>
+            ${hasDescription ? `<button class="info-icon" onclick="event.stopPropagation();showModeModal('${modeKey}')" aria-label="What is ${m.label}" title="What is ${m.label}?">i</button>` : ''}
             ${!isEmpty ? '<div class="tile-arrow">↗</div>' : ''}
-            <div class="tile-mode">${m.label}</div>
+            <div class="tile-mode" style="margin-left: 28px;">${m.label}</div>
             <div><span class="tile-count">${m.count}</span><span class="tile-count-unit">report${m.count !== 1 ? 's' : ''}</span></div>
             <div class="tile-meta">${isEmpty ? 'No scans yet' : 'Last run ' + lastSeen}</div>
           </div>
@@ -467,7 +568,40 @@
       document.getElementById('report-body').innerHTML = html;
     }
 
-    // ── CSV export for current mode ───────────────────────────────
+    // ── Mode info modal ──────────────────────────────────
+    function showModeModal(modeKey) {
+      const desc = MODE_DESCRIPTIONS[modeKey];
+      if (!desc) return;
+      const existing = document.getElementById('mode-modal-overlay');
+      if (existing) existing.remove();
+
+      const overlay = document.createElement('div');
+      overlay.id = 'mode-modal-overlay';
+      overlay.className = 'modal-overlay';
+      overlay.innerHTML = `
+        <div class="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+          <button class="modal-close" aria-label="Close" onclick="closeModeModal()">×</button>
+          <div class="modal-mode">Scan Mode</div>
+          <div class="modal-title" id="modal-title">${escapeHtml(desc.title)}</div>
+          <div class="modal-body">${escapeHtml(desc.body)}</div>
+        </div>
+      `;
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModeModal();
+      });
+      document.body.appendChild(overlay);
+      document.addEventListener('keydown', escClose);
+    }
+    function closeModeModal() {
+      const overlay = document.getElementById('mode-modal-overlay');
+      if (overlay) overlay.remove();
+      document.removeEventListener('keydown', escClose);
+    }
+    function escClose(e) {
+      if (e.key === 'Escape') closeModeModal();
+    }
+
+    // ── CSV export for current mode ────────────────────────────────
     function exportCurrentModeCsv() {
       if (!currentMode || !manifest) return;
       const reports = manifest.reports.filter(r => r.mode === currentMode);
