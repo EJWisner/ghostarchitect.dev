@@ -208,6 +208,22 @@
       padding: 40px 20px; text-align: center; color: var(--text-tertiary); font-size: 13px;
     }
     .error { color: var(--bad); }
+
+    .footer {
+      max-width: 1100px; margin: 18px auto 0; padding: 0 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+    .footer .left { display: flex; align-items: center; gap: 8px; }
+    .footer .mark {
+      width: 6px; height: 6px; border-radius: 1px; background: var(--cyan-dim);
+    }
+    .footer a { color: var(--text-tertiary); text-decoration: none; transition: color 0.15s; }
+    .footer a:hover { color: var(--cyan); }
+    @media (max-width: 520px) {
+      .footer { flex-direction: column; gap: 6px; text-align: center; }
+    }
   </style>
 </head>
 <body>
@@ -225,6 +241,15 @@
       </div>
     </div>
   </div>
+  <footer class="footer">
+    <div class="left">
+      <span class="mark"></span>
+      <span>Powered by Ghost Architect™</span>
+    </div>
+    <div>
+      &copy; 2026 Ghost Architect™ · <a href="https://ghostarchitect.dev" target="_blank" rel="noopener">ghostarchitect.dev</a>
+    </div>
+  </footer>
 
   <script>
     // ── Configuration ────────────────────────────────────────────────
