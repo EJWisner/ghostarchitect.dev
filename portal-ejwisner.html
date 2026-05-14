@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="theme-color" content="#0a1528">
+  <title>Ghost Portal — ejwisner</title>
+  <style>
+    :root {
+      --bg-page: #050a14;
+      --bg-card: rgba(10, 21, 40, 0.94);
+      --bg-card-top: rgba(18, 36, 64, 0.97);
+      --bg-tile: rgba(15, 28, 50, 0.85);
+      --bg-tile-hover: rgba(20, 38, 65, 0.95);
+      --border: rgba(0, 191, 216, 0.28);
+      --border-strong: rgba(0, 191, 216, 0.55);
+      --cyan: #00bfd8;
+      --cyan-bright: #00e5ff;
+      --cyan-dim: #4d8a99;
+      --navy: #0a2540;
+      --text-primary: #f5f9ff;
+      --text-secondary: #b8c5d6;
+      --text-tertiary: #8a9aaf;
+      --good: #00e5a8;
+      --warn: #ffc266;
+      --bad: #ff7a7a;
+      --grid: rgba(0, 191, 216, 0.08);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%; min-height: 100%; background: var(--bg-page);
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: var(--text-primary); -webkit-font-smoothing: antialiased;
+    }
+    body {
+      padding: env(safe-area-inset-top) env(safe-area-inset-right)
+              env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+    .page { max-width: 1100px; margin: 0 auto; padding: 20px 18px 40px; }
+
+    .card {
+      background: linear-gradient(180deg, var(--bg-card-top) 0%, var(--bg-card) 100%);
+      border: 1px solid var(--border); border-radius: 14px; overflow: hidden; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+    .card::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 24px 24px; pointer-events: none; opacity: 0.5;
+    }
+
+    .titlebar {
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; border-bottom: 1px solid var(--border); background: rgba(8,14,26,0.4);
+      position: relative; z-index: 2;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; letter-spacing: 0.18em; font-size: 12px; font-weight: 700; }
+    .brand-mark {
+      width: 9px; height: 9px; border-radius: 2px; background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan); animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .brand-text {
+      background: linear-gradient(90deg, var(--cyan-bright), var(--cyan));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .portal-tag { font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary); text-transform: uppercase; }
+
+    .body { padding: 24px 22px 22px; position: relative; z-index: 1; }
+
+    /* HERO */
+    .hero { display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 18px; border-bottom: 1px solid var(--border); gap: 16px; margin-bottom: 22px; }
+    .hero-label { font-size: 11px; letter-spacing: 0.2em; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 8px; }
+    .hero-value { font-size: 56px; font-weight: 200; line-height: 1; color: var(--text-primary); }
+    .hero-sub { font-size: 13px; color: var(--text-tertiary); margin-top: 6px; }
+    .hero-right { text-align: right; }
+    .hero-right .delta { font-size: 14px; color: var(--good); font-weight: 500; }
+    .hero-right .delta-sub { font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary); text-transform: uppercase; margin-top: 2px; }
+
+    /* LEVEL 0: TILE GRID */
+    .section-label { font-size: 11px; letter-spacing: 0.2em; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 14px; }
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+    }
+    .tile {
+      background: var(--bg-tile);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 18px 16px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .tile:hover {
+      background: var(--bg-tile-hover);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+    }
+    .tile.empty {
+      cursor: default; opacity: 0.5;
+    }
+    .tile.empty:hover {
+      background: var(--bg-tile); border-color: var(--border); transform: none;
+    }
+    .tile-mode {
+      font-size: 11px; letter-spacing: 0.16em; color: var(--cyan); text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .tile-count { font-size: 38px; font-weight: 200; line-height: 1; }
+    .tile-count-unit { font-size: 12px; color: var(--text-tertiary); margin-left: 4px; }
+    .tile-meta { font-size: 11px; color: var(--text-tertiary); margin-top: 12px; }
+    .tile-arrow {
+      position: absolute; top: 18px; right: 18px;
+      color: var(--cyan-dim); font-size: 16px;
+      transition: color 0.15s, transform 0.15s;
+    }
+    .tile:hover .tile-arrow { color: var(--cyan); transform: translate(2px, -2px); }
+
+    /* LEVEL 1: MODE DASHBOARD */
+    .back-bar {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .back-btn {
+      background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 14px; font-size: 12px; color: var(--text-secondary);
+      cursor: pointer; transition: all 0.15s; font-family: inherit; letter-spacing: 0.1em;
+    }
+    .back-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+    .breadcrumb { font-size: 12px; letter-spacing: 0.14em; color: var(--text-tertiary); text-transform: uppercase; }
+    .breadcrumb b { color: var(--text-primary); font-weight: 500; }
+
+    .mode-stats { display: flex; gap: 24px; margin-bottom: 22px; flex-wrap: wrap; }
+    .mode-stat { padding-right: 24px; border-right: 1px solid var(--border); }
+    .mode-stat:last-child { border-right: none; }
+    .mode-stat .label { font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 6px; }
+    .mode-stat .value { font-size: 24px; font-weight: 300; color: var(--text-primary); }
+
+    .report-list { display: flex; flex-direction: column; gap: 10px; }
+    .report-row {
+      background: var(--bg-tile); border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px 16px; cursor: pointer; transition: all 0.15s; position: relative;
+    }
+    .report-row:hover { background: var(--bg-tile-hover); border-color: var(--border-strong); }
+    .report-row-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+    .report-project { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+    .report-date { font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.06em; white-space: nowrap; }
+    .report-summary { font-size: 12px; line-height: 1.5; color: var(--text-secondary); }
+    .report-meta { font-size: 10px; color: var(--text-tertiary); margin-top: 8px; letter-spacing: 0.04em; }
+
+    /* LEVEL 2: REPORT DETAIL */
+    .report-detail {
+      background: var(--bg-tile); border: 1px solid var(--border); border-radius: 10px;
+      padding: 24px 26px; line-height: 1.6;
+    }
+    .report-detail h1 { font-size: 22px; font-weight: 500; margin-bottom: 16px; color: var(--text-primary); }
+    .report-detail h2 { font-size: 17px; font-weight: 500; margin-top: 24px; margin-bottom: 10px; color: var(--cyan); }
+    .report-detail h3 { font-size: 14px; font-weight: 500; margin-top: 18px; margin-bottom: 8px; color: var(--text-primary); }
+    .report-detail p { font-size: 13px; color: var(--text-secondary); margin-bottom: 12px; }
+    .report-detail ul, .report-detail ol { margin-left: 22px; margin-bottom: 12px; }
+    .report-detail li { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+    .report-detail code {
+      background: rgba(0, 191, 216, 0.1); padding: 2px 6px; border-radius: 4px;
+      font-family: 'SF Mono', Menlo, Monaco, monospace; font-size: 12px; color: var(--cyan-bright);
+    }
+    .report-detail pre {
+      background: rgba(0,0,0,0.35); padding: 14px 16px; border-radius: 8px; overflow-x: auto;
+      margin-bottom: 14px; border: 1px solid var(--border);
+    }
+    .report-detail pre code { background: transparent; padding: 0; color: var(--text-secondary); }
+    .report-detail table { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 12px; }
+    .report-detail th, .report-detail td {
+      border: 1px solid var(--border); padding: 8px 12px; text-align: left; color: var(--text-secondary);
+    }
+    .report-detail th { background: rgba(0,191,216,0.08); color: var(--cyan); font-weight: 500; }
+    .report-detail strong { color: var(--text-primary); font-weight: 600; }
+    .report-detail hr { border: none; border-top: 1px solid var(--border); margin: 22px 0; }
+    .report-detail blockquote {
+      border-left: 3px solid var(--cyan); padding-left: 14px; margin-bottom: 12px; color: var(--text-tertiary);
+    }
+
+    .download-bar {
+      display: flex; gap: 10px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border);
+    }
+    .download-btn {
+      background: var(--bg-tile); border: 1px solid var(--border); border-radius: 8px;
+      padding: 8px 14px; font-size: 11px; color: var(--text-secondary);
+      cursor: pointer; transition: all 0.15s; font-family: inherit; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .download-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    .loading, .error, .empty-state {
+      padding: 40px 20px; text-align: center; color: var(--text-tertiary); font-size: 13px;
+    }
+    .error { color: var(--bad); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="card">
+      <div class="titlebar">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <span class="brand-text">GHOST PORTAL</span>
+        </div>
+        <span class="portal-tag" id="portal-tag">ejwisner · sandbox</span>
+      </div>
+      <div class="body" id="app-root">
+        <div class="loading">Loading portal data...</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Configuration ────────────────────────────────────────────────
+    const PORTAL_SLUG = 'ejwisner';
+    const API_BASE = 'https://signup.ghostarchitect.dev';
+
+    // ── State ────────────────────────────────────────────────────────
+    let manifest = null;
+    let currentView = 'level0';  // 'level0' | 'level1' | 'level2'
+    let currentMode = null;
+    let currentReportId = null;
+    let reportBodyCache = {};
+
+    // ── Boot ─────────────────────────────────────────────────────────
+    async function boot() {
+      try {
+        const res = await fetch(`${API_BASE}/portal-data?c=${PORTAL_SLUG}`);
+        if (!res.ok) throw new Error(`portal-data ${res.status}`);
+        manifest = await res.json();
+        render();
+      } catch (err) {
+        document.getElementById('app-root').innerHTML =
+          `<div class="error">Failed to load portal: ${err.message}</div>`;
+      }
+    }
+
+    // ── Router (browser back button support) ─────────────────────────
+    function navigate(view, mode, reportId) {
+      currentView = view;
+      currentMode = mode || null;
+      currentReportId = reportId || null;
+      const hash = view === 'level0' ? '' : view === 'level1' ? `#m=${mode}` : `#m=${mode}&r=${reportId}`;
+      history.pushState({ view, mode, reportId }, '', hash);
+      render();
+    }
+    window.addEventListener('popstate', (e) => {
+      if (e.state) {
+        currentView = e.state.view;
+        currentMode = e.state.mode;
+        currentReportId = e.state.reportId;
+      } else {
+        currentView = 'level0';
+        currentMode = null;
+        currentReportId = null;
+      }
+      render();
+    });
+    function parseInitialHash() {
+      const h = location.hash.replace(/^#/, '');
+      if (!h) return;
+      const params = new URLSearchParams(h);
+      const mode = params.get('m');
+      const reportId = params.get('r');
+      if (mode && reportId) { currentView = 'level2'; currentMode = mode; currentReportId = reportId; }
+      else if (mode) { currentView = 'level1'; currentMode = mode; }
+    }
+
+    // ── Render dispatch ──────────────────────────────────────────────
+    function render() {
+      if (currentView === 'level0') renderLevel0();
+      else if (currentView === 'level1') renderLevel1();
+      else if (currentView === 'level2') renderLevel2();
+    }
+
+    // ── LEVEL 0: Mode tile grid ──────────────────────────────────────
+    function renderLevel0() {
+      const total = manifest.totalReports;
+      const modes = Object.entries(manifest.modeSummary)
+        .sort((a, b) => a[1].order - b[1].order);
+
+      const lastGenerated = modes
+        .map(([_, v]) => v.lastGenerated)
+        .filter(Boolean)
+        .sort()
+        .reverse()[0];
+
+      const tilesHtml = modes.map(([modeKey, m]) => {
+        const isEmpty = m.count === 0;
+        const lastSeen = m.lastGenerated ? relativeTime(m.lastGenerated) : '—';
+        return `
+          <div class="tile ${isEmpty ? 'empty' : ''}" ${!isEmpty ? `onclick="navigate('level1','${modeKey}')"` : ''}>
+            ${!isEmpty ? '<div class="tile-arrow">↗</div>' : ''}
+            <div class="tile-mode">${m.label}</div>
+            <div><span class="tile-count">${m.count}</span><span class="tile-count-unit">report${m.count !== 1 ? 's' : ''}</span></div>
+            <div class="tile-meta">${isEmpty ? 'No scans yet' : 'Last run ' + lastSeen}</div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('app-root').innerHTML = `
+        <div class="hero">
+          <div>
+            <div class="hero-label">Total Reports</div>
+            <div class="hero-value">${total}</div>
+            <div class="hero-sub">across ${modes.filter(([_, m]) => m.count > 0).length} active modes</div>
+          </div>
+          <div class="hero-right">
+            <div class="delta">Last scan ${lastGenerated ? relativeTime(lastGenerated) : '—'}</div>
+            <div class="delta-sub">Updated ${formatDate(manifest.generatedAt)}</div>
+          </div>
+        </div>
+        <div class="section-label">Scan Modes</div>
+        <div class="tile-grid">${tilesHtml}</div>
+      `;
+    }
+
+    // ── LEVEL 1: Mode dashboard / report list ────────────────────────
+    function renderLevel1() {
+      const reports = manifest.reports.filter(r => r.mode === currentMode);
+      const modeInfo = manifest.modeSummary[currentMode];
+      if (!modeInfo) {
+        document.getElementById('app-root').innerHTML =
+          `<div class="error">Unknown mode: ${currentMode}</div>`;
+        return;
+      }
+
+      const projects = new Set(reports.map(r => r.project)).size;
+      const latest = reports[0]?.generatedIso;
+
+      const rowsHtml = reports.map(r => `
+        <div class="report-row" onclick="navigate('level2','${currentMode}','${r.id}')">
+          <div class="report-row-top">
+            <div class="report-project">${escapeHtml(r.project)}</div>
+            <div class="report-date">${formatDate(r.generatedIso)}</div>
+          </div>
+          ${r.summary ? `<div class="report-summary">${escapeHtml(r.summary).slice(0, 240)}${r.summary.length > 240 ? '…' : ''}</div>` : ''}
+          <div class="report-meta">${escapeHtml(r.tool || '')}${r.filesAnalyzed ? ' · ' + escapeHtml(r.filesAnalyzed) + ' files' : ''}</div>
+        </div>
+      `).join('');
+
+      document.getElementById('app-root').innerHTML = `
+        <div class="back-bar">
+          <button class="back-btn" onclick="navigate('level0')">← Back</button>
+          <div class="breadcrumb">${PORTAL_SLUG} / <b>${modeInfo.label}</b></div>
+        </div>
+        <div class="mode-stats">
+          <div class="mode-stat">
+            <div class="label">Reports</div>
+            <div class="value">${reports.length}</div>
+          </div>
+          <div class="mode-stat">
+            <div class="label">Projects</div>
+            <div class="value">${projects}</div>
+          </div>
+          <div class="mode-stat">
+            <div class="label">Latest</div>
+            <div class="value" style="font-size: 14px; padding-top: 6px;">${latest ? relativeTime(latest) : '—'}</div>
+          </div>
+        </div>
+        <div class="section-label">All Reports</div>
+        <div class="report-list">${rowsHtml || '<div class="empty-state">No reports in this mode yet.</div>'}</div>
+      `;
+    }
+
+    // ── LEVEL 2: Report detail ───────────────────────────────────────
+    async function renderLevel2() {
+      const report = manifest.reports.find(r => r.id === currentReportId && r.mode === currentMode);
+      const modeInfo = manifest.modeSummary[currentMode];
+      if (!report) {
+        document.getElementById('app-root').innerHTML =
+          `<div class="error">Report not found.</div>`;
+        return;
+      }
+
+      // Show shell + loading state immediately
+      document.getElementById('app-root').innerHTML = `
+        <div class="back-bar">
+          <button class="back-btn" onclick="navigate('level1','${currentMode}')">← Back</button>
+          <div class="breadcrumb">${PORTAL_SLUG} / ${modeInfo.label} / <b>${escapeHtml(report.project)}</b></div>
+        </div>
+        <div class="report-detail" id="report-body">
+          <div class="loading">Loading report…</div>
+        </div>
+      `;
+
+      // Fetch body
+      let body;
+      if (reportBodyCache[report.id]) {
+        body = reportBodyCache[report.id];
+      } else if (report.files.md) {
+        try {
+          const url = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.md)}`;
+          const res = await fetch(url);
+          if (!res.ok) throw new Error(`report ${res.status}`);
+          body = await res.text();
+          reportBodyCache[report.id] = body;
+        } catch (err) {
+          document.getElementById('report-body').innerHTML =
+            `<div class="error">Failed to load report: ${err.message}</div>`;
+          return;
+        }
+      } else {
+        body = '_No markdown body available for this report._';
+      }
+
+      const html = mdToHtml(body);
+      const dlBar = `
+        <div class="download-bar">
+          ${report.files.md ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.md)}" target="_blank">MD</a>` : ''}
+          ${report.files.pdf ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.pdf)}" target="_blank">PDF</a>` : ''}
+          ${report.files.txt ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.txt)}" target="_blank">TXT</a>` : ''}
+        </div>
+      `;
+      document.getElementById('report-body').innerHTML = html + dlBar;
+    }
+
+    // ── Markdown → HTML (lightweight, no external lib) ───────────────
+    function mdToHtml(md) {
+      // Tables (basic 2-column GFM table)
+      md = md.replace(/((?:\|[^\n]+\|\n)+)/g, (m) => {
+        const rows = m.trim().split('\n').map(r => r.replace(/^\||\|$/g, '').split('|').map(c => c.trim()));
+        if (rows.length < 2) return m;
+        // Skip alignment row if present
+        const alignmentRow = rows[1] && rows[1].every(c => /^:?-+:?$/.test(c));
+        const header = rows[0];
+        const dataRows = alignmentRow ? rows.slice(2) : rows.slice(1);
+        const thead = `<thead><tr>${header.map(h => `<th>${inlineMd(h)}</th>`).join('')}</tr></thead>`;
+        const tbody = `<tbody>${dataRows.map(r => `<tr>${r.map(c => `<td>${inlineMd(c)}</td>`).join('')}</tr>`).join('')}</tbody>`;
+        return `<table>${thead}${tbody}</table>`;
+      });
+      // Code fences
+      md = md.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) =>
+        `<pre><code>${escapeHtml(code.trim())}</code></pre>`);
+      // Headings
+      md = md.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+      md = md.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+      md = md.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+      // HR
+      md = md.replace(/^---+$/gm, '<hr>');
+      // Blockquote
+      md = md.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
+      // Lists
+      md = md.replace(/(?:^[-*] .+\n?)+/gm, (block) => {
+        const items = block.trim().split('\n').map(l => l.replace(/^[-*] /, '').trim()).filter(Boolean);
+        return `<ul>${items.map(i => `<li>${inlineMd(i)}</li>`).join('')}</ul>`;
+      });
+      md = md.replace(/(?:^\d+\. .+\n?)+/gm, (block) => {
+        const items = block.trim().split('\n').map(l => l.replace(/^\d+\. /, '').trim()).filter(Boolean);
+        return `<ol>${items.map(i => `<li>${inlineMd(i)}</li>`).join('')}</ol>`;
+      });
+      // Paragraphs (any line that's not already a block element)
+      md = md.split(/\n\n+/).map(block => {
+        const trimmed = block.trim();
+        if (!trimmed) return '';
+        if (/^<(h\d|table|pre|ul|ol|hr|blockquote)/.test(trimmed)) return trimmed;
+        return `<p>${inlineMd(trimmed.replace(/\n/g, ' '))}</p>`;
+      }).join('\n');
+      return md;
+    }
+
+    function inlineMd(s) {
+      // Inline code
+      s = s.replace(/`([^`]+)`/g, (_, c) => `<code>${escapeHtml(c)}</code>`);
+      // Bold
+      s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+      // Italic (single asterisk, no greedy)
+      s = s.replace(/(^|[^*])\*([^*\n]+)\*([^*]|$)/g, '$1<em>$2</em>$3');
+      // Links
+      s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" style="color:var(--cyan)">$1</a>');
+      return s;
+    }
+
+    // ── Helpers ──────────────────────────────────────────────────────
+    function escapeHtml(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+      }[c]));
+    }
+
+    function formatDate(iso) {
+      if (!iso) return '—';
+      const d = new Date(iso);
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function relativeTime(iso) {
+      if (!iso) return '—';
+      const now = Date.now();
+      const then = new Date(iso).getTime();
+      const seconds = Math.floor((now - then) / 1000);
+      if (seconds < 60) return 'just now';
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 60) return `${minutes}m ago`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours}h ago`;
+      const days = Math.floor(hours / 24);
+      if (days < 30) return `${days}d ago`;
+      const months = Math.floor(days / 30);
+      if (months < 12) return `${months}mo ago`;
+      return `${Math.floor(months / 12)}y ago`;
+    }
+
+    // Initial state from URL hash
+    parseInitialHash();
+    boot();
+  </script>
+</body>
+</html>
