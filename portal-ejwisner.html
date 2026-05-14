@@ -337,6 +337,34 @@
       background: var(--bg-tile); border: 1px dashed var(--border); border-radius: 10px;
     }
 
+    /* Status pills on findings (Open / New / Fixed across scans) */
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 2px 8px; border-radius: 4px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      border: 1px solid;
+      margin-left: 8px;
+    }
+    .status-new   { color: #00e5a8; border-color: rgba(0, 229, 168, 0.4); background: rgba(0, 229, 168, 0.08); }
+    .status-open  { color: var(--text-tertiary); border-color: var(--border); background: transparent; }
+    .status-fixed { color: var(--cyan); border-color: rgba(0, 191, 216, 0.4); background: rgba(0, 191, 216, 0.08); }
+
+    /* Cross-scan summary banner above the findings list */
+    .diff-banner {
+      display: flex; gap: 18px; padding: 12px 16px;
+      background: rgba(0, 191, 216, 0.04); border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
+      border-radius: 8px; margin-bottom: 14px;
+      font-size: 12px; flex-wrap: wrap;
+    }
+    .diff-stat { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); }
+    .diff-stat .num { font-size: 16px; font-weight: 500; color: var(--text-primary); }
+    .diff-stat .num.new   { color: #00e5a8; }
+    .diff-stat .num.fixed { color: var(--cyan); }
+    .diff-stat .num.open  { color: var(--text-primary); }
+    .diff-stat .lbl { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+    .diff-context { font-size: 10px; color: var(--text-tertiary); letter-spacing: 0.08em; text-transform: uppercase; margin-left: auto; align-self: center; }
+
     /* LEVEL 2: REPORT DETAIL */
     .report-detail {
       background: var(--bg-tile); border: 1px solid var(--border); border-radius: 10px;
@@ -826,6 +854,53 @@
       if (report) renderLevel2Content(report);
     }
 
+    // Cross-scan diffing: find the prior scan of the same project in the same
+    // mode and compute Open/New/Fixed status for each finding by stable ID.
+    // Returns { priorReport, priorFindings, statusMap } or null when no prior
+    // scan exists.
+    async function computeFindingsDiff(currentReport, currentFindings) {
+      // Find all reports of the same mode + project, newest first.
+      const sameProject = manifest.reports
+        .filter(r => r.mode === currentReport.mode
+                  && r.project === currentReport.project
+                  && r.hasStructuredFindings)
+        .sort((a, b) => b.generatedIso.localeCompare(a.generatedIso));
+
+      const myIndex = sameProject.findIndex(r => r.id === currentReport.id);
+      if (myIndex === -1 || myIndex >= sameProject.length - 1) return null;
+
+      const priorReport = sameProject[myIndex + 1];
+
+      // Fetch prior findings.json (cached if seen before)
+      let priorData;
+      try {
+        if (findingsCache[priorReport.id]) {
+          priorData = findingsCache[priorReport.id];
+        } else {
+          const url = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(priorReport.files.findings)}`;
+          const res = await fetch(url);
+          if (!res.ok) return null;
+          priorData = await res.json();
+          findingsCache[priorReport.id] = priorData;
+        }
+      } catch (_) {
+        return null;
+      }
+
+      const priorFindings = priorData.findings || [];
+      const currentIds = new Set(currentFindings.map(f => f.id));
+      const priorIds = new Set(priorFindings.map(f => f.id));
+
+      const statusMap = {};
+      for (const f of currentFindings) {
+        statusMap[f.id] = priorIds.has(f.id) ? 'open' : 'new';
+      }
+      // Findings that were in the prior scan but not in this one are "fixed"
+      const fixed = priorFindings.filter(f => !currentIds.has(f.id));
+
+      return { priorReport, priorFindings, statusMap, fixed };
+    }
+
     async function renderFindingsInto(container, report) {
       container.innerHTML = '<div class="loading">Loading findings…</div>';
 
@@ -856,6 +931,9 @@
       const findings = data.findings || [];
       const sev = data.severityCounts || {};
       const totals = data.totals || {};
+
+      // Cross-scan diff (Open/New/Fixed). Null when this is the first scan.
+      const diff = await computeFindingsDiff(report, findings);
 
       // Filter
       const filtered = findingsFilter === 'all'
@@ -889,6 +967,21 @@
           ${filterPill('low',      'Low',      sev.low,      'sev-low-active')}
         </div>
       `;
+
+      // Diff banner — only shown when a prior scan exists.
+      const diffBanner = diff ? (() => {
+        const newCount = Object.values(diff.statusMap).filter(s => s === 'new').length;
+        const openCount = Object.values(diff.statusMap).filter(s => s === 'open').length;
+        const fixedCount = diff.fixed.length;
+        return `
+          <div class="diff-banner">
+            <div class="diff-stat"><span class="num new">${newCount}</span><span class="lbl">New</span></div>
+            <div class="diff-stat"><span class="num open">${openCount}</span><span class="lbl">Open</span></div>
+            <div class="diff-stat"><span class="num fixed">${fixedCount}</span><span class="lbl">Fixed</span></div>
+            <div class="diff-context">vs. scan from ${formatDate(diff.priorReport.generatedIso)}</div>
+          </div>
+        `;
+      })() : '';
 
       const totalsBar = `
         <div class="totals-bar">
@@ -927,10 +1020,18 @@
             const confidenceLabel = (f.confidence != null)
               ? `<span><b>Confidence:</b> ${f.confidence}%</span>` : '';
 
+            // Status pill (Open/New) from cross-scan diff
+            const status = diff?.statusMap?.[f.id];
+            const statusPill = status === 'new'
+              ? '<span class="status-pill status-new">● New</span>'
+              : status === 'open'
+                ? '<span class="status-pill status-open">Open</span>'
+                : '';
+
             return `
               <div class="finding-card ${sevClass}">
                 <div class="finding-card-top">
-                  <div class="finding-title">${escapeHtml(f.title || '(untitled)')}</div>
+                  <div class="finding-title">${escapeHtml(f.title || '(untitled)')}${statusPill}</div>
                   ${sevChip}
                 </div>
                 ${f.detail ? `<div class="finding-detail">${escapeHtml(f.detail)}</div>` : ''}
@@ -943,7 +1044,32 @@
             `;
           }).join('');
 
-      container.innerHTML = toolbar + totalsBar + `<div class="findings-list">${cardsHtml}</div>`;
+      // Fixed findings section — only when diff is available and there are any.
+      const fixedHtml = (diff && diff.fixed.length > 0) ? (() => {
+        const cards = diff.fixed.map(f => {
+          const sevKey = (f.severity || '').toLowerCase();
+          return `
+            <div class="finding-card f-${sevKey}" style="opacity: 0.65;">
+              <div class="finding-card-top">
+                <div class="finding-title" style="text-decoration: line-through; color: var(--text-tertiary);">
+                  ${escapeHtml(f.title || '(untitled)')}
+                  <span class="status-pill status-fixed">✓ Fixed</span>
+                </div>
+                <span class="sev-chip sev-${sevKey}"><span class="dot"></span>${escapeHtml(f.severity || '—')}</span>
+              </div>
+              <div class="finding-meta">
+                ${(f.files || []).slice(0, 3).map(file => `<span class="finding-file">${escapeHtml(file)}</span>`).join(' ')}
+              </div>
+            </div>
+          `;
+        }).join('');
+        return `
+          <div class="section-label" style="margin-top: 22px;">Fixed since last scan</div>
+          <div class="findings-list">${cards}</div>
+        `;
+      })() : '';
+
+      container.innerHTML = diffBanner + toolbar + totalsBar + `<div class="findings-list">${cardsHtml}</div>` + fixedHtml;
     }
 
     async function renderReportBodyInto(container, report) {
