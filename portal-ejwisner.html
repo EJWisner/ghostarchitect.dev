@@ -380,8 +380,14 @@
       currentView = view;
       currentMode = mode || null;
       currentReportId = reportId || null;
-      const hash = view === 'level0' ? '' : view === 'level1' ? `#m=${mode}` : `#m=${mode}&r=${reportId}`;
-      history.pushState({ view, mode, reportId }, '', hash);
+      // Level 0 clears the hash entirely so a refresh lands back home.
+      // Passing the bare pathname strips any leftover #m=... from the URL.
+      if (view === 'level0') {
+        history.pushState({ view }, '', location.pathname + location.search);
+      } else {
+        const hash = view === 'level1' ? `#m=${mode}` : `#m=${mode}&r=${reportId}`;
+        history.pushState({ view, mode, reportId }, '', hash);
+      }
       render();
     }
     window.addEventListener('popstate', (e) => {
