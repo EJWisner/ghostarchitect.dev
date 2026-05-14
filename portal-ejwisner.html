@@ -991,7 +991,7 @@
           </div>
           <div class="totals-stat">
             <div class="lbl">Effort</div>
-            <div class="val">${totalHrs.toFixed(1)}<small>hours</small></div>
+            <div class="val">${totalHrs > 0 ? totalHrs.toFixed(1) + '<small>hours</small>' : '<span style="color: var(--text-tertiary); font-size: 16px;">not estimated</span>'}</div>
           </div>
           ${totals.totalCost ? `
           <div class="totals-stat">
