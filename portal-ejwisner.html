@@ -395,27 +395,36 @@
         </div>
       `;
 
-      // Fetch body
+      // Fetch body. Prefer .md, fall back to .txt for older reports.
       let body;
+      let isPlainText = false;
       if (reportBodyCache[report.id]) {
-        body = reportBodyCache[report.id];
-      } else if (report.files.md) {
+        body = reportBodyCache[report.id].body;
+        isPlainText = reportBodyCache[report.id].isPlainText;
+      } else {
+        const bodyFile = report.files.md || report.files.txt;
+        if (!bodyFile) {
+          document.getElementById('report-body').innerHTML =
+            `<div class="error">No body available for this report.</div>`;
+          return;
+        }
+        isPlainText = !report.files.md && !!report.files.txt;
         try {
-          const url = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.md)}`;
+          const url = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(bodyFile)}`;
           const res = await fetch(url);
           if (!res.ok) throw new Error(`report ${res.status}`);
           body = await res.text();
-          reportBodyCache[report.id] = body;
+          reportBodyCache[report.id] = { body, isPlainText };
         } catch (err) {
           document.getElementById('report-body').innerHTML =
             `<div class="error">Failed to load report: ${err.message}</div>`;
           return;
         }
-      } else {
-        body = '_No markdown body available for this report._';
       }
 
-      const html = mdToHtml(body);
+      const html = isPlainText
+        ? `<pre style="white-space: pre-wrap; font-family: 'SF Mono', Menlo, Monaco, monospace; font-size: 12px; background: transparent; border: none; padding: 0;">${escapeHtml(body)}</pre>`
+        : mdToHtml(body);
       const dlBar = `
         <div class="download-bar">
           ${report.files.md ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.md)}" target="_blank">MD</a>` : ''}
