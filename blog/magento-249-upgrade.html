@@ -122,41 +122,14 @@
     .mobile-menu a:hover { color: var(--accent); }
     @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } }
   </style>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
 </head>
 <body>
-<nav>
-  <a href="/" class="nav-logo">
-    <img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />
-    Ghost Architect™
-  </a>
-  <ul class="nav-links">
-    <li><a href="/#what-it-does">What It Does</a></li>
-    <li><a href="/#magento-249" style="color: var(--danger);">⚠ May 12 Deadline</a></li>
-    <li><a href="/#security">Security</a></li>
-    <li><a href="/#for-agencies">For Agencies</a></li>
-    <li><a href="/pricing">Pricing</a></li>
-    <li><a href="/plans.html">Plan Details</a></li>
-    <li><a href="/blog.html" class="active">Blog</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="mobile-menu" id="mobile-menu">
-  <a href="/#what-it-does" onclick="closeMenu()">What It Does</a>
-  <a href="/#magento-249" onclick="closeMenu()">⚠ May 12 Deadline</a>
-  <a href="/#security" onclick="closeMenu()">Security</a>
-  <a href="/#for-agencies" onclick="closeMenu()">For Agencies</a>
-  <a href="/pricing" onclick="closeMenu()">Pricing</a>
-  <a href="/plans.html" onclick="closeMenu()">Plan Details</a>
-  <a href="/blog.html" onclick="closeMenu()">Blog</a>
-</div>
-<script>
-  const btn = document.getElementById('hamburger');
-  const menu = document.getElementById('mobile-menu');
-  function closeMenu() { btn.classList.remove('open'); menu.classList.remove('open'); }
-  btn.addEventListener('click', () => { btn.classList.toggle('open'); menu.classList.toggle('open'); });
-</script>
+
+
+<div id="ga-nav-mount"></div>
+
+
 
 <div class="article-wrap">
   <a href="/blog.html" class="back-link">← Back to Blog</a>
@@ -391,5 +364,6 @@
   </a>
   <span>© 2026 Ernst J. Wisner · Ghost Architect™ · All rights reserved. · US Copyright Reg. #1-15123488721 · <a href="/privacy.html" style="color:var(--text-dim);text-decoration:none;">Privacy Policy</a> · <a href="/msa.html" style="color:var(--text-dim);text-decoration:none;">Terms of Service</a></span>
 </footer>
+<script src="/assets/ga-nav.js" defer></script>
 </body>
 </html>

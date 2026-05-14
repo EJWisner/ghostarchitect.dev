@@ -147,41 +147,15 @@
       .install-cmd { font-size: 0.85rem; padding: 0.75rem 1rem; gap: 0.75rem; flex-wrap: wrap; }
     }
   </style>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
 </head>
 <body>
 
-<nav>
-  <a href="/" class="nav-logo">
-    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" width="28" height="28" fetchpriority="high" />
-    Ghost Architect™
-  </a>
-  <ul class="nav-links">
-    <li><a href="/#what-it-does">What It Does</a></li>
-    <li><a href="/prompt-triage.html" style="color: var(--accent3);">Prompt Triage</a></li>
-    <li><a href="/audit.html" style="color: var(--accent);">Done-For-You Audit</a></li>
-    <li><a href="/#ghost-partner" style="color: var(--accent);">Ghost Partner™</a></li>
-    <li><a href="/pricing">Pricing</a></li>
-    <li><a href="/plans.html">Plan Details</a></li>
-    <li><a href="/#faq">FAQ</a></li>
-    <li><a href="/blog.html">Blog</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
-<div class="mobile-menu" id="mobile-menu">
-  <a href="/#what-it-does" onclick="closeMenu()">What It Does</a>
-  <a href="/prompt-triage.html" onclick="closeMenu()">Prompt Triage</a>
-  <a href="/audit.html" onclick="closeMenu()">Done-For-You Audit</a>
-  <a href="/#ghost-partner" onclick="closeMenu()">Ghost Partner™</a>
-  <a href="/pricing" onclick="closeMenu()">Pricing</a>
-  <a href="/plans.html" onclick="closeMenu()">Plan Details</a>
-  <a href="/#faq" onclick="closeMenu()">FAQ</a>
-  <a href="/blog.html" onclick="closeMenu()">Blog</a>
-</div>
-<script>
-  const btn=document.getElementById('hamburger'),menu=document.getElementById('mobile-menu');
-  function closeMenu(){btn.classList.remove('open');menu.classList.remove('open');}
-  btn.addEventListener('click',()=>{btn.classList.toggle('open');menu.classList.toggle('open');});
-</script>
+
+
+<div id="ga-nav-mount"></div>
+
+
 
 <section class="hero">
   <div class="eyebrow">NEW IN v5.3.0  ·  REPORT CLARITY</div>
@@ -605,5 +579,6 @@
   <span class="footer-copy">© 2026 EJ Wisner · Ghost Architect™ · All rights reserved. · US Copyright Reg. #1-15123488721 · <a href="/support" style="color:var(--text-muted);text-decoration:none;">Support</a> · <a href="/privacy.html" style="color:var(--text-muted);text-decoration:none;">Privacy Policy</a> · <a href="/msa.html" style="color:var(--text-muted);text-decoration:none;">Terms of Service</a></span>
 </footer>
 
+<script src="/assets/ga-nav.js" defer></script>
 </body>
 </html>

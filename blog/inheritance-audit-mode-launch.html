@@ -89,38 +89,14 @@
     .cta-band .cta-btn { display: inline-block; background: var(--accent); color: #000; font-weight: 700; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; transition: opacity 0.2s; }
     .cta-band .cta-btn:hover { opacity: 0.85; }
   </style>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
 </head>
 <body>
-<nav>
-  <a href="/" class="nav-logo"><img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />Ghost Architect™</a>
-  <ul class="nav-links">
-    <li><a href="/#what-it-does">What It Does</a></li>
-    <li><a href="/inheritance-audit.html" style="color: var(--accent);">Inheritance Audit</a></li>
-    <li><a href="/prompt-triage.html" style="color: var(--accent2);">Prompt Triage</a></li>
-    <li><a href="/#security">Security</a></li>
-    <li><a href="/#for-agencies">For Agencies</a></li>
-    <li><a href="/pricing">Pricing</a></li>
-    <li><a href="/plans.html">Plan Details</a></li>
-    <li><a href="/blog.html" class="active">Blog</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
-<div class="mobile-menu" id="mobile-menu">
-  <a href="/#what-it-does">What It Does</a>
-  <a href="/inheritance-audit.html">Inheritance Audit</a>
-  <a href="/prompt-triage.html">Prompt Triage</a>
-  <a href="/#security">Security</a>
-  <a href="/#for-agencies">For Agencies</a>
-  <a href="/pricing">Pricing</a>
-  <a href="/plans.html">Plan Details</a>
-  <a href="/blog.html">Blog</a>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  var btn = document.getElementById('hamburger'), menu = document.getElementById('mobile-menu');
-  btn.addEventListener('click', function(){ btn.classList.toggle('open'); menu.classList.toggle('open'); });
-});
-</script>
+
+
+<div id="ga-nav-mount"></div>
+
+
 
 <div class="article-wrap">
   <a href="/blog.html" class="back-link">← All posts</a>
@@ -248,5 +224,6 @@ document.addEventListener('DOMContentLoaded', function(){
   <div>© 2026 Ghost Platform™ · <a href="/privacy.html" style="color: var(--text-dim);">Privacy</a> · <a href="/support.html" style="color: var(--text-dim);">Support</a></div>
 </footer>
 
+<script src="/assets/ga-nav.js" defer></script>
 </body>
 </html>

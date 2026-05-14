@@ -174,46 +174,16 @@
     .footer-copy { font-size: 0.75rem; color: var(--text-dim); }
     @media (max-width: 768px) { footer { flex-direction: column; gap: 1rem; text-align: center; } }
   </style>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
-  <a href="/" class="nav-logo">
-    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" width="28" height="28" />
-    Ghost Architect™
-  </a>
-  <ul class="nav-links">
-    <li><a href="/#what-it-does">What It Does</a></li>
-    <li><a href="/inheritance-audit.html" style="color: var(--accent);">Inheritance Audit</a></li>
-    <li><a href="/prompt-triage.html" style="color: var(--accent2);">Prompt Triage</a></li>
-    <li><a href="/audit.html" style="color: var(--accent);">Done-For-You Audit</a></li>
-    <li><a href="/#security">Security</a></li>
-    <li><a href="/#for-agencies">For Agencies</a></li>
-    <li><a href="/pricing">Pricing</a></li>
-    <li><a href="/plans.html">Plan Details</a></li>
-    <li><a href="/blog.html">Blog</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
-<div class="mobile-menu" id="mobile-menu">
-  <a href="/#what-it-does" onclick="closeMenu()">What It Does</a>
-  <a href="/inheritance-audit.html" onclick="closeMenu()">Inheritance Audit</a>
-  <a href="/prompt-triage.html" onclick="closeMenu()">Prompt Triage</a>
-  <a href="/audit.html" onclick="closeMenu()">Done-For-You Audit</a>
-  <a href="/#security" onclick="closeMenu()">Security</a>
-  <a href="/#for-agencies" onclick="closeMenu()">For Agencies</a>
-  <a href="/pricing" onclick="closeMenu()">Pricing</a>
-  <a href="/plans.html" onclick="closeMenu()">Plan Details</a>
-  <a href="/blog.html" onclick="closeMenu()">Blog</a>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  var btn = document.getElementById('hamburger'), menu = document.getElementById('mobile-menu');
-  window.closeMenu = function(){ btn.classList.remove('open'); menu.classList.remove('open'); };
-  btn.addEventListener('click', function(){ btn.classList.toggle('open'); menu.classList.toggle('open'); });
-});
-</script>
+
+
+<div id="ga-nav-mount"></div>
+
+
 
 <!-- HERO -->
 <section class="hero">
@@ -447,5 +417,6 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="footer-copy">© 2026 Ghost Platform™ · <a href="/privacy.html" style="color: var(--text-dim); text-decoration: underline;">Privacy</a> · <a href="/support.html" style="color: var(--text-dim); text-decoration: underline;">Support</a></div>
 </footer>
 
+<script src="/assets/ga-nav.js" defer></script>
 </body>
 </html>

@@ -391,43 +391,15 @@
       td:first-child { min-width: 140px; }
     }
   </style>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
 </head>
 <body>
 
-<nav>
-  <a href="/" class="nav-logo">
-    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" width="28" height="28" />
-    Ghost Architect™
-  </a>
-  <div class="nav-links">
-    <a href="/#what-it-does">What It Does</a>
-    <a href="/inheritance-audit.html" style="color: var(--accent);">Inheritance Audit</a>
-    <a href="/prompt-triage.html" style="color: #22c55e;">Prompt Triage</a>
-    <a href="/audit.html" style="color: var(--accent);">Done-For-You Audit</a>
-    <a href="/#security">Security</a>
-    <a href="/#for-agencies">For Agencies</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/plans.html" style="color: var(--accent);">Plan Details</a>
-    <a href="/blog.html">Blog</a>
-  </div>
-  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
-<div class="mobile-menu" id="mobile-menu">
-  <a href="/#what-it-does" onclick="closeMenu()">What It Does</a>
-  <a href="/inheritance-audit.html" onclick="closeMenu()">Inheritance Audit</a>
-  <a href="/prompt-triage.html" onclick="closeMenu()">Prompt Triage</a>
-  <a href="/audit.html" onclick="closeMenu()">Done-For-You Audit</a>
-  <a href="/#security" onclick="closeMenu()">Security</a>
-  <a href="/#for-agencies" onclick="closeMenu()">For Agencies</a>
-  <a href="/pricing" onclick="closeMenu()">Pricing</a>
-  <a href="/plans.html" onclick="closeMenu()">Plan Details</a>
-  <a href="/blog.html" onclick="closeMenu()">Blog</a>
-</div>
-<script>
-  const btn=document.getElementById('hamburger'),menu=document.getElementById('mobile-menu');
-  function closeMenu(){btn.classList.remove('open');menu.classList.remove('open');}
-  btn.addEventListener('click',()=>{btn.classList.toggle('open');menu.classList.toggle('open');});
-</script>
+
+
+<div id="ga-nav-mount"></div>
+
+
 
 <!-- HERO -->
 <div class="hero">
@@ -904,5 +876,6 @@
   <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a>
 </footer>
 
+<script src="/assets/ga-nav.js" defer></script>
 </body>
 </html>

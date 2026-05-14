@@ -1,0 +1,198 @@
+/* ========================================================================
+   GHOST ARCHITECT — SHARED NAV STYLES
+   ========================================================================
+   Site-wide dropdown nav. Pairs with /assets/ga-nav.js.
+   Inherits these CSS variables (fall-back defaults provided):
+     --bg, --surface, --border, --accent, --accent2, --warning, --text,
+     --text-muted, --text-dim, --font-mono, --font-sans
+   ======================================================================== */
+
+:root {
+  --ga-nav-bg: rgba(10,10,15,0.92);
+  --ga-nav-accent: var(--accent, #4a9eff);
+  --ga-nav-accent2: var(--accent2, #00d4aa);
+  --ga-nav-warning: var(--warning, #ffaa00);
+  --ga-nav-text: var(--text, #e8e8f0);
+  --ga-nav-text-muted: var(--text-muted, #b0b0c0);
+  --ga-nav-text-dim: var(--text-dim, #777788);
+  --ga-nav-border: var(--border, #2a2a3a);
+  --ga-nav-font-mono: var(--font-mono, 'JetBrains Mono', 'Fira Code', monospace);
+  --ga-nav-font-sans: var(--font-sans, 'Inter', -apple-system, sans-serif);
+}
+
+nav.ga-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--ga-nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--ga-nav-border);
+  padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+}
+.ga-nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--ga-nav-text);
+  font-weight: 700; font-size: 1rem; letter-spacing: -0.02em;
+  font-family: var(--ga-nav-font-sans);
+}
+.ga-nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
+.ga-nav-links {
+  display: flex; align-items: center; gap: 0.25rem; list-style: none;
+  margin: 0; padding: 0;
+}
+.ga-nav-item { position: relative; }
+.ga-nav-link {
+  display: flex; align-items: center; gap: 6px;
+  color: var(--ga-nav-text-muted); text-decoration: none;
+  font-size: 0.85rem; font-family: var(--ga-nav-font-mono);
+  padding: 8px 14px; border-radius: 6px;
+  transition: all 0.15s;
+  background: none; border: none; cursor: pointer; font-weight: 400;
+}
+.ga-nav-link:hover {
+  color: var(--ga-nav-accent);
+  background: rgba(74, 158, 255, 0.06);
+}
+.ga-nav-link.active {
+  color: var(--ga-nav-accent2);
+  background: rgba(0, 212, 170, 0.08);
+}
+.ga-nav-link .chevron { width: 10px; height: 10px; opacity: 0.6; transition: transform 0.2s; }
+.ga-nav-item.open .ga-nav-link .chevron { transform: rotate(180deg); }
+.ga-nav-item.open .ga-nav-link {
+  color: var(--ga-nav-accent);
+  background: rgba(74, 158, 255, 0.08);
+}
+.ga-dropdown {
+  position: absolute; top: calc(100% + 6px); left: 0;
+  min-width: 280px;
+  background: rgba(17, 17, 24, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--ga-nav-border);
+  border-radius: 10px; padding: 8px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.02);
+  opacity: 0; visibility: hidden; transform: translateY(-4px);
+  transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+}
+.ga-dropdown.align-right { left: auto; right: 0; }
+.ga-nav-item.open .ga-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+.ga-dropdown-item {
+  display: block; padding: 10px 12px; border-radius: 6px;
+  text-decoration: none; color: var(--ga-nav-text);
+  transition: background 0.12s;
+}
+.ga-dropdown-item:hover { background: rgba(74, 158, 255, 0.08); }
+.ga-dropdown-item .title {
+  font-size: 0.9rem; font-weight: 600; color: var(--ga-nav-text);
+  display: flex; align-items: center; gap: 8px; margin-bottom: 2px;
+  font-family: var(--ga-nav-font-sans);
+}
+.ga-dropdown-item.active .title { color: var(--ga-nav-accent2); }
+.ga-dropdown-item .title .pill {
+  font-family: var(--ga-nav-font-mono);
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em;
+  padding: 1px 6px; border-radius: 3px;
+  background: rgba(0,212,170,0.12); color: var(--ga-nav-accent2);
+  border: 1px solid rgba(0,212,170,0.3);
+}
+.ga-dropdown-item .title .pill.new {
+  background: rgba(255,170,0,0.12); color: var(--ga-nav-warning);
+  border-color: rgba(255,170,0,0.3);
+}
+.ga-dropdown-item .desc {
+  font-size: 0.78rem; color: var(--ga-nav-text-dim); line-height: 1.4;
+  font-family: var(--ga-nav-font-sans);
+}
+.ga-dropdown-section-label {
+  font-family: var(--ga-nav-font-mono);
+  font-size: 0.65rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ga-nav-text-dim);
+  padding: 8px 12px 4px;
+}
+.ga-dropdown-divider { height: 1px; background: var(--ga-nav-border); margin: 6px 0; }
+.ga-nav-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, var(--ga-nav-accent), var(--ga-nav-accent2));
+  color: #0a0a0f; font-weight: 700; font-size: 0.85rem;
+  padding: 8px 16px; border-radius: 6px; text-decoration: none;
+  margin-left: 0.5rem;
+  transition: opacity 0.2s, transform 0.2s;
+  font-family: var(--ga-nav-font-sans);
+}
+.ga-nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+.ga-hamburger {
+  display: none; cursor: pointer; padding: 6px;
+  background: none; border: none; flex-direction: column; gap: 5px;
+}
+.ga-hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--ga-nav-text-muted); border-radius: 2px;
+  transition: all 0.2s;
+}
+.ga-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.ga-hamburger.open span:nth-child(2) { opacity: 0; }
+.ga-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+@media (max-width: 980px) {
+  .ga-nav-links { display: none; }
+  .ga-hamburger { display: flex; }
+}
+
+.ga-mobile-menu {
+  display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
+  background: rgba(10,10,15,0.98); border-top: 1px solid var(--ga-nav-border);
+  padding: 1.5rem 1.5rem 2rem; z-index: 99; flex-direction: column;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow-y: auto;
+}
+.ga-mobile-menu.open { display: flex; }
+.ga-mobile-group { border-bottom: 1px solid var(--ga-nav-border); padding: 0; }
+.ga-mobile-group:last-of-type { border-bottom: none; }
+.ga-mobile-group-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 0; cursor: pointer;
+  background: none; border: none; width: 100%;
+  color: var(--ga-nav-text); font-size: 0.95rem; font-weight: 600;
+  font-family: var(--ga-nav-font-mono); letter-spacing: 0.05em; text-transform: uppercase;
+}
+.ga-mobile-group-header .chevron { width: 12px; height: 12px; opacity: 0.6; transition: transform 0.2s; }
+.ga-mobile-group.open .ga-mobile-group-header .chevron { transform: rotate(180deg); }
+.ga-mobile-group-items { display: none; flex-direction: column; padding: 0 0 1rem 0.5rem; }
+.ga-mobile-group.open .ga-mobile-group-items { display: flex; }
+.ga-mobile-group-items a {
+  color: var(--ga-nav-text-muted); text-decoration: none;
+  font-size: 0.9rem; padding: 0.6rem 0; transition: color 0.15s;
+  font-family: var(--ga-nav-font-sans);
+}
+.ga-mobile-group-items a:hover { color: var(--ga-nav-accent); }
+.ga-mobile-group-items a.active { color: var(--ga-nav-accent2); }
+.ga-mobile-group-items a .pill {
+  font-family: var(--ga-nav-font-mono);
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em;
+  padding: 1px 6px; border-radius: 3px;
+  background: rgba(0,212,170,0.12); color: var(--ga-nav-accent2);
+  border: 1px solid rgba(0,212,170,0.3);
+  margin-left: 8px;
+}
+.ga-mobile-group-items a .pill.new {
+  background: rgba(255,170,0,0.12); color: var(--ga-nav-warning);
+  border-color: rgba(255,170,0,0.3);
+}
+.ga-mobile-flat-link {
+  color: var(--ga-nav-text); text-decoration: none;
+  font-size: 0.95rem; font-weight: 600;
+  font-family: var(--ga-nav-font-mono); letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 1rem 0; border-bottom: 1px solid var(--ga-nav-border); display: block;
+}
+.ga-mobile-flat-link:hover { color: var(--ga-nav-accent); }
+.ga-mobile-flat-link.active { color: var(--ga-nav-accent2); }
+.ga-mobile-cta {
+  display: block; text-align: center;
+  background: linear-gradient(135deg, var(--ga-nav-accent), var(--ga-nav-accent2));
+  color: #0a0a0f; font-weight: 700; font-size: 0.95rem;
+  padding: 0.9rem 1.5rem; border-radius: 8px; text-decoration: none;
+  margin-top: 1.5rem;
+  font-family: var(--ga-nav-font-sans);
+}
