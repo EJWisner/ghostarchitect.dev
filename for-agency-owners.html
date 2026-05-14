@@ -53,43 +53,159 @@
     }
 
     /* NAV */
-    nav {
+    /* === NAV (dropdown style, v2 — May 14 2026) === */
+    nav.ga-nav {
       position: sticky; top: 0; z-index: 100;
       background: rgba(10,10,15,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 0 2rem;
       display: flex; align-items: center; justify-content: space-between;
-      height: 56px;
+      height: 60px;
     }
-    .nav-logo {
+    .ga-nav-logo {
       display: flex; align-items: center; gap: 10px;
       text-decoration: none; color: var(--text);
       font-weight: 700; font-size: 1rem; letter-spacing: -0.02em;
     }
-    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
+    .ga-nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
+    .ga-nav-links {
+      display: flex; align-items: center; gap: 0.25rem; list-style: none;
+    }
+    .ga-nav-item { position: relative; }
+    .ga-nav-link {
+      display: flex; align-items: center; gap: 6px;
       color: var(--text-muted); text-decoration: none;
       font-size: 0.85rem; font-family: var(--font-mono);
-      transition: color 0.2s;
+      padding: 8px 14px; border-radius: 6px;
+      transition: all 0.15s;
+      background: none; border: none; cursor: pointer; font-weight: 400;
     }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-links a.active { color: var(--accent); }
-    .hamburger { display: none; cursor: pointer; padding: 4px; background: none; border: none; flex-direction: column; gap: 5px; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; transition: all 0.2s; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display: none; position: fixed; top: 56px; left: 0; right: 0; background: rgba(10,10,15,0.98); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem 1.5rem; z-index: 99; flex-direction: column; gap: 0; backdrop-filter: blur(12px); }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-family: var(--font-mono); padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
-    .mobile-menu a:last-child { border-bottom: none; }
-    .mobile-menu a:hover { color: var(--accent); }
-
-    @media (max-width: 720px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
+    .ga-nav-link:hover { color: var(--accent); background: rgba(74, 158, 255, 0.06); }
+    .ga-nav-link.active { color: var(--accent2); background: rgba(0, 212, 170, 0.08); }
+    .ga-nav-link .chevron { width: 10px; height: 10px; opacity: 0.6; transition: transform 0.2s; }
+    .ga-nav-item.open .ga-nav-link .chevron { transform: rotate(180deg); }
+    .ga-nav-item.open .ga-nav-link { color: var(--accent); background: rgba(74, 158, 255, 0.08); }
+    .ga-dropdown {
+      position: absolute; top: calc(100% + 6px); left: 0;
+      min-width: 280px;
+      background: rgba(17, 17, 24, 0.98);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 8px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.02);
+      opacity: 0; visibility: hidden; transform: translateY(-4px);
+      transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+    }
+    .ga-dropdown.align-right { left: auto; right: 0; }
+    .ga-nav-item.open .ga-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+    .ga-dropdown-item {
+      display: block; padding: 10px 12px; border-radius: 6px;
+      text-decoration: none; color: var(--text);
+      transition: background 0.12s;
+    }
+    .ga-dropdown-item:hover { background: rgba(74, 158, 255, 0.08); }
+    .ga-dropdown-item .title {
+      font-size: 0.9rem; font-weight: 600; color: var(--text);
+      display: flex; align-items: center; gap: 8px; margin-bottom: 2px;
+    }
+    .ga-dropdown-item.active .title { color: var(--accent2); }
+    .ga-dropdown-item .title .pill {
+      font-family: var(--font-mono);
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 1px 6px; border-radius: 3px;
+      background: rgba(0,212,170,0.12); color: var(--accent2);
+      border: 1px solid rgba(0,212,170,0.3);
+    }
+    .ga-dropdown-item .title .pill.new {
+      background: rgba(255,170,0,0.12); color: var(--warning);
+      border-color: rgba(255,170,0,0.3);
+    }
+    .ga-dropdown-item .desc { font-size: 0.78rem; color: var(--text-dim); line-height: 1.4; }
+    .ga-dropdown-section-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-dim);
+      padding: 8px 12px 4px;
+    }
+    .ga-dropdown-divider { height: 1px; background: var(--border); margin: 6px 0; }
+    .ga-nav-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #0a0a0f; font-weight: 700; font-size: 0.85rem;
+      padding: 8px 16px; border-radius: 6px; text-decoration: none;
+      margin-left: 0.5rem;
+      transition: opacity 0.2s, transform 0.2s;
+      font-family: var(--font-sans);
+    }
+    .ga-nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+    .ga-hamburger {
+      display: none; cursor: pointer; padding: 6px;
+      background: none; border: none; flex-direction: column; gap: 5px;
+    }
+    .ga-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text-muted); border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .ga-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .ga-hamburger.open span:nth-child(2) { opacity: 0; }
+    .ga-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    @media (max-width: 980px) {
+      .ga-nav-links { display: none; }
+      .ga-hamburger { display: flex; }
+    }
+    .ga-mobile-menu {
+      display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,15,0.98); border-top: 1px solid var(--border);
+      padding: 1.5rem 1.5rem 2rem; z-index: 99; flex-direction: column;
+      backdrop-filter: blur(12px); overflow-y: auto;
+    }
+    .ga-mobile-menu.open { display: flex; }
+    .ga-mobile-group { border-bottom: 1px solid var(--border); padding: 0; }
+    .ga-mobile-group:last-of-type { border-bottom: none; }
+    .ga-mobile-group-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 0; cursor: pointer;
+      background: none; border: none; width: 100%;
+      color: var(--text); font-size: 0.95rem; font-weight: 600;
+      font-family: var(--font-mono); letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .ga-mobile-group-header .chevron { width: 12px; height: 12px; opacity: 0.6; transition: transform 0.2s; }
+    .ga-mobile-group.open .ga-mobile-group-header .chevron { transform: rotate(180deg); }
+    .ga-mobile-group-items { display: none; flex-direction: column; padding: 0 0 1rem 0.5rem; }
+    .ga-mobile-group.open .ga-mobile-group-items { display: flex; }
+    .ga-mobile-group-items a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.9rem; padding: 0.6rem 0; transition: color 0.15s;
+    }
+    .ga-mobile-group-items a:hover { color: var(--accent); }
+    .ga-mobile-group-items a.active { color: var(--accent2); }
+    .ga-mobile-group-items a .pill {
+      font-family: var(--font-mono);
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 1px 6px; border-radius: 3px;
+      background: rgba(0,212,170,0.12); color: var(--accent2);
+      border: 1px solid rgba(0,212,170,0.3);
+      margin-left: 8px;
+    }
+    .ga-mobile-group-items a .pill.new {
+      background: rgba(255,170,0,0.12); color: var(--warning);
+      border-color: rgba(255,170,0,0.3);
+    }
+    .ga-mobile-flat-link {
+      color: var(--text); text-decoration: none;
+      font-size: 0.95rem; font-weight: 600;
+      font-family: var(--font-mono); letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 1rem 0; border-bottom: 1px solid var(--border); display: block;
+    }
+    .ga-mobile-flat-link:hover { color: var(--accent); }
+    .ga-mobile-cta {
+      display: block; text-align: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #0a0a0f; font-weight: 700; font-size: 0.95rem;
+      padding: 0.9rem 1.5rem; border-radius: 8px; text-decoration: none;
+      margin-top: 1.5rem;
     }
 
     /* HERO */
@@ -672,37 +788,233 @@
 <body>
 
 <!-- NAV -->
-<nav>
-  <a href="/" class="nav-logo">
+<nav class="ga-nav">
+  <a href="/" class="ga-nav-logo">
     <img src="GHOSTLOGO.JPG" alt="Ghost Architect" />
     Ghost Architect™
   </a>
-  <ul class="nav-links">
-    <li><a href="/#what-it-does">What It Does</a></li>
-    <li><a href="/inheritance-audit.html" style="color: var(--accent);">Inheritance Audit</a></li>
-    <li><a href="/prompt-triage.html" style="color: var(--accent2);">Prompt Triage</a></li>
-    <li><a href="/audit.html" style="color: var(--accent);">Done-For-You Audit</a></li>
-    <li><a href="/#ghost-partner" style="color: var(--accent);">Ghost Partner™</a></li>
-    <li><a href="/for-agency-owners.html" class="active" style="color: var(--accent2);">For Owners</a></li>
-    <li><a href="/#for-agency-teams">For Teams</a></li>
-    <li><a href="/pricing">Pricing</a></li>
-    <li><a href="/blog.html">Blog</a></li>
+  <ul class="ga-nav-links">
+
+    <!-- MODES dropdown -->
+    <li class="ga-nav-item" data-dropdown>
+      <button class="ga-nav-link" aria-haspopup="true" aria-expanded="false">
+        Modes
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="ga-dropdown">
+        <div class="ga-dropdown-section-label">Scan Modes</div>
+        <a href="/inheritance-audit.html" class="ga-dropdown-item">
+          <div class="title">Inheritance Audit <span class="pill">FLAGSHIP</span></div>
+          <div class="desc">Done-for-you report for buyers. Stack reality, EOL deps, modernization roadmap.</div>
+        </a>
+        <a href="/prompt-triage.html" class="ga-dropdown-item">
+          <div class="title">Prompt Triage</div>
+          <div class="desc">Audit AI prompts as production code. 15 detectors, academic taxonomy.</div>
+        </a>
+        <a href="/#what-it-does" class="ga-dropdown-item">
+          <div class="title">All 8 Scan Modes</div>
+          <div class="desc">POI, Blast Radius, Conflict, Recon, Chat, Compare, Dashboard, Audit.</div>
+        </a>
+        <div class="ga-dropdown-divider"></div>
+        <a href="/audit.html" class="ga-dropdown-item">
+          <div class="title">Done-For-You Audit</div>
+          <div class="desc">Have EJ run the audit for you. Deal-grade PDF in 48 hours.</div>
+        </a>
+        <a href="/#ghost-partner" class="ga-dropdown-item">
+          <div class="title">Ghost Partner™</div>
+          <div class="desc">Your methodology, your branding, your rates. White-label profiles.</div>
+        </a>
+      </div>
+    </li>
+
+    <!-- SOLUTIONS dropdown (active on this page) -->
+    <li class="ga-nav-item" data-dropdown>
+      <button class="ga-nav-link active" aria-haspopup="true" aria-expanded="false">
+        Solutions
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="ga-dropdown">
+        <div class="ga-dropdown-section-label">For Your Role</div>
+        <a href="/for-agency-owners.html" class="ga-dropdown-item active">
+          <div class="title">For Agency Owners <span class="pill new">NEW</span></div>
+          <div class="desc">Bid with confidence. Protect margin. Ship without surprises.</div>
+        </a>
+        <a href="/#for-agency-teams" class="ga-dropdown-item">
+          <div class="title">For Agency Teams</div>
+          <div class="desc">Workflow integration for the engineers running engagements.</div>
+        </a>
+        <div class="ga-dropdown-divider"></div>
+        <a href="/inheritance-audit.html" class="ga-dropdown-item">
+          <div class="title">For Buyers &amp; PE Diligence</div>
+          <div class="desc">Acquisition-grade codebase reports in under sixty seconds.</div>
+        </a>
+        <a href="/#security" class="ga-dropdown-item">
+          <div class="title">For CTOs &amp; Security</div>
+          <div class="desc">Runs locally. Your code never leaves your machine. BYOK.</div>
+        </a>
+      </div>
+    </li>
+
+    <!-- PRICING (flat link) -->
+    <li class="ga-nav-item">
+      <a href="/pricing" class="ga-nav-link">Pricing</a>
+    </li>
+
+    <!-- RESOURCES dropdown -->
+    <li class="ga-nav-item" data-dropdown>
+      <button class="ga-nav-link" aria-haspopup="true" aria-expanded="false">
+        Resources
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="ga-dropdown align-right" style="min-width: 240px;">
+        <a href="/blog.html" class="ga-dropdown-item">
+          <div class="title">Blog</div>
+          <div class="desc">Releases, deep-dives, agency war stories.</div>
+        </a>
+        <a href="/#faq" class="ga-dropdown-item">
+          <div class="title">FAQ</div>
+          <div class="desc">Common questions answered.</div>
+        </a>
+        <a href="/support" class="ga-dropdown-item">
+          <div class="title">Support</div>
+          <div class="desc">Contact, docs, status.</div>
+        </a>
+        <div class="ga-dropdown-divider"></div>
+        <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener" class="ga-dropdown-item">
+          <div class="title">GitHub</div>
+          <div class="desc">Ghost Open source &amp; releases.</div>
+        </a>
+      </div>
+    </li>
+
+    <!-- CTA button -->
+    <li class="ga-nav-item">
+      <a href="/pricing" class="ga-nav-cta">
+        👻 See Plans
+      </a>
+    </li>
   </ul>
-  <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open');this.classList.toggle('open');" aria-label="Menu">
+
+  <button class="ga-hamburger" id="ga-hamburger" aria-label="Menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
-<div class="mobile-menu">
-  <a href="/#what-it-does">What It Does</a>
-  <a href="/inheritance-audit.html">Inheritance Audit</a>
-  <a href="/prompt-triage.html">Prompt Triage</a>
-  <a href="/audit.html">Done-For-You Audit</a>
-  <a href="/#ghost-partner">Ghost Partner™</a>
-  <a href="/for-agency-owners.html">For Agency Owners</a>
-  <a href="/#for-agency-teams">For Agency Teams</a>
-  <a href="/pricing">Pricing</a>
-  <a href="/blog.html">Blog</a>
+
+<!-- MOBILE MENU (collapsible groups) -->
+<div class="ga-mobile-menu" id="ga-mobile-menu">
+
+  <div class="ga-mobile-group" data-mobile-group>
+    <button class="ga-mobile-group-header">
+      Modes
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+    <div class="ga-mobile-group-items">
+      <a href="/inheritance-audit.html">Inheritance Audit <span class="pill">FLAGSHIP</span></a>
+      <a href="/prompt-triage.html">Prompt Triage</a>
+      <a href="/#what-it-does">All 8 Scan Modes</a>
+      <a href="/audit.html">Done-For-You Audit</a>
+      <a href="/#ghost-partner">Ghost Partner™</a>
+    </div>
+  </div>
+
+  <div class="ga-mobile-group open" data-mobile-group>
+    <button class="ga-mobile-group-header">
+      Solutions
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+    <div class="ga-mobile-group-items">
+      <a href="/for-agency-owners.html" class="active">For Agency Owners <span class="pill new">NEW</span></a>
+      <a href="/#for-agency-teams">For Agency Teams</a>
+      <a href="/inheritance-audit.html">For Buyers &amp; PE Diligence</a>
+      <a href="/#security">For CTOs &amp; Security</a>
+    </div>
+  </div>
+
+  <a href="/pricing" class="ga-mobile-flat-link">Pricing</a>
+
+  <div class="ga-mobile-group" data-mobile-group>
+    <button class="ga-mobile-group-header">
+      Resources
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+    <div class="ga-mobile-group-items">
+      <a href="/blog.html">Blog</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/support">Support</a>
+      <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+
+  <a href="/pricing" class="ga-mobile-cta">👻 See Plans</a>
 </div>
+
+<script>
+// === Ghost Architect dropdown nav (v2 — May 14 2026) ===
+document.addEventListener('DOMContentLoaded', function(){
+  const dropdowns = document.querySelectorAll('.ga-nav-item[data-dropdown]');
+
+  dropdowns.forEach(item => {
+    const trigger = item.querySelector('.ga-nav-link');
+    trigger.addEventListener('click', e => {
+      e.stopPropagation();
+      dropdowns.forEach(other => { if (other !== item) other.classList.remove('open'); });
+      item.classList.toggle('open');
+      trigger.setAttribute('aria-expanded', item.classList.contains('open'));
+    });
+  });
+
+  dropdowns.forEach(item => {
+    let leaveTimer;
+    item.addEventListener('mouseenter', () => {
+      clearTimeout(leaveTimer);
+      dropdowns.forEach(other => { if (other !== item) other.classList.remove('open'); });
+      item.classList.add('open');
+    });
+    item.addEventListener('mouseleave', () => {
+      leaveTimer = setTimeout(() => item.classList.remove('open'), 200);
+    });
+  });
+
+  document.addEventListener('click', () => {
+    dropdowns.forEach(item => item.classList.remove('open'));
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      dropdowns.forEach(item => item.classList.remove('open'));
+      const mm = document.getElementById('ga-mobile-menu');
+      const hb = document.getElementById('ga-hamburger');
+      if (mm) mm.classList.remove('open');
+      if (hb) hb.classList.remove('open');
+    }
+  });
+
+  const hamburger = document.getElementById('ga-hamburger');
+  const mobileMenu = document.getElementById('ga-mobile-menu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+  }
+
+  document.querySelectorAll('.ga-mobile-group[data-mobile-group]').forEach(group => {
+    const header = group.querySelector('.ga-mobile-group-header');
+    if (!header) return;
+    header.addEventListener('click', () => {
+      group.classList.toggle('open');
+    });
+  });
+
+  document.querySelectorAll('.ga-mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  });
+});
+</script>
 
 <!-- HERO -->
 <section class="hero">
