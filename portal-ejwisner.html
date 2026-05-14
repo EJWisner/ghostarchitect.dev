@@ -256,6 +256,87 @@
       margin-left: 8px;
     }
 
+    /* LEVEL 2 — View tabs (Findings | Full Report) */
+    .view-tabs {
+      display: flex; gap: 2px; margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .view-tab {
+      background: transparent; border: none;
+      padding: 10px 18px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-tertiary); cursor: pointer; transition: all 0.15s;
+      font-family: inherit; position: relative;
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+    }
+    .view-tab:hover { color: var(--text-secondary); }
+    .view-tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+    .view-tab-count {
+      display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 10px;
+      background: rgba(0, 191, 216, 0.12); font-size: 10px; color: var(--cyan-bright);
+    }
+
+    /* LEVEL 2 — Findings list view */
+    .findings-toolbar {
+      display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .findings-toolbar-label {
+      font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary); text-transform: uppercase;
+      margin-right: 4px;
+    }
+    .filter-chip {
+      background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 14px; padding: 5px 12px; font-size: 11px; color: var(--text-secondary);
+      cursor: pointer; transition: all 0.15s; font-family: inherit;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .filter-chip:hover { border-color: var(--cyan-dim); color: var(--text-primary); }
+    .filter-chip.active { background: rgba(0, 191, 216, 0.12); border-color: var(--cyan); color: var(--cyan); }
+    .filter-chip.active.sev-critical-active { background: rgba(255, 122, 122, 0.12); border-color: #ff7a7a; color: #ff7a7a; }
+    .filter-chip.active.sev-high-active     { background: rgba(255, 166, 102, 0.12); border-color: #ffa666; color: #ffa666; }
+    .filter-chip.active.sev-medium-active   { background: rgba(255, 194, 102, 0.12); border-color: #ffc266; color: #ffc266; }
+    .filter-chip.active.sev-low-active      { background: rgba(121, 196, 212, 0.12); border-color: #79c4d4; color: #79c4d4; }
+
+    .totals-bar {
+      display: flex; gap: 22px; padding: 14px 18px; margin-bottom: 16px;
+      background: var(--bg-tile); border: 1px solid var(--border); border-radius: 10px;
+      flex-wrap: wrap;
+    }
+    .totals-stat .lbl { font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary); text-transform: uppercase; }
+    .totals-stat .val { font-size: 20px; font-weight: 300; color: var(--text-primary); margin-top: 2px; }
+    .totals-stat .val small { font-size: 11px; color: var(--text-tertiary); margin-left: 4px; }
+
+    .findings-list { display: flex; flex-direction: column; gap: 8px; }
+    .finding-card {
+      background: var(--bg-tile); border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px 16px; transition: all 0.15s; position: relative;
+      border-left-width: 3px;
+    }
+    .finding-card.f-critical { border-left-color: #ff5555; }
+    .finding-card.f-high     { border-left-color: #ff9040; }
+    .finding-card.f-medium   { border-left-color: #ffb030; }
+    .finding-card.f-low      { border-left-color: #5aa8ba; }
+    .finding-card-top {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+      margin-bottom: 8px;
+    }
+    .finding-title { font-size: 14px; font-weight: 500; color: var(--text-primary); flex: 1; }
+    .finding-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 8px; }
+    .finding-meta {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      font-size: 10px; color: var(--text-tertiary); letter-spacing: 0.04em;
+    }
+    .finding-meta b { color: var(--text-secondary); font-weight: 500; }
+    .finding-file {
+      font-family: 'SF Mono', Menlo, Monaco, monospace; font-size: 10px;
+      color: var(--cyan-dim); background: rgba(0, 191, 216, 0.06);
+      padding: 1px 6px; border-radius: 3px;
+    }
+    .findings-empty {
+      padding: 32px 20px; text-align: center; color: var(--text-tertiary); font-size: 13px;
+      background: var(--bg-tile); border: 1px dashed var(--border); border-radius: 10px;
+    }
+
     /* LEVEL 2: REPORT DETAIL */
     .report-detail {
       background: var(--bg-tile); border: 1px solid var(--border); border-radius: 10px;
@@ -396,6 +477,9 @@
     let currentMode = null;
     let currentReportId = null;
     let reportBodyCache = {};
+    let findingsCache = {};       // report.id → parsed findings JSON
+    let level2Tab = 'findings';   // 'findings' | 'report'  (per-render state)
+    let findingsFilter = 'all';   // 'all' | 'critical' | 'high' | 'medium' | 'low'
 
     // ── Boot ─────────────────────────────────────────────────────────
     async function boot() {
@@ -654,6 +738,9 @@
     }
 
     // ── LEVEL 2: Report detail ───────────────────────────────────────
+    // When the report has structured findings (hasStructuredFindings: true),
+    // we show a Findings tab (default) and a Full Report tab. Otherwise we
+    // just show the markdown body as before. Backwards compatible.
     async function renderLevel2() {
       const report = manifest.reports.find(r => r.id === currentReportId && r.mode === currentMode);
       const modeInfo = manifest.modeSummary[currentMode];
@@ -663,12 +750,18 @@
         return;
       }
 
-      // Show shell + loading state immediately. Download buttons now at top.
+      // Reset per-report UI state when we enter a new report.
+      // Default to 'findings' tab when structured data exists, 'report' otherwise.
+      level2Tab = report.hasStructuredFindings ? 'findings' : 'report';
+      findingsFilter = 'all';
+
+      // Download buttons + breadcrumb scaffold (always present).
       const dlBar = `
         <div class="download-bar download-bar-top">
           ${report.files.md ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.md)}" target="_blank">MD</a>` : ''}
           ${report.files.pdf ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.pdf)}" target="_blank">PDF</a>` : ''}
           ${report.files.txt ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.txt)}" target="_blank">TXT</a>` : ''}
+          ${report.files.findings ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.findings)}" target="_blank">JSON</a>` : ''}
         </div>
       `;
       document.getElementById('app-root').innerHTML = `
@@ -677,10 +770,184 @@
           <div class="breadcrumb">${PORTAL_SLUG} / ${modeInfo.label} / <b>${escapeHtml(report.project)}</b></div>
         </div>
         ${dlBar}
-        <div class="report-detail" id="report-body">
+        <div id="level2-content">
           <div class="loading">Loading report…</div>
         </div>
       `;
+
+      await renderLevel2Content(report);
+    }
+
+    async function renderLevel2Content(report) {
+      const container = document.getElementById('level2-content');
+      if (!container) return;
+
+      // If the report has structured findings, render tabs. Otherwise straight
+      // to the markdown body.
+      if (!report.hasStructuredFindings) {
+        await renderReportBodyInto(container, report);
+        return;
+      }
+
+      // Build the tab bar. We use a placeholder count until findings load.
+      const findingsCount = findingsCache[report.id]?.findings?.length ?? null;
+      const tabsHtml = `
+        <div class="view-tabs">
+          <button class="view-tab ${level2Tab === 'findings' ? 'active' : ''}"
+                  onclick="switchLevel2Tab('findings')">
+            Findings${findingsCount !== null ? `<span class="view-tab-count">${findingsCount}</span>` : ''}
+          </button>
+          <button class="view-tab ${level2Tab === 'report' ? 'active' : ''}"
+                  onclick="switchLevel2Tab('report')">
+            Full Report
+          </button>
+        </div>
+        <div id="tab-content"></div>
+      `;
+      container.innerHTML = tabsHtml;
+      const tabContent = document.getElementById('tab-content');
+
+      if (level2Tab === 'findings') {
+        await renderFindingsInto(tabContent, report);
+      } else {
+        await renderReportBodyInto(tabContent, report);
+      }
+    }
+
+    function switchLevel2Tab(tab) {
+      level2Tab = tab;
+      const report = manifest.reports.find(r => r.id === currentReportId && r.mode === currentMode);
+      if (report) renderLevel2Content(report);
+    }
+
+    function setFindingsFilter(severity) {
+      findingsFilter = severity;
+      const report = manifest.reports.find(r => r.id === currentReportId && r.mode === currentMode);
+      if (report) renderLevel2Content(report);
+    }
+
+    async function renderFindingsInto(container, report) {
+      container.innerHTML = '<div class="loading">Loading findings…</div>';
+
+      let data;
+      try {
+        if (findingsCache[report.id]) {
+          data = findingsCache[report.id];
+        } else {
+          const url = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.findings)}`;
+          const res = await fetch(url);
+          if (!res.ok) throw new Error(`findings ${res.status}`);
+          data = await res.json();
+          findingsCache[report.id] = data;
+          // Update the tab badge with the real count now that we have data.
+          const tabFindings = container.parentElement?.querySelector('.view-tab');
+          if (tabFindings && !tabFindings.querySelector('.view-tab-count')) {
+            const badge = document.createElement('span');
+            badge.className = 'view-tab-count';
+            badge.textContent = (data.findings || []).length;
+            tabFindings.appendChild(badge);
+          }
+        }
+      } catch (err) {
+        container.innerHTML = `<div class="error">Failed to load findings: ${escapeHtml(err.message)}</div>`;
+        return;
+      }
+
+      const findings = data.findings || [];
+      const sev = data.severityCounts || {};
+      const totals = data.totals || {};
+
+      // Filter
+      const filtered = findingsFilter === 'all'
+        ? findings
+        : findings.filter(f => (f.severity || '').toLowerCase() === findingsFilter);
+
+      // Sort: severity rank then effort desc
+      const sevRank = { CRITICAL: 0, HIGH: 1, MEDIUM: 2, LOW: 3 };
+      filtered.sort((a, b) => {
+        const ra = sevRank[a.severity] ?? 99;
+        const rb = sevRank[b.severity] ?? 99;
+        if (ra !== rb) return ra - rb;
+        return (b.effortHours || 0) - (a.effortHours || 0);
+      });
+
+      const totalHrs = filtered.reduce((s, f) => s + (f.effortHours || 0), 0);
+      const filterPill = (key, label, count, sevClass) => `
+        <button class="filter-chip ${findingsFilter === key ? 'active ' + sevClass : ''}"
+                onclick="setFindingsFilter('${key}')">
+          ${label}${count != null ? ` · ${count}` : ''}
+        </button>
+      `;
+
+      const toolbar = `
+        <div class="findings-toolbar">
+          <span class="findings-toolbar-label">Filter:</span>
+          ${filterPill('all',      'All',                  findings.length, '')}
+          ${filterPill('critical', 'Critical', sev.critical, 'sev-critical-active')}
+          ${filterPill('high',     'High',     sev.high,     'sev-high-active')}
+          ${filterPill('medium',   'Medium',   sev.medium,   'sev-medium-active')}
+          ${filterPill('low',      'Low',      sev.low,      'sev-low-active')}
+        </div>
+      `;
+
+      const totalsBar = `
+        <div class="totals-bar">
+          <div class="totals-stat">
+            <div class="lbl">Findings</div>
+            <div class="val">${filtered.length}<small>of ${findings.length}</small></div>
+          </div>
+          <div class="totals-stat">
+            <div class="lbl">Effort</div>
+            <div class="val">${totalHrs.toFixed(1)}<small>hours</small></div>
+          </div>
+          ${totals.totalCost ? `
+          <div class="totals-stat">
+            <div class="lbl">Est. Cost</div>
+            <div class="val">$${Number(totals.totalCost).toLocaleString()}</div>
+          </div>` : ''}
+          <div class="totals-stat">
+            <div class="lbl">Scan Date</div>
+            <div class="val" style="font-size: 13px; padding-top: 4px;">${formatDate(report.generatedIso)}</div>
+          </div>
+        </div>
+      `;
+
+      const cardsHtml = filtered.length === 0
+        ? '<div class="findings-empty">No findings match the current filter.</div>'
+        : filtered.map(f => {
+            const sevKey = (f.severity || '').toLowerCase();
+            const sevClass = `f-${sevKey}`;
+            const sevChip = `<span class="sev-chip sev-${sevKey}"><span class="dot"></span>${escapeHtml(f.severity || '—')}</span>`;
+            const filesHtml = (f.files || []).slice(0, 4).map(file =>
+              `<span class="finding-file">${escapeHtml(file)}</span>`
+            ).join(' ');
+            const overflow = (f.files || []).length > 4 ? ` <span class="finding-meta">+${f.files.length - 4} more</span>` : '';
+            const effortLabel = f.effortHours
+              ? `<span><b>Effort:</b> ${f.effortHours}h</span>` : '';
+            const confidenceLabel = (f.confidence != null)
+              ? `<span><b>Confidence:</b> ${f.confidence}%</span>` : '';
+
+            return `
+              <div class="finding-card ${sevClass}">
+                <div class="finding-card-top">
+                  <div class="finding-title">${escapeHtml(f.title || '(untitled)')}</div>
+                  ${sevChip}
+                </div>
+                ${f.detail ? `<div class="finding-detail">${escapeHtml(f.detail)}</div>` : ''}
+                <div class="finding-meta">
+                  ${filesHtml}${overflow}
+                  ${effortLabel}
+                  ${confidenceLabel}
+                </div>
+              </div>
+            `;
+          }).join('');
+
+      container.innerHTML = toolbar + totalsBar + `<div class="findings-list">${cardsHtml}</div>`;
+    }
+
+    async function renderReportBodyInto(container, report) {
+      container.innerHTML = '<div class="report-detail" id="report-body"><div class="loading">Loading report…</div></div>';
 
       // Fetch body. Prefer .md, fall back to .txt for older reports.
       let body;
@@ -704,7 +971,7 @@
           reportBodyCache[report.id] = { body, isPlainText };
         } catch (err) {
           document.getElementById('report-body').innerHTML =
-            `<div class="error">Failed to load report: ${err.message}</div>`;
+            `<div class="error">Failed to load report: ${escapeHtml(err.message)}</div>`;
           return;
         }
       }
