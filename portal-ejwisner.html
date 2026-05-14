@@ -221,6 +221,41 @@
     .report-summary { font-size: 12px; line-height: 1.5; color: var(--text-secondary); }
     .report-meta { font-size: 10px; color: var(--text-tertiary); margin-top: 8px; letter-spacing: 0.04em; }
 
+    /* Severity chip row */
+    .severity-row {
+      display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px;
+    }
+    .sev-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 8px; border-radius: 4px;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      border: 1px solid;
+    }
+    .sev-chip .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .sev-critical { color: #ff7a7a; border-color: rgba(255, 122, 122, 0.4); background: rgba(255, 122, 122, 0.06); }
+    .sev-critical .dot { background: #ff5555; box-shadow: 0 0 6px #ff5555; }
+    .sev-high { color: #ffa666; border-color: rgba(255, 166, 102, 0.4); background: rgba(255, 166, 102, 0.06); }
+    .sev-high .dot { background: #ff9040; }
+    .sev-medium { color: #ffc266; border-color: rgba(255, 194, 102, 0.4); background: rgba(255, 194, 102, 0.06); }
+    .sev-medium .dot { background: #ffb030; }
+    .sev-low { color: #79c4d4; border-color: rgba(121, 196, 212, 0.4); background: rgba(121, 196, 212, 0.06); }
+    .sev-low .dot { background: #5aa8ba; }
+    .sev-total {
+      color: var(--text-tertiary); border-color: var(--border); background: transparent;
+      margin-left: 4px;
+    }
+    .sev-total .dot { display: none; }
+
+    /* History grouping */
+    .history-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 3px 10px; border-radius: 12px;
+      font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cyan-dim); border: 1px solid var(--border);
+      background: rgba(0, 191, 216, 0.04);
+      margin-left: 8px;
+    }
+
     /* LEVEL 2: REPORT DETAIL */
     .report-detail {
       background: var(--bg-tile); border: 1px solid var(--border); border-radius: 10px;
@@ -464,6 +499,9 @@
     }
 
     // ── LEVEL 1: Mode dashboard / report list ────────────────────────
+    // Groups reports by project name. Shows the latest scan per project as
+    // the primary card. If a project has multiple scans, a History pill
+    // exposes the older versions inline.
     function renderLevel1() {
       const reports = manifest.reports.filter(r => r.mode === currentMode);
       const modeInfo = manifest.modeSummary[currentMode];
@@ -473,19 +511,66 @@
         return;
       }
 
-      const projects = new Set(reports.map(r => r.project)).size;
-      const latest = reports[0]?.generatedIso;
+      // Group by project (case-insensitive, normalized).
+      const groups = new Map();
+      for (const r of reports) {
+        const key = (r.project || '(untitled)').toLowerCase().trim();
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(r);
+      }
+      // Sort each group newest-first; manifest is already that way but be safe.
+      for (const g of groups.values()) {
+        g.sort((a, b) => b.generatedIso.localeCompare(a.generatedIso));
+      }
+      // Group order: newest activity first.
+      const groupArr = Array.from(groups.values())
+        .sort((a, b) => b[0].generatedIso.localeCompare(a[0].generatedIso));
 
-      const rowsHtml = reports.map(r => `
-        <div class="report-row" onclick="navigate('level2','${currentMode}','${r.id}')">
-          <div class="report-row-top">
-            <div class="report-project">${escapeHtml(r.project)}</div>
-            <div class="report-date">${formatDate(r.generatedIso)}</div>
+      const projectCount = groups.size;
+      const latest = reports[0]?.generatedIso;
+      const firstScan = reports.length
+        ? reports.map(r => r.generatedIso).sort()[0]
+        : null;
+
+      const rowsHtml = groupArr.map(group => {
+        const latestReport = group[0];
+        const hasHistory = group.length > 1;
+        const summary = latestReport.summary || '';
+        const sev = latestReport.severityCounts;
+        const sevTotal = latestReport.findingsTotal || 0;
+
+        // Severity chips. Only show counts > 0 to keep rows clean.
+        const sevChips = sev ? `
+          <div class="severity-row">
+            ${sev.critical > 0 ? `<span class="sev-chip sev-critical"><span class="dot"></span>${sev.critical} Critical</span>` : ''}
+            ${sev.high > 0     ? `<span class="sev-chip sev-high"><span class="dot"></span>${sev.high} High</span>` : ''}
+            ${sev.medium > 0   ? `<span class="sev-chip sev-medium"><span class="dot"></span>${sev.medium} Medium</span>` : ''}
+            ${sev.low > 0      ? `<span class="sev-chip sev-low"><span class="dot"></span>${sev.low} Low</span>` : ''}
+            ${sevTotal > 0     ? `<span class="sev-chip sev-total">${sevTotal} total finding${sevTotal !== 1 ? 's' : ''}</span>` : ''}
           </div>
-          ${r.summary ? `<div class="report-summary">${escapeHtml(r.summary).slice(0, 240)}${r.summary.length > 240 ? '…' : ''}</div>` : ''}
-          <div class="report-meta">${escapeHtml(r.tool || '')}${r.filesAnalyzed ? ' · ' + escapeHtml(r.filesAnalyzed) + ' files' : ''}</div>
-        </div>
-      `).join('');
+        ` : '';
+
+        const historyJson = hasHistory ? encodeURIComponent(JSON.stringify(group.map(r => ({
+          id: r.id, generated: r.generated, generatedIso: r.generatedIso, tool: r.tool,
+        })))) : '';
+        const historyPill = hasHistory
+          ? `<span class="history-pill" onclick="event.stopPropagation();showHistoryModal('${escapeAttr(latestReport.project)}','${historyJson}')" title="View history">History · ${group.length}</span>`
+          : '';
+
+        return `
+          <div class="report-row" onclick="navigate('level2','${currentMode}','${latestReport.id}')">
+            <div class="report-row-top">
+              <div class="report-project">
+                ${escapeHtml(latestReport.project)}${historyPill}
+              </div>
+              <div class="report-date">${formatDate(latestReport.generatedIso)}</div>
+            </div>
+            ${summary ? `<div class="report-summary">${escapeHtml(summary).slice(0, 240)}${summary.length > 240 ? '…' : ''}</div>` : ''}
+            ${sevChips}
+            <div class="report-meta">${escapeHtml(latestReport.tool || '')}${latestReport.filesAnalyzed ? ' · ' + escapeHtml(latestReport.filesAnalyzed) + ' files' : ''}</div>
+          </div>
+        `;
+      }).join('');
 
       document.getElementById('app-root').innerHTML = `
         <div class="back-bar">
@@ -495,21 +580,77 @@
         </div>
         <div class="mode-stats">
           <div class="mode-stat">
-            <div class="label">Reports</div>
+            <div class="label">Projects</div>
+            <div class="value">${projectCount}</div>
+          </div>
+          <div class="mode-stat">
+            <div class="label">Total Scans</div>
             <div class="value">${reports.length}</div>
           </div>
           <div class="mode-stat">
-            <div class="label">Projects</div>
-            <div class="value">${projects}</div>
+            <div class="label">First Scan</div>
+            <div class="value" style="font-size: 14px; padding-top: 6px;">${firstScan ? formatDate(firstScan) : '—'}</div>
           </div>
           <div class="mode-stat">
-            <div class="label">Latest</div>
+            <div class="label">Last Scan</div>
             <div class="value" style="font-size: 14px; padding-top: 6px;">${latest ? relativeTime(latest) : '—'}</div>
           </div>
         </div>
-        <div class="section-label">All Reports</div>
+        <div class="section-label">Projects (${projectCount})</div>
         <div class="report-list">${rowsHtml || '<div class="empty-state">No reports in this mode yet.</div>'}</div>
       `;
+    }
+
+    // ── History modal ────────────────────────────────────────────────
+    function showHistoryModal(projectName, historyJson) {
+      const history = JSON.parse(decodeURIComponent(historyJson));
+      const existing = document.getElementById('mode-modal-overlay');
+      if (existing) existing.remove();
+
+      const rowsHtml = history.map((h, idx) => `
+        <div class="history-row" onclick="closeModeModal();navigate('level2','${currentMode}','${h.id}')"
+             style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px;
+                    background: var(--bg-tile); cursor: pointer; margin-bottom: 8px;
+                    transition: all 0.15s; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <div style="font-size: 12px; color: var(--text-primary); font-weight: 500;">
+              ${idx === 0 ? '<span style="color: var(--cyan); margin-right: 6px;">▸ Latest</span>' : `Scan #${history.length - idx}`}
+            </div>
+            <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">
+              ${escapeHtml(h.generated)} · ${escapeHtml(h.tool || '')}
+            </div>
+          </div>
+          <span style="color: var(--cyan-dim); font-size: 14px;">↗</span>
+        </div>
+      `).join('');
+
+      const overlay = document.createElement('div');
+      overlay.id = 'mode-modal-overlay';
+      overlay.className = 'modal-overlay';
+      overlay.innerHTML = `
+        <div class="modal" role="dialog" aria-modal="true" style="max-width: 540px;">
+          <button class="modal-close" aria-label="Close" onclick="closeModeModal()">×</button>
+          <div class="modal-mode">Scan History</div>
+          <div class="modal-title">${escapeHtml(projectName)}</div>
+          <div class="modal-body" style="margin-top: 6px;">
+            <div style="font-size: 12px; color: var(--text-tertiary); margin-bottom: 14px;">
+              ${history.length} scans · oldest first
+            </div>
+            ${rowsHtml}
+          </div>
+        </div>
+      `;
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModeModal();
+      });
+      document.body.appendChild(overlay);
+      document.addEventListener('keydown', escClose);
+    }
+
+    function escapeAttr(s) {
+      return String(s == null ? '' : s).replace(/['"<>&]/g, c => ({
+        "'": '&#39;', '"': '&quot;', '<': '&lt;', '>': '&gt;', '&': '&amp;',
+      }[c]));
     }
 
     // ── LEVEL 2: Report detail ───────────────────────────────────────
