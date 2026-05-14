@@ -123,8 +123,14 @@ nav.ga-nav {
 }
 .ga-nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
 .ga-hamburger {
-  display: none; cursor: pointer; padding: 6px;
+  display: none; cursor: pointer; padding: 10px;
   background: none; border: none; flex-direction: column; gap: 5px;
+  min-width: 44px; min-height: 44px;
+  align-items: center; justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(74, 158, 255, 0.2);
+  -webkit-appearance: none;
+  position: relative; z-index: 101;
 }
 .ga-hamburger span {
   display: block; width: 22px; height: 2px;

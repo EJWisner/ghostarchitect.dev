@@ -240,11 +240,14 @@
     var hamburger = document.getElementById('ga-hamburger');
     var mobileMenu = document.getElementById('ga-mobile-menu');
     if (hamburger && mobileMenu) {
-      hamburger.addEventListener('click', function(){
+      var toggleMenu = function(e){
+        if (e) { e.preventDefault(); e.stopPropagation(); }
         var isOpen = mobileMenu.classList.toggle('open');
         hamburger.classList.toggle('open');
         hamburger.setAttribute('aria-expanded', isOpen);
-      });
+      };
+      hamburger.addEventListener('click', toggleMenu);
+      hamburger.addEventListener('touchend', toggleMenu, { passive: false });
     }
 
     document.querySelectorAll('.ga-mobile-group[data-mobile-group]').forEach(function(group){
