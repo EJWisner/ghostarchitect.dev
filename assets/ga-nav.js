@@ -241,13 +241,18 @@
     var mobileMenu = document.getElementById('ga-mobile-menu');
     if (hamburger && mobileMenu) {
       var toggleMenu = function(e){
-        if (e) { e.preventDefault(); e.stopPropagation(); }
+        if (e) { e.stopPropagation(); }
         var isOpen = mobileMenu.classList.toggle('open');
         hamburger.classList.toggle('open');
         hamburger.setAttribute('aria-expanded', isOpen);
       };
       hamburger.addEventListener('click', toggleMenu);
-      hamburger.addEventListener('touchend', toggleMenu, { passive: false });
+      // iOS Safari: touchend fires reliably when click sometimes doesn't.
+      // preventDefault here stops the synthesized click 300ms later that would re-toggle.
+      hamburger.addEventListener('touchend', function(e){
+        e.preventDefault();
+        toggleMenu(e);
+      });
     }
 
     document.querySelectorAll('.ga-mobile-group[data-mobile-group]').forEach(function(group){
