@@ -592,13 +592,27 @@
       document.getElementById('version-sub').textContent =
         `${agg.onLatest} of ${agg.recentCount} on v${agg.latestVersion}`;
 
-      renderHistogram('days-active-bars', 'days-active-note', [
-        ['1 day', agg.buckets['1']],
-        ['2 days', agg.buckets['2']],
-        ['3 days', agg.buckets['3']],
-        ['4 days', agg.buckets['4']],
-        ['5–7 days', agg.buckets['5-7']],
-      ], `${agg.activeUsersInBuckets} users tracked`);
+      // Days Active histogram (only meaningful with 7+ days of telemetry)
+      if ((agg.telemetryDays || 0) >= 7) {
+        renderHistogram('days-active-bars', 'days-active-note', [
+          ['1 day', agg.buckets['1']],
+          ['2 days', agg.buckets['2']],
+          ['3 days', agg.buckets['3']],
+          ['4 days', agg.buckets['4']],
+          ['5–7 days', agg.buckets['5-7']],
+        ], `${agg.activeUsersInBuckets} users tracked`);
+      } else {
+        const earliestDate = agg.earliestTs
+          ? new Date(agg.earliestTs).toISOString().slice(0, 10)
+          : 'unknown';
+        const d = agg.telemetryDays || 0;
+        document.getElementById('days-active-bars').innerHTML =
+          `<div class="empty-state" style="opacity:0.55; font-size:11px; line-height:1.5; padding:8px 4px;">
+            Needs at least 7 days of telemetry to be meaningful.<br>
+            Earliest event: ${earliestDate} &middot; have ${d} day${d === 1 ? '' : 's'} of history.
+          </div>`;
+        document.getElementById('days-active-note').textContent = '';
+      }
 
       const sourceRows = agg.sourcesSorted.map(([src, count]) => [
         SOURCE_LABELS[src] || src, count
@@ -616,6 +630,23 @@
         agg.activeSeries, agg.forecastConfig);
       renderSparkline('installs-sparkline', 'installs-trend',
         agg.installSeries, agg.forecastConfig);
+
+      // When telemetry history < 14 days, both 14-day sparklines have
+      // misleading leading zeros for the days before telemetry started.
+      // Override the trend note to disclose this rather than imply trend.
+      if ((agg.telemetryDays || 0) < 14) {
+        const earliestDate = agg.earliestTs
+          ? new Date(agg.earliestTs).toISOString().slice(0, 10)
+          : 'unknown';
+        const d = agg.telemetryDays || 0;
+        const disclosure = `${d}d history · telemetry began ${earliestDate}`;
+        const activeNote = document.getElementById('active-trend');
+        const installsNote = document.getElementById('installs-trend');
+        activeNote.textContent = disclosure;
+        activeNote.classList.remove('up', 'down', 'flat');
+        installsNote.textContent = disclosure;
+        installsNote.classList.remove('up', 'down', 'flat');
+      }
 
       document.getElementById('status-dot').classList.remove('stale', 'error');
       document.getElementById('status-text').textContent = 'Live';
