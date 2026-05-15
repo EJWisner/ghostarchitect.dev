@@ -388,6 +388,26 @@
           </div>
         </div>
 
+      <!-- npm download stats (cumulative + weekly) -->
+      <div class="section" style="margin-top: 18px;">
+        <div class="section-header">
+          <div class="section-label">npm Downloads · ghost-architect-open</div>
+          <div class="section-note" id="npm-note">loading...</div>
+        </div>
+        <div class="grid" style="grid-template-columns: 1fr 1fr;">
+          <div class="metric">
+            <div class="metric-label">All-Time Installs</div>
+            <div class="metric-value" id="npm-alltime">—</div>
+            <div class="metric-sub" id="npm-alltime-sub">since launch on npm</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">This Week</div>
+            <div class="metric-value" id="npm-week">—</div>
+            <div class="metric-sub" id="npm-week-sub">trailing 7 days</div>
+          </div>
+        </div>
+      </div>
+
         <div class="grid">
           <div class="metric">
             <div class="metric-label">New This Week</div>
@@ -783,12 +803,75 @@
       overlay.querySelector('.error-body').textContent = body;
     }
 
+    // ── npm download stats ────────────────────────────────────────
+    // Launch date for Ghost Open on npm. Used as the "since" date
+    // for cumulative all-time downloads.
+    const NPM_LAUNCH_DATE = '2026-03-24';
+    const NPM_PACKAGE = 'ghost-architect-open';
+
+    function formatNpmNumber(n){
+      return n.toLocaleString('en-US');
+    }
+
+    async function fetchNpmStats() {
+      const today = new Date().toISOString().slice(0, 10);
+      const rangeUrl = `https://api.npmjs.org/downloads/range/${NPM_LAUNCH_DATE}:${today}/${NPM_PACKAGE}`;
+      const weekUrl  = `https://api.npmjs.org/downloads/point/last-week/${NPM_PACKAGE}`;
+
+      const [rangeRes, weekRes] = await Promise.all([
+        fetch(rangeUrl),
+        fetch(weekUrl),
+      ]);
+      if (!rangeRes.ok) throw new Error(`npm range ${rangeRes.status}`);
+      if (!weekRes.ok)  throw new Error(`npm point ${weekRes.status}`);
+
+      const rangeData = await rangeRes.json();
+      const weekData = await weekRes.json();
+
+      const cumulative = (rangeData.downloads || [])
+        .reduce((sum, d) => sum + (d.downloads || 0), 0);
+      const weekly = weekData.downloads || 0;
+
+      return { cumulative, weekly, end: rangeData.end };
+    }
+
+    function renderNpmStats(stats) {
+      const $ = (id) => document.getElementById(id);
+      $('npm-alltime').textContent = formatNpmNumber(stats.cumulative);
+      $('npm-week').textContent = formatNpmNumber(stats.weekly);
+      $('npm-note').textContent = stats.end ? `as of ${stats.end}` : '';
+    }
+
+    function renderNpmError() {
+      const $ = (id) => document.getElementById(id);
+      $('npm-alltime').textContent = '—';
+      $('npm-week').textContent = '—';
+      $('npm-note').textContent = 'npm fetch failed';
+    }
+
     async function tick() {
-      try {
+      // Pulse data (worker endpoint) and npm data are independent.
+      // Failure of one should not block the other.
+      const pulsePromise = (async () => {
         const res = await fetch(PULSE_ENDPOINT, { cache: 'no-store' });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const agg = await res.json();
         render(agg);
+      })();
+
+      const npmPromise = (async () => {
+        try {
+          const stats = await fetchNpmStats();
+          renderNpmStats(stats);
+        } catch (err) {
+          console.error('[ghost-pulse-web] npm fetch failed:', err);
+          renderNpmError();
+        }
+      })();
+
+      try {
+        await pulsePromise;
+        await npmPromise;
         lastSuccessfulFetch = Date.now();
       } catch (err) {
         console.error('[ghost-pulse-web] tick failed:', err);
