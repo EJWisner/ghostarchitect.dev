@@ -25,7 +25,7 @@
   var activeGroup = null;
   if (path.indexOf('for-agency-owners') !== -1 || path.indexOf('for-agency-teams') !== -1) activeGroup = 'solutions';
   else if (path.indexOf('inheritance-audit') !== -1 || path.indexOf('prompt-triage') !== -1 || path.indexOf('audit') !== -1 || path.indexOf('ghost-partner') !== -1) activeGroup = 'modes';
-  else if (path.indexOf('blog') !== -1 || path.indexOf('faq') !== -1 || path.indexOf('support') !== -1) activeGroup = 'resources';
+  else if (path.indexOf('blog') !== -1 || path.indexOf('faq') !== -1 || path.indexOf('support') !== -1 || path.indexOf('security') !== -1) activeGroup = 'resources';
 
   var navHtml = ''
     + '<nav class="ga-nav">'
@@ -88,7 +88,7 @@
     + '          <div class="title">For Buyers &amp; PE Diligence</div>'
     + '          <div class="desc">Acquisition-grade codebase reports in under sixty seconds.</div>'
     + '        </a>'
-    + '        <a href="/#security" class="ga-dropdown-item">'
+    + '        <a href="/security.html" class="ga-dropdown-item' + (isActive('/security.html') || isActive('/security') ? ' active' : '') + '">'
     + '          <div class="title">For CTOs &amp; Security</div>'
     + '          <div class="desc">Runs locally. Your code never leaves your machine. BYOK.</div>'
     + '        </a>'
@@ -107,6 +107,10 @@
     + '        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>'
     + '      </button>'
     + '      <div class="ga-dropdown align-right" style="min-width: 240px;">'
+    + '        <a href="/security.html" class="ga-dropdown-item' + (isActive('/security.html') || isActive('/security') ? ' active' : '') + '">'
+    + '          <div class="title">Security &amp; Trust</div>'
+    + '          <div class="desc">How we handle your code, keys, and data.</div>'
+    + '        </a>'
     + '        <a href="/blog.html" class="ga-dropdown-item' + (isActive('/blog.html') ? ' active' : '') + '">'
     + '          <div class="title">Blog</div>'
     + '          <div class="desc">Releases, deep-dives, agency war stories.</div>'
@@ -164,7 +168,7 @@
     + '      <a href="/for-agency-owners.html"' + (isActive('/for-agency-owners.html') ? ' class="active"' : '') + '>For Agency Owners <span class="pill new">NEW</span></a>'
     + '      <a href="/#for-agency-teams">For Agency Teams</a>'
     + '      <a href="/inheritance-audit.html">For Buyers &amp; PE Diligence</a>'
-    + '      <a href="/#security">For CTOs &amp; Security</a>'
+    + '      <a href="/security.html"' + (isActive('/security.html') || isActive('/security') ? ' class="active"' : '') + '>For CTOs &amp; Security</a>'
     + '    </div>'
     + '  </div>'
     + '  <a href="/pricing" class="ga-mobile-flat-link' + (isActive('/pricing') || isActive('/pricing.html') ? ' active' : '') + '">Pricing</a>'
@@ -174,6 +178,7 @@
     + '      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>'
     + '    </button>'
     + '    <div class="ga-mobile-group-items">'
+    + '      <a href="/security.html"' + (isActive('/security.html') || isActive('/security') ? ' class="active"' : '') + '>Security &amp; Trust</a>'
     + '      <a href="/blog.html"' + (isActive('/blog.html') ? ' class="active"' : '') + '>Blog</a>'
     + '      <a href="/#faq">FAQ</a>'
     + '      <a href="/support"' + (isActive('/support') || isActive('/support.html') ? ' class="active"' : '') + '>Support</a>'
