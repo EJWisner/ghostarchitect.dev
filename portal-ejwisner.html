@@ -431,6 +431,198 @@
     @media (max-width: 520px) {
       .footer { flex-direction: column; gap: 6px; text-align: center; }
     }
+
+    /* ── JIRA EXPORT ──────────────────────────────────────────────── */
+
+    /* Jira button cluster on the findings toolbar */
+    .jira-cluster {
+      display: inline-flex; gap: 6px; align-items: center;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+    .jira-btn {
+      background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 8px; padding: 6px 12px; font-size: 11px; color: var(--text-secondary);
+      cursor: pointer; transition: all 0.15s; font-family: inherit; letter-spacing: 0.08em;
+      text-transform: uppercase; display: inline-flex; align-items: center; gap: 6px;
+      white-space: nowrap;
+    }
+    .jira-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+    .jira-btn.primary {
+      background: rgba(0, 191, 216, 0.10);
+      border-color: var(--cyan);
+      color: var(--cyan-bright);
+    }
+    .jira-btn.primary:hover {
+      background: rgba(0, 191, 216, 0.18);
+      box-shadow: 0 0 12px rgba(0, 191, 216, 0.25);
+    }
+    .jira-btn .icon {
+      width: 11px; height: 11px;
+      display: inline-block;
+      background: currentColor;
+      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M3 11 L3 14 L13 14 L13 11 M8 3 L8 11 M5 7 L8 4 L11 7'/></svg>");
+      mask-size: contain; mask-repeat: no-repeat; mask-position: center;
+      -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M3 11 L3 14 L13 14 L13 11 M8 3 L8 11 M5 7 L8 4 L11 7'/></svg>");
+      -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center;
+    }
+
+    /* Per-finding "Export as Story" link */
+    .finding-export-link {
+      position: absolute; top: 12px; right: 14px;
+      background: transparent; border: 1px solid var(--border); border-radius: 6px;
+      padding: 3px 8px; font-size: 9px; color: var(--text-tertiary);
+      cursor: pointer; transition: all 0.15s; font-family: inherit;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      opacity: 0; pointer-events: none;
+    }
+    .finding-card { position: relative; }
+    .finding-card:hover .finding-export-link { opacity: 1; pointer-events: auto; }
+    .finding-export-link:hover { color: var(--cyan); border-color: var(--cyan); }
+    .finding-card-top { padding-right: 110px; }
+
+    /* Pre-export modal (extends existing .modal styles) */
+    .jira-modal { max-width: 620px; }
+    .jira-modal .form-row { margin-bottom: 14px; }
+    .jira-modal label {
+      display: block; font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary);
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .jira-modal input[type="text"],
+    .jira-modal textarea,
+    .jira-modal select {
+      width: 100%; background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 6px; padding: 8px 10px; font-size: 12px; color: var(--text-primary);
+      font-family: inherit;
+    }
+    .jira-modal input[type="text"]:focus,
+    .jira-modal textarea:focus,
+    .jira-modal select:focus {
+      outline: none; border-color: var(--cyan);
+    }
+    .jira-modal .form-row-inline { display: flex; gap: 10px; }
+    .jira-modal .form-row-inline > div { flex: 1; }
+    .jira-modal .help { font-size: 10px; color: var(--text-tertiary); margin-top: 4px; line-height: 1.5; }
+    .jira-modal .preview-counts {
+      background: rgba(0, 191, 216, 0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 14px; margin: 14px 0;
+      font-size: 12px; color: var(--text-secondary);
+    }
+    .jira-modal .preview-counts strong { color: var(--cyan-bright); }
+    .jira-modal .preview-mapping {
+      background: rgba(0,0,0,0.25); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 14px; margin: 10px 0;
+      font-family: 'SF Mono', Menlo, Monaco, monospace;
+      font-size: 10px; color: var(--text-tertiary);
+      max-height: 140px; overflow-y: auto;
+    }
+    .jira-modal .toggle-row {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 10px;
+    }
+    .jira-modal .toggle-row input[type="checkbox"] {
+      width: 14px; height: 14px; accent-color: var(--cyan); cursor: pointer;
+    }
+    .jira-modal .toggle-row label {
+      margin: 0; font-size: 11px; color: var(--text-secondary);
+      letter-spacing: 0.04em; text-transform: none; cursor: pointer;
+    }
+    .jira-modal .action-row {
+      display: flex; gap: 10px; justify-content: flex-end;
+      margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border);
+    }
+    .jira-modal .btn-action {
+      background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 16px; font-size: 11px;
+      color: var(--text-secondary); cursor: pointer; font-family: inherit;
+      letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.15s;
+    }
+    .jira-modal .btn-action:hover { border-color: var(--cyan); color: var(--cyan); }
+    .jira-modal .btn-action.primary {
+      background: var(--cyan); border-color: var(--cyan); color: var(--navy);
+      font-weight: 600;
+    }
+    .jira-modal .btn-action.primary:hover {
+      background: var(--cyan-bright); border-color: var(--cyan-bright);
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+    }
+    .jira-modal .format-tabs {
+      display: flex; gap: 0; margin-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .jira-modal .format-tab {
+      background: transparent; border: none; padding: 8px 14px;
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-tertiary); cursor: pointer; transition: all 0.15s;
+      font-family: inherit; border-bottom: 2px solid transparent; margin-bottom: -1px;
+    }
+    .jira-modal .format-tab:hover { color: var(--text-secondary); }
+    .jira-modal .format-tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+
+    /* Multi-scan selector at Level 1 */
+    .multi-select-bar {
+      display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      background: rgba(0, 191, 216, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: none;
+    }
+    .multi-select-bar.active { display: flex; }
+    .multi-select-bar .ms-label {
+      font-size: 10px; letter-spacing: 0.16em; color: var(--cyan);
+      text-transform: uppercase; font-weight: 600;
+    }
+    .multi-select-bar .ms-count {
+      font-size: 11px; color: var(--text-secondary);
+    }
+    .report-row.selectable { padding-left: 44px; }
+    .report-row .ms-check {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      width: 16px; height: 16px; accent-color: var(--cyan); cursor: pointer;
+    }
+
+    /* Success toast */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px);
+      background: var(--bg-card-top); border: 1px solid var(--cyan);
+      border-radius: 10px; padding: 12px 20px;
+      color: var(--text-primary); font-size: 13px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 0 20px rgba(0, 191, 216, 0.2);
+      z-index: 200;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.25s ease-out;
+      display: flex; align-items: center; gap: 10px;
+      max-width: 90vw;
+    }
+    .toast.show {
+      opacity: 1; transform: translateX(-50%) translateY(0);
+    }
+    .toast .toast-icon {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--good);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--navy); font-size: 11px; font-weight: 800;
+      flex-shrink: 0;
+    }
+    .toast .toast-text { line-height: 1.4; }
+    .toast .toast-text small { color: var(--text-tertiary); display: block; margin-top: 2px; font-size: 11px; }
+
+    /* Diff-export hint */
+    .diff-export-hint {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10px; color: var(--good); letter-spacing: 0.06em;
+      margin-left: 4px;
+    }
+
+    @media (max-width: 640px) {
+      .jira-cluster { width: 100%; margin-left: 0; margin-top: 8px; }
+      .jira-btn { font-size: 10px; padding: 5px 9px; }
+      .finding-card-top { padding-right: 0; }
+      .finding-export-link { position: static; opacity: 1; pointer-events: auto; margin-top: 6px; display: inline-block; }
+    }
   </style>
 </head>
 <body>
@@ -508,6 +700,8 @@
     let findingsCache = {};       // report.id → parsed findings JSON
     let level2Tab = 'findings';   // 'findings' | 'report'  (per-render state)
     let findingsFilter = 'all';   // 'all' | 'critical' | 'high' | 'medium' | 'low'
+    let multiSelectMode = false;  // when true, Level 1 shows checkboxes
+    let multiSelectIds = new Set(); // report ids selected for cross-scan export
 
     // ── Boot ─────────────────────────────────────────────────────────
     async function boot() {
@@ -670,7 +864,8 @@
           : '';
 
         return `
-          <div class="report-row" onclick="navigate('level2','${currentMode}','${latestReport.id}')">
+          <div class="report-row ${multiSelectMode ? 'selectable' : ''}" onclick="${multiSelectMode ? `toggleMultiSelect('${latestReport.id}')` : `navigate('level2','${currentMode}','${latestReport.id}')`}">
+            ${multiSelectMode ? `<input type="checkbox" class="ms-check" ${multiSelectIds.has(latestReport.id) ? 'checked' : ''} onclick="event.stopPropagation();toggleMultiSelect('${latestReport.id}')">` : ''}
             <div class="report-row-top">
               <div class="report-project">
                 ${escapeHtml(latestReport.project)}${historyPill}
@@ -684,12 +879,29 @@
         `;
       }).join('');
 
+      // Expose all reports in this mode on window for multi-scan export to access
+      window.__currentLevel1Reports = reports;
+
       document.getElementById('app-root').innerHTML = `
         <div class="back-bar">
           <button class="back-btn" onclick="navigate('level0')">← Back</button>
           <div class="breadcrumb">${PORTAL_SLUG} / <b>${modeInfo.label}</b></div>
-          <button class="back-btn export-btn" onclick="exportCurrentModeCsv()">Export CSV</button>
+          <div style="margin-left: auto; display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+            <button class="back-btn" onclick="toggleMultiSelectMode()" title="Select multiple scans to export as one consolidated Jira import.">${multiSelectMode ? '✓ Multi-Select On' : 'Multi-Select Scans'}</button>
+            <button class="back-btn" onclick="exportCurrentModeCsv()">Export CSV</button>
+          </div>
         </div>
+        ${multiSelectMode ? `
+          <div class="multi-select-bar active">
+            <span class="ms-label">Multi-Scan Export</span>
+            <span class="ms-count">${multiSelectIds.size} of ${reports.length} selected</span>
+            <button class="jira-btn" onclick="selectAllInMode()">Select All</button>
+            <button class="jira-btn" onclick="clearMultiSelect()">Clear</button>
+            <button class="jira-btn primary" onclick="openJiraExportModal('multi-scan')" ${multiSelectIds.size === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed"' : ''}>
+              <span class="icon"></span>Export ${multiSelectIds.size} Scans as One Epic
+            </button>
+          </div>
+        ` : ''}
         <div class="mode-stats">
           <div class="mode-stat">
             <div class="label">Projects</div>
@@ -957,6 +1169,15 @@
         </button>
       `;
 
+      // Stash the current findings + report context on window for the Jira modal to pick up.
+      // Diff banner already computed above; we expose diff data via the same channel.
+      window.__currentFindings = filtered;
+      window.__currentReport = report;
+      window.__currentDiff = diff;
+
+      const hasDiff = !!(diff && diff.statusMap);
+      const newCount = hasDiff ? Object.values(diff.statusMap).filter(s => s === 'new').length : 0;
+
       const toolbar = `
         <div class="findings-toolbar">
           <span class="findings-toolbar-label">Filter:</span>
@@ -965,6 +1186,23 @@
           ${filterPill('high',     'High',     sev.high,     'sev-high-active')}
           ${filterPill('medium',   'Medium',   sev.medium,   'sev-medium-active')}
           ${filterPill('low',      'Low',      sev.low,      'sev-low-active')}
+          <div class="jira-cluster">
+            <button class="jira-btn primary" onclick="openJiraExportModal('epic-stories')"
+              title="Export an Epic plus all visible findings as Stories/Bugs under it. Jira CSV importer ready.">
+              <span class="icon"></span>Export Epic + Stories
+            </button>
+            <button class="jira-btn" onclick="openJiraExportModal('stories-only')"
+              title="Export findings as standalone Stories/Bugs. Attach to an existing Epic in Jira after import.">
+              <span class="icon"></span>Export Stories Only
+            </button>
+            ${hasDiff && newCount > 0 ? `
+              <button class="jira-btn" onclick="openJiraExportModal('diff-new')"
+                title="Export only findings that are NEW since the previous scan of this project.">
+                <span class="icon"></span>Export New Only
+                <span class="diff-export-hint">${newCount}</span>
+              </button>
+            ` : ''}
+          </div>
         </div>
       `;
 
@@ -1028,8 +1266,13 @@
                 ? '<span class="status-pill status-open">Open</span>'
                 : '';
 
+            // Per-finding Export link. Label switches based on severity.
+            const exportLabel = (sevKey === 'critical' || sevKey === 'high') ? 'Export as Bug' : 'Export as Story';
+            const exportLink = `<button class="finding-export-link" onclick="event.stopPropagation();exportSingleFinding('${escapeAttr(f.id)}')" title="Export this finding as a single-row Jira CSV ready to import.">${exportLabel}</button>`;
+
             return `
               <div class="finding-card ${sevClass}">
+                ${exportLink}
                 <div class="finding-card-top">
                   <div class="finding-title">${escapeHtml(f.title || '(untitled)')}${statusPill}</div>
                   ${sevChip}
@@ -1268,6 +1511,794 @@
       if (months < 12) return `${months}mo ago`;
       return `${Math.floor(months / 12)}y ago`;
     }
+
+    // ════════════════════════════════════════════════════════════════
+    // JIRA EXPORT — full integration
+    // ════════════════════════════════════════════════════════════════
+
+    // Severity → Jira Priority + Work Type mapping
+    const JIRA_MAPPING = {
+      CRITICAL: { priority: 'Highest', workType: 'Bug' },
+      HIGH:     { priority: 'High',    workType: 'Bug' },
+      MEDIUM:   { priority: 'Medium',  workType: 'Story' },
+      LOW:      { priority: 'Low',     workType: 'Task' },
+    };
+
+    // Effort hours → Fibonacci story points
+    function effortHoursToStoryPoints(hours) {
+      if (hours == null || hours <= 0) return '';
+      if (hours <= 2)  return 1;
+      if (hours <= 5)  return 2;
+      if (hours <= 10) return 3;
+      if (hours <= 20) return 5;
+      if (hours <= 40) return 8;
+      return 13;
+    }
+
+    // Parse component name from a file path. Magento-aware (app/code/Vendor/Module → Vendor_Module),
+    // generic fallback: top-level folder.
+    function componentFromFiles(files) {
+      if (!files || !files.length) return '';
+      const components = new Set();
+      for (const f of files) {
+        const parts = String(f).split('/').filter(Boolean);
+        if (parts.length >= 4 && parts[0] === 'app' && parts[1] === 'code') {
+          components.add(`${parts[2]}_${parts[3]}`);
+        } else if (parts.length >= 2 && parts[0] === 'vendor') {
+          components.add(`${parts[1]}${parts[2] ? '_' + parts[2] : ''}`);
+        } else if (parts.length >= 1) {
+          components.add(parts[0]);
+        }
+      }
+      return Array.from(components).slice(0, 3).join(',');
+    }
+
+    // Default Epic name builder
+    function defaultEpicName(report) {
+      const modeLabel = manifest?.modeSummary?.[report.mode]?.label || report.mode;
+      return `${report.project} — Ghost Architect ${modeLabel} Triage`;
+    }
+
+    // Generate auto sub-tasks for a finding-as-Story.
+    function defaultSubTasks(finding) {
+      const sev = String(finding.severity || '').toUpperCase();
+      const base = [
+        'Root cause analysis',
+        'Implement fix',
+        'Code review',
+        'Regression test',
+      ];
+      if (sev === 'CRITICAL' || sev === 'HIGH') {
+        base.unshift('Security/risk impact assessment');
+      }
+      return base;
+    }
+
+    // Generate Acceptance Criteria block (markdown checklist) for a Story description.
+    function acceptanceCriteriaFor(finding) {
+      return [
+        'Root cause identified and documented',
+        'Fix implemented and code-reviewed',
+        'Regression tests added if applicable',
+        'Verified against the original Ghost Architect finding',
+      ];
+    }
+
+    // Generate labels for a finding row
+    function labelsFor(finding, mode) {
+      const sev = String(finding.severity || '').toLowerCase();
+      return [
+        'ghost-architect',
+        'pre-engagement-triage',
+        `severity-${sev}`,
+        `mode-${mode}`,
+      ];
+    }
+
+    // Build a Story/Bug description in markdown that Jira's editor will render correctly
+    // (Jira Cloud now supports markdown paste; CSV import takes raw text).
+    function buildFindingDescription(finding, options) {
+      const lines = [];
+      if (finding.detail) {
+        lines.push(finding.detail);
+        lines.push('');
+      }
+      if (finding.files && finding.files.length) {
+        lines.push('### Affected Files');
+        for (const f of finding.files) lines.push(`- ${f}`);
+        lines.push('');
+      }
+      lines.push('### Acceptance Criteria');
+      for (const ac of acceptanceCriteriaFor(finding)) lines.push(`- [ ] ${ac}`);
+      lines.push('');
+      if (finding.effortHours) {
+        lines.push(`**Estimated Effort:** ${finding.effortHours}h`);
+      }
+      if (finding.confidence != null) {
+        lines.push(`**Ghost Architect Confidence:** ${finding.confidence}%`);
+      }
+      lines.push('');
+      lines.push('---');
+      lines.push('*Source: Ghost Architect™ ' + (options.report?.tool || '') + '*');
+      lines.push(`*Scan ID:* ${options.report?.id || ''}`);
+      lines.push(`*Scan Date:* ${options.report?.generatedIso ? formatDate(options.report.generatedIso) : ''}`);
+      lines.push(`*Finding ID:* ${finding.id || ''}`);
+      return lines.join('\n');
+    }
+
+    // Build an Epic description in markdown
+    function buildEpicDescription(findings, report, options) {
+      const sev = { CRITICAL: 0, HIGH: 0, MEDIUM: 0, LOW: 0 };
+      let totalEffort = 0;
+      const fileSet = new Set();
+      for (const f of findings) {
+        const s = String(f.severity || '').toUpperCase();
+        if (sev[s] != null) sev[s]++;
+        if (f.effortHours) totalEffort += f.effortHours;
+        (f.files || []).forEach(file => fileSet.add(file));
+      }
+      const modeLabel = manifest?.modeSummary?.[report.mode]?.label || report.mode;
+      const lines = [];
+      lines.push(`## Summary`);
+      lines.push(`Ghost Architect™ ${modeLabel} scan completed ${formatDate(report.generatedIso)}.`);
+      lines.push(`${findings.length} finding${findings.length !== 1 ? 's' : ''} surfaced across ${fileSet.size} file${fileSet.size !== 1 ? 's' : ''}, total estimated effort ${totalEffort.toFixed(1)} hour${totalEffort !== 1 ? 's' : ''}.`);
+      lines.push('');
+      lines.push('### Severity Breakdown');
+      lines.push(`- Critical: ${sev.CRITICAL}`);
+      lines.push(`- High: ${sev.HIGH}`);
+      lines.push(`- Medium: ${sev.MEDIUM}`);
+      lines.push(`- Low: ${sev.LOW}`);
+      lines.push('');
+      lines.push('### Acceptance Criteria');
+      lines.push('- [ ] All Critical findings triaged and assigned');
+      lines.push('- [ ] All High findings reviewed and scheduled');
+      lines.push('- [ ] Medium/Low findings categorized for backlog');
+      lines.push('- [ ] Codebase re-scanned to verify fixes');
+      lines.push('');
+      lines.push('---');
+      lines.push(`*Source: Ghost Architect™ ${report.tool || ''}*`);
+      lines.push(`*Scan ID:* ${report.id || ''}`);
+      lines.push(`*Mode:* ${modeLabel}`);
+      return lines.join('\n');
+    }
+
+    // ── CSV builder (Jira CSV Importer format) ─────────────────────
+    // Returns { csv: string, rowCount: number, summary: {epics, stories, bugs, tasks} }
+    function buildJiraCsv(options) {
+      const {
+        findings,
+        report,
+        includeEpic,
+        existingEpicKey,
+        epicName,
+        defaultAssignee,
+        defaultSprint,
+        extraLabels,
+        componentOverride,
+        autoSubtasks,
+      } = options;
+
+      // Max label columns we'll need
+      const labelsPerRow = findings.map(f => labelsFor(f, report.mode).concat(extraLabels || []));
+      const maxLabels = Math.max(4, ...labelsPerRow.map(l => l.length));
+
+      // Headers (Jira Cloud "Create work items using the CSV importer" format)
+      const headers = [
+        'Work Type',
+        'Summary',
+        'Description',
+        'Priority',
+        'Story Points',
+        'Component',
+        ...Array(maxLabels).fill('Labels'),
+        'Assignee',
+        'Sprint',
+        'Work item ID',
+        'Parent',
+        'External ID',
+      ];
+
+      const rows = [];
+      let nextId = 1;
+      let epicRowId = null;
+      const summary = { epics: 0, stories: 0, bugs: 0, tasks: 0, subtasks: 0 };
+
+      // Epic row if requested
+      if (includeEpic) {
+        epicRowId = nextId++;
+        summary.epics++;
+        const epicLabels = ['ghost-architect', 'pre-engagement-triage', `mode-${report.mode}`].concat(extraLabels || []);
+        const padded = epicLabels.concat(Array(maxLabels - epicLabels.length).fill(''));
+        rows.push([
+          'Epic',
+          epicName || defaultEpicName(report),
+          buildEpicDescription(findings, report, options),
+          'Medium',
+          '',
+          componentOverride || '',
+          ...padded,
+          defaultAssignee || '',
+          defaultSprint || '',
+          epicRowId,
+          existingEpicKey || '',
+          `ghost-epic-${report.id}`,
+        ]);
+      }
+
+      // Finding rows
+      for (const f of findings) {
+        const sev = String(f.severity || '').toUpperCase();
+        const map = JIRA_MAPPING[sev] || { priority: 'Medium', workType: 'Story' };
+        const storyId = nextId++;
+        if (map.workType === 'Bug') summary.bugs++;
+        else if (map.workType === 'Task') summary.tasks++;
+        else summary.stories++;
+
+        const rowLabels = labelsFor(f, report.mode).concat(extraLabels || []);
+        const padded = rowLabels.concat(Array(maxLabels - rowLabels.length).fill(''));
+
+        // Parent linkage: Epic row id if we created one, otherwise existingEpicKey, otherwise blank
+        const parent = includeEpic ? String(epicRowId) : (existingEpicKey || '');
+
+        rows.push([
+          map.workType,
+          f.title || '(untitled)',
+          buildFindingDescription(f, options),
+          map.priority,
+          effortHoursToStoryPoints(f.effortHours),
+          componentOverride || componentFromFiles(f.files),
+          ...padded,
+          defaultAssignee || '',
+          defaultSprint || '',
+          storyId,
+          parent,
+          f.id || '',
+        ]);
+
+        // Auto sub-tasks
+        if (autoSubtasks) {
+          for (const st of defaultSubTasks(f)) {
+            const stLabels = ['ghost-architect', `severity-${sev.toLowerCase()}`].concat(extraLabels || []);
+            const stPadded = stLabels.concat(Array(maxLabels - stLabels.length).fill(''));
+            rows.push([
+              'Sub-task',
+              st,
+              `Sub-task of: ${f.title || '(untitled)'}\n\nSee parent Story for context.`,
+              map.priority,
+              '',
+              componentOverride || componentFromFiles(f.files),
+              ...stPadded,
+              defaultAssignee || '',
+              defaultSprint || '',
+              nextId++,
+              String(storyId),
+              `${f.id || ''}-st-${st.replace(/\s+/g, '-').toLowerCase()}`,
+            ]);
+            summary.subtasks++;
+          }
+        }
+      }
+
+      // Render CSV with proper escaping
+      const escape = (v) => {
+        const s = String(v == null ? '' : v);
+        return `"${s.replace(/"/g, '""')}"`;
+      };
+      const lines = [
+        headers.map(escape).join(','),
+        ...rows.map(row => row.map(escape).join(',')),
+      ];
+      const csv = '\uFEFF' + lines.join('\n');
+      return { csv, rowCount: rows.length, summary };
+    }
+
+    // ── Multi-scan CSV builder ─────────────────────────────────────
+    // Aggregates multiple reports into ONE Epic with Stories from all selected scans.
+    async function buildMultiScanCsv(reports, options) {
+      // Load findings for all reports (uses cache when present)
+      const allFindings = [];
+      const projects = new Set();
+      let earliestIso = null, latestIso = null;
+      for (const r of reports) {
+        if (!r.hasStructuredFindings) continue;
+        let data = findingsCache[r.id];
+        if (!data) {
+          try {
+            const url = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(r.files.findings)}`;
+            const res = await fetch(url);
+            if (!res.ok) continue;
+            data = await res.json();
+            findingsCache[r.id] = data;
+          } catch (_) { continue; }
+        }
+        for (const f of (data.findings || [])) {
+          allFindings.push({ ...f, __sourceReport: r });
+        }
+        projects.add(r.project);
+        if (!earliestIso || r.generatedIso < earliestIso) earliestIso = r.generatedIso;
+        if (!latestIso || r.generatedIso > latestIso) latestIso = r.generatedIso;
+      }
+
+      // Build a synthetic "report" for the Epic
+      const modeLabel = manifest?.modeSummary?.[reports[0].mode]?.label || reports[0].mode;
+      const syntheticReport = {
+        id: `multi-${Date.now()}`,
+        project: `Multi-Scan ${modeLabel} (${reports.length} scans)`,
+        mode: reports[0].mode,
+        tool: 'Ghost Architect Multi-Scan',
+        generatedIso: latestIso,
+        files: {},
+      };
+      const epicName = options.epicName || `${Array.from(projects).slice(0, 3).join(', ')}${projects.size > 3 ? ' +' + (projects.size - 3) : ''} — Ghost Architect ${modeLabel} Triage`;
+
+      // Reuse single-report CSV builder
+      return buildJiraCsv({
+        ...options,
+        findings: allFindings,
+        report: syntheticReport,
+        epicName,
+      });
+    }
+
+    // ── JSON builder (for Jira REST API programmatic import) ───────
+    function buildJiraJson(options) {
+      const { findings, report, includeEpic, existingEpicKey, epicName, extraLabels, componentOverride, autoSubtasks } = options;
+      const issues = [];
+
+      if (includeEpic) {
+        issues.push({
+          externalId: `ghost-epic-${report.id}`,
+          fields: {
+            issuetype: { name: 'Epic' },
+            summary: epicName || defaultEpicName(report),
+            description: buildEpicDescription(findings, report, options),
+            priority: { name: 'Medium' },
+            labels: ['ghost-architect', 'pre-engagement-triage', `mode-${report.mode}`].concat(extraLabels || []),
+            components: componentOverride ? componentOverride.split(',').map(c => ({ name: c.trim() })) : [],
+          },
+        });
+      }
+
+      for (const f of findings) {
+        const sev = String(f.severity || '').toUpperCase();
+        const map = JIRA_MAPPING[sev] || { priority: 'Medium', workType: 'Story' };
+        const issue = {
+          externalId: f.id || `ghost-finding-${Math.random().toString(36).slice(2)}`,
+          fields: {
+            issuetype: { name: map.workType },
+            summary: f.title || '(untitled)',
+            description: buildFindingDescription(f, options),
+            priority: { name: map.priority },
+            labels: labelsFor(f, report.mode).concat(extraLabels || []),
+            components: (componentOverride || componentFromFiles(f.files))
+              .split(',').filter(Boolean).map(c => ({ name: c.trim() })),
+          },
+        };
+        const sp = effortHoursToStoryPoints(f.effortHours);
+        if (sp) issue.fields.customfield_10016 = sp;  // standard Story Points custom field id
+
+        if (includeEpic) issue.parentExternalId = `ghost-epic-${report.id}`;
+        else if (existingEpicKey) issue.parentKey = existingEpicKey;
+
+        issues.push(issue);
+
+        if (autoSubtasks) {
+          for (const st of defaultSubTasks(f)) {
+            issues.push({
+              externalId: `${f.id || 'finding'}-st-${st.replace(/\s+/g, '-').toLowerCase()}`,
+              parentExternalId: issue.externalId,
+              fields: {
+                issuetype: { name: 'Sub-task' },
+                summary: st,
+                description: `Sub-task of: ${f.title || '(untitled)'}\n\nSee parent Story for context.`,
+                priority: { name: map.priority },
+                labels: ['ghost-architect', `severity-${sev.toLowerCase()}`].concat(extraLabels || []),
+              },
+            });
+          }
+        }
+      }
+
+      return JSON.stringify({
+        projects: [{
+          name: 'Ghost Architect Import',
+          key: 'PROJECT_KEY',  // user replaces with their Jira project key
+          issues,
+        }],
+      }, null, 2);
+    }
+
+    // ── Markdown builder (clipboard fallback) ──────────────────────
+    function buildJiraMarkdown(options) {
+      const { findings, report, includeEpic, epicName } = options;
+      const lines = [];
+      if (includeEpic) {
+        lines.push(`# EPIC: ${epicName || defaultEpicName(report)}`);
+        lines.push('');
+        lines.push('**Work Type:** Epic  ');
+        lines.push('**Priority:** Medium  ');
+        lines.push(`**Labels:** ghost-architect, pre-engagement-triage, mode-${report.mode}`);
+        lines.push('');
+        lines.push(buildEpicDescription(findings, report, options));
+        lines.push('');
+        lines.push('---');
+        lines.push('');
+      }
+      for (const f of findings) {
+        const sev = String(f.severity || '').toUpperCase();
+        const map = JIRA_MAPPING[sev] || { priority: 'Medium', workType: 'Story' };
+        lines.push(`## ${map.workType.toUpperCase()}: ${f.title || '(untitled)'}`);
+        lines.push('');
+        lines.push(`**Work Type:** ${map.workType}  `);
+        lines.push(`**Priority:** ${map.priority}  `);
+        const sp = effortHoursToStoryPoints(f.effortHours);
+        if (sp) lines.push(`**Story Points:** ${sp}  `);
+        lines.push(`**Labels:** ${labelsFor(f, report.mode).join(', ')}`);
+        lines.push('');
+        lines.push(buildFindingDescription(f, options));
+        lines.push('');
+        lines.push('---');
+        lines.push('');
+      }
+      return lines.join('\n');
+    }
+
+    // ── Trigger file download ─────────────────────────────────────
+    function downloadFile(content, filename, mimeType) {
+      const blob = new Blob([content], { type: mimeType + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Simple filename sanitizer
+    function safeName(s) {
+      return String(s || 'export').replace(/[^a-z0-9_-]+/gi, '-').replace(/^-+|-+$/g, '').slice(0, 80) || 'export';
+    }
+
+    // ── Success toast ─────────────────────────────────────────────
+    function showToast(title, subtitle) {
+      const existing = document.getElementById('toast-el');
+      if (existing) existing.remove();
+      const el = document.createElement('div');
+      el.id = 'toast-el';
+      el.className = 'toast';
+      el.innerHTML = `
+        <div class="toast-icon">✓</div>
+        <div class="toast-text">
+          ${escapeHtml(title)}
+          ${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ''}
+        </div>
+      `;
+      document.body.appendChild(el);
+      requestAnimationFrame(() => el.classList.add('show'));
+      setTimeout(() => {
+        el.classList.remove('show');
+        setTimeout(() => el.remove(), 300);
+      }, 4200);
+    }
+
+    // ── Multi-select state mutators ───────────────────────────────
+    function toggleMultiSelectMode() {
+      multiSelectMode = !multiSelectMode;
+      if (!multiSelectMode) multiSelectIds = new Set();
+      renderLevel1();
+    }
+    function toggleMultiSelect(id) {
+      if (multiSelectIds.has(id)) multiSelectIds.delete(id);
+      else multiSelectIds.add(id);
+      renderLevel1();
+    }
+    function selectAllInMode() {
+      const reports = window.__currentLevel1Reports || [];
+      for (const r of reports) multiSelectIds.add(r.id);
+      renderLevel1();
+    }
+    function clearMultiSelect() {
+      multiSelectIds = new Set();
+      renderLevel1();
+    }
+
+    // ── Single-finding export (per-card link) ─────────────────────
+    async function exportSingleFinding(findingId) {
+      const report = window.__currentReport;
+      if (!report) { showToast('Export failed', 'No report context.'); return; }
+      const data = findingsCache[report.id];
+      if (!data) { showToast('Export failed', 'Findings not loaded.'); return; }
+      const f = (data.findings || []).find(x => x.id === findingId);
+      if (!f) { showToast('Export failed', 'Finding not found.'); return; }
+
+      const { csv, rowCount } = buildJiraCsv({
+        findings: [f],
+        report,
+        includeEpic: false,
+        existingEpicKey: '',
+        epicName: '',
+        defaultAssignee: '',
+        defaultSprint: '',
+        extraLabels: [],
+        componentOverride: '',
+        autoSubtasks: false,
+      });
+      const sev = String(f.severity || '').toUpperCase();
+      const workType = (JIRA_MAPPING[sev] || { workType: 'Story' }).workType.toLowerCase();
+      const date = new Date().toISOString().slice(0, 10);
+      const fname = `ghost-${safeName(report.project)}-${workType}-${safeName(f.id)}-${date}-jira.csv`;
+      downloadFile(csv, fname, 'text/csv');
+      showToast(`Exported as ${workType[0].toUpperCase() + workType.slice(1)}`, `${fname}`);
+    }
+
+    // ── Pre-export modal ──────────────────────────────────────────
+    // mode: 'epic-stories' | 'stories-only' | 'diff-new' | 'multi-scan'
+    function openJiraExportModal(mode) {
+      // Resolve target findings + report based on mode
+      let targetFindings = [];
+      let targetReport = null;
+      let targetReports = null;  // for multi-scan
+      let titlePrefix = '';
+
+      if (mode === 'multi-scan') {
+        targetReports = (window.__currentLevel1Reports || []).filter(r => multiSelectIds.has(r.id));
+        if (!targetReports.length) { showToast('Nothing to export', 'Select at least one scan.'); return; }
+        titlePrefix = `Multi-Scan (${targetReports.length} scans)`;
+        // Findings will be loaded async when the user clicks Export.
+      } else if (mode === 'diff-new') {
+        const diff = window.__currentDiff;
+        const allFindings = window.__currentFindings || [];
+        if (!diff || !diff.statusMap) { showToast('No diff data', 'Cannot identify new findings without a prior scan.'); return; }
+        targetFindings = allFindings.filter(f => diff.statusMap[f.id] === 'new');
+        targetReport = window.__currentReport;
+        titlePrefix = 'New Since Last Scan';
+      } else {
+        targetFindings = window.__currentFindings || [];
+        targetReport = window.__currentReport;
+        titlePrefix = mode === 'epic-stories' ? 'Epic + Stories' : 'Stories Only';
+      }
+
+      // Build counts preview
+      let counts = { critical: 0, high: 0, medium: 0, low: 0 };
+      let countSource = '';
+      if (mode === 'multi-scan') {
+        countSource = `${targetReports.length} scan${targetReports.length !== 1 ? 's' : ''} selected. Findings count loaded on export.`;
+      } else {
+        for (const f of targetFindings) {
+          const k = String(f.severity || '').toLowerCase();
+          if (counts[k] != null) counts[k]++;
+        }
+        countSource = `<strong>${targetFindings.length}</strong> total: <strong>${counts.critical}</strong> Critical, <strong>${counts.high}</strong> High, <strong>${counts.medium}</strong> Medium, <strong>${counts.low}</strong> Low`;
+      }
+
+      const includeEpic = mode !== 'stories-only';
+      const defaultEpic = targetReport ? defaultEpicName(targetReport) : `${titlePrefix} — Ghost Architect Triage`;
+
+      // Sample mapping preview (first 3 findings)
+      let mappingPreview = '';
+      if (mode !== 'multi-scan') {
+        const sample = targetFindings.slice(0, 3);
+        const mapLines = sample.map(f => {
+          const sev = String(f.severity || '').toUpperCase();
+          const m = JIRA_MAPPING[sev] || { priority: 'Medium', workType: 'Story' };
+          const sp = effortHoursToStoryPoints(f.effortHours);
+          return `${(f.title || '').slice(0, 50).padEnd(50)} → ${m.workType.padEnd(8)} | ${m.priority.padEnd(7)} | SP:${sp || '-'}`;
+        });
+        if (targetFindings.length > 3) mapLines.push(`...and ${targetFindings.length - 3} more`);
+        mappingPreview = mapLines.length ? mapLines.map(l => escapeHtml(l)).join('<br>') : '(no findings)';
+      } else {
+        mappingPreview = '(mapping computed on export)';
+      }
+
+      const existing = document.getElementById('mode-modal-overlay');
+      if (existing) existing.remove();
+      const overlay = document.createElement('div');
+      overlay.id = 'mode-modal-overlay';
+      overlay.className = 'modal-overlay';
+      overlay.innerHTML = `
+        <div class="modal jira-modal" role="dialog" aria-modal="true">
+          <button class="modal-close" aria-label="Close" onclick="closeModeModal()">×</button>
+          <div class="modal-mode">Jira Export</div>
+          <div class="modal-title">${escapeHtml(titlePrefix)}</div>
+
+          <div class="format-tabs">
+            <button class="format-tab active" data-format="csv" onclick="switchJiraFormatTab(this)">CSV (Importer)</button>
+            <button class="format-tab" data-format="json" onclick="switchJiraFormatTab(this)">JSON (REST API)</button>
+            <button class="format-tab" data-format="markdown" onclick="switchJiraFormatTab(this)">Markdown (Clipboard)</button>
+          </div>
+
+          <div class="preview-counts">${countSource}</div>
+
+          ${includeEpic ? `
+            <div class="form-row">
+              <label>Epic Summary</label>
+              <input type="text" id="jira-epic-name" value="${escapeAttr(defaultEpic)}" placeholder="Ghost Architect Triage — [project]">
+              <div class="help">The Epic that will wrap all Stories/Bugs. Edit if your team has a naming convention.</div>
+            </div>
+          ` : ''}
+
+          <div class="form-row">
+            <div class="toggle-row">
+              <input type="checkbox" id="jira-existing-epic-toggle" ${includeEpic ? '' : 'checked'} onchange="toggleExistingEpicInput()">
+              <label for="jira-existing-epic-toggle">Attach to existing Epic in Jira</label>
+            </div>
+            <div id="jira-existing-epic-row" style="display: ${includeEpic ? 'none' : 'block'}">
+              <input type="text" id="jira-existing-epic-key" placeholder="e.g. MAGUP-42">
+              <div class="help">Type the Jira key of an existing Epic. Stories will be created as children of it on import.</div>
+            </div>
+          </div>
+
+          <div class="form-row form-row-inline">
+            <div>
+              <label>Default Assignee</label>
+              <input type="text" id="jira-assignee" placeholder="username or email (optional)">
+            </div>
+            <div>
+              <label>Sprint</label>
+              <input type="text" id="jira-sprint" placeholder="Sprint name (optional)">
+            </div>
+          </div>
+
+          <div class="form-row form-row-inline">
+            <div>
+              <label>Component Override</label>
+              <input type="text" id="jira-component" placeholder="leave blank to auto-detect">
+              <div class="help">Auto-detected from file paths if blank.</div>
+            </div>
+            <div>
+              <label>Additional Labels</label>
+              <input type="text" id="jira-extra-labels" placeholder="comma-separated">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="toggle-row">
+              <input type="checkbox" id="jira-auto-subtasks">
+              <label for="jira-auto-subtasks">Auto-generate Sub-tasks for each Story/Bug</label>
+            </div>
+            <div class="help" style="margin-left: 22px;">Adds standard breakdown: Root cause, Implement fix, Code review, Regression test (and Security/risk assessment for Critical/High).</div>
+          </div>
+
+          <label style="margin-top: 6px;">Field-by-Field Mapping Preview</label>
+          <div class="preview-mapping">${mappingPreview}</div>
+
+          <div class="action-row">
+            <button class="btn-action" onclick="closeModeModal()">Cancel</button>
+            <button class="btn-action primary" id="jira-do-export" onclick="executeJiraExport('${mode}')">Export</button>
+          </div>
+        </div>
+      `;
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModeModal(); });
+      document.body.appendChild(overlay);
+      document.addEventListener('keydown', escClose);
+      // Stash context for the eventual execute step
+      window.__jiraExportContext = { mode, targetFindings, targetReport, targetReports, includeEpic };
+    }
+
+    function toggleExistingEpicInput() {
+      const checked = document.getElementById('jira-existing-epic-toggle').checked;
+      document.getElementById('jira-existing-epic-row').style.display = checked ? 'block' : 'none';
+    }
+
+    function switchJiraFormatTab(btn) {
+      const tabs = btn.parentElement.querySelectorAll('.format-tab');
+      tabs.forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    async function executeJiraExport(mode) {
+      const ctx = window.__jiraExportContext;
+      if (!ctx) { showToast('Export failed', 'Lost context. Reopen the modal.'); return; }
+
+      // Read format choice
+      const formatTab = document.querySelector('.format-tab.active');
+      const format = formatTab ? formatTab.dataset.format : 'csv';
+
+      // Read form inputs (some may be absent depending on mode)
+      const epicNameEl = document.getElementById('jira-epic-name');
+      const epicName = epicNameEl ? epicNameEl.value.trim() : '';
+      const existingToggle = document.getElementById('jira-existing-epic-toggle');
+      const useExisting = existingToggle ? existingToggle.checked : false;
+      const existingEpicKey = useExisting ? (document.getElementById('jira-existing-epic-key').value.trim()) : '';
+      const includeEpic = !useExisting && ctx.includeEpic;
+      const defaultAssignee = (document.getElementById('jira-assignee')?.value || '').trim();
+      const defaultSprint   = (document.getElementById('jira-sprint')?.value || '').trim();
+      const componentOverride = (document.getElementById('jira-component')?.value || '').trim();
+      const extraLabelsRaw  = (document.getElementById('jira-extra-labels')?.value || '').trim();
+      const extraLabels = extraLabelsRaw ? extraLabelsRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+      const autoSubtasks = !!document.getElementById('jira-auto-subtasks')?.checked;
+
+      const btn = document.getElementById('jira-do-export');
+      if (btn) { btn.textContent = 'Building…'; btn.disabled = true; }
+
+      const date = new Date().toISOString().slice(0, 10);
+
+      try {
+        let payload, filename, mimeType, summary;
+
+        if (mode === 'multi-scan') {
+          const result = await buildMultiScanCsv(ctx.targetReports, {
+            includeEpic, existingEpicKey, epicName,
+            defaultAssignee, defaultSprint, extraLabels, componentOverride, autoSubtasks,
+          });
+          if (format === 'csv') {
+            payload = result.csv;
+            filename = `ghost-multiscan-${ctx.targetReports.length}-${date}-jira.csv`;
+            mimeType = 'text/csv';
+          } else if (format === 'json') {
+            // Build JSON from the same aggregated findings
+            const aggFindings = [];
+            for (const r of ctx.targetReports) {
+              const d = findingsCache[r.id];
+              if (d) for (const f of (d.findings || [])) aggFindings.push(f);
+            }
+            payload = buildJiraJson({
+              findings: aggFindings,
+              report: { id: 'multi-' + Date.now(), project: 'Multi-Scan', mode: ctx.targetReports[0].mode, tool: 'Ghost Architect Multi-Scan', generatedIso: new Date().toISOString() },
+              includeEpic, existingEpicKey, epicName, extraLabels, componentOverride, autoSubtasks,
+            });
+            filename = `ghost-multiscan-${ctx.targetReports.length}-${date}-jira.json`;
+            mimeType = 'application/json';
+          } else {
+            const aggFindings = [];
+            for (const r of ctx.targetReports) {
+              const d = findingsCache[r.id];
+              if (d) for (const f of (d.findings || [])) aggFindings.push(f);
+            }
+            payload = buildJiraMarkdown({
+              findings: aggFindings,
+              report: { id: 'multi-' + Date.now(), project: 'Multi-Scan', mode: ctx.targetReports[0].mode, tool: 'Ghost Architect Multi-Scan', generatedIso: new Date().toISOString() },
+              includeEpic, epicName,
+            });
+            await navigator.clipboard.writeText(payload);
+            showToast('Copied to clipboard', `${ctx.targetReports.length} scans as markdown. Paste into Jira issue description.`);
+            closeModeModal();
+            return;
+          }
+          summary = result.summary;
+        } else {
+          const options = {
+            findings: ctx.targetFindings,
+            report: ctx.targetReport,
+            includeEpic, existingEpicKey, epicName,
+            defaultAssignee, defaultSprint, extraLabels, componentOverride, autoSubtasks,
+          };
+          if (format === 'csv') {
+            const result = buildJiraCsv(options);
+            payload = result.csv;
+            filename = `ghost-${safeName(ctx.targetReport.project)}-${mode}-${date}-jira.csv`;
+            mimeType = 'text/csv';
+            summary = result.summary;
+          } else if (format === 'json') {
+            payload = buildJiraJson(options);
+            filename = `ghost-${safeName(ctx.targetReport.project)}-${mode}-${date}-jira.json`;
+            mimeType = 'application/json';
+          } else {
+            payload = buildJiraMarkdown(options);
+            await navigator.clipboard.writeText(payload);
+            showToast('Copied to clipboard', `${ctx.targetFindings.length} findings as markdown. Paste into Jira issue description.`);
+            closeModeModal();
+            return;
+          }
+        }
+
+        downloadFile(payload, filename, mimeType);
+        const summaryText = summary
+          ? `${summary.epics} Epic, ${summary.bugs} Bug, ${summary.stories} Story, ${summary.tasks} Task${summary.subtasks ? `, ${summary.subtasks} Sub-task` : ''}`
+          : filename;
+        showToast(`Exported ${filename}`, summaryText);
+        closeModeModal();
+      } catch (err) {
+        showToast('Export failed', err.message || String(err));
+        if (btn) { btn.textContent = 'Export'; btn.disabled = false; }
+      }
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // END JIRA EXPORT
+    // ════════════════════════════════════════════════════════════════
 
     // Initial state from URL hash
     parseInitialHash();
