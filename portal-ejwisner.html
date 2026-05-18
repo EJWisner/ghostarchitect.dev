@@ -482,7 +482,24 @@
     .finding-card-top { padding-right: 110px; }
 
     /* Pre-export modal (extends existing .modal styles) */
-    .jira-modal { max-width: 620px; }
+    .jira-modal {
+      max-width: 620px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 0;
+    }
+    .jira-modal .jira-modal-scroll {
+      overflow-y: auto;
+      overflow-x: hidden;
+      flex: 1 1 auto;
+      padding-right: 4px;
+      margin-right: -4px;
+    }
+    .jira-modal .jira-modal-scroll::-webkit-scrollbar { width: 8px; }
+    .jira-modal .jira-modal-scroll::-webkit-scrollbar-track { background: transparent; }
+    .jira-modal .jira-modal-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    .jira-modal .jira-modal-scroll::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
     .jira-modal .form-row { margin-bottom: 14px; }
     .jira-modal label {
       display: block; font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary);
@@ -530,7 +547,10 @@
     }
     .jira-modal .action-row {
       display: flex; gap: 10px; justify-content: flex-end;
-      margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border);
+      margin-top: 0; padding: 14px 0 18px 0;
+      border-top: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--bg-card-top) 0%, var(--bg-card) 100%);
+      flex-shrink: 0;
     }
     .jira-modal .btn-action {
       background: var(--bg-tile); border: 1px solid var(--border);
@@ -2103,66 +2123,68 @@
           <div class="modal-mode">Jira Export</div>
           <div class="modal-title">${escapeHtml(titlePrefix)}</div>
 
-          <div class="format-tabs">
-            <button class="format-tab active" data-format="csv" onclick="switchJiraFormatTab(this)">CSV (Importer)</button>
-            <button class="format-tab" data-format="json" onclick="switchJiraFormatTab(this)">JSON (REST API)</button>
-            <button class="format-tab" data-format="markdown" onclick="switchJiraFormatTab(this)">Markdown (Clipboard)</button>
-          </div>
+          <div class="jira-modal-scroll">
+            <div class="format-tabs">
+              <button class="format-tab active" data-format="csv" onclick="switchJiraFormatTab(this)">CSV (Importer)</button>
+              <button class="format-tab" data-format="json" onclick="switchJiraFormatTab(this)">JSON (REST API)</button>
+              <button class="format-tab" data-format="markdown" onclick="switchJiraFormatTab(this)">Markdown (Clipboard)</button>
+            </div>
 
-          <div class="preview-counts">${countSource}</div>
+            <div class="preview-counts">${countSource}</div>
 
-          ${includeEpic ? `
+            ${includeEpic ? `
+              <div class="form-row">
+                <label>Epic Summary</label>
+                <input type="text" id="jira-epic-name" value="${escapeAttr(defaultEpic)}" placeholder="Ghost Architect Triage — [project]">
+                <div class="help">The Epic that will wrap all Stories/Bugs. Edit if your team has a naming convention.</div>
+              </div>
+            ` : ''}
+
             <div class="form-row">
-              <label>Epic Summary</label>
-              <input type="text" id="jira-epic-name" value="${escapeAttr(defaultEpic)}" placeholder="Ghost Architect Triage — [project]">
-              <div class="help">The Epic that will wrap all Stories/Bugs. Edit if your team has a naming convention.</div>
+              <div class="toggle-row">
+                <input type="checkbox" id="jira-existing-epic-toggle" ${includeEpic ? '' : 'checked'} onchange="toggleExistingEpicInput()">
+                <label for="jira-existing-epic-toggle">Attach to existing Epic in Jira</label>
+              </div>
+              <div id="jira-existing-epic-row" style="display: ${includeEpic ? 'none' : 'block'}">
+                <input type="text" id="jira-existing-epic-key" placeholder="e.g. MAGUP-42">
+                <div class="help">Type the Jira key of an existing Epic. Stories will be created as children of it on import.</div>
+              </div>
             </div>
-          ` : ''}
 
-          <div class="form-row">
-            <div class="toggle-row">
-              <input type="checkbox" id="jira-existing-epic-toggle" ${includeEpic ? '' : 'checked'} onchange="toggleExistingEpicInput()">
-              <label for="jira-existing-epic-toggle">Attach to existing Epic in Jira</label>
+            <div class="form-row form-row-inline">
+              <div>
+                <label>Default Assignee</label>
+                <input type="text" id="jira-assignee" placeholder="username or email (optional)">
+              </div>
+              <div>
+                <label>Sprint</label>
+                <input type="text" id="jira-sprint" placeholder="Sprint name (optional)">
+              </div>
             </div>
-            <div id="jira-existing-epic-row" style="display: ${includeEpic ? 'none' : 'block'}">
-              <input type="text" id="jira-existing-epic-key" placeholder="e.g. MAGUP-42">
-              <div class="help">Type the Jira key of an existing Epic. Stories will be created as children of it on import.</div>
+
+            <div class="form-row form-row-inline">
+              <div>
+                <label>Component Override</label>
+                <input type="text" id="jira-component" placeholder="leave blank to auto-detect">
+                <div class="help">Auto-detected from file paths if blank.</div>
+              </div>
+              <div>
+                <label>Additional Labels</label>
+                <input type="text" id="jira-extra-labels" placeholder="comma-separated">
+              </div>
             </div>
+
+            <div class="form-row">
+              <div class="toggle-row">
+                <input type="checkbox" id="jira-auto-subtasks">
+                <label for="jira-auto-subtasks">Auto-generate Sub-tasks for each Story/Bug</label>
+              </div>
+              <div class="help" style="margin-left: 22px;">Adds standard breakdown: Root cause, Implement fix, Code review, Regression test (and Security/risk assessment for Critical/High).</div>
+            </div>
+
+            <label style="margin-top: 6px;">Field-by-Field Mapping Preview</label>
+            <div class="preview-mapping">${mappingPreview}</div>
           </div>
-
-          <div class="form-row form-row-inline">
-            <div>
-              <label>Default Assignee</label>
-              <input type="text" id="jira-assignee" placeholder="username or email (optional)">
-            </div>
-            <div>
-              <label>Sprint</label>
-              <input type="text" id="jira-sprint" placeholder="Sprint name (optional)">
-            </div>
-          </div>
-
-          <div class="form-row form-row-inline">
-            <div>
-              <label>Component Override</label>
-              <input type="text" id="jira-component" placeholder="leave blank to auto-detect">
-              <div class="help">Auto-detected from file paths if blank.</div>
-            </div>
-            <div>
-              <label>Additional Labels</label>
-              <input type="text" id="jira-extra-labels" placeholder="comma-separated">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="toggle-row">
-              <input type="checkbox" id="jira-auto-subtasks">
-              <label for="jira-auto-subtasks">Auto-generate Sub-tasks for each Story/Bug</label>
-            </div>
-            <div class="help" style="margin-left: 22px;">Adds standard breakdown: Root cause, Implement fix, Code review, Regression test (and Security/risk assessment for Critical/High).</div>
-          </div>
-
-          <label style="margin-top: 6px;">Field-by-Field Mapping Preview</label>
-          <div class="preview-mapping">${mappingPreview}</div>
 
           <div class="action-row">
             <button class="btn-action" onclick="closeModeModal()">Cancel</button>
