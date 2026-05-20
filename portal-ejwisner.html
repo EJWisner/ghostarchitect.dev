@@ -1758,15 +1758,37 @@
       ];
     }
 
+    // Slugify a project label for use as a Jira label.
+    // Lowercase, em/en dashes to hyphen, anything not alphanumeric to hyphen,
+    // collapse runs, trim leading/trailing. Jira labels are case-insensitive
+    // in match but stored as given — all-lowercase is the convention.
+    function slugify(s) {
+      return String(s || '')
+        .toLowerCase()
+        .replace(/[\u2014\u2013]/g, '-')   // em (—) and en (–) dashes to hyphen
+        .replace(/[^a-z0-9]+/g, '-')        // anything not alphanumeric to hyphen
+        .replace(/^-+|-+$/g, '')            // trim leading/trailing hyphens
+        .replace(/-+/g, '-');               // collapse runs of hyphens
+    }
+
     // Generate labels for a finding row
     function labelsFor(finding, mode) {
       const sev = String(finding.severity || '').toLowerCase();
-      return [
+      const labels = [
         'ghost-architect',
         'pre-engagement-triage',
         `severity-${sev}`,
         `mode-${mode}`,
       ];
+      // Dashboard findings carry a `project` field tagging which tracked
+      // project they belong to. Surface as a Jira label so customers can
+      // filter/group imported tickets by source project without modifying
+      // the Summary title. Per-scan findings don't have this field — no
+      // label emitted, fully backwards compatible.
+      if (finding.project) {
+        labels.push(`project-${slugify(finding.project)}`);
+      }
+      return labels;
     }
 
     // Build a Story/Bug description in markdown that Jira's editor will render correctly
