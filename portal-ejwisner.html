@@ -712,8 +712,8 @@
         body: 'Side-by-side analysis of two versions of the same codebase. Shows what changed, what got better, what got worse, and where the risk moved.',
       },
       dashboard: {
-        title: 'Dashboard',
-        body: 'A live overview of every scan run against this codebase. Tracks trends over time so you can see whether the situation is improving or getting worse.',
+        title: 'Project Dashboard',
+        body: 'A live remediation rollup across every labeled project. Shows baseline vs. current finding counts, percent remediated, and what is still open. Updated automatically after every scan that touches a tracked project. The export here gives you one Jira batch containing all open findings across all projects.',
       },
     };
 
@@ -872,7 +872,10 @@
         const sevTotal = latestReport.findingsTotal || 0;
 
         // Severity chips. Only show counts > 0 to keep rows clean.
-        const sevChips = sev ? `
+        // Dashboard mode is excluded because its manifest entry uses a placeholder
+        // (all open findings dumped into 'medium') — rendering chips would lie.
+        // Tracked: portal-publish.js dashboard manifest entry needs real severity counts.
+        const sevChips = (sev && latestReport.mode !== 'dashboard') ? `
           <div class="severity-row">
             ${sev.critical > 0 ? `<span class="sev-chip sev-critical"><span class="dot"></span>${sev.critical} Critical</span>` : ''}
             ${sev.high > 0     ? `<span class="sev-chip sev-high"><span class="dot"></span>${sev.high} High</span>` : ''}
@@ -1048,6 +1051,15 @@
       const container = document.getElementById('level2-content');
       if (!container) return;
 
+      // Dashboard mode has its own renderer — cross-project rollup, not a
+      // single-scan finding list. The dashboard sidecar has a different
+      // schema (projects + aggregateCounts + remainingFindings) so the
+      // generic findings tab wouldn't render it correctly.
+      if (report.mode === 'dashboard') {
+        await renderDashboardInto(container, report);
+        return;
+      }
+
       // If the report has structured findings, render tabs. Otherwise straight
       // to the markdown body.
       if (!report.hasStructuredFindings) {
@@ -1137,6 +1149,142 @@
       const fixed = priorFindings.filter(f => !currentIds.has(f.id));
 
       return { priorReport, priorFindings, statusMap, fixed };
+    }
+
+    // ── Dashboard view ────────────────────────────────────────────
+    // Renders the cross-project remediation rollup. The "report" here is the
+    // canonical dashboard manifest entry, and its findings file is actually
+    // a dashboard.json with shape:
+    //   { projects: [...], aggregateCounts: {...}, remainingFindings: [...] }
+    // We render projects as progress-bar cards and stash remainingFindings
+    // on window.__currentFindings so the Jira export buttons can find them.
+    async function renderDashboardInto(container, report) {
+      container.innerHTML = '<div class="loading">Loading dashboard…</div>';
+
+      let data;
+      try {
+        if (findingsCache[report.id]) {
+          data = findingsCache[report.id];
+        } else {
+          const url = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.findings)}`;
+          const res = await fetch(url);
+          if (!res.ok) throw new Error(`dashboard ${res.status}`);
+          data = await res.json();
+          findingsCache[report.id] = data;
+        }
+      } catch (err) {
+        container.innerHTML = `<div class="error">Failed to load dashboard: ${escapeHtml(err.message)}</div>`;
+        return;
+      }
+
+      const projects = data.projects || [];
+      const ag       = data.aggregateCounts || {};
+      const remaining = data.remainingFindings || [];
+
+      // Stash remainingFindings on window so the Jira export modal can pick
+      // them up via window.__currentFindings — same channel the per-scan
+      // findings view uses, so executeJiraExport requires no changes.
+      window.__currentFindings = remaining;
+      window.__currentReport   = report;
+      window.__currentDiff     = null;  // dashboard has no per-scan diff
+
+      // Aggregate stats bar (analog to totals-bar on findings view)
+      const totalsBar = `
+        <div class="totals-bar">
+          <div class="totals-stat">
+            <div class="lbl">Projects</div>
+            <div class="val">${projects.length}</div>
+          </div>
+          <div class="totals-stat">
+            <div class="lbl">Baseline</div>
+            <div class="val">${ag.totalBaseline || 0}<small>findings</small></div>
+          </div>
+          <div class="totals-stat">
+            <div class="lbl">Resolved</div>
+            <div class="val" style="color: var(--good);">${ag.totalResolved || 0}</div>
+          </div>
+          <div class="totals-stat">
+            <div class="lbl">Open</div>
+            <div class="val" style="color: var(--warn);">${ag.totalRemaining || 0}</div>
+          </div>
+          <div class="totals-stat">
+            <div class="lbl">New</div>
+            <div class="val">${ag.totalNewIssues || 0}</div>
+          </div>
+          <div class="totals-stat">
+            <div class="lbl">Avg Progress</div>
+            <div class="val">${ag.avgProgress || 0}<small>%</small></div>
+          </div>
+        </div>
+      `;
+
+      // Jira export toolbar — uses the same modal as the findings view.
+      // The 'epic-stories' mode wraps the aggregated remainingFindings into
+      // a single Epic + Stories CSV, exactly the "aggregated Jira batch
+      // across all projects" behavior you asked for.
+      const jiraToolbar = `
+        <div class="findings-toolbar">
+          <span class="findings-toolbar-label">Aggregated export:</span>
+          <div class="jira-cluster" style="margin-left: 0;">
+            <button class="jira-btn primary" onclick="openJiraExportModal('epic-stories')"
+              title="Export ALL open findings across ALL projects as one Jira batch (Epic + Stories/Bugs).">
+              <span class="icon"></span>Export ${remaining.length} Open Finding${remaining.length === 1 ? '' : 's'} as Jira Batch
+            </button>
+            <button class="jira-btn" onclick="openJiraExportModal('stories-only')"
+              title="Export open findings as standalone Stories/Bugs (no Epic).">
+              <span class="icon"></span>Stories Only
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Empty state — no projects tracked yet.
+      if (projects.length === 0) {
+        container.innerHTML = totalsBar + `
+          <div class="findings-empty">
+            No labeled projects yet. Run a scan with a project label from the Ghost CLI to start tracking remediation across scans.
+          </div>
+        `;
+        return;
+      }
+
+      // Project rows with progress bars
+      const projectCards = projects.map(p => {
+        const safeProgress = Math.max(0, Math.min(100, Number.isFinite(p.progress) ? p.progress : 0));
+        const filled = Math.max(0, Math.min(40, Math.round(safeProgress / 2.5)));
+        const empty  = Math.max(0, 40 - filled);
+        const bar    = '█'.repeat(filled) + '░'.repeat(empty);
+
+        const progressColor = safeProgress >= 75 ? 'var(--good)'
+                            : safeProgress >= 40 ? 'var(--cyan)'
+                            : safeProgress > 0   ? 'var(--warn)'
+                            : 'var(--text-tertiary)';
+
+        return `
+          <div class="finding-card">
+            <div class="finding-card-top">
+              <div class="finding-title">${escapeHtml(p.label)}</div>
+              <span class="sev-chip sev-total">${p.scanCount || 0} scan${(p.scanCount || 0) === 1 ? '' : 's'}</span>
+            </div>
+            <div style="font-family: 'SF Mono', Menlo, Monaco, monospace; font-size: 13px; color: ${progressColor}; margin: 10px 0 6px; letter-spacing: 0.5px;">
+              ${bar} ${safeProgress}%
+            </div>
+            <div class="finding-meta">
+              <span><b>Baseline:</b> ${p.baselineDate || '(unknown)'}</span>
+              <span><b>Last scan:</b> ${p.lastScan || '(unknown)'}</span>
+              <span><b>Baseline findings:</b> ${p.baseline || 0}</span>
+              <span><b>Resolved:</b> ${p.resolved || 0}</span>
+              <span><b>Remaining:</b> ${p.remaining || 0}</span>
+              ${p.newIssues > 0 ? `<span style="color: var(--warn);"><b>New:</b> ${p.newIssues}</span>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = totalsBar + jiraToolbar + `
+        <div class="section-label" style="margin-top: 18px;">Projects (${projects.length})</div>
+        <div class="findings-list">${projectCards}</div>
+      `;
     }
 
     async function renderFindingsInto(container, report) {
