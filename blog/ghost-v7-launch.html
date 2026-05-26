@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <title>Ghost Architect v7.0.0: Ghost Open is the trial · Ghost Architect™</title>
+  <meta name="description" content="Ghost Architect v7.0.0 ships today. No separate trial flow. Install via npm, point at any codebase, run real work. Question and Recon free forever. Four free deep reports. Cost transparency in Question mode. LAUNCH50 promo for first 100 subscribers." />
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-v7-launch" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-v7-launch" />
+  <meta property="og:title" content="Ghost Architect v7.0.0: Ghost Open is the trial" />
+  <meta property="og:description" content="No more separate trial flow. Install via npm, run real work on your own code. Question and Recon free forever. Four free deep reports. Cost transparency in Question mode. LAUNCH50 promo for the first 100 subscribers." />
+  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
+  <meta property="og:site_name" content="Ghost Architect™" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Ghost Architect v7.0.0: Ghost Open is the trial",
+    "datePublished": "2026-05-26",
+    "dateModified": "2026-05-26",
+    "author": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "publisher": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "url": "https://ghostarchitect.dev/blog/ghost-v7-launch",
+    "image": "https://ghostarchitect.dev/og-image.png"
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #0a0a0f; --surface: #111118; --surface2: #1a1a24; --border: #2a2a3a;
+      --accent: #4a9eff; --accent2: #00d4aa; --accent3: #00ffff;
+      --danger: #ff4a6b; --warning: #ffaa00;
+      --text: #e8e8f0; --text-muted: #b0b0c0; --text-dim: #777788;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.6; overflow-x: hidden; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-family: var(--font-mono); transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); transition: transform 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 56px; left: 0; right: 0; background: rgba(10,10,15,0.98); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 1rem 2rem; flex-direction: column; gap: 1rem; z-index: 99; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--text-muted); text-decoration: none; font-family: var(--font-mono); font-size: 0.9rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } }
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .footer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-muted); font-weight: 600; margin-bottom: 0.25rem; }
+    .footer-logo img { width: 20px; height: 20px; border-radius: 4px; }
+    .article-wrap { max-width: 760px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .back-link { display: inline-block; color: var(--text-dim); text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; margin-bottom: 2rem; transition: color 0.2s; }
+    .back-link:hover { color: var(--accent); }
+    .article-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); margin-bottom: 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+    .article-tag { background: rgba(74,158,255,0.1); border: 1px solid rgba(74,158,255,0.2); border-radius: 4px; padding: 2px 10px; color: var(--accent); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .article-tag.featured { background: linear-gradient(135deg, rgba(0,212,170,0.20), rgba(74,158,255,0.12)); border-color: rgba(0,212,170,0.40); color: var(--accent2); }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 1.5rem; }
+    .lede { font-size: 1.15rem; color: var(--text); line-height: 1.6; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .article-body h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; margin: 2.5rem 0 1rem; color: var(--text); }
+    .article-body h3 { font-size: 1rem; font-weight: 700; margin: 2rem 0 0.75rem; color: var(--accent); font-family: var(--font-mono); }
+    .article-body p { color: var(--text-muted); font-size: 1rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .article-body strong { color: var(--text); font-weight: 700; }
+    .article-body em { color: var(--text); font-style: italic; }
+    .article-body ul, .article-body ol { color: var(--text-muted); padding-left: 1.5rem; margin-bottom: 1.25rem; }
+    .article-body li { margin-bottom: 0.5rem; line-height: 1.7; }
+    .article-body code { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; font-family: var(--font-mono); font-size: 0.85em; color: var(--accent2); }
+    .article-body pre { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--accent2); border-radius: 8px; padding: 1rem 1.25rem; margin: 1.5rem 0; overflow-x: auto; font-family: var(--font-mono); font-size: 0.88rem; color: var(--text); line-height: 1.5; }
+    .article-body pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+    .callout { background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 1.25rem 1.5rem; margin: 2rem 0; }
+    .callout.success { border-color: var(--accent2); }
+    .callout p { margin: 0; color: var(--text-muted); font-size: 0.95rem; }
+    .cta-band { background: linear-gradient(135deg, rgba(0,212,170,0.10), rgba(74,158,255,0.06)); border: 1px solid rgba(0,212,170,0.35); border-radius: 16px; padding: 2rem; margin: 3rem 0 1.5rem; text-align: center; }
+    .cta-band h3 { font-family: var(--font-sans) !important; color: var(--text) !important; font-size: 1.3rem !important; font-weight: 800 !important; margin: 0 0 0.75rem !important; }
+    .cta-band p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .cta-band .cta-btn { display: inline-block; background: var(--accent2); color: #000; font-weight: 700; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; transition: opacity 0.2s; }
+    .cta-band .cta-btn:hover { opacity: 0.85; }
+    .cta-band code { background: rgba(0,212,170,0.18); color: var(--accent2); padding: 0.2rem 0.55rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.95em; }
+  </style>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
+</head>
+<body>
+
+
+<div id="ga-nav-mount"></div>
+
+
+
+<div class="article-wrap">
+  <a href="/blog.html" class="back-link">← All posts</a>
+
+  <div class="article-meta">
+    <span class="article-tag featured">v7.0.0 Launch</span>
+    <span class="article-tag">Release</span>
+    <span>May 26, 2026</span>
+    <span>5 min read</span>
+    <span>By Ernst J. Wisner</span>
+  </div>
+
+  <h1>Ghost Architect™ v7.0.0: Ghost Open is the trial</h1>
+
+  <p class="lede">Ghost Architect™ v7.0.0 shipped today. The headline change is structural: there is no separate trial flow anymore. Ghost Open is the trial. Install it via npm, point it at any codebase, run real work. If you hit the paywall, you have already gotten real value, on your own machine, on your own code.</p>
+
+  <div class="article-body">
+
+    <p>This post covers what shipped, why we removed the trial flow, the new cost transparency in Question mode, what existing users need to know, and the LAUNCH50 promo code that runs for the first 100 new or upgrading subscribers.</p>
+
+    <h2>Why we removed the trial flow</h2>
+
+    <p>Most dev tools gate the good parts behind a signup, a credit card on file, or a 14-day timer that starts the moment you install. That model trains users to evaluate quickly, often before they have done anything real with the tool. It also creates an adversarial conversion path: the user is racing a clock they did not ask for.</p>
+
+    <p>Ghost Architect™ does not work like that. The conversion path is honest. Run Question mode unlimited. Run Recon mode unlimited. Burn through four free deep reports across Points of Interest, Blast Radius, Conflict Detection, and Prompt Triage on whatever codebase you want. By the time you hit the paywall, you know exactly what the tool does, on your code, with your stack, with your API key. <strong>No signup. No timer. No friction.</strong></p>
+
+    <p>Inheritance Audit stays Pro and above. That is the deal-grade audit, and that is where the buyer conversation starts.</p>
+
+    <h2>Cost transparency for Question mode</h2>
+
+    <p>Question mode now shows the cost estimate before you run the call and the actual cost after. Two numbers. No surprises.</p>
+
+    <p>Most AI dev tools hide the bill. They run the call, return the answer, and let the meter run silently in the background. You find out at the end of the month. Ghost Architect™ shows you what every Question is about to cost in API tokens, lets you confirm or cancel, then prints the real cost when the result lands.</p>
+
+    <p>This is the same cost pre-flight that already runs on every paid scan mode. Now it runs on the free one too. The math should be visible. <strong>The bill should not be a mystery.</strong></p>
+
+    <h2>Profile feature properly tier-gated</h2>
+
+    <p>Ghost Partner™ profile support, the <code>--profile</code>, <code>--create-profile</code>, and <code>--list-profiles</code> flags, and the in-CLI profile menu are now properly restricted to Pro, Team, and Enterprise. The Open tier sees a clear upgrade message instead of a broken flag.</p>
+
+    <p>This was a cleanup pass. The feature shipped in v5.0 but the tier gate had drifted in a few code paths. v7.0.0 makes the gate consistent everywhere.</p>
+
+    <h2>Model defaults updated</h2>
+
+    <p>Default model lineup is now Sonnet 4.6 and Opus 4.7. In practice this drops API cost for most scan modes. The cost preflight reflects the new pricing automatically.</p>
+
+    <h2>README rewritten</h2>
+
+    <p>The README on GitHub and on npm is end-to-end clearer, more accurate, and better structured. If the install instructions confused you in v6, read them again in v7.</p>
+
+    <h2>For existing users</h2>
+
+    <p>3,933 people are already running Ghost Architect™. v7.0.0 installs automatically on the next <code>npm update -g ghost-architect-open</code>. Your config persists. Your scan counts persist. <strong>Nothing breaks.</strong></p>
+
+    <p>If you are on a paid tier, your subscription continues unchanged. The new cost transparency and the new model defaults apply immediately.</p>
+
+    <h2>LAUNCH50: first 100 redemptions</h2>
+
+    <p>The first 100 new or upgrading subscribers get 50% off their first month with code <strong>LAUNCH50</strong> at checkout. Applies to Pro, Team, and Enterprise. First come, first served.</p>
+
+    <div class="cta-band">
+      <h3>Ghost Architect™ v7.0.0 is live.</h3>
+      <p>50% off your first month with code <code>LAUNCH50</code>. First 100 redemptions. Applies to Pro, Team, and Enterprise.</p>
+      <a href="/pricing" class="cta-btn">See pricing →</a>
+    </div>
+
+    <h2>Install Ghost Open</h2>
+
+    <pre><code>npm install -g ghost-architect-open</code></pre>
+
+    <p>Run it on something. See what it finds.</p>
+
+    <p style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.95rem; color: var(--text-dim);">EJ Wisner, founder of Ghost Platform™</p>
+
+  </div>
+</div>
+
+<footer>
+  <a href="/" class="footer-logo">
+    <img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />
+    Ghost Architect™
+  </a>
+  <div>© 2026 Ghost Platform™ · <a href="/privacy.html" style="color: var(--text-dim);">Privacy</a> · <a href="/support.html" style="color: var(--text-dim);">Support</a></div>
+</footer>
+
+<script src="/assets/ga-nav.js" defer></script>
+</body>
+</html>
