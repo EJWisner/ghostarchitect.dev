@@ -25,7 +25,7 @@
   var activeGroup = null;
   if (path.indexOf('for-agency-owners') !== -1 || path.indexOf('for-agency-teams') !== -1) activeGroup = 'solutions';
   else if (path.indexOf('inheritance-audit') !== -1 || path.indexOf('prompt-triage') !== -1 || path.indexOf('audit') !== -1 || path.indexOf('ghost-partner') !== -1) activeGroup = 'modes';
-  else if (path.indexOf('blog') !== -1 || path.indexOf('faq') !== -1 || path.indexOf('support') !== -1 || path.indexOf('security') !== -1) activeGroup = 'resources';
+  else if (path.indexOf('blog') !== -1 || path.indexOf('faq') !== -1 || path.indexOf('support') !== -1 || path.indexOf('security') !== -1 || path.indexOf('changelog') !== -1) activeGroup = 'resources';
 
   var navHtml = ''
     + '<nav class="ga-nav">'
@@ -115,6 +115,10 @@
     + '          <div class="title">Blog</div>'
     + '          <div class="desc">Releases, deep-dives, agency war stories.</div>'
     + '        </a>'
+    + '        <a href="/changelog.html" class="ga-dropdown-item' + (isActive('/changelog.html') || isActive('/changelog') ? ' active' : '') + '">'
+    + '          <div class="title">Changelog</div>'
+    + '          <div class="desc">What shipped, and when. Release notes for every version.</div>'
+    + '        </a>'
     + '        <a href="/#faq" class="ga-dropdown-item">'
     + '          <div class="title">FAQ</div>'
     + '          <div class="desc">Common questions answered.</div>'
@@ -175,6 +179,7 @@
     + '    <div class="ga-mobile-group-items">'
     + '      <a href="/security.html"' + (isActive('/security.html') || isActive('/security') ? ' class="active"' : '') + '>Security &amp; Trust</a>'
     + '      <a href="/blog.html"' + (isActive('/blog.html') ? ' class="active"' : '') + '>Blog</a>'
+    + '      <a href="/changelog.html"' + (isActive('/changelog.html') || isActive('/changelog') ? ' class="active"' : '') + '>Changelog</a>'
     + '      <a href="/#faq">FAQ</a>'
     + '      <a href="/support"' + (isActive('/support') || isActive('/support.html') ? ' class="active"' : '') + '>Support</a>'
     + '    </div>'
