@@ -455,11 +455,31 @@
 
         <div class="section">
           <div class="section-header">
+            <div class="section-label">Event Sources · All-Time</div>
+            <div class="section-note" id="sources-alltime-note"></div>
+          </div>
+          <div class="bars" id="sources-alltime-bars">
+            <div class="empty-state">No events yet...</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
             <div class="section-label">Version Distribution</div>
             <div class="section-note" id="versions-note"></div>
           </div>
           <div class="bars" id="versions-bars">
             <div class="empty-state">Waiting for active users...</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-label">Version History · All-Time</div>
+            <div class="section-note" id="versions-alltime-note"></div>
+          </div>
+          <div class="bars" id="versions-alltime-bars">
+            <div class="empty-state">Waiting for telemetry...</div>
           </div>
         </div>
 
@@ -622,11 +642,23 @@
       renderHistogram('sources-bars', 'sources-note', sourceRows,
         `${agg.totalSourceEvents} events total`);
 
+      const allTimeSourceRows = (agg.allTimeSourcesSorted || []).map(([src, count]) => [
+        SOURCE_LABELS[src] || src, count
+      ]);
+      renderHistogram('sources-alltime-bars', 'sources-alltime-note', allTimeSourceRows,
+        `${agg.allTimeSourceEvents || 0} events all-time`);
+
       const versionRows = agg.versionsSorted.map(([v, count]) => [
         v === 'unknown' ? 'unknown' : `v${v}`, count
       ]);
       renderHistogram('versions-bars', 'versions-note', versionRows,
         `${agg.recentCount} active users`);
+
+      const allTimeVersionRows = (agg.allTimeVersionsSorted || []).map(([v, count]) => [
+        v === 'unknown' ? 'unknown' : `v${v}`, count
+      ]);
+      renderHistogram('versions-alltime-bars', 'versions-alltime-note', allTimeVersionRows,
+        `${agg.allTimeUserCount || 0} users all-time`);
 
       renderSparkline('active-sparkline', 'active-trend',
         agg.activeSeries, agg.forecastConfig);
