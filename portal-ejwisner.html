@@ -1807,6 +1807,32 @@
         lines.push(finding.detail);
         lines.push('');
       }
+
+      // ── Suggested Fix (Phase 7: fix_direction enrichment) ──────────────────
+      // Rendered when the narrator extracted a structured fix from the
+      // Resolution section. null = no single-file prescriptive fix available.
+      if (finding.fix_direction) {
+        const fd = finding.fix_direction;
+        // Derive language hint from file extension for the code fence.
+        const ext = (fd.target_file || '').split('.').pop().toLowerCase();
+        const LANG = { php: 'php', js: 'javascript', ts: 'typescript',
+                       py: 'python', go: 'go', rb: 'ruby', java: 'java',
+                       cs: 'csharp', rs: 'rust', jsx: 'jsx', tsx: 'tsx' };
+        const lang = LANG[ext] || '';
+        lines.push('### Suggested Fix');
+        lines.push(`**File:** \`${fd.target_file}\``);
+        lines.push(`**Confidence:** ${fd.confidence}`);
+        lines.push('');
+        if (fd.reasoning) {
+          lines.push(fd.reasoning);
+          lines.push('');
+        }
+        lines.push('```' + lang);
+        lines.push(fd.patch_instruction || '');
+        lines.push('```');
+        lines.push('');
+      }
+
       if (finding.files && finding.files.length) {
         lines.push('### Affected Files');
         for (const f of finding.files) lines.push(`- ${f}`);
