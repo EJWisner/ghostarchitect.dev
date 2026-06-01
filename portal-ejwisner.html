@@ -695,6 +695,10 @@
         title: 'Commit Forecast',
         body: "Before the code leaves your desk, this tells you what it might break. Ghost analyzes the proposed changes and maps the risk — what conflicts, what breaks, what ripples through the system. Think of it as a pre-flight check before every push.",
       },
+      'fix-forecast-combined': {
+        title: 'Fix Forecast',
+        body: 'Multi-finding corrective action reports — each confirms a proposed fix is safe to apply and forecasts its blast radius before a single line of code changes.',
+      },
       recon: {
         title: 'Recon',
         body: "A scouting report on a codebase you don't know yet. Maps the major systems, the riskiest files, the team patterns, and the technical debt — everything you'd want to know before bidding on the work or hiring engineers to maintain it.",
@@ -1810,17 +1814,24 @@
 
       // ── Suggested Fix (Phase 7: fix_direction enrichment) ──────────────────
       // Rendered when the narrator extracted a structured fix from the
-      // Resolution section. null = no single-file prescriptive fix available.
+      // Resolution section. null = no fix available.
       if (finding.fix_direction) {
         const fd = finding.fix_direction;
-        // Derive language hint from file extension for the code fence.
-        const ext = (fd.target_file || '').split('.').pop().toLowerCase();
+        // Support both legacy target_file (string) and new target_files (array).
+        const targetFiles = fd.target_files || (fd.target_file ? [fd.target_file] : []);
+        const primaryFile = targetFiles[0] || '';
+        // Derive language hint from primary file extension for the code fence.
+        const ext = primaryFile.split('.').pop().toLowerCase();
         const LANG = { php: 'php', js: 'javascript', ts: 'typescript',
                        py: 'python', go: 'go', rb: 'ruby', java: 'java',
                        cs: 'csharp', rs: 'rust', jsx: 'jsx', tsx: 'tsx' };
         const lang = LANG[ext] || '';
         lines.push('### Suggested Fix');
-        lines.push(`**File:** \`${fd.target_file}\``);
+        if (targetFiles.length === 1) {
+          lines.push(`**File:** \`${primaryFile}\``);
+        } else if (targetFiles.length > 1) {
+          lines.push(`**Files:** ${targetFiles.map(f => `\`${f}\``).join(', ')}`);
+        }
         lines.push(`**Confidence:** ${fd.confidence}`);
         lines.push('');
         if (fd.reasoning) {
