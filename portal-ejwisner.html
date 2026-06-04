@@ -1260,8 +1260,15 @@
         return;
       }
 
-      // Project rows with progress bars
-      const projectCards = projects.map(p => {
+      // Project rows with progress bars — sorted by activity score (descending).
+      // Score = scanCount × (progress/100) × 10 + scanCount
+      // The ×10 weight ensures resolution % dominates over raw scan count.
+      // Tie-break: higher scan count wins. Zero-progress single-scan projects sink.
+      const projectCards = [...projects].sort((a, b) => {
+        const scoreA = (a.scanCount || 0) * ((a.progress || 0) / 100) * 10 + (a.scanCount || 0);
+        const scoreB = (b.scanCount || 0) * ((b.progress || 0) / 100) * 10 + (b.scanCount || 0);
+        return scoreB - scoreA;
+      }).map(p => {
         const safeProgress = Math.max(0, Math.min(100, Number.isFinite(p.progress) ? p.progress : 0));
         const filled = Math.max(0, Math.min(40, Math.round(safeProgress / 2.5)));
         const empty  = Math.max(0, 40 - filled);
