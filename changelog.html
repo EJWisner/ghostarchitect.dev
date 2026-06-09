@@ -337,21 +337,145 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v7.0.0 <span class="version-date">May 26, 2026</span></span>
+      <span class="install-version">v7.2.2 <span class="version-date">June 5, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v7.0.0                                                          -->
+<!-- v7.2.2                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">v7.2.2</span>
+      <span class="release-date">June 5, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Dynamic version and Portal README.</h2>
+    <p class="release-lede">A pair of housekeeping improvements: version is no longer hardcoded in the CLI binary, and Ghost Portal™ activation instructions are now bundled with every install.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>VERSION reads dynamically from package.json.</strong> No more manual sync on every publish — <code>npm version patch</code> bumps both the package and the CLI banner automatically.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Portal™ README section.</strong> New section in the README covers Portal activation, what gets pushed, and how to share a Portal URL with clients. Bundled with every npm install.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v7.2.1                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v7.2.1</span>
+      <span class="release-date">June 4, 2026</span>
+    </div>
+    <h2 class="release-headline">Ghost Portal self-serve onboarding.</h2>
+    <p class="release-lede">Connect your GitHub account, get your Portal URL in under 60 seconds. No manual repo setup, no config files — one OAuth flow and you're live.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Portal™ self-serve onboarding.</strong> Visit <a href="/portal-setup">ghostarchitect.dev/portal-setup</a>, click Connect GitHub, and your private <code>ghost-reports</code> repo and Portal dashboard are provisioned automatically.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>LAUNCH50 promo disabled.</strong> Startup and paywall screens are clean. No promo copy.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v7.2                                                            -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v7.2</span>
+      <span class="release-date">June 1, 2026</span>
+    </div>
+    <h2 class="release-headline">Fix Forecast: multi-select, combined reports, real costs.</h2>
+    <p class="release-lede">Fix Forecast is no longer a single-finding operation. Pick N findings at once, review the estimated cost before Ghost spends a token, and get a combined client-ready PDF when you're done. Blast Radius now shows real API token costs instead of character-count estimates. The conflict scanner was rebuilt around structured JSON output.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Multi-select Fix Forecast.</strong> Pick N findings from the checkbox list. Ghost shows the estimated cost for the batch and asks for confirmation before running. Findings with no surgical patch are filtered out automatically.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Standalone Fix Forecast from saved scans.</strong> Load any previous conflict scan from the menu and forecast fixes on it without re-scanning the codebase. Useful for async workflows where the scan and the fix review happen at different times.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Combined Fix Forecast report.</strong> Every multi-finding Fix Forecast produces a single combined PDF alongside the per-finding artifacts. All N forecasts in one document, client-ready.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Real token costs on Blast Radius.</strong> Standalone Blast Radius now uses a real <code>SessionCostTracker</code> instead of character-count estimates. The cost breakdown after a blast scan shows actual API usage, including a labeled estimate for narrator tokens.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Conflict scanner rebuilt on structured JSON.</strong> The LLM now returns findings as a JSON code fence instead of markdown. The parser is simpler, more reliable, and produces cleaner output. Lower API cost per scan.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Fix Forecast card in Ghost Portal™.</strong> Combined Fix Forecast reports push to Portal automatically and appear in their own dashboard card.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Portal Dashboard activity sort.</strong> Projects with the most scans and highest resolution percentage rise to the top. Single-scan zero-progress projects fall to the bottom.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v7.1                                                            -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v7.1</span>
+      <span class="release-date">May 26, 2026</span>
+    </div>
+    <h2 class="release-headline">Public launch and Stripe live mode.</h2>
+    <p class="release-lede">v7.1 shipped on launch day alongside v7.0.0 — site overhaul live, Stripe payments enabled, Ghost Open freemium gate active.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>ghostarchitect.dev site overhaul.</strong> Full redesign live. New pricing page, changelog, blog, and Portal pages.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Stripe live mode enabled.</strong> Ghost Pro ($99/mo), Team ($399/mo), and Enterprise ($1,200/mo) payment links active.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Open freemium gate.</strong> 4 free deep scans across POI, Blast, Conflict, and Prompt Triage. No signup required. Quota resets are not available on Ghost Open.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v7.0.0                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">v7.0.0</span>
       <span class="release-date">May 26, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">Ghost Open is the trial.</h2>
     <p class="release-lede">The headline change is structural. There is no separate trial flow anymore. Install Ghost Architect&trade; via npm, point it at any codebase, run real work. By the time you hit the paywall, you have already gotten real value, on your own machine, on your own code.</p>
@@ -460,7 +584,7 @@
 <div class="closing-band">
   <div class="closing-inner">
     <div class="closing-text">
-      <strong>Already running an older version?</strong> Run <code style="background: var(--bg-page); border: 1px solid var(--border-dim); padding: 2px 7px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.92em; color: var(--cyan-bright);">npm update -g ghost-architect-open</code> to pull v7.0.0. Your config, scan history, and license persist. Nothing breaks.
+      <strong>Already running an older version?</strong> Run <code style="background: var(--bg-page); border: 1px solid var(--border-dim); padding: 2px 7px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.92em; color: var(--cyan-bright);">npm update -g ghost-architect-open</code> to pull v7.2.2. Your config, scan history, and license persist. Nothing breaks.
     </div>
     <a href="/pricing" class="closing-btn">See pricing &rarr;</a>
   </div>
