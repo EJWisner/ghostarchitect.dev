@@ -7,13 +7,13 @@
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
   <title>Ghost Architect™ — Pre-Engagement Codebase Triage</title>
-  <meta name="description" content="Ghost Architect™ triages your codebase before the next migration, SOW, or audit. Categorizes risk, prioritizes findings, gives your team a map of where to start. Any codebase, any language, any platform." />
+  <meta name="description" content="Ghost Architect™ — AI-powered codebase triage and AI remediation. Pre-engagement scanning, Ghost Brief™ prompt packs for Claude Code, and governed AI remediation pipelines. Any codebase, any platform." />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ghostarchitect.dev" />
   <meta property="og:title" content="Ghost Architect™ — Pre-Engagement Codebase Triage" />
-  <meta property="og:description" content="Triage any codebase before you sign the SOW, scope the migration, or pitch the audit. Any codebase, any language, any platform. Built for developers, architects, agencies, and CTOs." />
+  <meta property="og:description" content="Ghost Architect™ — AI-powered codebase triage and AI remediation. Pre-engagement scanning, Ghost Brief™ prompt packs for Claude Code, and governed AI remediation pipelines. Any codebase, any platform." />
   <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
   <meta property="og:site_name" content="Ghost Architect™" />
 
@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://ghostarchitect.dev" />
   <meta name="twitter:title" content="Ghost Architect™ — Pre-Engagement Codebase Triage" />
-  <meta name="twitter:description" content="Triage any codebase before you sign the SOW, scope the migration, or pitch the audit. Any codebase, any language, any platform." />
+  <meta name="twitter:description" content="Ghost Architect™ — AI-powered codebase triage and AI remediation. Pre-engagement scanning, Ghost Brief™ prompt packs for Claude Code, and governed AI remediation pipelines. Any codebase, any platform." />
   <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
@@ -35,7 +35,7 @@
     "operatingSystem": "macOS, Windows, Linux",
     "url": "https://ghostarchitect.dev",
     "description": "AI-powered codebase intelligence tool that triages codebases, categorizes risk, prioritizes findings, and generates structured reports for any platform or language.",
-    "softwareVersion": "7.0.0",
+    "softwareVersion": "8.0.2",
     "offers": [
       {
         "@type": "Offer",
@@ -71,6 +71,27 @@
           "minPrice": "1200",
           "description": "Starting price. Custom seats and MSA terms available."
         }
+      },
+      {
+        "@type": "Offer",
+        "name": "Ghost Pro Max",
+        "price": "199.00",
+        "priceCurrency": "USD",
+        "description": "Ghost Brief™ governed AI remediation pipeline"
+      },
+      {
+        "@type": "Offer",
+        "name": "Ghost Team Max",
+        "price": "799.00",
+        "priceCurrency": "USD",
+        "description": "Unified Brief across all seats"
+      },
+      {
+        "@type": "Offer",
+        "name": "Ghost Enterprise Max",
+        "price": "2500.00",
+        "priceCurrency": "USD",
+        "description": "Unlimited Brief + Ghost Partner co-engagement"
       }
     ],
     "author": {
@@ -904,6 +925,13 @@
       .enterprise-card { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem; }
       .enterprise-right { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 1.5rem; }
     }
+    .hero-accent {
+      color: #e07340;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      letter-spacing: 0.01em;
+    }
   </style>
   <link rel="stylesheet" href="/assets/ga-nav.css" />
 </head>
@@ -950,9 +978,10 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="version-badge">v7.2.2 · Ghost Open is the trial · LIVE NOW</div>
+  <div class="version-badge">v8.0.2 · Ghost Open is the trial · LIVE NOW</div>
   <h1>Pre-engagement triage.<br><em>Any codebase, any language, any platform.</em></h1>
-  <p class="hero-sub">Know what is in the codebase before the next migration, SOW, or audit.</p>
+  <p class="hero-sub">Know what's in the codebase before the next migration, SOW, or audit. Then run Ghost Brief™ — Ghost converts every finding into a validated, blast-radius-aware prompt your AI coding agent executes immediately.</p>
+  <p class="hero-accent">Ghost finds it. Ghost tells the AI exactly what to do. The AI does it.</p>
   <div class="hero-cta">
     <a href="/pricing" class="btn-primary">See Plans →</a>
     <a href="https://www.npmjs.com/package/ghost-architect-open" class="btn-secondary" target="_blank" rel="noopener noreferrer">Install Ghost Open Free →</a>
@@ -1156,6 +1185,12 @@
       <div class="capability-icon">🧪</div>
       <h3>Prompt Triage</h3>
       <p>If you ship AI features, your prompts are production code. Ghost audits a folder of LLM prompts and surfaces 16 categories of defects backed by the Tian et al. 2025 academic taxonomy. <a href="/prompt-triage.html" style="color:var(--accent2);font-weight:600;">Learn more &rarr;</a></p>
+    </div>
+    <div class="capability-card" style="border-left:3px solid #e07340;position:relative;">
+      <div style="position:absolute;top:0.75rem;right:0.85rem;background:#e07340;color:#fff;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">NEW</div>
+      <div class="capability-icon">📋</div>
+      <h3>Ghost Brief™</h3>
+      <p>Converts any scan into a validated, blast-radius-aware Claude Code prompt pack. Ghost briefs the AI. The AI fixes the code. <a href="/ghost-brief.html" style="color:#e07340;font-weight:600;">See Ghost Brief™ &rarr;</a></p>
     </div>
   </div>
 </section>
