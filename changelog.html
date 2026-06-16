@@ -7,7 +7,7 @@
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
   <title>Changelog &middot; Ghost Architect&trade;</title>
-  <meta name="description" content="Ghost Architect™ release notes. v7.0.0 ships the unified Open tier as the trial and cost transparency in Question mode. Plus what landed in v6 and the v5 highlights." />
+  <meta name="description" content="Ghost Architect™ release notes. v8.0.2 ships Ghost Brief™ interactive menu. v8.0.0 introduces Ghost Brief™ — the governed AI remediation pipeline. Plus v7 highlights." />
   <!-- LAUNCH50-PROMO META START. Commented out 2026-05-27; swap with the live meta above to re-enable. -->
   <!-- <meta name="description" content="Ghost Architect™ release notes. v7.0.0 ships the unified Open tier as the trial, cost transparency in Question mode, and the LAUNCH50 promo. Plus what landed in v6 and the v5 highlights." /> -->
   <!-- LAUNCH50-PROMO META END -->
@@ -18,7 +18,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ghostarchitect.dev/changelog.html" />
   <meta property="og:title" content="Changelog &middot; Ghost Architect&trade;" />
-  <meta property="og:description" content="Ghost Architect™ release notes. v7.0.0, v6.0.0, and the v5 highlights." />
+  <meta property="og:description" content="Ghost Architect™ release notes. v8.0.2 ships Ghost Brief™ interactive menu. v8.0.0 introduces the governed AI remediation pipeline." />
   <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
   <meta property="og:site_name" content="Ghost Architect&trade;" />
 
@@ -337,21 +337,143 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v7.2.2 <span class="version-date">June 5, 2026</span></span>
+      <span class="install-version">v8.0.2 <span class="version-date">June 16, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v7.2.2                                                          -->
+<!-- v8.0.2                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">v8.0.2</span>
+      <span class="release-date">June 16, 2026</span>
+      <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Brief™ interactive menu + critical npm fix.</h2>
+    <p class="release-lede">Ghost Brief™ is now accessible from the post-scan menu — no CLI flags required. Also fixes a critical packaging bug: <code>lib/ghostBrief.js</code> and <code>lib/ghostBriefAdapter.js</code> were missing from the published npm package in v8.0.0 and v8.0.1, causing Ghost Brief™ to fail on any fresh install.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Brief™ in the interactive menu.</strong> After any scan, select Ghost Brief™ from the mode list. Ghost auto-detects the most recent findings file (sorted by modification time, not filename) and confirms before generating.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>File picker on decline.</strong> If you decline the auto-detected file, Ghost shows a list of your 10 most recent findings files to choose from instead of returning to the menu.</span>
+      </li>
+      <li>
+        <span class="marker">!</span>
+        <span><strong>Critical npm fix: lib/ added to package files array.</strong> <code>ghostBrief.js</code> and <code>ghostBriefAdapter.js</code> were not included in the published package. Any install of 8.0.0 or 8.0.1 would fail when Ghost Brief™ was invoked. Fixed — both files are now bundled correctly.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Brief™ added to <code>--help</code> output.</strong> <code>--brief</code>, <code>--input</code>, and <code>--output</code> flags are now documented with tier gate note (Pro Max and above).</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>README updated.</strong> Interactive menu option documented alongside the CLI command.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.0.1                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.0.1</span>
+      <span class="release-date">June 16, 2026</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">README and documentation update.</h2>
+    <p class="release-lede">Documentation pass for the v8.0.0 Ghost Brief™ launch. Seven-tier comparison table, What's New section, and updated npm package metadata.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>README updated with Ghost Brief™ documentation.</strong> CLI command, interactive menu note, and Ghost Portal™ push behavior documented.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Seven-tier comparison table added to README.</strong> Open, Pro, Pro Max, Team, Team Max, Enterprise, Enterprise Max — with Ghost Brief™ availability column.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>What's New in v8.0.0 section added.</strong> Ghost Brief™ overview, run command, and tier gate note bundled with every install.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.0.0                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.0.0</span>
+      <span class="release-date">June 16, 2026</span>
+      <span class="release-badge" style="background:rgba(224,115,64,0.15);color:#e07340;border-color:rgba(224,115,64,0.3);">MAJOR</span>
+    </div>
+    <h2 class="release-headline">Ghost Brief™ — the governed AI remediation pipeline.</h2>
+    <p class="release-lede">Ghost Brief™ converts any Ghost scan into a validated, blast-radius-aware Claude Code prompt pack. Feed <code>ghost-brief.json</code> into Claude Code, Cursor, or Copilot. Ghost briefs the AI. The AI fixes the code. You ship.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Brief™ CLI mode (<code>--brief</code>).</strong> Converts any Ghost scan findings JSON into a structured prompt pack. Each prompt includes what to fix, which files to touch, which files to never touch, and validation hints to confirm the fix landed correctly.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Blast-radius-aware prompt ordering.</strong> Prompts are sorted ascending by blast score — surgical fixes first, broad changes last. Your AI agent always works in the safest order possible.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Portal™ Brief tab.</strong> Every Brief you generate is pushed to your Portal automatically. View, download, and browse full Brief history from the Portal dashboard. Orange accent differentiates Brief from scan mode tiles.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Three new tiers: Pro Max, Team Max, Enterprise Max.</strong> Ghost Pro Max ($199/mo) adds Individual Brief generation. Ghost Team Max ($799/mo) adds Unified Brief across all seats — one master prompt pack that understands how every fix affects every other area. Ghost Enterprise Max ($2,500/mo) adds Unlimited Brief and dedicated Ghost Partner co-engagement with EJ Wisner directly.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Brief™ feature page.</strong> <a href="/ghost-brief.html">ghostarchitect.dev/ghost-brief.html</a> — hero, How It Works, anatomy of a Brief, tier table, and FAQ.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Brief™ added to site navigation.</strong> Modes dropdown in the global nav includes Ghost Brief™ with an orange NEW badge.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Pricing page updated.</strong> All seven tiers displayed in a 3-column grid (base tiers row 1, Max tiers row 2). Stripe payment links for all three new Max tiers.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>39-assertion test suite.</strong> Covers Ghost Brief™ schema validation, blast radius labeling, adapter normalization (Fix Forecast, POI, Conflict), and tier policy for all seven tiers.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Worker path fix.</strong> The <code>signup.ghostarchitect.dev/portal-report</code> Worker now serves <code>briefs/</code> paths alongside <code>reports/</code> paths. Required for the Portal Brief tab to load Brief data.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v7.2.2                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">v7.2.2</span>
       <span class="release-date">June 5, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">Dynamic version and Portal README.</h2>
     <p class="release-lede">A pair of housekeeping improvements: version is no longer hardcoded in the CLI binary, and Ghost Portal™ activation instructions are now bundled with every install.</p>
