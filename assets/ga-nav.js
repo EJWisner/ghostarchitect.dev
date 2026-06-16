@@ -24,7 +24,7 @@
   // Which dropdown group is currently active?
   var activeGroup = null;
   if (path.indexOf('for-agency-owners') !== -1 || path.indexOf('for-agency-teams') !== -1) activeGroup = 'solutions';
-  else if (path.indexOf('inheritance-audit') !== -1 || path.indexOf('prompt-triage') !== -1 || path.indexOf('audit') !== -1 || path.indexOf('ghost-partner') !== -1) activeGroup = 'modes';
+  else if (path.indexOf('inheritance-audit') !== -1 || path.indexOf('prompt-triage') !== -1 || path.indexOf('audit') !== -1 || path.indexOf('ghost-partner') !== -1 || path.indexOf('ghost-brief') !== -1) activeGroup = 'modes';
   else if (path.indexOf('blog') !== -1 || path.indexOf('faq') !== -1 || path.indexOf('support') !== -1 || path.indexOf('security') !== -1 || path.indexOf('changelog') !== -1) activeGroup = 'resources';
 
   var navHtml = ''
@@ -54,6 +54,10 @@
     + '        <a href="/#what-it-does" class="ga-dropdown-item">'
     + '          <div class="title">All 8 Scan Modes</div>'
     + '          <div class="desc">POI, Blast Radius, Conflict, Recon, Chat, Compare, Dashboard, Audit.</div>'
+    + '        </a>'
+    + '        <a href="/ghost-brief.html" class="ga-dropdown-item' + (isActive('/ghost-brief.html') ? ' active' : '') + '">'
+    + '          <div class="title">Ghost Brief&trade; <span class="pill brief">NEW</span></div>'
+    + '          <div class="desc">AI remediation prompt pack for Claude Code &amp; Cursor.</div>'
     + '        </a>'
     + '        <div class="ga-dropdown-divider"></div>'
     + '        <a href="/audit.html" class="ga-dropdown-item' + (isActive('/audit.html') ? ' active' : '') + '">'
@@ -154,6 +158,7 @@
     + '      <a href="/inheritance-audit.html"' + (isActive('/inheritance-audit.html') ? ' class="active"' : '') + '>Inheritance Audit <span class="pill">FLAGSHIP</span></a>'
     + '      <a href="/prompt-triage.html"' + (isActive('/prompt-triage.html') ? ' class="active"' : '') + '>Prompt Triage</a>'
     + '      <a href="/#what-it-does">All 8 Scan Modes</a>'
+    + '      <a href="/ghost-brief.html"' + (isActive('/ghost-brief.html') ? ' class="active"' : '') + '>Ghost Brief&trade; <span class="pill brief">NEW</span></a>'
     + '      <a href="/audit.html"' + (isActive('/audit.html') ? ' class="active"' : '') + '>Done-For-You Audit</a>'
     + '      <a href="/#ghost-partner">Ghost Partner&trade;</a>'
     + '    </div>'

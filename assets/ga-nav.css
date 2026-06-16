@@ -101,6 +101,10 @@ nav.ga-nav {
   background: rgba(255,170,0,0.12); color: var(--ga-nav-warning);
   border-color: rgba(255,170,0,0.3);
 }
+.ga-dropdown-item .title .pill.brief {
+  background: rgba(224,115,64,0.15); color: #e07340;
+  border-color: rgba(224,115,64,0.3);
+}
 .ga-dropdown-item .desc {
   font-size: 0.78rem; color: var(--ga-nav-text-dim); line-height: 1.4;
   font-family: var(--ga-nav-font-sans);
@@ -181,6 +185,10 @@ nav.ga-nav {
 .ga-mobile-group-items a .pill.new {
   background: rgba(255,170,0,0.12); color: var(--ga-nav-warning);
   border-color: rgba(255,170,0,0.3);
+}
+.ga-mobile-group-items a .pill.brief {
+  background: rgba(224,115,64,0.15); color: #e07340;
+  border-color: rgba(224,115,64,0.3);
 }
 .ga-mobile-flat-link {
   color: var(--ga-nav-text); text-decoration: none;
