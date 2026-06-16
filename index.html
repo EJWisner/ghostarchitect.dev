@@ -112,6 +112,46 @@
     "mainEntity": [
       {
         "@type": "Question",
+        "name": "What is Ghost Brief™?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ghost Brief™ is the governed AI remediation pipeline built into Ghost Architect™. After any scan, Ghost converts your findings into a validated, blast-radius-aware prompt pack. Each prompt tells your AI coding agent exactly what to fix, which files to touch, which files to leave alone, and how to verify the fix landed. Ghost finds it. Ghost tells the AI exactly what to do. The AI does it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which tiers include Ghost Brief™?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ghost Brief™ is included in Ghost Pro Max ($199/mo), Ghost Team Max ($799/mo), and Ghost Enterprise Max ($2,500/mo). Ghost Pro Max generates an individual Brief after every scan. Ghost Team Max adds the Unified Brief. Ghost Enterprise Max adds unlimited Briefs, formal MSA, and dedicated Ghost Partner co-engagement."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which AI coding agents work with Ghost Brief™?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Any of them. ghost-brief.json is a plain JSON file. Feed it to Claude Code, Cursor, GitHub Copilot, or any other AI coding agent. Ghost does not lock you into a platform. Claude Code is the primary target and was used for all internal testing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Ghost Brief™ write or modify code?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Ghost Brief™ produces a prompt pack. Your AI coding agent executes the prompts. Ghost never touches your code. Ghost scans, Ghost briefs, the AI fixes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is blast radius and why does it matter for AI agents?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Blast radius measures how many parts of your codebase a change could affect. Ghost Brief™ sorts every prompt by blast radius, surgical fixes first and broad changes last, so your AI agent works in the safest possible order."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "What is Ghost Architect?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -139,7 +179,7 @@
         "name": "How much does Ghost Architect cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ghost Open is free and open-source under the MIT license — full scan engine with every finding at every severity. Ghost Pro is $99/month and adds project tracking, baseline comparison, and Ghost Partner profile support. Ghost Team is $399/month for up to 5 seats with shared project sync. Ghost Enterprise starts at $1,200/month with seat management, audit logging, and white-label PDF."
+          "text": "Ghost Open is free and open-source under the MIT license. Ghost Pro is $99/month. Ghost Pro Max is $199/month and includes Ghost Brief™. Ghost Team is $399/month for up to 5 seats. Ghost Team Max is $799/month and includes the Unified Brief. Ghost Enterprise starts at $1,200/month. Ghost Enterprise Max starts at $2,500/month with unlimited Briefs, formal MSA, and dedicated Ghost Partner co-engagement."
         }
       },
       {
@@ -1502,6 +1542,31 @@
 <section id="faq" style="max-width: 860px; margin: 0 auto; padding: 2rem 2rem 5rem;">
   <div class="section-label">// frequently asked</div>
   <h2>Common questions.</h2>
+
+  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
+    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">What is Ghost Brief™?</h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Ghost Brief™ is the governed AI remediation pipeline built into Ghost Architect™. After any scan, Ghost converts your findings into a validated, blast-radius-aware prompt pack. Each prompt tells your AI coding agent exactly what to fix, which files to touch, which files to leave alone, and how to verify the fix landed. Ghost finds it. Ghost tells the AI exactly what to do. The AI does it.</p>
+  </div>
+
+  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
+    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Which tiers include Ghost Brief™?</h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Ghost Brief™ is included in Ghost Pro Max ($199/mo), Ghost Team Max ($799/mo), and Ghost Enterprise Max ($2,500/mo). Ghost Pro Max generates an individual Brief after every scan. Ghost Team Max adds the Unified Brief, which consolidates every architect's findings into one master prompt pack for the whole codebase. Ghost Enterprise Max adds unlimited Briefs, formal MSA, and dedicated Ghost Partner co-engagement.</p>
+  </div>
+
+  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
+    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Which AI coding agents work with Ghost Brief™?</h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Any of them. ghost-brief.json is a plain JSON file. Feed it to Claude Code, Cursor, GitHub Copilot, or any other AI coding agent. Ghost does not lock you into a platform. Claude Code is the primary target and was used for all internal testing.</p>
+  </div>
+
+  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
+    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Does Ghost Brief™ write or modify code?</h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">No. Ghost Brief™ produces a prompt pack. Your AI coding agent executes the prompts. Ghost never touches your code. Ghost scans, Ghost briefs, the AI fixes.</p>
+  </div>
+
+  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
+    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">What is blast radius and why does it matter for AI agents?</h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Blast radius measures how many parts of your codebase a change could affect. Ghost Brief™ sorts every prompt by blast radius, surgical fixes first and broad changes last, so your AI agent works in the safest possible order. Most AI agents are eager. They will fix what you point them at and break things you did not know were connected. Ghost Brief™ governs the sequence.</p>
+  </div>
 
   <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
     <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">What exactly does Ghost Architect do?</h3>
