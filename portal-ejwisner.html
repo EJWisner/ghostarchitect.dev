@@ -645,6 +645,188 @@
       .finding-card-top { padding-right: 0; }
       .finding-export-link { position: static; opacity: 1; pointer-events: auto; margin-top: 6px; display: inline-block; }
     }
+
+    /* ── GHOST BRIEF ─────────────────────────────────────────────── */
+    :root { --brief: #e07340; --brief-dim: #a04e28; --brief-bg: rgba(224, 115, 64, 0.07); }
+
+    .tile-brief {
+      border-color: rgba(224, 115, 64, 0.45);
+    }
+    .tile-brief:hover {
+      border-color: var(--brief);
+      background: rgba(224, 115, 64, 0.09);
+    }
+    .tile-brief .tile-mode { color: var(--brief); }
+    .tile-brief .tile-arrow { color: var(--brief-dim); }
+    .tile-brief:hover .tile-arrow { color: var(--brief); }
+
+    /* Brief panel top-level view */
+    .brief-panel { }
+
+    /* Brief tab bar reuses .view-tabs / .view-tab with orange active */
+    .brief-tabs .view-tab.active {
+      color: var(--brief);
+      border-bottom-color: var(--brief);
+    }
+    .brief-tabs .view-tab-count {
+      background: rgba(224, 115, 64, 0.14);
+      color: var(--brief);
+    }
+
+    /* Summary / source info cards */
+    .brief-card {
+      background: var(--bg-tile);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+    }
+    .brief-card-title {
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--brief); margin-bottom: 14px; font-weight: 600;
+    }
+    .brief-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 14px;
+    }
+    .brief-stat .lbl {
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-tertiary); margin-bottom: 4px;
+    }
+    .brief-stat .val {
+      font-size: 22px; font-weight: 300; color: var(--text-primary);
+    }
+    .brief-stat .val small { font-size: 11px; color: var(--text-tertiary); margin-left: 3px; }
+    .brief-sev-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .brief-blast-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+    .blast-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 4px;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      border: 1px solid;
+    }
+    .blast-surgical { color: #00e5a8; border-color: rgba(0,229,168,0.4); background: rgba(0,229,168,0.06); }
+    .blast-moderate { color: #ffc266; border-color: rgba(255,194,102,0.4); background: rgba(255,194,102,0.06); }
+    .blast-broad    { color: #ff7a7a; border-color: rgba(255,122,122,0.4); background: rgba(255,122,122,0.06); }
+
+    .brief-source-row {
+      display: flex; gap: 10px; flex-wrap: wrap; font-size: 12px;
+      color: var(--text-secondary); line-height: 1.7;
+    }
+    .brief-source-row b { color: var(--text-primary); font-weight: 500; }
+    .brief-source-kv { width: 100%; }
+
+    /* Download button — orange tint */
+    .brief-dl-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--brief-bg); border: 1px solid var(--brief);
+      border-radius: 8px; padding: 9px 18px; font-size: 12px;
+      color: var(--brief); cursor: pointer; transition: all 0.15s;
+      font-family: inherit; letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; margin-top: 8px;
+    }
+    .brief-dl-btn:hover {
+      background: rgba(224,115,64,0.14);
+      box-shadow: 0 0 12px rgba(224,115,64,0.3);
+    }
+
+    /* Prompt cards */
+    .brief-prompt-list { display: flex; flex-direction: column; gap: 10px; }
+    .brief-prompt-card {
+      background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 16px;
+      border-left: 3px solid var(--border);
+      transition: border-color 0.15s;
+    }
+    .brief-prompt-card.f-critical { border-left-color: #ff5555; }
+    .brief-prompt-card.f-high     { border-left-color: #ff9040; }
+    .brief-prompt-card.f-medium   { border-left-color: #ffb030; }
+    .brief-prompt-card.f-low      { border-left-color: #5aa8ba; }
+    .brief-prompt-top {
+      display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; flex-wrap: wrap;
+    }
+    .gb-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 4px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      background: rgba(224,115,64,0.14); color: var(--brief);
+      border: 1px solid rgba(224,115,64,0.4); flex-shrink: 0;
+      font-family: 'SF Mono', Menlo, Monaco, monospace;
+    }
+    .brief-prompt-title {
+      font-size: 14px; font-weight: 500; color: var(--text-primary); flex: 1;
+    }
+    .brief-prompt-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+    .brief-files {
+      font-size: 11px; color: var(--text-tertiary); margin-bottom: 8px;
+    }
+    .brief-file-chip {
+      display: inline-block;
+      font-family: 'SF Mono', Menlo, Monaco, monospace; font-size: 10px;
+      color: var(--cyan-dim); background: rgba(0,191,216,0.06);
+      padding: 1px 6px; border-radius: 3px; margin: 2px 3px 2px 0;
+    }
+    .brief-collapsible {
+      margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px;
+    }
+    .brief-collapse-toggle {
+      background: none; border: none; font-size: 11px; color: var(--text-tertiary);
+      cursor: pointer; font-family: inherit; letter-spacing: 0.1em; padding: 0;
+      text-transform: uppercase; transition: color 0.15s; display: flex; align-items: center; gap: 5px;
+    }
+    .brief-collapse-toggle:hover { color: var(--brief); }
+    .brief-collapse-body {
+      display: none; margin-top: 8px; font-size: 12px; color: var(--text-secondary);
+      line-height: 1.6; background: rgba(0,0,0,0.2); border-radius: 6px; padding: 10px 12px;
+      font-family: 'SF Mono', Menlo, Monaco, monospace; white-space: pre-wrap; word-break: break-word;
+    }
+    .brief-collapse-body.open { display: block; }
+    .brief-hints-body {
+      font-family: inherit; white-space: normal;
+    }
+    .brief-copy-btn {
+      float: right;
+      background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 6px; padding: 4px 10px; font-size: 10px; color: var(--text-tertiary);
+      cursor: pointer; transition: all 0.15s; font-family: inherit; letter-spacing: 0.1em;
+    }
+    .brief-copy-btn:hover { border-color: var(--brief); color: var(--brief); }
+    .brief-tag-pill {
+      display: inline-block; padding: 1px 8px; border-radius: 10px;
+      font-size: 10px; color: var(--text-tertiary); border: 1px solid var(--border);
+      background: transparent; margin: 2px 3px 2px 0;
+    }
+
+    /* Regenerate tab */
+    .brief-regen-card {
+      background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px 22px; margin-bottom: 14px;
+    }
+    .brief-cmd-block {
+      background: rgba(0,0,0,0.35); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 16px; margin: 12px 0;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .brief-cmd-text {
+      font-family: 'SF Mono', Menlo, Monaco, monospace;
+      font-size: 13px; color: var(--cyan-bright);
+    }
+    .brief-history-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px;
+      background: var(--bg-tile); margin-bottom: 8px;
+      font-size: 12px; color: var(--text-secondary);
+    }
+    .brief-history-row a {
+      color: var(--brief); text-decoration: none; font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .brief-history-row a:hover { text-decoration: underline; }
+    .brief-no-data {
+      padding: 32px 20px; text-align: center; color: var(--text-tertiary); font-size: 13px;
+      background: var(--bg-tile); border: 1px dashed rgba(224,115,64,0.35); border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -741,6 +923,12 @@
     let multiSelectMode = false;  // when true, Level 1 shows checkboxes
     let multiSelectIds = new Set(); // report ids selected for cross-scan export
 
+    // Ghost Brief state
+    let briefData = null;          // ghost-brief-latest.json content (or null if not found)
+    let briefHistory = [];         // array of {name, download_url} from briefs/ dir listing
+    let briefLoaded = false;       // true once we've attempted fetch
+    let briefTab = 'overview';     // 'overview' | 'prompts' | 'regenerate'
+
     // ── Boot ─────────────────────────────────────────────────────────
     async function boot() {
       try {
@@ -759,10 +947,10 @@
       currentView = view;
       currentMode = mode || null;
       currentReportId = reportId || null;
-      // Level 0 clears the hash entirely so a refresh lands back home.
-      // Passing the bare pathname strips any leftover #m=... from the URL.
       if (view === 'level0') {
         history.pushState({ view }, '', location.pathname + location.search);
+      } else if (view === 'brief') {
+        history.pushState({ view }, '', '#brief');
       } else {
         const hash = view === 'level1' ? `#m=${mode}` : `#m=${mode}&r=${reportId}`;
         history.pushState({ view, mode, reportId }, '', hash);
@@ -784,6 +972,7 @@
     function parseInitialHash() {
       const h = location.hash.replace(/^#/, '');
       if (!h) return;
+      if (h === 'brief') { currentView = 'brief'; return; }
       const params = new URLSearchParams(h);
       const mode = params.get('m');
       const reportId = params.get('r');
@@ -796,6 +985,7 @@
       if (currentView === 'level0') renderLevel0();
       else if (currentView === 'level1') renderLevel1();
       else if (currentView === 'level2') renderLevel2();
+      else if (currentView === 'brief') renderBriefPanel();
     }
 
     // ── LEVEL 0: Mode tile grid ──────────────────────────────────────
@@ -839,13 +1029,290 @@
         </div>
         <div class="section-label">Scan Modes</div>
         <div class="tile-grid">${tilesHtml}</div>
+        <div class="section-label" style="margin-top: 22px;">Outputs</div>
+        <div class="tile-grid" id="brief-tile-container">
+          <div class="loading" style="font-size:12px;padding:10px 0;">Loading Ghost Brief™…</div>
+        </div>
       `;
+      loadBriefTile();
+    }
+
+    // ── GHOST BRIEF — tile loader & panel ────────────────────────────
+
+    async function fetchBriefData() {
+      if (briefLoaded) return;
+      briefLoaded = true;
+      try {
+        // Fetch latest brief JSON
+        const url = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('briefs/ghost-brief-latest.json')}`;
+        const res = await fetch(url);
+        if (res.ok) {
+          briefData = await res.json();
+        }
+      } catch (_) { briefData = null; }
+
+      try {
+        // Fetch briefs/ directory listing via the same worker
+        const dirUrl = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('briefs/')}`;
+        const dirRes = await fetch(dirUrl);
+        if (dirRes.ok) {
+          const listing = await dirRes.json();
+          if (Array.isArray(listing)) {
+            briefHistory = listing
+              .filter(f => f.name && f.name.endsWith('.json') && f.name !== 'ghost-brief-latest.json')
+              .sort((a, b) => b.name.localeCompare(a.name));
+          }
+        }
+      } catch (_) { briefHistory = []; }
+    }
+
+    async function loadBriefTile() {
+      await fetchBriefData();
+      const container = document.getElementById('brief-tile-container');
+      if (!container) return;
+
+      if (!briefData) {
+        container.innerHTML = `
+          <div class="tile tile-brief" onclick="navigate('brief')" style="cursor:pointer;">
+            <div class="tile-arrow">↗</div>
+            <div class="tile-mode">Ghost Brief™</div>
+            <div class="brief-no-data" style="padding: 10px 0; border: none; text-align: left; font-size: 12px; margin-top: 6px; background: none;">
+              No Brief generated yet
+            </div>
+            <div class="tile-meta">Run: ghost --brief</div>
+          </div>
+        `;
+        return;
+      }
+
+      const s = briefData.summary || {};
+      const genAt = briefData.generated_at ? formatDate(briefData.generated_at) : '—';
+      container.innerHTML = `
+        <div class="tile tile-brief" onclick="navigate('brief')" style="cursor:pointer;">
+          <div class="tile-arrow">↗</div>
+          <div class="tile-mode">Ghost Brief™</div>
+          <div>
+            <span class="tile-count">${s.total_prompts || 0}</span>
+            <span class="tile-count-unit">prompt${(s.total_prompts || 0) !== 1 ? 's' : ''}</span>
+          </div>
+          <div class="tile-meta" style="margin-top: 6px;">${s.estimated_agent_hours != null ? s.estimated_agent_hours + 'h estimated · ' : ''}Generated ${genAt}</div>
+        </div>
+      `;
+    }
+
+    // ── Ghost Brief panel render ──────────────────────────────────────
+    async function renderBriefPanel() {
+      document.getElementById('app-root').innerHTML = `
+        <div class="back-bar">
+          <button class="back-btn" onclick="navigate('level0')">← Back</button>
+          <div class="breadcrumb">${PORTAL_SLUG} / <b>Ghost Brief™</b></div>
+        </div>
+        <div id="brief-panel-content"><div class="loading">Loading Ghost Brief™…</div></div>
+      `;
+      await fetchBriefData();
+      renderBriefContent();
+    }
+
+    function renderBriefContent() {
+      const container = document.getElementById('brief-panel-content');
+      if (!container) return;
+
+      const promptCount = briefData?.summary?.total_prompts || 0;
+      container.innerHTML = `
+        <div class="view-tabs brief-tabs">
+          <button class="view-tab ${briefTab === 'overview'    ? 'active' : ''}" onclick="switchBriefTab('overview')">Overview</button>
+          <button class="view-tab ${briefTab === 'prompts'     ? 'active' : ''}" onclick="switchBriefTab('prompts')">
+            Prompts${briefData ? `<span class="view-tab-count">${promptCount}</span>` : ''}
+          </button>
+          <button class="view-tab ${briefTab === 'regenerate'  ? 'active' : ''}" onclick="switchBriefTab('regenerate')">Regenerate</button>
+        </div>
+        <div id="brief-tab-content"></div>
+      `;
+      renderBriefTab();
+    }
+
+    function switchBriefTab(tab) {
+      briefTab = tab;
+      renderBriefContent();
+    }
+
+    function renderBriefTab() {
+      const container = document.getElementById('brief-tab-content');
+      if (!container) return;
+
+      if (briefTab === 'overview') {
+        if (!briefData) {
+          container.innerHTML = `<div class="brief-no-data">No Ghost Brief™ found. Use the Regenerate tab for instructions.</div>`;
+          return;
+        }
+        const s = briefData.summary || {};
+        const src = briefData.source || {};
+        const sev = s.by_severity || {};
+        const blast = s.by_blast_radius || {};
+
+        const sevChips = ['critical','high','medium','low'].map(k => {
+          const n = sev[k] || 0;
+          if (!n) return '';
+          return `<span class="sev-chip sev-${k}"><span class="dot"></span>${n} ${k.charAt(0).toUpperCase()+k.slice(1)}</span>`;
+        }).join('');
+        const blastChips = ['surgical','moderate','broad'].map(k => {
+          const n = blast[k] || 0;
+          if (!n) return '';
+          return `<span class="blast-chip blast-${k}">${n} ${k.charAt(0).toUpperCase()+k.slice(1)}</span>`;
+        }).join('');
+
+        const dlUrl = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('briefs/ghost-brief-latest.json')}`;
+
+        container.innerHTML = `
+          <div class="brief-card">
+            <div class="brief-card-title">Summary</div>
+            <div class="brief-stats-grid">
+              <div class="brief-stat">
+                <div class="lbl">Total Prompts</div>
+                <div class="val">${s.total_prompts || 0}</div>
+              </div>
+              <div class="brief-stat">
+                <div class="lbl">Est. Agent Hours</div>
+                <div class="val">${s.estimated_agent_hours != null ? s.estimated_agent_hours : '—'}<small>h</small></div>
+              </div>
+            </div>
+            ${sevChips ? `<div class="brief-sev-row">${sevChips}</div>` : ''}
+            ${blastChips ? `<div class="brief-blast-row">${blastChips}</div>` : ''}
+            <div style="margin-top: 16px;">
+              <a class="brief-dl-btn" href="${dlUrl}" target="_blank" download="ghost-brief.json">
+                ↓ Download ghost-brief.json
+              </a>
+            </div>
+          </div>
+
+          <div class="brief-card">
+            <div class="brief-card-title">Source</div>
+            <div class="brief-source-row">
+              <div class="brief-source-kv"><b>Scan Mode:</b> ${escapeHtml(src.scan_mode || '—')}</div>
+              ${src.contributing_modes ? `<div class="brief-source-kv"><b>Contributing Modes:</b> ${escapeHtml(src.contributing_modes.join(', '))}</div>` : ''}
+              <div class="brief-source-kv"><b>Generated:</b> ${briefData.generated_at ? formatDate(briefData.generated_at) : '—'}</div>
+              <div class="brief-source-kv"><b>Ghost Version:</b> ${escapeHtml(briefData.ghost_version || '—')}</div>
+              <div class="brief-source-kv"><b>Codebase Root:</b> <span style="font-family: 'SF Mono', Menlo, monospace; font-size: 11px; color: var(--cyan-dim);">${escapeHtml(src.codebase_root || '—')}</span></div>
+              <div class="brief-source-kv"><b>Source File:</b> <span style="font-family: 'SF Mono', Menlo, monospace; font-size: 11px; color: var(--cyan-dim);">${escapeHtml(src.scan_file || '—')}</span></div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      if (briefTab === 'prompts') {
+        if (!briefData || !Array.isArray(briefData.prompts) || briefData.prompts.length === 0) {
+          container.innerHTML = `<div class="brief-no-data">No prompts in this Brief.</div>`;
+          return;
+        }
+        const sorted = [...briefData.prompts].sort((a, b) => (a.blast_score || 0) - (b.blast_score || 0));
+        const cardsHtml = sorted.map((p, idx) => {
+          const sev = (p.severity || 'medium').toLowerCase();
+          const blast = (p.blast_radius || 'surgical').toLowerCase();
+          const primaryFiles = (p.files?.primary || []).map(f =>
+            `<span class="brief-file-chip">${escapeHtml(f)}</span>`).join('');
+          const tags = (p.tags || []).map(t =>
+            `<span class="brief-tag-pill">${escapeHtml(t)}</span>`).join('');
+          const hints = Array.isArray(p.validation_hints)
+            ? '<ul style="margin: 6px 0 0 16px;">' + p.validation_hints.map(h => `<li style="font-size:11px;color:var(--text-secondary);margin-bottom:3px;">${escapeHtml(h)}</li>`).join('') + '</ul>'
+            : '';
+          const promptId = `bp-${idx}`;
+          const hintsId = `bh-${idx}`;
+          return `
+            <div class="brief-prompt-card f-${sev}">
+              <div class="brief-prompt-top">
+                <span class="gb-badge">${escapeHtml(p.id || 'GB-???')}</span>
+                <span class="brief-prompt-title">${escapeHtml(p.title || 'Untitled')}</span>
+              </div>
+              <div class="brief-prompt-badges">
+                <span class="sev-chip sev-${sev}"><span class="dot"></span>${sev.charAt(0).toUpperCase()+sev.slice(1)}</span>
+                <span class="blast-chip blast-${blast}">${blast.charAt(0).toUpperCase()+blast.slice(1)}</span>
+                ${p.blast_score != null ? `<span style="font-size:10px;color:var(--text-tertiary);align-self:center;">blast ${p.blast_score}</span>` : ''}
+              </div>
+              ${primaryFiles ? `<div class="brief-files">${primaryFiles}</div>` : ''}
+              ${tags ? `<div style="margin-bottom: 8px;">${tags}</div>` : ''}
+              <div class="brief-collapsible">
+                <button class="brief-collapse-toggle" onclick="toggleBriefCollapse('${promptId}', this)">
+                  <span>▶ Prompt</span>
+                </button>
+                <button class="brief-copy-btn" onclick="copyBriefPrompt(${idx})">Copy</button>
+                <div class="brief-collapse-body" id="${promptId}">${escapeHtml(p.prompt || '')}</div>
+              </div>
+              ${hints ? `
+              <div class="brief-collapsible">
+                <button class="brief-collapse-toggle" onclick="toggleBriefCollapse('${hintsId}', this)">
+                  <span>▶ Validation Hints</span>
+                </button>
+                <div class="brief-collapse-body brief-hints-body" id="${hintsId}">${hints}</div>
+              </div>` : ''}
+            </div>
+          `;
+        }).join('');
+        container.innerHTML = `<div class="brief-prompt-list">${cardsHtml}</div>`;
+        return;
+      }
+
+      if (briefTab === 'regenerate') {
+        const cmd = 'ghost --brief --input=ghost-report.json';
+        const genAt = briefData?.generated_at ? formatDate(briefData.generated_at) : null;
+
+        const historyHtml = briefHistory.length
+          ? briefHistory.map(f => {
+              const stamp = f.name.replace('ghost-brief-', '').replace('.json', '').replace('T', ' ').replace(/-/g, (m, o) => o < 10 ? '-' : ':');
+              const dlHref = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('briefs/' + f.name)}`;
+              return `
+                <div class="brief-history-row">
+                  <span>${escapeHtml(stamp)}</span>
+                  <a href="${dlHref}" target="_blank" download="${f.name}">↓ Download</a>
+                </div>
+              `;
+            }).join('')
+          : '<div style="font-size:12px;color:var(--text-tertiary);padding:8px 0;">No archived briefs found.</div>';
+
+        container.innerHTML = `
+          <div class="brief-regen-card">
+            <div class="brief-card-title">Generate a New Brief</div>
+            <p style="font-size:13px;color:var(--text-secondary);line-height:1.65;margin-bottom:4px;">
+              Ghost Brief™ is generated from the CLI. Run the command below inside your codebase directory
+              after completing a scan. The output file <code style="font-size:11px;background:rgba(0,191,216,0.1);padding:1px 5px;border-radius:3px;color:var(--cyan-bright);">ghost-brief.json</code>
+              is automatically pushed to this portal.
+            </p>
+            <div class="brief-cmd-block">
+              <span class="brief-cmd-text">${escapeHtml(cmd)}</span>
+              <button class="brief-copy-btn" onclick="navigator.clipboard.writeText('${escapeHtml(cmd)}').then(()=>showToast('Copied','Command copied to clipboard'))">Copy</button>
+            </div>
+            ${genAt ? `<p style="font-size:12px;color:var(--text-tertiary);margin-top:2px;">Current Brief generated: <b style="color:var(--text-secondary);">${genAt}</b></p>` : ''}
+          </div>
+
+          <div class="brief-regen-card">
+            <div class="brief-card-title">Brief History</div>
+            ${historyHtml}
+          </div>
+        `;
+        return;
+      }
+    }
+
+    function toggleBriefCollapse(id, btn) {
+      const body = document.getElementById(id);
+      if (!body) return;
+      const isOpen = body.classList.toggle('open');
+      const span = btn.querySelector('span');
+      if (span) span.textContent = (isOpen ? '▼ ' : '▶ ') + span.textContent.replace(/^[▼▶] /, '');
+    }
+
+    function copyBriefPrompt(idx) {
+      if (!briefData || !briefData.prompts) return;
+      const sorted = [...briefData.prompts].sort((a, b) => (a.blast_score || 0) - (b.blast_score || 0));
+      const p = sorted[idx];
+      if (!p) return;
+      navigator.clipboard.writeText(p.prompt || '').then(() =>
+        showToast('Copied', `${p.id}: prompt text copied to clipboard`)
+      );
     }
 
     // ── LEVEL 1: Mode dashboard / report list ────────────────────────
     // Groups reports by project name. Shows the latest scan per project as
-    // the primary card. If a project has multiple scans, a History pill
-    // exposes the older versions inline.
     function renderLevel1() {
       const reports = manifest.reports.filter(r => r.mode === currentMode);
       const modeInfo = manifest.modeSummary[currentMode];
