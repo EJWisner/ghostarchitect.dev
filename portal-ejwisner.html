@@ -681,6 +681,33 @@
       padding: 18px 20px;
       margin-bottom: 14px;
     }
+    .brief-context-banner {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(224, 115, 64, 0.08);
+      border: 1px solid rgba(224, 115, 64, 0.25);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .brief-context-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .brief-context-headline {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary, #e8eaf0);
+      margin-bottom: 0.35rem;
+    }
+    .brief-context-sub {
+      font-size: 0.82rem;
+      color: var(--text-secondary, #8b9bb4);
+      line-height: 1.5;
+    }
+    .brief-context-sub strong { color: #e07340; }
     .brief-card-title {
       font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
       color: var(--brief); margin-bottom: 14px; font-weight: 600;
@@ -1073,7 +1100,8 @@
 
       if (!briefData) {
         container.innerHTML = `
-          <div class="tile tile-brief" onclick="navigate('brief')" style="cursor:pointer;">
+          <div class="tile tile-brief" onclick="if(!event.target.closest('.info-icon'))navigate('brief')" style="cursor:pointer;">
+            <button class="info-icon" onclick="event.stopPropagation()" title="Ghost Brief™ converts your scan findings into a validated, blast-radius-aware prompt pack for Claude Code, Cursor, or Copilot. Ghost briefs the AI. The AI fixes the code." aria-label="About Ghost Brief™">i</button>
             <div class="tile-arrow">↗</div>
             <div class="tile-mode">Ghost Brief™</div>
             <div class="brief-no-data" style="padding: 10px 0; border: none; text-align: left; font-size: 12px; margin-top: 6px; background: none;">
@@ -1088,7 +1116,8 @@
       const s = briefData.summary || {};
       const genAt = briefData.generated_at ? formatDate(briefData.generated_at) : '—';
       container.innerHTML = `
-        <div class="tile tile-brief" onclick="navigate('brief')" style="cursor:pointer;">
+        <div class="tile tile-brief" onclick="if(!event.target.closest('.info-icon'))navigate('brief')" style="cursor:pointer;">
+          <button class="info-icon" onclick="event.stopPropagation()" title="Ghost Brief™ converts your scan findings into a validated, blast-radius-aware prompt pack for Claude Code, Cursor, or Copilot. Ghost briefs the AI. The AI fixes the code." aria-label="About Ghost Brief™">i</button>
           <div class="tile-arrow">↗</div>
           <div class="tile-mode">Ghost Brief™</div>
           <div>
@@ -1118,7 +1147,37 @@
       if (!container) return;
 
       const promptCount = briefData?.summary?.total_prompts || 0;
+
+      // Context banner — only when we have real Brief data
+      const bannerHtml = briefData ? (() => {
+        const src = briefData.source || {};
+        const scanLabel = src.scan_mode === 'multi' && Array.isArray(src.contributing_modes)
+          ? src.contributing_modes.join(' + ')
+          : (src.scan_mode || 'scan');
+        const genDate = briefData.generated_at
+          ? new Date(briefData.generated_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+          : '';
+        const n = promptCount;
+        const plural = n !== 1;
+        return `
+          <div class="brief-context-banner">
+            <div class="brief-context-icon">📋</div>
+            <div class="brief-context-body">
+              <div class="brief-context-headline">
+                Ghost scanned your codebase and found <strong>${n} issue${plural ? 's' : ''}</strong>.
+              </div>
+              <div class="brief-context-sub">
+                ${plural ? 'These' : 'This'} ${n} prompt${plural ? 's' : ''} ${plural ? 'were' : 'was'} generated from your
+                <strong>${escapeHtml(scanLabel)}</strong> scan${genDate ? ' on ' + genDate : ''}.
+                Feed them into Claude Code, Cursor, or Copilot — smallest blast radius first.
+                Ghost does not touch your code. Ghost briefs the AI. The AI fixes it.
+              </div>
+            </div>
+          </div>`;
+      })() : '';
+
       container.innerHTML = `
+        ${bannerHtml}
         <div class="view-tabs brief-tabs">
           <button class="view-tab ${briefTab === 'overview'    ? 'active' : ''}" onclick="switchBriefTab('overview')">Overview</button>
           <button class="view-tab ${briefTab === 'prompts'     ? 'active' : ''}" onclick="switchBriefTab('prompts')">
