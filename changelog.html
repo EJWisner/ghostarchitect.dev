@@ -337,21 +337,47 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v8.1.7 <span class="version-date">June 18, 2026</span></span>
+      <span class="install-version">v8.1.8 <span class="version-date">June 18, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v8.1.7                                                          -->
+<!-- v8.1.8                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v8.1.7</span>
+      <span class="release-version">v8.1.8</span>
       <span class="release-date">June 18, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Brief™ HTML report — self-contained, no server, opens in any browser.</h2>
+    <p class="release-lede">Ghost Brief™ now auto-generates a <code>ghost-brief.html</code> alongside <code>ghost-brief.json</code>. Full dark-theme interactive report with expandable prompt cards, copy buttons, and blast-radius execution sequence. No login, no dependencies.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Ghost Brief™ auto-generates <code>ghost-brief.html</code></strong> alongside <code>ghost-brief.json</code> on every <code>ghost --brief</code> run.</span></li>
+      <li><span class="marker">+</span><span><strong>Self-contained HTML report.</strong> No server, no login, no external libraries. Opens in any browser directly from disk.</span></li>
+      <li><span class="marker">+</span><span><strong>Sticky header</strong> with Ghost logo, codebase path, tier badge, version, and total prompt count.</span></li>
+      <li><span class="marker">+</span><span><strong>5 summary stat cards:</strong> total prompts, critical count, high count, estimated agent hours, and blast radius breakdown.</span></li>
+      <li><span class="marker">+</span><span><strong>Recommended execution sequence</strong> with numbered chips in blast_score order — smallest blast radius first.</span></li>
+      <li><span class="marker">+</span><span><strong>Expandable prompt cards</strong> sorted by blast radius. Each card shows severity badge, blast badge, effort estimate, context, full prompt in monospace, and validation hints with green checkmarks.</span></li>
+      <li><span class="marker">+</span><span><strong>Copy button</strong> on every prompt card — clipboard write with 2-second visual feedback, no external libraries required.</span></li>
+      <li><span class="marker">+</span><span><strong>First card open by default.</strong> Remaining cards collapsed.</span></li>
+      <li><span class="marker">+</span><span><strong>Ghost dark theme throughout</strong> — matches the Ghost Architect™ design system exactly.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.1.7                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.1.7</span>
+      <span class="release-date">June 18, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">File prioritizer hardening, audit threshold, and manifest race fixes.</h2>
