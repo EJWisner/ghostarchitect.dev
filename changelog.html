@@ -337,21 +337,41 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v8.1.5 <span class="version-date">June 18, 2026</span></span>
+      <span class="install-version">v8.1.6 <span class="version-date">June 18, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v8.1.5                                                          -->
+<!-- v8.1.6                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v8.1.5</span>
+      <span class="release-version">v8.1.6</span>
       <span class="release-date">June 18, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Clock ratchet write fix, network time backoff, and trial watermark hardening.</h2>
+    <p class="release-lede">Three targeted fixes to the license validation layer surfaced during Ghost Brief™ dogfood pass 5.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>Silent clock ratchet write failure fixed.</strong> <code>updateLastSeenUtc</code> now returns a boolean; caller treats <code>false</code> as a validation failure instead of silently proceeding.</span></li>
+      <li><span class="marker">+</span><span><strong>Network time fetch exponential backoff added.</strong> Retries at 1s, 2s, 4s with jitter, capped at 15s. Grace counter only increments on full retry exhaustion, not on individual transient failures.</span></li>
+      <li><span class="marker">+</span><span><strong>Trial watermark rendering hardened.</strong> <code>trialExpires</code> validated as a non-empty string before <code>.slice</code>; falls back to "Expires: (unknown)" instead of throwing.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.1.5                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.1.5</span>
+      <span class="release-date">June 18, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Security hardening, silent failure fixes, and Ghost Brief™ dogfood completion.</h2>
