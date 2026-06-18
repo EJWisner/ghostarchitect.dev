@@ -7,7 +7,7 @@
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
   <title>Changelog &middot; Ghost Architect&trade;</title>
-  <meta name="description" content="Ghost Architect™ release notes. v8.0.2 ships Ghost Brief™ interactive menu. v8.0.0 introduces Ghost Brief™ — the governed AI remediation pipeline. Plus v7 highlights." />
+  <meta name="description" content="Ghost Architect™ release notes. v8.1.5 ships 10 security and reliability fixes. v8.0.0 introduces Ghost Brief™ — the governed AI remediation pipeline. Plus v7 highlights." />
   <!-- LAUNCH50-PROMO META START. Commented out 2026-05-27; swap with the live meta above to re-enable. -->
   <!-- <meta name="description" content="Ghost Architect™ release notes. v7.0.0 ships the unified Open tier as the trial, cost transparency in Question mode, and the LAUNCH50 promo. Plus what landed in v6 and the v5 highlights." /> -->
   <!-- LAUNCH50-PROMO META END -->
@@ -18,7 +18,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ghostarchitect.dev/changelog.html" />
   <meta property="og:title" content="Changelog &middot; Ghost Architect&trade;" />
-  <meta property="og:description" content="Ghost Architect™ release notes. v8.0.2 ships Ghost Brief™ interactive menu. v8.0.0 introduces the governed AI remediation pipeline." />
+  <meta property="og:description" content="Ghost Architect™ release notes. v8.1.5 ships 10 security and reliability fixes. v8.0.0 introduces the governed AI remediation pipeline." />
   <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
   <meta property="og:site_name" content="Ghost Architect&trade;" />
 
@@ -337,21 +337,48 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v8.0.2 <span class="version-date">June 16, 2026</span></span>
+      <span class="install-version">v8.1.5 <span class="version-date">June 18, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v8.0.2                                                          -->
+<!-- v8.1.5                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">v8.1.5</span>
+      <span class="release-date">June 18, 2026</span>
+      <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Security hardening, silent failure fixes, and Ghost Brief™ dogfood completion.</h2>
+    <p class="release-lede">Ten targeted fixes from Ghost Brief™ dogfood passes 4 and 5. License bypass, race conditions, and silent failure modes that Ghost Brief™ surfaced against its own codebase — all closed.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>License timestamp validation bypass fixed.</strong> ISO-8601 regex guard now protects the monotonic clock ratchet against replay attacks.</span></li>
+      <li><span class="marker">!</span><span><strong>Seat registration race condition fixed.</strong> AND logic now required on both SHA and nonce checks before seat is granted.</span></li>
+      <li><span class="marker">!</span><span><strong>Admin authorization TOCTOU race fixed.</strong> <code>saveOrgConfig</code> now gates on admin check as first line before any mutation.</span></li>
+      <li><span class="marker">+</span><span><strong>Clock validation fail-open telemetry added.</strong> Grace counter, streak tracking, and 10-run limit before hard block.</span></li>
+      <li><span class="marker">+</span><span><strong>Silent team-sync, mobile-publish, and portal-publish failures now surface yellow warnings</strong> with next steps instead of swallowing errors.</span></li>
+      <li><span class="marker">+</span><span><strong>GitHub API response shape validated</strong> before nested property access. Rate limit, auth failure, and repo-not-found all surface clear messages.</span></li>
+      <li><span class="marker">+</span><span><strong>Enterprise audit logging catch blocks</strong> emit debug warnings and consecutive-failure streak counter.</span></li>
+      <li><span class="marker">+</span><span><strong>Redaction failure now explains</strong> which rule failed and on which file.</span></li>
+      <li><span class="marker">+</span><span><strong>Debug log sanitization:</strong> tokens, JWTs, credentials, and username paths redacted before disk write.</span></li>
+      <li><span class="marker">+</span><span><strong>Test suite grown to 12 smoke test files and 60+ assertions.</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.0.2                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">v8.0.2</span>
       <span class="release-date">June 16, 2026</span>
-      <span class="release-badge">Latest</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Brief™ interactive menu + critical npm fix.</h2>
