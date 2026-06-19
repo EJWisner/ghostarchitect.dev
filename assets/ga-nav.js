@@ -104,6 +104,11 @@
     + '      <a href="/pricing" class="ga-nav-link' + (isActive('/pricing') || isActive('/pricing.html') || isActive('/plans.html') ? ' active' : '') + '">Pricing</a>'
     + '    </li>'
 
+    // ── PARTNER (flat) ──
+    + '    <li class="ga-nav-item">'
+    + '      <a href="/partner.html" class="ga-nav-link' + (isActive('/partner.html') || isActive('/partner') ? ' active' : '') + '">Partner</a>'
+    + '    </li>'
+
     // ── RESOURCES dropdown ──
     + '    <li class="ga-nav-item" data-dropdown>'
     + '      <button class="ga-nav-link' + (activeGroup === 'resources' ? ' active' : '') + '" aria-haspopup="true" aria-expanded="false">'
@@ -176,6 +181,7 @@
     + '    </div>'
     + '  </div>'
     + '  <a href="/pricing" class="ga-mobile-flat-link' + (isActive('/pricing') || isActive('/pricing.html') ? ' active' : '') + '">Pricing</a>'
+    + '  <a href="/partner.html" class="ga-mobile-flat-link' + (isActive('/partner.html') || isActive('/partner') ? ' active' : '') + '">Partner</a>'
     + '  <div class="ga-mobile-group' + (activeGroup === 'resources' ? ' open' : '') + '" data-mobile-group>'
     + '    <button class="ga-mobile-group-header">'
     + '      Resources'
