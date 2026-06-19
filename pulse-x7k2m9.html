@@ -1,4 +1,4 @@
-<!-- bust:2026-05-28 -->
+<!-- bust:2026-06-19 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -500,6 +500,47 @@
         </div>
       </div>
 
+      <!-- ── PARTNER REFERRAL PANEL ── -->
+      <div style="border-top: 1px solid var(--border); margin-top: 4px; padding-top: 4px;">
+        <div class="body" id="partner-body" style="padding-top: 14px;">
+          <div class="section-header" style="margin-bottom: 14px;">
+            <div class="section-label">Ghost Partner · NOTELOFTPARTNER</div>
+            <div class="section-note" id="partner-note">loading...</div>
+          </div>
+
+          <div class="grid">
+            <div class="metric">
+              <div class="metric-label">Active Subscribers</div>
+              <div class="metric-value" id="partner-active">—</div>
+              <div class="metric-sub" id="partner-active-sub">via NOTELOFTPARTNER</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Monthly Revenue</div>
+              <div class="metric-value" id="partner-mrr">—</div>
+              <div class="metric-sub">MRR from referrals</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Payout Owed</div>
+              <div class="metric-value" id="partner-payout" style="color: var(--good);">—</div>
+              <div class="metric-sub">10% · pay via Zelle</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Canceled</div>
+              <div class="metric-value" id="partner-canceled" style="color: var(--text-secondary);">—</div>
+              <div class="metric-sub">churned referrals</div>
+            </div>
+          </div>
+
+          <div class="section" id="partner-subscribers-section" style="display:none;">
+            <div class="section-header">
+              <div class="section-label">Active Subscribers</div>
+              <div class="section-note" id="partner-subscribers-note"></div>
+            </div>
+            <div class="bars" id="partner-subscribers-bars"></div>
+          </div>
+        </div>
+      </div>
+
       <div class="footer">
         <div class="footer-status">
           <div class="status-dot" id="status-dot"></div>
@@ -952,6 +993,54 @@
 
     tick();
     setInterval(tick, REFRESH_INTERVAL_MS);
+
+    // ── Partner referral panel ──────────────────────────────────────────
+    const PARTNER_ENDPOINT = 'https://signup.ghostarchitect.dev/pulse-partner';
+
+    function formatMrr(n) {
+      return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+    }
+
+    async function fetchPartnerStats() {
+      try {
+        const res = await fetch(PARTNER_ENDPOINT, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        renderPartner(data);
+      } catch (err) {
+        console.error('[ghost-pulse] partner fetch failed:', err);
+        document.getElementById('partner-note').textContent = 'fetch failed · retry in 60s';
+      }
+    }
+
+    function renderPartner(data) {
+      document.getElementById('partner-active').textContent = data.activeCount;
+      document.getElementById('partner-mrr').textContent = formatMrr(data.totalMrr);
+      document.getElementById('partner-payout').textContent = formatMrr(data.payoutOwed);
+      document.getElementById('partner-canceled').textContent = data.canceledCount;
+      document.getElementById('partner-note').textContent =
+        `updated ${new Date(data.generatedAt).toLocaleTimeString()}`;
+
+      if (data.subscribers && data.subscribers.length > 0) {
+        const section = document.getElementById('partner-subscribers-section');
+        section.style.display = '';
+        document.getElementById('partner-subscribers-note').textContent =
+          `${data.activeCount} active`;
+        const bars = document.getElementById('partner-subscribers-bars');
+        bars.innerHTML = data.subscribers.map(sub => `
+          <div class="bar-row" style="grid-template-columns: 100px 1fr 60px;">
+            <div class="bar-label">${escapeHtml(sub.tier)}</div>
+            <div class="bar-label" style="color: var(--text-tertiary); font-size: 9px;">
+              since ${sub.createdAt}
+            </div>
+            <div class="bar-count" style="color: var(--good);">${formatMrr(sub.mrr)}</div>
+          </div>
+        `).join('');
+      }
+    }
+
+    fetchPartnerStats();
+    setInterval(fetchPartnerStats, REFRESH_INTERVAL_MS);
   </script>
 </body>
 </html>
