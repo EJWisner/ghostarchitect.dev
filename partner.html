@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Ghost Partner™ — Earn recurring revenue referring Ghost Architect™. 10% of every subscription, every month, forever.">
+  <title>Ghost Partner™ — Referral Program</title>
+  <style>
+    :root {
+      --bg: #0a0d12;
+      --card: #0d1117;
+      --card2: #111520;
+      --border: #1e2535;
+      --orange: #e07340;
+      --orange-dim: #a0512d;
+      --white: #ffffff;
+      --lgray: #e2e8f0;
+      --mgray: #6b7280;
+      --dgray: #4b5563;
+      --green: #22c55e;
+      --amber: #f59e0b;
+      --red: #ef4444;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      background: var(--bg);
+      color: var(--lgray);
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .nav {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card);
+    }
+    .nav-brand {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--orange);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--mgray);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .hero {
+      padding: 80px 40px 60px;
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--card2);
+      border: 1px solid var(--orange);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 46px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .hero h1 em { font-style: normal; color: var(--orange); }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--mgray);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: var(--orange);
+      color: #000;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .hero-cta:hover { background: #c5622e; }
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 40px;
+      border-top: 1px solid var(--border);
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section h2 {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .section p { color: var(--mgray); margin-bottom: 16px; max-width: 640px; }
+    .payout-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .payout-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .payout-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--orange);
+    }
+    .payout-tier {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .payout-price { font-size: 13px; color: var(--dgray); margin-bottom: 16px; }
+    .payout-earn-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--mgray);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .payout-earn {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .payout-earn-sub { font-size: 12px; color: var(--dgray); margin-top: 4px; }
+    .steps { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: #000;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-title { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+    .step-body { font-size: 13px; color: var(--mgray); }
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .who-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 14px 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--lgray);
+    }
+    .who-check { color: var(--green); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+    .form-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px;
+      margin-top: 32px;
+    }
+    .form-title { font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .form-sub { font-size: 13px; color: var(--mgray); margin-bottom: 24px; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-field.full { grid-column: 1 / -1; }
+    .form-field label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--dgray);
+      text-transform: uppercase;
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 14px;
+      color: var(--lgray);
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus { border-color: var(--orange); }
+    .form-field textarea { resize: vertical; min-height: 90px; }
+    .form-field select option { background: var(--card); }
+    .form-submit {
+      background: var(--orange);
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      padding: 13px 32px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      width: 100%;
+      font-family: inherit;
+      margin-top: 6px;
+      transition: background 0.15s;
+    }
+    .form-submit:hover { background: #c5622e; }
+    .form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .form-note { font-size: 12px; color: var(--dgray); text-align: center; margin-top: 12px; }
+    .form-status { font-size: 13px; text-align: center; margin-top: 14px; min-height: 20px; }
+    .form-status.success { color: var(--green); }
+    .form-status.error { color: var(--red); }
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--dgray);
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .footer a { color: var(--orange); text-decoration: none; }
+    @media (max-width: 640px) {
+      .hero { padding: 48px 20px 40px; }
+      .hero h1 { font-size: 30px; }
+      .section { padding: 40px 20px; }
+      .payout-grid { grid-template-columns: 1fr; }
+      .who-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .form-wrap { padding: 24px 20px; }
+      .footer { flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-brand" href="/">Ghost Architect™</a>
+  <div class="nav-links">
+    <a href="/pricing">Pricing</a>
+    <a href="/changelog.html">Changelog</a>
+    <a href="/blog.html">Blog</a>
+    <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank">Install Free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Ghost Partner™ Program</div>
+  <h1>Refer once.<br><em>Earn every month.</em></h1>
+  <p class="hero-sub">Your network trusts your recommendations. Put that trust to work. Every customer you refer pays you 10% of their monthly subscription — forever, with no cap and no expiration.</p>
+  <a href="#apply" class="hero-cta">Apply to Become a Partner</a>
+</div>
+
+<div class="section">
+  <div class="section-label">Your Earnings</div>
+  <h2>10% every month. No cap. No expiration.</h2>
+  <p>Every active subscriber you refer puts money in your pocket every single month. One referral at the Enterprise tier earns you over $1,400 a year — passively.</p>
+  <div class="payout-grid">
+    <div class="payout-card">
+      <div class="payout-tier">Ghost Pro</div>
+      <div class="payout-price">$99/mo subscription</div>
+      <div class="payout-earn-label">You earn</div>
+      <div class="payout-earn">$9.90</div>
+      <div class="payout-earn-sub">per referral per month</div>
+    </div>
+    <div class="payout-card">
+      <div class="payout-tier">Ghost Team</div>
+      <div class="payout-price">$399/mo subscription</div>
+      <div class="payout-earn-label">You earn</div>
+      <div class="payout-earn">$39.90</div>
+      <div class="payout-earn-sub">per referral per month</div>
+    </div>
+    <div class="payout-card">
+      <div class="payout-tier">Ghost Enterprise</div>
+      <div class="payout-price">$1,200/mo subscription</div>
+      <div class="payout-earn-label">You earn</div>
+      <div class="payout-earn">$120.00</div>
+      <div class="payout-earn-sub">per referral per month</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">How It Works</div>
+  <h2>Simple. Transparent. Recurring.</h2>
+  <p>No complicated dashboards. No minimum thresholds. No waiting periods beyond 30 days.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Apply and get approved</div>
+        <div class="step-body">Fill out the form below. We review every application personally and respond within 2 business days.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Get your personal referral code</div>
+        <div class="step-body">Once approved you receive a unique promo code. Your referrals use it at checkout and get 10% off their subscription forever.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Share Ghost Architect with your network</div>
+        <div class="step-body">Mention it in conversations, write about it, share it with clients, post about it. However you naturally share tools you believe in.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">Get paid every month via Zelle</div>
+        <div class="step-body">We pay out within 30 days of each billing cycle via Zelle. No invoicing. No minimum payout threshold. Just money in your account.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Who Makes a Great Partner</div>
+  <h2>If your network builds or buys software, you qualify.</h2>
+  <p>Ghost Architect serves anyone who needs to understand what is inside a codebase before making a decision. If you work with those people, you are in the right place.</p>
+  <div class="who-grid">
+    <div class="who-item"><span class="who-check">✓</span>Software architects and senior engineers</div>
+    <div class="who-item"><span class="who-check">✓</span>CTOs and VPs of Engineering</div>
+    <div class="who-item"><span class="who-check">✓</span>Digital agencies and dev shops</div>
+    <div class="who-item"><span class="who-check">✓</span>Fractional CTOs and technical advisors</div>
+    <div class="who-item"><span class="who-check">✓</span>IT directors and enterprise architects</div>
+    <div class="who-item"><span class="who-check">✓</span>PE and M&A technical due diligence teams</div>
+    <div class="who-item"><span class="who-check">✓</span>Systems integrators and consultants</div>
+    <div class="who-item"><span class="who-check">✓</span>Developer advocates and tech content creators</div>
+    <div class="who-item"><span class="who-check">✓</span>Staffing firms placing engineering talent</div>
+    <div class="who-item"><span class="who-check">✓</span>Business owners who inherited a codebase</div>
+  </div>
+</div>
+
+<div class="section" id="apply">
+  <div class="section-label">Apply Now</div>
+  <h2>Tell us about yourself.</h2>
+  <p>We review every application personally. If you are a good fit we will reach out within 2 business days with your referral code and everything you need to get started.</p>
+  <div class="form-wrap">
+    <div class="form-title">Ghost Partner™ Application</div>
+    <div class="form-sub">All fields required except the last one.</div>
+    <div class="form-grid">
+      <div class="form-field">
+        <label>First Name</label>
+        <input type="text" id="f-first" placeholder="Jane" autocomplete="given-name">
+      </div>
+      <div class="form-field">
+        <label>Last Name</label>
+        <input type="text" id="f-last" placeholder="Smith" autocomplete="family-name">
+      </div>
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" id="f-email" placeholder="jane@example.com" autocomplete="email">
+      </div>
+      <div class="form-field">
+        <label>Company or Agency</label>
+        <input type="text" id="f-company" placeholder="Acme Agency">
+      </div>
+      <div class="form-field full">
+        <label>Your Role</label>
+        <select id="f-role">
+          <option value="">Select your role...</option>
+          <option>Software Architect</option>
+          <option>CTO / VP Engineering</option>
+          <option>Agency Owner / Partner</option>
+          <option>Fractional CTO</option>
+          <option>IT Director</option>
+          <option>PE / M&A Advisor</option>
+          <option>Systems Integrator / Consultant</option>
+          <option>Developer Advocate / Content Creator</option>
+          <option>Staffing / Recruiting</option>
+          <option>Independent Developer</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-field full">
+        <label>How do you plan to refer customers?</label>
+        <textarea id="f-how" placeholder="Tell us about your network and how you would introduce Ghost Architect to the people you work with..."></textarea>
+      </div>
+      <div class="form-field full">
+        <label>LinkedIn or website (optional)</label>
+        <input type="url" id="f-url" placeholder="https://linkedin.com/in/yourprofile">
+      </div>
+    </div>
+    <button class="form-submit" id="f-submit" onclick="submitApplication()">Submit Application</button>
+    <div class="form-note">We review every application personally and respond within 2 business days.</div>
+    <div class="form-status" id="f-status"></div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Ghost Partner™ is a program of Ghost Platform LLC</span>
+  <span><a href="/">ghostarchitect.dev</a> · <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a></span>
+</div>
+
+<script>
+  async function submitApplication() {
+    const first   = document.getElementById('f-first').value.trim();
+    const last    = document.getElementById('f-last').value.trim();
+    const email   = document.getElementById('f-email').value.trim();
+    const company = document.getElementById('f-company').value.trim();
+    const role    = document.getElementById('f-role').value;
+    const how     = document.getElementById('f-how').value.trim();
+    const url     = document.getElementById('f-url').value.trim();
+    const status  = document.getElementById('f-status');
+    const btn     = document.getElementById('f-submit');
+
+    if (!first || !last || !email || !company || !role || !how) {
+      status.textContent = 'Please fill in all required fields.';
+      status.className = 'form-status error';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'SUBMITTING...';
+    status.textContent = '';
+
+    try {
+      const res = await fetch('https://signup.ghostarchitect.dev/partner-apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ first, last, email, company, role, how, url }),
+      });
+      if (res.ok) {
+        status.textContent = 'Application received. We will be in touch within 2 business days.';
+        status.className = 'form-status success';
+        ['f-first','f-last','f-email','f-company','f-how','f-url'].forEach(id => {
+          document.getElementById(id).value = '';
+        });
+        document.getElementById('f-role').value = '';
+        btn.textContent = 'APPLICATION SENT';
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (_) {
+      status.textContent = 'Something went wrong. Email us directly at support@ghostarchitect.dev';
+      status.className = 'form-status error';
+      btn.disabled = false;
+      btn.textContent = 'SUBMIT APPLICATION';
+    }
+  }
+</script>
+
+</body>
+</html>
