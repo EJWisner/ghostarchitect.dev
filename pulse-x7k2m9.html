@@ -581,6 +581,25 @@
                        font-family: inherit; text-transform: uppercase;">
                 ADD PARTNER
               </button>
+              <div style="border-top: 1px solid var(--border); margin-top: 14px; padding-top: 14px;">
+                <div class="section-header" style="margin-bottom: 10px;">
+                  <div class="section-label">Remove Partner</div>
+                  <div class="section-note" id="partner-remove-note"></div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <input id="pa-remove-code" type="text" placeholder="Promo code to remove"
+                    style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 6px;
+                           padding: 9px 12px; color: var(--text-primary); font-size: 12px; flex: 1;
+                           outline: none; font-family: inherit; text-transform: uppercase;">
+                  <button id="pa-remove-submit" onclick="removePartner()"
+                    style="background: rgba(255,122,122,0.15); border: 1px solid var(--bad); border-radius: 6px;
+                           padding: 9px 16px; color: var(--bad); font-size: 11px; font-weight: 700;
+                           letter-spacing: 0.12em; cursor: pointer; font-family: inherit;
+                           text-transform: uppercase; white-space: nowrap;">
+                    REMOVE
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1146,6 +1165,52 @@
         note.className = 'section-note down';
       } finally {
         btn.textContent = 'ADD PARTNER';
+        btn.disabled = false;
+      }
+    }
+
+    async function removePartner() {
+      const token = document.getElementById('pa-token').value.trim();
+      const code = document.getElementById('pa-remove-code').value.trim().toUpperCase();
+      const note = document.getElementById('partner-remove-note');
+      const btn = document.getElementById('pa-remove-submit');
+
+      if (!token || !code) {
+        note.textContent = 'enter token and promo code';
+        note.className = 'section-note down';
+        return;
+      }
+
+      if (!confirm(`Remove partner ${code}? This cannot be undone.`)) return;
+
+      btn.textContent = 'REMOVING...';
+      btn.disabled = true;
+      note.textContent = '';
+
+      try {
+        const res = await fetch('https://signup.ghostarchitect.dev/pulse-partner-remove', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ code }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          note.textContent = data.error || `error ${res.status}`;
+          note.className = 'section-note down';
+        } else {
+          note.textContent = `${code} removed · ${data.totalPartners} partners remaining`;
+          note.className = 'section-note up';
+          document.getElementById('pa-remove-code').value = '';
+          fetchPartnerStats();
+        }
+      } catch (err) {
+        note.textContent = 'network error · try again';
+        note.className = 'section-note down';
+      } finally {
+        btn.textContent = 'REMOVE';
         btn.disabled = false;
       }
     }
