@@ -538,6 +538,51 @@
             </div>
             <div class="bars" id="partner-subscribers-bars"></div>
           </div>
+
+          <!-- ── PARTNER ADMIN ── -->
+          <div style="border-top: 1px solid var(--border); margin-top: 14px; padding-top: 14px;">
+            <div class="section-header" style="margin-bottom: 12px;">
+              <div class="section-label">Add Partner</div>
+              <div class="section-note" id="partner-admin-note"></div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <input id="pa-token" type="password" placeholder="Admin token"
+                style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 6px;
+                       padding: 9px 12px; color: var(--text-primary); font-size: 12px; width: 100%;
+                       outline: none; font-family: inherit;">
+              <input id="pa-name" type="text" placeholder="Partner name (e.g. Maier Bianchi)"
+                style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 6px;
+                       padding: 9px 12px; color: var(--text-primary); font-size: 12px; width: 100%;
+                       outline: none; font-family: inherit;">
+              <input id="pa-company" type="text" placeholder="Company (e.g. Bemeir)"
+                style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 6px;
+                       padding: 9px 12px; color: var(--text-primary); font-size: 12px; width: 100%;
+                       outline: none; font-family: inherit;">
+              <input id="pa-email" type="email" placeholder="Partner email"
+                style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 6px;
+                       padding: 9px 12px; color: var(--text-primary); font-size: 12px; width: 100%;
+                       outline: none; font-family: inherit;">
+              <input id="pa-code" type="text" placeholder="Promo code (e.g. BEMEIR10)"
+                style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 6px;
+                       padding: 9px 12px; color: var(--text-primary); font-size: 12px; width: 100%;
+                       outline: none; font-family: inherit; text-transform: uppercase;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="font-size: 10px; color: var(--text-tertiary); letter-spacing: 0.1em;">REVENUE SHARE</div>
+                <input id="pa-share" type="number" value="10" min="1" max="50" step="1"
+                  style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 6px;
+                         padding: 9px 12px; color: var(--text-primary); font-size: 12px; width: 70px;
+                         outline: none; font-family: inherit;">
+                <div style="font-size: 10px; color: var(--text-tertiary);">%</div>
+              </div>
+              <button id="pa-submit" onclick="addPartner()"
+                style="background: linear-gradient(135deg, var(--cyan), #0090a8); border: none;
+                       border-radius: 6px; padding: 11px; color: #050a14; font-size: 12px;
+                       font-weight: 700; letter-spacing: 0.12em; cursor: pointer; width: 100%;
+                       font-family: inherit; text-transform: uppercase;">
+                ADD PARTNER
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1053,6 +1098,58 @@
         `).join('');
       }
     }
+    async function addPartner() {
+      const token = document.getElementById('pa-token').value.trim();
+      const name = document.getElementById('pa-name').value.trim();
+      const company = document.getElementById('pa-company').value.trim();
+      const email = document.getElementById('pa-email').value.trim();
+      const code = document.getElementById('pa-code').value.trim().toUpperCase();
+      const share = parseFloat(document.getElementById('pa-share').value) / 100;
+      const note = document.getElementById('partner-admin-note');
+      const btn = document.getElementById('pa-submit');
+
+      if (!token || !name || !email || !code) {
+        note.textContent = 'fill in all required fields';
+        note.className = 'section-note down';
+        return;
+      }
+
+      btn.textContent = 'ADDING...';
+      btn.disabled = true;
+      note.textContent = '';
+
+      try {
+        const res = await fetch('https://signup.ghostarchitect.dev/pulse-partner-add', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ code, name, company, email, revenueShare: share }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          note.textContent = data.error || `error ${res.status}`;
+          note.className = 'section-note down';
+        } else {
+          note.textContent = `${name} added · ${data.totalPartners} partners total`;
+          note.className = 'section-note up';
+          document.getElementById('pa-name').value = '';
+          document.getElementById('pa-company').value = '';
+          document.getElementById('pa-email').value = '';
+          document.getElementById('pa-code').value = '';
+          document.getElementById('pa-share').value = '10';
+          fetchPartnerStats();
+        }
+      } catch (err) {
+        note.textContent = 'network error · try again';
+        note.className = 'section-note down';
+      } finally {
+        btn.textContent = 'ADD PARTNER';
+        btn.disabled = false;
+      }
+    }
+
     fetchPartnerStats();
     setInterval(fetchPartnerStats, REFRESH_INTERVAL_MS);
   </script>
