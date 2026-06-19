@@ -1076,46 +1076,43 @@
     }
     function renderPartner(data) {
       const partners = data.partners || [];
-      const first = partners[0] || {};
-      document.getElementById('partner-active').textContent = first.activeCount ?? '—';
+      document.getElementById('partner-active').textContent =
+        partners.reduce((sum, p) => sum + p.activeCount, 0);
       document.getElementById('partner-mrr').textContent = formatMrr(data.totalMrr || 0);
       document.getElementById('partner-payout').textContent = formatMrr(data.totalPayoutOwed || 0);
-      document.getElementById('partner-canceled').textContent = first.canceledCount ?? '—';
+      document.getElementById('partner-canceled').textContent =
+        partners.reduce((sum, p) => sum + p.canceledCount, 0);
       document.getElementById('partner-note').textContent =
         `${partners.length} partner${partners.length !== 1 ? 's' : ''} · updated ${new Date(data.generatedAt).toLocaleTimeString()}`;
-      const allSubscribers = partners.flatMap(p =>
-        (p.subscribers || []).map(s => ({ ...s, partnerName: p.name, partnerCode: p.code }))
-      );
       const section = document.getElementById('partner-subscribers-section');
       const bars = document.getElementById('partner-subscribers-bars');
       const note = document.getElementById('partner-subscribers-note');
-      if (partners.length > 1) {
-        section.style.display = '';
-        note.textContent = `${partners.length} partners · ${allSubscribers.length} active`;
-        const summaryRows = partners.map(p => `
-          <div class="bar-row" style="grid-template-columns: 120px 1fr 60px;">
-            <div class="bar-label" style="color: var(--cyan);">${escapeHtml(p.name)}</div>
-            <div class="bar-label" style="color: var(--text-tertiary); font-size: 9px;">
-              ${p.activeCount} active · ${escapeHtml(p.code)}
+      section.style.display = '';
+      note.textContent = `${partners.length} registered`;
+      const partnerRows = partners.map(p => `
+        <div class="bar-row" style="grid-template-columns: 1fr 110px 60px;">
+          <div class="bar-label" style="color: var(--text-primary);">${escapeHtml(p.name)}</div>
+          <div class="bar-label" style="color: var(--text-tertiary); font-size: 9px; letter-spacing: 0.06em;">${escapeHtml(p.code)}</div>
+          <div class="bar-count" style="color: ${p.activeCount > 0 ? 'var(--good)' : 'var(--text-tertiary)'};">${p.activeCount} active</div>
+        </div>
+      `).join('');
+      const allSubscribers = partners.flatMap(p =>
+        (p.subscribers || []).map(s => ({ ...s, partnerName: p.name, partnerCode: p.code }))
+      );
+      const subscriberRows = allSubscribers.length > 0
+        ? `<div style="border-top: 1px solid var(--border); margin-top: 6px; padding-top: 6px;">` +
+          allSubscribers.map(sub => `
+            <div class="bar-row" style="grid-template-columns: 100px 1fr 60px;">
+              <div class="bar-label">${escapeHtml(sub.tier)}</div>
+              <div class="bar-label" style="color: var(--text-tertiary); font-size: 9px;">
+                ${escapeHtml(sub.partnerName)} · since ${sub.createdAt}
+              </div>
+              <div class="bar-count" style="color: var(--good);">${formatMrr(sub.mrr)}</div>
             </div>
-            <div class="bar-count" style="color: var(--good);">${formatMrr(p.payoutOwed)}</div>
-          </div>
-        `).join('');
-        bars.innerHTML = summaryRows;
-      }
-      if (allSubscribers.length > 0) {
-        section.style.display = '';
-        note.textContent = `${allSubscribers.length} active`;
-        bars.innerHTML = allSubscribers.map(sub => `
-          <div class="bar-row" style="grid-template-columns: 100px 1fr 60px;">
-            <div class="bar-label">${escapeHtml(sub.tier)}</div>
-            <div class="bar-label" style="color: var(--text-tertiary); font-size: 9px;">
-              ${escapeHtml(sub.partnerName)} · since ${sub.createdAt}
-            </div>
-            <div class="bar-count" style="color: var(--good);">${formatMrr(sub.mrr)}</div>
-          </div>
-        `).join('');
-      }
+          `).join('') +
+          `</div>`
+        : '';
+      bars.innerHTML = partnerRows + subscriberRows;
     }
     async function addPartner() {
       const token = document.getElementById('pa-token').value.trim();
