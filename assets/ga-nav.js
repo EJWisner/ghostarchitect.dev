@@ -106,7 +106,7 @@
 
     // ── PARTNER (flat) ──
     + '    <li class="ga-nav-item">'
-    + '      <a href="/partner.html" class="ga-nav-link' + (isActive('/partner.html') || isActive('/partner') ? ' active' : '') + '">Partner</a>'
+    + '      <a href="/partner.html" class="ga-nav-link' + (isActive('/partner.html') || isActive('/partner') ? ' active' : '') + '">Refer &amp; Earn</a>'
     + '    </li>'
 
     // ── RESOURCES dropdown ──
@@ -181,7 +181,7 @@
     + '    </div>'
     + '  </div>'
     + '  <a href="/pricing" class="ga-mobile-flat-link' + (isActive('/pricing') || isActive('/pricing.html') ? ' active' : '') + '">Pricing</a>'
-    + '  <a href="/partner.html" class="ga-mobile-flat-link' + (isActive('/partner.html') || isActive('/partner') ? ' active' : '') + '">Partner</a>'
+    + '  <a href="/partner.html" class="ga-mobile-flat-link' + (isActive('/partner.html') || isActive('/partner') ? ' active' : '') + '">Refer &amp; Earn</a>'
     + '  <div class="ga-mobile-group' + (activeGroup === 'resources' ? ' open' : '') + '" data-mobile-group>'
     + '    <button class="ga-mobile-group-header">'
     + '      Resources'
