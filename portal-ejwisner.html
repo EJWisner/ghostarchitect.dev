@@ -936,6 +936,10 @@
         title: 'Project Dashboard',
         body: 'A live remediation rollup across every labeled project. Shows baseline vs. current finding counts, percent remediated, and what is still open. Updated automatically after every scan that touches a tracked project. The export here gives you one Jira batch containing all open findings across all projects.',
       },
+      'ghost-brief': {
+        title: 'Ghost Brief™',
+        body: 'Ghost Brief™ converts your scan findings into a validated, blast-radius-aware prompt pack for Claude Code, Cursor, or Copilot. Each prompt tells your AI coding agent exactly what to fix, which files to touch, which files to leave alone, and how to verify the fix landed. Surgical fixes run first. Broad changes run last. Ghost finds it. Ghost tells the AI exactly what to do. The AI does it.',
+      },
     };
 
     // ── State ────────────────────────────────────────────────────────
@@ -1101,7 +1105,7 @@
       if (!briefData) {
         container.innerHTML = `
           <div class="tile tile-brief" onclick="if(!event.target.closest('.info-icon'))navigate('brief')" style="cursor:pointer;">
-            <button class="info-icon" onclick="event.stopPropagation()" title="Ghost Brief™ converts your scan findings into a validated, blast-radius-aware prompt pack for Claude Code, Cursor, or Copilot. Ghost briefs the AI. The AI fixes the code." aria-label="About Ghost Brief™">i</button>
+            <button class="info-icon" onclick="event.stopPropagation();showModeModal('ghost-brief')" aria-label="About Ghost Brief™">i</button>
             <div class="tile-arrow">↗</div>
             <div class="tile-mode">Ghost Brief™</div>
             <div class="brief-no-data" style="padding: 10px 0; border: none; text-align: left; font-size: 12px; margin-top: 6px; background: none;">
@@ -1117,7 +1121,7 @@
       const genAt = briefData.generated_at ? formatDate(briefData.generated_at) : '—';
       container.innerHTML = `
         <div class="tile tile-brief" onclick="if(!event.target.closest('.info-icon'))navigate('brief')" style="cursor:pointer;">
-          <button class="info-icon" onclick="event.stopPropagation()" title="Ghost Brief™ converts your scan findings into a validated, blast-radius-aware prompt pack for Claude Code, Cursor, or Copilot. Ghost briefs the AI. The AI fixes the code." aria-label="About Ghost Brief™">i</button>
+          <button class="info-icon" onclick="event.stopPropagation();showModeModal('ghost-brief')" aria-label="About Ghost Brief™">i</button>
           <div class="tile-arrow">↗</div>
           <div class="tile-mode">Ghost Brief™</div>
           <div>
