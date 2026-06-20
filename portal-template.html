@@ -1,0 +1,3088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="theme-color" content="#0a1528">
+  <title>Ghost Portal — __PORTAL_SLUG__</title>
+  <style>
+    :root {
+      --bg-page: #050a14;
+      --bg-card: rgba(10, 21, 40, 0.94);
+      --bg-card-top: rgba(18, 36, 64, 0.97);
+      --bg-tile: rgba(15, 28, 50, 0.85);
+      --bg-tile-hover: rgba(20, 38, 65, 0.95);
+      --border: rgba(0, 191, 216, 0.28);
+      --border-strong: rgba(0, 191, 216, 0.55);
+      --cyan: #00bfd8;
+      --cyan-bright: #00e5ff;
+      --cyan-dim: #4d8a99;
+      --navy: #0a2540;
+      --text-primary: #f5f9ff;
+      --text-secondary: #b8c5d6;
+      --text-tertiary: #8a9aaf;
+      --good: #00e5a8;
+      --warn: #ffc266;
+      --bad: #ff7a7a;
+      --grid: rgba(0, 191, 216, 0.08);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%; min-height: 100%; background: var(--bg-page);
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: var(--text-primary); -webkit-font-smoothing: antialiased;
+    }
+    body {
+      padding: env(safe-area-inset-top) env(safe-area-inset-right)
+              env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+    .page { max-width: 1100px; margin: 0 auto; padding: 20px 18px 40px; }
+
+    .card {
+      background: linear-gradient(180deg, var(--bg-card-top) 0%, var(--bg-card) 100%);
+      border: 1px solid var(--border); border-radius: 14px; overflow: hidden; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+    .card::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 24px 24px; pointer-events: none; opacity: 0.5;
+    }
+
+    .titlebar {
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; border-bottom: 1px solid var(--border); background: rgba(8,14,26,0.4);
+      position: relative; z-index: 2;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; letter-spacing: 0.18em; font-size: 12px; font-weight: 700; }
+    .brand-mark {
+      width: 9px; height: 9px; border-radius: 2px; background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan); animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .brand-text {
+      background: linear-gradient(90deg, var(--cyan-bright), var(--cyan));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .portal-tag { font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary); text-transform: uppercase; }
+
+    .body { padding: 24px 22px 22px; position: relative; z-index: 1; }
+
+    /* HERO */
+    .hero { display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 18px; border-bottom: 1px solid var(--border); gap: 16px; margin-bottom: 22px; }
+    .hero-label { font-size: 11px; letter-spacing: 0.2em; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 8px; }
+    .hero-value { font-size: 56px; font-weight: 200; line-height: 1; color: var(--text-primary); }
+    .hero-sub { font-size: 13px; color: var(--text-tertiary); margin-top: 6px; }
+    .hero-right { text-align: right; }
+    .hero-right .delta { font-size: 14px; color: var(--good); font-weight: 500; }
+    .hero-right .delta-sub { font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary); text-transform: uppercase; margin-top: 2px; }
+
+    /* LEVEL 0: TILE GRID */
+    .section-label { font-size: 11px; letter-spacing: 0.2em; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 14px; }
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+    }
+    .tile {
+      background: var(--bg-tile);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 18px 16px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .tile:hover {
+      background: var(--bg-tile-hover);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+    }
+    .tile.empty {
+      cursor: default; opacity: 0.5;
+    }
+    .tile.empty:hover {
+      background: var(--bg-tile); border-color: var(--border); transform: none;
+    }
+    .tile-mode {
+      font-size: 11px; letter-spacing: 0.16em; color: var(--cyan); text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .tile-count { font-size: 38px; font-weight: 200; line-height: 1; }
+    .tile-count-unit { font-size: 12px; color: var(--text-tertiary); margin-left: 4px; }
+    .tile-meta { font-size: 11px; color: var(--text-tertiary); margin-top: 12px; }
+    .tile-arrow {
+      position: absolute; top: 18px; right: 18px;
+      color: var(--cyan-dim); font-size: 16px;
+      transition: color 0.15s, transform 0.15s;
+    }
+    .tile:hover .tile-arrow { color: var(--cyan); transform: translate(2px, -2px); }
+
+    .info-icon {
+      position: absolute; top: 16px; left: 16px;
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(8, 14, 26, 0.6);
+      color: var(--text-tertiary);
+      font-size: 11px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      cursor: help;
+      transition: all 0.15s;
+      font-family: 'Times New Roman', serif;
+      font-style: italic;
+      line-height: 1;
+    }
+    .info-icon:hover { color: var(--cyan); border-color: var(--cyan); background: rgba(0, 191, 216, 0.1); }
+
+    /* Modal overlay */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(2, 6, 14, 0.78);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 100;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      overscroll-behavior: contain;
+      animation: fadeIn 0.15s ease-out;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal {
+      background: linear-gradient(180deg, var(--bg-card-top) 0%, var(--bg-card) 100%);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      max-width: 500px; width: 100%;
+      padding: 26px 28px 22px;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+      animation: slideUp 0.2s ease-out;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .modal-close {
+      position: absolute; top: 12px; right: 14px;
+      width: 28px; height: 28px;
+      background: transparent; border: none;
+      color: var(--text-tertiary); font-size: 20px;
+      cursor: pointer; transition: color 0.15s;
+      line-height: 1; padding: 0;
+    }
+    .modal-close:hover { color: var(--cyan); }
+    .modal-mode {
+      font-size: 11px; letter-spacing: 0.18em; color: var(--cyan);
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .modal-title {
+      font-size: 22px; font-weight: 300; color: var(--text-primary);
+      margin-bottom: 14px; line-height: 1.2;
+    }
+    .modal-body {
+      font-size: 14px; line-height: 1.65; color: var(--text-secondary);
+    }
+
+    /* LEVEL 1: MODE DASHBOARD */
+    .back-bar {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .export-btn { margin-left: auto; }
+    .back-btn {
+      background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 14px; font-size: 12px; color: var(--text-secondary);
+      cursor: pointer; transition: all 0.15s; font-family: inherit; letter-spacing: 0.1em;
+    }
+    .back-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+    .breadcrumb { font-size: 12px; letter-spacing: 0.14em; color: var(--text-tertiary); text-transform: uppercase; }
+    .breadcrumb b { color: var(--text-primary); font-weight: 500; }
+
+    .mode-stats { display: flex; gap: 24px; margin-bottom: 22px; flex-wrap: wrap; }
+    .mode-stat { padding-right: 24px; border-right: 1px solid var(--border); }
+    .mode-stat:last-child { border-right: none; }
+    .mode-stat .label { font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 6px; }
+    .mode-stat .value { font-size: 24px; font-weight: 300; color: var(--text-primary); }
+
+    .report-list { display: flex; flex-direction: column; gap: 10px; }
+    .report-row {
+      background: var(--bg-tile); border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px 16px; cursor: pointer; transition: all 0.15s; position: relative;
+    }
+    .report-row:hover { background: var(--bg-tile-hover); border-color: var(--border-strong); }
+    .report-row-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+    .report-project { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+    .report-date { font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.06em; white-space: nowrap; }
+    .report-summary { font-size: 12px; line-height: 1.5; color: var(--text-secondary); }
+    .report-meta { font-size: 10px; color: var(--text-tertiary); margin-top: 8px; letter-spacing: 0.04em; }
+
+    /* Severity chip row */
+    .severity-row {
+      display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px;
+    }
+    .sev-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 8px; border-radius: 4px;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      border: 1px solid;
+    }
+    .sev-chip .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .sev-critical { color: #ff7a7a; border-color: rgba(255, 122, 122, 0.4); background: rgba(255, 122, 122, 0.06); }
+    .sev-critical .dot { background: #ff5555; box-shadow: 0 0 6px #ff5555; }
+    .sev-high { color: #ffa666; border-color: rgba(255, 166, 102, 0.4); background: rgba(255, 166, 102, 0.06); }
+    .sev-high .dot { background: #ff9040; }
+    .sev-medium { color: #ffc266; border-color: rgba(255, 194, 102, 0.4); background: rgba(255, 194, 102, 0.06); }
+    .sev-medium .dot { background: #ffb030; }
+    .sev-low { color: #79c4d4; border-color: rgba(121, 196, 212, 0.4); background: rgba(121, 196, 212, 0.06); }
+    .sev-low .dot { background: #5aa8ba; }
+    .sev-total {
+      color: var(--text-tertiary); border-color: var(--border); background: transparent;
+      margin-left: 4px;
+    }
+    .sev-total .dot { display: none; }
+
+    /* History grouping */
+    .history-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 3px 10px; border-radius: 12px;
+      font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cyan-dim); border: 1px solid var(--border);
+      background: rgba(0, 191, 216, 0.04);
+      margin-left: 8px;
+    }
+
+    /* LEVEL 2 — View tabs (Findings | Full Report) */
+    .view-tabs {
+      display: flex; gap: 2px; margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .view-tab {
+      background: transparent; border: none;
+      padding: 10px 18px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-tertiary); cursor: pointer; transition: all 0.15s;
+      font-family: inherit; position: relative;
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+    }
+    .view-tab:hover { color: var(--text-secondary); }
+    .view-tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+    .view-tab-count {
+      display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 10px;
+      background: rgba(0, 191, 216, 0.12); font-size: 10px; color: var(--cyan-bright);
+    }
+
+    /* LEVEL 2 — Findings list view */
+    .findings-toolbar {
+      display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .findings-toolbar-label {
+      font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary); text-transform: uppercase;
+      margin-right: 4px;
+    }
+    .filter-chip {
+      background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 14px; padding: 5px 12px; font-size: 11px; color: var(--text-secondary);
+      cursor: pointer; transition: all 0.15s; font-family: inherit;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .filter-chip:hover { border-color: var(--cyan-dim); color: var(--text-primary); }
+    .filter-chip.active { background: rgba(0, 191, 216, 0.12); border-color: var(--cyan); color: var(--cyan); }
+    .filter-chip.active.sev-critical-active { background: rgba(255, 122, 122, 0.12); border-color: #ff7a7a; color: #ff7a7a; }
+    .filter-chip.active.sev-high-active     { background: rgba(255, 166, 102, 0.12); border-color: #ffa666; color: #ffa666; }
+    .filter-chip.active.sev-medium-active   { background: rgba(255, 194, 102, 0.12); border-color: #ffc266; color: #ffc266; }
+    .filter-chip.active.sev-low-active      { background: rgba(121, 196, 212, 0.12); border-color: #79c4d4; color: #79c4d4; }
+
+    .totals-bar {
+      display: flex; gap: 22px; padding: 14px 18px; margin-bottom: 16px;
+      background: var(--bg-tile); border: 1px solid var(--border); border-radius: 10px;
+      flex-wrap: wrap;
+    }
+    .totals-stat .lbl { font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary); text-transform: uppercase; }
+    .totals-stat .val { font-size: 20px; font-weight: 300; color: var(--text-primary); margin-top: 2px; }
+    .totals-stat .val small { font-size: 11px; color: var(--text-tertiary); margin-left: 4px; }
+
+    .findings-list { display: flex; flex-direction: column; gap: 8px; }
+    .finding-card {
+      background: var(--bg-tile); border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px 16px; transition: all 0.15s; position: relative;
+      border-left-width: 3px;
+    }
+    .finding-card.f-critical { border-left-color: #ff5555; }
+    .finding-card.f-high     { border-left-color: #ff9040; }
+    .finding-card.f-medium   { border-left-color: #ffb030; }
+    .finding-card.f-low      { border-left-color: #5aa8ba; }
+    .finding-card-top {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+      margin-bottom: 8px;
+    }
+    .finding-title { font-size: 14px; font-weight: 500; color: var(--text-primary); flex: 1; }
+    .finding-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 8px; }
+    .finding-meta {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      font-size: 10px; color: var(--text-tertiary); letter-spacing: 0.04em;
+    }
+    .finding-meta b { color: var(--text-secondary); font-weight: 500; }
+    .finding-file {
+      font-family: 'SF Mono', Menlo, Monaco, monospace; font-size: 10px;
+      color: var(--cyan-dim); background: rgba(0, 191, 216, 0.06);
+      padding: 1px 6px; border-radius: 3px;
+    }
+    .findings-empty {
+      padding: 32px 20px; text-align: center; color: var(--text-tertiary); font-size: 13px;
+      background: var(--bg-tile); border: 1px dashed var(--border); border-radius: 10px;
+    }
+
+    /* Status pills on findings (Open / New / Fixed across scans) */
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 2px 8px; border-radius: 4px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      border: 1px solid;
+      margin-left: 8px;
+    }
+    .status-new   { color: #00e5a8; border-color: rgba(0, 229, 168, 0.4); background: rgba(0, 229, 168, 0.08); }
+    .status-open  { color: var(--text-tertiary); border-color: var(--border); background: transparent; }
+    .status-fixed { color: var(--cyan); border-color: rgba(0, 191, 216, 0.4); background: rgba(0, 191, 216, 0.08); }
+
+    /* Cross-scan summary banner above the findings list */
+    .diff-banner {
+      display: flex; gap: 18px; padding: 12px 16px;
+      background: rgba(0, 191, 216, 0.04); border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
+      border-radius: 8px; margin-bottom: 14px;
+      font-size: 12px; flex-wrap: wrap;
+    }
+    .diff-stat { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); }
+    .diff-stat .num { font-size: 16px; font-weight: 500; color: var(--text-primary); }
+    .diff-stat .num.new   { color: #00e5a8; }
+    .diff-stat .num.fixed { color: var(--cyan); }
+    .diff-stat .num.open  { color: var(--text-primary); }
+    .diff-stat .lbl { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+    .diff-context { font-size: 10px; color: var(--text-tertiary); letter-spacing: 0.08em; text-transform: uppercase; margin-left: auto; align-self: center; }
+
+    /* LEVEL 2: REPORT DETAIL */
+    .report-detail {
+      background: var(--bg-tile); border: 1px solid var(--border); border-radius: 10px;
+      padding: 24px 26px; line-height: 1.6;
+    }
+    .report-detail h1 { font-size: 22px; font-weight: 500; margin-bottom: 16px; color: var(--text-primary); }
+    .report-detail h2 { font-size: 17px; font-weight: 500; margin-top: 24px; margin-bottom: 10px; color: var(--cyan); }
+    .report-detail h3 { font-size: 14px; font-weight: 500; margin-top: 18px; margin-bottom: 8px; color: var(--text-primary); }
+    .report-detail p { font-size: 13px; color: var(--text-secondary); margin-bottom: 12px; }
+    .report-detail ul, .report-detail ol { margin-left: 22px; margin-bottom: 12px; }
+    .report-detail li { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+    .report-detail code {
+      background: rgba(0, 191, 216, 0.1); padding: 2px 6px; border-radius: 4px;
+      font-family: 'SF Mono', Menlo, Monaco, monospace; font-size: 12px; color: var(--cyan-bright);
+    }
+    .report-detail pre {
+      background: rgba(0,0,0,0.35); padding: 14px 16px; border-radius: 8px; overflow-x: auto;
+      margin-bottom: 14px; border: 1px solid var(--border);
+    }
+    .report-detail pre code { background: transparent; padding: 0; color: var(--text-secondary); }
+    .report-detail table { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 12px; }
+    .report-detail th, .report-detail td {
+      border: 1px solid var(--border); padding: 8px 12px; text-align: left; color: var(--text-secondary);
+    }
+    .report-detail th { background: rgba(0,191,216,0.08); color: var(--cyan); font-weight: 500; }
+    .report-detail strong { color: var(--text-primary); font-weight: 600; }
+    .report-detail hr { border: none; border-top: 1px solid var(--border); margin: 22px 0; }
+    .report-detail blockquote {
+      border-left: 3px solid var(--cyan); padding-left: 14px; margin-bottom: 12px; color: var(--text-tertiary);
+    }
+
+    .download-bar {
+      display: flex; gap: 10px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border);
+    }
+    .download-bar-top {
+      margin-top: 0; padding-top: 0; padding-bottom: 18px; margin-bottom: 18px;
+      border-top: none; border-bottom: 1px solid var(--border);
+    }
+    .download-btn {
+      background: var(--bg-tile); border: 1px solid var(--border); border-radius: 8px;
+      padding: 8px 14px; font-size: 11px; color: var(--text-secondary);
+      cursor: pointer; transition: all 0.15s; font-family: inherit; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .download-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    .loading, .error, .empty-state {
+      padding: 40px 20px; text-align: center; color: var(--text-tertiary); font-size: 13px;
+    }
+    .error { color: var(--bad); }
+
+    .footer {
+      max-width: 1100px; margin: 18px auto 0; padding: 0 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+    .footer .left { display: flex; align-items: center; gap: 8px; }
+    .footer .mark {
+      width: 6px; height: 6px; border-radius: 1px; background: var(--cyan-dim);
+    }
+    .footer a { color: var(--text-tertiary); text-decoration: none; transition: color 0.15s; }
+    .footer a:hover { color: var(--cyan); }
+    @media (max-width: 520px) {
+      .footer { flex-direction: column; gap: 6px; text-align: center; }
+    }
+
+    /* ── JIRA EXPORT ──────────────────────────────────────────────── */
+
+    /* Jira button cluster on the findings toolbar */
+    .jira-cluster {
+      display: inline-flex; gap: 6px; align-items: center;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+    .jira-btn {
+      background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 8px; padding: 6px 12px; font-size: 11px; color: var(--text-secondary);
+      cursor: pointer; transition: all 0.15s; font-family: inherit; letter-spacing: 0.08em;
+      text-transform: uppercase; display: inline-flex; align-items: center; gap: 6px;
+      white-space: nowrap;
+    }
+    .jira-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+    .jira-btn.primary {
+      background: rgba(0, 191, 216, 0.10);
+      border-color: var(--cyan);
+      color: var(--cyan-bright);
+    }
+    .jira-btn.primary:hover {
+      background: rgba(0, 191, 216, 0.18);
+      box-shadow: 0 0 12px rgba(0, 191, 216, 0.25);
+    }
+    .jira-btn .icon {
+      width: 11px; height: 11px;
+      display: inline-block;
+      background: currentColor;
+      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M3 11 L3 14 L13 14 L13 11 M8 3 L8 11 M5 7 L8 4 L11 7'/></svg>");
+      mask-size: contain; mask-repeat: no-repeat; mask-position: center;
+      -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M3 11 L3 14 L13 14 L13 11 M8 3 L8 11 M5 7 L8 4 L11 7'/></svg>");
+      -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center;
+    }
+
+    /* Per-finding "Export as Story" link */
+    .finding-export-link {
+      position: absolute; top: 12px; right: 14px;
+      background: transparent; border: 1px solid var(--border); border-radius: 6px;
+      padding: 3px 8px; font-size: 9px; color: var(--text-tertiary);
+      cursor: pointer; transition: all 0.15s; font-family: inherit;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      opacity: 0; pointer-events: none;
+    }
+    .finding-card { position: relative; }
+    .finding-card:hover .finding-export-link { opacity: 1; pointer-events: auto; }
+    .finding-export-link:hover { color: var(--cyan); border-color: var(--cyan); }
+    .finding-card-top { padding-right: 110px; }
+
+    /* Pre-export modal (extends existing .modal styles) */
+    .jira-modal {
+      max-width: 620px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 0;
+    }
+    .jira-modal .jira-modal-scroll {
+      overflow-y: auto;
+      overflow-x: hidden;
+      overscroll-behavior: contain;
+      flex: 1 1 auto;
+      padding-right: 4px;
+      margin-right: -4px;
+    }
+    .jira-modal .jira-modal-scroll::-webkit-scrollbar { width: 8px; }
+    .jira-modal .jira-modal-scroll::-webkit-scrollbar-track { background: transparent; }
+    .jira-modal .jira-modal-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    .jira-modal .jira-modal-scroll::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+    .jira-modal .form-row { margin-bottom: 14px; }
+    .jira-modal label {
+      display: block; font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary);
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .jira-modal input[type="text"],
+    .jira-modal textarea,
+    .jira-modal select {
+      width: 100%; background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 6px; padding: 8px 10px; font-size: 12px; color: var(--text-primary);
+      font-family: inherit;
+    }
+    .jira-modal input[type="text"]:focus,
+    .jira-modal textarea:focus,
+    .jira-modal select:focus {
+      outline: none; border-color: var(--cyan);
+    }
+    .jira-modal .form-row-inline { display: flex; gap: 10px; }
+    .jira-modal .form-row-inline > div { flex: 1; }
+    .jira-modal .help { font-size: 10px; color: var(--text-tertiary); margin-top: 4px; line-height: 1.5; }
+    .jira-modal .preview-counts {
+      background: rgba(0, 191, 216, 0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 14px; margin: 14px 0;
+      font-size: 12px; color: var(--text-secondary);
+    }
+    .jira-modal .preview-counts strong { color: var(--cyan-bright); }
+    .jira-modal .preview-mapping {
+      background: rgba(0,0,0,0.25); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 14px; margin: 10px 0;
+      font-family: 'SF Mono', Menlo, Monaco, monospace;
+      font-size: 10px; color: var(--text-tertiary);
+      max-height: 140px; overflow-y: auto;
+    }
+    .jira-modal .toggle-row {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 10px;
+    }
+    .jira-modal .toggle-row input[type="checkbox"] {
+      width: 14px; height: 14px; accent-color: var(--cyan); cursor: pointer;
+    }
+    .jira-modal .toggle-row label {
+      margin: 0; font-size: 11px; color: var(--text-secondary);
+      letter-spacing: 0.04em; text-transform: none; cursor: pointer;
+    }
+    .jira-modal .action-row {
+      display: flex; gap: 10px; justify-content: flex-end;
+      margin-top: 0; padding: 14px 0 18px 0;
+      border-top: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--bg-card-top) 0%, var(--bg-card) 100%);
+      flex-shrink: 0;
+    }
+    .jira-modal .btn-action {
+      background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 16px; font-size: 11px;
+      color: var(--text-secondary); cursor: pointer; font-family: inherit;
+      letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.15s;
+    }
+    .jira-modal .btn-action:hover { border-color: var(--cyan); color: var(--cyan); }
+    .jira-modal .btn-action.primary {
+      background: var(--cyan); border-color: var(--cyan); color: var(--navy);
+      font-weight: 600;
+    }
+    .jira-modal .btn-action.primary:hover {
+      background: var(--cyan-bright); border-color: var(--cyan-bright);
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+    }
+    .jira-modal .format-tabs {
+      display: flex; gap: 0; margin-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .jira-modal .format-tab {
+      background: transparent; border: none; padding: 8px 14px;
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-tertiary); cursor: pointer; transition: all 0.15s;
+      font-family: inherit; border-bottom: 2px solid transparent; margin-bottom: -1px;
+    }
+    .jira-modal .format-tab:hover { color: var(--text-secondary); }
+    .jira-modal .format-tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+
+    /* Multi-scan selector at Level 1 */
+    .multi-select-bar {
+      display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      background: rgba(0, 191, 216, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: none;
+    }
+    .multi-select-bar.active { display: flex; }
+    .multi-select-bar .ms-label {
+      font-size: 10px; letter-spacing: 0.16em; color: var(--cyan);
+      text-transform: uppercase; font-weight: 600;
+    }
+    .multi-select-bar .ms-count {
+      font-size: 11px; color: var(--text-secondary);
+    }
+    .report-row.selectable { padding-left: 44px; }
+    .report-row .ms-check {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      width: 16px; height: 16px; accent-color: var(--cyan); cursor: pointer;
+    }
+
+    /* Success toast */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px);
+      background: var(--bg-card-top); border: 1px solid var(--cyan);
+      border-radius: 10px; padding: 12px 20px;
+      color: var(--text-primary); font-size: 13px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 0 20px rgba(0, 191, 216, 0.2);
+      z-index: 200;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.25s ease-out;
+      display: flex; align-items: center; gap: 10px;
+      max-width: 90vw;
+    }
+    .toast.show {
+      opacity: 1; transform: translateX(-50%) translateY(0);
+    }
+    .toast .toast-icon {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--good);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--navy); font-size: 11px; font-weight: 800;
+      flex-shrink: 0;
+    }
+    .toast .toast-text { line-height: 1.4; }
+    .toast .toast-text small { color: var(--text-tertiary); display: block; margin-top: 2px; font-size: 11px; }
+
+    /* Diff-export hint */
+    .diff-export-hint {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10px; color: var(--good); letter-spacing: 0.06em;
+      margin-left: 4px;
+    }
+
+    @media (max-width: 640px) {
+      .jira-cluster { width: 100%; margin-left: 0; margin-top: 8px; }
+      .jira-btn { font-size: 10px; padding: 5px 9px; }
+      .finding-card-top { padding-right: 0; }
+      .finding-export-link { position: static; opacity: 1; pointer-events: auto; margin-top: 6px; display: inline-block; }
+    }
+
+    /* ── GHOST BRIEF ─────────────────────────────────────────────── */
+    :root { --brief: #e07340; --brief-dim: #a04e28; --brief-bg: rgba(224, 115, 64, 0.07); }
+
+    .tile-brief {
+      border-color: rgba(224, 115, 64, 0.45);
+    }
+    .tile-brief:hover {
+      border-color: var(--brief);
+      background: rgba(224, 115, 64, 0.09);
+    }
+    .tile-brief .tile-mode { color: var(--brief); }
+    .tile-brief .tile-arrow { color: var(--brief-dim); }
+    .tile-brief:hover .tile-arrow { color: var(--brief); }
+
+    /* Brief panel top-level view */
+    .brief-panel { }
+
+    /* Brief tab bar reuses .view-tabs / .view-tab with orange active */
+    .brief-tabs .view-tab.active {
+      color: var(--brief);
+      border-bottom-color: var(--brief);
+    }
+    .brief-tabs .view-tab-count {
+      background: rgba(224, 115, 64, 0.14);
+      color: var(--brief);
+    }
+
+    /* Summary / source info cards */
+    .brief-card {
+      background: var(--bg-tile);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+    }
+    .brief-context-banner {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(224, 115, 64, 0.08);
+      border: 1px solid rgba(224, 115, 64, 0.25);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .brief-context-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .brief-context-headline {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary, #e8eaf0);
+      margin-bottom: 0.35rem;
+    }
+    .brief-context-sub {
+      font-size: 0.82rem;
+      color: var(--text-secondary, #8b9bb4);
+      line-height: 1.5;
+    }
+    .brief-context-sub strong { color: #e07340; }
+    .brief-card-title {
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--brief); margin-bottom: 14px; font-weight: 600;
+    }
+    .brief-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 14px;
+    }
+    .brief-stat .lbl {
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-tertiary); margin-bottom: 4px;
+    }
+    .brief-stat .val {
+      font-size: 22px; font-weight: 300; color: var(--text-primary);
+    }
+    .brief-stat .val small { font-size: 11px; color: var(--text-tertiary); margin-left: 3px; }
+    .brief-sev-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .brief-blast-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+    .blast-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 4px;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      border: 1px solid;
+    }
+    .blast-surgical { color: #00e5a8; border-color: rgba(0,229,168,0.4); background: rgba(0,229,168,0.06); }
+    .blast-moderate { color: #ffc266; border-color: rgba(255,194,102,0.4); background: rgba(255,194,102,0.06); }
+    .blast-broad    { color: #ff7a7a; border-color: rgba(255,122,122,0.4); background: rgba(255,122,122,0.06); }
+
+    .brief-source-row {
+      display: flex; gap: 10px; flex-wrap: wrap; font-size: 12px;
+      color: var(--text-secondary); line-height: 1.7;
+    }
+    .brief-source-row b { color: var(--text-primary); font-weight: 500; }
+    .brief-source-kv { width: 100%; }
+
+    /* Download button — orange tint */
+    .brief-dl-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--brief-bg); border: 1px solid var(--brief);
+      border-radius: 8px; padding: 9px 18px; font-size: 12px;
+      color: var(--brief); cursor: pointer; transition: all 0.15s;
+      font-family: inherit; letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; margin-top: 8px;
+    }
+    .brief-dl-btn:hover {
+      background: rgba(224,115,64,0.14);
+      box-shadow: 0 0 12px rgba(224,115,64,0.3);
+    }
+
+    /* Prompt cards */
+    .brief-prompt-list { display: flex; flex-direction: column; gap: 10px; }
+    .brief-prompt-card {
+      background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 16px;
+      border-left: 3px solid var(--border);
+      transition: border-color 0.15s;
+    }
+    .brief-prompt-card.f-critical { border-left-color: #ff5555; }
+    .brief-prompt-card.f-high     { border-left-color: #ff9040; }
+    .brief-prompt-card.f-medium   { border-left-color: #ffb030; }
+    .brief-prompt-card.f-low      { border-left-color: #5aa8ba; }
+    .brief-prompt-top {
+      display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; flex-wrap: wrap;
+    }
+    .gb-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 4px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      background: rgba(224,115,64,0.14); color: var(--brief);
+      border: 1px solid rgba(224,115,64,0.4); flex-shrink: 0;
+      font-family: 'SF Mono', Menlo, Monaco, monospace;
+    }
+    .brief-prompt-title {
+      font-size: 14px; font-weight: 500; color: var(--text-primary); flex: 1;
+    }
+    .brief-prompt-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+    .brief-files {
+      font-size: 11px; color: var(--text-tertiary); margin-bottom: 8px;
+    }
+    .brief-file-chip {
+      display: inline-block;
+      font-family: 'SF Mono', Menlo, Monaco, monospace; font-size: 10px;
+      color: var(--cyan-dim); background: rgba(0,191,216,0.06);
+      padding: 1px 6px; border-radius: 3px; margin: 2px 3px 2px 0;
+    }
+    .brief-collapsible {
+      margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px;
+    }
+    .brief-collapse-toggle {
+      background: none; border: none; font-size: 11px; color: var(--text-tertiary);
+      cursor: pointer; font-family: inherit; letter-spacing: 0.1em; padding: 0;
+      text-transform: uppercase; transition: color 0.15s; display: flex; align-items: center; gap: 5px;
+    }
+    .brief-collapse-toggle:hover { color: var(--brief); }
+    .brief-collapse-body {
+      display: none; margin-top: 8px; font-size: 12px; color: var(--text-secondary);
+      line-height: 1.6; background: rgba(0,0,0,0.2); border-radius: 6px; padding: 10px 12px;
+      font-family: 'SF Mono', Menlo, Monaco, monospace; white-space: pre-wrap; word-break: break-word;
+    }
+    .brief-collapse-body.open { display: block; }
+    .brief-hints-body {
+      font-family: inherit; white-space: normal;
+    }
+    .brief-copy-btn {
+      float: right;
+      background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 6px; padding: 4px 10px; font-size: 10px; color: var(--text-tertiary);
+      cursor: pointer; transition: all 0.15s; font-family: inherit; letter-spacing: 0.1em;
+    }
+    .brief-copy-btn:hover { border-color: var(--brief); color: var(--brief); }
+    .brief-tag-pill {
+      display: inline-block; padding: 1px 8px; border-radius: 10px;
+      font-size: 10px; color: var(--text-tertiary); border: 1px solid var(--border);
+      background: transparent; margin: 2px 3px 2px 0;
+    }
+
+    /* Regenerate tab */
+    .brief-regen-card {
+      background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px 22px; margin-bottom: 14px;
+    }
+    .brief-cmd-block {
+      background: rgba(0,0,0,0.35); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 16px; margin: 12px 0;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .brief-cmd-text {
+      font-family: 'SF Mono', Menlo, Monaco, monospace;
+      font-size: 13px; color: var(--cyan-bright);
+    }
+    .brief-history-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px;
+      background: var(--bg-tile); margin-bottom: 8px;
+      font-size: 12px; color: var(--text-secondary);
+    }
+    .brief-history-row a {
+      color: var(--brief); text-decoration: none; font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .brief-history-row a:hover { text-decoration: underline; }
+    .brief-no-data {
+      padding: 32px 20px; text-align: center; color: var(--text-tertiary); font-size: 13px;
+      background: var(--bg-tile); border: 1px dashed rgba(224,115,64,0.35); border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="card">
+      <div class="titlebar">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <span class="brand-text">GHOST PORTAL</span>
+        </div>
+        <span class="portal-tag" id="portal-tag">__PORTAL_SLUG__ · portal</span>
+      </div>
+      <div class="body" id="app-root">
+        <div class="loading">Loading portal data...</div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="left">
+      <span class="mark"></span>
+      <span>Powered by Ghost Architect™</span>
+    </div>
+    <div>
+      &copy; 2026 Ghost Architect™ · <a href="https://ghostarchitect.dev" target="_blank" rel="noopener">ghostarchitect.dev</a>
+    </div>
+  </footer>
+
+  <script>
+    // ── Configuration ────────────────────────────────────────────────
+    const PORTAL_SLUG = '__PORTAL_SLUG__';
+    const API_BASE = 'https://signup.ghostarchitect.dev';
+
+    // ── Mode descriptions (plain English, for non-technical readers) ──
+    const MODE_DESCRIPTIONS = {
+      poi: {
+        title: 'Points of Interest',
+        body: "A first pass through the codebase that surfaces the issues most likely to matter — security risks, fragile patterns, hidden complexity. Think of it as a doctor's intake exam: it doesn't fix anything, but it tells you where to look first.",
+      },
+      blast: {
+        title: 'Blast Radius',
+        body: 'Before you change a piece of code, this tells you what else might break. Shows the ripple effect of touching a file — what depends on it, what it depends on, and how risky the change really is.',
+      },
+      conflict: {
+        title: 'Conflict',
+        body: 'Finds places where two parts of the codebase disagree with each other — different files claiming different things, configuration that contradicts the code, rules that fight each other. These are the bugs that only surface in production.',
+      },
+      forecast: {
+        title: 'Commit Forecast',
+        body: "Before the code leaves your desk, this tells you what it might break. Ghost analyzes the proposed changes and maps the risk — what conflicts, what breaks, what ripples through the system. Think of it as a pre-flight check before every push.",
+      },
+      'fix-forecast-combined': {
+        title: 'Fix Forecast',
+        body: 'Multi-finding corrective action reports — each confirms a proposed fix is safe to apply and forecasts its blast radius before a single line of code changes.',
+      },
+      recon: {
+        title: 'Recon',
+        body: "A scouting report on a codebase you don't know yet. Maps the major systems, the riskiest files, the team patterns, and the technical debt — everything you'd want to know before bidding on the work or hiring engineers to maintain it.",
+      },
+      audit: {
+        title: 'Inheritance Audit',
+        body: 'A done-for-you report on a codebase someone else built. Designed for the buyer, not the engineer — executive summary, dead extensions, end-of-life dependencies, and what an upgrade or rebuild would actually require.',
+      },
+      'prompt-triage': {
+        title: 'Prompt Triage',
+        body: 'A defect scan for folders of LLM prompts. Surfaces structural breakage, length and token-limit issues, prompt-injection vulnerabilities, ambiguous instructions, and unbounded output. Designed for teams who ship prompts as a product surface and need an inspection layer the way code has one.',
+      },
+      question: {
+        title: 'Question and Answer',
+        body: "A single question about the codebase, with a single answer. Type your question, get a grounded answer, save the transcript if it's useful. The right shape when you have one specific thing to find out — not an open-ended exploration.",
+      },
+      chat: {
+        title: 'Chat',
+        body: "An interactive conversation with the codebase. Ask questions in plain language, get answers grounded in the actual code. Useful for due diligence or onboarding when you don't know what to look for yet.",
+      },
+      compare: {
+        title: 'Compare',
+        body: 'Side-by-side analysis of two versions of the same codebase. Shows what changed, what got better, what got worse, and where the risk moved.',
+      },
+      dashboard: {
+        title: 'Project Dashboard',
+        body: 'A live remediation rollup across every labeled project. Shows baseline vs. current finding counts, percent remediated, and what is still open. Updated automatically after every scan that touches a tracked project. The export here gives you one Jira batch containing all open findings across all projects.',
+      },
+      'ghost-brief': {
+        title: 'Ghost Brief™',
+        body: 'Ghost Brief™ converts your scan findings into a validated, blast-radius-aware prompt pack for Claude Code, Cursor, or Copilot. Each prompt tells your AI coding agent exactly what to fix, which files to touch, which files to leave alone, and how to verify the fix landed. Surgical fixes run first. Broad changes run last. Ghost finds it. Ghost tells the AI exactly what to do. The AI does it.',
+      },
+    };
+
+    // ── State ────────────────────────────────────────────────────────
+    let manifest = null;
+    let currentView = 'level0';  // 'level0' | 'level1' | 'level2'
+    let currentMode = null;
+    let currentReportId = null;
+    let reportBodyCache = {};
+    let findingsCache = {};       // report.id → parsed findings JSON
+    let level2Tab = 'findings';   // 'findings' | 'report'  (per-render state)
+    let findingsFilter = 'all';   // 'all' | 'critical' | 'high' | 'medium' | 'low'
+    let multiSelectMode = false;  // when true, Level 1 shows checkboxes
+    let multiSelectIds = new Set(); // report ids selected for cross-scan export
+
+    // Ghost Brief state
+    let briefData = null;          // ghost-brief-latest.json content (or null if not found)
+    let briefHistory = [];         // array of {name, download_url} from briefs/ dir listing
+    let briefLoaded = false;       // true once we've attempted fetch
+    let briefTab = 'overview';     // 'overview' | 'prompts' | 'regenerate'
+
+    // ── Boot ─────────────────────────────────────────────────────────
+    async function boot() {
+      try {
+        const res = await fetch(`${API_BASE}/portal-data?c=${PORTAL_SLUG}`);
+        if (!res.ok) throw new Error(`portal-data ${res.status}`);
+        manifest = await res.json();
+        render();
+      } catch (err) {
+        document.getElementById('app-root').innerHTML =
+          `<div class="error">Failed to load portal: ${err.message}</div>`;
+      }
+    }
+
+    // ── Router (browser back button support) ─────────────────────────
+    function navigate(view, mode, reportId) {
+      currentView = view;
+      currentMode = mode || null;
+      currentReportId = reportId || null;
+      if (view === 'level0') {
+        history.pushState({ view }, '', location.pathname + location.search);
+      } else if (view === 'brief') {
+        history.pushState({ view }, '', '#brief');
+      } else {
+        const hash = view === 'level1' ? `#m=${mode}` : `#m=${mode}&r=${reportId}`;
+        history.pushState({ view, mode, reportId }, '', hash);
+      }
+      render();
+    }
+    window.addEventListener('popstate', (e) => {
+      if (e.state) {
+        currentView = e.state.view;
+        currentMode = e.state.mode;
+        currentReportId = e.state.reportId;
+      } else {
+        currentView = 'level0';
+        currentMode = null;
+        currentReportId = null;
+      }
+      render();
+    });
+    function parseInitialHash() {
+      const h = location.hash.replace(/^#/, '');
+      if (!h) return;
+      if (h === 'brief') { currentView = 'brief'; return; }
+      const params = new URLSearchParams(h);
+      const mode = params.get('m');
+      const reportId = params.get('r');
+      if (mode && reportId) { currentView = 'level2'; currentMode = mode; currentReportId = reportId; }
+      else if (mode) { currentView = 'level1'; currentMode = mode; }
+    }
+
+    // ── Render dispatch ──────────────────────────────────────────────
+    function render() {
+      if (currentView === 'level0') renderLevel0();
+      else if (currentView === 'level1') renderLevel1();
+      else if (currentView === 'level2') renderLevel2();
+      else if (currentView === 'brief') renderBriefPanel();
+    }
+
+    // ── LEVEL 0: Mode tile grid ──────────────────────────────────────
+    function renderLevel0() {
+      const total = manifest.totalReports;
+      const modes = Object.entries(manifest.modeSummary)
+        .sort((a, b) => a[1].order - b[1].order);
+
+      const lastGenerated = modes
+        .map(([_, v]) => v.lastGenerated)
+        .filter(Boolean)
+        .sort()
+        .reverse()[0];
+
+      const tilesHtml = modes.map(([modeKey, m]) => {
+        const isEmpty = m.count === 0;
+        const lastSeen = m.lastGenerated ? relativeTime(m.lastGenerated) : '—';
+        const hasDescription = !!MODE_DESCRIPTIONS[modeKey];
+        return `
+          <div class="tile ${isEmpty ? 'empty' : ''}" ${!isEmpty ? `onclick="if(!event.target.closest('.info-icon'))navigate('level1','${modeKey}')"` : ''}>
+            ${hasDescription ? `<button class="info-icon" onclick="event.stopPropagation();showModeModal('${modeKey}')" aria-label="What is ${m.label}" title="What is ${m.label}?">i</button>` : ''}
+            ${!isEmpty ? '<div class="tile-arrow">↗</div>' : ''}
+            <div class="tile-mode" style="margin-left: 28px;">${m.label}</div>
+            <div><span class="tile-count">${m.count}</span><span class="tile-count-unit">report${m.count !== 1 ? 's' : ''}</span></div>
+            <div class="tile-meta">${isEmpty ? 'No scans yet' : 'Last run ' + lastSeen}</div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('app-root').innerHTML = `
+        <div class="hero">
+          <div>
+            <div class="hero-label">Total Reports</div>
+            <div class="hero-value">${total}</div>
+            <div class="hero-sub">across ${modes.filter(([_, m]) => m.count > 0).length} active modes</div>
+          </div>
+          <div class="hero-right">
+            <div class="delta">Last scan ${lastGenerated ? relativeTime(lastGenerated) : '—'}</div>
+            <div class="delta-sub">Updated ${formatDate(manifest.generatedAt)}</div>
+          </div>
+        </div>
+        <div class="section-label">Scan Modes</div>
+        <div class="tile-grid">${tilesHtml}</div>
+        <div class="section-label" style="margin-top: 22px;">Outputs</div>
+        <div class="tile-grid" id="brief-tile-container">
+          <div class="loading" style="font-size:12px;padding:10px 0;">Loading Ghost Brief™…</div>
+        </div>
+      `;
+      loadBriefTile();
+    }
+
+    // ── GHOST BRIEF — tile loader & panel ────────────────────────────
+
+    async function fetchBriefData() {
+      if (briefLoaded) return;
+      briefLoaded = true;
+      try {
+        // Fetch latest brief JSON
+        const url = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('briefs/ghost-brief-latest.json')}`;
+        const res = await fetch(url);
+        if (res.ok) {
+          briefData = await res.json();
+        }
+      } catch (_) { briefData = null; }
+
+      try {
+        // Fetch briefs/ directory listing via the same worker
+        const dirUrl = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('briefs/')}`;
+        const dirRes = await fetch(dirUrl);
+        if (dirRes.ok) {
+          const listing = await dirRes.json();
+          if (Array.isArray(listing)) {
+            briefHistory = listing
+              .filter(f => f.name && f.name.endsWith('.json') && f.name !== 'ghost-brief-latest.json')
+              .sort((a, b) => b.name.localeCompare(a.name));
+          }
+        }
+      } catch (_) { briefHistory = []; }
+    }
+
+    async function loadBriefTile() {
+      await fetchBriefData();
+      const container = document.getElementById('brief-tile-container');
+      if (!container) return;
+
+      if (!briefData) {
+        container.innerHTML = `
+          <div class="tile tile-brief" onclick="if(!event.target.closest('.info-icon'))navigate('brief')" style="cursor:pointer;">
+            <button class="info-icon" onclick="event.stopPropagation();showModeModal('ghost-brief')" aria-label="About Ghost Brief™">i</button>
+            <div class="tile-arrow">↗</div>
+            <div class="tile-mode" style="margin-left: 28px;">Ghost Brief™</div>
+            <div class="brief-no-data" style="padding: 10px 0; border: none; text-align: left; font-size: 12px; margin-top: 6px; background: none;">
+              No Brief generated yet
+            </div>
+            <div class="tile-meta">Run: ghost --brief</div>
+          </div>
+        `;
+        return;
+      }
+
+      const s = briefData.summary || {};
+      const genAt = briefData.generated_at ? formatDate(briefData.generated_at) : '—';
+      container.innerHTML = `
+        <div class="tile tile-brief" onclick="if(!event.target.closest('.info-icon'))navigate('brief')" style="cursor:pointer;">
+          <button class="info-icon" onclick="event.stopPropagation();showModeModal('ghost-brief')" aria-label="About Ghost Brief™">i</button>
+          <div class="tile-arrow">↗</div>
+          <div class="tile-mode" style="margin-left: 28px;">Ghost Brief™</div>
+          <div>
+            <span class="tile-count">${s.total_prompts || 0}</span>
+            <span class="tile-count-unit">prompt${(s.total_prompts || 0) !== 1 ? 's' : ''}</span>
+          </div>
+          <div class="tile-meta" style="margin-top: 6px;">${s.estimated_agent_hours != null ? s.estimated_agent_hours + 'h estimated · ' : ''}Generated ${genAt}</div>
+        </div>
+      `;
+    }
+
+    // ── Ghost Brief panel render ──────────────────────────────────────
+    async function renderBriefPanel() {
+      document.getElementById('app-root').innerHTML = `
+        <div class="back-bar">
+          <button class="back-btn" onclick="navigate('level0')">← Back</button>
+          <div class="breadcrumb">${PORTAL_SLUG} / <b>Ghost Brief™</b></div>
+        </div>
+        <div id="brief-panel-content"><div class="loading">Loading Ghost Brief™…</div></div>
+      `;
+      await fetchBriefData();
+      renderBriefContent();
+    }
+
+    function renderBriefContent() {
+      const container = document.getElementById('brief-panel-content');
+      if (!container) return;
+
+      const promptCount = briefData?.summary?.total_prompts || 0;
+
+      // Context banner — only when we have real Brief data
+      const bannerHtml = briefData ? (() => {
+        const src = briefData.source || {};
+        const scanLabel = src.scan_mode === 'multi' && Array.isArray(src.contributing_modes)
+          ? src.contributing_modes.join(' + ')
+          : (src.scan_mode || 'scan');
+        const genDate = briefData.generated_at
+          ? new Date(briefData.generated_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+          : '';
+        const n = promptCount;
+        const plural = n !== 1;
+        return `
+          <div class="brief-context-banner">
+            <div class="brief-context-icon">📋</div>
+            <div class="brief-context-body">
+              <div class="brief-context-headline">
+                Ghost scanned your codebase and found <strong>${n} issue${plural ? 's' : ''}</strong>.
+              </div>
+              <div class="brief-context-sub">
+                ${plural ? 'These' : 'This'} ${n} prompt${plural ? 's' : ''} ${plural ? 'were' : 'was'} generated from your
+                <strong>${escapeHtml(scanLabel)}</strong> scan${genDate ? ' on ' + genDate : ''}.
+                Feed them into Claude Code, Cursor, or Copilot — smallest blast radius first.
+                Ghost does not touch your code. Ghost briefs the AI. The AI fixes it.
+              </div>
+            </div>
+          </div>`;
+      })() : '';
+
+      container.innerHTML = `
+        ${bannerHtml}
+        <div class="view-tabs brief-tabs">
+          <button class="view-tab ${briefTab === 'overview'    ? 'active' : ''}" onclick="switchBriefTab('overview')">Overview</button>
+          <button class="view-tab ${briefTab === 'prompts'     ? 'active' : ''}" onclick="switchBriefTab('prompts')">
+            Prompts${briefData ? `<span class="view-tab-count">${promptCount}</span>` : ''}
+          </button>
+          <button class="view-tab ${briefTab === 'regenerate'  ? 'active' : ''}" onclick="switchBriefTab('regenerate')">Regenerate</button>
+        </div>
+        <div id="brief-tab-content"></div>
+      `;
+      renderBriefTab();
+    }
+
+    function switchBriefTab(tab) {
+      briefTab = tab;
+      renderBriefContent();
+    }
+
+    function renderBriefTab() {
+      const container = document.getElementById('brief-tab-content');
+      if (!container) return;
+
+      if (briefTab === 'overview') {
+        if (!briefData) {
+          container.innerHTML = `<div class="brief-no-data">No Ghost Brief™ found. Use the Regenerate tab for instructions.</div>`;
+          return;
+        }
+        const s = briefData.summary || {};
+        const src = briefData.source || {};
+        const sev = s.by_severity || {};
+        const blast = s.by_blast_radius || {};
+
+        const sevChips = ['critical','high','medium','low'].map(k => {
+          const n = sev[k] || 0;
+          if (!n) return '';
+          return `<span class="sev-chip sev-${k}"><span class="dot"></span>${n} ${k.charAt(0).toUpperCase()+k.slice(1)}</span>`;
+        }).join('');
+        const blastChips = ['surgical','moderate','broad'].map(k => {
+          const n = blast[k] || 0;
+          if (!n) return '';
+          return `<span class="blast-chip blast-${k}">${n} ${k.charAt(0).toUpperCase()+k.slice(1)}</span>`;
+        }).join('');
+
+        const dlUrl = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('briefs/ghost-brief-latest.json')}`;
+
+        container.innerHTML = `
+          <div class="brief-card">
+            <div class="brief-card-title">Summary</div>
+            <div class="brief-stats-grid">
+              <div class="brief-stat">
+                <div class="lbl">Total Prompts</div>
+                <div class="val">${s.total_prompts || 0}</div>
+              </div>
+              <div class="brief-stat">
+                <div class="lbl">Est. Agent Hours</div>
+                <div class="val">${s.estimated_agent_hours != null ? s.estimated_agent_hours : '—'}<small>h</small></div>
+              </div>
+            </div>
+            ${sevChips ? `<div class="brief-sev-row">${sevChips}</div>` : ''}
+            ${blastChips ? `<div class="brief-blast-row">${blastChips}</div>` : ''}
+            <div style="margin-top: 16px;">
+              <a class="brief-dl-btn" href="${dlUrl}" target="_blank" download="ghost-brief.json">
+                ↓ Download ghost-brief.json
+              </a>
+            </div>
+          </div>
+
+          <div class="brief-card">
+            <div class="brief-card-title">Source</div>
+            <div class="brief-source-row">
+              <div class="brief-source-kv"><b>Scan Mode:</b> ${escapeHtml(src.scan_mode || '—')}</div>
+              ${src.contributing_modes ? `<div class="brief-source-kv"><b>Contributing Modes:</b> ${escapeHtml(src.contributing_modes.join(', '))}</div>` : ''}
+              <div class="brief-source-kv"><b>Generated:</b> ${briefData.generated_at ? formatDate(briefData.generated_at) : '—'}</div>
+              <div class="brief-source-kv"><b>Ghost Version:</b> ${escapeHtml(briefData.ghost_version || '—')}</div>
+              <div class="brief-source-kv"><b>Codebase Root:</b> <span style="font-family: 'SF Mono', Menlo, monospace; font-size: 11px; color: var(--cyan-dim);">${escapeHtml(src.codebase_root || '—')}</span></div>
+              <div class="brief-source-kv"><b>Source File:</b> <span style="font-family: 'SF Mono', Menlo, monospace; font-size: 11px; color: var(--cyan-dim);">${escapeHtml(src.scan_file || '—')}</span></div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      if (briefTab === 'prompts') {
+        if (!briefData || !Array.isArray(briefData.prompts) || briefData.prompts.length === 0) {
+          container.innerHTML = `<div class="brief-no-data">No prompts in this Brief.</div>`;
+          return;
+        }
+        const sorted = [...briefData.prompts].sort((a, b) => (a.blast_score || 0) - (b.blast_score || 0));
+        const cardsHtml = sorted.map((p, idx) => {
+          const sev = (p.severity || 'medium').toLowerCase();
+          const blast = (p.blast_radius || 'surgical').toLowerCase();
+          const primaryFiles = (p.files?.primary || []).map(f =>
+            `<span class="brief-file-chip">${escapeHtml(f)}</span>`).join('');
+          const tags = (p.tags || []).map(t =>
+            `<span class="brief-tag-pill">${escapeHtml(t)}</span>`).join('');
+          const hints = Array.isArray(p.validation_hints)
+            ? '<ul style="margin: 6px 0 0 16px;">' + p.validation_hints.map(h => `<li style="font-size:11px;color:var(--text-secondary);margin-bottom:3px;">${escapeHtml(h)}</li>`).join('') + '</ul>'
+            : '';
+          const promptId = `bp-${idx}`;
+          const hintsId = `bh-${idx}`;
+          return `
+            <div class="brief-prompt-card f-${sev}">
+              <div class="brief-prompt-top">
+                <span class="gb-badge">${escapeHtml(p.id || 'GB-???')}</span>
+                <span class="brief-prompt-title">${escapeHtml(p.title || 'Untitled')}</span>
+              </div>
+              <div class="brief-prompt-badges">
+                <span class="sev-chip sev-${sev}"><span class="dot"></span>${sev.charAt(0).toUpperCase()+sev.slice(1)}</span>
+                <span class="blast-chip blast-${blast}">${blast.charAt(0).toUpperCase()+blast.slice(1)}</span>
+                ${p.blast_score != null ? `<span style="font-size:10px;color:var(--text-tertiary);align-self:center;">blast ${p.blast_score}</span>` : ''}
+              </div>
+              ${primaryFiles ? `<div class="brief-files">${primaryFiles}</div>` : ''}
+              ${tags ? `<div style="margin-bottom: 8px;">${tags}</div>` : ''}
+              <div class="brief-collapsible">
+                <button class="brief-collapse-toggle" onclick="toggleBriefCollapse('${promptId}', this)">
+                  <span>▶ Prompt</span>
+                </button>
+                <button class="brief-copy-btn" onclick="copyBriefPrompt(${idx})">Copy</button>
+                <div class="brief-collapse-body" id="${promptId}">${escapeHtml(p.prompt || '')}</div>
+              </div>
+              ${hints ? `
+              <div class="brief-collapsible">
+                <button class="brief-collapse-toggle" onclick="toggleBriefCollapse('${hintsId}', this)">
+                  <span>▶ Validation Hints</span>
+                </button>
+                <div class="brief-collapse-body brief-hints-body" id="${hintsId}">${hints}</div>
+              </div>` : ''}
+            </div>
+          `;
+        }).join('');
+        container.innerHTML = `<div class="brief-prompt-list">${cardsHtml}</div>`;
+        return;
+      }
+
+      if (briefTab === 'regenerate') {
+        const cmd = 'ghost --brief --input=ghost-report.json';
+        const genAt = briefData?.generated_at ? formatDate(briefData.generated_at) : null;
+
+        const historyHtml = briefHistory.length
+          ? briefHistory.map(f => {
+              const stamp = f.name.replace('ghost-brief-', '').replace('.json', '').replace('T', ' ').replace(/-/g, (m, o) => o < 10 ? '-' : ':');
+              const dlHref = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('briefs/' + f.name)}`;
+              return `
+                <div class="brief-history-row">
+                  <span>${escapeHtml(stamp)}</span>
+                  <a href="${dlHref}" target="_blank" download="${f.name}">↓ Download</a>
+                </div>
+              `;
+            }).join('')
+          : '<div style="font-size:12px;color:var(--text-tertiary);padding:8px 0;">No archived briefs found.</div>';
+
+        container.innerHTML = `
+          <div class="brief-regen-card">
+            <div class="brief-card-title">Generate a New Brief</div>
+            <p style="font-size:13px;color:var(--text-secondary);line-height:1.65;margin-bottom:4px;">
+              Ghost Brief™ is generated from the CLI. Run the command below inside your codebase directory
+              after completing a scan. The output file <code style="font-size:11px;background:rgba(0,191,216,0.1);padding:1px 5px;border-radius:3px;color:var(--cyan-bright);">ghost-brief.json</code>
+              is automatically pushed to this portal.
+            </p>
+            <div class="brief-cmd-block">
+              <span class="brief-cmd-text">${escapeHtml(cmd)}</span>
+              <button class="brief-copy-btn" onclick="navigator.clipboard.writeText('${escapeHtml(cmd)}').then(()=>showToast('Copied','Command copied to clipboard'))">Copy</button>
+            </div>
+            ${genAt ? `<p style="font-size:12px;color:var(--text-tertiary);margin-top:2px;">Current Brief generated: <b style="color:var(--text-secondary);">${genAt}</b></p>` : ''}
+          </div>
+
+          <div class="brief-regen-card">
+            <div class="brief-card-title">Brief History</div>
+            ${historyHtml}
+          </div>
+        `;
+        return;
+      }
+    }
+
+    function toggleBriefCollapse(id, btn) {
+      const body = document.getElementById(id);
+      if (!body) return;
+      const isOpen = body.classList.toggle('open');
+      const span = btn.querySelector('span');
+      if (span) span.textContent = (isOpen ? '▼ ' : '▶ ') + span.textContent.replace(/^[▼▶] /, '');
+    }
+
+    function copyBriefPrompt(idx) {
+      if (!briefData || !briefData.prompts) return;
+      const sorted = [...briefData.prompts].sort((a, b) => (a.blast_score || 0) - (b.blast_score || 0));
+      const p = sorted[idx];
+      if (!p) return;
+      navigator.clipboard.writeText(p.prompt || '').then(() =>
+        showToast('Copied', `${p.id}: prompt text copied to clipboard`)
+      );
+    }
+
+    // ── LEVEL 1: Mode dashboard / report list ────────────────────────
+    // Groups reports by project name. Shows the latest scan per project as
+    function renderLevel1() {
+      const reports = manifest.reports.filter(r => r.mode === currentMode);
+      const modeInfo = manifest.modeSummary[currentMode];
+      if (!modeInfo) {
+        document.getElementById('app-root').innerHTML =
+          `<div class="error">Unknown mode: ${currentMode}</div>`;
+        return;
+      }
+
+      // Group by project (case-insensitive, normalized).
+      const groups = new Map();
+      for (const r of reports) {
+        const key = (r.project || '(untitled)').toLowerCase().trim();
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(r);
+      }
+      // Sort each group newest-first; manifest is already that way but be safe.
+      for (const g of groups.values()) {
+        g.sort((a, b) => b.generatedIso.localeCompare(a.generatedIso));
+      }
+      // Group order: newest activity first.
+      const groupArr = Array.from(groups.values())
+        .sort((a, b) => b[0].generatedIso.localeCompare(a[0].generatedIso));
+
+      const projectCount = groups.size;
+      const latest = reports[0]?.generatedIso;
+      const firstScan = reports.length
+        ? reports.map(r => r.generatedIso).sort()[0]
+        : null;
+
+      const rowsHtml = groupArr.map(group => {
+        const latestReport = group[0];
+        const hasHistory = group.length > 1;
+        const summary = latestReport.summary || '';
+        const sev = latestReport.severityCounts;
+        const sevTotal = latestReport.findingsTotal || 0;
+
+        // Severity chips. Only show counts > 0 to keep rows clean.
+        // Dashboard mode is excluded because its manifest entry uses a placeholder
+        // (all open findings dumped into 'medium') — rendering chips would lie.
+        // Tracked: portal-publish.js dashboard manifest entry needs real severity counts.
+        const sevChips = (sev && latestReport.mode !== 'dashboard') ? `
+          <div class="severity-row">
+            ${sev.critical > 0 ? `<span class="sev-chip sev-critical"><span class="dot"></span>${sev.critical} Critical</span>` : ''}
+            ${sev.high > 0     ? `<span class="sev-chip sev-high"><span class="dot"></span>${sev.high} High</span>` : ''}
+            ${sev.medium > 0   ? `<span class="sev-chip sev-medium"><span class="dot"></span>${sev.medium} Medium</span>` : ''}
+            ${sev.low > 0      ? `<span class="sev-chip sev-low"><span class="dot"></span>${sev.low} Low</span>` : ''}
+            ${sevTotal > 0     ? `<span class="sev-chip sev-total">${sevTotal} total finding${sevTotal !== 1 ? 's' : ''}</span>` : ''}
+          </div>
+        ` : '';
+
+        const historyJson = hasHistory ? encodeURIComponent(JSON.stringify(group.map(r => ({
+          id: r.id, generated: r.generated, generatedIso: r.generatedIso, tool: r.tool,
+        })))) : '';
+        const historyPill = hasHistory
+          ? `<span class="history-pill" onclick="event.stopPropagation();showHistoryModal('${escapeAttr(latestReport.project)}','${historyJson}')" title="View history">History · ${group.length}</span>`
+          : '';
+
+        return `
+          <div class="report-row ${multiSelectMode ? 'selectable' : ''}" onclick="${multiSelectMode ? `toggleMultiSelect('${latestReport.id}')` : `navigate('level2','${currentMode}','${latestReport.id}')`}">
+            ${multiSelectMode ? `<input type="checkbox" class="ms-check" ${multiSelectIds.has(latestReport.id) ? 'checked' : ''} onclick="event.stopPropagation();toggleMultiSelect('${latestReport.id}')">` : ''}
+            <div class="report-row-top">
+              <div class="report-project">
+                ${escapeHtml(latestReport.project)}${historyPill}
+              </div>
+              <div class="report-date">${formatDate(latestReport.generatedIso)}</div>
+            </div>
+            ${summary ? `<div class="report-summary">${escapeHtml(summary).slice(0, 240)}${summary.length > 240 ? '…' : ''}</div>` : ''}
+            ${sevChips}
+            <div class="report-meta">${escapeHtml(latestReport.tool || '')}${latestReport.filesAnalyzed ? ' · ' + escapeHtml(latestReport.filesAnalyzed) + ' files' : ''}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Expose all reports in this mode on window for multi-scan export to access
+      window.__currentLevel1Reports = reports;
+
+      document.getElementById('app-root').innerHTML = `
+        <div class="back-bar">
+          <button class="back-btn" onclick="navigate('level0')">← Back</button>
+          <div class="breadcrumb">${PORTAL_SLUG} / <b>${modeInfo.label}</b></div>
+          <div style="margin-left: auto; display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+            <button class="back-btn" onclick="toggleMultiSelectMode()" title="Select multiple scans to export as one consolidated Jira import.">${multiSelectMode ? '✓ Multi-Select On' : 'Multi-Select Scans'}</button>
+            <button class="back-btn" onclick="exportCurrentModeCsv()">Export CSV</button>
+          </div>
+        </div>
+        ${multiSelectMode ? `
+          <div class="multi-select-bar active">
+            <span class="ms-label">Multi-Scan Export</span>
+            <span class="ms-count">${multiSelectIds.size} of ${reports.length} selected</span>
+            <button class="jira-btn" onclick="selectAllInMode()">Select All</button>
+            <button class="jira-btn" onclick="clearMultiSelect()">Clear</button>
+            <button class="jira-btn primary" onclick="openJiraExportModal('multi-scan')" ${multiSelectIds.size === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed"' : ''}>
+              <span class="icon"></span>Export ${multiSelectIds.size} Scans as One Epic
+            </button>
+          </div>
+        ` : ''}
+        <div class="mode-stats">
+          <div class="mode-stat">
+            <div class="label">Projects</div>
+            <div class="value">${projectCount}</div>
+          </div>
+          <div class="mode-stat">
+            <div class="label">Total Scans</div>
+            <div class="value">${reports.length}</div>
+          </div>
+          <div class="mode-stat">
+            <div class="label">First Scan</div>
+            <div class="value" style="font-size: 14px; padding-top: 6px;">${firstScan ? formatDate(firstScan) : '—'}</div>
+          </div>
+          <div class="mode-stat">
+            <div class="label">Last Scan</div>
+            <div class="value" style="font-size: 14px; padding-top: 6px;">${latest ? relativeTime(latest) : '—'}</div>
+          </div>
+        </div>
+        <div class="section-label">Projects (${projectCount})</div>
+        <div class="report-list">${rowsHtml || '<div class="empty-state">No reports in this mode yet.</div>'}</div>
+      `;
+    }
+
+    // ── History modal ────────────────────────────────────────────────
+    function showHistoryModal(projectName, historyJson) {
+      const history = JSON.parse(decodeURIComponent(historyJson));
+      const existing = document.getElementById('mode-modal-overlay');
+      if (existing) existing.remove();
+
+      const rowsHtml = history.map((h, idx) => `
+        <div class="history-row" onclick="closeModeModal();navigate('level2','${currentMode}','${h.id}')"
+             style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px;
+                    background: var(--bg-tile); cursor: pointer; margin-bottom: 8px;
+                    transition: all 0.15s; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <div style="font-size: 12px; color: var(--text-primary); font-weight: 500;">
+              ${idx === 0 ? '<span style="color: var(--cyan); margin-right: 6px;">▸ Latest</span>' : `Scan #${history.length - idx}`}
+            </div>
+            <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">
+              ${escapeHtml(h.generated)} · ${escapeHtml(h.tool || '')}
+            </div>
+          </div>
+          <span style="color: var(--cyan-dim); font-size: 14px;">↗</span>
+        </div>
+      `).join('');
+
+      const overlay = document.createElement('div');
+      overlay.id = 'mode-modal-overlay';
+      overlay.className = 'modal-overlay';
+      overlay.innerHTML = `
+        <div class="modal" role="dialog" aria-modal="true" style="max-width: 540px;">
+          <button class="modal-close" aria-label="Close" onclick="closeModeModal()">×</button>
+          <div class="modal-mode">Scan History</div>
+          <div class="modal-title">${escapeHtml(projectName)}</div>
+          <div class="modal-body" style="margin-top: 6px;">
+            <div style="font-size: 12px; color: var(--text-tertiary); margin-bottom: 14px;">
+              ${history.length} scans · oldest first
+            </div>
+            ${rowsHtml}
+          </div>
+        </div>
+      `;
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModeModal();
+      });
+      document.body.appendChild(overlay);
+      document.addEventListener('keydown', escClose);
+    }
+
+    function escapeAttr(s) {
+      return String(s == null ? '' : s).replace(/['"<>&]/g, c => ({
+        "'": '&#39;', '"': '&quot;', '<': '&lt;', '>': '&gt;', '&': '&amp;',
+      }[c]));
+    }
+
+    // ── LEVEL 2: Report detail ───────────────────────────────────────
+    // When the report has structured findings (hasStructuredFindings: true),
+    // we show a Findings tab (default) and a Full Report tab. Otherwise we
+    // just show the markdown body as before. Backwards compatible.
+    async function renderLevel2() {
+      const report = manifest.reports.find(r => r.id === currentReportId && r.mode === currentMode);
+      const modeInfo = manifest.modeSummary[currentMode];
+      if (!report) {
+        document.getElementById('app-root').innerHTML =
+          `<div class="error">Report not found.</div>`;
+        return;
+      }
+
+      // Reset per-report UI state when we enter a new report.
+      // Default to 'findings' tab when structured data exists, 'report' otherwise.
+      level2Tab = report.hasStructuredFindings ? 'findings' : 'report';
+      findingsFilter = 'all';
+
+      // Download buttons + breadcrumb scaffold (always present).
+      const dlBar = `
+        <div class="download-bar download-bar-top">
+          ${report.files.md ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.md)}" target="_blank">MD</a>` : ''}
+          ${report.files.pdf ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.pdf)}" target="_blank">PDF</a>` : ''}
+          ${report.files.txt ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.txt)}" target="_blank">TXT</a>` : ''}
+          ${report.files.findings ? `<a class="download-btn" href="${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.findings)}" target="_blank">JSON</a>` : ''}
+        </div>
+      `;
+      document.getElementById('app-root').innerHTML = `
+        <div class="back-bar">
+          <button class="back-btn" onclick="navigate('level1','${currentMode}')">← Back</button>
+          <div class="breadcrumb">${PORTAL_SLUG} / ${modeInfo.label} / <b>${escapeHtml(report.project)}</b></div>
+        </div>
+        ${dlBar}
+        <div id="level2-content">
+          <div class="loading">Loading report…</div>
+        </div>
+      `;
+
+      await renderLevel2Content(report);
+    }
+
+    async function renderLevel2Content(report) {
+      const container = document.getElementById('level2-content');
+      if (!container) return;
+
+      // Dashboard mode has its own renderer — cross-project rollup, not a
+      // single-scan finding list. The dashboard sidecar has a different
+      // schema (projects + aggregateCounts + remainingFindings) so the
+      // generic findings tab wouldn't render it correctly.
+      if (report.mode === 'dashboard') {
+        await renderDashboardInto(container, report);
+        return;
+      }
+
+      // If the report has structured findings, render tabs. Otherwise straight
+      // to the markdown body.
+      if (!report.hasStructuredFindings) {
+        await renderReportBodyInto(container, report);
+        return;
+      }
+
+      // Build the tab bar. We use a placeholder count until findings load.
+      const findingsCount = findingsCache[report.id]?.findings?.length ?? null;
+      const tabsHtml = `
+        <div class="view-tabs">
+          <button class="view-tab ${level2Tab === 'findings' ? 'active' : ''}"
+                  onclick="switchLevel2Tab('findings')">
+            Findings${findingsCount !== null ? `<span class="view-tab-count">${findingsCount}</span>` : ''}
+          </button>
+          <button class="view-tab ${level2Tab === 'report' ? 'active' : ''}"
+                  onclick="switchLevel2Tab('report')">
+            Full Report
+          </button>
+        </div>
+        <div id="tab-content"></div>
+      `;
+      container.innerHTML = tabsHtml;
+      const tabContent = document.getElementById('tab-content');
+
+      if (level2Tab === 'findings') {
+        await renderFindingsInto(tabContent, report);
+      } else {
+        await renderReportBodyInto(tabContent, report);
+      }
+    }
+
+    function switchLevel2Tab(tab) {
+      level2Tab = tab;
+      const report = manifest.reports.find(r => r.id === currentReportId && r.mode === currentMode);
+      if (report) renderLevel2Content(report);
+    }
+
+    function setFindingsFilter(severity) {
+      findingsFilter = severity;
+      const report = manifest.reports.find(r => r.id === currentReportId && r.mode === currentMode);
+      if (report) renderLevel2Content(report);
+    }
+
+    // Cross-scan diffing: find the prior scan of the same project in the same
+    // mode and compute Open/New/Fixed status for each finding by stable ID.
+    // Returns { priorReport, priorFindings, statusMap } or null when no prior
+    // scan exists.
+    async function computeFindingsDiff(currentReport, currentFindings) {
+      // Find all reports of the same mode + project, newest first.
+      const sameProject = manifest.reports
+        .filter(r => r.mode === currentReport.mode
+                  && r.project === currentReport.project
+                  && r.hasStructuredFindings)
+        .sort((a, b) => b.generatedIso.localeCompare(a.generatedIso));
+
+      const myIndex = sameProject.findIndex(r => r.id === currentReport.id);
+      if (myIndex === -1 || myIndex >= sameProject.length - 1) return null;
+
+      const priorReport = sameProject[myIndex + 1];
+
+      // Fetch prior findings.json (cached if seen before)
+      let priorData;
+      try {
+        if (findingsCache[priorReport.id]) {
+          priorData = findingsCache[priorReport.id];
+        } else {
+          const url = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(priorReport.files.findings)}`;
+          const res = await fetch(url);
+          if (!res.ok) return null;
+          priorData = await res.json();
+          findingsCache[priorReport.id] = priorData;
+        }
+      } catch (_) {
+        return null;
+      }
+
+      const priorFindings = priorData.findings || [];
+      const currentIds = new Set(currentFindings.map(f => f.id));
+      const priorIds = new Set(priorFindings.map(f => f.id));
+
+      const statusMap = {};
+      for (const f of currentFindings) {
+        statusMap[f.id] = priorIds.has(f.id) ? 'open' : 'new';
+      }
+      // Findings that were in the prior scan but not in this one are "fixed"
+      const fixed = priorFindings.filter(f => !currentIds.has(f.id));
+
+      return { priorReport, priorFindings, statusMap, fixed };
+    }
+
+    // ── Dashboard view ────────────────────────────────────────────
+    // Renders the cross-project remediation rollup. The "report" here is the
+    // canonical dashboard manifest entry, and its findings file is actually
+    // a dashboard.json with shape:
+    //   { projects: [...], aggregateCounts: {...}, remainingFindings: [...] }
+    // We render projects as progress-bar cards and stash remainingFindings
+    // on window.__currentFindings so the Jira export buttons can find them.
+    async function renderDashboardInto(container, report) {
+      container.innerHTML = '<div class="loading">Loading dashboard…</div>';
+
+      let data;
+      try {
+        if (findingsCache[report.id]) {
+          data = findingsCache[report.id];
+        } else {
+          const url = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.findings)}`;
+          const res = await fetch(url);
+          if (!res.ok) throw new Error(`dashboard ${res.status}`);
+          data = await res.json();
+          findingsCache[report.id] = data;
+        }
+      } catch (err) {
+        container.innerHTML = `<div class="error">Failed to load dashboard: ${escapeHtml(err.message)}</div>`;
+        return;
+      }
+
+      const projects = data.projects || [];
+      const ag       = data.aggregateCounts || {};
+      const remaining = data.remainingFindings || [];
+
+      // Stash remainingFindings on window so the Jira export modal can pick
+      // them up via window.__currentFindings — same channel the per-scan
+      // findings view uses, so executeJiraExport requires no changes.
+      window.__currentFindings = remaining;
+      window.__currentReport   = report;
+      window.__currentDiff     = null;  // dashboard has no per-scan diff
+
+      // Aggregate stats bar (analog to totals-bar on findings view)
+      const totalsBar = `
+        <div class="totals-bar">
+          <div class="totals-stat">
+            <div class="lbl">Projects</div>
+            <div class="val">${projects.length}</div>
+          </div>
+          <div class="totals-stat">
+            <div class="lbl">Baseline</div>
+            <div class="val">${ag.totalBaseline || 0}<small>findings</small></div>
+          </div>
+          <div class="totals-stat">
+            <div class="lbl">Resolved</div>
+            <div class="val" style="color: var(--good);">${ag.totalResolved || 0}</div>
+          </div>
+          <div class="totals-stat">
+            <div class="lbl">Open</div>
+            <div class="val" style="color: var(--warn);">${ag.totalRemaining || 0}</div>
+          </div>
+          <div class="totals-stat">
+            <div class="lbl">New</div>
+            <div class="val">${ag.totalNewIssues || 0}</div>
+          </div>
+          <div class="totals-stat">
+            <div class="lbl">Avg Progress</div>
+            <div class="val">${ag.avgProgress || 0}<small>%</small></div>
+          </div>
+        </div>
+      `;
+
+      // Jira export toolbar — uses the same modal as the findings view.
+      // The 'epic-stories' mode wraps the aggregated remainingFindings into
+      // a single Epic + Stories CSV, exactly the "aggregated Jira batch
+      // across all projects" behavior you asked for.
+      const jiraToolbar = `
+        <div class="findings-toolbar">
+          <span class="findings-toolbar-label">Aggregated export:</span>
+          <div class="jira-cluster" style="margin-left: 0;">
+            <button class="jira-btn primary" onclick="openJiraExportModal('epic-stories')"
+              title="Export ALL open findings across ALL projects as one Jira batch (Epic + Stories/Bugs).">
+              <span class="icon"></span>Export ${remaining.length} Open Finding${remaining.length === 1 ? '' : 's'} as Jira Batch
+            </button>
+            <button class="jira-btn" onclick="openJiraExportModal('stories-only')"
+              title="Export open findings as standalone Stories/Bugs (no Epic).">
+              <span class="icon"></span>Stories Only
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Empty state — no projects tracked yet.
+      if (projects.length === 0) {
+        container.innerHTML = totalsBar + `
+          <div class="findings-empty">
+            No labeled projects yet. Run a scan with a project label from the Ghost CLI to start tracking remediation across scans.
+          </div>
+        `;
+        return;
+      }
+
+      // Project rows with progress bars — sorted by activity score (descending).
+      // Score = scanCount × (progress/100) × 10 + scanCount
+      // The ×10 weight ensures resolution % dominates over raw scan count.
+      // Tie-break: higher scan count wins. Zero-progress single-scan projects sink.
+      const projectCards = [...projects].sort((a, b) => {
+        const scoreA = (a.scanCount || 0) * ((a.progress || 0) / 100) * 10 + (a.scanCount || 0);
+        const scoreB = (b.scanCount || 0) * ((b.progress || 0) / 100) * 10 + (b.scanCount || 0);
+        return scoreB - scoreA;
+      }).map(p => {
+        const safeProgress = Math.max(0, Math.min(100, Number.isFinite(p.progress) ? p.progress : 0));
+        const filled = Math.max(0, Math.min(40, Math.round(safeProgress / 2.5)));
+        const empty  = Math.max(0, 40 - filled);
+        const bar    = '█'.repeat(filled) + '░'.repeat(empty);
+
+        const progressColor = safeProgress >= 75 ? 'var(--good)'
+                            : safeProgress >= 40 ? 'var(--cyan)'
+                            : safeProgress > 0   ? 'var(--warn)'
+                            : 'var(--text-tertiary)';
+
+        return `
+          <div class="finding-card">
+            <div class="finding-card-top">
+              <div class="finding-title">${escapeHtml(p.label)}</div>
+              <span class="sev-chip sev-total">${p.scanCount || 0} scan${(p.scanCount || 0) === 1 ? '' : 's'}</span>
+            </div>
+            <div style="font-family: 'SF Mono', Menlo, Monaco, monospace; font-size: 13px; color: ${progressColor}; margin: 10px 0 6px; letter-spacing: 0.5px;">
+              ${bar} ${safeProgress}%
+            </div>
+            <div class="finding-meta">
+              <span><b>Baseline:</b> ${p.baselineDate || '(unknown)'}</span>
+              <span><b>Last scan:</b> ${p.lastScan || '(unknown)'}</span>
+              <span><b>Baseline findings:</b> ${p.baseline || 0}</span>
+              <span><b>Resolved:</b> ${p.resolved || 0}</span>
+              <span><b>Remaining:</b> ${p.remaining || 0}</span>
+              ${p.newIssues > 0 ? `<span style="color: var(--warn);"><b>New:</b> ${p.newIssues}</span>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = totalsBar + jiraToolbar + `
+        <div class="section-label" style="margin-top: 18px;">Projects (${projects.length})</div>
+        <div class="findings-list">${projectCards}</div>
+      `;
+    }
+
+    async function renderFindingsInto(container, report) {
+      container.innerHTML = '<div class="loading">Loading findings…</div>';
+
+      let data;
+      try {
+        if (findingsCache[report.id]) {
+          data = findingsCache[report.id];
+        } else {
+          const url = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(report.files.findings)}`;
+          const res = await fetch(url);
+          if (!res.ok) throw new Error(`findings ${res.status}`);
+          data = await res.json();
+          findingsCache[report.id] = data;
+          // Update the tab badge with the real count now that we have data.
+          const tabFindings = container.parentElement?.querySelector('.view-tab');
+          if (tabFindings && !tabFindings.querySelector('.view-tab-count')) {
+            const badge = document.createElement('span');
+            badge.className = 'view-tab-count';
+            badge.textContent = (data.findings || []).length;
+            tabFindings.appendChild(badge);
+          }
+        }
+      } catch (err) {
+        container.innerHTML = `<div class="error">Failed to load findings: ${escapeHtml(err.message)}</div>`;
+        return;
+      }
+
+      const findings = data.findings || [];
+      const sev = data.severityCounts || {};
+      const totals = data.totals || {};
+
+      // Cross-scan diff (Open/New/Fixed). Null when this is the first scan.
+      const diff = await computeFindingsDiff(report, findings);
+
+      // Filter
+      const filtered = findingsFilter === 'all'
+        ? findings
+        : findings.filter(f => (f.severity || '').toLowerCase() === findingsFilter);
+
+      // Sort: severity rank then effort desc
+      const sevRank = { CRITICAL: 0, HIGH: 1, MEDIUM: 2, LOW: 3 };
+      filtered.sort((a, b) => {
+        const ra = sevRank[a.severity] ?? 99;
+        const rb = sevRank[b.severity] ?? 99;
+        if (ra !== rb) return ra - rb;
+        return (b.effortHours || 0) - (a.effortHours || 0);
+      });
+
+      const totalHrs = filtered.reduce((s, f) => s + (f.effortHours || 0), 0);
+      const filterPill = (key, label, count, sevClass) => `
+        <button class="filter-chip ${findingsFilter === key ? 'active ' + sevClass : ''}"
+                onclick="setFindingsFilter('${key}')">
+          ${label}${count != null ? ` · ${count}` : ''}
+        </button>
+      `;
+
+      // Stash the current findings + report context on window for the Jira modal to pick up.
+      // Diff banner already computed above; we expose diff data via the same channel.
+      window.__currentFindings = filtered;
+      window.__currentReport = report;
+      window.__currentDiff = diff;
+
+      const hasDiff = !!(diff && diff.statusMap);
+      const newCount = hasDiff ? Object.values(diff.statusMap).filter(s => s === 'new').length : 0;
+
+      const toolbar = `
+        <div class="findings-toolbar">
+          <span class="findings-toolbar-label">Filter:</span>
+          ${filterPill('all',      'All',                  findings.length, '')}
+          ${filterPill('critical', 'Critical', sev.critical, 'sev-critical-active')}
+          ${filterPill('high',     'High',     sev.high,     'sev-high-active')}
+          ${filterPill('medium',   'Medium',   sev.medium,   'sev-medium-active')}
+          ${filterPill('low',      'Low',      sev.low,      'sev-low-active')}
+          <div class="jira-cluster">
+            <button class="jira-btn primary" onclick="openJiraExportModal('epic-stories')"
+              title="Export an Epic plus all visible findings as Stories/Bugs under it. Jira CSV importer ready.">
+              <span class="icon"></span>Export Epic + Stories
+            </button>
+            <button class="jira-btn" onclick="openJiraExportModal('stories-only')"
+              title="Export findings as standalone Stories/Bugs. Attach to an existing Epic in Jira after import.">
+              <span class="icon"></span>Export Stories Only
+            </button>
+            ${hasDiff && newCount > 0 ? `
+              <button class="jira-btn" onclick="openJiraExportModal('diff-new')"
+                title="Export only findings that are NEW since the previous scan of this project.">
+                <span class="icon"></span>Export New Only
+                <span class="diff-export-hint">${newCount}</span>
+              </button>
+            ` : ''}
+          </div>
+        </div>
+      `;
+
+      // Diff banner — only shown when a prior scan exists.
+      const diffBanner = diff ? (() => {
+        const newCount = Object.values(diff.statusMap).filter(s => s === 'new').length;
+        const openCount = Object.values(diff.statusMap).filter(s => s === 'open').length;
+        const fixedCount = diff.fixed.length;
+        return `
+          <div class="diff-banner">
+            <div class="diff-stat"><span class="num new">${newCount}</span><span class="lbl">New</span></div>
+            <div class="diff-stat"><span class="num open">${openCount}</span><span class="lbl">Open</span></div>
+            <div class="diff-stat"><span class="num fixed">${fixedCount}</span><span class="lbl">Fixed</span></div>
+            <div class="diff-context">vs. scan from ${formatDate(diff.priorReport.generatedIso)}</div>
+          </div>
+        `;
+      })() : '';
+
+      const totalsBar = `
+        <div class="totals-bar">
+          <div class="totals-stat">
+            <div class="lbl">Findings</div>
+            <div class="val">${filtered.length}<small>of ${findings.length}</small></div>
+          </div>
+          <div class="totals-stat">
+            <div class="lbl">Effort</div>
+            <div class="val">${totalHrs > 0 ? totalHrs.toFixed(1) + '<small>hours</small>' : '<span style="color: var(--text-tertiary); font-size: 16px;">not estimated</span>'}</div>
+          </div>
+          ${totals.totalCost ? `
+          <div class="totals-stat">
+            <div class="lbl">Est. Cost</div>
+            <div class="val">$${Number(totals.totalCost).toLocaleString()}</div>
+          </div>` : ''}
+          <div class="totals-stat">
+            <div class="lbl">Scan Date</div>
+            <div class="val" style="font-size: 13px; padding-top: 4px;">${formatDate(report.generatedIso)}</div>
+          </div>
+        </div>
+      `;
+
+      const cardsHtml = filtered.length === 0
+        ? '<div class="findings-empty">No findings match the current filter.</div>'
+        : filtered.map(f => {
+            const sevKey = (f.severity || '').toLowerCase();
+            const sevClass = `f-${sevKey}`;
+            const sevChip = `<span class="sev-chip sev-${sevKey}"><span class="dot"></span>${escapeHtml(f.severity || '—')}</span>`;
+            const filesHtml = (f.files || []).slice(0, 4).map(file =>
+              `<span class="finding-file">${escapeHtml(file)}</span>`
+            ).join(' ');
+            const overflow = (f.files || []).length > 4 ? ` <span class="finding-meta">+${f.files.length - 4} more</span>` : '';
+            const effortLabel = f.effortHours
+              ? `<span><b>Effort:</b> ${f.effortHours}h</span>` : '';
+            const confidenceLabel = (f.confidence != null)
+              ? `<span><b>Confidence:</b> ${f.confidence}%</span>` : '';
+
+            // Status pill (Open/New) from cross-scan diff
+            const status = diff?.statusMap?.[f.id];
+            const statusPill = status === 'new'
+              ? '<span class="status-pill status-new">● New</span>'
+              : status === 'open'
+                ? '<span class="status-pill status-open">Open</span>'
+                : '';
+
+            // Per-finding Export link. Label switches based on severity.
+            const exportLabel = (sevKey === 'critical' || sevKey === 'high') ? 'Export as Bug' : 'Export as Story';
+            const exportLink = `<button class="finding-export-link" onclick="event.stopPropagation();exportSingleFinding('${escapeAttr(f.id)}')" title="Export this finding as a single-row Jira CSV ready to import.">${exportLabel}</button>`;
+
+            return `
+              <div class="finding-card ${sevClass}">
+                ${exportLink}
+                <div class="finding-card-top">
+                  <div class="finding-title">${escapeHtml(f.title || '(untitled)')}${statusPill}</div>
+                  ${sevChip}
+                </div>
+                ${f.detail ? `<div class="finding-detail">${escapeHtml(f.detail)}</div>` : ''}
+                <div class="finding-meta">
+                  ${filesHtml}${overflow}
+                  ${effortLabel}
+                  ${confidenceLabel}
+                </div>
+              </div>
+            `;
+          }).join('');
+
+      // Fixed findings section — only when diff is available and there are any.
+      const fixedHtml = (diff && diff.fixed.length > 0) ? (() => {
+        const cards = diff.fixed.map(f => {
+          const sevKey = (f.severity || '').toLowerCase();
+          return `
+            <div class="finding-card f-${sevKey}" style="opacity: 0.65;">
+              <div class="finding-card-top">
+                <div class="finding-title" style="text-decoration: line-through; color: var(--text-tertiary);">
+                  ${escapeHtml(f.title || '(untitled)')}
+                  <span class="status-pill status-fixed">✓ Fixed</span>
+                </div>
+                <span class="sev-chip sev-${sevKey}"><span class="dot"></span>${escapeHtml(f.severity || '—')}</span>
+              </div>
+              <div class="finding-meta">
+                ${(f.files || []).slice(0, 3).map(file => `<span class="finding-file">${escapeHtml(file)}</span>`).join(' ')}
+              </div>
+            </div>
+          `;
+        }).join('');
+        return `
+          <div class="section-label" style="margin-top: 22px;">Fixed since last scan</div>
+          <div class="findings-list">${cards}</div>
+        `;
+      })() : '';
+
+      container.innerHTML = diffBanner + toolbar + totalsBar + `<div class="findings-list">${cardsHtml}</div>` + fixedHtml;
+    }
+
+    async function renderReportBodyInto(container, report) {
+      container.innerHTML = '<div class="report-detail" id="report-body"><div class="loading">Loading report…</div></div>';
+
+      // Fetch body. Prefer .md, fall back to .txt for older reports.
+      let body;
+      let isPlainText = false;
+      if (reportBodyCache[report.id]) {
+        body = reportBodyCache[report.id].body;
+        isPlainText = reportBodyCache[report.id].isPlainText;
+      } else {
+        const bodyFile = report.files.md || report.files.txt;
+        if (!bodyFile) {
+          document.getElementById('report-body').innerHTML =
+            `<div class="error">No body available for this report.</div>`;
+          return;
+        }
+        isPlainText = !report.files.md && !!report.files.txt;
+        try {
+          const url = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(bodyFile)}`;
+          const res = await fetch(url);
+          if (!res.ok) throw new Error(`report ${res.status}`);
+          body = await res.text();
+          reportBodyCache[report.id] = { body, isPlainText };
+        } catch (err) {
+          document.getElementById('report-body').innerHTML =
+            `<div class="error">Failed to load report: ${escapeHtml(err.message)}</div>`;
+          return;
+        }
+      }
+
+      const html = isPlainText
+        ? `<pre style="white-space: pre-wrap; font-family: 'SF Mono', Menlo, Monaco, monospace; font-size: 12px; background: transparent; border: none; padding: 0;">${escapeHtml(body)}</pre>`
+        : mdToHtml(body);
+      document.getElementById('report-body').innerHTML = html;
+    }
+
+    // ── Mode info modal ──────────────────────────────────
+    function showModeModal(modeKey) {
+      const desc = MODE_DESCRIPTIONS[modeKey];
+      if (!desc) return;
+      const existing = document.getElementById('mode-modal-overlay');
+      if (existing) existing.remove();
+
+      const overlay = document.createElement('div');
+      overlay.id = 'mode-modal-overlay';
+      overlay.className = 'modal-overlay';
+      overlay.innerHTML = `
+        <div class="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+          <button class="modal-close" aria-label="Close" onclick="closeModeModal()">×</button>
+          <div class="modal-mode">Scan Mode</div>
+          <div class="modal-title" id="modal-title">${escapeHtml(desc.title)}</div>
+          <div class="modal-body">${escapeHtml(desc.body)}</div>
+        </div>
+      `;
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModeModal();
+      });
+      document.body.appendChild(overlay);
+      document.addEventListener('keydown', escClose);
+    }
+    function closeModeModal() {
+      const overlay = document.getElementById('mode-modal-overlay');
+      if (overlay) overlay.remove();
+      document.removeEventListener('keydown', escClose);
+    }
+    function escClose(e) {
+      if (e.key === 'Escape') closeModeModal();
+    }
+
+    // ── CSV export for current mode ────────────────────────────────
+    function exportCurrentModeCsv() {
+      if (!currentMode || !manifest) return;
+      const reports = manifest.reports.filter(r => r.mode === currentMode);
+      const modeInfo = manifest.modeSummary[currentMode];
+
+      const headers = ['Project', 'Generated', 'Tool', 'Files Analyzed', 'Summary', 'MD', 'PDF', 'TXT'];
+      const rows = reports.map(r => [
+        r.project,
+        r.generated,
+        r.tool,
+        r.filesAnalyzed || '',
+        (r.summary || '').replace(/\s+/g, ' ').trim(),
+        r.files.md  ? `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(r.files.md)}`  : '',
+        r.files.pdf ? `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(r.files.pdf)}` : '',
+        r.files.txt ? `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(r.files.txt)}` : '',
+      ]);
+
+      // Escape CSV: double-quote fields, escape internal quotes by doubling them.
+      const escape = (v) => {
+        const s = String(v == null ? '' : v);
+        return `"${s.replace(/"/g, '""')}"`;
+      };
+      const lines = [
+        headers.map(escape).join(','),
+        ...rows.map(row => row.map(escape).join(',')),
+      ];
+      // Excel-friendly: prepend BOM so UTF-8 is detected correctly.
+      const csv = '\uFEFF' + lines.join('\n');
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const today = new Date().toISOString().slice(0, 10);
+      a.href = url;
+      a.download = `${PORTAL_SLUG}-${currentMode}-reports-${today}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // ── Markdown → HTML (lightweight, no external lib) ───────────────
+    function mdToHtml(md) {
+      // Tables (basic 2-column GFM table)
+      md = md.replace(/((?:\|[^\n]+\|\n)+)/g, (m) => {
+        const rows = m.trim().split('\n').map(r => r.replace(/^\||\|$/g, '').split('|').map(c => c.trim()));
+        if (rows.length < 2) return m;
+        // Skip alignment row if present
+        const alignmentRow = rows[1] && rows[1].every(c => /^:?-+:?$/.test(c));
+        const header = rows[0];
+        const dataRows = alignmentRow ? rows.slice(2) : rows.slice(1);
+        const thead = `<thead><tr>${header.map(h => `<th>${inlineMd(h)}</th>`).join('')}</tr></thead>`;
+        const tbody = `<tbody>${dataRows.map(r => `<tr>${r.map(c => `<td>${inlineMd(c)}</td>`).join('')}</tr>`).join('')}</tbody>`;
+        return `<table>${thead}${tbody}</table>`;
+      });
+      // Code fences
+      md = md.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) =>
+        `<pre><code>${escapeHtml(code.trim())}</code></pre>`);
+      // Headings
+      md = md.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+      md = md.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+      md = md.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+      // HR
+      md = md.replace(/^---+$/gm, '<hr>');
+      // Blockquote
+      md = md.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
+      // Lists
+      md = md.replace(/(?:^[-*] .+\n?)+/gm, (block) => {
+        const items = block.trim().split('\n').map(l => l.replace(/^[-*] /, '').trim()).filter(Boolean);
+        return `<ul>${items.map(i => `<li>${inlineMd(i)}</li>`).join('')}</ul>`;
+      });
+      md = md.replace(/(?:^\d+\. .+\n?)+/gm, (block) => {
+        const items = block.trim().split('\n').map(l => l.replace(/^\d+\. /, '').trim()).filter(Boolean);
+        return `<ol>${items.map(i => `<li>${inlineMd(i)}</li>`).join('')}</ol>`;
+      });
+      // Paragraphs (any line that's not already a block element)
+      md = md.split(/\n\n+/).map(block => {
+        const trimmed = block.trim();
+        if (!trimmed) return '';
+        if (/^<(h\d|table|pre|ul|ol|hr|blockquote)/.test(trimmed)) return trimmed;
+        return `<p>${inlineMd(trimmed.replace(/\n/g, ' '))}</p>`;
+      }).join('\n');
+      return md;
+    }
+
+    function inlineMd(s) {
+      // Inline code
+      s = s.replace(/`([^`]+)`/g, (_, c) => `<code>${escapeHtml(c)}</code>`);
+      // Bold
+      s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+      // Italic (single asterisk, no greedy)
+      s = s.replace(/(^|[^*])\*([^*\n]+)\*([^*]|$)/g, '$1<em>$2</em>$3');
+      // Links
+      s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" style="color:var(--cyan)">$1</a>');
+      return s;
+    }
+
+    // ── Helpers ──────────────────────────────────────────────────────
+    function escapeHtml(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+      }[c]));
+    }
+
+    function formatDate(iso) {
+      if (!iso) return '—';
+      const d = new Date(iso);
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function relativeTime(iso) {
+      if (!iso) return '—';
+      const now = Date.now();
+      const then = new Date(iso).getTime();
+      const seconds = Math.floor((now - then) / 1000);
+      if (seconds < 60) return 'just now';
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 60) return `${minutes}m ago`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours}h ago`;
+      const days = Math.floor(hours / 24);
+      if (days < 30) return `${days}d ago`;
+      const months = Math.floor(days / 30);
+      if (months < 12) return `${months}mo ago`;
+      return `${Math.floor(months / 12)}y ago`;
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // JIRA EXPORT — full integration
+    // ════════════════════════════════════════════════════════════════
+
+    // Severity → Jira Priority + Work Type mapping
+    const JIRA_MAPPING = {
+      CRITICAL: { priority: 'Highest', workType: 'Bug' },
+      HIGH:     { priority: 'High',    workType: 'Bug' },
+      MEDIUM:   { priority: 'Medium',  workType: 'Story' },
+      LOW:      { priority: 'Low',     workType: 'Task' },
+    };
+
+    // Effort hours → Fibonacci story points
+    function effortHoursToStoryPoints(hours) {
+      if (hours == null || hours <= 0) return '';
+      if (hours <= 2)  return 1;
+      if (hours <= 5)  return 2;
+      if (hours <= 10) return 3;
+      if (hours <= 20) return 5;
+      if (hours <= 40) return 8;
+      return 13;
+    }
+
+    // Parse component name from a file path. Magento-aware (app/code/Vendor/Module → Vendor_Module),
+    // generic fallback: top-level folder.
+    function componentFromFiles(files) {
+      if (!files || !files.length) return '';
+      const components = new Set();
+      for (const f of files) {
+        const parts = String(f).split('/').filter(Boolean);
+        if (parts.length >= 4 && parts[0] === 'app' && parts[1] === 'code') {
+          components.add(`${parts[2]}_${parts[3]}`);
+        } else if (parts.length >= 2 && parts[0] === 'vendor') {
+          components.add(`${parts[1]}${parts[2] ? '_' + parts[2] : ''}`);
+        } else if (parts.length >= 1) {
+          components.add(parts[0]);
+        }
+      }
+      return Array.from(components).slice(0, 3).join(',');
+    }
+
+    // Default Epic name builder
+    function defaultEpicName(report) {
+      const modeLabel = manifest?.modeSummary?.[report.mode]?.label || report.mode;
+      return `${report.project} — Ghost Architect ${modeLabel} Triage`;
+    }
+
+    // Generate auto sub-tasks for a finding-as-Story.
+    function defaultSubTasks(finding) {
+      const sev = String(finding.severity || '').toUpperCase();
+      const base = [
+        'Root cause analysis',
+        'Implement fix',
+        'Code review',
+        'Regression test',
+      ];
+      if (sev === 'CRITICAL' || sev === 'HIGH') {
+        base.unshift('Security/risk impact assessment');
+      }
+      return base;
+    }
+
+    // Generate Acceptance Criteria block (markdown checklist) for a Story description.
+    function acceptanceCriteriaFor(finding) {
+      return [
+        'Root cause identified and documented',
+        'Fix implemented and code-reviewed',
+        'Regression tests added if applicable',
+        'Verified against the original Ghost Architect finding',
+      ];
+    }
+
+    // Slugify a project label for use as a Jira label.
+    // Lowercase, em/en dashes to hyphen, anything not alphanumeric to hyphen,
+    // collapse runs, trim leading/trailing. Jira labels are case-insensitive
+    // in match but stored as given — all-lowercase is the convention.
+    function slugify(s) {
+      return String(s || '')
+        .toLowerCase()
+        .replace(/[\u2014\u2013]/g, '-')   // em (—) and en (–) dashes to hyphen
+        .replace(/[^a-z0-9]+/g, '-')        // anything not alphanumeric to hyphen
+        .replace(/^-+|-+$/g, '')            // trim leading/trailing hyphens
+        .replace(/-+/g, '-');               // collapse runs of hyphens
+    }
+
+    // Generate labels for a finding row
+    function labelsFor(finding, mode) {
+      const sev = String(finding.severity || '').toLowerCase();
+      const labels = [
+        'ghost-architect',
+        'pre-engagement-triage',
+        `severity-${sev}`,
+        `mode-${mode}`,
+      ];
+      // Dashboard findings carry a `project` field tagging which tracked
+      // project they belong to. Surface as a Jira label so customers can
+      // filter/group imported tickets by source project without modifying
+      // the Summary title. Per-scan findings don't have this field — no
+      // label emitted, fully backwards compatible.
+      if (finding.project) {
+        labels.push(`project-${slugify(finding.project)}`);
+      }
+      return labels;
+    }
+
+    // Build a Story/Bug description in markdown that Jira's editor will render correctly
+    // (Jira Cloud now supports markdown paste; CSV import takes raw text).
+    function buildFindingDescription(finding, options) {
+      const lines = [];
+      if (finding.detail) {
+        lines.push(finding.detail);
+        lines.push('');
+      }
+
+      // ── Suggested Fix (Phase 7: fix_direction enrichment) ──────────────────
+      // Rendered when the narrator extracted a structured fix from the
+      // Resolution section. null = no fix available.
+      if (finding.fix_direction) {
+        const fd = finding.fix_direction;
+        // Support both legacy target_file (string) and new target_files (array).
+        const targetFiles = fd.target_files || (fd.target_file ? [fd.target_file] : []);
+        const primaryFile = targetFiles[0] || '';
+        // Derive language hint from primary file extension for the code fence.
+        const ext = primaryFile.split('.').pop().toLowerCase();
+        const LANG = { php: 'php', js: 'javascript', ts: 'typescript',
+                       py: 'python', go: 'go', rb: 'ruby', java: 'java',
+                       cs: 'csharp', rs: 'rust', jsx: 'jsx', tsx: 'tsx' };
+        const lang = LANG[ext] || '';
+        lines.push('### Suggested Fix');
+        if (targetFiles.length === 1) {
+          lines.push(`**File:** \`${primaryFile}\``);
+        } else if (targetFiles.length > 1) {
+          lines.push(`**Files:** ${targetFiles.map(f => `\`${f}\``).join(', ')}`);
+        }
+        lines.push(`**Confidence:** ${fd.confidence}`);
+        lines.push('');
+        if (fd.reasoning) {
+          lines.push(fd.reasoning);
+          lines.push('');
+        }
+        lines.push('```' + lang);
+        lines.push(fd.patch_instruction || '');
+        lines.push('```');
+        lines.push('');
+      }
+
+      if (finding.files && finding.files.length) {
+        lines.push('### Affected Files');
+        for (const f of finding.files) lines.push(`- ${f}`);
+        lines.push('');
+      }
+      lines.push('### Acceptance Criteria');
+      for (const ac of acceptanceCriteriaFor(finding)) lines.push(`- [ ] ${ac}`);
+      lines.push('');
+      if (finding.effortHours) {
+        lines.push(`**Estimated Effort:** ${finding.effortHours}h`);
+      }
+      if (finding.confidence != null) {
+        lines.push(`**Ghost Architect Confidence:** ${finding.confidence}%`);
+      }
+      lines.push('');
+      lines.push('---');
+      lines.push('*Source: Ghost Architect™ ' + (options.report?.tool || '') + '*');
+      lines.push(`*Scan ID:* ${options.report?.id || ''}`);
+      lines.push(`*Scan Date:* ${options.report?.generatedIso ? formatDate(options.report.generatedIso) : ''}`);
+      lines.push(`*Finding ID:* ${finding.id || ''}`);
+      return lines.join('\n');
+    }
+
+    // Build an Epic description in markdown
+    function buildEpicDescription(findings, report, options) {
+      const sev = { CRITICAL: 0, HIGH: 0, MEDIUM: 0, LOW: 0 };
+      let totalEffort = 0;
+      const fileSet = new Set();
+      for (const f of findings) {
+        const s = String(f.severity || '').toUpperCase();
+        if (sev[s] != null) sev[s]++;
+        if (f.effortHours) totalEffort += f.effortHours;
+        (f.files || []).forEach(file => fileSet.add(file));
+      }
+      const modeLabel = manifest?.modeSummary?.[report.mode]?.label || report.mode;
+      const lines = [];
+      lines.push(`## Summary`);
+      lines.push(`Ghost Architect™ ${modeLabel} scan completed ${formatDate(report.generatedIso)}.`);
+      lines.push(`${findings.length} finding${findings.length !== 1 ? 's' : ''} surfaced across ${fileSet.size} file${fileSet.size !== 1 ? 's' : ''}, total estimated effort ${totalEffort.toFixed(1)} hour${totalEffort !== 1 ? 's' : ''}.`);
+      lines.push('');
+      lines.push('### Severity Breakdown');
+      lines.push(`- Critical: ${sev.CRITICAL}`);
+      lines.push(`- High: ${sev.HIGH}`);
+      lines.push(`- Medium: ${sev.MEDIUM}`);
+      lines.push(`- Low: ${sev.LOW}`);
+      lines.push('');
+      lines.push('### Acceptance Criteria');
+      lines.push('- [ ] All Critical findings triaged and assigned');
+      lines.push('- [ ] All High findings reviewed and scheduled');
+      lines.push('- [ ] Medium/Low findings categorized for backlog');
+      lines.push('- [ ] Codebase re-scanned to verify fixes');
+      lines.push('');
+      lines.push('---');
+      lines.push(`*Source: Ghost Architect™ ${report.tool || ''}*`);
+      lines.push(`*Scan ID:* ${report.id || ''}`);
+      lines.push(`*Mode:* ${modeLabel}`);
+      return lines.join('\n');
+    }
+
+    // ── CSV builder (Jira CSV Importer format) ─────────────────────
+    // Returns { csv: string, rowCount: number, summary: {epics, stories, bugs, tasks} }
+    function buildJiraCsv(options) {
+      const {
+        findings,
+        report,
+        includeEpic,
+        existingEpicKey,
+        epicName,
+        defaultAssignee,
+        defaultSprint,
+        extraLabels,
+        componentOverride,
+        autoSubtasks,
+      } = options;
+
+      // Max label columns we'll need
+      const labelsPerRow = findings.map(f => labelsFor(f, report.mode).concat(extraLabels || []));
+      const maxLabels = Math.max(4, ...labelsPerRow.map(l => l.length));
+
+      // Headers (Jira Cloud "Create work items using the CSV importer" format)
+      const headers = [
+        'Work Type',
+        'Summary',
+        'Description',
+        'Priority',
+        'Story Points',
+        'Component',
+        ...Array(maxLabels).fill('Labels'),
+        'Assignee',
+        'Sprint',
+        'Work item ID',
+        'Parent',
+        'External ID',
+      ];
+
+      const rows = [];
+      let nextId = 1;
+      let epicRowId = null;
+      const summary = { epics: 0, stories: 0, bugs: 0, tasks: 0, subtasks: 0 };
+
+      // Epic row if requested
+      if (includeEpic) {
+        epicRowId = nextId++;
+        summary.epics++;
+        const epicLabels = ['ghost-architect', 'pre-engagement-triage', `mode-${report.mode}`].concat(extraLabels || []);
+        const padded = epicLabels.concat(Array(maxLabels - epicLabels.length).fill(''));
+        rows.push([
+          'Epic',
+          epicName || defaultEpicName(report),
+          buildEpicDescription(findings, report, options),
+          'Medium',
+          '',
+          componentOverride || '',
+          ...padded,
+          defaultAssignee || '',
+          defaultSprint || '',
+          epicRowId,
+          existingEpicKey || '',
+          `ghost-epic-${report.id}`,
+        ]);
+      }
+
+      // Finding rows
+      for (const f of findings) {
+        const sev = String(f.severity || '').toUpperCase();
+        const map = JIRA_MAPPING[sev] || { priority: 'Medium', workType: 'Story' };
+        const storyId = nextId++;
+        if (map.workType === 'Bug') summary.bugs++;
+        else if (map.workType === 'Task') summary.tasks++;
+        else summary.stories++;
+
+        const rowLabels = labelsFor(f, report.mode).concat(extraLabels || []);
+        const padded = rowLabels.concat(Array(maxLabels - rowLabels.length).fill(''));
+
+        // Parent linkage: Epic row id if we created one, otherwise existingEpicKey, otherwise blank
+        const parent = includeEpic ? String(epicRowId) : (existingEpicKey || '');
+
+        rows.push([
+          map.workType,
+          f.title || '(untitled)',
+          buildFindingDescription(f, options),
+          map.priority,
+          effortHoursToStoryPoints(f.effortHours),
+          componentOverride || componentFromFiles(f.files),
+          ...padded,
+          defaultAssignee || '',
+          defaultSprint || '',
+          storyId,
+          parent,
+          f.id || '',
+        ]);
+
+        // Auto sub-tasks
+        if (autoSubtasks) {
+          for (const st of defaultSubTasks(f)) {
+            const stLabels = ['ghost-architect', `severity-${sev.toLowerCase()}`].concat(extraLabels || []);
+            const stPadded = stLabels.concat(Array(maxLabels - stLabels.length).fill(''));
+            rows.push([
+              'Sub-task',
+              st,
+              `Sub-task of: ${f.title || '(untitled)'}\n\nSee parent Story for context.`,
+              map.priority,
+              '',
+              componentOverride || componentFromFiles(f.files),
+              ...stPadded,
+              defaultAssignee || '',
+              defaultSprint || '',
+              nextId++,
+              String(storyId),
+              `${f.id || ''}-st-${st.replace(/\s+/g, '-').toLowerCase()}`,
+            ]);
+            summary.subtasks++;
+          }
+        }
+      }
+
+      // Render CSV with proper escaping
+      const escape = (v) => {
+        const s = String(v == null ? '' : v);
+        return `"${s.replace(/"/g, '""')}"`;
+      };
+      const lines = [
+        headers.map(escape).join(','),
+        ...rows.map(row => row.map(escape).join(',')),
+      ];
+      const csv = '\uFEFF' + lines.join('\n');
+      return { csv, rowCount: rows.length, summary };
+    }
+
+    // ── Multi-scan CSV builder ─────────────────────────────────────
+    // Aggregates multiple reports into ONE Epic with Stories from all selected scans.
+    async function buildMultiScanCsv(reports, options) {
+      // Load findings for all reports (uses cache when present)
+      const allFindings = [];
+      const projects = new Set();
+      let earliestIso = null, latestIso = null;
+      for (const r of reports) {
+        if (!r.hasStructuredFindings) continue;
+        let data = findingsCache[r.id];
+        if (!data) {
+          try {
+            const url = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(r.files.findings)}`;
+            const res = await fetch(url);
+            if (!res.ok) continue;
+            data = await res.json();
+            findingsCache[r.id] = data;
+          } catch (_) { continue; }
+        }
+        for (const f of (data.findings || [])) {
+          allFindings.push({ ...f, __sourceReport: r });
+        }
+        projects.add(r.project);
+        if (!earliestIso || r.generatedIso < earliestIso) earliestIso = r.generatedIso;
+        if (!latestIso || r.generatedIso > latestIso) latestIso = r.generatedIso;
+      }
+
+      // Build a synthetic "report" for the Epic
+      const modeLabel = manifest?.modeSummary?.[reports[0].mode]?.label || reports[0].mode;
+      const syntheticReport = {
+        id: `multi-${Date.now()}`,
+        project: `Multi-Scan ${modeLabel} (${reports.length} scans)`,
+        mode: reports[0].mode,
+        tool: 'Ghost Architect Multi-Scan',
+        generatedIso: latestIso,
+        files: {},
+      };
+      const epicName = options.epicName || `${Array.from(projects).slice(0, 3).join(', ')}${projects.size > 3 ? ' +' + (projects.size - 3) : ''} — Ghost Architect ${modeLabel} Triage`;
+
+      // Reuse single-report CSV builder
+      return buildJiraCsv({
+        ...options,
+        findings: allFindings,
+        report: syntheticReport,
+        epicName,
+      });
+    }
+
+    // ── JSON builder (for Jira REST API programmatic import) ───────
+    function buildJiraJson(options) {
+      const { findings, report, includeEpic, existingEpicKey, epicName, extraLabels, componentOverride, autoSubtasks } = options;
+      const issues = [];
+
+      if (includeEpic) {
+        issues.push({
+          externalId: `ghost-epic-${report.id}`,
+          fields: {
+            issuetype: { name: 'Epic' },
+            summary: epicName || defaultEpicName(report),
+            description: buildEpicDescription(findings, report, options),
+            priority: { name: 'Medium' },
+            labels: ['ghost-architect', 'pre-engagement-triage', `mode-${report.mode}`].concat(extraLabels || []),
+            components: componentOverride ? componentOverride.split(',').map(c => ({ name: c.trim() })) : [],
+          },
+        });
+      }
+
+      for (const f of findings) {
+        const sev = String(f.severity || '').toUpperCase();
+        const map = JIRA_MAPPING[sev] || { priority: 'Medium', workType: 'Story' };
+        const issue = {
+          externalId: f.id || `ghost-finding-${Math.random().toString(36).slice(2)}`,
+          fields: {
+            issuetype: { name: map.workType },
+            summary: f.title || '(untitled)',
+            description: buildFindingDescription(f, options),
+            priority: { name: map.priority },
+            labels: labelsFor(f, report.mode).concat(extraLabels || []),
+            components: (componentOverride || componentFromFiles(f.files))
+              .split(',').filter(Boolean).map(c => ({ name: c.trim() })),
+          },
+        };
+        const sp = effortHoursToStoryPoints(f.effortHours);
+        if (sp) issue.fields.customfield_10016 = sp;  // standard Story Points custom field id
+
+        if (includeEpic) issue.parentExternalId = `ghost-epic-${report.id}`;
+        else if (existingEpicKey) issue.parentKey = existingEpicKey;
+
+        issues.push(issue);
+
+        if (autoSubtasks) {
+          for (const st of defaultSubTasks(f)) {
+            issues.push({
+              externalId: `${f.id || 'finding'}-st-${st.replace(/\s+/g, '-').toLowerCase()}`,
+              parentExternalId: issue.externalId,
+              fields: {
+                issuetype: { name: 'Sub-task' },
+                summary: st,
+                description: `Sub-task of: ${f.title || '(untitled)'}\n\nSee parent Story for context.`,
+                priority: { name: map.priority },
+                labels: ['ghost-architect', `severity-${sev.toLowerCase()}`].concat(extraLabels || []),
+              },
+            });
+          }
+        }
+      }
+
+      return JSON.stringify({
+        projects: [{
+          name: 'Ghost Architect Import',
+          key: 'PROJECT_KEY',  // user replaces with their Jira project key
+          issues,
+        }],
+      }, null, 2);
+    }
+
+    // ── Markdown builder (clipboard fallback) ──────────────────────
+    function buildJiraMarkdown(options) {
+      const { findings, report, includeEpic, epicName } = options;
+      const lines = [];
+      if (includeEpic) {
+        lines.push(`# EPIC: ${epicName || defaultEpicName(report)}`);
+        lines.push('');
+        lines.push('**Work Type:** Epic  ');
+        lines.push('**Priority:** Medium  ');
+        lines.push(`**Labels:** ghost-architect, pre-engagement-triage, mode-${report.mode}`);
+        lines.push('');
+        lines.push(buildEpicDescription(findings, report, options));
+        lines.push('');
+        lines.push('---');
+        lines.push('');
+      }
+      for (const f of findings) {
+        const sev = String(f.severity || '').toUpperCase();
+        const map = JIRA_MAPPING[sev] || { priority: 'Medium', workType: 'Story' };
+        lines.push(`## ${map.workType.toUpperCase()}: ${f.title || '(untitled)'}`);
+        lines.push('');
+        lines.push(`**Work Type:** ${map.workType}  `);
+        lines.push(`**Priority:** ${map.priority}  `);
+        const sp = effortHoursToStoryPoints(f.effortHours);
+        if (sp) lines.push(`**Story Points:** ${sp}  `);
+        lines.push(`**Labels:** ${labelsFor(f, report.mode).join(', ')}`);
+        lines.push('');
+        lines.push(buildFindingDescription(f, options));
+        lines.push('');
+        lines.push('---');
+        lines.push('');
+      }
+      return lines.join('\n');
+    }
+
+    // ── Trigger file download ─────────────────────────────────────
+    function downloadFile(content, filename, mimeType) {
+      const blob = new Blob([content], { type: mimeType + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Simple filename sanitizer
+    function safeName(s) {
+      return String(s || 'export').replace(/[^a-z0-9_-]+/gi, '-').replace(/^-+|-+$/g, '').slice(0, 80) || 'export';
+    }
+
+    // ── Success toast ─────────────────────────────────────────────
+    function showToast(title, subtitle) {
+      const existing = document.getElementById('toast-el');
+      if (existing) existing.remove();
+      const el = document.createElement('div');
+      el.id = 'toast-el';
+      el.className = 'toast';
+      el.innerHTML = `
+        <div class="toast-icon">✓</div>
+        <div class="toast-text">
+          ${escapeHtml(title)}
+          ${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ''}
+        </div>
+      `;
+      document.body.appendChild(el);
+      requestAnimationFrame(() => el.classList.add('show'));
+      setTimeout(() => {
+        el.classList.remove('show');
+        setTimeout(() => el.remove(), 300);
+      }, 4200);
+    }
+
+    // ── Multi-select state mutators ───────────────────────────────
+    function toggleMultiSelectMode() {
+      multiSelectMode = !multiSelectMode;
+      if (!multiSelectMode) multiSelectIds = new Set();
+      renderLevel1();
+    }
+    function toggleMultiSelect(id) {
+      if (multiSelectIds.has(id)) multiSelectIds.delete(id);
+      else multiSelectIds.add(id);
+      renderLevel1();
+    }
+    function selectAllInMode() {
+      const reports = window.__currentLevel1Reports || [];
+      for (const r of reports) multiSelectIds.add(r.id);
+      renderLevel1();
+    }
+    function clearMultiSelect() {
+      multiSelectIds = new Set();
+      renderLevel1();
+    }
+
+    // ── Single-finding export (per-card link) ─────────────────────
+    async function exportSingleFinding(findingId) {
+      const report = window.__currentReport;
+      if (!report) { showToast('Export failed', 'No report context.'); return; }
+      const data = findingsCache[report.id];
+      if (!data) { showToast('Export failed', 'Findings not loaded.'); return; }
+      const f = (data.findings || []).find(x => x.id === findingId);
+      if (!f) { showToast('Export failed', 'Finding not found.'); return; }
+
+      const { csv, rowCount } = buildJiraCsv({
+        findings: [f],
+        report,
+        includeEpic: false,
+        existingEpicKey: '',
+        epicName: '',
+        defaultAssignee: '',
+        defaultSprint: '',
+        extraLabels: [],
+        componentOverride: '',
+        autoSubtasks: false,
+      });
+      const sev = String(f.severity || '').toUpperCase();
+      const workType = (JIRA_MAPPING[sev] || { workType: 'Story' }).workType.toLowerCase();
+      const date = new Date().toISOString().slice(0, 10);
+      const fname = `ghost-${safeName(report.project)}-${workType}-${safeName(f.id)}-${date}-jira.csv`;
+      downloadFile(csv, fname, 'text/csv');
+      showToast(`Exported as ${workType[0].toUpperCase() + workType.slice(1)}`, `${fname}`);
+    }
+
+    // ── Pre-export modal ──────────────────────────────────────────
+    // mode: 'epic-stories' | 'stories-only' | 'diff-new' | 'multi-scan'
+    function openJiraExportModal(mode) {
+      // Resolve target findings + report based on mode
+      let targetFindings = [];
+      let targetReport = null;
+      let targetReports = null;  // for multi-scan
+      let titlePrefix = '';
+
+      if (mode === 'multi-scan') {
+        targetReports = (window.__currentLevel1Reports || []).filter(r => multiSelectIds.has(r.id));
+        if (!targetReports.length) { showToast('Nothing to export', 'Select at least one scan.'); return; }
+        titlePrefix = `Multi-Scan (${targetReports.length} scans)`;
+        // Findings will be loaded async when the user clicks Export.
+      } else if (mode === 'diff-new') {
+        const diff = window.__currentDiff;
+        const allFindings = window.__currentFindings || [];
+        if (!diff || !diff.statusMap) { showToast('No diff data', 'Cannot identify new findings without a prior scan.'); return; }
+        targetFindings = allFindings.filter(f => diff.statusMap[f.id] === 'new');
+        targetReport = window.__currentReport;
+        titlePrefix = 'New Since Last Scan';
+      } else {
+        targetFindings = window.__currentFindings || [];
+        targetReport = window.__currentReport;
+        titlePrefix = mode === 'epic-stories' ? 'Epic + Stories' : 'Stories Only';
+      }
+
+      // Build counts preview
+      let counts = { critical: 0, high: 0, medium: 0, low: 0 };
+      let countSource = '';
+      if (mode === 'multi-scan') {
+        countSource = `${targetReports.length} scan${targetReports.length !== 1 ? 's' : ''} selected. Findings count loaded on export.`;
+      } else {
+        for (const f of targetFindings) {
+          const k = String(f.severity || '').toLowerCase();
+          if (counts[k] != null) counts[k]++;
+        }
+        countSource = `<strong>${targetFindings.length}</strong> total: <strong>${counts.critical}</strong> Critical, <strong>${counts.high}</strong> High, <strong>${counts.medium}</strong> Medium, <strong>${counts.low}</strong> Low`;
+      }
+
+      const includeEpic = mode !== 'stories-only';
+      const defaultEpic = targetReport ? defaultEpicName(targetReport) : `${titlePrefix} — Ghost Architect Triage`;
+
+      // Sample mapping preview (first 3 findings)
+      let mappingPreview = '';
+      if (mode !== 'multi-scan') {
+        const sample = targetFindings.slice(0, 3);
+        const mapLines = sample.map(f => {
+          const sev = String(f.severity || '').toUpperCase();
+          const m = JIRA_MAPPING[sev] || { priority: 'Medium', workType: 'Story' };
+          const sp = effortHoursToStoryPoints(f.effortHours);
+          return `${(f.title || '').slice(0, 50).padEnd(50)} → ${m.workType.padEnd(8)} | ${m.priority.padEnd(7)} | SP:${sp || '-'}`;
+        });
+        if (targetFindings.length > 3) mapLines.push(`...and ${targetFindings.length - 3} more`);
+        mappingPreview = mapLines.length ? mapLines.map(l => escapeHtml(l)).join('<br>') : '(no findings)';
+      } else {
+        mappingPreview = '(mapping computed on export)';
+      }
+
+      const existing = document.getElementById('mode-modal-overlay');
+      if (existing) existing.remove();
+      const overlay = document.createElement('div');
+      overlay.id = 'mode-modal-overlay';
+      overlay.className = 'modal-overlay';
+      overlay.innerHTML = `
+        <div class="modal jira-modal" role="dialog" aria-modal="true">
+          <button class="modal-close" aria-label="Close" onclick="closeModeModal()">×</button>
+          <div class="modal-mode">Jira Export</div>
+          <div class="modal-title">${escapeHtml(titlePrefix)}</div>
+
+          <div class="jira-modal-scroll">
+            <div class="format-tabs">
+              <button class="format-tab active" data-format="csv" onclick="switchJiraFormatTab(this)">CSV (Importer)</button>
+              <button class="format-tab" data-format="json" onclick="switchJiraFormatTab(this)">JSON (REST API)</button>
+              <button class="format-tab" data-format="markdown" onclick="switchJiraFormatTab(this)">Markdown (Clipboard)</button>
+            </div>
+
+            <div class="preview-counts">${countSource}</div>
+
+            ${includeEpic ? `
+              <div class="form-row">
+                <label>Epic Summary</label>
+                <input type="text" id="jira-epic-name" value="${escapeAttr(defaultEpic)}" placeholder="Ghost Architect Triage — [project]">
+                <div class="help">The Epic that will wrap all Stories/Bugs. Edit if your team has a naming convention.</div>
+              </div>
+            ` : ''}
+
+            <div class="form-row">
+              <div class="toggle-row">
+                <input type="checkbox" id="jira-existing-epic-toggle" ${includeEpic ? '' : 'checked'} onchange="toggleExistingEpicInput()">
+                <label for="jira-existing-epic-toggle">Attach to existing Epic in Jira</label>
+              </div>
+              <div id="jira-existing-epic-row" style="display: ${includeEpic ? 'none' : 'block'}">
+                <input type="text" id="jira-existing-epic-key" placeholder="e.g. MAGUP-42">
+                <div class="help">Type the Jira key of an existing Epic. Stories will be created as children of it on import.</div>
+              </div>
+            </div>
+
+            <div class="form-row form-row-inline">
+              <div>
+                <label>Default Assignee</label>
+                <input type="text" id="jira-assignee" placeholder="username or email (optional)">
+              </div>
+              <div>
+                <label>Sprint</label>
+                <input type="text" id="jira-sprint" placeholder="Sprint name (optional)">
+              </div>
+            </div>
+
+            <div class="form-row form-row-inline">
+              <div>
+                <label>Component Override</label>
+                <input type="text" id="jira-component" placeholder="leave blank to auto-detect">
+                <div class="help">Auto-detected from file paths if blank.</div>
+              </div>
+              <div>
+                <label>Additional Labels</label>
+                <input type="text" id="jira-extra-labels" placeholder="comma-separated">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="toggle-row">
+                <input type="checkbox" id="jira-auto-subtasks">
+                <label for="jira-auto-subtasks">Auto-generate Sub-tasks for each Story/Bug</label>
+              </div>
+              <div class="help" style="margin-left: 22px;">Adds standard breakdown: Root cause, Implement fix, Code review, Regression test (and Security/risk assessment for Critical/High).</div>
+            </div>
+
+            <label style="margin-top: 6px;">Field-by-Field Mapping Preview</label>
+            <div class="preview-mapping">${mappingPreview}</div>
+          </div>
+
+          <div class="action-row">
+            <button class="btn-action" onclick="closeModeModal()">Cancel</button>
+            <button class="btn-action primary" id="jira-do-export" onclick="executeJiraExport('${mode}')">Export</button>
+          </div>
+        </div>
+      `;
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModeModal(); });
+      document.body.appendChild(overlay);
+      document.addEventListener('keydown', escClose);
+      // Stash context for the eventual execute step
+      window.__jiraExportContext = { mode, targetFindings, targetReport, targetReports, includeEpic };
+    }
+
+    function toggleExistingEpicInput() {
+      const checked = document.getElementById('jira-existing-epic-toggle').checked;
+      document.getElementById('jira-existing-epic-row').style.display = checked ? 'block' : 'none';
+    }
+
+    function switchJiraFormatTab(btn) {
+      const tabs = btn.parentElement.querySelectorAll('.format-tab');
+      tabs.forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    async function executeJiraExport(mode) {
+      const ctx = window.__jiraExportContext;
+      if (!ctx) { showToast('Export failed', 'Lost context. Reopen the modal.'); return; }
+
+      // Read format choice
+      const formatTab = document.querySelector('.format-tab.active');
+      const format = formatTab ? formatTab.dataset.format : 'csv';
+
+      // Read form inputs (some may be absent depending on mode)
+      const epicNameEl = document.getElementById('jira-epic-name');
+      const epicName = epicNameEl ? epicNameEl.value.trim() : '';
+      const existingToggle = document.getElementById('jira-existing-epic-toggle');
+      const useExisting = existingToggle ? existingToggle.checked : false;
+      const existingEpicKey = useExisting ? (document.getElementById('jira-existing-epic-key').value.trim()) : '';
+      const includeEpic = !useExisting && ctx.includeEpic;
+      const defaultAssignee = (document.getElementById('jira-assignee')?.value || '').trim();
+      const defaultSprint   = (document.getElementById('jira-sprint')?.value || '').trim();
+      const componentOverride = (document.getElementById('jira-component')?.value || '').trim();
+      const extraLabelsRaw  = (document.getElementById('jira-extra-labels')?.value || '').trim();
+      const extraLabels = extraLabelsRaw ? extraLabelsRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+      const autoSubtasks = !!document.getElementById('jira-auto-subtasks')?.checked;
+
+      const btn = document.getElementById('jira-do-export');
+      if (btn) { btn.textContent = 'Building…'; btn.disabled = true; }
+
+      const date = new Date().toISOString().slice(0, 10);
+
+      try {
+        let payload, filename, mimeType, summary;
+
+        if (mode === 'multi-scan') {
+          const result = await buildMultiScanCsv(ctx.targetReports, {
+            includeEpic, existingEpicKey, epicName,
+            defaultAssignee, defaultSprint, extraLabels, componentOverride, autoSubtasks,
+          });
+          if (format === 'csv') {
+            payload = result.csv;
+            filename = `ghost-multiscan-${ctx.targetReports.length}-${date}-jira.csv`;
+            mimeType = 'text/csv';
+          } else if (format === 'json') {
+            // Build JSON from the same aggregated findings
+            const aggFindings = [];
+            for (const r of ctx.targetReports) {
+              const d = findingsCache[r.id];
+              if (d) for (const f of (d.findings || [])) aggFindings.push(f);
+            }
+            payload = buildJiraJson({
+              findings: aggFindings,
+              report: { id: 'multi-' + Date.now(), project: 'Multi-Scan', mode: ctx.targetReports[0].mode, tool: 'Ghost Architect Multi-Scan', generatedIso: new Date().toISOString() },
+              includeEpic, existingEpicKey, epicName, extraLabels, componentOverride, autoSubtasks,
+            });
+            filename = `ghost-multiscan-${ctx.targetReports.length}-${date}-jira.json`;
+            mimeType = 'application/json';
+          } else {
+            const aggFindings = [];
+            for (const r of ctx.targetReports) {
+              const d = findingsCache[r.id];
+              if (d) for (const f of (d.findings || [])) aggFindings.push(f);
+            }
+            payload = buildJiraMarkdown({
+              findings: aggFindings,
+              report: { id: 'multi-' + Date.now(), project: 'Multi-Scan', mode: ctx.targetReports[0].mode, tool: 'Ghost Architect Multi-Scan', generatedIso: new Date().toISOString() },
+              includeEpic, epicName,
+            });
+            await navigator.clipboard.writeText(payload);
+            showToast('Copied to clipboard', `${ctx.targetReports.length} scans as markdown. Paste into Jira issue description.`);
+            closeModeModal();
+            return;
+          }
+          summary = result.summary;
+        } else {
+          const options = {
+            findings: ctx.targetFindings,
+            report: ctx.targetReport,
+            includeEpic, existingEpicKey, epicName,
+            defaultAssignee, defaultSprint, extraLabels, componentOverride, autoSubtasks,
+          };
+          if (format === 'csv') {
+            const result = buildJiraCsv(options);
+            payload = result.csv;
+            filename = `ghost-${safeName(ctx.targetReport.project)}-${mode}-${date}-jira.csv`;
+            mimeType = 'text/csv';
+            summary = result.summary;
+          } else if (format === 'json') {
+            payload = buildJiraJson(options);
+            filename = `ghost-${safeName(ctx.targetReport.project)}-${mode}-${date}-jira.json`;
+            mimeType = 'application/json';
+          } else {
+            payload = buildJiraMarkdown(options);
+            await navigator.clipboard.writeText(payload);
+            showToast('Copied to clipboard', `${ctx.targetFindings.length} findings as markdown. Paste into Jira issue description.`);
+            closeModeModal();
+            return;
+          }
+        }
+
+        downloadFile(payload, filename, mimeType);
+        const summaryText = summary
+          ? `${summary.epics} Epic, ${summary.bugs} Bug, ${summary.stories} Story, ${summary.tasks} Task${summary.subtasks ? `, ${summary.subtasks} Sub-task` : ''}`
+          : filename;
+        showToast(`Exported ${filename}`, summaryText);
+        closeModeModal();
+      } catch (err) {
+        showToast('Export failed', err.message || String(err));
+        if (btn) { btn.textContent = 'Export'; btn.disabled = false; }
+      }
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // END JIRA EXPORT
+    // ════════════════════════════════════════════════════════════════
+
+    // Initial state from URL hash
+    parseInitialHash();
+    boot();
+  </script>
+</body>
+</html>
