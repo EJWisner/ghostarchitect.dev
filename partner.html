@@ -6,6 +6,7 @@
   <meta name="robots" content="index, follow">
   <meta name="description" content="Ghost Partner™ — Earn recurring revenue referring Ghost Architect™. 10% of every subscription, every month, forever.">
   <title>Ghost Partner™ — Referral Program</title>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
   <style>
     :root {
       --bg: #0a0d12;
@@ -31,30 +32,6 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
-    .nav {
-      border-bottom: 1px solid var(--border);
-      padding: 16px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--card);
-    }
-    .nav-brand {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: var(--orange);
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-    .nav-links { display: flex; gap: 24px; }
-    .nav-links a {
-      font-size: 13px;
-      color: var(--mgray);
-      text-decoration: none;
-      letter-spacing: 0.04em;
-    }
-    .nav-links a:hover { color: var(--white); }
     .hero {
       padding: 80px 40px 60px;
       max-width: 860px;
@@ -298,8 +275,6 @@
       .payout-grid { grid-template-columns: 1fr; }
       .who-grid { grid-template-columns: 1fr; }
       .form-grid { grid-template-columns: 1fr; }
-      .nav { padding: 14px 20px; }
-      .nav-links { display: none; }
       .form-wrap { padding: 24px 20px; }
       .footer { flex-direction: column; gap: 8px; text-align: center; }
     }
@@ -307,15 +282,7 @@
 </head>
 <body>
 
-<nav class="nav">
-  <a class="nav-brand" href="/">Ghost Architect™</a>
-  <div class="nav-links">
-    <a href="/pricing">Pricing</a>
-    <a href="/changelog.html">Changelog</a>
-    <a href="/blog.html">Blog</a>
-    <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank">Install Free</a>
-  </div>
-</nav>
+  <div id="ga-nav-mount"></div>
 
 <div class="hero">
   <div class="hero-badge">Ghost Partner™ Program</div>
@@ -516,5 +483,6 @@
   }
 </script>
 
+  <script src="/assets/ga-nav.js"></script>
 </body>
 </html>
