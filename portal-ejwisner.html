@@ -1107,7 +1107,7 @@
           <div class="tile tile-brief" onclick="if(!event.target.closest('.info-icon'))navigate('brief')" style="cursor:pointer;">
             <button class="info-icon" onclick="event.stopPropagation();showModeModal('ghost-brief')" aria-label="About Ghost Brief™">i</button>
             <div class="tile-arrow">↗</div>
-            <div class="tile-mode">Ghost Brief™</div>
+            <div class="tile-mode" style="margin-left: 28px;">Ghost Brief™</div>
             <div class="brief-no-data" style="padding: 10px 0; border: none; text-align: left; font-size: 12px; margin-top: 6px; background: none;">
               No Brief generated yet
             </div>
@@ -1123,7 +1123,7 @@
         <div class="tile tile-brief" onclick="if(!event.target.closest('.info-icon'))navigate('brief')" style="cursor:pointer;">
           <button class="info-icon" onclick="event.stopPropagation();showModeModal('ghost-brief')" aria-label="About Ghost Brief™">i</button>
           <div class="tile-arrow">↗</div>
-          <div class="tile-mode">Ghost Brief™</div>
+          <div class="tile-mode" style="margin-left: 28px;">Ghost Brief™</div>
           <div>
             <span class="tile-count">${s.total_prompts || 0}</span>
             <span class="tile-count-unit">prompt${(s.total_prompts || 0) !== 1 ? 's' : ''}</span>
