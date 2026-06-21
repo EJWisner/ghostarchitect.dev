@@ -376,6 +376,8 @@
         <div class="refresh-pill" id="refresh-pill">LIVE · 60S</div>
       </div>
 
+      <div id="promo-banner" style="display:none; background: rgba(224,115,64,0.12); border-bottom: 1px solid rgba(224,115,64,0.3); padding: 8px 20px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #e07340; text-align: center;"></div>
+
       <div class="body">
         <div class="hero">
           <div>
@@ -791,6 +793,13 @@
       document.getElementById('status-text').textContent = 'Live';
       document.getElementById('last-updated').textContent = formatClock(new Date());
       document.getElementById('error-overlay').classList.remove('show');
+
+      // Promo banner
+      if (agg.promo) {
+        const banner = document.getElementById('promo-banner');
+        banner.textContent = agg.promo;
+        banner.style.display = 'block';
+      }
     }
 
     function renderHistogram(containerId, noteId, rows, noteText) {
