@@ -602,6 +602,25 @@
                   </button>
                 </div>
               </div>
+              <div style="border-top: 1px solid var(--border); margin-top: 14px; padding-top: 14px;">
+                <div class="section-header" style="margin-bottom: 10px;">
+                  <div class="section-label">Promo Message</div>
+                  <div class="section-note" id="promo-edit-note"></div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <input id="promo-edit-text" type="text" placeholder="Enter promo message or leave blank to clear"
+                    style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 6px;
+                           padding: 9px 12px; color: var(--text-primary); font-size: 12px; width: 100%;
+                           outline: none; font-family: inherit;">
+                  <button id="promo-edit-submit" onclick="savePromo()"
+                    style="background: linear-gradient(135deg, var(--cyan), #0090a8); border: none;
+                           border-radius: 6px; padding: 11px; color: #050a14; font-size: 12px;
+                           font-weight: 700; letter-spacing: 0.12em; cursor: pointer; width: 100%;
+                           font-family: inherit; text-transform: uppercase;">
+                    SAVE PROMO
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
