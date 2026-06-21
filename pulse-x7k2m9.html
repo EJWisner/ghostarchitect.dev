@@ -1221,6 +1221,46 @@
       }
     }
 
+    async function savePromo() {
+      const token = document.getElementById('pa-token').value.trim();
+      const text = document.getElementById('promo-edit-text').value.trim();
+      const note = document.getElementById('promo-edit-note');
+      const btn = document.getElementById('promo-edit-submit');
+      if (!token) {
+        note.textContent = 'enter admin token above';
+        note.className = 'section-note down';
+        return;
+      }
+      btn.textContent = 'SAVING...';
+      btn.disabled = true;
+      note.textContent = '';
+      try {
+        const res = await fetch('https://signup.ghostarchitect.dev/pulse-promo-set', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ text }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          note.textContent = data.error || `error ${res.status}`;
+          note.className = 'section-note down';
+        } else {
+          note.textContent = text ? 'promo updated · live within 60s' : 'promo cleared';
+          note.className = 'section-note up';
+          document.getElementById('promo-edit-text').value = '';
+        }
+      } catch (err) {
+        note.textContent = 'network error · try again';
+        note.className = 'section-note down';
+      } finally {
+        btn.textContent = 'SAVE PROMO';
+        btn.disabled = false;
+      }
+    }
+
     fetchPartnerStats();
     setInterval(fetchPartnerStats, REFRESH_INTERVAL_MS);
   </script>
