@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Ghost Partner Profiles turn Ghost Architect into your tool. Your name. Your branding. Your methodology. Your billing rates. White-labeled across every report type.">
+  <meta property="og:title" content="Ghost Partner Profiles — White-Label Ghost Architect as Your Own Consulting Tool">
+  <meta property="og:description" content="Ghost Partner Profiles inject your firm name, methodology, billing rates, and branding into every scan. Seven report types. All white-labeled. Available on Pro and higher.">
+  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-partner-profiles-v825">
+  <meta property="og:site_name" content="Ghost Architect™">
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-partner-profiles-v825">
+  <title>Ghost Partner Profiles — White-Label Ghost Architect as Your Own Consulting Tool · Ghost Architect™</title>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
+  <style>
+    :root {
+      --bg: #050a14;
+      --surface: #0a1020;
+      --border: #1a2540;
+      --orange: #e07340;
+      --cyan: #00bfd8;
+      --text-primary: #e8eaf0;
+      --text-secondary: #8892a4;
+      --text-tertiary: #4b5563;
+      --good: #22c55e;
+      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    .article-wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      margin-bottom: 40px;
+    }
+    .back-link:hover { color: var(--orange); }
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .article-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 3px;
+      background: rgba(224,115,64,0.15);
+      color: var(--orange);
+      border: 1px solid rgba(224,115,64,0.3);
+    }
+    .article-tag.new {
+      background: linear-gradient(135deg, var(--orange), #f59e0b);
+      color: #000;
+      border: none;
+    }
+    .article-date {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.06em;
+    }
+    .article-read {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    .article-author {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    h1 {
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .lede {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 36px;
+    }
+    .article-body h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+      margin: 44px 0 16px;
+      padding-top: 8px;
+    }
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.02em;
+      margin: 32px 0 12px;
+    }
+    .article-body p {
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+    }
+    .article-body strong { color: var(--text-primary); font-weight: 600; }
+    .article-body code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: var(--cyan);
+    }
+    .article-body pre {
+      background: #0a0d12;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+    .article-body pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+    .article-body ul, .article-body ol {
+      color: var(--text-secondary);
+      padding-left: 24px;
+      margin-bottom: 18px;
+    }
+    .article-body li { margin-bottom: 8px; }
+    .article-body li strong { color: var(--text-primary); }
+    .callout {
+      background: rgba(224,115,64,0.08);
+      border: 1px solid rgba(224,115,64,0.25);
+      border-left: 3px solid var(--orange);
+      border-radius: 6px;
+      padding: 18px 20px;
+      margin: 28px 0;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    .callout strong { color: var(--orange); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+    th {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-primary);
+      font-weight: 600;
+      padding: 10px 14px;
+      text-align: left;
+      border: 1px solid var(--border);
+      letter-spacing: 0.04em;
+    }
+    td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    td code { font-size: 12px; }
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .report-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .report-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--orange);
+    }
+    .report-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .report-card-body {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      line-height: 1.5;
+    }
+    .cta-band {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 32px;
+      margin-top: 48px;
+      text-align: center;
+    }
+    .cta-band h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .cta-band p {
+      font-size: 14px;
+      color: var(--text-tertiary);
+      margin-bottom: 20px;
+    }
+    .cta-band pre {
+      background: #0a0d12;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 20px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--cyan);
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .cta-link {
+      display: inline-block;
+      background: var(--orange);
+      color: #000;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .article-footer {
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .article-footer-logo { font-size: 13px; color: var(--text-tertiary); }
+    .article-footer-logo a { color: var(--orange); text-decoration: none; }
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.06em;
+    }
+    .site-footer a { color: var(--text-tertiary); text-decoration: none; }
+    @media (max-width: 640px) {
+      .report-grid { grid-template-columns: 1fr; }
+      .article-wrap { padding: 32px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="ga-nav-mount"></div>
+
+<div class="article-wrap">
+  <a href="/blog.html" class="back-link">← All posts</a>
+
+  <div class="article-meta">
+    <span class="article-tag new">New</span>
+    <span class="article-tag">Ghost Partner™</span>
+    <span class="article-tag">v8.2.5</span>
+    <span class="article-date">June 22, 2026</span>
+    <span class="article-read">8 min read</span>
+    <span class="article-author">By Ernst J. Wisner</span>
+  </div>
+
+  <h1>Ghost Partner Profiles — White-Label Ghost Architect as Your Own Consulting Tool</h1>
+
+  <p class="lede">Ghost Architect 8.2.5 ships a significant upgrade to Ghost Partner Profiles. Your firm name. Your methodology. Your billing rates. Your branding. Injected into every report Ghost generates — across all seven report types — from a single profile file you create in two minutes. Now accessible directly from the top-level menu without selecting a codebase first.</p>
+
+  <div class="article-body">
+
+    <h2>What is a Ghost Partner Profile?</h2>
+
+    <p>When a consultant or agency runs Ghost Architect for a client, the output carries Ghost Architect branding by default. The PDF cover says Ghost Architect. The footer says ghostarchitect.dev. The methodology section describes Ghost's approach, not yours.</p>
+
+    <p>A Ghost Partner Profile changes all of that. It is a YAML file that tells Ghost who is running the scan, how they work, what they charge, and how their reports should look. When a profile is active, every report Ghost generates is branded to you — not to Ghost Architect.</p>
+
+    <p>The client sees your firm name on the cover. Your methodology in the report body. Your billing rates in the cost estimates. Your accent color in the PDF. Your footer on every page.</p>
+
+    <p>Ghost does the work. You get the credit.</p>
+
+    <h2>What a profile injects into every scan</h2>
+
+    <p>A Ghost Partner Profile controls six things across every report:</p>
+
+    <ul>
+      <li><strong>Firm name</strong> — replaces "Ghost Architect" on the PDF cover, header, and footer across all seven report types</li>
+      <li><strong>Author name</strong> — your name appears as the analyst who prepared the report</li>
+      <li><strong>Methodology</strong> — your named audit methodology appears in the report methodology section instead of Ghost's default description</li>
+      <li><strong>Billing rates</strong> — junior, mid, and senior rates per hour. Ghost uses these for cost estimates in every scan. Your rates, not Ghost's defaults.</li>
+      <li><strong>Brand accent color</strong> — the PDF header, cover block, and accent elements use your hex color instead of Ghost's orange</li>
+      <li><strong>Logo</strong> — point Ghost at a PNG or JPG and your logo appears on every PDF cover</li>
+    </ul>
+
+    <div class="callout">
+      <strong>All seven report types are white-labeled when a profile is active.</strong> Points of Interest, Blast Radius, Conflict Detection, Recon, Inheritance Audit, Executive Brief, and Ghost Brief all respect the active profile. One profile file controls the branding across every output Ghost can generate.
+    </div>
+
+    <div class="report-grid">
+      <div class="report-card">
+        <div class="report-card-title">POI Scan PDF + MD</div>
+        <div class="report-card-body">Cover, header, footer, methodology section, cost estimates</div>
+      </div>
+      <div class="report-card">
+        <div class="report-card-title">Blast Radius PDF + MD</div>
+        <div class="report-card-body">Cover, header, footer, billing rate calculations</div>
+      </div>
+      <div class="report-card">
+        <div class="report-card-title">Conflict Detection PDF + MD</div>
+        <div class="report-card-body">Cover, header, footer, analyst attribution</div>
+      </div>
+      <div class="report-card">
+        <div class="report-card-title">Recon PDF + MD</div>
+        <div class="report-card-body">Cover, header, footer, engagement framing</div>
+      </div>
+      <div class="report-card">
+        <div class="report-card-title">Inheritance Audit PDF</div>
+        <div class="report-card-body">Cover, methodology section, firm name throughout</div>
+      </div>
+      <div class="report-card">
+        <div class="report-card-title">Executive Brief PDF</div>
+        <div class="report-card-body">Cover, header, confidentiality notice, footer</div>
+      </div>
+      <div class="report-card">
+        <div class="report-card-title">Ghost Brief HTML</div>
+        <div class="report-card-body">Logo initial, header brand text, footer link</div>
+      </div>
+      <div class="report-card">
+        <div class="report-card-title">Markdown Reports</div>
+        <div class="report-card-body">Header attribution, prepared-by block, footer text</div>
+      </div>
+    </div>
+
+    <h2>Three ways to create a profile</h2>
+
+    <h3>Option 1 — The interactive wizard</h3>
+
+    <p>The fastest path. Run Ghost and select Ghost Partner Profile from the top-level menu, then choose Create new profile. Ghost walks you through a short interactive flow:</p>
+
+    <ul>
+      <li>Profile name</li>
+      <li>One-line description</li>
+      <li>Organization name</li>
+      <li>Company name for PDF cover</li>
+      <li>Brand accent color (hex)</li>
+      <li>Logo file path</li>
+      <li>PDF footer text</li>
+      <li>Confidentiality notice</li>
+      <li>Your methodology priorities — what you zero in on during a review</li>
+      <li>Anti-patterns — what you call out as wrong</li>
+      <li>Red flags — signals that elevate severity to critical</li>
+    </ul>
+
+    <p>Ghost saves a fully-formed YAML file to <code>~/.ghost/profiles/</code> and immediately offers to activate it for the current session. Two minutes from start to first white-labeled scan.</p>
+
+    <h3>Option 2 — Write the YAML directly</h3>
+
+    <p>If you prefer to hand-write your profile or want full control over every field, create a <code>.yaml</code> file anywhere on your machine and point Ghost at it with <code>--profile /path/to/your-profile.yaml</code>. The YAML schema supports everything the wizard covers plus additional fields the wizard does not expose.</p>
+
+    <h3>Option 3 — Bring your own methodology document</h3>
+
+    <p>Already have a written methodology? A Google Doc you exported, a Notion page, a one-pager in Markdown? Save it as a <code>.md</code> or <code>.txt</code> file and point Ghost at it directly. Ghost auto-detects the format and extracts the structure via Claude, caching the result so subsequent runs are instant.</p>
+
+    <pre><code># Markdown methodology
+ghost --profile ~/Documents/my-audit-methodology.md
+
+# Plain text — Ghost extracts structure via Claude
+ghost --profile ~/Documents/my-audit-methodology.txt</code></pre>
+
+    <p>Ghost looks for recognized section headings in Markdown files — Priorities, Anti-patterns, Red flags, Branding — and optional YAML frontmatter between <code>---</code> markers at the top of the file.</p>
+
+    <h2>How to activate a profile</h2>
+
+    <p>Ghost Partner Profiles are accessible three ways:</p>
+
+    <h3>From the top-level menu</h3>
+
+    <p>As of v8.2.5, Ghost Partner Profile appears in the very first menu — before you select any codebase. Select it, choose Select and use a profile this session, pick from your saved profiles, and every scan you run in that Ghost session will use your branding. No <code>--profile</code> flag required.</p>
+
+    <h3>Per-run flag</h3>
+
+    <pre><code>ghost --profile ~/.ghost/profiles/my-profile.yaml</code></pre>
+
+    <p>Loads a specific profile for one run. Useful when you have multiple profiles for different clients or methodologies and want explicit control over which one is active.</p>
+
+    <h3>Set a default profile</h3>
+
+    <pre><code>ghost --set-default-profile my-profile-slug</code></pre>
+
+    <p>Sets a profile as your default. Ghost auto-applies it to every scan automatically without requiring the flag or menu selection. Override it for a single run with <code>--profile</code> or opt out entirely with <code>--no-profile</code>.</p>
+
+    <h2>What changes when a profile is active</h2>
+
+    <p>The scan itself does not change. Ghost analyzes the codebase the same way regardless of whether a profile is active. What changes is everything around the output.</p>
+
+    <table>
+      <tr>
+        <th>Without a profile</th>
+        <th>With a Ghost Partner Profile</th>
+      </tr>
+      <tr>
+        <td>PDF cover: Ghost Architect™</td>
+        <td>PDF cover: Your firm name</td>
+      </tr>
+      <tr>
+        <td>Footer: ghostarchitect.dev</td>
+        <td>Footer: Your footer text</td>
+      </tr>
+      <tr>
+        <td>Accent color: Ghost orange</td>
+        <td>Accent color: Your hex color</td>
+      </tr>
+      <tr>
+        <td>Cost estimates: Ghost default rates</td>
+        <td>Cost estimates: Your billing rates</td>
+      </tr>
+      <tr>
+        <td>Methodology: Ghost's description</td>
+        <td>Methodology: Your named methodology</td>
+      </tr>
+      <tr>
+        <td>Ghost Brief logo: G</td>
+        <td>Ghost Brief logo: Your firm initial</td>
+      </tr>
+      <tr>
+        <td>Confidentiality: Ghost default</td>
+        <td>Confidentiality: Your custom notice</td>
+      </tr>
+    </table>
+
+    <h2>The business case for Ghost Partner Profiles</h2>
+
+    <p>Pre-engagement triage is a billable service. Agencies and fractional CTOs charge for codebase audits, engagement scoping, and technical due diligence. Ghost Architect does that work in under an hour for under five dollars in API costs.</p>
+
+    <p>With a Ghost Partner Profile, the deliverable you hand to the client carries your name, your methodology, and your branding. The client sees your firm on the cover. They associate the quality of the output with you — not with a third-party tool.</p>
+
+    <p>That is the difference between a tool you use and a service you deliver. Ghost Partner Profiles let you deliver Ghost's output as your own work product.</p>
+
+    <p>A fractional CTO walking into a new engagement on day one can run a full Points of Interest scan, generate an Executive Brief, and hand the client a branded one-page risk summary — all in the first hour, all under their own firm name. That is a first-impression that books the next engagement.</p>
+
+    <p>An agency scoping a Shopify Plus migration can run a profile-branded POI scan and Blast Radius analysis, wrap it in a client-ready PDF with their accent color and logo, and send it before the SOW is signed. That is a deliverable that justifies the scoping fee and builds confidence before a single line of code is touched.</p>
+
+    <h2>Who Ghost Partner Profiles are for</h2>
+
+    <ul>
+      <li><strong>Independent consultants and architects</strong> who deliver pre-engagement audits as a paid service</li>
+      <li><strong>Digital agencies</strong> who want to white-label codebase triage as part of their onboarding process</li>
+      <li><strong>Fractional CTOs</strong> who need to produce branded deliverables for multiple client engagements</li>
+      <li><strong>PE and M&A advisors</strong> doing technical due diligence who need reports under their firm letterhead</li>
+      <li><strong>Systems integrators</strong> who scope large migrations and need a professional audit deliverable to justify the engagement cost</li>
+    </ul>
+
+    <h2>Availability</h2>
+
+    <p>Ghost Partner Profiles are available on <strong>Ghost Pro</strong> ($99/mo), <strong>Ghost Pro Max</strong> ($199/mo), <strong>Ghost Team</strong> ($399/mo), <strong>Ghost Team Max</strong> ($799/mo), <strong>Ghost Enterprise</strong> ($1,200/mo), and <strong>Ghost Enterprise Max</strong> ($2,500/mo).</p>
+
+    <p>Ghost Open users see the Ghost Partner Profile option in the menu with an upgrade prompt and a link to the pricing page. The option is always visible so every Ghost user knows the capability exists.</p>
+
+    <div class="cta-band">
+      <h3>Ghost Partner Profiles are live in v8.2.5.</h3>
+      <p>Install or update now and run <code>ghost</code> to access profile management from the top-level menu.</p>
+      <pre>npm install -g ghost-architect-open@latest</pre>
+      <a href="/pricing" class="cta-link">See Pricing</a>
+    </div>
+
+    <p style="margin-top: 32px;">EJ Wisner, founder of Ghost Platform™</p>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-footer-logo">
+      <a href="/">Ghost Architect™</a> · © 2026 Ghost Platform™ ·
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/support.html">Support</a>
+    </div>
+  </div>
+</div>
+
+<script src="/assets/ga-nav.js"></script>
+</body>
+</html>
