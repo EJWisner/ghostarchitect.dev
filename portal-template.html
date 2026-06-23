@@ -1290,33 +1290,46 @@
       }
 
       if (watchTab === 'commits') {
-        const rows = watchHistory.map(r => {
+        const rows = watchHistory.map((r, idx) => {
           const sev = r.severityCounts || {};
           const chips = [
-            sev.critical ? `<span style="color:#ff4444">${sev.critical} critical</span>` : '',
-            sev.high     ? `<span style="color:#ff8c00">${sev.high} high</span>` : '',
-            sev.medium   ? `<span style="color:#ffd700">${sev.medium} medium</span>` : '',
-            sev.low      ? `<span style="color:#888">${sev.low} low</span>` : '',
-          ].filter(Boolean).join(' · ');
+            sev.critical ? `<span class="sev-chip sev-critical"><span class="dot"></span>${sev.critical} critical</span>` : '',
+            sev.high     ? `<span class="sev-chip sev-high"><span class="dot"></span>${sev.high} high</span>` : '',
+            sev.medium   ? `<span class="sev-chip sev-medium"><span class="dot"></span>${sev.medium} medium</span>` : '',
+            sev.low      ? `<span class="sev-chip sev-low"><span class="dot"></span>${sev.low} low</span>` : '',
+          ].filter(Boolean).join('');
 
           const dev = r.developer?.name || r.developer?.email || '—';
           const genAt = r.generatedAt ? formatDate(r.generatedAt) : '—';
-          const briefStatus = r.briefPromptCount > 0
-            ? `<span style="color:var(--cyan)">${r.briefPromptCount} prompts ready</span>`
-            : '<span style="color:#555">No brief</span>';
+          const hasFindings = (r.findings || []).length > 0;
+          const hasBrief = r.briefPromptCount > 0;
+          const briefStatus = hasBrief
+            ? `<span style="color:var(--cyan);font-size:11px;">${r.briefPromptCount} prompt${r.briefPromptCount !== 1 ? 's' : ''} ready</span>`
+            : '<span style="color:#555;font-size:11px;">No brief</span>';
+
+          const rowId = `watch-commit-${idx}`;
+          const detailId = `watch-detail-${idx}`;
 
           return `
-            <div class="report-row" style="cursor:default;">
+            <div class="report-row" style="cursor:pointer;" onclick="toggleWatchCommit('${rowId}', '${detailId}')">
               <div style="display:flex;justify-content:space-between;align-items:baseline;">
                 <div>
                   <span style="font-family:monospace;color:var(--cyan);">${r.commitShort || '—'}</span>
                   <span style="color:#888;margin-left:8px;font-size:12px;">${r.branch || '—'}</span>
                 </div>
-                <div style="font-size:11px;color:#555;">${genAt}</div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="font-size:11px;color:#555;">${genAt}</div>
+                  <span id="${rowId}-arrow" style="color:var(--cyan-dim);font-size:12px;transition:transform 0.2s;">▶</span>
+                </div>
               </div>
               <div style="margin-top:4px;font-size:12px;color:#888;">${dev}</div>
-              <div style="margin-top:6px;font-size:12px;">${chips || '<span style="color:#00ff88">No findings</span>'}</div>
-              <div style="margin-top:4px;font-size:11px;">${briefStatus}</div>
+              <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+                ${chips || '<span style="color:#00ff88;font-size:12px;">✓ No findings</span>'}
+              </div>
+              <div style="margin-top:6px;">${briefStatus}</div>
+            </div>
+            <div id="${detailId}" style="display:none;margin-top:-8px;margin-bottom:10px;background:rgba(0,0,0,0.2);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:16px;">
+              ${renderWatchCommitDetail(r)}
             </div>
           `;
         }).join('');
@@ -1354,6 +1367,92 @@
         }).join('');
         container.innerHTML = rows;
       }
+    }
+
+    // ── Watch commit toggle ───────────────────────────────────────────
+    function toggleWatchCommit(rowId, detailId) {
+      const detail = document.getElementById(detailId);
+      const arrow  = document.getElementById(rowId + '-arrow');
+      if (!detail) return;
+      const isOpen = detail.style.display === 'block';
+      detail.style.display = isOpen ? 'none' : 'block';
+      if (arrow) arrow.style.transform = isOpen ? '' : 'rotate(90deg)';
+    }
+
+    // ── Watch commit detail renderer ──────────────────────────────────
+    function renderWatchCommitDetail(r) {
+      const findings = r.findings || [];
+      const brief    = r.brief;
+      const prompts  = brief?.prompts || [];
+
+      if (findings.length === 0 && prompts.length === 0) {
+        return '<div style="color:#555;font-size:13px;padding:8px 0;">No findings for this commit.</div>';
+      }
+
+      // Findings list
+      const sevOrder = { CRITICAL: 0, HIGH: 1, MEDIUM: 2, LOW: 3 };
+      const sorted = [...findings].sort((a, b) => (sevOrder[a.severity] ?? 9) - (sevOrder[b.severity] ?? 9));
+
+      const findingsHtml = sorted.map(f => {
+        const sev = (f.severity || '').toLowerCase();
+        const sevColor = sev === 'critical' ? '#ff5555' : sev === 'high' ? '#ff9040' : sev === 'medium' ? '#ffb030' : '#5aa8ba';
+        const files = (f.files || []).slice(0, 3).map(file =>
+          `<span class="brief-file-chip">${escapeHtml(file)}</span>`
+        ).join('');
+        return `
+          <div style="border-left:3px solid ${sevColor};padding:10px 14px;margin-bottom:8px;background:rgba(0,0,0,0.15);border-radius:0 6px 6px 0;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+              <div style="font-weight:600;color:#fff;font-size:13px;">${escapeHtml(f.title || 'Untitled')}</div>
+              <span style="font-size:10px;color:${sevColor};font-weight:700;white-space:nowrap;">${f.severity || '—'}</span>
+            </div>
+            ${f.detail ? `<div style="margin-top:4px;font-size:12px;color:#888;line-height:1.5;">${escapeHtml(f.detail.slice(0, 200))}${f.detail.length > 200 ? '…' : ''}</div>` : ''}
+            ${files ? `<div style="margin-top:6px;">${files}</div>` : ''}
+          </div>
+        `;
+      }).join('');
+
+      // Ghost Brief prompts
+      let promptsHtml = '';
+      if (prompts.length > 0) {
+        const promptCards = prompts.map((p, idx) => {
+          const promptId = `wp-${r.commitShort}-${idx}`;
+          return `
+            <div class="brief-prompt-card f-${(p.severity || 'medium').toLowerCase()}" style="margin-bottom:8px;">
+              <div class="brief-prompt-top">
+                <span class="gb-badge">${escapeHtml(p.id || 'GB-???')}</span>
+                <span class="brief-prompt-title">${escapeHtml(p.title || 'Untitled')}</span>
+              </div>
+              <div class="brief-prompt-badges">
+                <span class="sev-chip sev-${(p.severity||'medium').toLowerCase()}"><span class="dot"></span>${escapeHtml(p.severity||'Medium')}</span>
+                <span class="blast-chip blast-${(p.blast_radius||'surgical').toLowerCase()}">${escapeHtml(p.blast_radius||'surgical')}</span>
+              </div>
+              ${(p.files?.primary||[]).length > 0 ? `<div class="brief-files">${p.files.primary.map(f=>`<span class="brief-file-chip">${escapeHtml(f)}</span>`).join('')}</div>` : ''}
+              <div class="brief-collapsible">
+                <button class="brief-collapse-toggle" onclick="toggleBriefCollapse('${promptId}', this)">
+                  <span>▶ Prompt</span>
+                </button>
+                <button class="brief-copy-btn" onclick="navigator.clipboard.writeText(${JSON.stringify(p.prompt||'')}).then(()=>showToast('Copied','${escapeHtml(p.id||'')} copied to clipboard'))">Copy</button>
+                <div class="brief-collapse-body" id="${promptId}">${escapeHtml(p.prompt || '')}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        promptsHtml = `
+          <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px;">
+            <div style="font-size:10px;letter-spacing:0.16em;color:var(--brief);text-transform:uppercase;margin-bottom:10px;font-weight:600;">Ghost Brief™ — ${prompts.length} Prompt${prompts.length !== 1 ? 's' : ''}</div>
+            <div class="brief-prompt-list">${promptCards}</div>
+          </div>
+        `;
+      }
+
+      return `
+        <div style="font-size:10px;letter-spacing:0.16em;color:var(--text-tertiary);text-transform:uppercase;margin-bottom:10px;">
+          Findings (${findings.length})
+        </div>
+        ${findingsHtml}
+        ${promptsHtml}
+      `;
     }
 
     // ── Ghost Brief panel render ──────────────────────────────────────
