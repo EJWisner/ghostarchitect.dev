@@ -1211,9 +1211,10 @@
 
       if (watchHistory.length === 0) {
         container.innerHTML = `
-          <div class="tile tile-brief" onclick="navigate('watch')" style="cursor:pointer;">
+          <div class="tile tile-brief" onclick="if(!event.target.closest('.info-icon'))navigate('watch')" style="cursor:pointer;">
+            <button class="info-icon" onclick="event.stopPropagation();showModeModal('ghost-watcher')" aria-label="About Ghost Watcher™">i</button>
             <div class="tile-arrow">↗</div>
-            <div class="tile-mode">Ghost Watcher™</div>
+            <div class="tile-mode" style="margin-left: 28px;">Ghost Watcher™</div>
             <div class="brief-no-data" style="padding: 10px 0; border: none; text-align: left; font-size: 12px; margin-top: 6px; background: none;">
               No commits watched yet
             </div>
