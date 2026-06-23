@@ -1412,7 +1412,8 @@
                 <button class="brief-collapse-toggle" onclick="toggleBriefCollapse('${promptId}', this)">
                   <span>▶ Prompt</span>
                 </button>
-                <button class="brief-copy-btn" onclick="(function(){navigator.clipboard.writeText(${JSON.stringify(promptText)}).then(()=>showToast('Copied','${escapeHtml(p.id||'')} copied to clipboard'))})()">Copy</button>
+                <button class="brief-copy-btn" onclick="copyWatchPrompt(this)" data-prompt-id="${escapeHtml(p.id||'')}">Copy</button>
+                <textarea style="display:none;position:absolute;" class="watch-prompt-text">${escapeHtml(promptText)}</textarea>
                 <div class="brief-collapse-body" id="${promptId}">${escapeHtml(promptText)}</div>
               </div>
             </div>
