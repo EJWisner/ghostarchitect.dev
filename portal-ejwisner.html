@@ -1233,9 +1233,10 @@
       if (sev.low)      sevParts.push(`${sev.low} low`);
 
       container.innerHTML = `
-        <div class="tile tile-brief" onclick="navigate('watch')" style="cursor:pointer;">
+        <div class="tile tile-brief" onclick="if(!event.target.closest('.info-icon'))navigate('watch')" style="cursor:pointer;">
+          <button class="info-icon" onclick="event.stopPropagation();showModeModal('ghost-watcher')" aria-label="About Ghost Watcher™">i</button>
           <div class="tile-arrow">↗</div>
-          <div class="tile-mode">Ghost Watcher™</div>
+          <div class="tile-mode" style="margin-left: 28px;">Ghost Watcher™</div>
           <div>
             <span class="tile-count">${watchHistory.length}</span>
             <span class="tile-count-unit">commit${watchHistory.length !== 1 ? 's' : ''} watched</span>
