@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Ghost Watcher™ monitors every commit automatically. When a developer pushes to GitHub, Ghost fires — analyzing changed files, surfacing findings, and generating AI remediation prompts. Results land in Ghost Portal before the PR reviewer opens the tab.">
+  <meta property="og:title" content="Ghost Watcher™ — Automatic Commit Monitoring for Every Push">
+  <meta property="og:description" content="Ghost Watcher™ is a headless CI pipeline that runs inside GitHub Actions. Every commit triggers a full Ghost Architect™ scan automatically. Blast Radius. Conflict Detection. Ghost Brief. PR comment. Ghost Portal. All automatic.">
+  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-watcher-v908">
+  <meta property="og:site_name" content="Ghost Architect™">
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-watcher-v908">
+  <title>Ghost Watcher™ — Automatic Commit Monitoring for Every Push · Ghost Architect™</title>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
+  <style>
+    :root {
+      --bg: #050a14;
+      --surface: #0a1020;
+      --border: #1a2540;
+      --orange: #e07340;
+      --cyan: #00bfd8;
+      --text-primary: #e8eaf0;
+      --text-secondary: #8892a4;
+      --text-tertiary: #4b5563;
+      --good: #22c55e;
+      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    .article-wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      margin-bottom: 40px;
+    }
+    .back-link:hover { color: var(--orange); }
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .article-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 3px;
+      background: rgba(224,115,64,0.15);
+      color: var(--orange);
+      border: 1px solid rgba(224,115,64,0.3);
+    }
+    .article-tag.new {
+      background: linear-gradient(135deg, var(--orange), #f59e0b);
+      color: #000;
+      border: none;
+    }
+    .article-tag.watcher {
+      background: rgba(0,191,216,0.12);
+      color: var(--cyan);
+      border: 1px solid rgba(0,191,216,0.3);
+    }
+    .article-date {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.06em;
+    }
+    .article-read {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    .article-author {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    h1 {
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .lede {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 36px;
+    }
+    .article-body h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+      margin: 44px 0 16px;
+      padding-top: 8px;
+    }
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.02em;
+      margin: 32px 0 12px;
+    }
+    .article-body p {
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+    }
+    .article-body strong { color: var(--text-primary); font-weight: 600; }
+    .article-body code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: var(--cyan);
+    }
+    .article-body pre {
+      background: #0a0d12;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+    .article-body pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+    .article-body ul, .article-body ol {
+      color: var(--text-secondary);
+      padding-left: 24px;
+      margin-bottom: 18px;
+    }
+    .article-body li { margin-bottom: 8px; }
+    .article-body li strong { color: var(--text-primary); }
+    .callout {
+      background: rgba(224,115,64,0.08);
+      border: 1px solid rgba(224,115,64,0.25);
+      border-left: 3px solid var(--orange);
+      border-radius: 6px;
+      padding: 18px 20px;
+      margin: 28px 0;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    .callout strong { color: var(--orange); }
+    .callout.cyan {
+      background: rgba(0,191,216,0.06);
+      border-color: rgba(0,191,216,0.25);
+      border-left-color: var(--cyan);
+    }
+    .callout.cyan strong { color: var(--cyan); }
+    .loop-step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+    .loop-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0,191,216,0.15);
+      border: 1px solid rgba(0,191,216,0.3);
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .loop-content strong { color: var(--text-primary); display: block; margin-bottom: 4px; }
+    .loop-content p { color: var(--text-secondary); font-size: 14px; margin: 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+    th {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-primary);
+      font-weight: 600;
+      padding: 10px 14px;
+      text-align: left;
+      border: 1px solid var(--border);
+      letter-spacing: 0.04em;
+    }
+    td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    td code { font-size: 12px; }
+    .cta-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 32px;
+      margin: 40px 0;
+      text-align: center;
+    }
+    .cta-block h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .cta-block p {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      font-size: 15px;
+    }
+    .cta-link {
+      display: inline-block;
+      background: var(--orange);
+      color: #000;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .article-footer {
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .article-footer-logo { font-size: 13px; color: var(--text-tertiary); }
+    .article-footer-logo a { color: var(--orange); text-decoration: none; }
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.06em;
+    }
+    .site-footer a { color: var(--text-tertiary); text-decoration: none; }
+    @media (max-width: 640px) {
+      .article-wrap { padding: 32px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="ga-nav-mount"></div>
+
+<div class="article-wrap">
+  <a href="/blog.html" class="back-link">← All posts</a>
+
+  <div class="article-meta">
+    <span class="article-tag new">New</span>
+    <span class="article-tag watcher">Ghost Watcher™</span>
+    <span class="article-tag">v9.0.8</span>
+    <span class="article-date">June 23, 2026</span>
+    <span class="article-read">10 min read</span>
+    <span class="article-author">By Ernst J. Wisner</span>
+  </div>
+
+  <h1>Ghost Watcher™ — Your Last PR Review Missed Something. This Makes Sure It Never Happens Again.</h1>
+
+  <p class="lede">Ghost Watcher™ is a headless CI pipeline that runs inside GitHub Actions. Every commit your team pushes triggers a full Ghost Architect™ scan automatically — Blast Radius, Conflict Detection, and Ghost Brief™ — with findings delivered to Ghost Portal and a PR comment posted before the reviewer opens the tab. No manual runs. No forgotten reviews. No surprises in production.</p>
+
+  <div class="article-body">
+
+    <h2>The problem Ghost Watcher™ solves</h2>
+
+    <p>Ghost Architect™ has always been a pre-engagement triage tool. You run it before a project kicks off, before a change goes in, before a client signs. You get a map of the codebase — blast radius, conflict surface, risk profile — and you go in with eyes open.</p>
+
+    <p>But there is a gap. Once a project is underway, developers are committing code every day. Every commit is a new risk surface. Every push changes the blast radius of every other file. The pre-engagement scan you ran two weeks ago is already stale.</p>
+
+    <p>Ghost Watcher™ closes that gap. It watches every commit, runs the same analysis you would run manually, and delivers the results automatically — before anyone has a chance to miss them.</p>
+
+    <div class="callout">
+      <strong>The core insight:</strong> Code review catches what developers see. Ghost Watcher™ catches what they miss — the second-order effects, the schema mismatches, the blast radius of a change that looks small but touches everything.
+    </div>
+
+    <h2>How Ghost Watcher™ works</h2>
+
+    <p>The loop is straightforward. A developer pushes a commit. GitHub Actions triggers. Ghost Watcher™ spins up on a clean Ubuntu runner, installs Ghost Architect™, checks out the repo, identifies what changed, and runs a full analysis pipeline against the changed files in the context of the full codebase.</p>
+
+    <div class="loop-step">
+      <div class="loop-num">1</div>
+      <div class="loop-content">
+        <strong>Changed file detection</strong>
+        <p>Ghost Watcher™ identifies exactly which files changed in the commit using git diff. Only changed files are analyzed as the primary targets — but the full codebase context is loaded to understand downstream impact.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">2</div>
+      <div class="loop-content">
+        <strong>Blast Radius Analysis</strong>
+        <p>Which files does this change affect? Ghost maps the dependency graph and produces a blast radius for every changed file — how many other files would need to change, what is the rollback complexity, what is the risk tier.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">3</div>
+      <div class="loop-content">
+        <strong>Conflict Detection</strong>
+        <p>Ghost scans for contract mismatches, schema conflicts, and config errors between the changed files and the rest of the codebase. These are the bugs that compile cleanly and only surface at runtime — or in production.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">4</div>
+      <div class="loop-content">
+        <strong>Ghost Brief™ generation</strong>
+        <p>Every finding gets a Ghost Brief™ prompt — a structured, blast-radius-aware instruction set your AI coding agent can execute immediately. No translating findings into prompts. No guessing what to fix first. Ghost briefs the AI. The AI fixes the code.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">5</div>
+      <div class="loop-content">
+        <strong>Results delivered to Ghost Portal</strong>
+        <p>Findings, severity chips, and Ghost Brief™ prompts appear in Ghost Portal under the Ghost Watcher™ tab. Commits tab shows the full history. Findings tab aggregates across all watched commits. Prompts tab has every Ghost Brief™ prompt ready to copy with one click.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">6</div>
+      <div class="loop-content">
+        <strong>PR comment posted</strong>
+        <p>When the commit is part of a pull request, Ghost Watcher™ posts a comment directly on the PR — findings count, severity breakdown, Phase 1 and Phase 2 remediation list, and a link to Ghost Portal to copy prompts. The reviewer sees it before they read a single line of diff.</p>
+      </div>
+    </div>
+
+    <h2>What Ghost Watcher™ finds</h2>
+
+    <p>On the first run against Ghost Architect™'s own 194-file codebase — a real production TypeScript and JavaScript codebase — Ghost Watcher™ surfaced:</p>
+
+    <ul>
+      <li><strong>55 findings</strong> across Blast Radius and Conflict Detection</li>
+      <li><strong>1 critical, 7 high, 33 medium, 14 low</strong> severity breakdown</li>
+      <li><strong>50 Ghost Brief™ prompts</strong> generated and ready to copy</li>
+      <li>Findings included schema mismatches, authentication single points of failure, SQL injection patterns, and blast radius surprises in files that looked unrelated to the change</li>
+    </ul>
+
+    <p>This was a commit that touched two files. Ghost Watcher™ found 55 reasons to pay attention.</p>
+
+    <h2>Setting up Ghost Watcher™</h2>
+
+    <p>Setup runs through the Ghost CLI menu. No YAML editing. No workflow file writing. Ghost handles it.</p>
+
+    <pre><code>ghost</code></pre>
+
+    <p>Select <strong>Ghost Watcher™ → Enable Watch</strong> from the menu. The wizard asks:</p>
+
+    <ul>
+      <li>Which GitHub repo to watch</li>
+      <li>Which branches to monitor (with custom branch support)</li>
+      <li>Which scans to run — Blast Radius, Conflict Detection, Ghost Brief™</li>
+      <li>Whether to post PR comments</li>
+      <li>Email notification addresses</li>
+      <li>Your GitHub Personal Access Token</li>
+      <li>Estimated commits per day — Ghost shows you the cost estimate before you confirm</li>
+    </ul>
+
+    <p>Ghost pushes <code>ghost-watcher.yaml</code> and <code>.github/workflows/ghost-watcher.yml</code> to your repo. Version-pinned to the installed Ghost version. Custom branches injected directly into the GitHub Actions trigger.</p>
+
+    <p>Then add four secrets to your GitHub repo settings:</p>
+
+    <table>
+      <tr><th>Secret</th><th>What it is</th></tr>
+      <tr><td><code>ANTHROPIC_API_KEY</code></td><td>Your Anthropic API key (BYOK)</td></tr>
+      <tr><td><code>GHOST_LICENSE_KEY</code></td><td>Your Ghost Team or Enterprise license key</td></tr>
+      <tr><td><code>GHOST_PORTAL_REPO</code></td><td>Your ghost-reports repo URL</td></tr>
+      <tr><td><code>GHOST_PORTAL_TOKEN</code></td><td>GitHub PAT with repo write scope</td></tr>
+    </table>
+
+    <p>Push a commit. Ghost Watcher™ fires. Results appear in Ghost Portal.</p>
+
+    <h2>Ghost Portal — the command center</h2>
+
+    <p>Every Ghost Watcher™ run lands in Ghost Portal under the Ghost Watcher™ tile. Three tabs:</p>
+
+    <ul>
+      <li><strong>Commits</strong> — every watched commit with severity chips. Click any commit to expand findings and Ghost Brief™ prompts inline.</li>
+      <li><strong>Findings</strong> — all findings aggregated across all watched commits, sorted by severity. Critical at the top.</li>
+      <li><strong>Prompts</strong> — all Ghost Brief™ prompts from all watched commits, ready to copy with one click. Paste into Claude Code, Cursor, or any AI coding tool.</li>
+    </ul>
+
+    <p>The Portal is where the loop closes. Developer commits. Ghost Watcher™ fires. Findings land. Developer opens Portal, copies the prompt for the critical finding, pastes it into Claude Code, ships the fix, and commits again. Ghost Watcher™ fires again. Findings drop. The codebase gets cleaner with every commit.</p>
+
+    <h2>Cost transparency</h2>
+
+    <p>Ghost Watcher™ is BYOK — Bring Your Own Key. You pay Anthropic directly for API usage. Ghost does not mark up API costs or charge per scan.</p>
+
+    <p>The Enable Watch wizard shows a cost estimate before you confirm setup:</p>
+
+    <table>
+      <tr><th>Scans enabled</th><th>Estimated cost per commit</th></tr>
+      <tr><td>Blast Radius only</td><td>$0.15 – $0.30</td></tr>
+      <tr><td>Blast Radius + Conflict Detection</td><td>$0.95 – $1.80</td></tr>
+      <tr><td>Full pipeline (all three scans)</td><td>$1.50 – $2.50</td></tr>
+    </table>
+
+    <p>On a team doing 10 commits per day, full pipeline costs run $15 – $25 per day. For a team that catches one production incident per month that would have cost $10,000 to fix, the math is straightforward.</p>
+
+    <h2>Ghost Watcher™ never blocks a commit</h2>
+
+    <p>This is a hard design constraint. Ghost Watcher™ is advisory only. Findings are surfaced for remediation — they never prevent a commit from going through. Exit code is always 0.</p>
+
+    <p>If the Anthropic API goes down mid-scan, Ghost Watcher™ catches the error, logs it as non-fatal, delivers whatever it completed, and exits 0. The commit still ships. The developer still gets whatever findings were generated before the failure.</p>
+
+    <p>You can also add <code>[ghost-skip]</code> to any commit message to bypass Ghost Watcher™ entirely for that commit. Documentation commits, version bumps, and merge commits do not need a full codebase analysis.</p>
+
+    <h2>Iteration limits and cost control</h2>
+
+    <p>Ghost Watcher™ includes a configurable iteration limit. Set <code>iterations.max</code> in <code>ghost-watcher.yaml</code> and Ghost Watcher™ will stop running after that many commits on a given PR. The default is 10. When the limit is reached, Ghost Watcher™ exits gracefully and directs the developer to Ghost Portal to review findings from earlier runs.</p>
+
+    <p>This prevents runaway costs on long-lived PRs with dozens of commits. You control how much analysis a single PR gets.</p>
+
+    <h2>Who Ghost Watcher™ is for</h2>
+
+    <p>Ghost Watcher™ is available on Ghost Team ($399/month) and Ghost Enterprise ($1,200/month) memberships.</p>
+
+    <p><strong>Ghost Team</strong> is built for agencies, consultancies, and engineering teams who want continuous codebase intelligence without the overhead of manual reviews. Up to 5 developers. Up to 3 repos watched. Full Ghost Brief™ pipeline on every commit.</p>
+
+    <p><strong>Ghost Enterprise</strong> is for organizations with multiple codebases, large teams, and compliance requirements. Unlimited developers. Unlimited repos. Priority support.</p>
+
+    <div class="callout cyan">
+      <strong>Note on Ghost Pro and Ghost Pro Max:</strong> Ghost Watcher™ is not included in Pro or Pro Max memberships. Those tiers are designed for individual consultants running manual pre-engagement scans. Ghost Watcher™ requires a team environment with GitHub Actions — it is a team and enterprise feature.
+    </div>
+
+    <h2>What ships in v9.0.8</h2>
+
+    <p>Ghost Watcher™ ships as part of Ghost Architect™ v9.0.8. Here is everything in this release:</p>
+
+    <ul>
+      <li><strong>Ghost Watcher™ core pipeline</strong> — <code>ghost --watcher-commit</code> headless CI mode with Blast Radius, Conflict Detection, and Ghost Brief™</li>
+      <li><strong>GitHub Actions workflow template</strong> — auto-generated, version-pinned, branch-injected</li>
+      <li><strong>Enable Watch wizard</strong> — full interactive setup with cost estimator, custom branch support, and back/cancel at every step</li>
+      <li><strong>Ghost Portal Watch tab</strong> — Commits, Findings, and Prompts with one-click copy</li>
+      <li><strong>PR comment</strong> — automatic findings summary on every pull request</li>
+      <li><strong>Email notifications</strong> — findings summary after each run</li>
+      <li><strong>Team tier context cap</strong> — 150,000 token limit correctly applied in CI</li>
+      <li><strong>CI license validation</strong> — fingerprint bypass on ephemeral runners</li>
+      <li><strong>ghost-skip tag</strong> — bypass Ghost Watcher™ on specific commits</li>
+      <li><strong>Watch Status and Disable Watch</strong> — manage Ghost Watcher™ from the CLI menu with back/cancel support</li>
+    </ul>
+
+    <h2>What comes next</h2>
+
+    <p>Ghost Watcher™ v9.0.8 is the foundation. The roadmap for v9.0.x includes:</p>
+
+    <ul>
+      <li><strong>Auto-inject secrets via GitHub OAuth</strong> — the wizard handles all four secrets automatically. No manual GitHub settings.</li>
+      <li><strong>Ghost Pulse integration</strong> — Ghost Watcher™ run telemetry in your Ghost Pulse dashboard. See which repos are being watched, how many findings per day, and whether your codebase is getting cleaner over time.</li>
+      <li><strong>CI token provisioning</strong> — dedicated CI license tokens without machine fingerprinting, provisioned automatically during Enable Watch setup.</li>
+      <li><strong>Configure Watch wizard</strong> — change branches, scan types, and notifications without editing YAML.</li>
+      <li><strong>Resumability</strong> — if the Anthropic API fails mid-scan, Ghost Watcher™ picks up where it left off on the next run instead of starting over.</li>
+    </ul>
+
+    <div class="cta-block">
+      <h3>Ghost Watcher™ is live now.</h3>
+      <p>Available on Ghost Team and Enterprise memberships. Install Ghost Architect™ v9.0.8 and run the Enable Watch wizard to get started.</p>
+      <a href="/pricing.html" class="cta-link">View Ghost Team pricing →</a>
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-footer-logo">
+      Published by <a href="/">Ghost Architect™</a> · ghostarchitect.dev
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  © 2026 Ghost Platform LLC · <a href="/privacy.html">Privacy</a> · <a href="/support.html">Support</a> · <a href="/changelog.html">Changelog</a>
+</footer>
+
+<script src="/assets/ga-nav.js"></script>
+</body>
+</html>
