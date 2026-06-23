@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Ghost Watcher™ monitors every commit automatically. Blast Radius, Conflict Detection, and Ghost Brief run on every push. Findings in Ghost Portal. PR comment before the reviewer opens the tab.">
+  <meta property="og:title" content="Ghost Watcher™ — Automatic Commit Monitoring">
+  <meta property="og:description" content="Every commit triggers a full Ghost Architect™ scan automatically. Findings in Ghost Portal. PR comment before the reviewer opens the tab. Available on Ghost Team and Enterprise.">
+  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ghostarchitect.dev/ghost-watcher.html">
+  <meta property="og:site_name" content="Ghost Architect™">
+  <link rel="canonical" href="https://ghostarchitect.dev/ghost-watcher.html">
+  <title>Ghost Watcher™ — Automatic Commit Monitoring · Ghost Architect™</title>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
+  <style>
+    :root {
+      --bg: #050a14;
+      --surface: #0a1020;
+      --border: #1a2540;
+      --orange: #e07340;
+      --cyan: #00bfd8;
+      --text-primary: #e8eaf0;
+      --text-secondary: #8892a4;
+      --text-tertiary: #4b5563;
+      --good: #22c55e;
+      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    .hero { max-width: 860px; margin: 0 auto; padding: 80px 24px 64px; text-align: center; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; background: rgba(0,191,216,0.12); color: var(--cyan); border: 1px solid rgba(0,191,216,0.3); margin-bottom: 28px; }
+    .hero h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 900; color: #fff; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 24px; }
+    .hero h1 span { color: var(--cyan); }
+    .hero-sub { font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto 40px; line-height: 1.65; }
+    .hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { display: inline-block; background: var(--cyan); color: #000; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 13px 28px; border-radius: 6px; text-decoration: none; }
+    .btn-secondary { display: inline-block; background: transparent; color: var(--text-primary); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; padding: 13px 28px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); }
+    .terminal-wrap { max-width: 700px; margin: 56px auto 0; background: #0a0d12; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .terminal-bar { background: #111827; padding: 10px 16px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid var(--border); }
+    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-dot.r { background: #ff5f57; } .terminal-dot.y { background: #febc2e; } .terminal-dot.g { background: #28c840; }
+    .terminal-label { font-size: 11px; color: var(--text-tertiary); margin-left: 8px; letter-spacing: 0.06em; }
+    .terminal-body { padding: 24px; font-family: var(--font-mono); font-size: 13px; line-height: 1.8; }
+    .t-dim { color: var(--text-tertiary); } .t-cyan { color: var(--cyan); } .t-green { color: var(--good); } .t-orange { color: var(--orange); } .t-white { color: #fff; } .t-red { color: #ff5555; }
+    .section { max-width: 860px; margin: 0 auto; padding: 64px 24px; border-top: 1px solid var(--border); }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 12px; }
+    .section h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 16px; line-height: 1.15; }
+    .section-sub { font-size: 16px; color: var(--text-secondary); max-width: 600px; margin-bottom: 48px; line-height: 1.65; }
+    .loop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .loop-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
+    .loop-card-num { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: var(--cyan); margin-bottom: 10px; }
+    .loop-card h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .loop-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    .feature-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .feature-item { display: flex; gap: 14px; align-items: flex-start; }
+    .feature-icon { flex-shrink: 0; width: 36px; height: 36px; border-radius: 8px; background: rgba(0,191,216,0.1); border: 1px solid rgba(0,191,216,0.2); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .feature-item h3 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .feature-item p { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+    .feature-item code { font-family: var(--font-mono); font-size: 12px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 2px 5px; color: var(--cyan); }
+    .setup-steps { counter-reset: step; display: flex; flex-direction: column; gap: 0; }
+    .setup-step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--border); }
+    .setup-step:last-child { border-bottom: none; }
+    .step-num { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: rgba(0,191,216,0.12); border: 1px solid rgba(0,191,216,0.3); color: var(--cyan); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .step-body h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .step-body p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+    .step-body code { font-family: var(--font-mono); font-size: 12px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 2px 6px; color: var(--cyan); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { background: rgba(255,255,255,0.05); color: var(--text-primary); font-weight: 600; padding: 10px 16px; text-align: left; border: 1px solid var(--border); letter-spacing: 0.04em; font-size: 12px; }
+    td { padding: 12px 16px; border: 1px solid var(--border); color: var(--text-secondary); }
+    td strong { color: var(--text-primary); }
+    .tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .tier-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 28px; }
+    .tier-card.featured { border-color: rgba(0,191,216,0.4); background: rgba(0,191,216,0.04); }
+    .tier-name { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; }
+    .tier-price { font-size: 32px; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .tier-price span { font-size: 16px; font-weight: 400; color: var(--text-tertiary); }
+    .tier-desc { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.55; }
+    .tier-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+    .tier-features li { font-size: 13px; color: var(--text-secondary); display: flex; gap: 8px; align-items: flex-start; }
+    .tier-features li::before { content: '✓'; color: var(--cyan); font-weight: 700; flex-shrink: 0; }
+    .tier-cta { display: block; text-align: center; padding: 11px; border-radius: 6px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-decoration: none; background: var(--cyan); color: #000; }
+    .tier-cta.secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
+    .callout { background: rgba(0,191,216,0.06); border: 1px solid rgba(0,191,216,0.2); border-left: 3px solid var(--cyan); border-radius: 6px; padding: 18px 20px; margin: 32px 0; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+    .callout strong { color: var(--cyan); }
+    .site-footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.06em; }
+    .site-footer a { color: var(--text-tertiary); text-decoration: none; }
+    @media (max-width: 640px) { .hero { padding: 60px 16px 48px; } .section { padding: 48px 16px; } .hero-ctas { flex-direction: column; align-items: center; } }
+  </style>
+</head>
+<body>
+<div id="ga-nav-mount"></div>
+<div class="hero">
+  <div class="hero-badge">👻 Ghost Watcher™ · Team + Enterprise</div>
+  <h1>Your last PR review<br>missed something.<br><span>This makes sure it never<br>happens again.</span></h1>
+  <p class="hero-sub">Ghost Watcher™ monitors every commit automatically. Blast Radius, Conflict Detection, and Ghost Brief™ run on every push. Findings in Ghost Portal. PR comment before the reviewer opens the tab.</p>
+  <div class="hero-ctas">
+    <a href="/pricing.html" class="btn-primary">Get Ghost Team →</a>
+    <a href="/blog/ghost-watcher-v908.html" class="btn-secondary">Read the launch post</a>
+  </div>
+  <div class="terminal-wrap">
+    <div class="terminal-bar">
+      <div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div>
+      <span class="terminal-label">GitHub Actions · ghost-watcher.yml</span>
+    </div>
+    <div class="terminal-body">
+      <div><span class="t-dim">$</span> <span class="t-white">ghost --watcher-commit</span></div>
+      <div class="t-dim">&nbsp;</div>
+      <div><span class="t-cyan">👻 Ghost Watcher™ v9.0.8 — Commit Analysis</span></div>
+      <div><span class="t-dim">   Running in: /home/runner/work/your-repo</span></div>
+      <div class="t-dim">&nbsp;</div>
+      <div><span class="t-white">Ghost Watcher: 3 changed file(s) detected</span></div>
+      <div><span class="t-dim">  · src/payment/processor.js</span></div>
+      <div><span class="t-dim">  · src/api/checkout.js</span></div>
+      <div><span class="t-dim">  · config/stripe.js</span></div>
+      <div class="t-dim">&nbsp;</div>
+      <div><span class="t-white">Ghost Watcher: running Blast Radius...</span></div>
+      <div><span class="t-dim">.......................................</span></div>
+      <div><span class="t-white">Ghost Watcher: Blast Radius complete — </span><span class="t-orange">19 findings</span></div>
+      <div><span class="t-white">Ghost Watcher: running Conflict Detection...</span></div>
+      <div><span class="t-dim">.....................</span></div>
+      <div><span class="t-white">Ghost Watcher: Conflict Detection complete — </span><span class="t-red">8 findings</span></div>
+      <div><span class="t-white">Ghost Watcher: Ghost Brief generated — </span><span class="t-cyan">21 prompts</span></div>
+      <div><span class="t-white">Ghost Watcher: results pushed to portal repo</span></div>
+      <div class="t-dim">&nbsp;</div>
+      <div><span class="t-cyan">👻 Ghost Watcher™ complete.</span></div>
+      <div><span class="t-dim">   Findings: 27 | Brief prompts: 21 | Exit: </span><span class="t-green">0</span></div>
+    </div>
+  </div>
+</div>
+<div class="section">
+  <div class="section-label">How it works</div>
+  <h2>Commit. Analyze. Fix. Repeat.</h2>
+  <p class="section-sub">Ghost Watcher™ runs inside GitHub Actions. Every push triggers the full pipeline automatically.</p>
+  <div class="loop-grid">
+    <div class="loop-card"><div class="loop-card-num">01 — DETECT</div><h3>Changed file detection</h3><p>Ghost identifies exactly which files changed in the commit. Only changed files are primary targets — but the full codebase is loaded for context.</p></div>
+    <div class="loop-card"><div class="loop-card-num">02 — ANALYZE</div><h3>Blast Radius Analysis</h3><p>Which files does this change affect? Ghost maps the dependency graph, rollback complexity, and risk tier for every changed file.</p></div>
+    <div class="loop-card"><div class="loop-card-num">03 — DETECT</div><h3>Conflict Detection</h3><p>Contract mismatches, schema conflicts, and config errors between changed files and the rest of the codebase. The bugs that compile cleanly and surface in production.</p></div>
+    <div class="loop-card"><div class="loop-card-num">04 — BRIEF</div><h3>Ghost Brief™ generation</h3><p>Every finding gets a structured, blast-radius-aware prompt your AI coding agent can execute immediately. Ghost briefs the AI. The AI fixes the code.</p></div>
+    <div class="loop-card"><div class="loop-card-num">05 — DELIVER</div><h3>Ghost Portal</h3><p>Findings and prompts appear in Ghost Portal under the Ghost Watcher™ tab. Commits, Findings, and Prompts — with one-click copy to clipboard.</p></div>
+    <div class="loop-card"><div class="loop-card-num">06 — COMMENT</div><h3>PR comment</h3><p>On pull requests, Ghost Watcher™ posts a findings summary directly on the PR — Phase 1 and Phase 2 breakdown — before the reviewer opens the tab.</p></div>
+  </div>
+</div>
+<div class="section">
+  <div class="section-label">What's included</div>
+  <h2>Everything you need. Nothing you don't.</h2>
+  <p class="section-sub">Ghost Watcher™ is a complete commit intelligence pipeline out of the box.</p>
+  <div class="feature-list">
+    <div class="feature-item"><div class="feature-icon">🔭</div><div><h3>Automatic on every push</h3><p>Runs inside GitHub Actions. No manual triggers. No forgotten reviews. Every commit gets analyzed.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">💥</div><div><h3>Blast Radius Analysis</h3><p>Maps every downstream file affected by the change. Rollback complexity. Risk tier. File-level impact.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">⚡</div><div><h3>Conflict Detection</h3><p>Schema mismatches, contract breaks, config errors. The bugs that survive code review and die in production.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">📋</div><div><h3>Ghost Brief™ prompts</h3><p>Every finding becomes an executable AI prompt. Paste into Claude Code, Cursor, or any AI tool.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">🌐</div><div><h3>Ghost Portal Watch tab</h3><p>Commits, Findings, and Prompts tabs. Expandable commit rows. One-click copy. Full history.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">💬</div><div><h3>PR comments</h3><p>Phase 1 / Phase 2 findings summary posted directly on the pull request. Link to Ghost Portal included.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">📧</div><div><h3>Email notifications</h3><p>Findings summary emailed after each run. Stay informed without watching the Actions tab.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">💰</div><div><h3>BYOK — you own the API costs</h3><p>Your Anthropic API key. Ghost does not mark up or charge for API usage. Full cost transparency before you enable.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">🛡️</div><div><h3>Advisory only — Exit 0 always</h3><p>Ghost Watcher™ never blocks a commit. Findings are surfaced for remediation. The commit always ships.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">⏭️</div><div><h3>ghost-skip tag</h3><p>Add <code>[ghost-skip]</code> to any commit message to bypass Ghost Watcher™ for that commit.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">🔢</div><div><h3>Iteration limits</h3><p>Set a max run count per PR to control costs on high-commit branches. Configurable in <code>ghost-watcher.yaml</code>.</p></div></div>
+    <div class="feature-item"><div class="feature-icon">🌿</div><div><h3>Custom branch support</h3><p>Watch any branch — <code>main</code>, <code>develop</code>, <code>feature/**</code>, or your own naming convention.</p></div></div>
+  </div>
+</div>
+<div class="section">
+  <div class="section-label">Setup</div>
+  <h2>Four steps. Ten minutes.</h2>
+  <p class="section-sub">The Enable Watch wizard handles the hard parts. You add four secrets. Ghost Watcher™ fires on the next push.</p>
+  <div class="setup-steps">
+    <div class="setup-step"><div class="step-num">1</div><div class="step-body"><h3>Run the Enable Watch wizard</h3><p>Open <code>ghost</code> in your terminal, scroll to <strong>Ghost Watcher™ → Enable Watch</strong>. The wizard asks which repo, which branches, which scans, and shows a cost estimate before you confirm. Ghost pushes <code>ghost-watcher.yaml</code> and the GitHub Actions workflow automatically.</p></div></div>
+    <div class="setup-step"><div class="step-num">2</div><div class="step-body"><h3>Add four secrets to your GitHub repo</h3><p>Go to <strong>Settings → Secrets and variables → Actions</strong> and add: <code>ANTHROPIC_API_KEY</code>, <code>GHOST_LICENSE_KEY</code>, <code>GHOST_PORTAL_REPO</code>, and <code>GHOST_PORTAL_TOKEN</code>.</p></div></div>
+    <div class="setup-step"><div class="step-num">3</div><div class="step-body"><h3>Push a commit</h3><p>Ghost Watcher™ fires on the next push to any watched branch. Watch the run in your repo's Actions tab. Results appear in Ghost Portal within minutes.</p></div></div>
+    <div class="setup-step"><div class="step-num">4</div><div class="step-body"><h3>Open Ghost Portal and copy prompts</h3><p>Ghost Portal → Ghost Watcher™ → Prompts tab. Every Ghost Brief™ prompt is ready to copy. Paste into Claude Code, Cursor, or any AI coding tool. Ship the fix. Push again. The loop tightens.</p></div></div>
+  </div>
+</div>
+<div class="section">
+  <div class="section-label">Cost transparency</div>
+  <h2>BYOK. Full visibility. No surprises.</h2>
+  <p class="section-sub">Ghost Watcher™ uses your own Anthropic API key. The Enable Watch wizard shows a cost estimate before you confirm.</p>
+  <table>
+    <tr><th>Scans enabled</th><th>Est. cost per commit</th><th>Daily (10 commits)</th><th>Monthly est.</th></tr>
+    <tr><td>Blast Radius only</td><td>$0.15 – $0.30</td><td>$1.50 – $3.00</td><td>$45 – $90</td></tr>
+    <tr><td>Blast Radius + Conflict Detection</td><td>$0.95 – $1.80</td><td>$9.50 – $18.00</td><td>$285 – $540</td></tr>
+    <tr><td><strong>Full pipeline (all three scans)</strong></td><td><strong>$1.50 – $2.50</strong></td><td><strong>$15 – $25</strong></td><td><strong>$450 – $750</strong></td></tr>
+  </table>
+  <div class="callout"><strong>Put it in context:</strong> A team catching one production incident per month that would have cost $10,000 to fix is getting 13x – 22x ROI on the API costs alone. API costs go directly to Anthropic, not to Ghost.</div>
+</div>
+<div class="section">
+  <div class="section-label">Availability</div>
+  <h2>Ghost Watcher™ is a Team and Enterprise feature.</h2>
+  <p class="section-sub">Individual scan modes are available on all tiers. Ghost Watcher™ requires a team environment with GitHub Actions.</p>
+  <div class="tier-grid">
+    <div class="tier-card featured">
+      <div class="tier-name">Ghost Team</div>
+      <div class="tier-price">$399<span>/mo</span></div>
+      <div class="tier-desc">For agencies, consultancies, and engineering teams who want continuous codebase intelligence without manual reviews.</div>
+      <ul class="tier-features">
+        <li>Ghost Watcher™ — all features</li><li>Ghost Brief™ on every commit</li><li>Ghost Portal Watch tab</li><li>PR comments and email notifications</li><li>Up to 5 developers</li><li>Up to 3 repos watched</li><li>All 8 scan modes</li><li>Ghost Partner™ profiles</li>
+      </ul>
+      <a href="https://buy.stripe.com/5kQfZhdDFeza7blbH7bEA01" class="tier-cta">Get Ghost Team →</a>
+    </div>
+    <div class="tier-card">
+      <div class="tier-name">Ghost Enterprise</div>
+      <div class="tier-price">$1,200<span>/mo</span></div>
+      <div class="tier-desc">For organizations with multiple codebases, large teams, and compliance requirements.</div>
+      <ul class="tier-features">
+        <li>Everything in Ghost Team</li><li>Unlimited developers</li><li>Unlimited repos watched</li><li>Priority support</li><li>Custom onboarding</li><li>SLA available</li>
+      </ul>
+      <a href="https://buy.stripe.com/4gM3cvartaiU2V5fXnbEA02" class="tier-cta secondary">Get Ghost Enterprise →</a>
+    </div>
+  </div>
+</div>
+<div class="section" style="text-align:center;border-top:1px solid var(--border);">
+  <div class="section-label">Get started</div>
+  <h2>Your next commit is being watched.</h2>
+  <p class="section-sub" style="margin:0 auto 32px;">Install Ghost Architect™ v9.0.8, run the Enable Watch wizard, and push a commit. Ghost Watcher™ handles the rest.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;">
+    <a href="/pricing.html" class="btn-primary">View Ghost Team →</a>
+    <a href="/blog/ghost-watcher-v908.html" class="btn-secondary">Read the launch post</a>
+  </div>
+  <p style="font-size:13px;color:var(--text-tertiary);">Already a Ghost Team member? Run <code style="font-family:var(--font-mono);font-size:12px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:4px;padding:2px 6px;color:var(--cyan);">ghost</code> and select Ghost Watcher™ → Enable Watch.</p>
+</div>
+<footer class="site-footer">
+  © 2026 Ghost Platform LLC · <a href="/privacy.html">Privacy</a> · <a href="/support.html">Support</a> · <a href="/changelog.html">Changelog</a>
+</footer>
+<script src="/assets/ga-nav.js"></script>
+</body>
+</html>
