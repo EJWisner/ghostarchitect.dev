@@ -940,6 +940,10 @@
         title: 'Ghost Brief™',
         body: 'Ghost Brief™ converts your scan findings into a validated, blast-radius-aware prompt pack for Claude Code, Cursor, or Copilot. Each prompt tells your AI coding agent exactly what to fix, which files to touch, which files to leave alone, and how to verify the fix landed. Surgical fixes run first. Broad changes run last. Ghost finds it. Ghost tells the AI exactly what to do. The AI does it.',
       },
+      'ghost-watcher': {
+        title: 'Ghost Watcher™',
+        body: 'Ghost Watcher™ monitors every commit automatically. When a developer pushes to GitHub, Ghost fires — analyzing changed files against the full codebase, surfacing findings, and generating a Ghost Brief prompt pack. Results land in the portal before the PR reviewer opens the tab.',
+      },
     };
 
     // ── State ────────────────────────────────────────────────────────
@@ -959,6 +963,11 @@
     let briefHistory = [];         // array of {name, download_url} from briefs/ dir listing
     let briefLoaded = false;       // true once we've attempted fetch
     let briefTab = 'overview';     // 'overview' | 'prompts' | 'regenerate'
+
+    // Ghost Watcher state
+    let watchHistory = [];         // array of watch result objects
+    let watchLoaded = false;       // true once we've attempted fetch
+    let watchTab = 'commits';      // 'commits' | 'findings'
 
     // ── Boot ─────────────────────────────────────────────────────────
     async function boot() {
@@ -982,6 +991,8 @@
         history.pushState({ view }, '', location.pathname + location.search);
       } else if (view === 'brief') {
         history.pushState({ view }, '', '#brief');
+      } else if (view === 'watch') {
+        history.pushState({ view }, '', '#watch');
       } else {
         const hash = view === 'level1' ? `#m=${mode}` : `#m=${mode}&r=${reportId}`;
         history.pushState({ view, mode, reportId }, '', hash);
@@ -1004,6 +1015,7 @@
       const h = location.hash.replace(/^#/, '');
       if (!h) return;
       if (h === 'brief') { currentView = 'brief'; return; }
+      if (h === 'watch') { currentView = 'watch'; return; }
       const params = new URLSearchParams(h);
       const mode = params.get('m');
       const reportId = params.get('r');
@@ -1017,6 +1029,7 @@
       else if (currentView === 'level1') renderLevel1();
       else if (currentView === 'level2') renderLevel2();
       else if (currentView === 'brief') renderBriefPanel();
+      else if (currentView === 'watch') renderWatchPanel();
     }
 
     // ── LEVEL 0: Mode tile grid ──────────────────────────────────────
@@ -1064,8 +1077,13 @@
         <div class="tile-grid" id="brief-tile-container">
           <div class="loading" style="font-size:12px;padding:10px 0;">Loading Ghost Brief™…</div>
         </div>
+        <div class="section-label" style="margin-top: 22px;">Ghost Watcher™</div>
+        <div class="tile-grid" id="watcher-tile-container">
+          <div class="loading" style="font-size:12px;padding:10px 0;">Loading Ghost Watcher™…</div>
+        </div>
       `;
       loadBriefTile();
+      loadWatcherTile();
     }
 
     // ── GHOST BRIEF — tile loader & panel ────────────────────────────
@@ -1131,6 +1149,209 @@
           <div class="tile-meta" style="margin-top: 6px;">${s.estimated_agent_hours != null ? s.estimated_agent_hours + 'h estimated · ' : ''}Generated ${genAt}</div>
         </div>
       `;
+    }
+
+
+    // ── Ghost Watcher — tile loader & panel ──────────────────────────
+
+    async function fetchWatchData() {
+      if (watchLoaded) return;
+      watchLoaded = true;
+      try {
+        const dirUrl = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('projects/')}`;
+        const dirRes = await fetch(dirUrl);
+        if (!dirRes.ok) return;
+        const projects = await dirRes.json();
+        if (!Array.isArray(projects) || projects.length === 0) return;
+
+        // For now load from first project found
+        const projectSlug = projects[0]?.name;
+        if (!projectSlug) return;
+
+        const watchDirUrl = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('projects/' + projectSlug + '/scans/watch/')}`;
+        const watchDirRes = await fetch(watchDirUrl);
+        if (!watchDirRes.ok) return;
+        const devFolders = await watchDirRes.json();
+        if (!Array.isArray(devFolders)) return;
+
+        // Collect all watch result files across all developers
+        const allResults = [];
+        for (const devFolder of devFolders) {
+          if (devFolder.type !== 'dir') continue;
+          const devUrl = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('projects/' + projectSlug + '/scans/watch/' + devFolder.name + '/')}`;
+          const devRes = await fetch(devUrl);
+          if (!devRes.ok) continue;
+          const files = await devRes.json();
+          if (!Array.isArray(files)) continue;
+          for (const f of files) {
+            if (f.name && f.name.endsWith('.json')) {
+              allResults.push({ ...f, devSlug: devFolder.name, projectSlug });
+            }
+          }
+        }
+
+        // Sort newest first
+        allResults.sort((a, b) => b.name.localeCompare(a.name));
+
+        // Fetch content of up to 10 most recent
+        for (const f of allResults.slice(0, 10)) {
+          const fileUrl = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('projects/' + f.projectSlug + '/scans/watch/' + f.devSlug + '/' + f.name)}`;
+          const fileRes = await fetch(fileUrl);
+          if (!fileRes.ok) continue;
+          const result = await fileRes.json();
+          watchHistory.push(result);
+        }
+      } catch (_) { watchHistory = []; }
+    }
+
+    async function loadWatcherTile() {
+      await fetchWatchData();
+      const container = document.getElementById('watcher-tile-container');
+      if (!container) return;
+
+      if (watchHistory.length === 0) {
+        container.innerHTML = `
+          <div class="tile tile-brief" onclick="navigate('watch')" style="cursor:pointer;">
+            <div class="tile-arrow">↗</div>
+            <div class="tile-mode">Ghost Watcher™</div>
+            <div class="brief-no-data" style="padding: 10px 0; border: none; text-align: left; font-size: 12px; margin-top: 6px; background: none;">
+              No commits watched yet
+            </div>
+            <div class="tile-meta">Enable Watch to get started</div>
+          </div>
+        `;
+        return;
+      }
+
+      const latest = watchHistory[0];
+      const sev = latest.severityCounts || {};
+      const genAt = latest.generatedAt ? formatDate(latest.generatedAt) : '—';
+      const sevParts = [];
+      if (sev.critical) sevParts.push(`${sev.critical} critical`);
+      if (sev.high)     sevParts.push(`${sev.high} high`);
+      if (sev.medium)   sevParts.push(`${sev.medium} medium`);
+      if (sev.low)      sevParts.push(`${sev.low} low`);
+
+      container.innerHTML = `
+        <div class="tile tile-brief" onclick="navigate('watch')" style="cursor:pointer;">
+          <div class="tile-arrow">↗</div>
+          <div class="tile-mode">Ghost Watcher™</div>
+          <div>
+            <span class="tile-count">${watchHistory.length}</span>
+            <span class="tile-count-unit">commit${watchHistory.length !== 1 ? 's' : ''} watched</span>
+          </div>
+          <div class="tile-meta" style="margin-top: 6px;">Latest: ${latest.commitShort || '—'} · ${sevParts.join(' · ') || 'no findings'}</div>
+        </div>
+      `;
+    }
+
+    async function renderWatchPanel() {
+      document.getElementById('app-root').innerHTML = `
+        <div class="back-bar">
+          <button class="back-btn" onclick="navigate('level0')">← Back</button>
+          <div class="breadcrumb">${PORTAL_SLUG} / <b>Ghost Watcher™</b></div>
+        </div>
+        <div id="watch-panel-content"><div class="loading">Loading Ghost Watcher™…</div></div>
+      `;
+      await fetchWatchData();
+      renderWatchContent();
+    }
+
+    function renderWatchContent() {
+      const container = document.getElementById('watch-panel-content');
+      if (!container) return;
+
+      container.innerHTML = `
+        <div class="view-tabs brief-tabs">
+          <button class="view-tab ${watchTab === 'commits'  ? 'active' : ''}" onclick="switchWatchTab('commits')">
+            Commits<span class="view-tab-count">${watchHistory.length}</span>
+          </button>
+          <button class="view-tab ${watchTab === 'findings' ? 'active' : ''}" onclick="switchWatchTab('findings')">Findings</button>
+        </div>
+        <div id="watch-tab-content"></div>
+      `;
+      renderWatchTab();
+    }
+
+    function switchWatchTab(tab) {
+      watchTab = tab;
+      renderWatchContent();
+    }
+
+    function renderWatchTab() {
+      const container = document.getElementById('watch-tab-content');
+      if (!container) return;
+
+      if (watchHistory.length === 0) {
+        container.innerHTML = '<div class="brief-no-data">No Watch results found. Enable Ghost Watcher™ and push a commit to get started.</div>';
+        return;
+      }
+
+      if (watchTab === 'commits') {
+        const rows = watchHistory.map(r => {
+          const sev = r.severityCounts || {};
+          const chips = [
+            sev.critical ? `<span style="color:#ff4444">${sev.critical} critical</span>` : '',
+            sev.high     ? `<span style="color:#ff8c00">${sev.high} high</span>` : '',
+            sev.medium   ? `<span style="color:#ffd700">${sev.medium} medium</span>` : '',
+            sev.low      ? `<span style="color:#888">${sev.low} low</span>` : '',
+          ].filter(Boolean).join(' · ');
+
+          const dev = r.developer?.name || r.developer?.email || '—';
+          const genAt = r.generatedAt ? formatDate(r.generatedAt) : '—';
+          const briefStatus = r.briefPromptCount > 0
+            ? `<span style="color:var(--cyan)">${r.briefPromptCount} prompts ready</span>`
+            : '<span style="color:#555">No brief</span>';
+
+          return `
+            <div class="report-row" style="cursor:default;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <div>
+                  <span style="font-family:monospace;color:var(--cyan);">${r.commitShort || '—'}</span>
+                  <span style="color:#888;margin-left:8px;font-size:12px;">${r.branch || '—'}</span>
+                </div>
+                <div style="font-size:11px;color:#555;">${genAt}</div>
+              </div>
+              <div style="margin-top:4px;font-size:12px;color:#888;">${dev}</div>
+              <div style="margin-top:6px;font-size:12px;">${chips || '<span style="color:#00ff88">No findings</span>'}</div>
+              <div style="margin-top:4px;font-size:11px;">${briefStatus}</div>
+            </div>
+          `;
+        }).join('');
+        container.innerHTML = rows;
+        return;
+      }
+
+      if (watchTab === 'findings') {
+        // Aggregate all findings across all watch runs
+        const allFindings = watchHistory.flatMap(r =>
+          (r.findings || []).map(f => ({ ...f, commitShort: r.commitShort, branch: r.branch }))
+        );
+
+        if (allFindings.length === 0) {
+          container.innerHTML = '<div class="brief-no-data">No findings across watched commits.</div>';
+          return;
+        }
+
+        const sevOrder = { CRITICAL: 0, HIGH: 1, MEDIUM: 2, LOW: 3 };
+        allFindings.sort((a, b) => (sevOrder[a.severity] ?? 9) - (sevOrder[b.severity] ?? 9));
+
+        const rows = allFindings.map(f => {
+          const sevColor = f.severity === 'CRITICAL' ? '#ff4444' : f.severity === 'HIGH' ? '#ff8c00' : f.severity === 'MEDIUM' ? '#ffd700' : '#888';
+          return `
+            <div class="report-row" style="cursor:default;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <div style="font-weight:600;color:#fff;">${escapeHtml(f.title || 'Untitled')}</div>
+                <div style="font-size:11px;color:${sevColor};font-weight:700;">${f.severity || '—'}</div>
+              </div>
+              <div style="margin-top:4px;font-size:11px;color:#555;">
+                ${f.commitShort ? 'Commit ' + f.commitShort : ''}${f.branch ? ' · ' + f.branch : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+        container.innerHTML = rows;
+      }
     }
 
     // ── Ghost Brief panel render ──────────────────────────────────────
