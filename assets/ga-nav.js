@@ -24,7 +24,7 @@
   // Which dropdown group is currently active?
   var activeGroup = null;
   if (path.indexOf('for-agency-owners') !== -1 || path.indexOf('for-agency-teams') !== -1) activeGroup = 'solutions';
-  else if (path.indexOf('inheritance-audit') !== -1 || path.indexOf('prompt-triage') !== -1 || path.indexOf('audit') !== -1 || path.indexOf('ghost-partner') !== -1 || path.indexOf('ghost-brief') !== -1) activeGroup = 'modes';
+  else if (path.indexOf('inheritance-audit') !== -1 || path.indexOf('prompt-triage') !== -1 || path.indexOf('audit') !== -1 || path.indexOf('ghost-partner') !== -1 || path.indexOf('ghost-brief') !== -1 || path.indexOf('ghost-watcher') !== -1) activeGroup = 'modes';
   else if (path.indexOf('blog') !== -1 || path.indexOf('faq') !== -1 || path.indexOf('support') !== -1 || path.indexOf('security') !== -1 || path.indexOf('changelog') !== -1) activeGroup = 'resources';
 
   var navHtml = ''
@@ -43,6 +43,10 @@
     + '      </button>'
     + '      <div class="ga-dropdown">'
     + '        <div class="ga-dropdown-section-label">Scan Modes</div>'
+    + '        <a href="/ghost-watcher.html" class="ga-dropdown-item' + (isActive('/ghost-watcher.html') ? ' active' : '') + '">'
+    + '          <div class="title">Ghost Watcher&trade; <span class="pill" style="background:rgba(0,191,216,0.2);color:#00bfd8;border:1px solid rgba(0,191,216,0.4);">TEAM</span></div>'
+    + '          <div class="desc">Automatic commit monitoring. Findings on every push. PR comments included.</div>'
+    + '        </a>'
     + '        <a href="/inheritance-audit.html" class="ga-dropdown-item' + (isActive('/inheritance-audit.html') ? ' active' : '') + '">'
     + '          <div class="title">Inheritance Audit <span class="pill">FLAGSHIP</span></div>'
     + '          <div class="desc">Done-for-you report for buyers. Stack reality, EOL deps, modernization roadmap.</div>'
@@ -160,6 +164,7 @@
     + '      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>'
     + '    </button>'
     + '    <div class="ga-mobile-group-items">'
+    + '      <a href="/ghost-watcher.html"' + (isActive('/ghost-watcher.html') ? ' class="active"' : '') + '>Ghost Watcher&trade; <span class="pill" style="background:rgba(0,191,216,0.2);color:#00bfd8;border:1px solid rgba(0,191,216,0.4);">TEAM</span></a>'
     + '      <a href="/inheritance-audit.html"' + (isActive('/inheritance-audit.html') ? ' class="active"' : '') + '>Inheritance Audit <span class="pill">FLAGSHIP</span></a>'
     + '      <a href="/prompt-triage.html"' + (isActive('/prompt-triage.html') ? ' class="active"' : '') + '>Prompt Triage</a>'
     + '      <a href="/#what-it-does">All 8 Scan Modes</a>'
