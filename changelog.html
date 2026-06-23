@@ -344,6 +344,35 @@
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.0.8                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card current">
+    <div class="release-meta">
+      <span class="release-version">v9.0.8</span>
+      <span class="release-date">June 23, 2026</span>
+      <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(124,58,237,0.15);color:#a78bfa;border-color:rgba(124,58,237,0.3);">MAJOR</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher™ — Automatic commit monitoring for every push.</h2>
+    <p class="release-lede">Ghost Watcher™ is a headless CI pipeline that runs inside GitHub Actions. Every commit your team pushes triggers a full Ghost Architect™ scan automatically — Blast Radius, Conflict Detection, and Ghost Brief™ — with results delivered to Ghost Portal and a PR comment posted before the reviewer opens the tab.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Ghost Watcher™</strong> — headless CI pipeline triggered by every commit push via GitHub Actions. Available on Ghost Team and Enterprise memberships.</span></li>
+      <li><span class="marker">+</span><span><strong>Enable Watch wizard</strong> — interactive setup from the Ghost CLI menu. Pushes <code>ghost-watcher.yaml</code> and the GitHub Actions workflow to your repo automatically, with version pinning and custom branch support.</span></li>
+      <li><span class="marker">+</span><span><strong>Ghost Portal Watch tab</strong> — Commits, Findings, and Prompts tabs. Click any commit to expand findings inline. Copy Ghost Brief™ prompts to clipboard with one click.</span></li>
+      <li><span class="marker">+</span><span><strong>PR comment</strong> — Ghost Watcher™ posts a findings summary directly on the pull request with Phase 1 / Phase 2 remediation breakdown and a link to Ghost Portal.</span></li>
+      <li><span class="marker">+</span><span><strong>Email notifications</strong> — receive a findings summary email after each Watch run.</span></li>
+      <li><span class="marker">+</span><span><strong>Iteration limit</strong> — configurable max runs per PR to control API costs via <code>ghost-watcher.yaml</code>.</span></li>
+      <li><span class="marker">+</span><span><strong>ghost-skip tag</strong> — add <code>[ghost-skip]</code> to any commit message to bypass Ghost Watcher™ for that commit.</span></li>
+      <li><span class="marker">+</span><span><strong>BYOK</strong> — Ghost Watcher™ uses your own Anthropic API key. Ghost does not charge for API usage.</span></li>
+      <li><span class="marker">~</span><span><strong>Team tier context cap</strong> — Ghost Watcher™ correctly applies the 150,000 token context cap for Team and Enterprise tiers in CI environments.</span></li>
+      <li><span class="marker">~</span><span><strong>CI license validation</strong> — license fingerprint check bypassed on ephemeral GitHub Actions runners.</span></li>
+      <li><span class="marker">~</span><span><strong>Custom branch injection</strong> — branches added in the Enable Watch wizard are correctly injected into the GitHub Actions workflow trigger.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
 <!-- v8.2.5                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
