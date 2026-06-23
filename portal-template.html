@@ -967,7 +967,7 @@
     // Ghost Watcher state
     let watchHistory = [];         // array of watch result objects
     let watchLoaded = false;       // true once we've attempted fetch
-    let watchTab = 'commits';      // 'commits' | 'findings'
+    let watchTab = 'commits';      // 'commits' | 'findings' | 'prompts'
 
     // ── Boot ─────────────────────────────────────────────────────────
     async function boot() {
@@ -1269,6 +1269,9 @@
             Commits<span class="view-tab-count">${watchHistory.length}</span>
           </button>
           <button class="view-tab ${watchTab === 'findings' ? 'active' : ''}" onclick="switchWatchTab('findings')">Findings</button>
+          <button class="view-tab ${watchTab === 'prompts' ? 'active' : ''}" onclick="switchWatchTab('prompts')">
+            Prompts${watchHistory.reduce((n,r)=>n+(r.brief?.prompts?.length||0),0) > 0 ? `<span class="view-tab-count">${watchHistory.reduce((n,r)=>n+(r.brief?.prompts?.length||0),0)}</span>` : ''}
+          </button>
         </div>
         <div id="watch-tab-content"></div>
       `;
@@ -1352,13 +1355,15 @@
         allFindings.sort((a, b) => (sevOrder[a.severity] ?? 9) - (sevOrder[b.severity] ?? 9));
 
         const rows = allFindings.map(f => {
-          const sevColor = f.severity === 'CRITICAL' ? '#ff4444' : f.severity === 'HIGH' ? '#ff8c00' : f.severity === 'MEDIUM' ? '#ffd700' : '#888';
+          const sev = (f.severity || '').toLowerCase();
+          const sevColor = sev === 'critical' ? '#ff5555' : sev === 'high' ? '#ff9040' : sev === 'medium' ? '#ffb030' : '#5aa8ba';
           return `
-            <div class="report-row" style="cursor:default;">
+            <div class="report-row" style="cursor:default;border-left:3px solid ${sevColor};">
               <div style="display:flex;justify-content:space-between;align-items:baseline;">
                 <div style="font-weight:600;color:#fff;">${escapeHtml(f.title || 'Untitled')}</div>
                 <div style="font-size:11px;color:${sevColor};font-weight:700;">${f.severity || '—'}</div>
               </div>
+              ${f.detail ? `<div style="margin-top:4px;font-size:12px;color:#888;line-height:1.5;">${escapeHtml(f.detail.slice(0,180))}${f.detail.length>180?'…':''}</div>` : ''}
               <div style="margin-top:4px;font-size:11px;color:#555;">
                 ${f.commitShort ? 'Commit ' + f.commitShort : ''}${f.branch ? ' · ' + f.branch : ''}
               </div>
@@ -1367,6 +1372,64 @@
         }).join('');
         container.innerHTML = rows;
       }
+
+      if (watchTab === 'prompts') {
+        // Aggregate all Ghost Brief prompts across all watch runs
+        const allPrompts = watchHistory.flatMap(r =>
+          (r.brief?.prompts || []).map(p => ({ ...p, commitShort: r.commitShort, branch: r.branch }))
+        );
+
+        if (allPrompts.length === 0) {
+          container.innerHTML = '<div class="brief-no-data">No Ghost Brief prompts yet. Ghost Watcher generates prompts automatically after each commit scan.</div>';
+          return;
+        }
+
+        // Sort surgical first
+        allPrompts.sort((a, b) => (a.blast_score || 0) - (b.blast_score || 0));
+
+        const cards = allPrompts.map((p, idx) => {
+          const promptId = 'wpp-' + idx;
+          const sev = (p.severity || 'medium').toLowerCase();
+          const blast = (p.blast_radius || 'surgical').toLowerCase();
+          const files = (p.files?.primary || []).map(f =>
+            `<span class="brief-file-chip">${escapeHtml(f)}</span>`
+          ).join('');
+          const promptText = p.prompt || '';
+          return `
+            <div class="brief-prompt-card f-${sev}" style="margin-bottom:10px;">
+              <div class="brief-prompt-top">
+                <span class="gb-badge">${escapeHtml(p.id || 'GB-???')}</span>
+                <span class="brief-prompt-title">${escapeHtml(p.title || 'Untitled')}</span>
+              </div>
+              <div class="brief-prompt-badges">
+                <span class="sev-chip sev-${sev}"><span class="dot"></span>${escapeHtml(p.severity || 'Medium')}</span>
+                <span class="blast-chip blast-${blast}">${escapeHtml(p.blast_radius || 'surgical')}</span>
+                ${p.blast_score != null ? `<span style="font-size:10px;color:var(--text-tertiary);align-self:center;">blast ${p.blast_score}</span>` : ''}
+                <span style="font-size:10px;color:#555;align-self:center;">Commit ${escapeHtml(p.commitShort||'—')}</span>
+              </div>
+              ${files ? `<div class="brief-files">${files}</div>` : ''}
+              <div class="brief-collapsible">
+                <button class="brief-collapse-toggle" onclick="toggleBriefCollapse('${promptId}', this)">
+                  <span>▶ Prompt</span>
+                </button>
+                <button class="brief-copy-btn" onclick="(function(){navigator.clipboard.writeText(${JSON.stringify(promptText)}).then(()=>showToast('Copied','${escapeHtml(p.id||'')} copied to clipboard'))})()">Copy</button>
+                <div class="brief-collapse-body" id="${promptId}">${escapeHtml(promptText)}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        container.innerHTML = `<div class="brief-prompt-list">${cards}</div>`;
+      }
+    }
+
+    // ── Watch prompt copy helper ──────────────────────────────────────
+    function copyWatchPrompt(btn) {
+      const textarea = btn.parentElement.querySelector('.watch-prompt-text');
+      if (!textarea) return;
+      const text = textarea.value;
+      const id = btn.dataset.promptId || 'prompt';
+      navigator.clipboard.writeText(text).then(() => showToast('Copied', id + ' copied to clipboard'));
     }
 
     // ── Watch commit toggle ───────────────────────────────────────────
@@ -1431,7 +1494,8 @@
                 <button class="brief-collapse-toggle" onclick="toggleBriefCollapse('${promptId}', this)">
                   <span>▶ Prompt</span>
                 </button>
-                <button class="brief-copy-btn" onclick="navigator.clipboard.writeText(${JSON.stringify(p.prompt||'')}).then(()=>showToast('Copied','${escapeHtml(p.id||'')} copied to clipboard'))">Copy</button>
+                <button class="brief-copy-btn" onclick="copyWatchPrompt(this)" data-prompt-id="${escapeHtml(p.id||'')}">Copy</button>
+                <textarea style="display:none;" class="watch-prompt-text">${escapeHtml(p.prompt||'')}</textarea>
                 <div class="brief-collapse-body" id="${promptId}">${escapeHtml(p.prompt || '')}</div>
               </div>
             </div>
