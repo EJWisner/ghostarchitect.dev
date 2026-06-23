@@ -1387,6 +1387,9 @@
         // Sort surgical first
         allPrompts.sort((a, b) => (a.blast_score || 0) - (b.blast_score || 0));
 
+        // Store prompts on window for copy-by-index
+        window.__watchPrompts = allPrompts;
+
         const cards = allPrompts.map((p, idx) => {
           const promptId = 'wpp-' + idx;
           const sev = (p.severity || 'medium').toLowerCase();
@@ -1412,8 +1415,7 @@
                 <button class="brief-collapse-toggle" onclick="toggleBriefCollapse('${promptId}', this)">
                   <span>▶ Prompt</span>
                 </button>
-                <button class="brief-copy-btn" onclick="copyWatchPrompt(this)" data-prompt-id="${escapeHtml(p.id||'')}">Copy</button>
-                <textarea style="display:none;position:absolute;" class="watch-prompt-text">${escapeHtml(promptText)}</textarea>
+                <button class="brief-copy-btn" onclick="copyWatchPromptByIndex(${idx})">Copy</button>
                 <div class="brief-collapse-body" id="${promptId}">${escapeHtml(promptText)}</div>
               </div>
             </div>
@@ -1424,13 +1426,26 @@
       }
     }
 
-    // ── Watch prompt copy helper ──────────────────────────────────────
-    function copyWatchPrompt(btn) {
-      const textarea = btn.parentElement.querySelector('.watch-prompt-text');
-      if (!textarea) return;
-      const text = textarea.value;
-      const id = btn.dataset.promptId || 'prompt';
-      navigator.clipboard.writeText(text).then(() => showToast('Copied', id + ' copied to clipboard'));
+    // ── Watch prompt copy helpers ─────────────────────────────────────
+    function copyWatchPromptByIndex(idx) {
+      const prompts = window.__watchPrompts || [];
+      const p = prompts[idx];
+      if (!p) return;
+      navigator.clipboard.writeText(p.prompt || '').then(() =>
+        showToast('Copied', (p.id || 'Prompt') + ' copied to clipboard')
+      );
+    }
+
+    function copyWatchDrillPrompt(idx, commitShort) {
+      // Find the commit in watchHistory
+      const run = watchHistory.find(r => r.commitShort === commitShort);
+      if (!run) return;
+      const prompts = run.brief?.prompts || [];
+      const p = prompts[idx];
+      if (!p) return;
+      navigator.clipboard.writeText(p.prompt || '').then(() =>
+        showToast('Copied', (p.id || 'Prompt') + ' copied to clipboard')
+      );
     }
 
     // ── Watch commit toggle ───────────────────────────────────────────
@@ -1495,8 +1510,7 @@
                 <button class="brief-collapse-toggle" onclick="toggleBriefCollapse('${promptId}', this)">
                   <span>▶ Prompt</span>
                 </button>
-                <button class="brief-copy-btn" onclick="copyWatchPrompt(this)" data-prompt-id="${escapeHtml(p.id||'')}">Copy</button>
-                <textarea style="display:none;" class="watch-prompt-text">${escapeHtml(p.prompt||'')}</textarea>
+                <button class="brief-copy-btn" onclick="copyWatchDrillPrompt(${idx}, ${JSON.stringify(r.commitShort||'')})">Copy</button>
                 <div class="brief-collapse-body" id="${promptId}">${escapeHtml(p.prompt || '')}</div>
               </div>
             </div>
