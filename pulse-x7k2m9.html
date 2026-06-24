@@ -1175,6 +1175,15 @@
         render(agg);
       })();
 
+      const watcherPromise = (async () => {
+        try {
+          await new Promise(r => setTimeout(r, 1500));
+          const w = await fetchWatcherStats();
+          renderWatcherStats(w);
+        } catch (err) {
+          renderWatcherError();
+        }
+      })();
       const npmPromise = (async () => {
         try {
           const stats = await fetchNpmStats();
