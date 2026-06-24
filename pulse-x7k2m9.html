@@ -1048,6 +1048,52 @@
       $('npm-note').textContent = 'npm fetch failed';
     }
 
+
+    async function fetchWatcherStats() {
+      const res = await fetch('https://signup.ghostarchitect.dev/watcher-stats', {
+        headers: { Authorization: 'Bearer caf9783a368daec034ae4dabc9d9570b70ec4a2dec842d926818ec5600ea3cc4' },
+      });
+      if (!res.ok) throw new Error('watcher-stats ' + res.status);
+      return res.json();
+    }
+
+    function renderWatcherStats(w) {
+      const $ = (id) => document.getElementById(id);
+      $('watcher-total-runs').textContent = w.totalRuns.toLocaleString();
+      $('watcher-runs-7d').textContent    = w.runsLast7d.toLocaleString();
+      $('watcher-findings').textContent   = w.totalFindings.toLocaleString();
+      $('watcher-avg').textContent        = w.avgFindings.toLocaleString();
+      $('watcher-prompts').textContent    = w.totalPrompts.toLocaleString();
+      $('watcher-users').textContent      = w.uniqueUsers.toLocaleString();
+      $('watcher-critical').textContent   = w.severity.critical.toLocaleString();
+      $('watcher-high').textContent       = w.severity.high.toLocaleString();
+      $('watcher-medium').textContent     = w.severity.medium.toLocaleString();
+      $('watcher-low').textContent        = w.severity.low.toLocaleString();
+      $('watcher-note').textContent       = 'as of ' + new Date(w.generatedAt).toLocaleTimeString();
+      const svg = $('watcher-sparkline');
+      if (svg && w.dailySeries && w.dailySeries.length > 0) {
+        const max = Math.max(...w.dailySeries, 1);
+        const W = 400, H = 56, pad = 4;
+        const pts = w.dailySeries.map((v, i) => {
+          const x = pad + (i / (w.dailySeries.length - 1)) * (W - 2 * pad);
+          const y = H - pad - ((v / max) * (H - 2 * pad));
+          return x + ',' + y;
+        }).join(' ');
+        svg.innerHTML = '<polyline points="' + pts + '" fill="none" stroke="#00bfd8" stroke-width="2" stroke-linejoin="round"/>' +
+          w.dailySeries.map((v, i) => {
+            const x = pad + (i / (w.dailySeries.length - 1)) * (W - 2 * pad);
+            const y = H - pad - ((v / max) * (H - 2 * pad));
+            return '<circle cx="' + x + '" cy="' + y + '" r="3" fill="#00bfd8"/>';
+          }).join('');
+        $('watcher-trend').textContent = w.dailySeries.reduce((s,v) => s+v, 0) + ' runs in last 7 days';
+      }
+    }
+
+    function renderWatcherError() {
+      const el = document.getElementById('watcher-note');
+      if (el) el.textContent = 'watcher fetch failed';
+    }
+
     async function tick() {
       // Pulse data (worker endpoint) and npm data are independent.
       // Failure of one should not block the other.
