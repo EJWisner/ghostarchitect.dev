@@ -1188,6 +1188,7 @@
       try {
         await pulsePromise;
         await npmPromise;
+        await watcherPromise;
         lastSuccessfulFetch = Date.now();
       } catch (err) {
         console.error('[ghost-pulse-web] tick failed:', err);
