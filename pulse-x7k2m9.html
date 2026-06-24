@@ -499,6 +499,77 @@
             <div class="section-note" id="installs-trend"></div>
           </div>
           <svg class="spark-svg" id="installs-sparkline" viewBox="0 0 400 64" preserveAspectRatio="none"></svg>
+
+      <!-- Ghost Watcher(tm) Telemetry Section -->
+      <div class="section" style="margin-top: 18px; border-top: 1px solid rgba(0,191,216,0.2); padding-top: 18px;">
+        <div class="section-header">
+          <div class="section-label" style="color: #00bfd8;">Ghost Watcher(tm) Run Telemetry</div>
+          <div class="section-note" id="watcher-note">loading...</div>
+        </div>
+        <div class="grid" style="grid-template-columns: 1fr 1fr;">
+          <div class="metric">
+            <div class="metric-label">Total Runs</div>
+            <div class="metric-value" id="watcher-total-runs">&#8212;</div>
+            <div class="metric-sub">all-time Watch runs</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Last 7 Days</div>
+            <div class="metric-value" id="watcher-runs-7d">&#8212;</div>
+            <div class="metric-sub">Watch runs this week</div>
+          </div>
+        </div>
+        <div class="grid" style="grid-template-columns: 1fr 1fr 1fr 1fr; margin-top: 12px;">
+          <div class="metric">
+            <div class="metric-label">Total Findings</div>
+            <div class="metric-value" id="watcher-findings">&#8212;</div>
+            <div class="metric-sub">all-time surfaced</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Avg / Run</div>
+            <div class="metric-value" id="watcher-avg">&#8212;</div>
+            <div class="metric-sub">findings per run</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Total Prompts</div>
+            <div class="metric-value" id="watcher-prompts">&#8212;</div>
+            <div class="metric-sub">Ghost Brief generated</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Active Repos</div>
+            <div class="metric-value" id="watcher-users">&#8212;</div>
+            <div class="metric-sub">unique installs watching</div>
+          </div>
+        </div>
+        <div class="grid" style="grid-template-columns: 1fr 1fr 1fr 1fr; margin-top: 12px;">
+          <div class="metric">
+            <div class="metric-label" style="color: #ff5555;">Critical</div>
+            <div class="metric-value" id="watcher-critical" style="color: #ff5555;">&#8212;</div>
+            <div class="metric-sub">all-time</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label" style="color: #e07340;">High</div>
+            <div class="metric-value" id="watcher-high" style="color: #e07340;">&#8212;</div>
+            <div class="metric-sub">all-time</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label" style="color: #ffb030;">Medium</div>
+            <div class="metric-value" id="watcher-medium" style="color: #ffb030;">&#8212;</div>
+            <div class="metric-sub">all-time</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label" style="color: #8888aa;">Low</div>
+            <div class="metric-value" id="watcher-low" style="color: #8888aa;">&#8212;</div>
+            <div class="metric-sub">all-time</div>
+          </div>
+        </div>
+        <div class="section" style="margin-top: 14px;">
+          <div class="section-header">
+            <div class="section-label">Watch Runs Last 7 Days</div>
+            <div class="section-note" id="watcher-trend"></div>
+          </div>
+          <svg class="spark-svg" id="watcher-sparkline" viewBox="0 0 400 56" preserveAspectRatio="none"></svg>
+        </div>
+      </div>
         </div>
       </div>
 
