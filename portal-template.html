@@ -854,6 +854,70 @@
       padding: 32px 20px; text-align: center; color: var(--text-tertiary); font-size: 13px;
       background: var(--bg-tile); border: 1px dashed rgba(224,115,64,0.35); border-radius: 10px;
     }
+
+    /* ── Ghost Watcher™ — Watch panel ───────────────────────────────── */
+    .watch-list { display: flex; flex-direction: column; gap: 10px; }
+    .watch-row {
+      background: var(--bg-tile); border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px 16px; cursor: pointer; transition: all 0.15s; position: relative;
+      border-left: 3px solid var(--border);
+    }
+    .watch-row:hover { background: var(--bg-tile-hover); border-color: var(--border-strong); }
+    .watch-row.has-critical { border-left-color: #ff5555; }
+    .watch-row.has-high     { border-left-color: #ff9040; }
+    .watch-row.has-medium   { border-left-color: #ffb030; }
+    .watch-row.has-low      { border-left-color: #5aa8ba; }
+    .watch-row.is-clean     { border-left-color: var(--good); }
+    .watch-row.is-pending   { border-left-color: var(--cyan); }
+    .watch-row-top {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .watch-row-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; min-width: 0; }
+    .watch-row-right { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .watch-hash {
+      font-family: 'SF Mono', Menlo, Monaco, monospace; font-size: 12px; font-weight: 700;
+      color: var(--cyan-bright); background: rgba(0,191,216,0.08);
+      padding: 2px 8px; border-radius: 4px; letter-spacing: 0.04em; flex-shrink: 0;
+    }
+    .watch-branch {
+      font-size: 11px; color: var(--text-secondary);
+      font-family: 'SF Mono', Menlo, Monaco, monospace;
+    }
+    .watch-dev { font-size: 12px; color: var(--text-primary); font-weight: 500; }
+    .watch-time { font-size: 11px; color: var(--text-tertiary); white-space: nowrap; letter-spacing: 0.06em; }
+    .watch-caret { color: var(--text-tertiary); font-size: 11px; transition: transform 0.15s; margin-left: 2px; }
+    .watch-row.expanded .watch-caret { transform: rotate(90deg); }
+    .watch-clean-chip {
+      display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 4px;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--good); border: 1px solid rgba(0,229,168,0.4); background: rgba(0,229,168,0.06);
+    }
+    .watch-pending-badge {
+      display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 4px;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--cyan-bright); border: 1px solid var(--border-strong); background: rgba(0,191,216,0.08);
+      animation: watchPulse 1.6s ease-in-out infinite;
+    }
+    @keyframes watchPulse {
+      0%, 100% { opacity: 1; }
+      50%      { opacity: 0.4; }
+    }
+    .watch-drawer { display: none; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
+    .watch-row.expanded .watch-drawer { display: block; }
+    .watch-finding {
+      padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px;
+      background: rgba(0,0,0,0.18); margin-bottom: 8px;
+    }
+    .watch-finding:last-child { margin-bottom: 0; }
+    .watch-finding-top { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+    .watch-finding-title { font-size: 13px; font-weight: 500; color: var(--text-primary); flex: 1; min-width: 0; }
+    .watch-finding-detail { font-size: 11px; line-height: 1.6; color: var(--text-secondary); word-break: break-word; }
+    .watch-empty {
+      padding: 48px 20px; text-align: center; color: var(--text-tertiary);
+      background: var(--bg-tile); border: 1px dashed var(--border); border-radius: 12px;
+    }
+    .watch-empty .ghost-icon { font-size: 44px; margin-bottom: 12px; opacity: 0.75; }
+    .watch-empty .watch-empty-msg { font-size: 13px; line-height: 1.6; max-width: 380px; margin: 0 auto; }
   </style>
 </head>
 <body>
@@ -940,9 +1004,9 @@
         title: 'Ghost Brief™',
         body: 'Ghost Brief™ converts your scan findings into a validated, blast-radius-aware prompt pack for Claude Code, Cursor, or Copilot. Each prompt tells your AI coding agent exactly what to fix, which files to touch, which files to leave alone, and how to verify the fix landed. Surgical fixes run first. Broad changes run last. Ghost finds it. Ghost tells the AI exactly what to do. The AI does it.',
       },
-      'ghost-watcher': {
+      watch: {
         title: 'Ghost Watcher™',
-        body: 'Ghost Watcher™ monitors every commit automatically. When a developer pushes to GitHub, Ghost fires — analyzing changed files against the full codebase, surfacing findings, and generating a Ghost Brief prompt pack. Results land in the portal before the PR reviewer opens the tab.',
+        body: 'Ghost Watcher™ monitors every commit automatically. When a developer pushes to GitHub, Ghost fires, analyzing the changed files against the full codebase, surfacing findings by severity, and generating a Ghost Brief™ prompt pack. A commit still analyzing shows a pulsing indicator. A completed commit shows its findings. Ghost Watcher™ never blocks a commit, it tells you what changed and what it touches, so nothing ships blind.',
       },
     };
 
@@ -965,9 +1029,11 @@
     let briefTab = 'overview';     // 'overview' | 'prompts' | 'regenerate'
 
     // Ghost Watcher state
-    let watchHistory = [];         // array of watch result objects
-    let watchLoaded = false;       // true once we've attempted fetch
-    let watchTab = 'commits';      // 'commits' | 'findings' | 'prompts'
+    let watchCommits = [];          // unified merged commit entries (newest first)
+    let watchLoaded = false;        // true once we've attempted fetch
+    let watchTab = 'commits';       // 'commits' | 'findings' | 'prompts'
+    let watchExpanded = new Set();  // short commit hashes expanded in the Commits tab
+    let watchPromptRegistry = {};   // copy-key -> prompt text, rebuilt each render
 
     // ── Boot ─────────────────────────────────────────────────────────
     async function boot() {
@@ -1074,16 +1140,17 @@
         <div class="section-label">Scan Modes</div>
         <div class="tile-grid">${tilesHtml}</div>
         <div class="section-label" style="margin-top: 22px;">Outputs</div>
-        <div class="tile-grid" id="brief-tile-container">
-          <div class="loading" style="font-size:12px;padding:10px 0;">Loading Ghost Brief™…</div>
-        </div>
-        <div class="section-label" style="margin-top: 22px;">Ghost Watcher™</div>
-        <div class="tile-grid" id="watcher-tile-container">
-          <div class="loading" style="font-size:12px;padding:10px 0;">Loading Ghost Watcher™…</div>
+        <div class="tile-grid">
+          <div id="brief-tile-container" style="display:contents;">
+            <div class="loading" style="font-size:12px;padding:10px 0;">Loading Ghost Brief™…</div>
+          </div>
+          <div id="watch-tile-container" style="display:contents;">
+            <div class="loading" style="font-size:12px;padding:10px 0;">Loading Ghost Watcher™…</div>
+          </div>
         </div>
       `;
       loadBriefTile();
-      loadWatcherTile();
+      loadWatchTile();
     }
 
     // ── GHOST BRIEF — tile loader & panel ────────────────────────────
@@ -1151,102 +1218,167 @@
       `;
     }
 
-
-    // ── Ghost Watcher — tile loader & panel ──────────────────────────
-
+    // ── GHOST WATCHER — data fetch, tile loader & panel ──────────────
+    //
+    // Unified Watch tab. Two data layers are merged by short commit hash:
+    //   • per-commit STATE files (scans/watch/commits/<hash>.json) — the only
+    //     source carrying pending/complete status, so they drive the
+    //     "Analyzing" pulse and the commit list including in-flight commits.
+    //   • per-developer SCAN files (scans/watch/<dev>/watch-*.json) — richer
+    //     findings plus the Ghost Brief™ prompt pack, powering the Findings
+    //     and Prompts tabs.
     async function fetchWatchData() {
       if (watchLoaded) return;
       watchLoaded = true;
       try {
-        const dirUrl = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('projects/')}`;
-        const dirRes = await fetch(dirUrl);
-        if (!dirRes.ok) return;
-        const projects = await dirRes.json();
-        if (!Array.isArray(projects) || projects.length === 0) return;
+        const projRes = await fetch(`${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('projects/')}`);
+        if (!projRes.ok) return;
+        const projListing = await projRes.json();
+        if (!Array.isArray(projListing)) return;
+        const projectDirs = projListing.filter(e => e.type === 'dir').map(e => e.name);
 
-        // For now load from first project found
-        const projectSlug = projects[0]?.name;
-        if (!projectSlug) return;
+        const byShort = new Map();
+        const ensure = (short) => {
+          if (!byShort.has(short)) byShort.set(short, { commitShort: short });
+          return byShort.get(short);
+        };
 
-        const watchDirUrl = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('projects/' + projectSlug + '/scans/watch/')}`;
-        const watchDirRes = await fetch(watchDirUrl);
-        if (!watchDirRes.ok) return;
-        const devFolders = await watchDirRes.json();
-        if (!Array.isArray(devFolders)) return;
-
-        // Collect all watch result files across all developers
-        const allResults = [];
-        for (const devFolder of devFolders) {
-          if (devFolder.type !== 'dir') continue;
-          const devUrl = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('projects/' + projectSlug + '/scans/watch/' + devFolder.name + '/')}`;
-          const devRes = await fetch(devUrl);
-          if (!devRes.ok) continue;
-          const files = await devRes.json();
-          if (!Array.isArray(files)) continue;
-          for (const f of files) {
-            if (f.name && f.name.endsWith('.json')) {
-              allResults.push({ ...f, devSlug: devFolder.name, projectSlug });
+        await Promise.all(projectDirs.map(async (proj) => {
+          // (a) per-commit state files — authoritative for pending/complete.
+          try {
+            const stateDir = `projects/${proj}/scans/watch/commits/`;
+            const r = await fetch(`${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(stateDir)}`);
+            if (r.ok) {
+              const listing = await r.json();
+              if (Array.isArray(listing)) {
+                await Promise.all(listing
+                  .filter(f => f.type === 'file' && f.name && f.name.endsWith('.json'))
+                  .map(async (f) => {
+                    try {
+                      const sres = await fetch(`${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(f.path)}`);
+                      if (!sres.ok) return;
+                      const s = await sres.json();
+                      const short = (s.commitHash || '').slice(0, 7);
+                      if (!short) return;
+                      const e = ensure(short);
+                      e.project           = proj;
+                      e.commitHash        = s.commitHash || e.commitHash;
+                      e.branch            = s.branch || e.branch;
+                      e.developer         = e.developer || s.developer || null;
+                      e.timestamp         = e.timestamp || s.timestamp;
+                      e.status            = s.status || e.status || 'complete';
+                      e.stateSeverity     = s.severity || e.stateSeverity || null;
+                      e.stateFindings     = Array.isArray(s.findings) ? s.findings : e.stateFindings;
+                      e.stateFindingCount = typeof s.findingCount === 'number' ? s.findingCount : e.stateFindingCount;
+                      e.statePromptCount  = typeof s.prompts === 'number' ? s.prompts : e.statePromptCount;
+                    } catch (_) { /* skip bad state file */ }
+                  }));
+              }
             }
-          }
-        }
+          } catch (_) { /* no commits dir — skip */ }
 
-        // Sort newest first
-        allResults.sort((a, b) => b.name.localeCompare(a.name));
+          // (b) per-developer scan files — richer findings + brief prompts.
+          try {
+            const watchDir = `projects/${proj}/scans/watch/`;
+            const r = await fetch(`${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(watchDir)}`);
+            if (r.ok) {
+              const devFolders = await r.json();
+              if (Array.isArray(devFolders)) {
+                await Promise.all(devFolders
+                  .filter(d => d.type === 'dir')
+                  .map(async (d) => {
+                    try {
+                      const dr = await fetch(`${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(watchDir + d.name + '/')}`);
+                      if (!dr.ok) return;
+                      const files = await dr.json();
+                      if (!Array.isArray(files)) return;
+                      await Promise.all(files
+                        .filter(f => f.name && f.name.endsWith('.json') && !f.name.startsWith('watch-brief-'))
+                        .map(async (f) => {
+                          try {
+                            const sres = await fetch(`${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(f.path)}`);
+                            if (!sres.ok) return;
+                            const s = await sres.json();
+                            const short = s.commitShort || (s.commit || '').slice(0, 7);
+                            if (!short) return;
+                            const e = ensure(short);
+                            e.project          = e.project || proj;
+                            e.commitHash       = e.commitHash || s.commit;
+                            e.branch           = e.branch || s.branch;
+                            if (!e.developer && s.developer) e.developer = s.developer;
+                            e.timestamp        = e.timestamp || s.generatedAt;
+                            e.scanSeverity     = s.severityCounts || e.scanSeverity || null;
+                            e.scanFindings     = Array.isArray(s.findings) ? s.findings : e.scanFindings;
+                            e.scanFindingCount = typeof s.findingCount === 'number' ? s.findingCount : e.scanFindingCount;
+                            e.brief            = s.brief || e.brief || null;
+                            e.briefPromptCount = typeof s.briefPromptCount === 'number' ? s.briefPromptCount : e.briefPromptCount;
+                          } catch (_) { /* skip bad scan file */ }
+                        }));
+                    } catch (_) { /* skip dev folder */ }
+                  }));
+              }
+            }
+          } catch (_) { /* no watch dir — skip */ }
+        }));
 
-        // Fetch content of up to 10 most recent
-        for (const f of allResults.slice(0, 10)) {
-          const fileUrl = `${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent('projects/' + f.projectSlug + '/scans/watch/' + f.devSlug + '/' + f.name)}`;
-          const fileRes = await fetch(fileUrl);
-          if (!fileRes.ok) continue;
-          const result = await fileRes.json();
-          watchHistory.push(result);
-        }
-      } catch (_) { watchHistory = []; }
+        // Finalize: scan data is richer, so prefer it for findings/severity;
+        // fall back to commit-state. Status comes only from commit-state.
+        watchCommits = Array.from(byShort.values()).map(e => {
+          const findings = e.scanFindings || e.stateFindings || [];
+          const severity = e.scanSeverity || e.stateSeverity || { critical: 0, high: 0, medium: 0, low: 0 };
+          const findingCount = e.scanFindingCount != null ? e.scanFindingCount
+            : e.stateFindingCount != null ? e.stateFindingCount
+            : findings.length;
+          const developer = typeof e.developer === 'string'
+            ? e.developer
+            : (e.developer?.name || e.developer?.email || 'unknown');
+          return {
+            commitShort:      e.commitShort,
+            commitHash:       e.commitHash || e.commitShort,
+            branch:           e.branch || '—',
+            developer,
+            timestamp:        e.timestamp || null,
+            status:           e.status || 'complete',
+            severity,
+            findings,
+            findingCount,
+            brief:            e.brief || null,
+            briefPromptCount: e.briefPromptCount != null ? e.briefPromptCount
+              : e.statePromptCount != null ? e.statePromptCount : 0,
+          };
+        }).sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
+      } catch (_) {
+        watchCommits = [];
+      }
     }
 
-    async function loadWatcherTile() {
+    async function loadWatchTile() {
       await fetchWatchData();
-      const container = document.getElementById('watcher-tile-container');
+      const container = document.getElementById('watch-tile-container');
       if (!container) return;
 
-      if (watchHistory.length === 0) {
-        container.innerHTML = `
-          <div class="tile tile-brief" onclick="if(!event.target.closest('.info-icon'))navigate('watch')" style="cursor:pointer;">
-            <button class="info-icon" onclick="event.stopPropagation();showModeModal('ghost-watcher')" aria-label="About Ghost Watcher™">i</button>
-            <div class="tile-arrow">↗</div>
-            <div class="tile-mode" style="margin-left: 28px;">Ghost Watcher™</div>
-            <div class="brief-no-data" style="padding: 10px 0; border: none; text-align: left; font-size: 12px; margin-top: 6px; background: none;">
-              No commits watched yet
-            </div>
-            <div class="tile-meta">Enable Watch to get started</div>
-          </div>
-        `;
-        return;
-      }
-
-      const latest = watchHistory[0];
-      const sev = latest.severityCounts || {};
-      const genAt = latest.generatedAt ? formatDate(latest.generatedAt) : '—';
-      const sevParts = [];
-      if (sev.critical) sevParts.push(`${sev.critical} critical`);
-      if (sev.high)     sevParts.push(`${sev.high} high`);
-      if (sev.medium)   sevParts.push(`${sev.medium} medium`);
-      if (sev.low)      sevParts.push(`${sev.low} low`);
+      const count = watchCommits.length;
+      const pendingCount = watchCommits.filter(c => c.status === 'pending').length;
+      const latest = watchCommits[0]?.timestamp;
+      const metaText = pendingCount > 0
+        ? '⏳ Analyzing…'
+        : (latest ? 'Last scan ' + relativeTime(latest) : 'No commits scanned yet');
 
       container.innerHTML = `
-        <div class="tile tile-brief" onclick="if(!event.target.closest('.info-icon'))navigate('watch')" style="cursor:pointer;">
-          <button class="info-icon" onclick="event.stopPropagation();showModeModal('ghost-watcher')" aria-label="About Ghost Watcher™">i</button>
+        <div class="tile tile-watch" onclick="if(!event.target.closest('.info-icon'))navigate('watch')" style="cursor:pointer;">
+          <button class="info-icon" onclick="event.stopPropagation();showModeModal('watch')" aria-label="About Ghost Watcher™">i</button>
           <div class="tile-arrow">↗</div>
           <div class="tile-mode" style="margin-left: 28px;">Ghost Watcher™</div>
           <div>
-            <span class="tile-count">${watchHistory.length}</span>
-            <span class="tile-count-unit">commit${watchHistory.length !== 1 ? 's' : ''} watched</span>
+            <span class="tile-count">${count}</span>
+            <span class="tile-count-unit">commit${count !== 1 ? 's' : ''}</span>
           </div>
-          <div class="tile-meta" style="margin-top: 6px;">Latest: ${latest.commitShort || '—'} · ${sevParts.join(' · ') || 'no findings'}</div>
+          <div class="tile-meta" style="margin-top: 6px;">${metaText}</div>
         </div>
       `;
     }
 
+    // ── Ghost Watcher panel render ───────────────────────────────────
     async function renderWatchPanel() {
       document.getElementById('app-root').innerHTML = `
         <div class="back-bar">
@@ -1263,14 +1395,34 @@
       const container = document.getElementById('watch-panel-content');
       if (!container) return;
 
-      container.innerHTML = `
+      if (!watchCommits.length) {
+        container.innerHTML = `
+          <div class="watch-empty">
+            <div class="ghost-icon">👻</div>
+            <div class="watch-empty-msg">No commits scanned yet. Ghost Watcher™ will appear here after your first CI run.</div>
+          </div>`;
+        return;
+      }
+
+      const pendingCount = watchCommits.filter(c => c.status === 'pending').length;
+      const promptTotal = watchCommits.reduce((n, r) => n + (r.brief?.prompts?.length || r.briefPromptCount || 0), 0);
+      const latest = watchCommits[0]?.timestamp;
+
+      const statsHtml = `
+        <div class="mode-stats">
+          <div class="mode-stat"><div class="label">Commits Scanned</div><div class="value">${watchCommits.length}</div></div>
+          <div class="mode-stat"><div class="label">Analyzing</div><div class="value">${pendingCount}</div></div>
+          <div class="mode-stat"><div class="label">Latest Scan</div><div class="value" style="font-size:14px;">${latest ? relativeTime(latest) : '—'}</div></div>
+        </div>`;
+
+      container.innerHTML = statsHtml + `
         <div class="view-tabs brief-tabs">
-          <button class="view-tab ${watchTab === 'commits'  ? 'active' : ''}" onclick="switchWatchTab('commits')">
-            Commits<span class="view-tab-count">${watchHistory.length}</span>
+          <button class="view-tab ${watchTab === 'commits' ? 'active' : ''}" onclick="switchWatchTab('commits')">
+            Commits<span class="view-tab-count">${watchCommits.length}</span>
           </button>
           <button class="view-tab ${watchTab === 'findings' ? 'active' : ''}" onclick="switchWatchTab('findings')">Findings</button>
           <button class="view-tab ${watchTab === 'prompts' ? 'active' : ''}" onclick="switchWatchTab('prompts')">
-            Prompts${watchHistory.reduce((n,r)=>n+(r.brief?.prompts?.length||0),0) > 0 ? `<span class="view-tab-count">${watchHistory.reduce((n,r)=>n+(r.brief?.prompts?.length||0),0)}</span>` : ''}
+            Prompts${promptTotal > 0 ? `<span class="view-tab-count">${promptTotal}</span>` : ''}
           </button>
         </div>
         <div id="watch-tab-content"></div>
@@ -1286,252 +1438,187 @@
     function renderWatchTab() {
       const container = document.getElementById('watch-tab-content');
       if (!container) return;
-
-      if (watchHistory.length === 0) {
-        container.innerHTML = '<div class="brief-no-data">No Watch results found. Enable Ghost Watcher™ and push a commit to get started.</div>';
-        return;
-      }
+      watchPromptRegistry = {};
 
       if (watchTab === 'commits') {
-        const rows = watchHistory.map((r, idx) => {
-          const sev = r.severityCounts || {};
-          const chips = [
-            sev.critical ? `<span class="sev-chip sev-critical"><span class="dot"></span>${sev.critical} critical</span>` : '',
-            sev.high     ? `<span class="sev-chip sev-high"><span class="dot"></span>${sev.high} high</span>` : '',
-            sev.medium   ? `<span class="sev-chip sev-medium"><span class="dot"></span>${sev.medium} medium</span>` : '',
-            sev.low      ? `<span class="sev-chip sev-low"><span class="dot"></span>${sev.low} low</span>` : '',
-          ].filter(Boolean).join('');
-
-          const dev = r.developer?.name || r.developer?.email || '—';
-          const genAt = r.generatedAt ? formatDate(r.generatedAt) : '—';
-          const hasFindings = (r.findings || []).length > 0;
-          const hasBrief = r.briefPromptCount > 0;
-          const briefStatus = hasBrief
-            ? `<span style="color:var(--cyan);font-size:11px;">${r.briefPromptCount} prompt${r.briefPromptCount !== 1 ? 's' : ''} ready</span>`
-            : '<span style="color:#555;font-size:11px;">No brief</span>';
-
-          const rowId = `watch-commit-${idx}`;
-          const detailId = `watch-detail-${idx}`;
-
-          return `
-            <div class="report-row" style="cursor:pointer;" onclick="toggleWatchCommit('${rowId}', '${detailId}')">
-              <div style="display:flex;justify-content:space-between;align-items:baseline;">
-                <div>
-                  <span style="font-family:monospace;color:var(--cyan);">${r.commitShort || '—'}</span>
-                  <span style="color:#888;margin-left:8px;font-size:12px;">${r.branch || '—'}</span>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="font-size:11px;color:#555;">${genAt}</div>
-                  <span id="${rowId}-arrow" style="color:var(--cyan-dim);font-size:12px;transition:transform 0.2s;">▶</span>
-                </div>
-              </div>
-              <div style="margin-top:4px;font-size:12px;color:#888;">${dev}</div>
-              <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
-                ${chips || '<span style="color:#00ff88;font-size:12px;">✓ No findings</span>'}
-              </div>
-              <div style="margin-top:6px;">${briefStatus}</div>
-            </div>
-            <div id="${detailId}" style="display:none;margin-top:-8px;margin-bottom:10px;background:rgba(0,0,0,0.2);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:16px;">
-              ${renderWatchCommitDetail(r)}
-            </div>
-          `;
-        }).join('');
-        container.innerHTML = rows;
+        container.innerHTML = `<div class="watch-list">${watchCommits.map(renderWatchRow).join('')}</div>`;
         return;
       }
 
       if (watchTab === 'findings') {
-        // Aggregate all findings across all watch runs
-        const allFindings = watchHistory.flatMap(r =>
+        const allFindings = watchCommits.flatMap(r =>
           (r.findings || []).map(f => ({ ...f, commitShort: r.commitShort, branch: r.branch }))
         );
-
-        if (allFindings.length === 0) {
+        if (!allFindings.length) {
           container.innerHTML = '<div class="brief-no-data">No findings across watched commits.</div>';
           return;
         }
-
         const sevOrder = { CRITICAL: 0, HIGH: 1, MEDIUM: 2, LOW: 3 };
-        allFindings.sort((a, b) => (sevOrder[a.severity] ?? 9) - (sevOrder[b.severity] ?? 9));
-
+        allFindings.sort((a, b) => (sevOrder[(a.severity || '').toUpperCase()] ?? 9) - (sevOrder[(b.severity || '').toUpperCase()] ?? 9));
         const rows = allFindings.map(f => {
           const sev = (f.severity || '').toLowerCase();
           const sevColor = sev === 'critical' ? '#ff5555' : sev === 'high' ? '#ff9040' : sev === 'medium' ? '#ffb030' : '#5aa8ba';
+          const raw = f.detail || '';
           return `
             <div class="report-row" style="cursor:default;border-left:3px solid ${sevColor};">
               <div style="display:flex;justify-content:space-between;align-items:baseline;">
                 <div style="font-weight:600;color:#fff;">${escapeHtml(f.title || 'Untitled')}</div>
                 <div style="font-size:11px;color:${sevColor};font-weight:700;">${f.severity || '—'}</div>
               </div>
-              ${f.detail ? `<div style="margin-top:4px;font-size:12px;color:#888;line-height:1.5;">${escapeHtml(f.detail.slice(0,180))}${f.detail.length>180?'…':''}</div>` : ''}
+              ${raw ? `<div style="margin-top:4px;font-size:12px;color:#888;line-height:1.5;">${escapeHtml(raw.slice(0, 180))}${raw.length > 180 ? '…' : ''}</div>` : ''}
               <div style="margin-top:4px;font-size:11px;color:#555;">
-                ${f.commitShort ? 'Commit ' + f.commitShort : ''}${f.branch ? ' · ' + f.branch : ''}
+                ${f.commitShort ? 'Commit ' + escapeHtml(f.commitShort) : ''}${f.branch ? ' · ' + escapeHtml(f.branch) : ''}
               </div>
             </div>
           `;
         }).join('');
         container.innerHTML = rows;
+        return;
       }
 
       if (watchTab === 'prompts') {
-        // Aggregate all Ghost Brief prompts across all watch runs
-        const allPrompts = watchHistory.flatMap(r =>
+        const allPrompts = watchCommits.flatMap(r =>
           (r.brief?.prompts || []).map(p => ({ ...p, commitShort: r.commitShort, branch: r.branch }))
         );
-
-        if (allPrompts.length === 0) {
-          container.innerHTML = '<div class="brief-no-data">No Ghost Brief prompts yet. Ghost Watcher generates prompts automatically after each commit scan.</div>';
+        if (!allPrompts.length) {
+          container.innerHTML = '<div class="brief-no-data">No Ghost Brief™ prompts yet. Ghost Watcher™ generates prompts automatically after each commit scan.</div>';
           return;
         }
-
-        // Sort surgical first
         allPrompts.sort((a, b) => (a.blast_score || 0) - (b.blast_score || 0));
-
-        // Store prompts on window for copy-by-index
-        window.__watchPrompts = allPrompts;
-
-        const cards = allPrompts.map((p, idx) => {
-          const promptId = 'wpp-' + idx;
-          const sev = (p.severity || 'medium').toLowerCase();
-          const blast = (p.blast_radius || 'surgical').toLowerCase();
-          const files = (p.files?.primary || []).map(f =>
-            `<span class="brief-file-chip">${escapeHtml(f)}</span>`
-          ).join('');
-          const promptText = p.prompt || '';
-          return `
-            <div class="brief-prompt-card f-${sev}" style="margin-bottom:10px;">
-              <div class="brief-prompt-top">
-                <span class="gb-badge">${escapeHtml(p.id || 'GB-???')}</span>
-                <span class="brief-prompt-title">${escapeHtml(p.title || 'Untitled')}</span>
-              </div>
-              <div class="brief-prompt-badges">
-                <span class="sev-chip sev-${sev}"><span class="dot"></span>${escapeHtml(p.severity || 'Medium')}</span>
-                <span class="blast-chip blast-${blast}">${escapeHtml(p.blast_radius || 'surgical')}</span>
-                ${p.blast_score != null ? `<span style="font-size:10px;color:var(--text-tertiary);align-self:center;">blast ${p.blast_score}</span>` : ''}
-                <span style="font-size:10px;color:#555;align-self:center;">Commit ${escapeHtml(p.commitShort||'—')}</span>
-              </div>
-              ${files ? `<div class="brief-files">${files}</div>` : ''}
-              <div class="brief-collapsible">
-                <button class="brief-collapse-toggle" onclick="toggleBriefCollapse('${promptId}', this)">
-                  <span>▶ Prompt</span>
-                </button>
-                <button class="brief-copy-btn" onclick="copyWatchPromptByIndex(${idx})">Copy</button>
-                <div class="brief-collapse-body" id="${promptId}">${escapeHtml(promptText)}</div>
-              </div>
-            </div>
-          `;
-        }).join('');
-
+        const cards = allPrompts.map((p, idx) => renderWatchPromptCard(p, `wpp-${idx}`)).join('');
         container.innerHTML = `<div class="brief-prompt-list">${cards}</div>`;
       }
     }
 
-    // ── Watch prompt copy helpers ─────────────────────────────────────
-    function copyWatchPromptByIndex(idx) {
-      const prompts = window.__watchPrompts || [];
-      const p = prompts[idx];
-      if (!p) return;
-      navigator.clipboard.writeText(p.prompt || '').then(() =>
-        showToast('Copied', (p.id || 'Prompt') + ' copied to clipboard')
-      );
-    }
+    // Commit row — our card design with pending pulse, Clean chip, severity
+    // chips and an expandable drawer.
+    function renderWatchRow(c) {
+      const hash = (c.commitShort || (c.commitHash || '').slice(0, 7)) || '———';
+      const isPending = c.status === 'pending';
+      const sev = c.severity || {};
+      const total = c.findingCount || 0;
+      const expanded = watchExpanded.has(hash);
 
-    function copyWatchDrillPrompt(idx, commitShort) {
-      // Find the commit in watchHistory
-      const run = watchHistory.find(r => r.commitShort === commitShort);
-      if (!run) return;
-      const prompts = run.brief?.prompts || [];
-      const p = prompts[idx];
-      if (!p) return;
-      navigator.clipboard.writeText(p.prompt || '').then(() =>
-        showToast('Copied', (p.id || 'Prompt') + ' copied to clipboard')
-      );
-    }
+      let accent = 'is-clean';
+      if (isPending) accent = 'is-pending';
+      else if (sev.critical > 0) accent = 'has-critical';
+      else if (sev.high > 0) accent = 'has-high';
+      else if (sev.medium > 0) accent = 'has-medium';
+      else if (sev.low > 0) accent = 'has-low';
 
-    // ── Watch commit toggle ───────────────────────────────────────────
-    function toggleWatchCommit(rowId, detailId) {
-      const detail = document.getElementById(detailId);
-      const arrow  = document.getElementById(rowId + '-arrow');
-      if (!detail) return;
-      const isOpen = detail.style.display === 'block';
-      detail.style.display = isOpen ? 'none' : 'block';
-      if (arrow) arrow.style.transform = isOpen ? '' : 'rotate(90deg)';
-    }
-
-    // ── Watch commit detail renderer ──────────────────────────────────
-    function renderWatchCommitDetail(r) {
-      const findings = r.findings || [];
-      const brief    = r.brief;
-      const prompts  = brief?.prompts || [];
-
-      if (findings.length === 0 && prompts.length === 0) {
-        return '<div style="color:#555;font-size:13px;padding:8px 0;">No findings for this commit.</div>';
-      }
-
-      // Findings list
-      const sevOrder = { CRITICAL: 0, HIGH: 1, MEDIUM: 2, LOW: 3 };
-      const sorted = [...findings].sort((a, b) => (sevOrder[a.severity] ?? 9) - (sevOrder[b.severity] ?? 9));
-
-      const findingsHtml = sorted.map(f => {
-        const sev = (f.severity || '').toLowerCase();
-        const sevColor = sev === 'critical' ? '#ff5555' : sev === 'high' ? '#ff9040' : sev === 'medium' ? '#ffb030' : '#5aa8ba';
-        const files = (f.files || []).slice(0, 3).map(file =>
-          `<span class="brief-file-chip">${escapeHtml(file)}</span>`
-        ).join('');
-        return `
-          <div style="border-left:3px solid ${sevColor};padding:10px 14px;margin-bottom:8px;background:rgba(0,0,0,0.15);border-radius:0 6px 6px 0;">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
-              <div style="font-weight:600;color:#fff;font-size:13px;">${escapeHtml(f.title || 'Untitled')}</div>
-              <span style="font-size:10px;color:${sevColor};font-weight:700;white-space:nowrap;">${f.severity || '—'}</span>
-            </div>
-            ${f.detail ? `<div style="margin-top:4px;font-size:12px;color:#888;line-height:1.5;">${escapeHtml(f.detail.slice(0, 200))}${f.detail.length > 200 ? '…' : ''}</div>` : ''}
-            ${files ? `<div style="margin-top:6px;">${files}</div>` : ''}
-          </div>
-        `;
-      }).join('');
-
-      // Ghost Brief prompts
-      let promptsHtml = '';
-      if (prompts.length > 0) {
-        const promptCards = prompts.map((p, idx) => {
-          const promptId = `wp-${r.commitShort}-${idx}`;
-          return `
-            <div class="brief-prompt-card f-${(p.severity || 'medium').toLowerCase()}" style="margin-bottom:8px;">
-              <div class="brief-prompt-top">
-                <span class="gb-badge">${escapeHtml(p.id || 'GB-???')}</span>
-                <span class="brief-prompt-title">${escapeHtml(p.title || 'Untitled')}</span>
-              </div>
-              <div class="brief-prompt-badges">
-                <span class="sev-chip sev-${(p.severity||'medium').toLowerCase()}"><span class="dot"></span>${escapeHtml(p.severity||'Medium')}</span>
-                <span class="blast-chip blast-${(p.blast_radius||'surgical').toLowerCase()}">${escapeHtml(p.blast_radius||'surgical')}</span>
-              </div>
-              ${(p.files?.primary||[]).length > 0 ? `<div class="brief-files">${p.files.primary.map(f=>`<span class="brief-file-chip">${escapeHtml(f)}</span>`).join('')}</div>` : ''}
-              <div class="brief-collapsible">
-                <button class="brief-collapse-toggle" onclick="toggleBriefCollapse('${promptId}', this)">
-                  <span>▶ Prompt</span>
-                </button>
-                <button class="brief-copy-btn" onclick="copyWatchDrillPrompt(${idx}, ${JSON.stringify(r.commitShort||'')})">Copy</button>
-                <div class="brief-collapse-body" id="${promptId}">${escapeHtml(p.prompt || '')}</div>
-              </div>
-            </div>
-          `;
+      let rightHtml;
+      if (isPending) {
+        rightHtml = `<span class="watch-pending-badge">⏳ Analyzing…</span>`;
+      } else if (total === 0) {
+        rightHtml = `<span class="watch-clean-chip">✓ Clean</span>`;
+      } else {
+        const chips = ['critical','high','medium','low'].map(k => {
+          const n = sev[k] || 0;
+          if (!n) return '';
+          return `<span class="sev-chip sev-${k}"><span class="dot"></span>${n} ${k.charAt(0).toUpperCase()+k.slice(1)}</span>`;
         }).join('');
-
-        promptsHtml = `
-          <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px;">
-            <div style="font-size:10px;letter-spacing:0.16em;color:var(--brief);text-transform:uppercase;margin-bottom:10px;font-weight:600;">Ghost Brief™ — ${prompts.length} Prompt${prompts.length !== 1 ? 's' : ''}</div>
-            <div class="brief-prompt-list">${promptCards}</div>
-          </div>
-        `;
+        rightHtml = chips + `<span class="sev-chip sev-total">${total} total</span>`;
+        if (c.briefPromptCount > 0) {
+          rightHtml += `<span class="sev-chip sev-total">${c.briefPromptCount} prompt${c.briefPromptCount !== 1 ? 's' : ''}</span>`;
+        }
       }
 
       return `
-        <div style="font-size:10px;letter-spacing:0.16em;color:var(--text-tertiary);text-transform:uppercase;margin-bottom:10px;">
-          Findings (${findings.length})
-        </div>
-        ${findingsHtml}
-        ${promptsHtml}
-      `;
+        <div class="watch-row ${accent} ${expanded ? 'expanded' : ''}" onclick="toggleWatchExpand('${escapeHtml(hash)}')">
+          <div class="watch-row-top">
+            <div class="watch-row-left">
+              <span class="watch-hash">${escapeHtml(hash)}</span>
+              <span class="watch-branch">${escapeHtml(c.branch || '—')}</span>
+              <span class="watch-dev">${escapeHtml(c.developer || 'unknown')}</span>
+            </div>
+            <div class="watch-row-right">
+              ${rightHtml}
+              <span class="watch-time">${c.timestamp ? relativeTime(c.timestamp) : ''}</span>
+              <span class="watch-caret">▶</span>
+            </div>
+          </div>
+          ${renderWatchDrawer(c)}
+        </div>`;
+    }
+
+    function renderWatchDrawer(c) {
+      if (c.status === 'pending') {
+        return `<div class="watch-drawer"><div class="watch-finding-detail">Ghost Watcher™ is analyzing this commit. Results will appear here automatically.</div></div>`;
+      }
+      const findings = Array.isArray(c.findings) ? c.findings : [];
+      const prompts = c.brief?.prompts || [];
+      if (!findings.length && !prompts.length) {
+        return `<div class="watch-drawer"><div class="watch-finding-detail">No findings for this commit. Ghost Watcher™ scanned the change and flagged nothing.</div></div>`;
+      }
+      const items = findings.map(f => {
+        const sev = (f.severity || 'medium').toLowerCase();
+        const raw = f.detail || '';
+        const detail = raw.slice(0, 150);
+        const ellipsis = raw.length > 150 ? '…' : '';
+        return `
+          <div class="watch-finding">
+            <div class="watch-finding-top">
+              <span class="sev-chip sev-${sev}"><span class="dot"></span>${sev.charAt(0).toUpperCase()+sev.slice(1)}</span>
+              <span class="watch-finding-title">${escapeHtml(f.title || '(untitled finding)')}</span>
+            </div>
+            ${detail ? `<div class="watch-finding-detail">${escapeHtml(detail)}${ellipsis}</div>` : ''}
+          </div>`;
+      }).join('');
+
+      let promptsHtml = '';
+      if (prompts.length) {
+        const cards = prompts.map((p, idx) => renderWatchPromptCard(p, `wp-${c.commitShort}-${idx}`)).join('');
+        promptsHtml = `
+          <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px;">
+            <div style="font-size:10px;letter-spacing:0.16em;color:var(--brief);text-transform:uppercase;margin-bottom:10px;font-weight:600;">Ghost Brief™ — ${prompts.length} Prompt${prompts.length !== 1 ? 's' : ''}</div>
+            <div class="brief-prompt-list">${cards}</div>
+          </div>`;
+      }
+
+      return `<div class="watch-drawer">${items}${promptsHtml}</div>`;
+    }
+
+    function toggleWatchExpand(hash) {
+      if (!hash) return;
+      if (watchExpanded.has(hash)) watchExpanded.delete(hash);
+      else watchExpanded.add(hash);
+      renderWatchContent();
+    }
+
+    // Shared Ghost Brief™ prompt card (Prompts tab + commit drawer). Registers
+    // the prompt text under `key` so Copy can retrieve it without embedding
+    // multi-line text in an inline handler.
+    function renderWatchPromptCard(p, key) {
+      watchPromptRegistry[key] = p.prompt || '';
+      const sev = (p.severity || 'medium').toLowerCase();
+      const blast = (p.blast_radius || 'surgical').toLowerCase();
+      const files = (p.files?.primary || []).map(f => `<span class="brief-file-chip">${escapeHtml(f)}</span>`).join('');
+      return `
+        <div class="brief-prompt-card f-${sev}" style="margin-bottom:8px;">
+          <div class="brief-prompt-top">
+            <span class="gb-badge">${escapeHtml(p.id || 'GB-???')}</span>
+            <span class="brief-prompt-title">${escapeHtml(p.title || 'Untitled')}</span>
+          </div>
+          <div class="brief-prompt-badges">
+            <span class="sev-chip sev-${sev}"><span class="dot"></span>${escapeHtml(p.severity || 'Medium')}</span>
+            <span class="blast-chip blast-${blast}">${escapeHtml(p.blast_radius || 'surgical')}</span>
+            ${p.commitShort ? `<span style="font-size:10px;color:var(--text-tertiary);align-self:center;">Commit ${escapeHtml(p.commitShort)}</span>` : ''}
+          </div>
+          ${files ? `<div class="brief-files">${files}</div>` : ''}
+          <div class="brief-collapsible">
+            <button class="brief-collapse-toggle" onclick="toggleBriefCollapse('${key}', this)"><span>▶ Prompt</span></button>
+            <button class="brief-copy-btn" onclick="copyWatchPrompt('${key}')">Copy</button>
+            <div class="brief-collapse-body" id="${key}">${escapeHtml(p.prompt || '')}</div>
+          </div>
+        </div>`;
+    }
+
+    function copyWatchPrompt(key) {
+      const text = watchPromptRegistry[key];
+      if (text == null) return;
+      navigator.clipboard.writeText(text).then(() =>
+        showToast('Copied', 'Prompt copied to clipboard')
+      );
     }
 
     // ── Ghost Brief panel render ──────────────────────────────────────
