@@ -337,21 +337,45 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.0.8 <span class="version-date">June 23, 2026</span></span>
+      <span class="install-version">v9.1.0 <span class="version-date">June 25, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.0.8                                                          -->
+<!-- v9.1.0                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">v9.1.0</span>
+      <span class="release-date">June 25, 2026</span>
+      <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(34,197,94,0.15);color:#22c55e;border-color:rgba(34,197,94,0.3);">DOGFOOD</span>
+    </div>
+    <h2 class="release-headline">Ghost scanned its own codebase. Found 7 issues. Fixed all 7. Zero findings on the next push.</h2>
+    <p class="release-lede">Ghost Architect™ ran Ghost Brief™ against its own codebase in dogfood pass 10. One critical security vulnerability and six high severity issues were found and fixed using Ghost Brief™ prompts executed in Claude Code. Ghost Watcher™ confirmed zero findings after the push. The tool used itself to fix itself.</p>
+    <ul class="change-list">
+      <li><span class="marker">~</span><span><strong>Critical: Prompt injection defense hardened</strong> — Unicode NFC normalization added to consultant profile sanitization. Zero-width characters, bidirectional override marks, and Unicode control characters now rejected outright. Legitimate consultant vocabulary unaffected.</span></li>
+      <li><span class="marker">~</span><span><strong>High: Temp directory leak fixed</strong> — Commit Forecast now cleans up temp directories on all exit paths via try-finally. No more accumulated disk waste in CI environments.</span></li>
+      <li><span class="marker">~</span><span><strong>High: API error masking fixed</strong> — Agent loop now sets <code>ok: false</code> on the result when the loop exits due to an API error. Error message included in top-level result. Test coverage added.</span></li>
+      <li><span class="marker">~</span><span><strong>High: LLM plan validation tightened</strong> — Findings can no longer be silently dropped from reports. Planner must now account for every finding -- either assign it to a category or list it in skipped_findings with a reason. Disclosure note injected into report when findings are skipped.</span></li>
+      <li><span class="marker">~</span><span><strong>High: Manifest concurrent write race fixed</strong> — Post-write verification now checks content, not just presence. Retry cycle includes exponential backoff.</span></li>
+      <li><span class="marker">~</span><span><strong>High: Audit log failure threshold lowered</strong> — Warns on first failure (was third). Failure timestamp included in warning. On-disk marker file persists signal across CLI invocations.</span></li>
+      <li><span class="marker">~</span><span><strong>High: File prioritizer error handling</strong> — Already fixed in dogfood pass 9. Confirmed present and passing.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.0.8                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">v9.0.8</span>
       <span class="release-date">June 23, 2026</span>
-      <span class="release-badge">Latest</span>
       <span class="release-badge" style="background:rgba(124,58,237,0.15);color:#a78bfa;border-color:rgba(124,58,237,0.3);">MAJOR</span>
     </div>
     <h2 class="release-headline">Ghost Watcher™ — Automatic commit monitoring for every push.</h2>
