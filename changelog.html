@@ -337,21 +337,100 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.1.0 <span class="version-date">June 25, 2026</span></span>
+      <span class="install-version">v9.2.3 <span class="version-date">June 25, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.1.0                                                          -->
+<!-- v9.2.3                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.1.0</span>
+      <span class="release-version">v9.2.3</span>
       <span class="release-date">June 25, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Brief™ generates correctly after a batch scan.</h2>
+    <p class="release-lede">Closes the final gap in the Batches API path. Raw blast batch output is now narrated before <code>extractFindings</code> runs, so Ghost Brief™ receives findings with fully populated <code>files</code> arrays. The end-to-end batch flow -- scan to Brief -- is validated.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>Ghost Brief™ findings population fixed.</strong> Raw blast batch output is narrated before <code>extractFindings</code>, so each finding arrives with a populated <code>files</code> array. Ghost Brief™ now generates correctly after a Ghost Watcher™ batch scan.</span></li>
+      <li><span class="marker">+</span><span><strong>End-to-end batch validation.</strong> Ghost Watcher™ test run confirms Ghost Brief™ generation after an async batch scan.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.2.2                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.2.2</span>
+      <span class="release-date">June 25, 2026</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Native fetch batch transport for GitHub Actions reliability.</h2>
+    <p class="release-lede">The Anthropic SDK's batch transport dropped its connection on GitHub Actions runners. Ghost Watcher™ now submits Batches API requests over native <code>fetch</code>, which completes the request reliably where the SDK failed.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>Batch transport switched from the Anthropic SDK to native <code>fetch</code>.</strong> The SDK fetch implementation dropped the connection on GitHub Actions runners; native <code>fetch</code> completes the request reliably.</span></li>
+      <li><span class="marker">~</span><span><strong>Debug connectivity test step removed</strong> from the Ghost Watcher™ workflow once the transport fix was confirmed.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.2.1                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.2.1</span>
+      <span class="release-date">June 25, 2026</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Batch submission resilience for CI networks.</h2>
+    <p class="release-lede">Two reliability fixes for the Batches API path on ephemeral CI runners: retry with backoff on transient submission failures, and a preflight reachability check so unreachable endpoints fail fast with a clear message.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Retry with exponential backoff added to <code>submitBatch</code>.</strong> Transient network failures on CI runners no longer abort the run.</span></li>
+      <li><span class="marker">+</span><span><strong>Preflight reachability check added</strong> before batch submission. An unreachable endpoint fails fast with a clear message instead of hanging.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.2.0                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.2.0</span>
+      <span class="release-date">June 25, 2026</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">MINOR</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher™ Batches API -- async processing with auto-resume.</h2>
+    <p class="release-lede">Ghost Watcher™ now submits scans through the Anthropic Batches API. Runs process asynchronously, an interrupted run resumes from where it stopped, and Ghost Portal shows a pending state until results land. Batch behavior is tunable from <code>ghost-watcher.yaml</code>.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Batches API processing.</strong> Ghost Watcher™ submits Watch scans asynchronously through the Anthropic Batches API instead of inline message calls.</span></li>
+      <li><span class="marker">+</span><span><strong>Auto-resume.</strong> An interrupted Watch run resumes from where it stopped instead of restarting from scratch.</span></li>
+      <li><span class="marker">+</span><span><strong>Incomplete run emails.</strong> Receive an email when a batch run does not complete, with next steps to resume.</span></li>
+      <li><span class="marker">+</span><span><strong>Pending Portal state.</strong> Ghost Portal shows a pending state for in-flight batch runs until results land.</span></li>
+      <li><span class="marker">+</span><span><strong>Configurable batch settings.</strong> Batch behavior is tunable via <code>ghost-watcher.yaml</code>.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.1.0                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.1.0</span>
+      <span class="release-date">June 25, 2026</span>
       <span class="release-badge" style="background:rgba(34,197,94,0.15);color:#22c55e;border-color:rgba(34,197,94,0.3);">DOGFOOD</span>
     </div>
     <h2 class="release-headline">Ghost scanned its own codebase. Found 7 issues. Fixed all 7. Zero findings on the next push.</h2>
