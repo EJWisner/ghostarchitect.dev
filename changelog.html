@@ -337,21 +337,65 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.2.3 <span class="version-date">June 25, 2026</span></span>
+      <span class="install-version">v9.3.1 <span class="version-date">June 26, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.2.3                                                          -->
+<!-- v9.3.1                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">v9.3.1</span>
+      <span class="release-date">June 26, 2026</span>
+      <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher™ now sends email notifications.</h2>
+    <p class="release-lede">Findings email delivers per-finding detail and severity summary when issues are detected. Clean scan email confirms when a commit scans clean. Both fire-and-forget and never block the CI pipeline.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>New: Findings email.</strong> Ghost Watcher sends a full findings report to configured recipients when issues are detected -- severity summary, per-finding title, files affected, and detail.</span></li>
+      <li><span class="marker">+</span><span><strong>New: Clean scan email.</strong> Ghost Watcher sends a confirmation when a commit scans clean with zero findings.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.0                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.0</span>
+      <span class="release-date">June 26, 2026</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">MINOR</span>
+    </div>
+    <h2 class="release-headline">Stream or batch. Your scan, your budget.</h2>
+    <p class="release-lede">Every scan now opens with a cost estimate and a choice -- stream for real-time results or submit as a batch and save 50% on API charges. Same analysis, same report, you decide.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>New: Streaming vs batch transport menu.</strong> Cost estimate before every scan with arrow-key selection.</span></li>
+      <li><span class="marker">+</span><span><strong>New: <code>ghost batch-status</code> and <code>ghost batch-retrieve</code> commands.</strong></span></li>
+      <li><span class="marker">+</span><span><strong>New: Pending batch entries appear in the main menu when ready.</strong></span></li>
+      <li><span class="marker">+</span><span><strong>New: Transport metadata stamped in every report artifact.</strong></span></li>
+      <li><span class="marker">+</span><span><strong>New: Question mode batch support.</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Deterministic output.</strong> <code>temperature 0</code> across all Anthropic call sites.</span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Setup wizard now uses actual tier cap not hardcoded 50K.</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Repo name derived from git remote origin not directory name.</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.2.3                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">v9.2.3</span>
       <span class="release-date">June 25, 2026</span>
-      <span class="release-badge">Latest</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Brief™ generates correctly after a batch scan.</h2>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Ghost Architect now shows you the cost before every scan. Stream for real-time results, or submit as a batch and save 50% on API charges. Same analysis, same report, you decide.">
+  <meta property="og:title" content="Ghost Architect™ v9.3 -- Stream or Batch. Your Scan, Your Budget.">
+  <meta property="og:description" content="Ghost Architect now shows you the cost before every scan. Stream for real-time results, or submit as a batch and save 50% on API charges. Same analysis, same report, you decide.">
+  <meta property="og:image" content="/og-image.png">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-watcher-v931-stream-batch">
+  <meta property="og:site_name" content="Ghost Architect™">
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-watcher-v931-stream-batch">
+  <title>Ghost Architect™ v9.3 -- Stream or Batch. Your Scan, Your Budget. · Ghost Architect™</title>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
+  <style>
+    :root {
+      --bg: #050a14;
+      --surface: #0a1020;
+      --border: #1a2540;
+      --orange: #00bfd8;
+      --cyan: #00bfd8;
+      --text-primary: #e8eaf0;
+      --text-secondary: #8892a4;
+      --text-tertiary: #4b5563;
+      --good: #22c55e;
+      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    .article-wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      margin-bottom: 40px;
+    }
+    .back-link:hover { color: var(--orange); }
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .article-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 3px;
+      background: rgba(0,191,216,0.15);
+      color: var(--orange);
+      border: 1px solid rgba(0,191,216,0.3);
+    }
+    .article-tag.new {
+      background: linear-gradient(135deg, var(--orange), #00e5ff);
+      color: #000;
+      border: none;
+    }
+    .article-tag.watcher {
+      background: rgba(0,191,216,0.12);
+      color: var(--cyan);
+      border: 1px solid rgba(0,191,216,0.3);
+    }
+    .article-date {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.06em;
+    }
+    .article-read {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    .article-author {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    h1 {
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .lede {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 36px;
+    }
+    .article-body h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+      margin: 44px 0 16px;
+      padding-top: 8px;
+    }
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.02em;
+      margin: 32px 0 12px;
+    }
+    .article-body p {
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+    }
+    .article-body strong { color: var(--text-primary); font-weight: 600; }
+    .article-body code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: var(--cyan);
+    }
+    .article-body pre {
+      background: #0a0d12;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+    .article-body pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+    .article-body ul, .article-body ol {
+      color: var(--text-secondary);
+      padding-left: 24px;
+      margin-bottom: 18px;
+    }
+    .article-body li { margin-bottom: 8px; }
+    .article-body li strong { color: var(--text-primary); }
+    .callout {
+      background: rgba(0,191,216,0.08);
+      border: 1px solid rgba(0,191,216,0.25);
+      border-left: 3px solid var(--orange);
+      border-radius: 6px;
+      padding: 18px 20px;
+      margin: 28px 0;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    .callout strong { color: var(--orange); }
+    .callout.cyan {
+      background: rgba(0,191,216,0.06);
+      border-color: rgba(0,191,216,0.25);
+      border-left-color: var(--cyan);
+    }
+    .callout.cyan strong { color: var(--cyan); }
+    .loop-step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+    .loop-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0,191,216,0.15);
+      border: 1px solid rgba(0,191,216,0.3);
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .loop-content strong { color: var(--text-primary); display: block; margin-bottom: 4px; }
+    .loop-content p { color: var(--text-secondary); font-size: 14px; margin: 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+    th {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-primary);
+      font-weight: 600;
+      padding: 10px 14px;
+      text-align: left;
+      border: 1px solid var(--border);
+      letter-spacing: 0.04em;
+    }
+    td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    td code { font-size: 12px; }
+    .cta-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 32px;
+      margin: 40px 0;
+      text-align: center;
+    }
+    .cta-block h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .cta-block p {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      font-size: 15px;
+    }
+    .cta-link {
+      display: inline-block;
+      background: var(--orange);
+      color: #000;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .article-footer {
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .article-footer-logo { font-size: 13px; color: var(--text-tertiary); }
+    .article-footer-logo a { color: var(--orange); text-decoration: none; }
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.06em;
+    }
+    .site-footer a { color: var(--text-tertiary); text-decoration: none; }
+    @media (max-width: 640px) {
+      .article-wrap { padding: 32px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="ga-nav-mount"></div>
+
+<div class="article-wrap">
+  <a href="/blog.html" class="back-link">← All posts</a>
+
+  <div class="article-meta">
+    <span class="article-tag new">Release</span>
+    <span class="article-tag watcher">Ghost Watcher™</span>
+    <span class="article-tag">v9.3.1</span>
+    <span class="article-date">June 26, 2026</span>
+    <span class="article-read">5 min read</span>
+    <span class="article-author">By Ernst J. Wisner</span>
+  </div>
+
+  <h1>Ghost Architect™ v9.3 -- Stream or Batch. Your Scan, Your Budget.</h1>
+
+  <p class="lede">Ghost Architect™ now shows you the cost before every scan. Stream for real-time results, or submit as a batch and save 50% on API charges. Same analysis, same report, you decide.</p>
+
+  <div class="article-body">
+
+    <h2>What Changed</h2>
+
+    <p>Every scan mode that calls the Anthropic API now opens with a transport menu before committing any spend.</p>
+
+    <pre><code>Ghost Architect™ -- Blast Radius
+Codebase loaded: 66 files (~150,944 tokens)
+
+Estimated cost:
+  Streaming:  ~$0.51  (results in ~3 min)
+  Batch:      ~$0.26  (results in ~15 min, save 50%)
+
+How would you like to run this scan?
+  Streaming - real-time results
+  Batch - save 50%, retrieve when ready</code></pre>
+
+    <p>You see the number before you commit. You pick with arrow keys. No flags, no documentation, no bill surprises.</p>
+
+    <h2>Why This Matters</h2>
+
+    <p>A Blast Radius scan on a 150K token codebase costs about $0.51 streaming. The same scan as a batch costs $0.26. Run Ghost on every pre-engagement and the savings stack across every client.</p>
+
+    <p>At $25/month, Ghost Architect Pro costs $300/year. One critical finding caught before a SOW is signed saves 40 to 100 hours of unbillable rework at $150 to $200/hour blended agency rate. That is $6,000 to $20,000 protected on a single engagement. Ghost Pro pays for itself 20 to 66 times over on the first finding it catches.</p>
+
+    <p>The batch option compounds that math. Large codebase scan at $0.51 streaming costs $0.26 as a batch. Run 10 pre-engagement scans a month and you save $30 on API charges alone.</p>
+
+    <h2>New Commands</h2>
+
+    <div class="loop-step">
+      <div class="loop-num">1</div>
+      <div class="loop-content">
+        <strong><code>ghost batch-status</code></strong>
+        <p>Check the status of any pending batch scans.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">2</div>
+      <div class="loop-content">
+        <strong><code>ghost batch-retrieve &lt;id&gt;</code></strong>
+        <p>Pull results when ready. Delivers the same report files as streaming.</p>
+      </div>
+    </div>
+
+    <p>Pending batches appear in the main Ghost menu automatically when ready. Select to retrieve.</p>
+
+    <h2>Ghost Watcher Now Sends Email</h2>
+
+    <p>v9.3.1 adds two email notifications to Ghost Watcher.</p>
+
+    <div class="callout cyan">
+      <strong>Findings email:</strong> When Ghost Watcher detects issues, it emails you a full report -- severity summary, per-finding title, files affected, and detail. Link to your Ghost Portal for the complete scan history.
+    </div>
+
+    <div class="callout cyan">
+      <strong>Clean scan email:</strong> When Ghost Watcher finds zero issues, it confirms the commit is clean. Your codebase is healthy. No action required.
+    </div>
+
+    <p>Both are fire-and-forget. They never block the CI pipeline.</p>
+
+    <h2>The ROI</h2>
+
+    <p>Ghost Architect Pro is $25/month. $300/year.</p>
+
+    <p>One critical finding caught before a SOW is signed saves 40 to 100 hours of unbillable rework at a blended agency rate of $150 to $200/hour. That is $6,000 to $20,000 protected on a single engagement. One year of Ghost Pro pays for itself 20 to 66 times over on the first finding it catches.</p>
+
+    <p>For teams running multiple engagements per year the math compounds. Agencies typically absorb 3 to 5 unplanned rework events per year at $15,000 to $25,000 in eaten margin each. Ghost Team at $399/month costs $4,788/year. It pays for itself 9 to 26 times over if it prevents a single rework event.</p>
+
+    <p>With v9.3.0, batch processing cuts your per-scan API charges in half. The savings stack across every client, every engagement.</p>
+
+    <div class="cta-block">
+      <h3>Start your pre-engagement triage today.</h3>
+      <p>Ghost Open is free. Ghost Pro is $25/month. No contract.</p>
+      <a href="/pricing.html" class="cta-link">Get started →</a>
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-footer-logo">
+      Published by <a href="/">Ghost Architect™</a> · ghostarchitect.dev
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  © 2026 Ghost Platform LLC · <a href="/privacy.html">Privacy</a> · <a href="/support.html">Support</a> · <a href="/changelog.html">Changelog</a>
+</footer>
+
+<script src="/assets/ga-nav.js"></script>
+</body>
+</html>
