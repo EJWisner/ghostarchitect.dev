@@ -338,6 +338,38 @@
       background: var(--bg-tile); border: 1px dashed var(--border); border-radius: 10px;
     }
 
+    /* ── Click-to-expand finding cards ─────────────────────────────── */
+    .finding-card.expandable { cursor: pointer; }
+    .finding-card.expandable:hover { border-color: var(--border-strong); background: var(--bg-tile-hover); }
+    .finding-chevron {
+      flex-shrink: 0; align-self: center; margin-left: 2px;
+      color: var(--cyan-dim); font-size: 11px;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+    .finding-card.expanded .finding-chevron { transform: rotate(90deg); color: var(--cyan); }
+    .finding-expand {
+      max-height: 0; overflow: hidden; opacity: 0; margin-top: 0;
+      transition: max-height 0.2s ease, opacity 0.2s ease, margin-top 0.2s ease;
+    }
+    .finding-card.expanded .finding-expand { max-height: 1500px; opacity: 1; margin-top: 10px; }
+    .finding-expand-inner { border-top: 1px solid var(--border); padding-top: 12px; }
+    .finding-expand-label {
+      font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary);
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .finding-files-full { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+
+    /* Remediation Prompt placeholder - uses the Ghost Brief™ orange theme */
+    .remediation-placeholder {
+      background: var(--brief-bg); border: 1px dashed rgba(224,115,64,0.4);
+      border-radius: 8px; padding: 12px 14px;
+    }
+    .remediation-placeholder .rp-title {
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--brief); font-weight: 600; margin-bottom: 6px;
+    }
+    .remediation-placeholder .rp-body { font-size: 12px; color: var(--text-tertiary); line-height: 1.55; }
+
     /* Status pills on findings (Open / New / Fixed across scans) */
     .status-pill {
       display: inline-flex; align-items: center; gap: 5px;
@@ -912,6 +944,28 @@
     .watch-finding-top { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
     .watch-finding-title { font-size: 13px; font-weight: 500; color: var(--text-primary); flex: 1; min-width: 0; }
     .watch-finding-detail { font-size: 11px; line-height: 1.6; color: var(--text-secondary); word-break: break-word; }
+
+    /* Click-to-expand watch findings inside the commit drawer */
+    .watch-finding.expandable { cursor: pointer; }
+    .watch-finding.expandable:hover { border-color: var(--border-strong); }
+    .watch-finding-chevron {
+      flex-shrink: 0; align-self: center; margin-left: auto;
+      color: var(--text-tertiary); font-size: 11px;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+    .watch-finding.expanded .watch-finding-chevron { transform: rotate(90deg); color: var(--cyan); }
+    .watch-finding-expand {
+      max-height: 0; overflow: hidden; opacity: 0; margin-top: 0;
+      transition: max-height 0.2s ease, opacity 0.2s ease, margin-top 0.2s ease;
+    }
+    .watch-finding.expanded .watch-finding-expand { max-height: 1500px; opacity: 1; margin-top: 10px; }
+    .watch-finding-expand-inner { border-top: 1px solid var(--border); padding-top: 10px; }
+    .watch-finding-detail-full { font-size: 12px; line-height: 1.6; color: var(--text-secondary); word-break: break-word; margin-bottom: 10px; }
+    .watch-finding-copy-btn {
+      margin-top: 8px; background: var(--bg-tile); border: 1px solid var(--border);
+      border-radius: 6px; padding: 4px 10px; font-size: 10px; color: var(--text-tertiary);
+      font-family: inherit; letter-spacing: 0.1em; opacity: 0.55; cursor: not-allowed;
+    }
     .watch-empty {
       padding: 48px 20px; text-align: center; color: var(--text-tertiary);
       background: var(--bg-tile); border: 1px dashed var(--border); border-radius: 12px;
@@ -1406,6 +1460,7 @@
 
       const pendingCount = watchCommits.filter(c => c.status === 'pending').length;
       const promptTotal = watchCommits.reduce((n, r) => n + (r.brief?.prompts?.length || r.briefPromptCount || 0), 0);
+      const findingTotal = watchCommits.reduce((n, r) => n + ((r.findings || []).length), 0);
       const latest = watchCommits[0]?.timestamp;
 
       const statsHtml = `
@@ -1420,7 +1475,9 @@
           <button class="view-tab ${watchTab === 'commits' ? 'active' : ''}" onclick="switchWatchTab('commits')">
             Commits<span class="view-tab-count">${watchCommits.length}</span>
           </button>
-          <button class="view-tab ${watchTab === 'findings' ? 'active' : ''}" onclick="switchWatchTab('findings')">Findings</button>
+          <button class="view-tab ${watchTab === 'findings' ? 'active' : ''}" onclick="switchWatchTab('findings')">
+            Findings${findingTotal > 0 ? `<span class="view-tab-count">${findingTotal}</span>` : ''}
+          </button>
           <button class="view-tab ${watchTab === 'prompts' ? 'active' : ''}" onclick="switchWatchTab('prompts')">
             Prompts${promptTotal > 0 ? `<span class="view-tab-count">${promptTotal}</span>` : ''}
           </button>
@@ -1541,6 +1598,22 @@
         </div>`;
     }
 
+    // Click-to-expand a watch finding inside a commit drawer. stopPropagation
+    // keeps the click from bubbling to the parent .watch-row and collapsing the
+    // whole commit drawer. One finding open at a time within a drawer; clicks
+    // inside the open body do not collapse it.
+    function toggleWatchFindingExpand(cardEl, ev) {
+      if (ev) ev.stopPropagation();
+      if (!cardEl) return;
+      if (ev && ev.target.closest('.watch-finding-expand')) return;
+      const willExpand = !cardEl.classList.contains('expanded');
+      const scope = cardEl.closest('.watch-drawer') || document;
+      scope.querySelectorAll('.watch-finding.expanded').forEach(c => {
+        if (c !== cardEl) c.classList.remove('expanded');
+      });
+      cardEl.classList.toggle('expanded', willExpand);
+    }
+
     function renderWatchDrawer(c) {
       if (c.status === 'pending') {
         return `<div class="watch-drawer"><div class="watch-finding-detail">Ghost Watcher™ is analyzing this commit. Results will appear here automatically.</div></div>`;
@@ -1555,13 +1628,30 @@
         const raw = f.detail || '';
         const detail = raw.slice(0, 150);
         const ellipsis = raw.length > 150 ? '…' : '';
+        const filesArr = f.files || [];
+        const allFiles = filesArr.map(file => `<span class="finding-file">${escapeHtml(file)}</span>`).join(' ');
+        const effort = f.effortHours ? `<span><b>Effort:</b> ${f.effortHours}h</span>` : '';
+        const conf = (f.confidence != null) ? `<span><b>Confidence:</b> ${f.confidence}%</span>` : '';
         return `
-          <div class="watch-finding">
+          <div class="watch-finding expandable" onclick="toggleWatchFindingExpand(this, event)">
             <div class="watch-finding-top">
               <span class="sev-chip sev-${sev}"><span class="dot"></span>${sev.charAt(0).toUpperCase()+sev.slice(1)}</span>
               <span class="watch-finding-title">${escapeHtml(f.title || '(untitled finding)')}</span>
+              <span class="watch-finding-chevron">▶</span>
             </div>
             ${detail ? `<div class="watch-finding-detail">${escapeHtml(detail)}${ellipsis}</div>` : ''}
+            <div class="watch-finding-expand">
+              <div class="watch-finding-expand-inner">
+                ${raw ? `<div class="finding-expand-label">Detail</div><div class="watch-finding-detail-full">${escapeHtml(raw)}</div>` : ''}
+                ${allFiles ? `<div class="finding-expand-label">Affected Files (${filesArr.length})</div><div class="finding-files-full">${allFiles}</div>` : ''}
+                ${(effort || conf) ? `<div class="finding-meta" style="margin-bottom:10px;">${effort}${conf}</div>` : ''}
+                <div class="remediation-placeholder">
+                  <div class="rp-title">Remediation Prompt</div>
+                  <div class="rp-body">Generating detailed remediation prompts. Check back after your next Ghost Watcher™ scan.</div>
+                  <button class="watch-finding-copy-btn" onclick="event.stopPropagation();" disabled title="Copy will be available once detailed prompts ship">Copy Prompt</button>
+                </div>
+              </div>
+            </div>
           </div>`;
       }).join('');
 
@@ -2134,6 +2224,22 @@
       if (report) renderLevel2Content(report);
     }
 
+    // Click-to-expand a finding card. One card open at a time within the
+    // findings view; clicking the open card again collapses it. Toggles a class
+    // on the live DOM node (no re-render) so the max-height CSS transition
+    // animates. Clicks inside the open drawer are ignored so text selection and
+    // future controls don't collapse the card.
+    function toggleFindingExpand(cardEl, ev) {
+      if (!cardEl) return;
+      if (ev && ev.target.closest('.finding-expand')) return;
+      const willExpand = !cardEl.classList.contains('expanded');
+      const scope = cardEl.closest('#tab-content') || document;
+      scope.querySelectorAll('.finding-card.expanded').forEach(c => {
+        if (c !== cardEl) c.classList.remove('expanded');
+      });
+      cardEl.classList.toggle('expanded', willExpand);
+    }
+
     // Cross-scan diffing: find the prior scan of the same project in the same
     // mode and compute Open/New/Fixed status for each finding by stable ID.
     // Returns { priorReport, priorFindings, statusMap } or null when no prior
@@ -2464,6 +2570,9 @@
               `<span class="finding-file">${escapeHtml(file)}</span>`
             ).join(' ');
             const overflow = (f.files || []).length > 4 ? ` <span class="finding-meta">+${f.files.length - 4} more</span>` : '';
+            const allFilesHtml = (f.files || []).map(file =>
+              `<span class="finding-file">${escapeHtml(file)}</span>`
+            ).join(' ');
             const effortLabel = f.effortHours
               ? `<span><b>Effort:</b> ${f.effortHours}h</span>` : '';
             const confidenceLabel = (f.confidence != null)
@@ -2482,17 +2591,27 @@
             const exportLink = `<button class="finding-export-link" onclick="event.stopPropagation();exportSingleFinding('${escapeAttr(f.id)}')" title="Export this finding as a single-row Jira CSV ready to import.">${exportLabel}</button>`;
 
             return `
-              <div class="finding-card ${sevClass}">
+              <div class="finding-card expandable ${sevClass}" data-finding-id="${escapeAttr(f.id || '')}" onclick="toggleFindingExpand(this, event)">
                 ${exportLink}
                 <div class="finding-card-top">
                   <div class="finding-title">${escapeHtml(f.title || '(untitled)')}${statusPill}</div>
                   ${sevChip}
+                  <span class="finding-chevron">▶</span>
                 </div>
                 ${f.detail ? `<div class="finding-detail">${escapeHtml(f.detail)}</div>` : ''}
                 <div class="finding-meta">
                   ${filesHtml}${overflow}
                   ${effortLabel}
                   ${confidenceLabel}
+                </div>
+                <div class="finding-expand">
+                  <div class="finding-expand-inner">
+                    ${(f.files || []).length > 4 ? `<div class="finding-expand-label">All Affected Files (${f.files.length})</div><div class="finding-files-full">${allFilesHtml}</div>` : ''}
+                    <div class="remediation-placeholder">
+                      <div class="rp-title">Remediation Prompt</div>
+                      <div class="rp-body">Generating detailed remediation prompts. Check back after your next Ghost Watcher™ scan.</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             `;
