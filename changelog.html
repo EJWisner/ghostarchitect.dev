@@ -150,6 +150,36 @@
     }
     .install-cmd .prompt { color: var(--good); margin-right: 8px; }
 
+    /* ── Manifesto banner ───────────────────────────────────────── */
+    .manifesto {
+      max-width: 1100px;
+      margin: 24px auto 0;
+      padding: 0 24px;
+    }
+    .manifesto-card {
+      background: linear-gradient(180deg, var(--bg-card-top), var(--bg-card));
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
+      border-radius: 10px;
+      padding: 28px 32px;
+    }
+    .manifesto-headline {
+      color: var(--text-primary);
+      font-size: clamp(18px, 2.2vw, 24px);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      margin: 0 0 12px;
+    }
+    .manifesto-body {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.7;
+      margin: 0;
+      max-width: 860px;
+    }
+    .manifesto-body strong { color: var(--text-primary); }
+
     /* ── Release sections ───────────────────────────────────────── */
     .section {
       max-width: 1100px;
@@ -333,25 +363,55 @@
   <p class="hero-subhead">Ghost Architect&trade; ships fast. This page is the official record of what landed in each release, in plain language, with the user-facing change first. For deeper context on individual releases, see the corresponding posts on the <a href="/blog.html">blog</a>.</p>
 </section>
 
+<section class="manifesto">
+  <div class="manifesto-card">
+    <h2 class="manifesto-headline">We ship. We listen. We improve. Repeat.</h2>
+    <p class="manifesto-body">Ghost Architect&trade; is not a launch-and-forget product. Every version below represents a real response -- to a gap we found, a customer need we heard, or a standard we weren't yet meeting. Ghost Watcher&trade; runs on every commit we make. We hold ourselves to the same bar we set for your codebase. This changelog is not a list of patches. It is a record of a product that takes its own advice.</p>
+  </div>
+</section>
+
 <div class="install">
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.3.1 <span class="version-date">June 26, 2026</span></span>
+      <span class="install-version">v9.3.2 <span class="version-date">June 27, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.3.1                                                          -->
+<!-- v9.3.2                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">v9.3.2</span>
+      <span class="release-date">June 27, 2026</span>
+      <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Blast Radius findings now carry file data in Ghost Watcher™.</h2>
+    <p class="release-lede">Ghost Watcher™ blast scans now populate file arrays correctly. Ghost Brief™ generates after every scan -- not just conflict scans. Every finding has files. Every finding gets a prompt.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>Fix: extractBlastSectionFiles() recovers file paths from raw blast bullet lines</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Section title file seeded as primary, dependent files follow in order</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: enrichBlastFindingFiles() fills empty files arrays and recomputes finding IDs</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Pre-narration enrichment gives narrator real file paths</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Ghost Brief generates after blast-only Ghost Watcher runs</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: briefPromptCount and blastFileCount now reflect actual findings</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.1                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">v9.3.1</span>
       <span class="release-date">June 26, 2026</span>
-      <span class="release-badge">Latest</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher™ now sends email notifications.</h2>
