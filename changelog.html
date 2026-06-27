@@ -374,21 +374,44 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.3.3 <span class="version-date">June 27, 2026</span></span>
+      <span class="install-version">v9.3.4 <span class="version-date">June 27, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.3.3                                                          -->
+<!-- v9.3.4                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.3.3</span>
+      <span class="release-version">v9.3.4</span>
       <span class="release-date">June 27, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher™ email notifications are now fully HTML-escaped.</h2>
+    <p class="release-lede">Finding titles, detail text, file paths, and repo names are now safely escaped in all six Ghost Watcher™ email templates. Prevents HTML and content injection from LLM-authored findings or crafted codebase content.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>Fix: escapeHtml() added to all six Ghost Watcher email templates</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: f.title, f.detail, f.severity, f.files escaped in findings email</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: repo, shortSha, portalSlug escaped across all email templates</strong></span></li>
+      <li><span class="marker">+</span><span><strong>New: open repo test suite expanded from 4 to 14 suites</strong></span></li>
+      <li><span class="marker">+</span><span><strong>New: ad-hoc test directory added</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Synthetic credential in verifier test fixture</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.3                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.3</span>
+      <span class="release-date">June 27, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher™ now generates detailed remediation prompts for every finding.</h2>

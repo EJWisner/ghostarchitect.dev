@@ -275,6 +275,14 @@
       display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 10px;
       background: rgba(0, 191, 216, 0.12); font-size: 10px; color: var(--cyan-bright);
     }
+    .watch-date-filter { display: flex; gap: 6px; flex-wrap: wrap; margin: -6px 0 14px; }
+    .watch-date-pill {
+      background: var(--bg-tile); border: 1px solid var(--border); border-radius: 999px;
+      padding: 5px 14px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-tertiary); cursor: pointer; transition: all 0.15s; font-family: inherit;
+    }
+    .watch-date-pill:hover { color: var(--text-secondary); border-color: var(--border-strong); }
+    .watch-date-pill.active { background: rgba(0,191,216,0.12); border-color: var(--cyan); color: var(--cyan-bright); }
 
     /* LEVEL 2 — Findings list view */
     .findings-toolbar {
@@ -1095,6 +1103,7 @@
     let watchTab = 'commits';       // 'commits' | 'findings' | 'prompts'
     let watchExpanded = new Set();  // short commit hashes expanded in the Commits tab
     let watchPromptRegistry = {};   // copy-key -> prompt text, rebuilt each render
+    let watchDateFilter = 'all';    // 'today' | '7d' | '30d' | '90d' | 'all'
 
     // ── Boot ─────────────────────────────────────────────────────────
     async function boot() {
@@ -1488,9 +1497,13 @@
         return;
       }
 
+      // Date-range filter scopes the tab badges and lists. Stats panel stays
+      // a global summary of all scanned commits.
+      const filtered = getFilteredWatchCommits();
+
       const pendingCount = watchCommits.filter(c => c.status === 'pending').length;
-      const promptTotal = watchCommits.reduce((n, r) => n + (r.brief?.prompts?.length || r.briefPromptCount || 0), 0);
-      const findingTotal = watchCommits.reduce((n, r) => n + ((r.findings || []).length), 0);
+      const promptTotal = filtered.reduce((n, r) => n + (r.brief?.prompts?.length || r.briefPromptCount || 0), 0);
+      const findingTotal = filtered.reduce((n, r) => n + ((r.findings || []).length), 0);
       const latest = watchCommits[0]?.timestamp;
 
       const statsHtml = `
@@ -1500,10 +1513,15 @@
           <div class="mode-stat"><div class="label">Latest Scan</div><div class="value" style="font-size:14px;">${latest ? relativeTime(latest) : '—'}</div></div>
         </div>`;
 
+      const pills = [
+        { v: 'today', label: 'Today' }, { v: '7d', label: '7D' }, { v: '30d', label: '30D' },
+        { v: '90d', label: '90D' }, { v: 'all', label: 'All' },
+      ].map(p => `<button class="watch-date-pill ${watchDateFilter === p.v ? 'active' : ''}" onclick="setWatchDateFilter('${p.v}')">${p.label}</button>`).join('');
+
       container.innerHTML = statsHtml + `
         <div class="view-tabs brief-tabs">
           <button class="view-tab ${watchTab === 'commits' ? 'active' : ''}" onclick="switchWatchTab('commits')">
-            Commits<span class="view-tab-count">${watchCommits.length}</span>
+            Commits<span class="view-tab-count">${filtered.length}</span>
           </button>
           <button class="view-tab ${watchTab === 'findings' ? 'active' : ''}" onclick="switchWatchTab('findings')">
             Findings${findingTotal > 0 ? `<span class="view-tab-count">${findingTotal}</span>` : ''}
@@ -1512,6 +1530,7 @@
             Prompts${promptTotal > 0 ? `<span class="view-tab-count">${promptTotal}</span>` : ''}
           </button>
         </div>
+        <div class="watch-date-filter">${pills}</div>
         <div id="watch-tab-content"></div>
       `;
       renderWatchTab();
@@ -1522,22 +1541,48 @@
       renderWatchContent();
     }
 
+    function watchWindowStart(filter) {
+      if (filter === 'all') return null;
+      if (filter === 'today') { const d = new Date(); d.setHours(0, 0, 0, 0); return d.getTime(); }
+      const days = filter === '7d' ? 7 : filter === '30d' ? 30 : filter === '90d' ? 90 : 0;
+      return Date.now() - days * 86400000;
+    }
+    function getFilteredWatchCommits() {
+      const start = watchWindowStart(watchDateFilter);
+      if (start == null) return watchCommits;          // 'all' -> full set
+      return watchCommits.filter(c => {
+        if (!c.timestamp) return false;                // undated commits show only under All
+        const t = new Date(c.timestamp).getTime();
+        return Number.isFinite(t) && t >= start;
+      });
+    }
+    function setWatchDateFilter(filter) {
+      watchDateFilter = filter;
+      renderWatchContent();
+    }
+
     function renderWatchTab() {
       const container = document.getElementById('watch-tab-content');
       if (!container) return;
       watchPromptRegistry = {};
 
+      const commits = getFilteredWatchCommits();
+
       if (watchTab === 'commits') {
-        container.innerHTML = `<div class="watch-list">${watchCommits.map(renderWatchRow).join('')}</div>`;
+        if (!commits.length) {
+          container.innerHTML = `<div class="brief-no-data">No commits${watchDateFilter === 'all' ? ' scanned yet' : ' in the selected date range'}.</div>`;
+          return;
+        }
+        container.innerHTML = `<div class="watch-list">${commits.map(renderWatchRow).join('')}</div>`;
         return;
       }
 
       if (watchTab === 'findings') {
-        const allFindings = watchCommits.flatMap(r =>
+        const allFindings = commits.flatMap(r =>
           (r.findings || []).map(f => ({ ...f, commitShort: r.commitShort, branch: r.branch }))
         );
         if (!allFindings.length) {
-          container.innerHTML = '<div class="brief-no-data">No findings across watched commits.</div>';
+          container.innerHTML = `<div class="brief-no-data">No findings${watchDateFilter === 'all' ? ' across watched commits' : ' in the selected date range'}.</div>`;
           return;
         }
         const sevOrder = { CRITICAL: 0, HIGH: 1, MEDIUM: 2, LOW: 3 };
@@ -1564,11 +1609,11 @@
       }
 
       if (watchTab === 'prompts') {
-        const allPrompts = watchCommits.flatMap(r =>
+        const allPrompts = commits.flatMap(r =>
           (r.brief?.prompts || []).map(p => ({ ...p, commitShort: r.commitShort, branch: r.branch }))
         );
         if (!allPrompts.length) {
-          container.innerHTML = '<div class="brief-no-data">No Ghost Brief™ prompts yet. Ghost Watcher™ generates prompts automatically after each commit scan.</div>';
+          container.innerHTML = `<div class="brief-no-data">No Ghost Brief™ prompts${watchDateFilter === 'all' ? ' yet. Ghost Watcher™ generates prompts automatically after each commit scan' : ' in the selected date range'}.</div>`;
           return;
         }
         allPrompts.sort((a, b) => (a.blast_score || 0) - (b.blast_score || 0));
