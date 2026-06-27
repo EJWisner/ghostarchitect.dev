@@ -966,6 +966,13 @@
       border-radius: 6px; padding: 4px 10px; font-size: 10px; color: var(--text-tertiary);
       font-family: inherit; letter-spacing: 0.1em; opacity: 0.55; cursor: not-allowed;
     }
+    .watch-finding-copy-btn:not([disabled]) {
+      opacity: 1; cursor: pointer; transition: all 0.15s;
+      border-color: var(--cyan); color: var(--cyan);
+    }
+    .watch-finding-copy-btn:not([disabled]):hover {
+      background: var(--bg-tile-hover); border-color: var(--cyan-bright); color: var(--cyan-bright);
+    }
     .watch-empty {
       padding: 48px 20px; text-align: center; color: var(--text-tertiary);
       background: var(--bg-tile); border: 1px dashed var(--border); border-radius: 12px;
@@ -1368,6 +1375,29 @@
                             e.briefPromptCount = typeof s.briefPromptCount === 'number' ? s.briefPromptCount : e.briefPromptCount;
                           } catch (_) { /* skip bad scan file */ }
                         }));
+
+                      // (b2) standalone watch-brief files carry resume-delivered
+                      // detailed prompts (Step 8e). Merge their prompts into any
+                      // commit whose brief has no prompts yet. Runs after the scan
+                      // files above so we only fill genuine gaps.
+                      await Promise.all(files
+                        .filter(f => f.name && f.name.startsWith('watch-brief-') && f.name.endsWith('.json'))
+                        .map(async (f) => {
+                          try {
+                            const short = f.name.replace(/^watch-brief-/, '').replace(/\.json$/, '');
+                            if (!short) return;
+                            const e = ensure(short);
+                            if (e.brief && Array.isArray(e.brief.prompts) && e.brief.prompts.length) return;
+                            const bres = await fetch(`${API_BASE}/portal-report?c=${PORTAL_SLUG}&r=${encodeURIComponent(f.path)}`);
+                            if (!bres.ok) return;
+                            const fetched = await bres.json();
+                            if (fetched && Array.isArray(fetched.prompts) && fetched.prompts.length) {
+                              e.project          = e.project || proj;
+                              e.brief            = e.brief ? { ...e.brief, prompts: fetched.prompts } : fetched;
+                              e.briefPromptCount = fetched.prompts.length;
+                            }
+                          } catch (_) { /* skip bad brief file */ }
+                        }));
                     } catch (_) { /* skip dev folder */ }
                   }));
               }
@@ -1623,7 +1653,8 @@
       if (!findings.length && !prompts.length) {
         return `<div class="watch-drawer"><div class="watch-finding-detail">No findings for this commit. Ghost Watcher™ scanned the change and flagged nothing.</div></div>`;
       }
-      const items = findings.map(f => {
+      const promptByFindingId = new Map((c.brief?.prompts || []).map(p => [p.source_finding_id, p]));
+      const items = findings.map((f, i) => {
         const sev = (f.severity || 'medium').toLowerCase();
         const raw = f.detail || '';
         const detail = raw.slice(0, 150);
@@ -1632,6 +1663,25 @@
         const allFiles = filesArr.map(file => `<span class="finding-file">${escapeHtml(file)}</span>`).join(' ');
         const effort = f.effortHours ? `<span><b>Effort:</b> ${f.effortHours}h</span>` : '';
         const conf = (f.confidence != null) ? `<span><b>Confidence:</b> ${f.confidence}%</span>` : '';
+        const matched = f.id ? promptByFindingId.get(f.id) : null;
+        let remediationHtml;
+        if (matched && matched.prompt) {
+          const key = `wpf-${c.commitShort}-${i}`;
+          watchPromptRegistry[key] = matched.prompt;
+          remediationHtml = `
+                <div class="remediation-placeholder">
+                  <div class="rp-title">Remediation Prompt</div>
+                  <div class="brief-collapse-body open" style="margin-top:6px;">${escapeHtml(matched.prompt)}</div>
+                  <button class="watch-finding-copy-btn" onclick="event.stopPropagation(); copyWatchPrompt('${key}');">Copy Prompt</button>
+                </div>`;
+        } else {
+          remediationHtml = `
+                <div class="remediation-placeholder">
+                  <div class="rp-title">Remediation Prompt</div>
+                  <div class="rp-body">Generating detailed remediation prompts. Check back after your next Ghost Watcher™ scan.</div>
+                  <button class="watch-finding-copy-btn" onclick="event.stopPropagation();" disabled title="Copy will be available once detailed prompts ship">Copy Prompt</button>
+                </div>`;
+        }
         return `
           <div class="watch-finding expandable" onclick="toggleWatchFindingExpand(this, event)">
             <div class="watch-finding-top">
@@ -1645,11 +1695,7 @@
                 ${raw ? `<div class="finding-expand-label">Detail</div><div class="watch-finding-detail-full">${escapeHtml(raw)}</div>` : ''}
                 ${allFiles ? `<div class="finding-expand-label">Affected Files (${filesArr.length})</div><div class="finding-files-full">${allFiles}</div>` : ''}
                 ${(effort || conf) ? `<div class="finding-meta" style="margin-bottom:10px;">${effort}${conf}</div>` : ''}
-                <div class="remediation-placeholder">
-                  <div class="rp-title">Remediation Prompt</div>
-                  <div class="rp-body">Generating detailed remediation prompts. Check back after your next Ghost Watcher™ scan.</div>
-                  <button class="watch-finding-copy-btn" onclick="event.stopPropagation();" disabled title="Copy will be available once detailed prompts ship">Copy Prompt</button>
-                </div>
+                ${remediationHtml}
               </div>
             </div>
           </div>`;
