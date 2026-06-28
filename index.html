@@ -155,7 +155,7 @@
         "name": "What is Ghost Architect?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ghost Architect is an AI-powered codebase intelligence tool that triages codebases, categorizes risk by severity, prioritizes findings, and generates structured PDF, TXT, and MD reports. It runs entirely locally — your code never leaves your machine."
+          "text": "Ghost Architect is an AI-powered codebase intelligence tool that triages codebases, categorizes risk by severity, prioritizes findings, and generates structured PDF, TXT, and MD reports. Your code never touches our servers. We don't have any. Every scan runs on your own infrastructure."
         }
       },
       {
@@ -163,7 +163,7 @@
         "name": "Does Ghost Architect upload my code?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. Ghost Architect runs entirely on your local machine. Your source code is never uploaded to any server. Analysis calls go directly from your machine to Anthropic's API using your own API key."
+          "text": "No. Your scan runs on your infrastructure using your own API key and GitHub Actions runner. Ghost has no servers. Your code never leaves your control. Analysis calls go directly from your machine to Anthropic's API using your own API key."
         }
       },
       {
@@ -982,35 +982,6 @@
 
 <div id="ga-nav-mount"></div>
 
-<!-- MOBILE 2.4.9 BANNER -->
-<div id="mobile-eol-banner" style="display:none; background: var(--danger); color: white; text-align: center; padding: 0.75rem 1rem; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600;">
-  ⚠ Magento 2.4.9 is live — PHP 8.4+ required. 60 days to end of life on 2.4.6. <a href="#magento-249" style="color: white; text-decoration: underline;">PHP 8.4+ required →</a>
-</div>
-<style>
-  @media (max-width: 768px) {
-    #mobile-eol-banner { display: block !important; }
-  }
-</style>
-<script>
-(function(){
-  var target = new Date("2026-05-12");
-  var now = new Date();
-  now.setHours(0,0,0,0);
-  var diffDays = Math.floor((target - now) / (1000*60*60*24));
-  var el = document.getElementById("mobile-eol-text");
-  if(!el) return;
-  if(diffDays > 0){
-    el.textContent = "Magento 2.4.9 ships in " + diffDays + " day" + (diffDays === 1 ? "" : "s");
-  } else if(diffDays === 0){
-    el.textContent = "Magento 2.4.9 ships today";
-  } else {
-    var daysSince = -diffDays;
-    el.textContent = "Magento 2.4.9 shipped " + daysSince + " day" + (daysSince === 1 ? "" : "s") + " ago";
-    document.getElementById("mobile-eol-banner").style.background = "#8B0000";
-  }
-})();
-</script>
-
 <!-- PAGE LOGO -->
 <div class="hero-logo-wrap">
   <img src="GHOSTLOGO.JPG" alt="Ghost Architect™" />
@@ -1020,8 +991,8 @@
 <section class="hero">
   <div class="version-badge">v9.3.4 · Secure. Tested. Ship-ready. · LIVE NOW</div>
   <h1>Pre-engagement triage.<br><em>Any codebase, any language, any platform.</em></h1>
-  <p class="hero-sub">Know what's in the codebase before the next migration, SOW, or audit. Then run Ghost Brief™ — Ghost converts every finding into a validated, blast-radius-aware prompt your AI coding agent executes immediately.</p>
-  <p class="hero-accent">Ghost finds it. Ghost tells the AI exactly what to do. The AI does it.</p>
+  <p class="hero-sub">Your code never touches our servers. We don't have any.</p>
+  <p class="hero-accent">One finding pays for a year of Ghost.</p>
   <div class="hero-cta">
     <a href="/pricing" class="btn-primary">See Plans →</a>
     <a href="https://www.npmjs.com/package/ghost-architect-open" class="btn-secondary" target="_blank" rel="noopener noreferrer">Install Ghost Open Free →</a>
@@ -1258,12 +1229,12 @@
   <section class="security-section" style="max-width:1100px;padding:3rem;">
     <div class="section-label">// security</div>
     <div class="security-quote">"Your client's code stays yours."</div>
-    <p class="security-sub">Ghost Architect™ runs entirely on your local machine. Your codebase is never uploaded, never stored, and never transmitted to Ghost Architect™ servers — because there are no Ghost Architect™ servers.<br><br>Analysis calls go directly from your machine to Anthropic's API using your own key, under your own data agreement. No SaaS. No upload. No data retention.</p>
+    <p class="security-sub">Your code never touches our servers. We don't have any. Every scan runs on your infrastructure -- your API key, your GitHub Actions runner, your GitHub repo. Ghost is the only codebase intelligence tool with nothing to breach.</p>
     <div class="security-grid">
       <div class="security-item">
         <div class="security-item-icon">🖥</div>
-        <h3>Runs Locally</h3>
-        <p>Ghost Architect™ is a CLI tool that runs entirely on your machine. Zero cloud dependency.</p>
+        <h3>Your Infrastructure</h3>
+        <p>Your scan runs on your infrastructure. Your API key. Your GitHub Actions runner. Your code never touches Ghost servers.</p>
       </div>
       <div class="security-item">
         <div class="security-item-icon">🔑</div>
@@ -1392,7 +1363,7 @@
 <section id="proof" class="proof-section">
   <div class="section-label">// proof of concept</div>
   <h2>Real analysis. Real findings.</h2>
-  <p style="margin-left:auto;margin-right:auto;text-align:center;">Ghost Architect™ analyzed 658 files in a real Meta Magento extension and surfaced 18 architectural findings — conflict mismatches, security risks, and integration vulnerabilities — in under 10 minutes.</p>
+  <p style="margin-left:auto;margin-right:auto;text-align:center;">Ghost Architect™ analyzed 658 files in a real eCommerce extension and surfaced 18 architectural findings -- conflict mismatches, security risks, and integration vulnerabilities -- in under 10 minutes.</p>
   <div class="proof-stats">
     <div class="proof-stat">
       <div class="proof-stat-value">658</div>
@@ -1411,7 +1382,7 @@
       <div class="proof-stat-label">PDF Pages</div>
     </div>
   </div>
-  <a href="ghost-poi-meta-for-magento2.pdf" class="proof-download" style="margin-top:1rem; background: rgba(0,212,170,0.08); border: 1px solid var(--accent2); color: var(--accent2); font-size: 1rem; padding: 1rem 2rem; border-radius: 10px; font-weight: 600; letter-spacing: 0.02em; box-shadow: 0 0 24px rgba(0,212,170,0.1);">Download the Full Report ↓ &nbsp;<span style="color:var(--text-dim); font-weight:400;">// PDF · 7 pages · real codebase · 18 findings</span></a>
+  <a href="ghost-poi-meta-for-magento2.pdf" class="proof-download" style="margin-top:1rem; background: rgba(0,212,170,0.08); border: 1px solid var(--accent2); color: var(--accent2); font-size: 1rem; padding: 1rem 2rem; border-radius: 10px; font-weight: 600; letter-spacing: 0.02em; box-shadow: 0 0 24px rgba(0,212,170,0.1);">Download the Full Report ↓ &nbsp;<span style="color:var(--text-dim); font-weight:400;">// PDF · 7 pages · real eCommerce codebase · 18 findings</span></a>
 
   <!-- FINDINGS CALLOUT -->
   <div style="margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; text-align: left;">
@@ -1419,140 +1390,27 @@
     <div style="background: var(--surface); border: 1px solid #3a1a1a; border-left: 3px solid var(--danger); border-radius: 12px; padding: 1.75rem;">
       <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--danger); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem;">// Finding #1 · Critical</div>
       <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.02em;">Client-Side Credential Exposure</h3>
-      <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin: 0 0 1rem;">Meta OAuth access tokens stored in <code style="font-family: var(--font-mono); color: var(--accent); font-size: 0.8rem;">window.facebookBusinessExtensionConfig</code> — readable by any XSS attack or DevTools inspection. Full Facebook Business account takeover via browser.</p>
+      <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin: 0 0 1rem;">OAuth access tokens exposed client-side in a global config object. Full third-party account takeover possible.</p>
       <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);">Est. fix: 8–12 hrs · Complexity: HIGH</div>
     </div>
 
     <div style="background: var(--surface); border: 1px solid #3a1a1a; border-left: 3px solid var(--danger); border-radius: 12px; padding: 1.75rem;">
       <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--danger); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem;">// Finding #9 · Critical</div>
       <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.02em;">Ad Spend Inflation Race Condition</h3>
-      <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin: 0 0 1rem;">Event ID deduplication race condition causing 10–20% duplicate Conversion API events. Ghost flagged this as the most expensive bug in the codebase — inflating Meta ad spend by thousands monthly.</p>
+      <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin: 0 0 1rem;">Event deduplication race condition producing 10-20% duplicate API events. Inflates ad spend and corrupts conversion data.</p>
       <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);">Est. fix: 10–14 hrs · Complexity: CRITICAL</div>
     </div>
 
     <div style="background: var(--surface); border: 1px solid #3a1a1a; border-left: 3px solid var(--warning); border-radius: 12px; padding: 1.75rem;">
       <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--warning); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem;">// Finding #3 · High</div>
       <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.02em;">Mass Assignment Config Vulnerability</h3>
-      <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin: 0 0 1rem;">Arbitrary POST parameters saved directly to <code style="font-family: var(--font-mono); color: var(--accent); font-size: 0.8rem;">core_config_data</code> with no validation or allowlist. Combined with missing CSRF protection — any system configuration value is writable by an attacker.</p>
+      <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin: 0 0 1rem;">Arbitrary POST parameters saved directly to the core configuration store with no validation or allowlist. Combined with missing CSRF protection -- any system configuration value is writable by an attacker.</p>
       <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);">Est. fix: 6–8 hrs · Complexity: HIGH</div>
     </div>
 
   </div>
-  <p style="margin-top: 2rem; font-size: 0.95rem; color: var(--text-muted); text-align: center;">These are 3 of 18 findings from a real public extension. <a href="ghost-poi-meta-for-magento2.pdf" style="color: var(--accent2); text-decoration: none; font-weight: 600;">Download the full report ↓</a></p>
+  <p style="margin-top: 2rem; font-size: 0.95rem; color: var(--text-muted); text-align: center;">These are 3 of 18 findings from a real eCommerce extension. <a href="ghost-poi-meta-for-magento2.pdf" style="color: var(--accent2); text-decoration: none; font-weight: 600;">Download the full report ↓</a></p>
 </section>
-
-<!-- MAGENTO 2.4.9 SECTION -->
-<div id="magento-249" style="padding: 5rem 0; background: linear-gradient(180deg, var(--bg) 0%, #1a0a0a 50%, var(--bg) 100%);">
-  <div style="max-width: 900px; margin: 0 auto; padding: 0 2rem;">
-    <div class="section-label" style="color: var(--danger);">// the may 12 deadline</div>
-    <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 1.5rem;">Magento 2.4.9 ships <span style="color: var(--danger);">May 12</span>.<br>Your custom modules<br>don't speak PHP 8.4 yet.</h2>
-    <p style="font-size: 1.15rem; color: var(--text-muted); max-width: 680px; margin-bottom: 2rem;">The largest architectural shift in the 2.4.x line since 2.4.4. PHP 8.2 dropped. PHP 8.4+ mandatory. Laminas MVC removed entirely. Valkey replacing Redis as the default cache. Plus 500+ core fixes that expose latent assumptions in your custom code. Most stores carry 30-100 custom modules accumulated over years — most written when PHP 8.1 or 8.2 was the target.</p>
-
-    <!-- LIVE COUNTDOWN BLOCK -->
-    <div style="background: linear-gradient(135deg, rgba(255,74,107,0.12), rgba(255,170,0,0.08)); border: 1px solid rgba(255,74,107,0.35); border-radius: 12px; padding: 1.5rem 2rem; margin-bottom: 3rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
-      <div id="m249-countdown-num" style="font-family: var(--font-mono); font-size: 3rem; font-weight: 800; color: var(--danger); line-height: 1; flex-shrink: 0; min-width: 4rem;">—</div>
-      <div id="m249-countdown-text" style="color: var(--text); font-size: 1rem; line-height: 1.5; flex: 1; min-width: 240px;">until <strong style="color: var(--danger);">Magento 2.4.9 General Availability</strong>. Ten days isn't enough time to plan an upgrade you haven't audited yet.</div>
-    </div>
-    <script>
-      (function(){
-        function render(){
-          var target = new Date('2026-05-12T00:00:00');
-          var now = new Date();
-          var diff = target - now;
-          var numEl = document.getElementById('m249-countdown-num');
-          var textEl = document.getElementById('m249-countdown-text');
-          if (!numEl || !textEl) return;
-          if (diff > 0) {
-            var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-            numEl.textContent = days;
-            textEl.innerHTML = (days === 1 ? 'day' : 'days') + ' until <strong style="color: var(--danger);">Magento 2.4.9 General Availability</strong>. Most stores haven\'t audited their custom modules against PHP 8.4 yet.';
-          } else {
-            var daysSince = Math.floor(-diff / (1000 * 60 * 60 * 24));
-            if (daysSince === 0) {
-              numEl.textContent = 'GA';
-              textEl.innerHTML = '<strong style="color: var(--danger);">Magento 2.4.9 ships today.</strong> If you haven\'t audited your custom modules yet, your upgrade quote is a guess.';
-            } else {
-              numEl.textContent = '+' + daysSince;
-              textEl.innerHTML = (daysSince === 1 ? 'day' : 'days') + ' since <strong style="color: var(--danger);">Magento 2.4.9 GA</strong>. The window for clean upgrades is closing as extension vendors race to catch up.';
-            }
-          }
-        }
-        render();
-        setInterval(render, 60000);
-      })();
-    </script>
-
-    <!-- CHANGE TABLE -->
-    <div style="border: 1px solid #3a1a1a; border-radius: 12px; overflow: hidden; margin-bottom: 3rem;">
-      <div style="background: #1a0808; padding: 1rem 1.5rem; border-bottom: 1px solid #3a1a1a; display: flex; gap: 2rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">
-        <span style="flex: 1.2;">Component</span>
-        <span style="flex: 1;">Before (2.4.8)</span>
-        <span style="flex: 1.5;">After (2.4.9)</span>
-      </div>
-      <div style="padding: 0.85rem 1.5rem; border-bottom: 1px solid #2a1a1a; display: flex; gap: 2rem; font-family: var(--font-mono); font-size: 0.9rem; align-items: center;">
-        <span style="flex: 1.2; color: var(--text);">PHP</span>
-        <span style="flex: 1; color: var(--text-muted);">8.3, 8.4</span>
-        <span style="flex: 1.5; color: var(--danger); font-weight: 600;">8.2 dropped · 8.4+ required</span>
-      </div>
-      <div style="padding: 0.85rem 1.5rem; border-bottom: 1px solid #2a1a1a; display: flex; gap: 2rem; font-family: var(--font-mono); font-size: 0.9rem; align-items: center;">
-        <span style="flex: 1.2; color: var(--text);">MVC framework</span>
-        <span style="flex: 1; color: var(--text-muted);">Laminas MVC</span>
-        <span style="flex: 1.5; color: var(--danger); font-weight: 600;">Native PHP MVC · Laminas removed</span>
-      </div>
-      <div style="padding: 0.85rem 1.5rem; border-bottom: 1px solid #2a1a1a; display: flex; gap: 2rem; font-family: var(--font-mono); font-size: 0.9rem; align-items: center;">
-        <span style="flex: 1.2; color: var(--text);">Cache layer</span>
-        <span style="flex: 1; color: var(--text-muted);">Redis (default)</span>
-        <span style="flex: 1.5; color: var(--warning); font-weight: 600;">Valkey 8 (Redis-compatible)</span>
-      </div>
-      <div style="padding: 0.85rem 1.5rem; border-bottom: 1px solid #2a1a1a; display: flex; gap: 2rem; font-family: var(--font-mono); font-size: 0.9rem; align-items: center;">
-        <span style="flex: 1.2; color: var(--text);">Search engine</span>
-        <span style="flex: 1; color: var(--text-muted);">OpenSearch 2.x</span>
-        <span style="flex: 1.5; color: var(--warning); font-weight: 600;">OpenSearch 3.x</span>
-      </div>
-      <div style="padding: 0.85rem 1.5rem; border-bottom: 1px solid #2a1a1a; display: flex; gap: 2rem; font-family: var(--font-mono); font-size: 0.9rem; align-items: center;">
-        <span style="flex: 1.2; color: var(--text);">Database</span>
-        <span style="flex: 1; color: var(--text-muted);">MySQL 8.0 / MariaDB 10.6</span>
-        <span style="flex: 1.5; color: var(--danger); font-weight: 600;">MySQL 8.4 LTS / MariaDB 11.4</span>
-      </div>
-      <div style="padding: 0.85rem 1.5rem; border-bottom: 1px solid #2a1a1a; display: flex; gap: 2rem; font-family: var(--font-mono); font-size: 0.9rem; align-items: center;">
-        <span style="flex: 1.2; color: var(--text);">WYSIWYG editor</span>
-        <span style="flex: 1; color: var(--text-muted);">TinyMCE 5</span>
-        <span style="flex: 1.5; color: var(--warning); font-weight: 600;">HugeRTE</span>
-      </div>
-      <div style="padding: 0.85rem 1.5rem; display: flex; gap: 2rem; font-family: var(--font-mono); font-size: 0.9rem; align-items: center;">
-        <span style="flex: 1.2; color: var(--text);">Bug fixes</span>
-        <span style="flex: 1; color: var(--text-muted);">—</span>
-        <span style="flex: 1.5; color: var(--accent2); font-weight: 600;">500+ Open Source / 560+ Commerce</span>
-      </div>
-    </div>
-
-    <!-- THREE PAIN CARDS -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
-      <div style="background: var(--surface); border: 1px solid #3a1a1a; border-radius: 10px; padding: 1.5rem;">
-        <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">🔴</div>
-        <h3 style="font-size: 1rem; margin-bottom: 0.5rem; color: var(--danger);">Custom Modules at Risk</h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">Every custom module written for PHP 8.2 or 8.3 needs an audit. Deprecated functions become fatal errors. Implicit nullable parameters are gone. Dynamic property creation throws.</p>
-      </div>
-      <div style="background: var(--surface); border: 1px solid #3a1a1a; border-radius: 10px; padding: 1.5rem;">
-        <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">⚡</div>
-        <h3 style="font-size: 1rem; margin-bottom: 0.5rem; color: var(--danger);">Architectural Shift</h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">Laminas MVC removal breaks any extension that imports from <code style="font-size: 0.85em; color: var(--accent);">Laminas\Mvc\</code> namespaces — at compile time, not runtime. The module simply will not load.</p>
-      </div>
-      <div style="background: var(--surface); border: 1px solid #3a1a1a; border-radius: 10px; padding: 1.5rem;">
-        <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">👻</div>
-        <h3 style="font-size: 1rem; margin-bottom: 0.5rem; color: var(--accent2);">Ghost Architect™ Can Help</h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">POI scan inventories every custom module. Conflict Detection surfaces deprecated APIs and removed-function patterns. Recon mode produces a sized engagement plan in 5 minutes for ~$0.05.</p>
-      </div>
-    </div>
-
-    <div style="text-align: center;">
-      <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1.5rem;">Walk into the upgrade conversation with data, not guesswork.</p>
-      <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer" style="display: inline-block; background: var(--danger); color: white; padding: 0.9rem 2.5rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1rem; margin-right: 1rem; margin-bottom: 0.5rem;">Run a Free Scan →</a>
-      <a href="/blog/magento-249-upgrade.html" style="display: inline-block; border: 1px solid var(--border); color: var(--text-muted); padding: 0.9rem 2.5rem; border-radius: 8px; text-decoration: none; font-size: 1rem; margin-bottom: 0.5rem;">Read the Full Breakdown</a>
-    </div>
-  </div>
-</div>
-
 
 <!-- FAQ -->
 <section id="faq" style="max-width: 860px; margin: 0 auto; padding: 2rem 2rem 5rem;">
@@ -1591,7 +1449,7 @@
 
   <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
     <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Does Ghost Architect upload my code anywhere?</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">No. Ghost Architect runs entirely on your local machine. Your source code is never uploaded to any Ghost Architect server — because there are no Ghost Architect servers. Analysis calls go directly from your machine to Anthropic's API using your own API key. Anthropic deletes API inputs and outputs within 7 days per their data retention policy.</p>
+    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">No. Ghost Architect runs on your own infrastructure. Your API key, your GitHub Actions runner, your GitHub repo. Ghost has no servers. Your code never touches us. Analysis calls go directly from your machine to Anthropic's API using your own API key. Anthropic deletes API inputs and outputs within 7 days per their data retention policy.</p>
   </div>
 
   <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
