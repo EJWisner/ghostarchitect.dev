@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Ghost Architect™ runs three passes on every commit automatically -- Blast Radius, Conflict Detection, and Ghost Brief. Together they are the Ghost Triple Crown™. Every finding. Every file. Every prompt.">
+  <meta property="og:title" content="Ghost Triple Crown™ -- Three Passes. One Complete Picture.">
+  <meta property="og:description" content="Ghost Architect™ runs three passes on every commit automatically -- Blast Radius, Conflict Detection, and Ghost Brief. Together they are the Ghost Triple Crown™. Every finding. Every file. Every prompt.">
+  <meta property="og:image" content="/og-image.png">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-triple-crown">
+  <meta property="og:site_name" content="Ghost Architect™">
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-triple-crown">
+  <title>Ghost Triple Crown™ -- Three Passes. One Complete Picture. · Ghost Architect™</title>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
+  <style>
+    :root {
+      --bg: #050a14;
+      --surface: #0a1020;
+      --border: #1a2540;
+      --orange: #e07340;
+      --cyan: #00bfd8;
+      --text-primary: #e8eaf0;
+      --text-secondary: #8892a4;
+      --text-tertiary: #4b5563;
+      --good: #22c55e;
+      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    .article-wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      margin-bottom: 40px;
+    }
+    .back-link:hover { color: var(--cyan); }
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .article-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 3px;
+      background: rgba(0,191,216,0.12);
+      color: var(--cyan);
+      border: 1px solid rgba(0,191,216,0.3);
+    }
+    .article-tag.new {
+      background: linear-gradient(135deg, var(--cyan), #00d4aa);
+      color: #000;
+      border: none;
+    }
+    .article-tag.watcher {
+      background: rgba(0,191,216,0.12);
+      color: var(--cyan);
+      border: 1px solid rgba(0,191,216,0.3);
+    }
+    .article-date {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.06em;
+    }
+    .article-read {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    .article-author {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    h1 {
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .lede {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 36px;
+    }
+    .article-body h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+      margin: 44px 0 16px;
+      padding-top: 8px;
+    }
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 0.02em;
+      margin: 32px 0 12px;
+    }
+    .article-body p {
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+    }
+    .article-body strong { color: var(--text-primary); font-weight: 600; }
+    .article-body code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: var(--cyan);
+    }
+    .article-body pre {
+      background: #0a0d12;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+    .article-body pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+    .article-body ul, .article-body ol {
+      color: var(--text-secondary);
+      padding-left: 24px;
+      margin-bottom: 18px;
+    }
+    .article-body li { margin-bottom: 8px; }
+    .article-body li strong { color: var(--text-primary); }
+    .callout {
+      background: rgba(0,191,216,0.06);
+      border: 1px solid rgba(0,191,216,0.25);
+      border-left: 3px solid var(--cyan);
+      border-radius: 6px;
+      padding: 18px 20px;
+      margin: 28px 0;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    .callout strong { color: var(--cyan); }
+    .callout.cyan {
+      background: rgba(0,191,216,0.06);
+      border-color: rgba(0,191,216,0.25);
+      border-left-color: var(--cyan);
+    }
+    .callout.cyan strong { color: var(--cyan); }
+    .loop-step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+    .loop-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0,191,216,0.15);
+      border: 1px solid rgba(0,191,216,0.3);
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .loop-content strong { color: var(--text-primary); display: block; margin-bottom: 4px; }
+    .loop-content p { color: var(--text-secondary); font-size: 14px; margin: 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+    th {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-primary);
+      font-weight: 600;
+      padding: 10px 14px;
+      text-align: left;
+      border: 1px solid var(--border);
+      letter-spacing: 0.04em;
+    }
+    td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    td code { font-size: 12px; }
+    .cta-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 32px;
+      margin: 40px 0;
+      text-align: center;
+    }
+    .cta-block h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .cta-block p {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      font-size: 15px;
+    }
+    .cta-link {
+      display: inline-block;
+      background: var(--cyan);
+      color: #000;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .article-footer {
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .article-footer-logo { font-size: 13px; color: var(--text-tertiary); }
+    .article-footer-logo a { color: var(--cyan); text-decoration: none; }
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.06em;
+    }
+    .site-footer a { color: var(--text-tertiary); text-decoration: none; }
+    @media (max-width: 640px) {
+      .article-wrap { padding: 32px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="ga-nav-mount"></div>
+
+<div class="article-wrap">
+  <a href="/blog.html" class="back-link">← All posts</a>
+
+  <div class="article-meta">
+    <span class="article-tag new">New</span>
+    <span class="article-tag watcher">Ghost Watcher™</span>
+    <span class="article-tag">v9.3.5</span>
+    <span class="article-date">June 28, 2026</span>
+    <span class="article-read">6 min read</span>
+    <span class="article-author">By Ernst J. Wisner</span>
+  </div>
+
+  <h1>Ghost Triple Crown™ -- Three Passes. One Complete Picture.</h1>
+
+  <p class="lede">Every Ghost Watcher™ commit triggers three passes automatically. Blast Radius maps what breaks. Conflict Detection finds where the codebase disagrees with itself. Ghost Brief generates the prompt that fixes it. Together they are the Ghost Triple Crown™ -- the most complete automated pre-commit analysis available for any codebase, any language, any platform.</p>
+
+  <div class="article-body">
+
+    <h2>Why One Pass Is Never Enough</h2>
+
+    <p>Most automated code analysis tools run one check. Flag a linting error. Catch a missing test. Mark a security pattern. One pass, one lens, move on.</p>
+
+    <p>One pass misses the compounding problems. The file that looks clean in isolation but breaks three other files when changed. The API contract that two modules interpret differently. The finding that has no path to resolution because nobody generated the prompt to fix it.</p>
+
+    <p>Ghost Architect™ runs three passes on every commit. Not sequentially as an afterthought -- as a designed system where each pass informs the next.</p>
+
+    <h2>Leg 1 -- Blast Radius™</h2>
+
+    <p>Blast Radius maps the full impact of every changed file. When a developer pushes a commit, Ghost Watcher™ analyzes which files were touched and traces every dependency -- direct imports, indirect references, and cascade effects across the codebase.</p>
+
+    <p>The result is a finding for every file at risk. Not just the file that changed. Every file that depends on it, imports from it, or shares a contract with it.</p>
+
+    <div class="callout">
+      A developer changes <code>src/reports.js</code>. Blast Radius finds that <code>src/pdf-generator.js</code>, <code>src/lib/transport-meta.js</code>, and 12 other files all depend on it. Each gets a finding. Each gets a remediation prompt.
+    </div>
+
+    <p>Blast Radius answers the question every architect asks before approving a change -- what else breaks?</p>
+
+    <h2>Leg 2 -- Conflict Detection™</h2>
+
+    <p>Conflict Detection finds where two sides of the codebase expect different things from each other. API contracts that don't match. Session objects written one way and read another. Database schemas that disagree across modules.</p>
+
+    <p>These are the bugs that don't show up in unit tests because each unit looks correct in isolation. They surface in production under load, during upgrades, or when two developers' changes land in the same deploy.</p>
+
+    <div class="callout">
+      Side A writes a session object with <code>passResults</code>. Side B reads it looking for <code>pendingPassResults</code>. Both modules pass their tests. In production they fail silently -- until they don't.
+    </div>
+
+    <p>Conflict Detection catches these before they become 2am incidents.</p>
+
+    <h2>Leg 3 -- Ghost Brief™</h2>
+
+    <p>Finding a problem is half the work. Ghost Brief™ completes it.</p>
+
+    <p>For every finding that Blast Radius and Conflict Detection surface, Ghost Brief™ generates a developer-ready remediation prompt. Not a generic suggestion. A specific, scoped prompt that names the exact files, describes the exact problem, and gives the developer exactly what to paste into Claude Code, Cursor, Copilot, or any AI coding tool to fix it.</p>
+
+    <div class="callout">
+      In <code>src/modes/watcher-commit.js</code>, address the following issue: Pre-Change Snapshot. CONSTRAINTS: Only modify the files listed. Do not touch <code>vendor/**</code>. Run existing tests after each change to confirm no regressions. CONFIDENCE: 85%
+    </div>
+
+    <p>Ghost Brief™ turns findings into action. Without it, a developer reads a finding and has to figure out how to fix it. With it, they paste a prompt and the AI does the work.</p>
+
+    <h2>The Ghost Triple Crown™ in Action</h2>
+
+    <p>Every time a developer pushes a commit to a Ghost Watcher™ monitored repository, all three legs run automatically. No configuration per commit. No manual trigger. No choosing which analysis to run.</p>
+
+    <div class="loop-step">
+      <div class="loop-num">1</div>
+      <div class="loop-content">
+        <strong>Commit pushed</strong>
+        <p>Developer pushes to a watched branch. GitHub Actions triggers Ghost Watcher™.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">2</div>
+      <div class="loop-content">
+        <strong>Blast Radius runs</strong>
+        <p>Ghost maps every file at risk from the changed files. Findings generated per impacted file.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">3</div>
+      <div class="loop-content">
+        <strong>Conflict Detection runs</strong>
+        <p>Ghost scans for contract mismatches, schema disagreements, and API conflicts across the full codebase.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">4</div>
+      <div class="loop-content">
+        <strong>Ghost Brief generates</strong>
+        <p>For every finding from both passes, Ghost Brief™ writes a developer-ready remediation prompt.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">5</div>
+      <div class="loop-content">
+        <strong>Results delivered</strong>
+        <p>Findings and prompts pushed to Ghost Portal™. PR comment posted. Email sent to the team.</p>
+      </div>
+    </div>
+
+    <p>The whole pipeline runs in under 10 minutes on a typical codebase. The developer has a complete picture before they open the PR for review.</p>
+
+    <h2>One Finding Pays for a Year of Ghost</h2>
+
+    <p>Ghost Team is $399 per month. Ghost Triple Crown™ runs on every commit for every developer on the team.</p>
+
+    <p>One critical finding caught before a bad deploy protects 40 to 100 hours of unbillable rework at a blended agency rate of $150 to $200 per hour. That is $6,000 to $20,000 protected on a single incident. Ghost Team pays for itself on the first finding it catches.</p>
+
+    <p>The Ghost Triple Crown™ is not a safety net you deploy after something breaks. It is the analysis that runs before anything ships -- on every commit, automatically, without anyone having to remember to run it.</p>
+
+    <div class="cta-block">
+      <h3>Run the Ghost Triple Crown™ on your next commit.</h3>
+      <p>Ghost Open is free. Ghost Team starts at $399 per month. Ghost Watcher™ is included on Team and Enterprise.</p>
+      <a href="/pricing.html" class="cta-link">See plans →</a>
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-footer-logo">
+      Published by <a href="/">Ghost Architect™</a> · ghostarchitect.dev
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  © 2026 Ghost Architect™ · EJ Wisner · <a href="/privacy.html">Privacy</a> · <a href="/support.html">Support</a> · <a href="/changelog.html">Changelog</a>
+</footer>
+
+<script src="/assets/ga-nav.js"></script>
+</body>
+</html>
