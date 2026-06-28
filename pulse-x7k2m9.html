@@ -714,7 +714,13 @@
   </div>
 
   <script>
+    // Pulse data source. As of the 2026-06-25 Airtable -> Cloudflare KV
+    // migration, /pulse-stats aggregates server-side from the SIGNUPS KV
+    // namespace (no longer Airtable). The raw per-event records that back
+    // these numbers are available at /signups-export (GET, requires the
+    // X-Ghost-Admin header matching PULSE_TOKEN).
     const PULSE_ENDPOINT = 'https://signup.ghostarchitect.dev/pulse-stats';
+    const SIGNUPS_EXPORT_ENDPOINT = 'https://signup.ghostarchitect.dev/signups-export';
     const REFRESH_INTERVAL_MS = 60 * 1000;
     const STALE_THRESHOLD_MS = 5 * 60 * 1000;
     let lastSuccessfulFetch = null;
