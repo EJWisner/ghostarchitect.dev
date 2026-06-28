@@ -374,21 +374,42 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.3.4 <span class="version-date">June 27, 2026</span></span>
+      <span class="install-version">v9.3.5 <span class="version-date">June 28, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.3.4                                                          -->
+<!-- v9.3.5                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">v9.3.5</span>
+      <span class="release-date">June 28, 2026</span>
+      <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher™ PR comments are now fully markdown-escaped.</h2>
+    <p class="release-lede">Finding titles, severity labels, and branch names are now safely escaped before being written to GitHub PR comments. Prevents markdown injection from LLM-authored finding titles or attacker-controlled fork branch names.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>Fix: escapeMarkdown() helper added to watcher-commit.js</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: f.title and f.severity escaped in PHASE 1 and PHASE 2 finding loops</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: refName and actor escaped in main and clean-scan PR comment headers</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Prevents markdown injection from LLM-authored finding titles or fork branch names</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.4                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">v9.3.4</span>
       <span class="release-date">June 27, 2026</span>
-      <span class="release-badge">Latest</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher™ email notifications are now fully HTML-escaped.</h2>
