@@ -25,7 +25,7 @@
   var activeGroup = null;
   if (path.indexOf('for-agency-owners') !== -1 || path.indexOf('for-agency-teams') !== -1) activeGroup = 'solutions';
   else if (path.indexOf('inheritance-audit') !== -1 || path.indexOf('prompt-triage') !== -1 || path.indexOf('audit') !== -1 || path.indexOf('ghost-partner') !== -1 || path.indexOf('ghost-brief') !== -1 || path.indexOf('ghost-watcher') !== -1 || path.indexOf('ghost-triple-crown') !== -1 || path.indexOf('triple-crown-process') !== -1) activeGroup = 'modes';
-  else if (path.indexOf('blog') !== -1 || path.indexOf('faq') !== -1 || path.indexOf('support') !== -1 || path.indexOf('security') !== -1 || path.indexOf('changelog') !== -1 || path.indexOf('contact') !== -1) activeGroup = 'resources';
+  else if (path.indexOf('blog') !== -1 || path.indexOf('faq') !== -1 || path.indexOf('support') !== -1 || path.indexOf('security') !== -1 || path.indexOf('changelog') !== -1) activeGroup = 'resources';
 
   var navHtml = ''
     + '<nav class="ga-nav">'
@@ -121,6 +121,11 @@
     + '      <a href="/partner.html" class="ga-nav-link' + (isActive('/partner.html') || isActive('/partner') ? ' active' : '') + '">Refer &amp; Earn</a>'
     + '    </li>'
 
+    // ── CONTACT (flat) ──
+    + '    <li class="ga-nav-item">'
+    + '      <a href="/contact" class="ga-nav-link' + (isActive('/contact') || isActive('/contact.html') ? ' active' : '') + '">Contact &amp; Support</a>'
+    + '    </li>'
+
     // ── RESOURCES dropdown ──
     + '    <li class="ga-nav-item" data-dropdown>'
     + '      <button class="ga-nav-link' + (activeGroup === 'resources' ? ' active' : '') + '" aria-haspopup="true" aria-expanded="false">'
@@ -147,10 +152,6 @@
     + '        <a href="/support" class="ga-dropdown-item' + (isActive('/support') || isActive('/support.html') ? ' active' : '') + '">'
     + '          <div class="title">Support</div>'
     + '          <div class="desc">Contact, docs, status.</div>'
-    + '        </a>'
-    + '        <a href="/contact" class="ga-dropdown-item' + (isActive('/contact') || isActive('/contact.html') ? ' active' : '') + '">'
-    + '          <div class="title">Contact &amp; Support</div>'
-    + '          <div class="desc">Send us a message. We reply within one business day.</div>'
     + '        </a>'
     + '      </div>'
     + '    </li>'
@@ -201,6 +202,7 @@
     + '  </div>'
     + '  <a href="/pricing" class="ga-mobile-flat-link' + (isActive('/pricing') || isActive('/pricing.html') ? ' active' : '') + '">Pricing</a>'
     + '  <a href="/partner.html" class="ga-mobile-flat-link' + (isActive('/partner.html') || isActive('/partner') ? ' active' : '') + '">Refer &amp; Earn</a>'
+    + '  <a href="/contact" class="ga-mobile-flat-link' + (isActive('/contact') || isActive('/contact.html') ? ' active' : '') + '">Contact &amp; Support</a>'
     + '  <div class="ga-mobile-group' + (activeGroup === 'resources' ? ' open' : '') + '" data-mobile-group>'
     + '    <button class="ga-mobile-group-header">'
     + '      Resources'
@@ -212,7 +214,6 @@
     + '      <a href="/changelog.html"' + (isActive('/changelog.html') || isActive('/changelog') ? ' class="active"' : '') + '>Changelog</a>'
     + '      <a href="/#faq">FAQ</a>'
     + '      <a href="/support"' + (isActive('/support') || isActive('/support.html') ? ' class="active"' : '') + '>Support</a>'
-    + '      <a href="/contact"' + (isActive('/contact') || isActive('/contact.html') ? ' class="active"' : '') + '>Contact &amp; Support</a>'
     + '    </div>'
     + '  </div>'
     + '  <a href="/pricing" class="ga-mobile-cta">\uD83D\uDC7B See Plans</a>'
