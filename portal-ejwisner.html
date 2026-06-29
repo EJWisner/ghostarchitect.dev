@@ -987,6 +987,50 @@
     }
     .watch-empty .ghost-icon { font-size: 44px; margin-bottom: 12px; opacity: 0.75; }
     .watch-empty .watch-empty-msg { font-size: 13px; line-height: 1.6; max-width: 380px; margin: 0 auto; }
+
+    /* Ghost Watcher — Dashboard sub-tab */
+    .watch-dash-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 10px; margin-bottom: 22px;
+    }
+    .watch-dash-card {
+      background: var(--bg-tile); border: 1px solid var(--border); border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .watch-dash-card .lbl { font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary); text-transform: uppercase; }
+    .watch-dash-card .val { font-size: 22px; font-weight: 300; color: var(--text-primary); margin-top: 4px; }
+    .watch-dash-card .val small { font-size: 12px; color: var(--text-tertiary); margin-left: 1px; }
+    .watch-dash-section { margin-bottom: 22px; }
+    .watch-dash-title {
+      font-size: 10px; letter-spacing: 0.16em; color: var(--text-tertiary);
+      text-transform: uppercase; margin-bottom: 10px; font-weight: 600;
+    }
+    .watch-dash-sevbar {
+      display: flex; height: 12px; border-radius: 6px; overflow: hidden;
+      background: var(--bg-tile); border: 1px solid var(--border);
+    }
+    .watch-dash-seg { height: 100%; }
+    .watch-dash-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; }
+    .watch-dash-legitem { font-size: 11px; color: var(--text-secondary); display: inline-flex; align-items: center; }
+    .watch-dash-legitem .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+    .watch-dash-sevempty { font-size: 12px; color: var(--text-tertiary); padding: 10px 0; }
+    .watch-dash-trend { display: flex; gap: 8px; align-items: flex-start; }
+    .watch-dash-yaxis {
+      display: flex; flex-direction: column; justify-content: space-between;
+      height: 120px; font-size: 10px; color: var(--text-tertiary);
+    }
+    .watch-dash-plotcol { flex: 1; min-width: 0; }
+    .watch-dash-bars {
+      display: flex; align-items: flex-end; gap: 8px; height: 120px;
+      border-left: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 0 4px;
+    }
+    .watch-dash-bar {
+      flex: 1; max-width: 38px; min-height: 2px;
+      background: var(--warn); border-radius: 3px 3px 0 0; transition: height 0.2s;
+    }
+    .watch-dash-xlabels { display: flex; gap: 8px; padding: 6px 4px 0; }
+    .watch-dash-xlabel { flex: 1; max-width: 38px; text-align: center; font-size: 9px; color: var(--text-tertiary); white-space: nowrap; }
   </style>
 </head>
 <body>
@@ -1100,7 +1144,7 @@
     // Ghost Watcher state
     let watchCommits = [];          // unified merged commit entries (newest first)
     let watchLoaded = false;        // true once we've attempted fetch
-    let watchTab = 'commits';       // 'commits' | 'findings' | 'prompts'
+    let watchTab = 'dashboard';     // 'dashboard' | 'commits' | 'findings' | 'prompts'
     let watchExpanded = new Set();  // short commit hashes expanded in the Commits tab
     let watchPromptRegistry = {};   // copy-key -> prompt text, rebuilt each render
     let watchDateFilter = 'all';    // 'today' | '7d' | '30d' | '90d' | 'all'
@@ -1341,6 +1385,7 @@
                       e.stateFindings     = Array.isArray(s.findings) ? s.findings : e.stateFindings;
                       e.stateFindingCount = typeof s.findingCount === 'number' ? s.findingCount : e.stateFindingCount;
                       e.statePromptCount  = typeof s.prompts === 'number' ? s.prompts : e.statePromptCount;
+                      e.stateTokenUsage   = s.tokenUsage || e.stateTokenUsage || null;
                     } catch (_) { /* skip bad state file */ }
                   }));
               }
@@ -1382,6 +1427,7 @@
                             e.scanFindingCount = typeof s.findingCount === 'number' ? s.findingCount : e.scanFindingCount;
                             e.brief            = s.brief || e.brief || null;
                             e.briefPromptCount = typeof s.briefPromptCount === 'number' ? s.briefPromptCount : e.briefPromptCount;
+                            e.scanTokenUsage   = s.tokenUsage || e.scanTokenUsage || null;
                           } catch (_) { /* skip bad scan file */ }
                         }));
 
@@ -1438,6 +1484,7 @@
             brief:            e.brief || null,
             briefPromptCount: e.briefPromptCount != null ? e.briefPromptCount
               : e.statePromptCount != null ? e.statePromptCount : 0,
+            tokenUsage:       e.scanTokenUsage || e.stateTokenUsage || null,
           };
         }).sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
       } catch (_) {
@@ -1520,6 +1567,9 @@
 
       container.innerHTML = statsHtml + `
         <div class="view-tabs brief-tabs">
+          <button class="view-tab ${watchTab === 'dashboard' ? 'active' : ''}" onclick="switchWatchTab('dashboard')">
+            Dashboard
+          </button>
           <button class="view-tab ${watchTab === 'commits' ? 'active' : ''}" onclick="switchWatchTab('commits')">
             Commits<span class="view-tab-count">${filtered.length}</span>
           </button>
@@ -1567,6 +1617,11 @@
       watchPromptRegistry = {};
 
       const commits = getFilteredWatchCommits();
+
+      if (watchTab === 'dashboard') {
+        container.innerHTML = renderWatchDashboard(commits);
+        return;
+      }
 
       if (watchTab === 'commits') {
         if (!commits.length) {
@@ -1620,6 +1675,142 @@
         const cards = allPrompts.map((p, idx) => renderWatchPromptCard(p, `wpp-${idx}`)).join('');
         container.innerHTML = `<div class="brief-prompt-list">${cards}</div>`;
       }
+    }
+
+    // Dashboard sub-tab — aggregate overview of the date-filtered commit set:
+    // headline cards, token/cost rollup, severity distribution bar, and a
+    // sparkline-style findings trend. Every number reads the already-filtered
+    // `commits` array, so the date pills scope the whole view.
+    function renderWatchDashboard(commits) {
+      if (!commits.length) {
+        return `<div class="brief-no-data">No commits${watchDateFilter === 'all' ? ' scanned yet' : ' in the selected date range'}.</div>`;
+      }
+
+      const commitCount  = commits.length;
+      const findingTotal = commits.reduce((n, c) => n + (c.findingCount || 0), 0);
+      const promptTotal  = commits.reduce((n, c) => n + (c.brief?.prompts?.length || c.briefPromptCount || 0), 0);
+      const pendingCount = commits.filter(c => c.status === 'pending').length;
+      const scanned      = commits.filter(c => c.status !== 'pending').length;
+      const cleanCount   = commits.filter(c => c.status !== 'pending' && (c.findingCount || 0) === 0).length;
+      const cleanRate    = scanned ? Math.round((cleanCount / scanned) * 100) : 0;
+
+      // Token + cost rollup. Commits predating token telemetry carry a null
+      // tokenUsage and contribute 0.
+      let inTok = 0, outTok = 0, cost = 0;
+      commits.forEach(c => {
+        const t = c.tokenUsage;
+        if (!t) return;
+        inTok  += t.inputTokens  || 0;
+        outTok += t.outputTokens || 0;
+        cost   += t.estimatedCostUsd || 0;
+      });
+
+      const sev = { critical: 0, high: 0, medium: 0, low: 0 };
+      commits.forEach(c => {
+        const s = c.severity || {};
+        sev.critical += s.critical || 0;
+        sev.high     += s.high     || 0;
+        sev.medium   += s.medium   || 0;
+        sev.low      += s.low      || 0;
+      });
+      const sevTotal = sev.critical + sev.high + sev.medium + sev.low;
+
+      const fmtNum = (n) => n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1) + 'k' : String(n);
+
+      const cards = [
+        { lbl: 'Commits',       val: String(commitCount) },
+        { lbl: 'Findings',      val: String(findingTotal) },
+        { lbl: 'Prompts',       val: String(promptTotal) },
+        { lbl: 'Clean Rate',    val: cleanRate + '<small>%</small>' },
+        { lbl: 'Analyzing',     val: String(pendingCount) },
+        { lbl: 'Input Tokens',  val: fmtNum(inTok) },
+        { lbl: 'Output Tokens', val: fmtNum(outTok) },
+        { lbl: 'Est. Cost',     val: `<span style="color:var(--good);">$${cost.toFixed(2)}</span>` },
+      ].map(c => `
+        <div class="watch-dash-card">
+          <div class="lbl">${c.lbl}</div>
+          <div class="val">${c.val}</div>
+        </div>`).join('');
+
+      const sevColors = { critical: '#ff5555', high: '#ff9040', medium: '#ffb030', low: '#5aa8ba' };
+      let sevBar;
+      if (!sevTotal) {
+        sevBar = `<div class="watch-dash-sevempty">No findings across these commits. All clean.</div>`;
+      } else {
+        const segs = ['critical','high','medium','low'].map(k => {
+          const n = sev[k];
+          if (!n) return '';
+          return `<div class="watch-dash-seg" style="width:${(n / sevTotal) * 100}%;background:${sevColors[k]};" title="${n} ${k}"></div>`;
+        }).join('');
+        const legend = ['critical','high','medium','low'].map(k => {
+          if (!sev[k]) return '';
+          return `<span class="watch-dash-legitem"><span class="dot" style="background:${sevColors[k]};"></span>${sev[k]} ${k.charAt(0).toUpperCase()+k.slice(1)}</span>`;
+        }).join('');
+        sevBar = `<div class="watch-dash-sevbar">${segs}</div><div class="watch-dash-legend">${legend}</div>`;
+      }
+
+      return `
+        <div class="watch-dash-grid">${cards}</div>
+        <div class="watch-dash-section">
+          <div class="watch-dash-title">Severity Distribution</div>
+          ${sevBar}
+        </div>
+        <div class="watch-dash-section">
+          <div class="watch-dash-title">Findings Trend</div>
+          ${renderWatchTrend(commits)}
+        </div>`;
+    }
+
+    // Monday-start week bucket for an ISO-week sparkline.
+    function isoWeekStart(d) {
+      const dt = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+      const dow = (dt.getDay() + 6) % 7;   // Mon=0 .. Sun=6
+      dt.setDate(dt.getDate() - dow);
+      return dt;
+    }
+    // Sparkline-style findings trend. Daily buckets for short windows
+    // (Today / 7D), ISO-week buckets otherwise. Keeps the most recent 12.
+    function renderWatchTrend(commits) {
+      const daily = watchDateFilter === 'today' || watchDateFilter === '7d';
+      const buckets = new Map();   // bucketTime -> { start: Date, findings: number }
+      commits.forEach(c => {
+        if (!c.timestamp) return;
+        const t = new Date(c.timestamp);
+        if (!Number.isFinite(t.getTime())) return;
+        const start = daily
+          ? new Date(t.getFullYear(), t.getMonth(), t.getDate())
+          : isoWeekStart(t);
+        const key = start.getTime();
+        if (!buckets.has(key)) buckets.set(key, { start, findings: 0 });
+        buckets.get(key).findings += (c.findingCount || 0);
+      });
+
+      let rows = Array.from(buckets.values()).sort((a, b) => a.start - b.start);
+      if (rows.length > 12) rows = rows.slice(rows.length - 12);
+
+      const withData = rows.filter(r => r.findings > 0).length;
+      if (rows.length < 2 || withData < 2) {
+        return `<div class="watch-dash-sevempty">No trend data</div>`;
+      }
+
+      const max = rows.reduce((m, r) => Math.max(m, r.findings), 0) || 1;
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const bars = rows.map(r => {
+        const h = Math.max(2, Math.round((r.findings / max) * 100));
+        return `<div class="watch-dash-bar" style="height:${h}%;" title="${r.findings} finding${r.findings !== 1 ? 's' : ''}"></div>`;
+      }).join('');
+      const labels = rows.map(r =>
+        `<div class="watch-dash-xlabel">${months[r.start.getMonth()]} ${r.start.getDate()}</div>`
+      ).join('');
+
+      return `
+        <div class="watch-dash-trend">
+          <div class="watch-dash-yaxis"><span>${max}</span><span>0</span></div>
+          <div class="watch-dash-plotcol">
+            <div class="watch-dash-bars">${bars}</div>
+            <div class="watch-dash-xlabels">${labels}</div>
+          </div>
+        </div>`;
     }
 
     // Commit row — our card design with pending pulse, Clean chip, severity
