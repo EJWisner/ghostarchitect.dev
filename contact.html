@@ -146,13 +146,24 @@
     </div>
 
     <div class="field">
+      <label for="cf-type">Type of inquiry <span class="req">*</span></label>
+      <select id="cf-type" name="type" required>
+        <option value="" disabled selected>Select a type</option>
+        <option value="Pre-sales Question">Pre-sales Question</option>
+        <option value="Technical Support">Technical Support</option>
+        <option value="Billing">Billing</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="field">
       <label for="cf-subject">Subject <span class="req">*</span></label>
       <input type="text" id="cf-subject" name="subject" required />
     </div>
 
-    <div class="field">
+    <div class="field" id="cf-version-field" style="display:none;">
       <label for="cf-version">Version <span class="req">*</span></label>
-      <select id="cf-version" name="version" required>
+      <select id="cf-version" name="version">
         <option value="" disabled selected>Select a version</option>
         <option value="9.3.5">9.3.5</option>
         <option value="9.3.4">9.3.4</option>
@@ -164,9 +175,9 @@
       </select>
     </div>
 
-    <div class="field">
+    <div class="field" id="cf-tier-field" style="display:none;">
       <label for="cf-tier">Tier <span class="req">*</span></label>
-      <select id="cf-tier" name="tier" required>
+      <select id="cf-tier" name="tier">
         <option value="" disabled selected>Select a tier</option>
         <option value="Open">Open</option>
         <option value="Pro">Pro</option>
@@ -211,8 +222,31 @@
   (function () {
     var btn = document.getElementById('cf-submit');
     var msg = document.getElementById('cf-msg');
+    var typeEl = document.getElementById('cf-type');
+    var versionField = document.getElementById('cf-version-field');
+    var tierField = document.getElementById('cf-tier-field');
+    var versionEl = document.getElementById('cf-version');
+    var tierEl = document.getElementById('cf-tier');
     var SUCCESS = "Your message was sent. We typically respond within 1 business day.";
     var ERROR = "Something went wrong. Please email support@ghostarchitect.dev directly.";
+
+    // Version + Tier are only relevant for Technical Support requests.
+    // Show and require them only for that type; hide and un-require otherwise.
+    function syncConditionalFields() {
+      var isTech = typeEl.value === 'Technical Support';
+      versionField.style.display = isTech ? '' : 'none';
+      tierField.style.display = isTech ? '' : 'none';
+      if (isTech) {
+        versionEl.setAttribute('required', '');
+        tierEl.setAttribute('required', '');
+      } else {
+        versionEl.removeAttribute('required');
+        tierEl.removeAttribute('required');
+      }
+    }
+
+    typeEl.addEventListener('change', syncConditionalFields);
+    syncConditionalFields();
 
     function showMsg(kind, text) {
       msg.className = 'form-msg ' + kind;
@@ -229,13 +263,19 @@
 
       var name = document.getElementById('cf-name');
       var email = document.getElementById('cf-email');
+      var type = typeEl;
       var subject = document.getElementById('cf-subject');
-      var version = document.getElementById('cf-version');
-      var tier = document.getElementById('cf-tier');
+      var version = versionEl;
+      var tier = tierEl;
       var message = document.getElementById('cf-message');
       var honeypot = document.getElementById('cf-website');
 
-      var fields = [name, email, subject, version, tier, message];
+      var techVisible = type.value === 'Technical Support';
+
+      // Always-required fields, plus Version + Tier only when visible.
+      var fields = [name, email, type, subject];
+      if (techVisible) { fields.push(version, tier); }
+      fields.push(message);
       for (var i = 0; i < fields.length; i++) {
         if (!fields[i].value || !fields[i].checkValidity()) {
           fields[i].focus();
@@ -247,9 +287,10 @@
       var payload = {
         name: name.value.trim(),
         email: email.value.trim(),
+        type: type.value,
         subject: subject.value.trim(),
-        version: version.value,
-        tier: tier.value,
+        version: techVisible ? version.value : 'N/A',
+        tier: techVisible ? tier.value : 'N/A',
         message: message.value.trim(),
         honeypot: honeypot.value
       };
@@ -271,11 +312,13 @@
           showMsg('success', SUCCESS);
           name.value = '';
           email.value = '';
+          type.selectedIndex = 0;
           subject.value = '';
           version.selectedIndex = 0;
           tier.selectedIndex = 0;
           message.value = '';
           honeypot.value = '';
+          syncConditionalFields();
           btn.textContent = originalLabel;
           // leave button disabled after a successful send
         })
