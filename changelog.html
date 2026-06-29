@@ -374,21 +374,41 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.2 <span class="version-date">June 29, 2026</span></span>
+      <span class="install-version">v9.4.3 <span class="version-date">June 29, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.2                                                          -->
+<!-- v9.4.3                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.2</span>
+      <span class="release-version">v9.4.3</span>
       <span class="release-date">June 29, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Findings you marked @ghost-verified no longer generate Ghost Brief&trade; prompts.</h2>
+    <p class="release-lede">A finding marked <strong>@ghost-verified</strong> was already kept out of the PR comment and scan file, but Ghost Brief&trade; still generated a remediation prompt for it. Ghost Brief&trade; and its detailed-prompt step now build from the active finding set only, so verified findings are excluded end to end. Internal hardening also makes the Ghost Brief&trade; tier gate impossible to drift, and adds the agent-loop error contract to the CI test suite.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Fix: @ghost-verified findings are now excluded from Ghost Brief&trade; and detailed prompt generation, not just the PR comment and scan file</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Change: the Ghost Brief&trade; tier gate now derives from the tier policy via a shared allowedTiers() helper, so it can no longer drift from the source of truth</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Change: the agent-loop API-error test is now part of the CI test suite, covering the loop result contract on every run</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.2                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.2</span>
+      <span class="release-date">June 29, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher&trade; CI runs no longer cut off on large codebases.</h2>
