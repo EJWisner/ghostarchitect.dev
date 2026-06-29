@@ -1031,6 +1031,7 @@
     }
     .watch-dash-xlabels { display: flex; gap: 8px; padding: 6px 4px 0; }
     .watch-dash-xlabel { flex: 1; max-width: 38px; text-align: center; font-size: 9px; color: var(--text-tertiary); white-space: nowrap; }
+    .watch-dash-trendnote { font-size: 11px; color: var(--text-tertiary); padding: 8px 0 0; }
   </style>
 </head>
 <body>
@@ -1788,9 +1789,8 @@
       let rows = Array.from(buckets.values()).sort((a, b) => a.start - b.start);
       if (rows.length > 12) rows = rows.slice(rows.length - 12);
 
-      const withData = rows.filter(r => r.findings > 0).length;
-      if (rows.length < 2 || withData < 2) {
-        return `<div class="watch-dash-sevempty">No trend data</div>`;
+      if (rows.length === 0) {
+        return `<div class="watch-dash-sevempty">No commits in this date range</div>`;
       }
 
       const max = rows.reduce((m, r) => Math.max(m, r.findings), 0) || 1;
@@ -1803,6 +1803,10 @@
         `<div class="watch-dash-xlabel">${months[r.start.getMonth()]} ${r.start.getDate()}</div>`
       ).join('');
 
+      const note = rows.length === 1
+        ? `<div class="watch-dash-trendnote">Trend builds as more commits are scanned.</div>`
+        : '';
+
       return `
         <div class="watch-dash-trend">
           <div class="watch-dash-yaxis"><span>${max}</span><span>0</span></div>
@@ -1810,7 +1814,7 @@
             <div class="watch-dash-bars">${bars}</div>
             <div class="watch-dash-xlabels">${labels}</div>
           </div>
-        </div>`;
+        </div>${note}`;
     }
 
     // Commit row — our card design with pending pulse, Clean chip, severity
