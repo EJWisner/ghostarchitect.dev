@@ -374,21 +374,41 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.0 <span class="version-date">June 29, 2026</span></span>
+      <span class="install-version">v9.4.1 <span class="version-date">June 29, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.0                                                          -->
+<!-- v9.4.1                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.0</span>
+      <span class="release-version">v9.4.1</span>
       <span class="release-date">June 29, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Brief&trade; and Executive Brief gating corrected to Max-only everywhere.</h2>
+    <p class="release-lede">The interactive menu and <strong>ghost --brief</strong> command wrongly let non-Max Team and Enterprise users generate a Ghost Brief&trade;, even though Ghost Watcher&trade; and the docs restrict it to the Max tiers. Both gates now use a single shared Max-tier constant, so Ghost Brief&trade; and Executive Brief are consistently available on Pro Max, Team Max, and Enterprise Max only.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Fix: Ghost Brief&trade; interactive menu and ghost --brief now gate to Max tiers (pro-max, team-max, enterprise-max), matching the tier policy and Ghost Watcher&trade;</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Fix: Executive Brief shared the same incorrect gate and is now correctly Max-only as well</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Change: two divergent tier arrays replaced with one shared MAX_TIERS constant so the gate cannot drift again</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.0                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.0</span>
+      <span class="release-date">June 29, 2026</span>
       <span class="release-badge" style="background:rgba(74,222,128,0.15);color:#4ade80;border-color:rgba(74,222,128,0.3);">FEATURE</span>
     </div>
     <h2 class="release-headline">Mark false positives with @ghost-verified; Ghost Watcher&trade; keeps real findings clean.</h2>
