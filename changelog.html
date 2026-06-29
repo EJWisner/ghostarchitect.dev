@@ -374,21 +374,61 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.3.8 <span class="version-date">June 29, 2026</span></span>
+      <span class="install-version">v9.4.0 <span class="version-date">June 29, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.3.8                                                          -->
+<!-- v9.4.0                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.3.8</span>
+      <span class="release-version">v9.4.0</span>
       <span class="release-date">June 29, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,222,128,0.15);color:#4ade80;border-color:rgba(74,222,128,0.3);">FEATURE</span>
+    </div>
+    <h2 class="release-headline">Mark false positives with @ghost-verified; Ghost Watcher&trade; keeps real findings clean.</h2>
+    <p class="release-lede">Developers can mark a reviewed-and-accepted finding by dropping a <strong>@ghost-verified</strong> comment in the source file, with an optional reason. Ghost Watcher&trade; segregates those findings into a Reviewed &middot; Expected Behavior section of the PR comment and scan file, so real findings stay front and center and accepted ones stop nagging on every commit.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Add: @ghost-verified annotation system. Mark a finding's file with @ghost-verified (optionally @ghost-verified: reason) to flag it as reviewed and expected</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Add: Ghost Watcher&trade; segregates verified findings into a Reviewed &middot; Expected Behavior section in PR comments, keeping the active findings list clean</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Add: verified findings are retained under a verifiedFindings key in the scan file, so suppression stays auditable and reversible</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Detail: file-level scope, a finding is verified when any of its files carries the marker; detection uses indexOf scanning and is immune to catastrophic regex backtracking</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.9                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.9</span>
+      <span class="release-date">June 29, 2026</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Max-tier licenses now activate from the CLI.</h2>
+    <p class="release-lede">Pro Max, Team Max, and Enterprise Max license keys now activate correctly via <strong>ghost --activate</strong>. The license parser and token validator previously did not recognize the Max-tier key codes, so activation failed before reaching the server.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Fix: CLI license parser recognizes the Pro Max, Team Max, and Enterprise Max key codes; activation no longer fails on a Max-tier key</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Fix: token validator accepts pro-max, team-max, and enterprise-max so the signed activation token passes local verification</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.8                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.8</span>
+      <span class="release-date">June 29, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Brief™ is now Max-tier only; Ghost Watcher™ gains opt-in conflict verification.</h2>
