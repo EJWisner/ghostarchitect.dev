@@ -24,7 +24,7 @@
   // Which dropdown group is currently active?
   var activeGroup = null;
   if (path.indexOf('for-agency-owners') !== -1 || path.indexOf('for-agency-teams') !== -1) activeGroup = 'solutions';
-  else if (path.indexOf('inheritance-audit') !== -1 || path.indexOf('prompt-triage') !== -1 || path.indexOf('audit') !== -1 || path.indexOf('ghost-partner') !== -1 || path.indexOf('ghost-brief') !== -1 || path.indexOf('ghost-watcher') !== -1 || path.indexOf('ghost-triple-crown') !== -1) activeGroup = 'modes';
+  else if (path.indexOf('inheritance-audit') !== -1 || path.indexOf('prompt-triage') !== -1 || path.indexOf('audit') !== -1 || path.indexOf('ghost-partner') !== -1 || path.indexOf('ghost-brief') !== -1 || path.indexOf('ghost-watcher') !== -1 || path.indexOf('ghost-triple-crown') !== -1 || path.indexOf('triple-crown-process') !== -1) activeGroup = 'modes';
   else if (path.indexOf('blog') !== -1 || path.indexOf('faq') !== -1 || path.indexOf('support') !== -1 || path.indexOf('security') !== -1 || path.indexOf('changelog') !== -1) activeGroup = 'resources';
 
   var navHtml = ''
@@ -57,11 +57,15 @@
     + '        </a>'
     + '        <a href="/prompt-triage.html" class="ga-dropdown-item' + (isActive('/prompt-triage.html') ? ' active' : '') + '">'
     + '          <div class="title">Prompt Triage</div>'
-    + '          <div class="desc">Audit AI prompts as production code. 15 detectors, academic taxonomy.</div>'
+    + '          <div class="desc">Audit AI prompts as production code. 16 detectors, academic taxonomy.</div>'
     + '        </a>'
     + '        <a href="/#what-it-does" class="ga-dropdown-item">'
     + '          <div class="title">All 8 Scan Modes</div>'
     + '          <div class="desc">POI, Blast Radius, Conflict, Recon, Chat, Compare, Dashboard, Audit.</div>'
+    + '        </a>'
+    + '        <a href="/triple-crown-process.html" class="ga-dropdown-item' + (isActive('/triple-crown-process.html') ? ' active' : '') + '">'
+    + '          <div class="title">📋 Triple Crown Process</div>'
+    + '          <div class="desc">The three-party review system. Case study.</div>'
     + '        </a>'
     + '        <a href="/ghost-brief.html" class="ga-dropdown-item' + (isActive('/ghost-brief.html') ? ' active' : '') + '">'
     + '          <div class="title">Ghost Brief&trade; <span class="pill brief">NEW</span></div>'
@@ -173,6 +177,7 @@
     + '      <a href="/inheritance-audit.html"' + (isActive('/inheritance-audit.html') ? ' class="active"' : '') + '>Inheritance Audit <span class="pill">FLAGSHIP</span></a>'
     + '      <a href="/prompt-triage.html"' + (isActive('/prompt-triage.html') ? ' class="active"' : '') + '>Prompt Triage</a>'
     + '      <a href="/#what-it-does">All 8 Scan Modes</a>'
+    + '      <a href="/triple-crown-process.html"' + (isActive('/triple-crown-process.html') ? ' class="active"' : '') + '>📋 Triple Crown Process</a>'
     + '      <a href="/ghost-brief.html"' + (isActive('/ghost-brief.html') ? ' class="active"' : '') + '>Ghost Brief&trade; <span class="pill brief">NEW</span></a>'
     + '      <a href="/audit.html"' + (isActive('/audit.html') ? ' class="active"' : '') + '>Done-For-You Audit</a>'
     + '      <a href="/#ghost-partner">Ghost Partner&trade;</a>'

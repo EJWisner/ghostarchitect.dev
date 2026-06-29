@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="The Ghost Triple Crown™ Process is a three-party review system where a Reviewer AI, an Executor AI, and a human Founder gate every change before it ships. Three votes. Nothing ships until all three agree.">
+  <meta property="og:title" content="The Ghost Triple Crown™ Process -- How One Founder Shipped Three Releases in a Weekend">
+  <meta property="og:description" content="The Ghost Triple Crown™ Process is a three-party review system where a Reviewer AI, an Executor AI, and a human Founder gate every change before it ships. Three votes. Nothing ships until all three agree.">
+  <meta property="og:image" content="/og-image.png">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ghostarchitect.dev/triple-crown-process">
+  <meta property="og:site_name" content="Ghost Architect™">
+  <link rel="canonical" href="https://ghostarchitect.dev/triple-crown-process">
+  <title>The Ghost Triple Crown™ Process -- How One Founder Shipped Three Releases in a Weekend · Ghost Architect™</title>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
+  <style>
+    :root {
+      --bg: #050a14;
+      --surface: #0a1020;
+      --border: #1a2540;
+      --orange: #e07340;
+      --cyan: #00bfd8;
+      --text-primary: #e8eaf0;
+      --text-secondary: #8892a4;
+      --text-tertiary: #4b5563;
+      --good: #22c55e;
+      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    .article-wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      margin-bottom: 40px;
+    }
+    .back-link:hover { color: var(--cyan); }
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .article-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 3px;
+      background: rgba(0,191,216,0.12);
+      color: var(--cyan);
+      border: 1px solid rgba(0,191,216,0.3);
+    }
+    .article-tag.new {
+      background: linear-gradient(135deg, var(--cyan), #00d4aa);
+      color: #000;
+      border: none;
+    }
+    .article-tag.watcher {
+      background: rgba(0,191,216,0.12);
+      color: var(--cyan);
+      border: 1px solid rgba(0,191,216,0.3);
+    }
+    .article-date {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.06em;
+    }
+    .article-read {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    .article-author {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    h1 {
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .lede {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 36px;
+    }
+    .article-body h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+      margin: 44px 0 16px;
+      padding-top: 8px;
+    }
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 0.02em;
+      margin: 32px 0 12px;
+    }
+    .article-body p {
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+    }
+    .article-body strong { color: var(--text-primary); font-weight: 600; }
+    .article-body code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: var(--cyan);
+    }
+    .article-body pre {
+      background: #0a0d12;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+    .article-body pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+    .article-body ul, .article-body ol {
+      color: var(--text-secondary);
+      padding-left: 24px;
+      margin-bottom: 18px;
+    }
+    .article-body li { margin-bottom: 8px; }
+    .article-body li strong { color: var(--text-primary); }
+    .callout {
+      background: rgba(0,191,216,0.06);
+      border: 1px solid rgba(0,191,216,0.25);
+      border-left: 3px solid var(--cyan);
+      border-radius: 6px;
+      padding: 18px 20px;
+      margin: 28px 0;
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    .callout strong { color: var(--cyan); }
+    .callout.cyan {
+      background: rgba(0,191,216,0.06);
+      border-color: rgba(0,191,216,0.25);
+      border-left-color: var(--cyan);
+    }
+    .callout.cyan strong { color: var(--cyan); }
+    .loop-step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+    .loop-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0,191,216,0.15);
+      border: 1px solid rgba(0,191,216,0.3);
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .loop-content strong { color: var(--text-primary); display: block; margin-bottom: 4px; }
+    .loop-content p { color: var(--text-secondary); font-size: 14px; margin: 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+    th {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-primary);
+      font-weight: 600;
+      padding: 10px 14px;
+      text-align: left;
+      border: 1px solid var(--border);
+      letter-spacing: 0.04em;
+    }
+    td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    td code { font-size: 12px; }
+    .cta-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 32px;
+      margin: 40px 0;
+      text-align: center;
+    }
+    .cta-block h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .cta-block p {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      font-size: 15px;
+    }
+    .cta-link {
+      display: inline-block;
+      background: var(--cyan);
+      color: #000;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .article-footer {
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .article-footer-logo { font-size: 13px; color: var(--text-tertiary); }
+    .article-footer-logo a { color: var(--cyan); text-decoration: none; }
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.06em;
+    }
+    .site-footer a { color: var(--text-tertiary); text-decoration: none; }
+    @media (max-width: 640px) {
+      .article-wrap { padding: 32px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="ga-nav-mount"></div>
+
+<div class="article-wrap">
+  <a href="/blog.html" class="back-link">← All posts</a>
+
+  <div class="article-meta">
+    <span class="article-tag new">Case Study</span>
+    <span class="article-tag watcher">Ghost Triple Crown™</span>
+    <span class="article-tag">v9.3.5</span>
+    <span class="article-date">June 28, 2026</span>
+    <span class="article-read">8 min read</span>
+    <span class="article-author">By Ernst J. Wisner</span>
+  </div>
+
+  <h1>The Ghost Triple Crown™ Process</h1>
+
+  <p class="lede">A three-party review system where nothing ships until a Reviewer, an Executor, and a Founder all agree. Built by one solo founder over one weekend. Three npm releases. Zero engineers.</p>
+
+  <div class="article-body">
+
+    <h2>The Problem With Solo AI Development</h2>
+
+    <p>Most developers using AI tools are doing one of two things. Vibe coding -- paste a problem in, take whatever comes back, ship it when it looks fine. Or AI-assisted coding -- Copilot or Cursor suggesting completions while they type.</p>
+
+    <p>Both approaches share the same flaw. One pass. One perspective. No check on whether the AI actually did what was intended, introduced a security hole, or broke something three files away.</p>
+
+    <p>The Ghost Triple Crown™ Process was built to solve that. Not with more AI. With structure.</p>
+
+    <h2>The Four Roles</h2>
+
+    <div class="loop-step">
+      <div class="loop-num">1</div>
+      <div class="loop-content">
+        <strong>Reviewer</strong>
+        <p>Analyzes the problem, designs the solution, writes the precise prompt. Reads every output before it moves forward. Accepts or declines results. Never touches the code directly.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">2</div>
+      <div class="loop-content">
+        <strong>Executor</strong>
+        <p>Takes the Reviewer's analysis, refines it into an actionable approach, reports results back. The communication layer between design and implementation.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">3</div>
+      <div class="loop-content">
+        <strong>Claude Code</strong>
+        <p>Gets the Reviewer's final approved prompt. Reads files, applies changes, runs tests, pushes commits. Reports results back to the Executor.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">4</div>
+      <div class="loop-content">
+        <strong>Founder</strong>
+        <p>The human gate at every transition. Approves before the Executor refines. Approves before Claude Code implements. Reviews results before the Reviewer accepts or declines. Nothing ships without two Founder approvals.</p>
+      </div>
+    </div>
+
+    <h2>The Flow</h2>
+
+    <p>The process runs the same way on every change, every time.</p>
+
+    <div class="loop-step">
+      <div class="loop-num">1</div>
+      <div class="loop-content">
+        <strong>Reviewer drafts</strong>
+        <p>Analyzes the problem, proposes a solution, writes the approach.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">2</div>
+      <div class="loop-content">
+        <strong>Founder approves</strong>
+        <p>Reads the Reviewer's analysis. Questions it if something feels wrong. Approves or sends back.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">3</div>
+      <div class="loop-content">
+        <strong>Executor refines</strong>
+        <p>Takes the approved analysis, sharpens it into a precise implementation prompt.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">4</div>
+      <div class="loop-content">
+        <strong>Founder approves again</strong>
+        <p>Reads the refined prompt before anything is executed.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">5</div>
+      <div class="loop-content">
+        <strong>Reviewer writes the Claude Code prompt</strong>
+        <p>Final architectural review. Writes the exact prompt Claude Code will execute.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">6</div>
+      <div class="loop-content">
+        <strong>Founder approves the prompt</strong>
+        <p>One more gate before code runs.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">7</div>
+      <div class="loop-content">
+        <strong>Claude Code implements</strong>
+        <p>Reads files, applies changes, runs tests, reports results.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">8</div>
+      <div class="loop-content">
+        <strong>Executor reports</strong>
+        <p>Surfaces what Claude Code did, flags anything unexpected.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">9</div>
+      <div class="loop-content">
+        <strong>Founder reviews results</strong>
+        <p>Reads the output before passing to the Reviewer.</p>
+      </div>
+    </div>
+
+    <div class="loop-step">
+      <div class="loop-num">10</div>
+      <div class="loop-content">
+        <strong>Reviewer accepts or declines</strong>
+        <p>If accepted, Founder approves the push. If declined, back to Step 1.</p>
+      </div>
+    </div>
+
+    <h2>The Weekend That Proved It</h2>
+
+    <p>On Saturday June 28 2026, this process shipped three npm releases of Ghost Architect™ in two days.</p>
+
+    <div class="callout">
+      47 commits. 14 test suites. Three npm releases. HTML escaping across six security surfaces. LLM-authored remediation prompts for every finding. A date range filter in Ghost Portal. Zero engineers. One founder. Two AI windows.
+    </div>
+
+    <p>Every change went through the full flow. Reviewer drafted. Founder approved. Executor refined. Founder approved. Reviewer wrote the Claude Code prompt. Founder approved. Claude Code ran. Executor reported. Founder reviewed. Reviewer accepted. Founder approved the push.</p>
+
+    <p>Nothing shipped that didn't pass all three votes. Not one commit.</p>
+
+    <h2>Why Three Votes</h2>
+
+    <p>The Reviewer catches what the Executor misses. The Executor catches what the Reviewer over-engineers. The Founder catches what both AIs agree on but is strategically wrong.</p>
+
+    <p>No single AI has the full picture. The Reviewer doesn't execute so it never sees the edge cases that only appear when code actually runs. The Executor doesn't architect so it follows instructions without questioning whether the instructions are right. Claude Code doesn't decide so it implements whatever it's told.</p>
+
+    <p>The Founder holds the context that neither AI has -- the business constraints, the cash flow pressure, the customer conversation from this morning, the strategic direction for next quarter. That context shapes every decision.</p>
+
+    <div class="callout">
+      Three votes before anything ships. Reviewer. Executor. Founder. If any one of the three disagrees, nothing moves.
+    </div>
+
+    <h2>Ghost Watcher™ Closes the Loop</h2>
+
+    <p>Every commit pushed through the Ghost Triple Crown™ Process is automatically scanned by Ghost Watcher™. Blast Radius maps what broke. Conflict Detection finds what disagreed. Ghost Brief™ generates the remediation prompt.</p>
+
+    <p>The process that built Ghost Architect™ is validated by Ghost Architect™ on every push. The tool eats its own cooking -- on every commit, automatically, without anyone having to ask.</p>
+
+    <p>47 commits. 47 Ghost Watcher™ scans. Every change validated end to end.</p>
+
+    <div class="cta-block">
+      <h3>Run the Ghost Triple Crown™ on your next commit.</h3>
+      <p>Ghost Open is free. Ghost Team starts at $399 per month. Ghost Watcher™ runs the Ghost Triple Crown™ automatically on Team and Enterprise.</p>
+      <a href="/pricing.html" class="cta-link">See plans →</a>
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-footer-logo">
+      Published by <a href="/">Ghost Architect™</a> · ghostarchitect.dev
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  © 2026 Ghost Architect™ · EJ Wisner · <a href="/privacy.html">Privacy</a> · <a href="/support.html">Support</a> · <a href="/changelog.html">Changelog</a>
+</footer>
+
+<script src="/assets/ga-nav.js"></script>
+</body>
+</html>
