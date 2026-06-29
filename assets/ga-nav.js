@@ -116,11 +116,6 @@
     + '      <a href="/pricing" class="ga-nav-link' + (isActive('/pricing') || isActive('/pricing.html') || isActive('/plans.html') ? ' active' : '') + '">Pricing</a>'
     + '    </li>'
 
-    // ── PARTNER (flat) ──
-    + '    <li class="ga-nav-item">'
-    + '      <a href="/partner.html" class="ga-nav-link' + (isActive('/partner.html') || isActive('/partner') ? ' active' : '') + '">Refer &amp; Earn</a>'
-    + '    </li>'
-
     // ── CONTACT (flat) ──
     + '    <li class="ga-nav-item">'
     + '      <a href="/contact" class="ga-nav-link' + (isActive('/contact') || isActive('/contact.html') ? ' active' : '') + '">Contact &amp; Support</a>'
@@ -133,6 +128,10 @@
     + '        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>'
     + '      </button>'
     + '      <div class="ga-dropdown align-right" style="min-width: 240px;">'
+    + '        <a href="/partner.html" class="ga-dropdown-item' + (isActive('/partner.html') || isActive('/partner') ? ' active' : '') + '">'
+    + '          <div class="title">Refer &amp; Earn</div>'
+    + '          <div class="desc">Earn commission for every customer you send our way.</div>'
+    + '        </a>'
     + '        <a href="/security.html" class="ga-dropdown-item' + (isActive('/security.html') || isActive('/security') ? ' active' : '') + '">'
     + '          <div class="title">Security &amp; Trust</div>'
     + '          <div class="desc">How we handle your code, keys, and data.</div>'
@@ -201,7 +200,6 @@
     + '    </div>'
     + '  </div>'
     + '  <a href="/pricing" class="ga-mobile-flat-link' + (isActive('/pricing') || isActive('/pricing.html') ? ' active' : '') + '">Pricing</a>'
-    + '  <a href="/partner.html" class="ga-mobile-flat-link' + (isActive('/partner.html') || isActive('/partner') ? ' active' : '') + '">Refer &amp; Earn</a>'
     + '  <a href="/contact" class="ga-mobile-flat-link' + (isActive('/contact') || isActive('/contact.html') ? ' active' : '') + '">Contact &amp; Support</a>'
     + '  <div class="ga-mobile-group' + (activeGroup === 'resources' ? ' open' : '') + '" data-mobile-group>'
     + '    <button class="ga-mobile-group-header">'
@@ -209,6 +207,7 @@
     + '      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>'
     + '    </button>'
     + '    <div class="ga-mobile-group-items">'
+    + '      <a href="/partner.html"' + (isActive('/partner.html') || isActive('/partner') ? ' class="active"' : '') + '>Refer &amp; Earn</a>'
     + '      <a href="/security.html"' + (isActive('/security.html') || isActive('/security') ? ' class="active"' : '') + '>Security &amp; Trust</a>'
     + '      <a href="/blog.html"' + (isActive('/blog.html') ? ' class="active"' : '') + '>Blog</a>'
     + '      <a href="/changelog.html"' + (isActive('/changelog.html') || isActive('/changelog') ? ' class="active"' : '') + '>Changelog</a>'
