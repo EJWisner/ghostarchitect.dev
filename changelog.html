@@ -374,21 +374,43 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.3.7 <span class="version-date">June 29, 2026</span></span>
+      <span class="install-version">v9.3.8 <span class="version-date">June 29, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.3.7                                                          -->
+<!-- v9.3.8                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.3.7</span>
+      <span class="release-version">v9.3.8</span>
       <span class="release-date">June 29, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Brief™ is now Max-tier only; Ghost Watcher™ gains opt-in conflict verification.</h2>
+    <p class="release-lede">Ghost Brief™ is enforced as a Max-tier feature (Pro Max, Team Max, Enterprise Max). Ghost Watcher™ can optionally verify conflict findings before reporting them, dropping false positives. Plus internal refactors to the redactor and batch cost calculation.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Change: Ghost Brief™ tier gate enforced at Max tiers only (pro-max, team-max, enterprise-max); it was defined but never checked, so any tier could generate a brief</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Add: opt-in conflict_verify in Ghost Watcher™ runs the agent verifier in quick mode, keeping confirmed and possible findings and dropping false positives</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Add: detailed_prompts config key documented in ghost-watcher.yaml (default true)</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Change: redactor.js PEM replacement strings extracted to named constants; redaction output is unchanged</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Fix: buildTokenUsage derives batch rates from the estimator pricing table instead of hardcoded values</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.7                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.7</span>
+      <span class="release-date">June 29, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Max-tier context caps fixed; Ghost Watcher™ iteration limit is now opt-in.</h2>
