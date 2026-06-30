@@ -374,21 +374,40 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.6 <span class="version-date">June 30, 2026</span></span>
+      <span class="install-version">v9.4.7 <span class="version-date">June 30, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.6                                                          -->
+<!-- v9.4.7                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.6</span>
+      <span class="release-version">v9.4.7</span>
       <span class="release-date">June 30, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher reliability improvements.</h2>
+    <p class="release-lede">Two fixes to Ghost Watcher&trade;. The codebase path is now correctly passed through to the Ghost Brief&trade; instead of falling back to the working directory, and the <strong>@ghost-verified</strong> annotation is now detected only in real code comments, so a file that merely mentions the marker is no longer mistaken for a reviewed one.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Fix: codebase path now correctly passed to Ghost Brief&trade; in every scan</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Fix: @ghost-verified detection scoped to real code comments only; Python, SQL, and CSS comment styles now supported</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.6                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.6</span>
+      <span class="release-date">June 30, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher pricing cards now show API cost transparency.</h2>
