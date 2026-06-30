@@ -374,7 +374,7 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.14 <span class="version-date">June 30, 2026</span></span>
+      <span class="install-version">v9.4.15 <span class="version-date">June 30, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
@@ -386,9 +386,30 @@
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.14</span>
+      <span class="release-version">v9.4.15</span>
       <span class="release-date">June 30, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Follow-up correctness pass: Enterprise URL parsing everywhere, clearer cap warnings, and aligned docs.</h2>
+    <p class="release-lede">A small maintenance release tidying up the last loose ends from the v9.4.14 correctness work. The final naive repository-URL parser now handles GitHub Enterprise Server hosts, a context-limit warning no longer names a flag you never typed, and several in-code docs and bundled prompt snapshots were brought back in line with the actual behavior.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: the last remaining repository-URL parser now handles GitHub Enterprise Server hosts, subpaths, and SSH URLs</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the context-limit warning no longer references the --max-context flag when you did not pass one</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: removed a dead import and corrected several in-code documentation comments to match current behavior</strong></span></li>
+      <li><span class="marker">+</span><span><strong>docs: regenerated the bundled prompt snapshots so they reflect the current scan output format</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.14                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.14</span>
+      <span class="release-date">June 30, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Correctness pass: GitHub Enterprise publishing, accurate audit confidence, and safer model handling.</h2>
