@@ -1425,6 +1425,7 @@
                             e.timestamp        = e.timestamp || s.generatedAt;
                             e.scanSeverity     = s.severityCounts || e.scanSeverity || null;
                             e.scanFindings     = Array.isArray(s.findings) ? s.findings : e.scanFindings;
+                            e.verifiedFindings = Array.isArray(s.verifiedFindings) ? s.verifiedFindings : e.verifiedFindings;
                             e.scanFindingCount = typeof s.findingCount === 'number' ? s.findingCount : e.scanFindingCount;
                             e.brief            = s.brief || e.brief || null;
                             e.briefPromptCount = typeof s.briefPromptCount === 'number' ? s.briefPromptCount : e.briefPromptCount;
@@ -1481,6 +1482,7 @@
             status:           e.status || 'complete',
             severity,
             findings,
+            verifiedFindings: e.verifiedFindings || [],
             findingCount,
             brief:            e.brief || null,
             briefPromptCount: e.briefPromptCount != null ? e.briefPromptCount
@@ -1637,8 +1639,47 @@
         const allFindings = commits.flatMap(r =>
           (r.findings || []).map(f => ({ ...f, commitShort: r.commitShort, branch: r.branch }))
         );
+        // @ghost-verified findings — segregated, informational, no action.
+        // Computed BEFORE the empty-active guard so a commit whose findings are
+        // all verified still surfaces them below.
+        const verifiedFindings = commits.flatMap(r =>
+          (r.verifiedFindings || []).map(f => ({ ...f, commitShort: r.commitShort, branch: r.branch }))
+        );
+        const verifiedSection = verifiedFindings.length ? (() => {
+          const cards = verifiedFindings.map(f => {
+            const file = Array.isArray(f.files) && f.files.length ? f.files[0] : (f.file || '');
+            const reason = f.verifiedReason
+              ? `<div style="margin-top:4px;font-size:12px;color:#888;font-style:italic;line-height:1.5;">${escapeHtml(f.verifiedReason)}</div>`
+              : '';
+            return `
+              <div style="background:#161616;border-left:3px solid rgba(74,222,128,0.4);border-radius:6px;padding:10px 12px;margin-bottom:6px;">
+                <div style="font-weight:600;color:#bbb;">${escapeHtml(f.title || 'Untitled')}</div>
+                ${file ? `<div style="margin-top:4px;font-size:11px;color:#666;font-family:monospace;">${escapeHtml(file)}</div>` : ''}
+                ${reason}
+                <div style="margin-top:4px;font-size:11px;color:#555;">
+                  ${f.commitShort ? 'Commit ' + escapeHtml(f.commitShort) : ''}${f.branch ? ' · ' + escapeHtml(f.branch) : ''}
+                </div>
+              </div>`;
+          }).join('');
+          return `
+            <div style="margin-top:18px;border-top:1px solid #222;padding-top:12px;">
+              <div onclick="const b=this.parentElement.querySelector('.vf-body');const open=b.style.display!=='none';b.style.display=open?'none':'block';this.querySelector('.vf-chevron').textContent=open?'▸':'▾';" style="cursor:pointer;display:flex;align-items:center;gap:8px;color:rgba(74,222,128,0.75);font-weight:600;font-size:13px;user-select:none;">
+                <span class="vf-chevron">▸</span>
+                <span>✅ ${verifiedFindings.length} · Reviewed · Expected Behavior</span>
+              </div>
+              <div class="vf-body" style="display:none;margin-top:8px;">
+                <div style="font-size:11px;color:#666;margin-bottom:8px;">Reviewed · Expected Behavior. No action required.</div>
+                ${cards}
+              </div>
+            </div>`;
+        })() : '';
+
         if (!allFindings.length) {
-          container.innerHTML = `<div class="brief-no-data">No findings${watchDateFilter === 'all' ? ' across watched commits' : ' in the selected date range'}.</div>`;
+          if (!verifiedFindings.length) {
+            container.innerHTML = `<div class="brief-no-data">No findings${watchDateFilter === 'all' ? ' across watched commits' : ' in the selected date range'}.</div>`;
+            return;
+          }
+          container.innerHTML = `<div class="brief-no-data" style="margin-bottom:8px;">No active findings${watchDateFilter === 'all' ? ' across watched commits' : ' in the selected date range'}.</div>` + verifiedSection;
           return;
         }
         const sevOrder = { CRITICAL: 0, HIGH: 1, MEDIUM: 2, LOW: 3 };
@@ -1660,7 +1701,7 @@
             </div>
           `;
         }).join('');
-        container.innerHTML = rows;
+        container.innerHTML = rows + verifiedSection;
         return;
       }
 

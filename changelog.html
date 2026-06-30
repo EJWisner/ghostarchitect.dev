@@ -374,21 +374,59 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.3 <span class="version-date">June 29, 2026</span></span>
+      <span class="install-version">v9.4.5 <span class="version-date">June 30, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.3                                                          -->
+<!-- v9.4.5                                                          -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">v9.4.5</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,222,128,0.15);color:#4ade80;border-color:rgba(74,222,128,0.3);">FEATURE</span>
+    </div>
+    <h2 class="release-headline">Ghost Portal now shows a Reviewed &middot; Expected Behavior section for @ghost-verified findings.</h2>
+    <p class="release-lede">Findings a developer marked <strong>@ghost-verified</strong> in source are already kept out of the active list, the PR comment, and Ghost Brief&trade;. The Ghost Portal Findings tab now surfaces them in their own collapsed <strong>Reviewed &middot; Expected Behavior</strong> section below the active findings, so reviewers can see what was deliberately accepted without it cluttering the work that still needs attention.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Add: Ghost Portal Findings tab renders a collapsed Reviewed &middot; Expected Behavior section for @ghost-verified findings, with the reviewer's reason when provided</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Detail: the section appears even when every finding on a commit was verified, and reads as informational, no severity, no action required</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.4                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.4</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Trial-tier context cap made explicit; conflict-report narration temperature aligned.</h2>
+    <p class="release-lede">The trial tier now has an explicit 50K context cap (matching Open) instead of relying on a fallback, and the conflict-report narrator now generates prose at the same temperature as the rest of the report-narration family for consistent output.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Fix: trial tier has an explicit context cap (50K, matching Open), with a matching upgrade hint, locked in by a test</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Change: narrateConflictReport temperature aligned to 0.3, matching the report-narration family</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.3                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">v9.4.3</span>
       <span class="release-date">June 29, 2026</span>
-      <span class="release-badge">Latest</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Findings you marked @ghost-verified no longer generate Ghost Brief&trade; prompts.</h2>
