@@ -909,6 +909,7 @@
     .watch-row.has-low      { border-left-color: #5aa8ba; }
     .watch-row.is-clean     { border-left-color: var(--good); }
     .watch-row.is-pending   { border-left-color: var(--cyan); }
+    .watch-row.is-cancelled { border-left-color: #555; }
     .watch-row-top {
       display: flex; align-items: center; justify-content: space-between; gap: 12px;
     }
@@ -1878,19 +1879,23 @@
     function renderWatchRow(c) {
       const hash = (c.commitShort || (c.commitHash || '').slice(0, 7)) || '———';
       const isPending = c.status === 'pending';
+      const isCancelled = c.status === 'cancelled';
       const sev = c.severity || {};
       const total = c.findingCount || 0;
       const expanded = watchExpanded.has(hash);
 
       let accent = 'is-clean';
-      if (isPending) accent = 'is-pending';
+      if (isCancelled) accent = 'is-cancelled';
+      else if (isPending) accent = 'is-pending';
       else if (sev.critical > 0) accent = 'has-critical';
       else if (sev.high > 0) accent = 'has-high';
       else if (sev.medium > 0) accent = 'has-medium';
       else if (sev.low > 0) accent = 'has-low';
 
       let rightHtml;
-      if (isPending) {
+      if (isCancelled) {
+        rightHtml = `<span style="font-size:12px;color:#888;">Cancelled</span>`;
+      } else if (isPending) {
         rightHtml = `<span class="watch-pending-badge">⏳ Analyzing…</span>`;
       } else if (total === 0) {
         rightHtml = `<span class="watch-clean-chip">✓ Clean</span>`;
@@ -1941,6 +1946,9 @@
     }
 
     function renderWatchDrawer(c) {
+      if (c.status === 'cancelled') {
+        return `<div class="watch-drawer"><div class="watch-finding-detail">This Ghost Watcher™ run was cancelled before it completed. Push a new commit to trigger a fresh scan.</div></div>`;
+      }
       if (c.status === 'pending') {
         return `<div class="watch-drawer"><div class="watch-finding-detail">Ghost Watcher™ is analyzing this commit. Results will appear here automatically.</div></div>`;
       }
