@@ -374,21 +374,42 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.9 <span class="version-date">June 30, 2026</span></span>
+      <span class="install-version">v9.4.10 <span class="version-date">June 30, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.9                                                          -->
+<!-- v9.4.10                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.9</span>
+      <span class="release-version">v9.4.10</span>
       <span class="release-date">June 30, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Sharper findings: junk file references and self-cancelling conflicts filtered out.</h2>
+    <p class="release-lede">Ghost Watcher&trade; now drops noise before it reaches your report. Stray version strings and malformed file references are kept out of findings, routine release-safety report sections are no longer mistaken for issues, and conflict findings that contradict themselves are removed before they surface.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: junk file tokens (version strings, paren-contaminated paths) rejected from Files extraction</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: rollback-plan report sections no longer parsed as findings</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: self-refuting conflict findings dropped before surfacing</strong></span></li>
+      <li><span class="marker">+</span><span><strong>test: finding-parser smoke test wired into npm test chain with junk-rejection regression coverage</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.9                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.9</span>
+      <span class="release-date">June 30, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Documentation files no longer trigger false @ghost-verified findings.</h2>
