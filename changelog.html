@@ -374,21 +374,41 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.11 <span class="version-date">June 30, 2026</span></span>
+      <span class="install-version">v9.4.12 <span class="version-date">June 30, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.11                                                         -->
+<!-- v9.4.12                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.11</span>
+      <span class="release-version">v9.4.12</span>
       <span class="release-date">June 30, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Conflict Detection scales to large codebases without dropping its connection.</h2>
+    <p class="release-lede">On big repositories, Ghost Watcher&trade; used to send the entire codebase as one oversized request that constrained CI networks could drop mid-upload. It now splits the work into right-sized batches automatically, then merges every batch's findings back together. No conflicts lost, no hung scans.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: Conflict Detection splits large codebases into sub-900 KB batches to prevent CI upload drops on big repositories</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: findings from every batch are merged back together, so nothing is dropped when a scan spans multiple batches</strong></span></li>
+      <li><span class="marker">+</span><span><strong>test: conflict-chunking smoke test added and wired into the npm test chain</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.11                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.11</span>
+      <span class="release-date">June 30, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher&trade; keeps going when the network blinks, and tells you when it did.</h2>
