@@ -1062,6 +1062,7 @@
   <script>
     // ── Configuration ────────────────────────────────────────────────
     const PORTAL_SLUG = '__PORTAL_SLUG__';
+    const GITHUB_REPO = '';
     const API_BASE = 'https://signup.ghostarchitect.dev';
 
     // ── Mode descriptions (plain English, for non-technical readers) ──
@@ -1430,6 +1431,7 @@
                             e.brief            = s.brief || e.brief || null;
                             e.briefPromptCount = typeof s.briefPromptCount === 'number' ? s.briefPromptCount : e.briefPromptCount;
                             e.scanTokenUsage   = s.tokenUsage || e.scanTokenUsage || null;
+                            e.narratorFailed   = e.narratorFailed || !!s.narratorFailed;
                           } catch (_) { /* skip bad scan file */ }
                         }));
 
@@ -1488,6 +1490,7 @@
             briefPromptCount: e.briefPromptCount != null ? e.briefPromptCount
               : e.statePromptCount != null ? e.statePromptCount : 0,
             tokenUsage:       e.scanTokenUsage || e.stateTokenUsage || null,
+            narratorFailed:   !!e.narratorFailed,
           };
         }).sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
       } catch (_) {
@@ -1636,6 +1639,18 @@
       }
 
       if (watchTab === 'findings') {
+        // Degraded-run warning: surface a banner if any commit in the filtered
+        // set had its blast narrator fail and fell back to raw findings.
+        const degradedCommits = commits.filter(c => c.narratorFailed);
+        const degradedBanner = degradedCommits.length ? `
+          <div style="background:rgba(255,194,102,0.08);border:1px solid rgba(255,194,102,0.35);border-radius:8px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;">
+            <span style="font-size:18px;line-height:1;">⚠️</span>
+            <div>
+              <div style="font-weight:600;color:#ffc266;font-size:13px;">Degraded Results on ${degradedCommits.length === 1 ? '1 Commit' : degradedCommits.length + ' Commits'}</div>
+              <div style="margin-top:3px;font-size:12px;color:#a89060;line-height:1.5;">A connection interruption prevented Ghost Watcher™ from narrating the Blast Radius findings. Raw findings are shown — quality may be lower than usual.</div>
+              ${GITHUB_REPO ? `<div style="margin-top:6px;"><a href="https://github.com/${GITHUB_REPO}/actions" target="_blank" style="font-size:12px;color:#ffc266;text-decoration:none;font-weight:600;">↗ Rerun in GitHub Actions</a></div>` : `<div style="margin-top:6px;font-size:12px;color:#a89060;">Rerun the Ghost Watcher™ job in your CI to regenerate full results.</div>`}
+            </div>
+          </div>` : '';
         const allFindings = commits.flatMap(r =>
           (r.findings || []).map(f => ({ ...f, commitShort: r.commitShort, branch: r.branch }))
         );
@@ -1679,7 +1694,7 @@
             container.innerHTML = `<div class="brief-no-data">No findings${watchDateFilter === 'all' ? ' across watched commits' : ' in the selected date range'}.</div>`;
             return;
           }
-          container.innerHTML = `<div class="brief-no-data" style="margin-bottom:8px;">No active findings${watchDateFilter === 'all' ? ' across watched commits' : ' in the selected date range'}.</div>` + verifiedSection;
+          container.innerHTML = degradedBanner + `<div class="brief-no-data" style="margin-bottom:8px;">No active findings${watchDateFilter === 'all' ? ' across watched commits' : ' in the selected date range'}.</div>` + verifiedSection;
           return;
         }
         const sevOrder = { CRITICAL: 0, HIGH: 1, MEDIUM: 2, LOW: 3 };
@@ -1701,7 +1716,7 @@
             </div>
           `;
         }).join('');
-        container.innerHTML = rows + verifiedSection;
+        container.innerHTML = degradedBanner + rows + verifiedSection;
         return;
       }
 
@@ -1885,7 +1900,7 @@
           if (!n) return '';
           return `<span class="sev-chip sev-${k}"><span class="dot"></span>${n} ${k.charAt(0).toUpperCase()+k.slice(1)}</span>`;
         }).join('');
-        rightHtml = chips + `<span class="sev-chip sev-total">${total} total</span>`;
+        rightHtml = chips + `<span class="sev-chip sev-total">${total} total</span>${c.narratorFailed ? `<span style="margin-left:6px;font-size:10px;color:#ffc266;font-weight:600;vertical-align:middle;" title="Blast narrator failed — findings shown unnarrated. Quality may be lower than usual.">⚠️ degraded</span>` : ''}`;
         if (c.briefPromptCount > 0) {
           rightHtml += `<span class="sev-chip sev-total">${c.briefPromptCount} prompt${c.briefPromptCount !== 1 ? 's' : ''}</span>`;
         }

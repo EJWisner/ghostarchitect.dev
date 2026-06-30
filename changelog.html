@@ -374,21 +374,42 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.10 <span class="version-date">June 30, 2026</span></span>
+      <span class="install-version">v9.4.11 <span class="version-date">June 30, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.10                                                         -->
+<!-- v9.4.11                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.10</span>
+      <span class="release-version">v9.4.11</span>
       <span class="release-date">June 30, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher&trade; keeps going when the network blinks, and tells you when it did.</h2>
+    <p class="release-lede">A dropped connection mid-scan no longer means a degraded report in silence. Ghost Watcher&trade; now retries narration automatically, and if results still come through unnarrated, the Watch tab flags the affected commits so you know to rerun. The conflict filter also got sharper at telling real conflicts from ones the analysis talked itself out of.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: blast narrator retries once on a transient CI connection drop (90s timeout) before falling back to raw findings</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: degraded-run warning banner + rerun link in the Watch Findings tab when a commit's findings came through unnarrated</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: self-refuting conflict filter now catches more self-cancelling phrasings while keeping genuine "values match but will conflict if X changes" findings</strong></span></li>
+      <li><span class="marker">+</span><span><strong>test: self-refuting-filter smoke test (16 cases) wired into the npm test chain</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.10                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.10</span>
+      <span class="release-date">June 30, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Sharper findings: junk file references and self-cancelling conflicts filtered out.</h2>
