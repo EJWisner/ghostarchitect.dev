@@ -374,21 +374,39 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.31 <span class="version-date">July 1, 2026</span></span>
+      <span class="install-version">v9.4.32 <span class="version-date">July 1, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.31                                                         -->
+<!-- v9.4.32                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.31</span>
+      <span class="release-version">v9.4.32</span>
       <span class="release-date">July 1, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Verification annotation for the prompt-triage cost imports.</h2>
+    <p class="release-lede">A flagged import in the prompt-triage mode was reviewed and confirmed as a false positive. The four cost helpers it uses are correctly exported and imported directly from the core estimator, so the annotation records that verification in place. No behavior change.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>@ghost-verified annotation added to src/modes/prompt-triage.js import block -- confirmed false positive, all four functions (estimateMultiCallCost, formatCost, formatCostRange, calcActualCost) are correctly exported from src/core/estimator.js and imported directly; src/estimator.js barrel shim gap is latent, not live</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.31                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.31</span>
+      <span class="release-date">July 1, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher™ now tracks what you fixed.</h2>
