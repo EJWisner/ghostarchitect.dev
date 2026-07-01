@@ -1151,6 +1151,7 @@
     let watchExpanded = new Set();  // short commit hashes expanded in the Commits tab
     let watchPromptRegistry = {};   // copy-key -> prompt text, rebuilt each render
     let watchDateFilter = 'all';    // 'today' | '7d' | '30d' | '90d' | 'all'
+    let watchCommitFilter = 'all'; // 'all' or a specific commitShort value
 
     // ── Boot ─────────────────────────────────────────────────────────
     async function boot() {
@@ -1615,7 +1616,13 @@
     }
     function setWatchDateFilter(filter) {
       watchDateFilter = filter;
+      watchCommitFilter = 'all'; // reset commit filter when date range changes
       renderWatchContent();
+    }
+
+    function setWatchCommitFilter(short) {
+      watchCommitFilter = short;
+      renderWatchTab();
     }
 
     function renderWatchTab() {
@@ -1640,6 +1647,18 @@
       }
 
       if (watchTab === 'findings') {
+        // Commit filter pills — only shown when multiple commits are in range
+        const filteredForPills = getFilteredWatchCommits();
+        const commitPills = filteredForPills.length > 1 ? `
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;align-items:center;">
+            <span style="font-size:11px;color:var(--text-tertiary);margin-right:2px;">Commit:</span>
+            <button class="watch-date-pill ${watchCommitFilter === 'all' ? 'active' : ''}" onclick="setWatchCommitFilter('all')">All</button>
+            ${filteredForPills.map(c => {
+              const short = c.commitShort || (c.commitHash || '').slice(0, 7);
+              return `<button class="watch-date-pill ${watchCommitFilter === short ? 'active' : ''}" onclick="setWatchCommitFilter('${escapeHtml(short)}')">${escapeHtml(short)}</button>`;
+            }).join('')}
+          </div>` : '';
+
         // Degraded-run warning: surface a banner if any commit in the filtered
         // set had its blast narrator fail and fell back to raw findings.
         const degradedCommits = commits.filter(c => c.narratorFailed);
@@ -1652,13 +1671,16 @@
               ${GITHUB_REPO ? `<div style="margin-top:6px;"><a href="https://github.com/${GITHUB_REPO}/actions" target="_blank" style="font-size:12px;color:#ffc266;text-decoration:none;font-weight:600;">↗ Rerun in GitHub Actions</a></div>` : `<div style="margin-top:6px;font-size:12px;color:#a89060;">Rerun the Ghost Watcher™ job in your CI to regenerate full results.</div>`}
             </div>
           </div>` : '';
-        const allFindings = commits.flatMap(r =>
+        const commitsForFindings = watchCommitFilter === 'all'
+          ? commits
+          : commits.filter(c => (c.commitShort || (c.commitHash || '').slice(0, 7)) === watchCommitFilter);
+        const allFindings = commitsForFindings.flatMap(r =>
           (r.findings || []).map(f => ({ ...f, commitShort: r.commitShort, branch: r.branch }))
         );
         // @ghost-verified findings — segregated, informational, no action.
         // Computed BEFORE the empty-active guard so a commit whose findings are
         // all verified still surfaces them below.
-        const verifiedFindings = commits.flatMap(r =>
+        const verifiedFindings = commitsForFindings.flatMap(r =>
           (r.verifiedFindings || []).map(f => ({ ...f, commitShort: r.commitShort, branch: r.branch }))
         );
         const verifiedSection = verifiedFindings.length ? (() => {
@@ -1692,10 +1714,10 @@
 
         if (!allFindings.length) {
           if (!verifiedFindings.length) {
-            container.innerHTML = `<div class="brief-no-data">No findings${watchDateFilter === 'all' ? ' across watched commits' : ' in the selected date range'}.</div>`;
+            container.innerHTML = commitPills + `<div class="brief-no-data">No findings${watchDateFilter === 'all' ? ' across watched commits' : ' in the selected date range'}.</div>`;
             return;
           }
-          container.innerHTML = degradedBanner + `<div class="brief-no-data" style="margin-bottom:8px;">No active findings${watchDateFilter === 'all' ? ' across watched commits' : ' in the selected date range'}.</div>` + verifiedSection;
+          container.innerHTML = commitPills + degradedBanner + `<div class="brief-no-data" style="margin-bottom:8px;">No active findings${watchDateFilter === 'all' ? ' across watched commits' : ' in the selected date range'}.</div>` + verifiedSection;
           return;
         }
         const sevOrder = { CRITICAL: 0, HIGH: 1, MEDIUM: 2, LOW: 3 };
@@ -1717,12 +1739,27 @@
             </div>
           `;
         }).join('');
-        container.innerHTML = degradedBanner + rows + verifiedSection;
+        container.innerHTML = commitPills + degradedBanner + rows + verifiedSection;
         return;
       }
 
       if (watchTab === 'prompts') {
-        const allPrompts = commits.flatMap(r =>
+        // Commit filter pills — only shown when multiple commits are in range
+        const filteredForPills = getFilteredWatchCommits();
+        const commitPills = filteredForPills.length > 1 ? `
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;align-items:center;">
+            <span style="font-size:11px;color:var(--text-tertiary);margin-right:2px;">Commit:</span>
+            <button class="watch-date-pill ${watchCommitFilter === 'all' ? 'active' : ''}" onclick="setWatchCommitFilter('all')">All</button>
+            ${filteredForPills.map(c => {
+              const short = c.commitShort || (c.commitHash || '').slice(0, 7);
+              return `<button class="watch-date-pill ${watchCommitFilter === short ? 'active' : ''}" onclick="setWatchCommitFilter('${escapeHtml(short)}')">${escapeHtml(short)}</button>`;
+            }).join('')}
+          </div>` : '';
+
+        const commitsForPrompts = watchCommitFilter === 'all'
+          ? commits
+          : commits.filter(c => (c.commitShort || (c.commitHash || '').slice(0, 7)) === watchCommitFilter);
+        const allPrompts = commitsForPrompts.flatMap(r =>
           (r.brief?.prompts || []).map(p => ({ ...p, commitShort: r.commitShort, branch: r.branch }))
         );
         if (!allPrompts.length) {
@@ -1731,7 +1768,7 @@
         }
         allPrompts.sort((a, b) => (a.blast_score || 0) - (b.blast_score || 0));
         const cards = allPrompts.map((p, idx) => renderWatchPromptCard(p, `wpp-${idx}`)).join('');
-        container.innerHTML = `<div class="brief-prompt-list">${cards}</div>`;
+        container.innerHTML = commitPills + `<div class="brief-prompt-list">${cards}</div>`;
       }
     }
 

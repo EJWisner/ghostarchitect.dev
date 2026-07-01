@@ -374,21 +374,44 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.19 <span class="version-date">July 1, 2026</span></span>
+      <span class="install-version">v9.4.20 <span class="version-date">July 1, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.13                                                         -->
+<!-- v9.4.20                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.19</span>
+      <span class="release-version">v9.4.20</span>
       <span class="release-date">July 1, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Clearer Watch notifications, more resilient parsing, and an instant live dashboard.</h2>
+    <p class="release-lede">A maintenance release. When a Blast Radius analysis is interrupted, Ghost Watcher&trade; now emails a clear rerun notice instead of raw, unnarrated findings, and the narrator has twice as long to finish before timing out. Conflict scans recover more partial results, the Ghost Portal gains a per-commit filter, and the live usage dashboard reflects new activity immediately.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: an interrupted Blast Radius run now sends a clear rerun notice email instead of raw, unnarrated findings</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the Blast Radius narrator timeout increased from 90 seconds to 180 seconds to reduce interruptions on CI runners</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: conflict scans now recover partial results from responses containing non-standard backslash escape sequences</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the Ghost Portal Findings and Prompts tabs now offer a per-commit filter when multiple commits are in range</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the live usage dashboard now reflects new activity immediately instead of waiting on an edge cache</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: corrected detector identifiers in a bundled audit fixture and aligned a batch preflight request with production settings</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.19                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.19</span>
+      <span class="release-date">July 1, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Cleaner duplicate handling and more resilient large-scan parsing.</h2>
