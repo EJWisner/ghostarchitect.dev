@@ -374,21 +374,45 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.20 <span class="version-date">July 1, 2026</span></span>
+      <span class="install-version">v9.4.21 <span class="version-date">July 1, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.20                                                         -->
+<!-- v9.4.21                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.20</span>
+      <span class="release-version">v9.4.21</span>
       <span class="release-date">July 1, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Sharper Conflict Detection and fewer false positives.</h2>
+    <p class="release-lede">A maintenance release focused on precision. Conflict Detection now requires concrete runtime impact before flagging an issue, cutting speculative noise. Recurring intentional-design findings are marked reviewed so they stop resurfacing, the mobile portfolio dashboard reports findings correctly, and the Ghost Portal degraded-run banner now names the exact commit affected.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: Conflict Detection tightened to require concrete runtime impact before flagging, with an explicit do-not-flag list and a confidence rule to reduce false positives</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: seven recurring intentional-design findings are now marked reviewed so they no longer resurface on every scan</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the mobile portfolio dashboard now reports finding and severity counts correctly instead of showing zero</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: two prompt detectors promoted so their higher-severity findings are no longer suppressed by lower-severity ones</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: single-pass scans now handle models that reject the temperature parameter, matching the multi-pass path</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the Ghost Portal degraded-run banner now names the exact commit affected by a narrator interruption</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: extracted a duplicated similarity threshold to a named constant and flagged token-counting detectors that may make network calls</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.20                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.20</span>
+      <span class="release-date">July 1, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Clearer Watch notifications, more resilient parsing, and an instant live dashboard.</h2>
