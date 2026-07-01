@@ -374,7 +374,7 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.18 <span class="version-date">July 1, 2026</span></span>
+      <span class="install-version">v9.4.19 <span class="version-date">July 1, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
@@ -386,9 +386,30 @@
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.18</span>
+      <span class="release-version">v9.4.19</span>
       <span class="release-date">July 1, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Cleaner duplicate handling and more resilient large-scan parsing.</h2>
+    <p class="release-lede">A maintenance release refining Ghost Architect&trade;'s internals. Two prompt detectors now deduplicate correctly, conflict scans on very large codebases recover gracefully when a response is cut short, and the automated patch generator no longer mishandles method-shaped edits. All surfaced by Ghost scanning its own code.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: two token-limit detectors now suppress duplicate findings correctly instead of slipping through the dedup pass</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: conflict scans on large codebases now recover partial results when a batch response is truncated mid-output</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the automated patch generator no longer inserts a method body without its signature when a match is uncertain</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: removed dead confidence-rescaling code and refreshed a bundled audit fixture</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.18                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.18</span>
+      <span class="release-date">July 1, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Watch defaults corrected: new repos run unlimited iterations unless you say otherwise.</h2>
