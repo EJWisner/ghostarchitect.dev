@@ -374,7 +374,7 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.15 <span class="version-date">June 30, 2026</span></span>
+      <span class="install-version">v9.4.16 <span class="version-date">June 30, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
@@ -386,9 +386,31 @@
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.15</span>
+      <span class="release-version">v9.4.16</span>
       <span class="release-date">June 30, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Internal tidy-up: one shared temperature guard, accurate mobile cost estimates, and sharper code-vs-prose detection.</h2>
+    <p class="release-lede">A maintenance release that consolidates duplicated logic and sharpens a few internal heuristics. The model temperature guard now lives in one shared place instead of three copies, the mobile dashboard reads cost and effort estimates correctly, and the report verifier no longer mistakes cost or effort ranges for source line numbers.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: the model temperature guard is now a single shared utility, so every API path handles newer Claude models identically</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the mobile dashboard now shows estimated hours and cost instead of dashes when the values live in scan metadata</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: patch cleanup no longer strips valid code lines that end in a colon (switch-case labels, type annotations)</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the report verifier no longer flags cost ranges or effort ranges as if they were source line-number citations</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: removed a dead guard and clarified an internal function name</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.15                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.15</span>
+      <span class="release-date">June 30, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Follow-up correctness pass: Enterprise URL parsing everywhere, clearer cap warnings, and aligned docs.</h2>
