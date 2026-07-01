@@ -374,7 +374,7 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.17 <span class="version-date">June 30, 2026</span></span>
+      <span class="install-version">v9.4.18 <span class="version-date">July 1, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
@@ -386,9 +386,28 @@
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">v9.4.18</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Watch defaults corrected: new repos run unlimited iterations unless you say otherwise.</h2>
+    <p class="release-lede">A small maintenance release. Enabling Ghost Watcher&trade; on a new repository no longer bakes a hidden five-iteration cap into the generated config: the iteration limit is now opt-in, matching the documented behavior that no configuration means no limit. Plus an internal documentation correction.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: newly enabled Watch repositories now run without an iteration limit unless one is explicitly configured</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: corrected a stale internal comment about a detector's findings cap</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.17                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">v9.4.17</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge">Latest</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Sharper self-review: correct duplicate suppression, model-accurate cost, and cleaner telemetry.</h2>
