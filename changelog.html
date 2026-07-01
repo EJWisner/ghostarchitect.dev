@@ -374,7 +374,7 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.16 <span class="version-date">June 30, 2026</span></span>
+      <span class="install-version">v9.4.17 <span class="version-date">June 30, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
@@ -386,9 +386,31 @@
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.16</span>
+      <span class="release-version">v9.4.17</span>
       <span class="release-date">June 30, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Sharper self-review: correct duplicate suppression, model-accurate cost, and cleaner telemetry.</h2>
+    <p class="release-lede">A maintenance release resolving issues Ghost Architect&trade; found while scanning its own codebase. Duplicate findings are now suppressed correctly, batch cost estimates reflect whichever Claude model you have configured, and a redundant telemetry file that stored raw commit and repository identifiers on disk has been removed.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: a detector ID mismatch that stopped duplicate findings from being suppressed is corrected</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: Ghost Watcher&trade; batch cost estimates now use your configured model instead of a fixed default</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: one prompt detector aligned to the same findings cap as its siblings, so it no longer truncates early</strong></span></li>
+      <li><span class="marker">+</span><span><strong>privacy: removed a redundant local telemetry file that wrote unhashed commit and repository identifiers to disk</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: aligned internal detector tier labels and narrowed a test-file exclusion to be specific rather than broad</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.16                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.16</span>
+      <span class="release-date">June 30, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Internal tidy-up: one shared temperature guard, accurate mobile cost estimates, and sharper code-vs-prose detection.</h2>
