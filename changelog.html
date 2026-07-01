@@ -374,21 +374,40 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.25 <span class="version-date">July 1, 2026</span></span>
+      <span class="install-version">v9.4.26 <span class="version-date">July 1, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.25                                                         -->
+<!-- v9.4.26                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.25</span>
+      <span class="release-version">v9.4.26</span>
       <span class="release-date">July 1, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">More reliable Ghost Watcher runs on CI.</h2>
+    <p class="release-lede">A reliability release. Ghost Watcher's Blast Radius narration and multi-pass synthesis no longer depend on long-lived streaming connections, which occasionally dropped on CI runners and produced degraded results. Those paths now use blocking and batch requests instead, so large-codebase runs complete cleanly.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: Ghost Watcher Blast Radius narration now uses a blocking request instead of a streaming one, removing the connection-drop failures that produced degraded results on CI</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: multi-pass Blast Radius synthesis now runs through the batch API, matching how the other scan modes already operate, with no client-side timeout risk</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.25                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.25</span>
+      <span class="release-date">July 1, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Quieter Conflict Detection, fewer self-cancelling findings.</h2>
