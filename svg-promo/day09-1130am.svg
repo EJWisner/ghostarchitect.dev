@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <defs>
+    <radialGradient id="bg" cx="85%" cy="85%" r="60%">
+      <stop offset="0%" stop-color="#0d1f2d"/>
+      <stop offset="100%" stop-color="#0a0f14"/>
+    </radialGradient>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="1200" fill="url(#bg)"/>
+
+  <!-- card border -->
+  <rect x="36" y="36" width="1128" height="1128" rx="32" ry="32"
+    fill="none" stroke="#ffffff14" stroke-width="1.5"/>
+
+  <!-- GA wordmark -->
+  <text x="90" y="140" font-family="Arial Black, Arial, sans-serif"
+    font-size="38" font-weight="900" fill="#ffffff" letter-spacing="1">GA</text>
+  <text x="148" y="140" font-family="Arial, sans-serif"
+    font-size="30" font-weight="700" fill="#ffffff">Ghost Architect</text>
+  <text x="524" y="126" font-family="Arial, sans-serif"
+    font-size="18" font-weight="400" fill="#ffffff">™</text>
+
+  <!-- badge top-right -->
+  <rect x="960" y="100" width="168" height="52" rx="26" ry="26" fill="#1a3a2a"/>
+  <circle cx="995" cy="126" r="8" fill="#4caf82"/>
+  <text x="1012" y="132" font-family="Arial, sans-serif" font-size="22"
+    font-weight="700" fill="#ffffff" letter-spacing="1">PRO</text>
+
+  <!-- subtitle -->
+  <text x="90" y="242" font-family="Courier New, monospace" font-size="26"
+    fill="#4fc3f7" letter-spacing="1">// pre-call triage</text>
+
+  <!-- headline -->
+  <text x="90" y="340" font-family="Arial Black, Arial, sans-serif"
+    font-size="82" font-weight="900" fill="#ffffff" letter-spacing="-1"
+    xml:space="preserve"><tspan x="90" dy="0">45 minutes</tspan><tspan x="90" dy="88">before the call.</tspan></text>
+
+  <!-- body copy -->
+  <text x="90" y="566" font-family="Arial, sans-serif"
+    font-size="34" font-weight="400" fill="#9aa5b4" line-height="1.5"><tspan x="90" dy="0">Ghost Architect™ scans it in 20. You walk</tspan><tspan x="90" dy="40">in knowing what they don't.</tspan></text>
+
+  <!-- terminal bar background -->
+  <rect x="68" y="988" width="1064" height="140" rx="16" ry="16" fill="#0d1117"/>
+  <rect x="68" y="988" width="1064" height="140" rx="16" ry="16"
+    fill="none" stroke="#ffffff18" stroke-width="1"/>
+
+  <!-- traffic lights -->
+  <circle cx="116" cy="1042" r="13" fill="#ff5f57"/>
+  <circle cx="158" cy="1042" r="13" fill="#febc2e"/>
+  <circle cx="200" cy="1042" r="13" fill="#28c840"/>
+
+  <!-- npm command -->
+  <text x="116" y="1096" font-family="Courier New, monospace" font-size="30" fill="#4fc3f7">$</text>
+  <text x="148" y="1096" font-family="Courier New, monospace" font-size="30" fill="#e2e8f0">
+    npm install -g ghost-architect-open</text>
+
+  <!-- footer -->
+  <text x="90" y="1172" font-family="Courier New, monospace" font-size="22"
+    fill="#4a5568">ghostarchitect.dev</text>
+  <text x="670" y="1172" font-family="Arial, sans-serif" font-size="22"
+    fill="#4a5568">Any codebase. Any language. Any platform.</text>
+</svg>
