@@ -1388,6 +1388,10 @@
                       e.stateSeverity     = s.severity || e.stateSeverity || null;
                       e.stateFindings     = Array.isArray(s.findings) ? s.findings : e.stateFindings;
                       e.stateFindingCount = typeof s.findingCount === 'number' ? s.findingCount : e.stateFindingCount;
+                      e.stateVerifiedFindings = Array.isArray(s.verifiedFindings) ? s.verifiedFindings : (e.stateVerifiedFindings || null);
+                      e.resolvedFindings      = Array.isArray(s.resolvedFindings) ? s.resolvedFindings : (e.resolvedFindings || []);
+                      e.newFindingIds         = Array.isArray(s.newFindingIds) ? s.newFindingIds : (e.newFindingIds || []);
+                      e.priorCommitHash       = s.priorCommitHash || e.priorCommitHash || null;
                       e.statePromptCount  = typeof s.prompts === 'number' ? s.prompts : e.statePromptCount;
                       e.stateTokenUsage   = s.tokenUsage || e.stateTokenUsage || null;
                     } catch (_) { /* skip bad state file */ }
@@ -1471,6 +1475,9 @@
         watchCommits = Array.from(byShort.values()).map(e => {
           const findings = e.scanFindings || e.stateFindings || [];
           const severity = e.scanSeverity || e.stateSeverity || { critical: 0, high: 0, medium: 0, low: 0 };
+          const resolvedFindings = e.resolvedFindings || [];
+          const newFindingIds = new Set(e.newFindingIds || []);
+          const priorCommitHash = e.priorCommitHash || null;
           const findingCount = e.scanFindingCount != null ? e.scanFindingCount
             : e.stateFindingCount != null ? e.stateFindingCount
             : findings.length;
@@ -1486,7 +1493,10 @@
             status:           e.status || 'complete',
             severity,
             findings,
-            verifiedFindings: e.verifiedFindings || [],
+            verifiedFindings: e.stateVerifiedFindings || e.verifiedFindings || [],
+            resolvedFindings,
+            newFindingIds:    [...newFindingIds],
+            priorCommitHash,
             findingCount,
             brief:            e.brief || null,
             briefPromptCount: e.briefPromptCount != null ? e.briefPromptCount
@@ -1739,7 +1749,28 @@
             </div>
           `;
         }).join('');
-        container.innerHTML = commitPills + degradedBanner + rows + verifiedSection;
+        // Build resolved findings section
+        let resolvedSection = '';
+        const allResolved = commitsForFindings.flatMap(r => (r.resolvedFindings || []));
+        if (allResolved.length > 0) {
+          const resolvedRows = allResolved.map(f => {
+            const sev = (f.severity || 'MEDIUM').toUpperCase();
+            const shortCommit = (f.resolvedInCommit || '').slice(0, 7);
+            return `<div class="finding-card f-${sev.toLowerCase()}" style="opacity:0.65;display:flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem">
+              <span class="sev-chip sev-${sev.toLowerCase()}">${sev}</span>
+              <span class="finding-title" style="flex:1">${f.title || 'Untitled'}</span>
+              <span style="color:var(--good,#00e5a8);font-size:0.82em;white-space:nowrap">&#10003; Fixed in ${shortCommit}</span>
+            </div>`;
+          }).join('');
+          resolvedSection = `<div style="border:1px solid var(--good,#00e5a8);border-radius:8px;margin-top:1rem;overflow:hidden">
+            <div style="padding:0.6rem 1rem;background:rgba(0,229,168,0.08);color:var(--good,#00e5a8);font-weight:600;font-size:0.9em;cursor:pointer" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
+              &#10003; ${allResolved.length} Resolved since last scan
+            </div>
+            <div class="vf-body">${resolvedRows}</div>
+          </div>`;
+        }
+
+        container.innerHTML = commitPills + degradedBanner + rows + resolvedSection + verifiedSection;
         return;
       }
 

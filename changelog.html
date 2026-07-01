@@ -374,21 +374,42 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.30 <span class="version-date">July 1, 2026</span></span>
+      <span class="install-version">v9.4.31 <span class="version-date">July 1, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.30                                                         -->
+<!-- v9.4.31                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.30</span>
+      <span class="release-version">v9.4.31</span>
       <span class="release-date">July 1, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher™ now tracks what you fixed.</h2>
+    <p class="release-lede">Every Watcher run now compares against the last one. Findings that disappear after a fix move to a Resolved section in your portal, tagged with the commit that closed them, and brand-new findings are marked as first seen on this commit. It is branch-aware, so parallel work does not muddy the picture.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Finding lifecycle tracking: resolved and new findings are computed on every Watcher run and shown in the portal, with the commit each finding was fixed in</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Resolved findings render as a collapsible green section in the Watch tab, so a fixed backlog reads as progress rather than vanishing silently</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Reviewed findings marked @ghost-verified now persist to the commit state, closing a gap where they could disappear from the portal on some commits</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Model support: Claude Fable 5, Opus 4.8, and Opus 5 added to the pricing and sampling tables so cost estimates stay accurate across the current model lineup</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.30                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.30</span>
+      <span class="release-date">July 1, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Sharper conflict findings, sturdier parsing.</h2>
