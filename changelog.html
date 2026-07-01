@@ -374,21 +374,40 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.22 <span class="version-date">July 1, 2026</span></span>
+      <span class="install-version">v9.4.23 <span class="version-date">July 1, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.22                                                         -->
+<!-- v9.4.23                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.22</span>
+      <span class="release-version">v9.4.23</span>
       <span class="release-date">July 1, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Cleaner Prompt Triage dedup, no duplicate signal.</h2>
+    <p class="release-lede">A small correctness release. Two Prompt Triage detectors were reclassified back to their documented roles as broad fallbacks, so overlapping findings no longer surface twice. One internal publish path was annotated as reviewed to keep future self-scans quiet.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: two overlapping Prompt Triage detectors no longer emit duplicate findings on the same range; the more-specific detector now correctly wins</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: annotated an intentionally-minimal mobile publish payload as reviewed so it is not re-flagged by self-scans</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.22                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.22</span>
+      <span class="release-date">July 1, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Accurate mobile dashboards and verified diff output.</h2>
