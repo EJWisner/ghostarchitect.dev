@@ -374,21 +374,39 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.24 <span class="version-date">July 1, 2026</span></span>
+      <span class="install-version">v9.4.25 <span class="version-date">July 1, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.24                                                         -->
+<!-- v9.4.25                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.24</span>
+      <span class="release-version">v9.4.25</span>
       <span class="release-date">July 1, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Quieter Conflict Detection, fewer self-cancelling findings.</h2>
+    <p class="release-lede">A precision release. Conflict Detection sometimes surfaced findings that its own explanation admitted were not real conflicts. The noise filter now recognizes more of those self-cancelling phrasings and drops them before they reach you.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: the Conflict Detection noise filter now catches more model-generated self-negations (findings whose own description says there is no real conflict) and drops them before they surface</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.24                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.24</span>
+      <span class="release-date">July 1, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">More reliable auto-patches and accurate telemetry.</h2>
