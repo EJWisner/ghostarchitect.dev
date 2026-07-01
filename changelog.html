@@ -374,21 +374,41 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.21 <span class="version-date">July 1, 2026</span></span>
+      <span class="install-version">v9.4.22 <span class="version-date">July 1, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.21                                                         -->
+<!-- v9.4.22                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.21</span>
+      <span class="release-version">v9.4.22</span>
       <span class="release-date">July 1, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Accurate mobile dashboards and verified diff output.</h2>
+    <p class="release-lede">A maintenance release closing out the precision work from this cycle. Scan records now persist every field the Ghost Mobile portfolio dashboard reads, so finding and severity counts render correctly instead of showing zero. The unified-diff renderer was verified correct on multi-hunk output, and the bundled conflict-prompt snapshots were refreshed to match the tightened v0.4 wording.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: saved scan records now include every field the Ghost Mobile dashboard reads, so it reports findings and severity counts correctly instead of showing zero</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: verified the unified-diff renderer produces correct line numbers across multi-hunk output</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: refreshed the bundled conflict-detection prompt snapshots to match the tightened wording shipped last release</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.21                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.21</span>
+      <span class="release-date">July 1, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Sharper Conflict Detection and fewer false positives.</h2>
