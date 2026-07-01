@@ -374,21 +374,41 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.23 <span class="version-date">July 1, 2026</span></span>
+      <span class="install-version">v9.4.24 <span class="version-date">July 1, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.23                                                         -->
+<!-- v9.4.24                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.23</span>
+      <span class="release-version">v9.4.24</span>
       <span class="release-date">July 1, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">More reliable auto-patches and accurate telemetry.</h2>
+    <p class="release-lede">A small correctness release. The automated patch generator no longer drops switch-case lines from a fix, cancelled Ghost Watcher runs now report the right version, and an internal detector-ranking path was made consistent.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: generated fix patches no longer strip switch-case labels, so the resulting code stays syntactically valid</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: cancelled or failed Ghost Watcher runs now report the actual installed version in telemetry instead of a stale hardcoded one</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: made an internal detector-ranking lookup consistent and marked two reviewed classification notes</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.23                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.23</span>
+      <span class="release-date">July 1, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Cleaner Prompt Triage dedup, no duplicate signal.</h2>
