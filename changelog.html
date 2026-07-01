@@ -374,21 +374,40 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.27 <span class="version-date">July 1, 2026</span></span>
+      <span class="install-version">v9.4.28 <span class="version-date">July 1, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.27                                                         -->
+<!-- v9.4.28                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.27</span>
+      <span class="release-version">v9.4.28</span>
       <span class="release-date">July 1, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Quieter Ghost Watcher on release commits.</h2>
+    <p class="release-lede">A small workflow refinement. Ghost Watcher now skips the Blast Radius pass on version-tagged release commits, which produced impact-analysis noise rather than actionable findings. Conflict Detection and Ghost Brief still run on every commit.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: Ghost Watcher skips the Blast Radius pass on version-tagged release commits, cutting impact-analysis noise while keeping Conflict Detection and Ghost Brief on every commit</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: the generated Watch config now uses a structured blast-radius block with an enable flag and skip patterns, so regenerating the config preserves these settings</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.27                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.27</span>
+      <span class="release-date">July 1, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Batch synthesis fails loudly, not silently.</h2>
