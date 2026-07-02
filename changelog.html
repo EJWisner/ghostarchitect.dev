@@ -374,21 +374,41 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.32 <span class="version-date">July 1, 2026</span></span>
+      <span class="install-version">v9.4.33 <span class="version-date">July 1, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.32                                                         -->
+<!-- v9.4.33                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.32</span>
+      <span class="release-version">v9.4.33</span>
       <span class="release-date">July 1, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Tighter Conflict Detection and cleaner token caching.</h2>
+    <p class="release-lede">Conflict Detection now suppresses findings that talk themselves out of being conflicts: if a finding's own description says there is no runtime failure or that it is correct behavior, it never reaches your report. Under the hood, the token counter's fast and exact caches are now fully isolated, and a dead import was removed.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>tokenizer.js: fixed countTokensExact OpenAI delegation -- now calls countTokensImpl() directly instead of countTokens() to keep 'fast' and 'exact' cache namespaces genuinely isolated; removed dead resolveApiKey import</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Conflict Detection prompt: added self-refuting DO NOT FLAG rule -- findings that self-describe as "no current runtime failure", "no runtime impact", "correct behavior", or "redundancy rather than a conflict" are now suppressed at generation</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Prompt snapshots regenerated to match updated conflict prompt</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.32                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.32</span>
+      <span class="release-date">July 1, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Verification annotation for the prompt-triage cost imports.</h2>
