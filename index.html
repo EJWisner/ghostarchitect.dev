@@ -322,6 +322,21 @@
       margin-bottom: 4rem;
     }
 
+    .btn-trial-hero {
+      display: inline-block;
+      background: var(--good, #00e5a8);
+      color: #04101f;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 0.8rem 1.8rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity 0.15s ease;
+      margin-bottom: 1rem;
+    }
+    .btn-trial-hero:hover { opacity: 0.88; }
+
     .btn-primary {
       background: var(--accent);
       color: #000;
@@ -994,6 +1009,7 @@
   <p class="hero-sub">Your code never touches our servers. We don't have any.</p>
   <p class="hero-accent">One finding pays for a year of Ghost.</p>
   <div class="hero-cta">
+    <a href="/trial.html" class="btn-trial-hero">Start Free Trial -- 7 Days Pro Max</a>
     <a href="/pricing" class="btn-primary">See Plans →</a>
     <a href="https://www.npmjs.com/package/ghost-architect-open" class="btn-secondary" target="_blank" rel="noopener noreferrer">Install Ghost Open Free →</a>
   </div>

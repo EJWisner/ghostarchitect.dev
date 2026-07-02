@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Start Your Free Trial: Ghost Architect™</title>
+  <meta name="description" content="Start a 7-day Ghost Architect™ Pro Max trial. Full Ghost Triple Crown on every commit: Blast Radius, Conflict Detection, and Ghost Brief. Up and running in under 10 minutes." />
+  <link rel="canonical" href="https://ghostarchitect.dev/trial" />
+  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --border: #2a2a3a;
+      --accent: #4a9eff;
+      --good: #00e5a8;
+      --text: #e8e8f0;
+      --text-muted: #888899;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.8; }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,15,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem; display: flex; align-items: center; height: 56px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem; }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; }
+    .content { max-width: 760px; margin: 0 auto; padding: 4rem 2rem; }
+    h1 { font-size: 2rem; margin-bottom: 0.75rem; color: var(--text); line-height: 1.3; }
+    .subhead { color: var(--text); font-size: 1rem; margin-bottom: 1rem; }
+    .urgency {
+      display: inline-block;
+      color: var(--good);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      margin-bottom: 2.5rem;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid rgba(0,229,168,0.35);
+      border-radius: 6px;
+      background: rgba(0,229,168,0.06);
+    }
+    p { margin-bottom: 1rem; color: var(--text); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: var(--font-mono); background: var(--surface); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; border: 1px solid var(--border); }
+
+    /* form */
+    .trial-form {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+    .field { margin-bottom: 1.5rem; }
+    .field:last-child { margin-bottom: 0; }
+    label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    label .req { color: var(--accent); }
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      padding: 0.7rem 0.85rem;
+      line-height: 1.5;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(74,158,255,0.18);
+    }
+    /* honeypot: visually removed without display:none */
+    .hp-field {
+      position: absolute;
+      left: -9999px;
+      top: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    button.submit {
+      width: 100%;
+      background: var(--good);
+      color: #04101f;
+      border: none;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.9rem 1.6rem;
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+    }
+    button.submit:hover { opacity: 0.88; }
+    button.submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .field-note {
+      margin-top: 0.85rem;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+    .form-msg {
+      display: none;
+      margin-top: 1.25rem;
+      padding: 0.9rem 1.1rem;
+      border-radius: 6px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+    .form-msg.success {
+      display: block;
+      background: rgba(0,229,168,0.08);
+      border: 1px solid var(--good);
+      color: var(--text);
+    }
+    .form-msg.error {
+      display: block;
+      background: rgba(255,90,90,0.08);
+      border: 1px solid #c4504f;
+      color: var(--text);
+    }
+    /* trust signal terminal card */
+    .trust-card {
+      background: #04100c;
+      border: 1px solid var(--good);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2.5rem 0 1rem;
+      font-family: var(--font-mono);
+      box-shadow: 0 0 0 1px rgba(0,229,168,0.08), 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .trust-badge {
+      display: inline-block;
+      background: var(--good);
+      color: #04101f;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      margin-bottom: 0.85rem;
+    }
+    .trust-text {
+      color: #b8f5e2;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .trust-text strong { color: var(--good); }
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 4rem; }
+  </style>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
+</head>
+<body>
+
+
+<div id="ga-nav-mount"></div>
+
+
+<div class="content">
+  <h1>Start your 7-day Ghost Architect™ Pro Max trial</h1>
+  <p class="subhead">Full Ghost Triple Crown on every commit -- Blast Radius, Conflict Detection, and Ghost Brief. Ghost Portal included. Up and running in under 10 minutes.</p>
+  <span class="urgency">Available to the first 10 consultants and engineering leads.</span>
+
+  <div class="trial-form" id="trial-form">
+    <div class="field">
+      <label for="tf-name">Full name <span class="req">*</span></label>
+      <input type="text" id="tf-name" name="name" required autocomplete="name" placeholder="Jane Smith" />
+    </div>
+
+    <div class="field">
+      <label for="tf-email">Work email <span class="req">*</span></label>
+      <input type="email" id="tf-email" name="email" required autocomplete="email" placeholder="jane@agency.com" />
+    </div>
+
+    <div class="field">
+      <label for="tf-company">Company <span class="req">*</span></label>
+      <input type="text" id="tf-company" name="company" required autocomplete="organization" placeholder="Your company name" />
+    </div>
+
+    <div class="field">
+      <label for="tf-codebase">What codebase are you evaluating?</label>
+      <input type="text" id="tf-codebase" name="codebase" autocomplete="off" placeholder="Magento 2, Laravel, custom PHP..." />
+    </div>
+
+    <!-- honeypot: hidden from humans, bots will fill it -->
+    <div class="hp-field" aria-hidden="true">
+      <label for="tf-website">Website</label>
+      <input type="text" id="tf-website" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="field">
+      <button type="button" class="submit" id="tf-submit">Start My Free Trial</button>
+      <p class="field-note">You will need an Anthropic API key to run scans. Instructions included in your welcome email.</p>
+    </div>
+
+    <div class="form-msg" id="tf-msg" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="trust-card">
+    <span class="trust-badge">&#10003; CLEAN</span>
+    <p class="trust-text">Ghost Architect&trade; runs on Ghost Architect&trade;. <strong>31 commits scanned. Zero findings.</strong></p>
+  </div>
+</div>
+
+<footer>
+  © 2026 Ghost Architect™. All rights reserved. · <a href="/">Home</a> · <a href="/privacy">Privacy</a> · <a href="/pricing">Pricing</a>
+</footer>
+
+<script src="/assets/ga-nav.js" defer></script>
+<script>
+  (function () {
+    var btn = document.getElementById('tf-submit');
+    var msg = document.getElementById('tf-msg');
+    var formCard = document.getElementById('trial-form');
+    var SUCCESS = "Your trial is active. Check your email for your license key and install instructions.";
+    var ERROR = "Something went wrong. Please email support@ghostarchitect.dev directly.";
+    var DUPLICATE = "A trial was already issued to this email. Ready to upgrade? Visit ghostarchitect.dev/pricing.html";
+
+    function showMsg(kind, text) {
+      msg.className = 'form-msg ' + kind;
+      msg.textContent = text;
+    }
+
+    function clearMsg() {
+      msg.className = 'form-msg';
+      msg.textContent = '';
+    }
+
+    btn.addEventListener('click', function () {
+      clearMsg();
+
+      var name = document.getElementById('tf-name');
+      var email = document.getElementById('tf-email');
+      var company = document.getElementById('tf-company');
+      var codebase = document.getElementById('tf-codebase');
+      var honeypot = document.getElementById('tf-website');
+
+      // Required fields: name, email, company. Codebase is optional.
+      var fields = [name, email, company];
+      for (var i = 0; i < fields.length; i++) {
+        if (!fields[i].value || !fields[i].checkValidity()) {
+          fields[i].focus();
+          fields[i].reportValidity();
+          return;
+        }
+      }
+
+      // Honeypot: if a bot filled the hidden field, silently stop.
+      if (honeypot.value) { return; }
+
+      var payload = {
+        name: name.value.trim(),
+        email: email.value.trim(),
+        company: company.value.trim(),
+        codebase: codebase.value.trim()
+      };
+
+      btn.disabled = true;
+      var originalLabel = btn.textContent;
+      btn.textContent = 'Activating...';
+
+      fetch('https://signup.ghostarchitect.dev/start-trial', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) {
+          if (res.status === 409) {
+            showMsg('error', DUPLICATE);
+            btn.disabled = false;
+            btn.textContent = originalLabel;
+            return null;
+          }
+          if (!res.ok) { throw new Error('Request failed: ' + res.status); }
+          return res.json().catch(function () { return {}; });
+        })
+        .then(function (data) {
+          if (data === null) { return; }
+          // Success: replace the form card with the success message.
+          formCard.innerHTML =
+            '<div class="form-msg success" role="status">' + SUCCESS + '</div>';
+        })
+        .catch(function () {
+          showMsg('error', ERROR);
+          btn.disabled = false;
+          btn.textContent = originalLabel;
+        });
+    });
+  })();
+</script>
+</body>
+</html>
