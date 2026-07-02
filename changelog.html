@@ -374,21 +374,36 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v9.4.35 <span class="version-date">July 2, 2026</span></span>
+      <span class="install-version">v9.4.36 <span class="version-date">July 2, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v9.4.35                                                         -->
+<!-- v9.4.36                                                         -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">v9.4.35</span>
+      <span class="release-version">v9.4.36</span>
       <span class="release-date">July 2, 2026</span>
       <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher Caught One</h2>
+    <p class="release-lede">Ghost Watcher flagged a real bug on the v9.4.35 release commit. forecast-overlay.js was using the resolveContextCap() return object as a number instead of extracting .effective -- silently bypassing the tier context cap on large change sets. Ghost Watcher caught it automatically. Fixed same session.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.35                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.35</span>
+      <span class="release-date">July 2, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">POI Self-Audit -- 14 Findings Resolved</h2>
