@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="index, follow">
   <meta name="description" content="Ghost Partner Profiles turn Ghost Architect into your tool. Your name. Your branding. Your methodology. Your billing rates. White-labeled across every report type.">
-  <meta property="og:title" content="Ghost Partner Profiles — White-Label Ghost Architect as Your Own Consulting Tool">
+  <meta property="og:title" content="Ghost Partner Profiles -- White-Label Ghost Architect as Your Own Consulting Tool">
   <meta property="og:description" content="Ghost Partner Profiles inject your firm name, methodology, billing rates, and branding into every scan. Seven report types. All white-labeled. Available on Pro and higher.">
   <meta property="og:image" content="https://ghostarchitect.dev/og-image.png">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-partner-profiles-v825">
   <meta property="og:site_name" content="Ghost Architect™">
   <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-partner-profiles-v825">
-  <title>Ghost Partner Profiles — White-Label Ghost Architect as Your Own Consulting Tool · Ghost Architect™</title>
+  <title>Ghost Partner Profiles: White-Label Ghost Architect as Your Own Consulting Tool · Ghost Architect™</title>
   <link rel="stylesheet" href="/assets/ga-nav.css" />
   <style>
     :root {
@@ -303,9 +303,9 @@
     <span class="article-author">By Ernst J. Wisner</span>
   </div>
 
-  <h1>Ghost Partner Profiles — White-Label Ghost Architect as Your Own Consulting Tool</h1>
+  <h1>Ghost Partner Profiles -- White-Label Ghost Architect as Your Own Consulting Tool</h1>
 
-  <p class="lede">Ghost Architect 8.2.5 ships a significant upgrade to Ghost Partner Profiles. Your firm name. Your methodology. Your billing rates. Your branding. Injected into every report Ghost generates — across all seven report types — from a single profile file you create in two minutes. Now accessible directly from the top-level menu without selecting a codebase first.</p>
+  <p class="lede">Ghost Architect 8.2.5 ships a significant upgrade to Ghost Partner Profiles. Your firm name. Your methodology. Your billing rates. Your branding. Injected into every report Ghost generates -- across all seven report types -- from a single profile file you create in two minutes. Now accessible directly from the top-level menu without selecting a codebase first.</p>
 
   <div class="article-body">
 
@@ -313,7 +313,7 @@
 
     <p>When a consultant or agency runs Ghost Architect for a client, the output carries Ghost Architect branding by default. The PDF cover says Ghost Architect. The footer says ghostarchitect.dev. The methodology section describes Ghost's approach, not yours.</p>
 
-    <p>A Ghost Partner Profile changes all of that. It is a YAML file that tells Ghost who is running the scan, how they work, what they charge, and how their reports should look. When a profile is active, every report Ghost generates is branded to you — not to Ghost Architect.</p>
+    <p>A Ghost Partner Profile changes all of that. It is a YAML file that tells Ghost who is running the scan, how they work, what they charge, and how their reports should look. When a profile is active, every report Ghost generates is branded to you -- not to Ghost Architect.</p>
 
     <p>The client sees your firm name on the cover. Your methodology in the report body. Your billing rates in the cost estimates. Your accent color in the PDF. Your footer on every page.</p>
 
@@ -324,12 +324,12 @@
     <p>A Ghost Partner Profile controls six things across every report:</p>
 
     <ul>
-      <li><strong>Firm name</strong> — replaces "Ghost Architect" on the PDF cover, header, and footer across all seven report types</li>
-      <li><strong>Author name</strong> — your name appears as the analyst who prepared the report</li>
-      <li><strong>Methodology</strong> — your named audit methodology appears in the report methodology section instead of Ghost's default description</li>
-      <li><strong>Billing rates</strong> — junior, mid, and senior rates per hour. Ghost uses these for cost estimates in every scan. Your rates, not Ghost's defaults.</li>
-      <li><strong>Brand accent color</strong> — the PDF header, cover block, and accent elements use your hex color instead of Ghost's orange</li>
-      <li><strong>Logo</strong> — point Ghost at a PNG or JPG and your logo appears on every PDF cover</li>
+      <li><strong>Firm name</strong> -- replaces "Ghost Architect" on the PDF cover, header, and footer across all seven report types</li>
+      <li><strong>Author name</strong> -- your name appears as the analyst who prepared the report</li>
+      <li><strong>Methodology</strong> -- your named audit methodology appears in the report methodology section instead of Ghost's default description</li>
+      <li><strong>Billing rates</strong> -- junior, mid, and senior rates per hour. Ghost uses these for cost estimates in every scan. Your rates, not Ghost's defaults.</li>
+      <li><strong>Brand accent color</strong> -- the PDF header, cover block, and accent elements use your hex color instead of Ghost's orange</li>
+      <li><strong>Logo</strong> -- point Ghost at a PNG or JPG and your logo appears on every PDF cover</li>
     </ul>
 
     <div class="callout">
@@ -373,7 +373,7 @@
 
     <h2>Three ways to create a profile</h2>
 
-    <h3>Option 1 — The interactive wizard</h3>
+    <h3>Option 1 -- The interactive wizard</h3>
 
     <p>The fastest path. Run Ghost and select Ghost Partner Profile from the top-level menu, then choose Create new profile. Ghost walks you through a short interactive flow:</p>
 
@@ -386,18 +386,18 @@
       <li>Logo file path</li>
       <li>PDF footer text</li>
       <li>Confidentiality notice</li>
-      <li>Your methodology priorities — what you zero in on during a review</li>
-      <li>Anti-patterns — what you call out as wrong</li>
-      <li>Red flags — signals that elevate severity to critical</li>
+      <li>Your methodology priorities -- what you zero in on during a review</li>
+      <li>Anti-patterns -- what you call out as wrong</li>
+      <li>Red flags -- signals that elevate severity to critical</li>
     </ul>
 
     <p>Ghost saves a fully-formed YAML file to <code>~/.ghost/profiles/</code> and immediately offers to activate it for the current session. Two minutes from start to first white-labeled scan.</p>
 
-    <h3>Option 2 — Write the YAML directly</h3>
+    <h3>Option 2 -- Write the YAML directly</h3>
 
     <p>If you prefer to hand-write your profile or want full control over every field, create a <code>.yaml</code> file anywhere on your machine and point Ghost at it with <code>--profile /path/to/your-profile.yaml</code>. The YAML schema supports everything the wizard covers plus additional fields the wizard does not expose.</p>
 
-    <h3>Option 3 — Bring your own methodology document</h3>
+    <h3>Option 3 -- Bring your own methodology document</h3>
 
     <p>Already have a written methodology? A Google Doc you exported, a Notion page, a one-pager in Markdown? Save it as a <code>.md</code> or <code>.txt</code> file and point Ghost at it directly. Ghost auto-detects the format and extracts the structure via Claude, caching the result so subsequent runs are instant.</p>
 
@@ -407,7 +407,7 @@ ghost --profile ~/Documents/my-audit-methodology.md
 # Plain text — Ghost extracts structure via Claude
 ghost --profile ~/Documents/my-audit-methodology.txt</code></pre>
 
-    <p>Ghost looks for recognized section headings in Markdown files — Priorities, Anti-patterns, Red flags, Branding — and optional YAML frontmatter between <code>---</code> markers at the top of the file.</p>
+    <p>Ghost looks for recognized section headings in Markdown files -- Priorities, Anti-patterns, Red flags, Branding -- and optional YAML frontmatter between <code>---</code> markers at the top of the file.</p>
 
     <h2>How to activate a profile</h2>
 
@@ -415,7 +415,7 @@ ghost --profile ~/Documents/my-audit-methodology.txt</code></pre>
 
     <h3>From the top-level menu</h3>
 
-    <p>As of v8.2.5, Ghost Partner Profile appears in the very first menu — before you select any codebase. Select it, choose Select and use a profile this session, pick from your saved profiles, and every scan you run in that Ghost session will use your branding. No <code>--profile</code> flag required.</p>
+    <p>As of v8.2.5, Ghost Partner Profile appears in the very first menu -- before you select any codebase. Select it, choose Select and use a profile this session, pick from your saved profiles, and every scan you run in that Ghost session will use your branding. No <code>--profile</code> flag required.</p>
 
     <h3>Per-run flag</h3>
 
@@ -472,11 +472,11 @@ ghost --profile ~/Documents/my-audit-methodology.txt</code></pre>
 
     <p>Pre-engagement triage is a billable service. Agencies and fractional CTOs charge for codebase audits, engagement scoping, and technical due diligence. Ghost Architect does that work in under an hour for under five dollars in API costs.</p>
 
-    <p>With a Ghost Partner Profile, the deliverable you hand to the client carries your name, your methodology, and your branding. The client sees your firm on the cover. They associate the quality of the output with you — not with a third-party tool.</p>
+    <p>With a Ghost Partner Profile, the deliverable you hand to the client carries your name, your methodology, and your branding. The client sees your firm on the cover. They associate the quality of the output with you -- not with a third-party tool.</p>
 
     <p>That is the difference between a tool you use and a service you deliver. Ghost Partner Profiles let you deliver Ghost's output as your own work product.</p>
 
-    <p>A fractional CTO walking into a new engagement on day one can run a full Points of Interest scan, generate an Executive Brief, and hand the client a branded one-page risk summary — all in the first hour, all under their own firm name. That is a first-impression that books the next engagement.</p>
+    <p>A fractional CTO walking into a new engagement on day one can run a full Points of Interest scan, generate an Executive Brief, and hand the client a branded one-page risk summary -- all in the first hour, all under their own firm name. That is a first-impression that books the next engagement.</p>
 
     <p>An agency scoping a Shopify Plus migration can run a profile-branded POI scan and Blast Radius analysis, wrap it in a client-ready PDF with their accent color and logo, and send it before the SOW is signed. That is a deliverable that justifies the scoping fee and builds confidence before a single line of code is touched.</p>
 

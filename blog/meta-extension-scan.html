@@ -6,13 +6,13 @@
   <meta name="color-scheme" content="dark" />
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
-  <title>We Ran Ghost Architect on a Real Meta Magento Extension — 18 Findings in 10 Minutes — Ghost Architect™</title>
+  <title>We Ran Ghost Architect on a Real Meta Magento Extension: 18 Findings in 10 Minutes | Ghost Architect™</title>
   <meta name="description" content="We scanned Meta's public Magento 2 Business Extension with Ghost Architect. 658 files. 18 findings. Critical credential exposures, a race condition inflating ad spend, and a mass assignment vulnerability. Here's the full breakdown." />
   <link rel="canonical" href="https://ghostarchitect.dev/blog/meta-extension-scan" />
   <meta name="robots" content="index, follow" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://ghostarchitect.dev/blog/meta-extension-scan" />
-  <meta property="og:title" content="We Ran Ghost Architect on a Real Meta Magento Extension — 18 Findings in 10 Minutes" />
+  <meta property="og:title" content="We Ran Ghost Architect on a Real Meta Magento Extension -- 18 Findings in 10 Minutes" />
   <meta property="og:description" content="658 files. 18 findings. Critical credential exposures, a race condition inflating ad spend, and a mass assignment vulnerability. Here's the full breakdown." />
   <meta property="og:image" content="https://ghostarchitect.dev/GHOSTLOGO.JPG" />
   <meta property="og:site_name" content="Ghost Architect™" />
@@ -122,11 +122,11 @@
     <span>10 min read</span>
   </div>
 
-  <h1>We Ran Ghost Architect on a Real Meta Magento Extension — 18 Findings in 10 Minutes</h1>
+  <h1>We Ran Ghost Architect on a Real Meta Magento Extension -- 18 Findings in 10 Minutes</h1>
 
   <div class="article-body">
 
-    <p>Ghost Architect is a codebase triage tool. The best way to demonstrate what it actually does is to show it working on real code. So we pointed it at a real, publicly available production extension — the Meta for Magento 2 Business Extension — and ran a full scan.</p>
+    <p>Ghost Architect is a codebase triage tool. The best way to demonstrate what it actually does is to show it working on real code. So we pointed it at a real, publicly available production extension -- the Meta for Magento 2 Business Extension -- and ran a full scan.</p>
 
     <p>658 files. 18 findings. Under 10 minutes. $0.23 in API costs.</p>
 
@@ -143,7 +143,7 @@
 
     <h2>Why the Meta Extension?</h2>
 
-    <p>We chose the Meta for Magento 2 Business Extension specifically because it's publicly available, widely deployed across Magento stores, and represents the kind of third-party integration that agencies install on behalf of clients and often never revisit. It handles Facebook Pixel events, Conversion API calls, product catalog syncing, and ad attribution — which means it sits at the intersection of your storefront code, your customer data, and your advertising spend.</p>
+    <p>We chose the Meta for Magento 2 Business Extension specifically because it's publicly available, widely deployed across Magento stores, and represents the kind of third-party integration that agencies install on behalf of clients and often never revisit. It handles Facebook Pixel events, Conversion API calls, product catalog syncing, and ad attribution -- which means it sits at the intersection of your storefront code, your customer data, and your advertising spend.</p>
 
     <p>Extensions like this are ideal candidates for a triage pass precisely because they're trusted by default. They came from a recognized vendor, they passed a quick install check, and then they ran in the background for months or years while the team focused on other things. Trusted-by-default is where the interesting findings live.</p>
 
@@ -156,10 +156,10 @@
     <div class="finding-card critical">
       <div class="finding-header">
         <span class="severity-badge critical">Critical</span>
-        <span class="finding-title">Finding #1 — Client-Side Credential Exposure</span>
+        <span class="finding-title">Finding #1 -- Client-Side Credential Exposure</span>
       </div>
-      <p>Meta OAuth access tokens are stored in <code>window.facebookBusinessExtensionConfig</code> — a JavaScript object rendered directly into the page DOM and readable by any browser extension, third-party script, or XSS payload with access to the window object.</p>
-      <p>In practical terms, this means that any cross-site scripting vulnerability anywhere on the page — in the theme, in another extension, in a user-generated content field — can be leveraged to exfiltrate a live OAuth token with full Facebook Business account access. No additional exploitation is required. The token is sitting in the window object.</p>
+      <p>Meta OAuth access tokens are stored in <code>window.facebookBusinessExtensionConfig</code> -- a JavaScript object rendered directly into the page DOM and readable by any browser extension, third-party script, or XSS payload with access to the window object.</p>
+      <p>In practical terms, this means that any cross-site scripting vulnerability anywhere on the page -- in the theme, in another extension, in a user-generated content field -- can be leveraged to exfiltrate a live OAuth token with full Facebook Business account access. No additional exploitation is required. The token is sitting in the window object.</p>
       <p>The correct pattern here is to keep OAuth tokens server-side and expose only non-sensitive configuration to the client. This is a well-documented security practice that the extension does not follow.</p>
       <div class="finding-meta">
         <span>Est. fix: 8–12 hrs</span>
@@ -171,10 +171,10 @@
     <div class="finding-card critical">
       <div class="finding-header">
         <span class="severity-badge critical">Critical</span>
-        <span class="finding-title">Finding #9 — Ad Spend Inflation Race Condition</span>
+        <span class="finding-title">Finding #9 -- Ad Spend Inflation Race Condition</span>
       </div>
-      <p>Ghost flagged this as the most expensive bug in the codebase — and expensive is the right word. The extension uses event ID deduplication to prevent the same conversion event from being counted twice across the browser Pixel and the server-side Conversion API. When both fire for the same event, Meta uses the event ID to deduplicate them.</p>
-      <p>The issue is a race condition in the deduplication logic. Under load — which is exactly the condition that occurs during high-traffic periods like promotions, product launches, or seasonal peaks — the race condition causes duplicate Conversion API events to slip through deduplication and get counted as separate conversions by Meta's attribution system.</p>
+      <p>Ghost flagged this as the most expensive bug in the codebase -- and expensive is the right word. The extension uses event ID deduplication to prevent the same conversion event from being counted twice across the browser Pixel and the server-side Conversion API. When both fire for the same event, Meta uses the event ID to deduplicate them.</p>
+      <p>The issue is a race condition in the deduplication logic. Under load -- which is exactly the condition that occurs during high-traffic periods like promotions, product launches, or seasonal peaks -- the race condition causes duplicate Conversion API events to slip through deduplication and get counted as separate conversions by Meta's attribution system.</p>
       <p>Ghost's analysis estimated this causes 10–20% duplicate event reporting. On a store spending $50,000/month in Meta ads, that's $5,000–$10,000 per month in inflated ad spend attributable to this single bug. The store appears to be performing better than it actually is, which distorts optimization decisions on top of the direct cost impact.</p>
       <div class="finding-meta">
         <span>Est. fix: 10–14 hrs</span>
@@ -186,11 +186,11 @@
     <div class="finding-card critical">
       <div class="finding-header">
         <span class="severity-badge critical">Critical</span>
-        <span class="finding-title">Finding #3 — Mass Assignment Configuration Vulnerability</span>
+        <span class="finding-title">Finding #3 -- Mass Assignment Configuration Vulnerability</span>
       </div>
-      <p>Arbitrary POST parameters submitted by an attacker are saved directly to <code>core_config_data</code> with no validation, no allowlist, and no CSRF protection on the endpoint. <code>core_config_data</code> is Magento's central configuration store — it controls everything from payment gateway settings to admin URLs to email routing.</p>
-      <p>Combine the missing allowlist with missing CSRF protection and you have a situation where any authenticated user — or an unauthenticated user who can trigger the right request via CSRF — can write arbitrary values to any configuration key in the system. The blast radius is essentially the entire store configuration.</p>
-      <p>This class of vulnerability — mass assignment with no input restriction — is well understood and has been a common finding in Magento extension security audits for years. Its presence here in a widely deployed Meta extension is a reminder that even extensions from recognized publishers warrant scrutiny.</p>
+      <p>Arbitrary POST parameters submitted by an attacker are saved directly to <code>core_config_data</code> with no validation, no allowlist, and no CSRF protection on the endpoint. <code>core_config_data</code> is Magento's central configuration store -- it controls everything from payment gateway settings to admin URLs to email routing.</p>
+      <p>Combine the missing allowlist with missing CSRF protection and you have a situation where any authenticated user -- or an unauthenticated user who can trigger the right request via CSRF -- can write arbitrary values to any configuration key in the system. The blast radius is essentially the entire store configuration.</p>
+      <p>This class of vulnerability -- mass assignment with no input restriction -- is well understood and has been a common finding in Magento extension security audits for years. Its presence here in a widely deployed Meta extension is a reminder that even extensions from recognized publishers warrant scrutiny.</p>
       <div class="finding-meta">
         <span>Est. fix: 6–8 hrs</span>
         <span>Complexity: HIGH</span>
@@ -201,12 +201,12 @@
     <p>Beyond the three Critical findings above, Ghost surfaced 15 additional findings at High, Medium, and Low severity. These included deprecated API usage patterns that will break against current Magento versions, missing output escaping in template files that create XSS surface area, inconsistent error handling that leaks internal path information, and several integration patterns with the Conversion API that don't follow Meta's current recommended implementation.</p>
 
     <div class="callout">
-      <p><strong>Important context:</strong> Ghost Architect findings are pattern-based starting points, not proof of exploitation. These findings represent architectural risks and code patterns that warrant investigation and remediation — they are not evidence that these vulnerabilities have been actively exploited in any specific installation. Always validate findings in the context of your specific deployment before assigning remediation priority.</p>
+      <p><strong>Important context:</strong> Ghost Architect findings are pattern-based starting points, not proof of exploitation. These findings represent architectural risks and code patterns that warrant investigation and remediation -- they are not evidence that these vulnerabilities have been actively exploited in any specific installation. Always validate findings in the context of your specific deployment before assigning remediation priority.</p>
     </div>
 
     <h2>What This Tells You About Your Own Codebase</h2>
 
-    <p>The Meta extension is not an outlier. It's a well-resourced extension from a major platform vendor, written by professional developers, and it contains three Critical findings in 658 files. That's not a commentary on Meta's engineering team — it's a commentary on the reality of complex software in complex integration environments.</p>
+    <p>The Meta extension is not an outlier. It's a well-resourced extension from a major platform vendor, written by professional developers, and it contains three Critical findings in 658 files. That's not a commentary on Meta's engineering team -- it's a commentary on the reality of complex software in complex integration environments.</p>
 
     <p>Most Magento stores are running 20, 30, or 50 extensions. They're running custom modules built by contractors whose names nobody remembers. They're running theme overrides that reach into core functionality in ways the original developers didn't document. They're running payment and shipping integrations that were installed years ago and touched only when they break.</p>
 
@@ -218,7 +218,7 @@
 
     <h3>// The compound risk of multiple extensions</h3>
 
-    <p>Individual extension findings are meaningful. But the more important analysis is how multiple extensions interact. A credential exposure in Extension A can be exploited through an XSS surface in Extension B. A mass assignment vulnerability in Extension C can be triggered via an unauthenticated endpoint introduced by Extension D. Ghost Architect's conflict detection looks for these interaction patterns — not just individual findings in isolation, but places where the combination of two or more extensions creates risk that neither creates alone.</p>
+    <p>Individual extension findings are meaningful. But the more important analysis is how multiple extensions interact. A credential exposure in Extension A can be exploited through an XSS surface in Extension B. A mass assignment vulnerability in Extension C can be triggered via an unauthenticated endpoint introduced by Extension D. Ghost Architect's conflict detection looks for these interaction patterns -- not just individual findings in isolation, but places where the combination of two or more extensions creates risk that neither creates alone.</p>
 
     <h3>// Third-party code is your responsibility</h3>
 
@@ -226,7 +226,7 @@
 
     <h2>Why $0.23 Matters</h2>
 
-    <p>The total API cost of this scan was $0.23. That's not a promotional figure — it's the actual Anthropic API cost printed in the terminal output at the end of the scan. Ghost Architect shows you exactly what each scan costs, every time.</p>
+    <p>The total API cost of this scan was $0.23. That's not a promotional figure -- it's the actual Anthropic API cost printed in the terminal output at the end of the scan. Ghost Architect shows you exactly what each scan costs, every time.</p>
 
     <p>The reason this matters is that cost has historically been the barrier to regular codebase auditing. Comprehensive manual code review is expensive and slow. Running it on 658 files across a full extension would take a senior developer multiple days. The economics of that don't work for most agencies on most projects.</p>
 
@@ -234,15 +234,15 @@
 
     <h2>The Output: What You Actually Get</h2>
 
-    <p>Every Ghost Architect scan produces three outputs simultaneously. The PDF is a branded, formatted report designed to be handed to a stakeholder or client — it includes an executive summary, severity-categorized findings, estimated remediation effort, and blast radius analysis for each finding. The TXT file is optimized for developers — it's structured for readability in a terminal or code editor and includes the technical detail developers need to action findings immediately. The MD file is designed to be committed to a repository, integrated into a project wiki, or dropped into a ticket system.</p>
+    <p>Every Ghost Architect scan produces three outputs simultaneously. The PDF is a branded, formatted report designed to be handed to a stakeholder or client -- it includes an executive summary, severity-categorized findings, estimated remediation effort, and blast radius analysis for each finding. The TXT file is optimized for developers -- it's structured for readability in a terminal or code editor and includes the technical detail developers need to action findings immediately. The MD file is designed to be committed to a repository, integrated into a project wiki, or dropped into a ticket system.</p>
 
     <p>You don't have to choose between a document for your client and a document for your team. The scan produces both, simultaneously, from the same analysis pass.</p>
 
     <h2>Running It on Your Own Codebase</h2>
 
-    <p>Ghost Architect runs entirely on your local machine. Your code is never uploaded anywhere. The analysis calls go directly from your terminal to the Anthropic API using your own API key — Ghost Architect is never in the middle. The full report from this Meta extension scan is available for download on the Ghost Architect homepage if you want to see the complete output format before running your own scan.</p>
+    <p>Ghost Architect runs entirely on your local machine. Your code is never uploaded anywhere. The analysis calls go directly from your terminal to the Anthropic API using your own API key -- Ghost Architect is never in the middle. The full report from this Meta extension scan is available for download on the Ghost Architect homepage if you want to see the complete output format before running your own scan.</p>
 
-    <p>Ghost Open is the free tier — available on npm, MIT licensed, no account required. It surfaces Critical and High findings. If you want the full severity range plus multi-pass analysis and PDF reports, Ghost Pro starts at $99/month.</p>
+    <p>Ghost Open is the free tier -- available on npm, MIT licensed, no account required. It surfaces Critical and High findings. If you want the full severity range plus multi-pass analysis and PDF reports, Ghost Pro starts at $99/month.</p>
 
     <hr class="divider" />
 

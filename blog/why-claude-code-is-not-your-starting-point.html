@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="dark" />
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
-  <title>Why Claude Code Is Not Your Starting Point — Ghost Architect™</title>
+  <title>Why Claude Code Is Not Your Starting Point: Ghost Architect™</title>
   <meta name="description" content="AI coding tools are powerful. But pointing an autonomous agent at a codebase you don't understand is how you create expensive, hard-to-reverse problems. Triage first. Agent second." />
   <link rel="canonical" href="https://ghostarchitect.dev/blog/why-claude-code-is-not-your-starting-point" />
   <meta name="robots" content="index, follow" />
@@ -107,7 +107,7 @@
 
   <div class="article-body">
 
-    <p>Claude Code is impressive. So is Cursor. So is GitHub Copilot in agent mode. The new generation of AI coding tools can generate, refactor, test, and ship code at a pace that would have seemed impossible two years ago. If you haven't spent serious time with one of these tools on a real project, you're behind — and that's worth saying plainly.</p>
+    <p>Claude Code is impressive. So is Cursor. So is GitHub Copilot in agent mode. The new generation of AI coding tools can generate, refactor, test, and ship code at a pace that would have seemed impossible two years ago. If you haven't spent serious time with one of these tools on a real project, you're behind -- and that's worth saying plainly.</p>
 
     <p>But there's a failure mode that's becoming more common as these tools get more capable, and it's worth naming before it becomes a standard way teams work. The failure mode is this: treating the AI agent as your starting point on a codebase you don't fully understand.</p>
 
@@ -117,9 +117,9 @@
 
     <h2>The Agent Confidence Problem</h2>
 
-    <p>AI coding agents are extraordinarily confident. They don't hedge. They don't say "I noticed a pattern here that I'm not sure about — you might want to check this before I proceed." They generate code, make changes, and move forward with the same tone and velocity regardless of whether they're working on a simple CRUD endpoint or a payment integration with five years of accumulated complexity.</p>
+    <p>AI coding agents are extraordinarily confident. They don't hedge. They don't say "I noticed a pattern here that I'm not sure about -- you might want to check this before I proceed." They generate code, make changes, and move forward with the same tone and velocity regardless of whether they're working on a simple CRUD endpoint or a payment integration with five years of accumulated complexity.</p>
 
-    <p>That confidence is part of what makes them useful. It's also what makes them dangerous on inherited codebases. When you point Claude Code at a Magento store that's been through three agency handoffs, two platform upgrades, and a decade of extension accumulation, the agent doesn't know what it doesn't know. It sees the code it can see and makes changes based on what's visible. What it can't see — the implicit dependencies, the undocumented integration contracts, the configuration overrides buried in files it didn't load — becomes invisible risk.</p>
+    <p>That confidence is part of what makes them useful. It's also what makes them dangerous on inherited codebases. When you point Claude Code at a Magento store that's been through three agency handoffs, two platform upgrades, and a decade of extension accumulation, the agent doesn't know what it doesn't know. It sees the code it can see and makes changes based on what's visible. What it can't see -- the implicit dependencies, the undocumented integration contracts, the configuration overrides buried in files it didn't load -- becomes invisible risk.</p>
 
     <p>The changes it makes may be individually correct. They may even look great in a code review. The problem surfaces six weeks later when a deployment to production triggers an edge case in an integration nobody remembered was there, because the agent's changes modified something that was load-bearing in a way that wasn't obvious from the code alone.</p>
 
@@ -143,7 +143,7 @@
 
     <p>There's also a more fundamental problem: the mental model you build through organic exploration is shaped by what you encounter, which means it's systematically incomplete in the areas you haven't had reason to explore yet. You know the checkout flow well because you worked on a performance issue there last month. You're less certain about the catalog importer because nobody's touched it in two years. The areas you're least certain about are often the areas where the most risk lives.</p>
 
-    <p>A structured triage pass changes this. Instead of building your mental model through organic exploration, you start with a systematic map — every component, every integration pattern, every finding categorized by severity and flagged with estimated remediation effort. You can see the shape of the codebase before you start making changes to it. That changes how you plan the work, what you prioritize, and what you tell an AI agent to do.</p>
+    <p>A structured triage pass changes this. Instead of building your mental model through organic exploration, you start with a systematic map -- every component, every integration pattern, every finding categorized by severity and flagged with estimated remediation effort. You can see the shape of the codebase before you start making changes to it. That changes how you plan the work, what you prioritize, and what you tell an AI agent to do.</p>
 
     <h2>The Right Sequence</h2>
 
@@ -151,25 +151,25 @@
 
     <h3>// Step 1: Triage First</h3>
 
-    <p>Before you write a line of code, before you open Claude Code, before you even fully scope the engagement — run a triage pass on the codebase. Map what's there. Understand the severity distribution of what you're working with. Identify the areas that are load-bearing, the integrations that are fragile, and the patterns that will complicate any changes downstream.</p>
+    <p>Before you write a line of code, before you open Claude Code, before you even fully scope the engagement -- run a triage pass on the codebase. Map what's there. Understand the severity distribution of what you're working with. Identify the areas that are load-bearing, the integrations that are fragile, and the patterns that will complicate any changes downstream.</p>
 
-    <p>This doesn't take days. A Ghost Architect scan on a full Magento installation with a typical extension stack runs in under 15 minutes and produces a structured report you can review in another 20. In under an hour, you have a map of the codebase that would have taken a week to build through manual exploration — and it's documented, shareable, and reproducible.</p>
+    <p>This doesn't take days. A Ghost Architect scan on a full Magento installation with a typical extension stack runs in under 15 minutes and produces a structured report you can review in another 20. In under an hour, you have a map of the codebase that would have taken a week to build through manual exploration -- and it's documented, shareable, and reproducible.</p>
 
     <h3>// Step 2: Scope the Work Against the Map</h3>
 
     <p>With the triage report in hand, scope the work differently. You know which components are safe to refactor and which are load-bearing. You know where the integration risks are. You know which Critical and High findings need to be addressed before or during any significant changes, because leaving them in place while doing major refactoring compounds the risk.</p>
 
-    <p>This is also when you have the client conversation. If the triage report surfaces five Critical findings and twelve High findings, the client needs to know that before work begins — not as a surprise partway through the engagement. The report is the conversation.</p>
+    <p>This is also when you have the client conversation. If the triage report surfaces five Critical findings and twelve High findings, the client needs to know that before work begins -- not as a surprise partway through the engagement. The report is the conversation.</p>
 
     <h3>// Step 3: Brief the Agent Correctly</h3>
 
-    <p>Now you can use Claude Code — and use it well. The difference is that you're not pointing an agent at an unknown system and hoping it navigates safely. You're directing it with specific context: here is what's in this codebase, here are the areas I need you to work in, here are the constraints you need to respect, here are the integration patterns that are off-limits until we've addressed the findings that touch them.</p>
+    <p>Now you can use Claude Code -- and use it well. The difference is that you're not pointing an agent at an unknown system and hoping it navigates safely. You're directing it with specific context: here is what's in this codebase, here are the areas I need you to work in, here are the constraints you need to respect, here are the integration patterns that are off-limits until we've addressed the findings that touch them.</p>
 
     <p>An AI agent with good context is dramatically more effective than an AI agent operating in a vacuum. The triage report is that context. It's the briefing document that turns a powerful but undirected tool into a precisely targeted one.</p>
 
     <h3>// Step 4: Validate Against the Map</h3>
 
-    <p>After significant changes, run another triage pass. Compare the new report against the baseline. Did the changes introduce new findings? Did they resolve the ones they were supposed to address? Did the blast radius analysis shift in ways you'd expect? The triage report is not a one-time input — it's a baseline you can measure against throughout the engagement.</p>
+    <p>After significant changes, run another triage pass. Compare the new report against the baseline. Did the changes introduce new findings? Did they resolve the ones they were supposed to address? Did the blast radius analysis shift in ways you'd expect? The triage report is not a one-time input -- it's a baseline you can measure against throughout the engagement.</p>
 
     <h2>This Is Not Anti-AI</h2>
 
@@ -177,7 +177,7 @@
 
     <p>Triage and agentic coding are complementary, not competitive. Triage tells you what's there and what matters. Agentic coding changes it fast and well. The sequence is triage first, then agent. Reversing that sequence on a complex codebase is how teams create problems that are more expensive than the ones they were trying to solve.</p>
 
-    <p>The codebases that are worth the most attention — the large, complex, revenue-critical systems that agencies and senior architects work on — are exactly the ones where that sequence matters most. They're also the ones where the cost of getting it wrong is highest.</p>
+    <p>The codebases that are worth the most attention -- the large, complex, revenue-critical systems that agencies and senior architects work on -- are exactly the ones where that sequence matters most. They're also the ones where the cost of getting it wrong is highest.</p>
 
     <p>Start with the map. Then build.</p>
 
@@ -185,7 +185,7 @@
 
     <div class="cta-block">
       <h3>Get the map before you start building.</h3>
-      <p>Ghost Architect triages your codebase in minutes. Categorizes risk, prioritizes findings, gives your team the context they need before an AI agent — or anyone else — starts making changes.</p>
+      <p>Ghost Architect triages your codebase in minutes. Categorizes risk, prioritizes findings, gives your team the context they need before an AI agent -- or anyone else -- starts making changes.</p>
       <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer" class="btn-primary">Install Ghost Open Free →</a>
       <a href="/pricing" class="btn-secondary">See All Plans</a>
     </div>

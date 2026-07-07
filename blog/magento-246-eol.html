@@ -5,13 +5,13 @@
   <meta name="color-scheme" content="dark" />
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
-  <title>Adobe Commerce 2.4.6 End of Support — 63 Days to August 11, 2026 — Ghost Architect™</title>
+  <title>Adobe Commerce 2.4.6 End of Support: 63 Days to August 11, 2026 | Ghost Architect™</title>
   <meta name="description" content="Adobe Commerce 2.4.6 loses security patches, quality fixes, and PCI compliance on August 11, 2026. Here is what breaks and how Ghost Architect maps it before you start." />
   <link rel="canonical" href="https://ghostarchitect.dev/blog/magento-246-eol" />
   <meta name="robots" content="index, follow" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://ghostarchitect.dev/blog/magento-246-eol" />
-  <meta property="og:title" content="Adobe Commerce 2.4.6 End of Support — 63 Days to August 11, 2026" />
+  <meta property="og:title" content="Adobe Commerce 2.4.6 End of Support -- 63 Days to August 11, 2026" />
   <meta property="og:description" content="Adobe Commerce 2.4.6 loses security patches, quality fixes, and PCI compliance on August 11, 2026. Here is what breaks and how Ghost Architect maps it before you start." />
   <meta property="og:image" content="https://ghostarchitect.dev/GHOSTLOGO.JPG" />
   <meta property="og:site_name" content="Ghost Architect™" />
@@ -128,13 +128,13 @@
     <span>5 min read</span>
   </div>
 
-  <h1>Adobe Commerce 2.4.6 End of Support — 63 Days to August 11, 2026</h1>
+  <h1>Adobe Commerce 2.4.6 End of Support -- 63 Days to August 11, 2026</h1>
 
   <div class="article-body">
 
     <p>Adobe Commerce 2.4.6 reaches end of support on August 11, 2026. That is 63 days from today. After that date, Adobe will issue no further security patches, no quality fixes, and no official support for any issue you encounter. PCI compliance becomes a documented gap. Your codebase becomes an unpatched target.</p>
 
-    <p>If you are running 2.4.6 — or managing clients who are — you do not have time for a slow start. The question is not whether to migrate. The question is whether you know what you are actually migrating.</p>
+    <p>If you are running 2.4.6 -- or managing clients who are -- you do not have time for a slow start. The question is not whether to migrate. The question is whether you know what you are actually migrating.</p>
 
     <hr class="divider" />
 
@@ -142,10 +142,10 @@
 
     <p>End of support does not mean your store stops working on August 12. Orders will still process. Checkout will still function. What changes is Adobe's obligation to you, which goes to zero. Every vulnerability discovered after August 11 in 2.4.6 core will remain permanently unpatched. Security researchers will document them. Exploit kits will be written against them. The CVE database will become a public map of undefended surface area in your production environment.</p>
 
-    <p>The pattern is documented. Magento 1 reached EOL in June 2020. Magecart attacks targeting known unpatched vulnerabilities swept through thousands of Magento 1 installations in the years that followed. The same dynamic applies to every unsupported version. Time on an unpatched platform is not neutral — it is accumulating risk.</p>
+    <p>The pattern is documented. Magento 1 reached EOL in June 2020. Magecart attacks targeting known unpatched vulnerabilities swept through thousands of Magento 1 installations in the years that followed. The same dynamic applies to every unsupported version. Time on an unpatched platform is not neutral -- it is accumulating risk.</p>
 
     <div class="callout">
-      <p><strong>PCI compliance note:</strong> PCI DSS Requirement 6.3.3 mandates that all system components are protected from known vulnerabilities by installing applicable security patches. Running on a platform with no available patches creates a documented compliance gap that QSAs are required to flag. For enterprise clients, this is not a theoretical concern — it is a real exposure in their next annual audit.</p>
+      <p><strong>PCI compliance note:</strong> PCI DSS Requirement 6.3.3 mandates that all system components are protected from known vulnerabilities by installing applicable security patches. Running on a platform with no available patches creates a documented compliance gap that QSAs are required to flag. For enterprise clients, this is not a theoretical concern -- it is a real exposure in their next annual audit.</p>
     </div>
 
     <h2>What Is Changing in the Migration</h2>
@@ -154,17 +154,17 @@
 
     <h3>// PHP 8.3 minimum, PHP 8.4 incoming</h3>
 
-    <p>Adobe Commerce 2.4.7 requires PHP 8.3 at minimum. PHP 8.4 support is being added in patch releases. The practical consequence: any custom module or third-party extension using deprecated PHP 8.1 or 8.2 syntax — dynamic property creation, string interpolation patterns, certain reflection API usages — will generate deprecation notices or hard failures depending on your error configuration. This is not theoretical. It shows up in production.</p>
+    <p>Adobe Commerce 2.4.7 requires PHP 8.3 at minimum. PHP 8.4 support is being added in patch releases. The practical consequence: any custom module or third-party extension using deprecated PHP 8.1 or 8.2 syntax -- dynamic property creation, string interpolation patterns, certain reflection API usages -- will generate deprecation notices or hard failures depending on your error configuration. This is not theoretical. It shows up in production.</p>
 
     <p>The Ghost Architect conflict scanner identifies these PHP version compatibility issues as part of a standard scan. They surface as CRITICAL or HIGH findings with the specific files and line ranges where the incompatibilities live.</p>
 
     <h3>// OpenSearch replaces Elasticsearch</h3>
 
-    <p>Adobe Commerce 2.4.7 drops Elasticsearch support in favor of OpenSearch 2.x. If your infrastructure is running Elasticsearch — which most 2.4.6 installations are — that is a platform-level change that needs to be planned for explicitly. Any custom search module, custom indexer, or extension that calls Elasticsearch APIs directly needs to be audited and updated before the migration goes live.</p>
+    <p>Adobe Commerce 2.4.7 drops Elasticsearch support in favor of OpenSearch 2.x. If your infrastructure is running Elasticsearch -- which most 2.4.6 installations are -- that is a platform-level change that needs to be planned for explicitly. Any custom search module, custom indexer, or extension that calls Elasticsearch APIs directly needs to be audited and updated before the migration goes live.</p>
 
     <h3>// MariaDB 11.4 and RabbitMQ 4.x</h3>
 
-    <p>The supported database and message queue versions shift upward. MariaDB 11.4 introduces behavioral changes in certain query execution paths. RabbitMQ 4.x changes the management plugin API and deprecates several queue configuration patterns. Custom modules that interact with these systems at a low level — direct database queries, custom queue consumers — need to be tested against the new versions explicitly.</p>
+    <p>The supported database and message queue versions shift upward. MariaDB 11.4 introduces behavioral changes in certain query execution paths. RabbitMQ 4.x changes the management plugin API and deprecates several queue configuration patterns. Custom modules that interact with these systems at a low level -- direct database queries, custom queue consumers -- need to be tested against the new versions explicitly.</p>
 
     <h3>// GraphQL schema changes</h3>
 
@@ -174,17 +174,17 @@
 
     <p>The natural instinct when facing a migration like this is to open an AI assistant, paste in a file, and ask it to find compatibility issues. That works for individual files. It does not work for codebases.</p>
 
-    <p>The conflicts that actually break migrations are not confined to single files. They live in the relationships between files. A payment gateway that calls a custom cart model that overrides a core service that depends on a version-specific Elasticsearch API — that chain of dependencies does not appear when you review each file in isolation. You see the endpoint and you see the starting point, but you do not see the path between them.</p>
+    <p>The conflicts that actually break migrations are not confined to single files. They live in the relationships between files. A payment gateway that calls a custom cart model that overrides a core service that depends on a version-specific Elasticsearch API -- that chain of dependencies does not appear when you review each file in isolation. You see the endpoint and you see the starting point, but you do not see the path between them.</p>
 
-    <p>Ghost Architect holds the entire codebase in context for a single scan pass. The conflict detector analyzes multi-axis dependencies — the relationship between a custom module's expectations, the platform API's behavior in 2.4.7, and the third-party extension's implementation — simultaneously. When it finds that your SAP ERP integration uses a field mapping that the new order management API no longer provides, or that your Hyvä theme overrides a checkout block that Adobe restructured in 2.4.7, or that your custom cart controller calls a session handler that no longer behaves the same way under PHP 8.3, it surfaces those findings with the specific files, severity levels, and resolution paths — not as a flat list of individual file issues, but as a structured map of the actual conflicts your migration needs to address.</p>
+    <p>Ghost Architect holds the entire codebase in context for a single scan pass. The conflict detector analyzes multi-axis dependencies -- the relationship between a custom module's expectations, the platform API's behavior in 2.4.7, and the third-party extension's implementation -- simultaneously. When it finds that your SAP ERP integration uses a field mapping that the new order management API no longer provides, or that your Hyvä theme overrides a checkout block that Adobe restructured in 2.4.7, or that your custom cart controller calls a session handler that no longer behaves the same way under PHP 8.3, it surfaces those findings with the specific files, severity levels, and resolution paths -- not as a flat list of individual file issues, but as a structured map of the actual conflicts your migration needs to address.</p>
 
     <p>That is the difference between file-by-file prompting and codebase-level analysis. One tells you what is in a file. The other tells you what breaks when you move.</p>
 
-    <h2>Fix Forecast — Discovery Without Fix Direction Is Not Useful at 63 Days Out</h2>
+    <h2>Fix Forecast -- Discovery Without Fix Direction Is Not Useful at 63 Days Out</h2>
 
     <p>Knowing that you have 23 High severity conflicts in your codebase is a starting point, not a plan. At 63 days to EOL, you need to know not just what breaks but what the corrected code looks like and whether it is safe to apply.</p>
 
-    <p>Ghost Architect's Fix Forecast mode takes the findings from a conflict scan and generates the corrected file for each finding with a surgical patch — not a description of what to change, but the actual proposed code change. It then runs a second conflict scan on the corrected version to confirm that the fix does not introduce new issues. The output is a fix artifact with the proposed change, a unified diff, and a post-fix blast radius report showing what the corrected code affects downstream.</p>
+    <p>Ghost Architect's Fix Forecast mode takes the findings from a conflict scan and generates the corrected file for each finding with a surgical patch -- not a description of what to change, but the actual proposed code change. It then runs a second conflict scan on the corrected version to confirm that the fix does not introduce new issues. The output is a fix artifact with the proposed change, a unified diff, and a post-fix blast radius report showing what the corrected code affects downstream.</p>
 
     <p>For a migration with a hard deadline, this changes the character of the work. Instead of developers reading findings and deciding what to do about each one, you have a structured queue: Ghost identifies the conflict, proposes the correction, validates it does not create new conflicts, and hands it to a developer for final review and application. The review step stays human. The discovery and draft generation step is automated.</p>
 
@@ -232,7 +232,7 @@
 
     <div class="cta-block">
       <h3>Map the migration before you scope it.</h3>
-      <p>Ghost Architect scans your codebase and surfaces every conflict, compatibility issue, and upgrade blocker — with fix direction for each one. Ghost Open is free. No account required. Point it at any codebase and run.</p>
+      <p>Ghost Architect scans your codebase and surfaces every conflict, compatibility issue, and upgrade blocker -- with fix direction for each one. Ghost Open is free. No account required. Point it at any codebase and run.</p>
       <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer" class="btn-primary">Install Ghost Open Free →</a>
       <a href="/pricing" class="btn-secondary">See All Plans</a>
     </div>

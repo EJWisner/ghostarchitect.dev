@@ -6,14 +6,14 @@
   <meta name="color-scheme" content="dark" />
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
-  <title>What Does a Codebase Triage Actually Look Like? A Real Walkthrough — Ghost Architect™</title>
-  <meta name="description" content="A step-by-step walkthrough of what Ghost Architect actually produces — what the PDF looks like, what a Critical finding means in practice, and how an agency uses it the same day." />
+  <title>What Does a Codebase Triage Actually Look Like? A Real Walkthrough: Ghost Architect™</title>
+  <meta name="description" content="A step-by-step walkthrough of what Ghost Architect actually produces -- what the PDF looks like, what a Critical finding means in practice, and how an agency uses it the same day." />
   <link rel="canonical" href="https://ghostarchitect.dev/blog/codebase-triage-walkthrough" />
   <meta name="robots" content="index, follow" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://ghostarchitect.dev/blog/codebase-triage-walkthrough" />
   <meta property="og:title" content="What Does a Codebase Triage Actually Look Like? A Real Walkthrough" />
-  <meta property="og:description" content="A step-by-step walkthrough of what Ghost Architect actually produces — what the PDF looks like, what a Critical finding means in practice, and how an agency uses it the same day." />
+  <meta property="og:description" content="A step-by-step walkthrough of what Ghost Architect actually produces -- what the PDF looks like, what a Critical finding means in practice, and how an agency uses it the same day." />
   <meta property="og:image" content="https://ghostarchitect.dev/GHOSTLOGO.JPG" />
   <meta property="og:site_name" content="Ghost Architect™" />
   <script type="application/ld+json">
@@ -120,13 +120,13 @@
 
   <div class="article-body">
 
-    <p>"Codebase triage" sounds like a process. A methodology. Something that takes weeks and produces a document nobody reads. That's not what Ghost Architect does. This post walks through exactly what happens when you run a scan — from the terminal command to the output you hand to a client or developer — so you know what you're getting before you try it yourself.</p>
+    <p>"Codebase triage" sounds like a process. A methodology. Something that takes weeks and produces a document nobody reads. That's not what Ghost Architect does. This post walks through exactly what happens when you run a scan -- from the terminal command to the output you hand to a client or developer -- so you know what you're getting before you try it yourself.</p>
 
     <hr class="divider" />
 
     <h2>Step 1: Install and Point</h2>
 
-    <p>Ghost Architect is a CLI tool. Installation is a single npm command. Once it's installed globally, you run it from your terminal and it walks you through a short setup — your Anthropic API key, what you want to scan, and a few configuration choices about depth and output format.</p>
+    <p>Ghost Architect is a CLI tool. Installation is a single npm command. Once it's installed globally, you run it from your terminal and it walks you through a short setup -- your Anthropic API key, what you want to scan, and a few configuration choices about depth and output format.</p>
 
     <div class="terminal-block">
       <div><span class="prompt">$</span> npm install -g ghost-architect-open</div>
@@ -137,10 +137,10 @@
       <br>
       <div style="border: 1px solid #2a2a3a; border-radius: 8px; padding: 1rem 1.25rem; margin: 0.25rem 0 0.5rem; background: #111118;">
         <div style="font-size: 1.4rem; font-weight: 800; letter-spacing: 0.12em; color: #4a9eff; margin-bottom: 0.2rem;">GHOST OPEN</div>
-        <div style="font-size: 0.72rem; letter-spacing: 0.06em; color: #00d4aa;">ARCHITECT  —  AI-powered codebase archaeology</div>
+        <div style="font-size: 0.72rem; letter-spacing: 0.06em; color: #00d4aa;">ARCHITECT -- AI-powered codebase archaeology</div>
       </div>
       <br>
-      <div class="dim">  Ghost Architect™ v5.0.0 — OPEN EDITION</div>
+      <div class="dim">  Ghost Architect™ v5.0.0 -- OPEN EDITION</div>
       <div class="dim">  Codebase Intelligence. Any platform. Any language.</div>
       <br>
       <div><span class="ok">?</span> <span class="label">What would you like to scan?</span></div>
@@ -149,7 +149,7 @@
       <div class="dim">    ZIP archive</div>
     </div>
 
-    <p>You select your source — local folder, remote repo, or ZIP. If it's a private repo, you enter a personal access token. Ghost clones it locally, runs the scan, and removes the clone when it's done. Your code never touches any external server.</p>
+    <p>You select your source -- local folder, remote repo, or ZIP. If it's a private repo, you enter a personal access token. Ghost clones it locally, runs the scan, and removes the clone when it's done. Your code never touches any external server.</p>
 
     <h2>Step 2: The Analysis Plan</h2>
 
@@ -171,18 +171,18 @@
 
     <h2>Step 3: The Scan Runs</h2>
 
-    <p>Once confirmed, Ghost begins the scan. It works through the codebase in passes — a prioritization pass first to identify the highest-risk files, then deeper analysis passes on those files, then a cross-reference pass that looks at how components relate to each other. You see real-time progress in the terminal.</p>
+    <p>Once confirmed, Ghost begins the scan. It works through the codebase in passes -- a prioritization pass first to identify the highest-risk files, then deeper analysis passes on those files, then a cross-reference pass that looks at how components relate to each other. You see real-time progress in the terminal.</p>
 
     <div class="terminal-block">
-      <div class="label">// PASS 1 — PRIORITIZATION</div>
+      <div class="label">// PASS 1 -- PRIORITIZATION</div>
       <div class="dim">  Analyzing file structure and dependency graph...</div>
-      <div><span class="ok">✓</span> Priority map complete — 47 high-interest files identified</div>
+      <div><span class="ok">✓</span> Priority map complete -- 47 high-interest files identified</div>
       <br>
-      <div class="label">// PASS 2 — DEEP ANALYSIS</div>
+      <div class="label">// PASS 2 -- DEEP ANALYSIS</div>
       <div class="dim">  Analyzing high-priority files...</div>
-      <div class="dim">  [████████████████░░░░] 78% — Model/Integration/Erp.php</div>
+      <div class="dim">  [████████████████░░░░] 78% -- Model/Integration/Erp.php</div>
       <br>
-      <div class="label">// PASS 3 — CONFLICT DETECTION</div>
+      <div class="label">// PASS 3 -- CONFLICT DETECTION</div>
       <div class="dim">  Cross-referencing integration patterns...</div>
       <div><span class="ok">✓</span> Conflict analysis complete</div>
       <br>
@@ -195,32 +195,32 @@
       <div><span class="dim">  Total time:     </span><span class="ok">9m 42s</span></div>
     </div>
 
-    <h2>Step 4: The Output — Three Files, Three Audiences</h2>
+    <h2>Step 4: The Output -- Three Files, Three Audiences</h2>
 
-    <p>Every Ghost Architect scan produces three output files simultaneously. They contain the same findings, structured differently for different audiences. You don't pick one — you get all three.</p>
+    <p>Every Ghost Architect scan produces three output files simultaneously. They contain the same findings, structured differently for different audiences. You don't pick one -- you get all three.</p>
 
-    <h3>// The PDF — For Stakeholders and Clients</h3>
+    <h3>// The PDF -- For Stakeholders and Clients</h3>
 
-    <p>The PDF is designed to be handed directly to a non-technical stakeholder or a client. It opens with an executive summary — total findings by severity, a plain-language summary of the highest-risk items, and a recommended prioritization. It's not a raw dump of technical findings. It's a structured document that explains what was found, why it matters in business terms, and what the general remediation path looks like.</p>
+    <p>The PDF is designed to be handed directly to a non-technical stakeholder or a client. It opens with an executive summary -- total findings by severity, a plain-language summary of the highest-risk items, and a recommended prioritization. It's not a raw dump of technical findings. It's a structured document that explains what was found, why it matters in business terms, and what the general remediation path looks like.</p>
 
     <div class="output-section">
       <h4>// PDF Structure</h4>
-      <p><strong>Page 1–2:</strong> Executive Summary — total findings, severity breakdown, top 3 risks in plain language, recommended next steps.</p>
-      <p><strong>Page 3–5:</strong> Critical and High findings — each finding includes a title, technical description, business impact, estimated remediation effort, and complexity rating.</p>
+      <p><strong>Page 1–2:</strong> Executive Summary -- total findings, severity breakdown, top 3 risks in plain language, recommended next steps.</p>
+      <p><strong>Page 3–5:</strong> Critical and High findings -- each finding includes a title, technical description, business impact, estimated remediation effort, and complexity rating.</p>
       <p><strong>Page 6–7:</strong> Medium and Low findings summary, blast radius analysis, and integration dependency map.</p>
     </div>
 
     <p>The PDF is branded and clean. You can put your agency logo on it, hand it to a client in a meeting, and walk through it finding by finding. It's a deliverable, not a log file.</p>
 
-    <h3>// The TXT — For Developers</h3>
+    <h3>// The TXT -- For Developers</h3>
 
-    <p>The TXT file is optimized for developers. It's structured for readability in a terminal or text editor and includes the full technical detail for each finding — specific file paths, line references, code patterns that triggered the finding, and concrete remediation guidance. A developer can open this file, find their assigned findings, and start work immediately without needing to ask for clarification.</p>
+    <p>The TXT file is optimized for developers. It's structured for readability in a terminal or text editor and includes the full technical detail for each finding -- specific file paths, line references, code patterns that triggered the finding, and concrete remediation guidance. A developer can open this file, find their assigned findings, and start work immediately without needing to ask for clarification.</p>
 
     <p>The TXT is also optimized for AI-assisted development. If you're using Claude Code, Cursor, or another coding agent to work on the findings, you can feed the TXT directly into the agent's context. The structured format gives the agent the specific information it needs to make targeted, accurate changes rather than operating on broad instructions.</p>
 
-    <h3>// The MD — For the Team</h3>
+    <h3>// The MD -- For the Team</h3>
 
-    <p>The Markdown file is designed to be committed to a repository, dropped into a project wiki, or pasted into a project management system. It renders cleanly in GitHub, GitLab, Notion, and Linear. Each finding becomes a structured section that can be linked to a ticket, assigned to a developer, and marked complete as the work is done. The MD file is your living record of the triage pass — it's how the findings move from the scan into the team's workflow.</p>
+    <p>The Markdown file is designed to be committed to a repository, dropped into a project wiki, or pasted into a project management system. It renders cleanly in GitHub, GitLab, Notion, and Linear. Each finding becomes a structured section that can be linked to a ticket, assigned to a developer, and marked complete as the work is done. The MD file is your living record of the triage pass -- it's how the findings move from the scan into the team's workflow.</p>
 
     <h2>What a Critical Finding Actually Looks Like</h2>
 
@@ -229,13 +229,13 @@
     <div class="output-section">
       <h4>// Finding #1 · CRITICAL · Client-Side Credential Exposure</h4>
       <p><strong>File:</strong> Block/Adminhtml/Setup/FacebookBusinessExtensionConfig.php</p>
-      <p><strong>Pattern:</strong> OAuth access token rendered directly into window object via JavaScript block. Token readable by any script with window access — browser extensions, third-party analytics, XSS payloads.</p>
-      <p><strong>Business Impact:</strong> Full Facebook Business account takeover. Any XSS vulnerability on the page — in any extension, theme file, or user-generated content field — can be used to exfiltrate a live OAuth token with complete account access.</p>
+      <p><strong>Pattern:</strong> OAuth access token rendered directly into window object via JavaScript block. Token readable by any script with window access -- browser extensions, third-party analytics, XSS payloads.</p>
+      <p><strong>Business Impact:</strong> Full Facebook Business account takeover. Any XSS vulnerability on the page -- in any extension, theme file, or user-generated content field -- can be used to exfiltrate a live OAuth token with complete account access.</p>
       <p><strong>Remediation:</strong> Move OAuth token to server-side session. Replace client-side reference with a non-sensitive configuration identifier. Implement server-side proxy for any API calls that currently use the client-exposed token.</p>
       <p><strong>Est. Effort:</strong> 8–12 hours · Complexity: HIGH</p>
     </div>
 
-    <p>That's the level of specificity you get for every Critical and High finding. Not "there may be a credential issue somewhere" — a specific file, a specific pattern, a specific business impact, and a specific remediation path with an effort estimate you can put in a proposal.</p>
+    <p>That's the level of specificity you get for every Critical and High finding. Not "there may be a credential issue somewhere" -- a specific file, a specific pattern, a specific business impact, and a specific remediation path with an effort estimate you can put in a proposal.</p>
 
     <h2>How an Agency Uses It the Same Day</h2>
 
@@ -250,18 +250,18 @@
     <p><strong>End of day:</strong> Development work starts with a clear, shared understanding of what's in the codebase. No surprises in week three. No "we found this integration we didn't know about" conversations mid-project. The map is already drawn.</p>
 
     <div class="callout">
-      <p><strong>A note on Ghost Open vs Ghost Pro:</strong> As of v5.0.0, Ghost Open ships the full scan engine — every finding, every severity, full PDF/MD/TXT for every scan. All five scan modes (Chat, POI, Blast Radius, Conflict Detection, Recon) are included. Ghost Pro adds project intelligence on top: project label tracking, baseline comparison, the Project Dashboard, Compare Reports, and Ghost Partner™ profile support. Open is for one-shot triage. Pro is for tracking remediation across engagements.</p>
+      <p><strong>A note on Ghost Open vs Ghost Pro:</strong> As of v5.0.0, Ghost Open ships the full scan engine -- every finding, every severity, full PDF/MD/TXT for every scan. All five scan modes (Chat, POI, Blast Radius, Conflict Detection, Recon) are included. Ghost Pro adds project intelligence on top: project label tracking, baseline comparison, the Project Dashboard, Compare Reports, and Ghost Partner™ profile support. Open is for one-shot triage. Pro is for tracking remediation across engagements.</p>
     </div>
 
     <h2>Running It Yourself</h2>
 
-    <p>The best way to understand what a triage pass produces is to run one on a codebase you know. Pick a project you've been working on, or use the Meta extension as a test case — the repository is public. Install Ghost Open, run the scan, and read the output. You'll know within 15 minutes whether this changes how you approach the work.</p>
+    <p>The best way to understand what a triage pass produces is to run one on a codebase you know. Pick a project you've been working on, or use the Meta extension as a test case -- the repository is public. Install Ghost Open, run the scan, and read the output. You'll know within 15 minutes whether this changes how you approach the work.</p>
 
     <hr class="divider" />
 
     <div class="cta-block">
       <h3>See it work on your own codebase.</h3>
-      <p>Ghost Open is free. Install it, point it at any codebase, and have a full triage report — every finding, every severity — in under 15 minutes. No account required.</p>
+      <p>Ghost Open is free. Install it, point it at any codebase, and have a full triage report -- every finding, every severity -- in under 15 minutes. No account required.</p>
       <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer" class="btn-primary">Install Ghost Open Free →</a>
       <a href="https://ghostarchitect.dev/ghost-poi-meta-for-magento2.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">See a Sample Report ↓</a>
     </div>

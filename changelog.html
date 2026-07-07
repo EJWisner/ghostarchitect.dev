@@ -7,7 +7,7 @@
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
   <title>Changelog &middot; Ghost Architect&trade;</title>
-  <meta name="description" content="Ghost Architect™ release notes. v8.1.5 ships 10 security and reliability fixes. v8.0.0 introduces Ghost Brief™ — the governed AI remediation pipeline. Plus v7 highlights." />
+  <meta name="description" content="Ghost Architect™ release notes. v8.1.5 ships 10 security and reliability fixes. v8.0.0 introduces Ghost Brief™ -- the governed AI remediation pipeline. Plus v7 highlights." />
   <!-- LAUNCH50-PROMO META START. Commented out 2026-05-27; swap with the live meta above to re-enable. -->
   <!-- <meta name="description" content="Ghost Architect™ release notes. v7.0.0 ships the unified Open tier as the trial, cost transparency in Question mode, and the LAUNCH50 promo. Plus what landed in v6 and the v5 highlights." /> -->
   <!-- LAUNCH50-PROMO META END -->
@@ -374,21 +374,36 @@
   <div class="install-card">
     <div class="install-meta">
       <span class="install-label">Current release</span>
-      <span class="install-version">v10.0.2 <span class="version-date">July 6, 2026</span></span>
+      <span class="install-version">v10.0.3 <span class="version-date">July 7, 2026</span></span>
     </div>
     <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────────────────── -->
-<!-- v10.0.2                                                        -->
+<!-- v10.0.3                                                        -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">v10.0.3</span>
+      <span class="release-date">July 7, 2026</span>
+      <span class="release-badge">Latest</span>
+      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+    </div>
+    <h2 class="release-headline">Privacy, LICENSE, Trial Funnel, and License Detection Patch</h2>
+    <p class="release-lede">v10.0.3 -- Privacy copy corrected, LICENSE fixed, Ghost Watcher false-clean fixed, trial funnel improved, profile creation fixed, license detection live, 549 em dashes removed from site.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.2                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">v10.0.2</span>
       <span class="release-date">July 6, 2026</span>
-      <span class="release-badge">Latest</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">License Key, Watch Setup, and Cost Estimator Patch</h2>
@@ -1524,13 +1539,13 @@
     <h2 class="release-headline">Ghost scanned its own codebase. Found 7 issues. Fixed all 7. Zero findings on the next push.</h2>
     <p class="release-lede">Ghost Architect™ ran Ghost Brief™ against its own codebase in dogfood pass 10. One critical security vulnerability and six high severity issues were found and fixed using Ghost Brief™ prompts executed in Claude Code. Ghost Watcher™ confirmed zero findings after the push. The tool used itself to fix itself.</p>
     <ul class="change-list">
-      <li><span class="marker">~</span><span><strong>Critical: Prompt injection defense hardened</strong> — Unicode NFC normalization added to consultant profile sanitization. Zero-width characters, bidirectional override marks, and Unicode control characters now rejected outright. Legitimate consultant vocabulary unaffected.</span></li>
-      <li><span class="marker">~</span><span><strong>High: Temp directory leak fixed</strong> — Commit Forecast now cleans up temp directories on all exit paths via try-finally. No more accumulated disk waste in CI environments.</span></li>
-      <li><span class="marker">~</span><span><strong>High: API error masking fixed</strong> — Agent loop now sets <code>ok: false</code> on the result when the loop exits due to an API error. Error message included in top-level result. Test coverage added.</span></li>
-      <li><span class="marker">~</span><span><strong>High: LLM plan validation tightened</strong> — Findings can no longer be silently dropped from reports. Planner must now account for every finding -- either assign it to a category or list it in skipped_findings with a reason. Disclosure note injected into report when findings are skipped.</span></li>
-      <li><span class="marker">~</span><span><strong>High: Manifest concurrent write race fixed</strong> — Post-write verification now checks content, not just presence. Retry cycle includes exponential backoff.</span></li>
-      <li><span class="marker">~</span><span><strong>High: Audit log failure threshold lowered</strong> — Warns on first failure (was third). Failure timestamp included in warning. On-disk marker file persists signal across CLI invocations.</span></li>
-      <li><span class="marker">~</span><span><strong>High: File prioritizer error handling</strong> — Already fixed in dogfood pass 9. Confirmed present and passing.</span></li>
+      <li><span class="marker">~</span><span><strong>Critical: Prompt injection defense hardened</strong> -- Unicode NFC normalization added to consultant profile sanitization. Zero-width characters, bidirectional override marks, and Unicode control characters now rejected outright. Legitimate consultant vocabulary unaffected.</span></li>
+      <li><span class="marker">~</span><span><strong>High: Temp directory leak fixed</strong> -- Commit Forecast now cleans up temp directories on all exit paths via try-finally. No more accumulated disk waste in CI environments.</span></li>
+      <li><span class="marker">~</span><span><strong>High: API error masking fixed</strong> -- Agent loop now sets <code>ok: false</code> on the result when the loop exits due to an API error. Error message included in top-level result. Test coverage added.</span></li>
+      <li><span class="marker">~</span><span><strong>High: LLM plan validation tightened</strong> -- Findings can no longer be silently dropped from reports. Planner must now account for every finding -- either assign it to a category or list it in skipped_findings with a reason. Disclosure note injected into report when findings are skipped.</span></li>
+      <li><span class="marker">~</span><span><strong>High: Manifest concurrent write race fixed</strong> -- Post-write verification now checks content, not just presence. Retry cycle includes exponential backoff.</span></li>
+      <li><span class="marker">~</span><span><strong>High: Audit log failure threshold lowered</strong> -- Warns on first failure (was third). Failure timestamp included in warning. On-disk marker file persists signal across CLI invocations.</span></li>
+      <li><span class="marker">~</span><span><strong>High: File prioritizer error handling</strong> -- Already fixed in dogfood pass 9. Confirmed present and passing.</span></li>
     </ul>
   </div>
 </section>
@@ -1545,20 +1560,20 @@
       <span class="release-date">June 23, 2026</span>
       <span class="release-badge" style="background:rgba(124,58,237,0.15);color:#a78bfa;border-color:rgba(124,58,237,0.3);">MAJOR</span>
     </div>
-    <h2 class="release-headline">Ghost Watcher™ — Automatic commit monitoring for every push.</h2>
-    <p class="release-lede">Ghost Watcher™ is a headless CI pipeline that runs inside GitHub Actions. Every commit your team pushes triggers a full Ghost Architect™ scan automatically — Blast Radius, Conflict Detection, and Ghost Brief™ — with results delivered to Ghost Portal and a PR comment posted before the reviewer opens the tab.</p>
+    <h2 class="release-headline">Ghost Watcher™ -- Automatic commit monitoring for every push.</h2>
+    <p class="release-lede">Ghost Watcher™ is a headless CI pipeline that runs inside GitHub Actions. Every commit your team pushes triggers a full Ghost Architect™ scan automatically -- Blast Radius, Conflict Detection, and Ghost Brief™ -- with results delivered to Ghost Portal and a PR comment posted before the reviewer opens the tab.</p>
     <ul class="change-list">
-      <li><span class="marker">+</span><span><strong>Ghost Watcher™</strong> — headless CI pipeline triggered by every commit push via GitHub Actions. Available on Ghost Team and Enterprise memberships.</span></li>
-      <li><span class="marker">+</span><span><strong>Enable Watch wizard</strong> — interactive setup from the Ghost CLI menu. Pushes <code>ghost-watcher.yaml</code> and the GitHub Actions workflow to your repo automatically, with version pinning and custom branch support.</span></li>
-      <li><span class="marker">+</span><span><strong>Ghost Portal Watch tab</strong> — Commits, Findings, and Prompts tabs. Click any commit to expand findings inline. Copy Ghost Brief™ prompts to clipboard with one click.</span></li>
-      <li><span class="marker">+</span><span><strong>PR comment</strong> — Ghost Watcher™ posts a findings summary directly on the pull request with Phase 1 / Phase 2 remediation breakdown and a link to Ghost Portal.</span></li>
-      <li><span class="marker">+</span><span><strong>Email notifications</strong> — receive a findings summary email after each Watch run.</span></li>
-      <li><span class="marker">+</span><span><strong>Iteration limit</strong> — configurable max runs per PR to control API costs via <code>ghost-watcher.yaml</code>.</span></li>
-      <li><span class="marker">+</span><span><strong>ghost-skip tag</strong> — add <code>[ghost-skip]</code> to any commit message to bypass Ghost Watcher™ for that commit.</span></li>
-      <li><span class="marker">+</span><span><strong>BYOK</strong> — Ghost Watcher™ uses your own Anthropic API key. Ghost does not charge for API usage.</span></li>
-      <li><span class="marker">~</span><span><strong>Team tier context cap</strong> — Ghost Watcher™ correctly applies the 150,000 token context cap for Team and Enterprise tiers in CI environments.</span></li>
-      <li><span class="marker">~</span><span><strong>CI license validation</strong> — license fingerprint check bypassed on ephemeral GitHub Actions runners.</span></li>
-      <li><span class="marker">~</span><span><strong>Custom branch injection</strong> — branches added in the Enable Watch wizard are correctly injected into the GitHub Actions workflow trigger.</span></li>
+      <li><span class="marker">+</span><span><strong>Ghost Watcher™</strong> -- headless CI pipeline triggered by every commit push via GitHub Actions. Available on Ghost Team and Enterprise memberships.</span></li>
+      <li><span class="marker">+</span><span><strong>Enable Watch wizard</strong> -- interactive setup from the Ghost CLI menu. Pushes <code>ghost-watcher.yaml</code> and the GitHub Actions workflow to your repo automatically, with version pinning and custom branch support.</span></li>
+      <li><span class="marker">+</span><span><strong>Ghost Portal Watch tab</strong> -- Commits, Findings, and Prompts tabs. Click any commit to expand findings inline. Copy Ghost Brief™ prompts to clipboard with one click.</span></li>
+      <li><span class="marker">+</span><span><strong>PR comment</strong> -- Ghost Watcher™ posts a findings summary directly on the pull request with Phase 1 / Phase 2 remediation breakdown and a link to Ghost Portal.</span></li>
+      <li><span class="marker">+</span><span><strong>Email notifications</strong> -- receive a findings summary email after each Watch run.</span></li>
+      <li><span class="marker">+</span><span><strong>Iteration limit</strong> -- configurable max runs per PR to control API costs via <code>ghost-watcher.yaml</code>.</span></li>
+      <li><span class="marker">+</span><span><strong>ghost-skip tag</strong> -- add <code>[ghost-skip]</code> to any commit message to bypass Ghost Watcher™ for that commit.</span></li>
+      <li><span class="marker">+</span><span><strong>BYOK</strong> -- Ghost Watcher™ uses your own Anthropic API key. Ghost does not charge for API usage.</span></li>
+      <li><span class="marker">~</span><span><strong>Team tier context cap</strong> -- Ghost Watcher™ correctly applies the 150,000 token context cap for Team and Enterprise tiers in CI environments.</span></li>
+      <li><span class="marker">~</span><span><strong>CI license validation</strong> -- license fingerprint check bypassed on ephemeral GitHub Actions runners.</span></li>
+      <li><span class="marker">~</span><span><strong>Custom branch injection</strong> -- branches added in the Enable Watch wizard are correctly injected into the GitHub Actions workflow trigger.</span></li>
     </ul>
   </div>
 </section>
@@ -1576,10 +1591,10 @@
     <h2 class="release-headline">Ghost Partner Profile accessible from the top-level menu.</h2>
     <p class="release-lede">Profile management is now available before selecting a codebase. Open-tier users see an upgrade prompt with a pricing link. Pro and higher get the full sub-menu with immediate session activation.</p>
     <ul class="change-list">
-      <li><span class="marker">+</span><span><strong>Top-level menu entry</strong> — Ghost Partner Profile now appears in the source selection menu, no codebase required.</span></li>
-      <li><span class="marker">+</span><span><strong>All tiers</strong> — Open tier sees a clear upgrade prompt pointing to ghostarchitect.dev/pricing; Pro or higher gets full access.</span></li>
-      <li><span class="marker">+</span><span><strong>Sub-menu</strong> — Create, Select and use this session, List, Set default, Clear default.</span></li>
-      <li><span class="marker">+</span><span><strong>Immediate activation</strong> — selecting a profile activates it in the current session; the next scan uses partner branding without a restart.</span></li>
+      <li><span class="marker">+</span><span><strong>Top-level menu entry</strong> -- Ghost Partner Profile now appears in the source selection menu, no codebase required.</span></li>
+      <li><span class="marker">+</span><span><strong>All tiers</strong> -- Open tier sees a clear upgrade prompt pointing to ghostarchitect.dev/pricing; Pro or higher gets full access.</span></li>
+      <li><span class="marker">+</span><span><strong>Sub-menu</strong> -- Create, Select and use this session, List, Set default, Clear default.</span></li>
+      <li><span class="marker">+</span><span><strong>Immediate activation</strong> -- selecting a profile activates it in the current session; the next scan uses partner branding without a restart.</span></li>
     </ul>
   </div>
 </section>
@@ -1597,10 +1612,10 @@
     <h2 class="release-headline">White label branding across all seven report types.</h2>
     <p class="release-lede">Every report Ghost Architect™ produces now fully respects an active Ghost Partner™ profile. When a profile is loaded, your firm's name, footer, and confidentiality text replace Ghost defaults across all output formats.</p>
     <ul class="change-list">
-      <li><span class="marker">+</span><span><strong>Executive Brief PDF</strong> — <code>companyName</code>, <code>footerText</code>, and <code>confidentialityText</code> sourced from profile branding block.</span></li>
-      <li><span class="marker">+</span><span><strong>Ghost Brief HTML</strong> — logo initial, header brand name, and footer link replaced with profile values when a partner profile is active.</span></li>
-      <li><span class="marker">+</span><span><strong>Inheritance Audit</strong> — methodology section now uses <code>companyName</code> in both attribution lines when a profile is active.</span></li>
-      <li><span class="marker">+</span><span><strong>POI, Blast, Conflict, Recon</strong> — already white-labeled via <code>reports.js</code> and <code>pdf-generator.js</code>; no changes needed.</span></li>
+      <li><span class="marker">+</span><span><strong>Executive Brief PDF</strong> -- <code>companyName</code>, <code>footerText</code>, and <code>confidentialityText</code> sourced from profile branding block.</span></li>
+      <li><span class="marker">+</span><span><strong>Ghost Brief HTML</strong> -- logo initial, header brand name, and footer link replaced with profile values when a partner profile is active.</span></li>
+      <li><span class="marker">+</span><span><strong>Inheritance Audit</strong> -- methodology section now uses <code>companyName</code> in both attribution lines when a profile is active.</span></li>
+      <li><span class="marker">+</span><span><strong>POI, Blast, Conflict, Recon</strong> -- already white-labeled via <code>reports.js</code> and <code>pdf-generator.js</code>; no changes needed.</span></li>
       <li><span class="marker">+</span><span><strong>All seven report types</strong> now fully respect Ghost Partner™ profile branding end to end.</span></li>
     </ul>
   </div>
@@ -1616,12 +1631,12 @@
       <span class="release-date">June 20, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">MINOR</span>
     </div>
-    <h2 class="release-headline">Executive Brief™ — one-page business intelligence report for non-technical stakeholders.</h2>
+    <h2 class="release-headline">Executive Brief™ -- one-page business intelligence report for non-technical stakeholders.</h2>
     <p class="release-lede">After any scan, Ghost generates a one-page Executive Brief: health score, plain-language risk summary, and a cost comparison table showing what remediation costs manually versus with AI. 24 hours and $4,800 becomes 3 hours and $3.60. Built for the person who signs the check.</p>
     <ul class="change-list">
       <li><span class="marker">+</span><span><strong>Executive Brief™ mode added.</strong> Available on Pro Max, Team Max, and Enterprise Max.</span></li>
       <li><span class="marker">+</span><span><strong>Health score algorithm:</strong> weighted 0–100 with five-band label (Healthy to Critical Risk).</span></li>
-      <li><span class="marker">+</span><span><strong>Single AI call generates plain-language executive narrative</strong> in consultant voice — no jargon, no code, three paragraphs.</span></li>
+      <li><span class="marker">+</span><span><strong>Single AI call generates plain-language executive narrative</strong> in consultant voice -- no jargon, no code, three paragraphs.</span></li>
       <li><span class="marker">+</span><span><strong>Manual vs AI-assisted cost comparison table:</strong> 24 hrs/$4,800 manual vs ~3 hrs/~$3.60 in API costs.</span></li>
       <li><span class="marker">+</span><span><strong>Phase 1/2/3 recommended sequence</strong> with finding counts per phase.</span></li>
       <li><span class="marker">+</span><span><strong>PDF output</strong> to <code>~/Ghost Architect Reports/</code> alongside existing scan reports.</span></li>
@@ -1659,18 +1674,18 @@
       <span class="release-date">June 18, 2026</span>
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
-    <h2 class="release-headline">Ghost Brief™ HTML report — self-contained, no server, opens in any browser.</h2>
+    <h2 class="release-headline">Ghost Brief™ HTML report -- self-contained, no server, opens in any browser.</h2>
     <p class="release-lede">Ghost Brief™ now auto-generates a <code>ghost-brief.html</code> alongside <code>ghost-brief.json</code>. Full dark-theme interactive report with expandable prompt cards, copy buttons, and blast-radius execution sequence. No login, no dependencies.</p>
     <ul class="change-list">
       <li><span class="marker">+</span><span><strong>Ghost Brief™ auto-generates <code>ghost-brief.html</code></strong> alongside <code>ghost-brief.json</code> on every <code>ghost --brief</code> run.</span></li>
       <li><span class="marker">+</span><span><strong>Self-contained HTML report.</strong> No server, no login, no external libraries. Opens in any browser directly from disk.</span></li>
       <li><span class="marker">+</span><span><strong>Sticky header</strong> with Ghost logo, codebase path, tier badge, version, and total prompt count.</span></li>
       <li><span class="marker">+</span><span><strong>5 summary stat cards:</strong> total prompts, critical count, high count, estimated agent hours, and blast radius breakdown.</span></li>
-      <li><span class="marker">+</span><span><strong>Recommended execution sequence</strong> with numbered chips in blast_score order — smallest blast radius first.</span></li>
+      <li><span class="marker">+</span><span><strong>Recommended execution sequence</strong> with numbered chips in blast_score order -- smallest blast radius first.</span></li>
       <li><span class="marker">+</span><span><strong>Expandable prompt cards</strong> sorted by blast radius. Each card shows severity badge, blast badge, effort estimate, context, full prompt in monospace, and validation hints with green checkmarks.</span></li>
-      <li><span class="marker">+</span><span><strong>Copy button</strong> on every prompt card — clipboard write with 2-second visual feedback, no external libraries required.</span></li>
+      <li><span class="marker">+</span><span><strong>Copy button</strong> on every prompt card -- clipboard write with 2-second visual feedback, no external libraries required.</span></li>
       <li><span class="marker">+</span><span><strong>First card open by default.</strong> Remaining cards collapsed.</span></li>
-      <li><span class="marker">+</span><span><strong>Ghost dark theme throughout</strong> — matches the Ghost Architect™ design system exactly.</span></li>
+      <li><span class="marker">+</span><span><strong>Ghost dark theme throughout</strong> -- matches the Ghost Architect™ design system exactly.</span></li>
     </ul>
   </div>
 </section>
@@ -1688,10 +1703,10 @@
     <h2 class="release-headline">File prioritizer hardening, audit threshold, and manifest race fixes.</h2>
     <p class="release-lede">Six targeted fixes from Ghost Brief™ dogfood pass 5 final review. Scan resilience, compliance visibility, and portal write reliability.</p>
     <ul class="change-list">
-      <li><span class="marker">!</span><span><strong>File prioritizer hardened against malformed filenames and null content.</strong> A single bad file no longer aborts the entire scan — it is skipped with a warning and the scan continues.</span></li>
+      <li><span class="marker">!</span><span><strong>File prioritizer hardened against malformed filenames and null content.</strong> A single bad file no longer aborts the entire scan -- it is skipped with a warning and the scan continues.</span></li>
       <li><span class="marker">+</span><span><strong>Audit log warning threshold lowered from 3 to 1</strong> for immediate compliance visibility.</span></li>
       <li><span class="marker">+</span><span><strong><code>lastAuditFailureUtc</code> timestamp added</strong> to audit failure warnings for easier incident correlation.</span></li>
-      <li><span class="marker">+</span><span><strong>Portal manifest post-write verification added</strong> to detect race supersession — write is confirmed readable after commit.</span></li>
+      <li><span class="marker">+</span><span><strong>Portal manifest post-write verification added</strong> to detect race supersession -- write is confirmed readable after commit.</span></li>
       <li><span class="marker">+</span><span><strong>Exponential backoff added to manifest retry loop.</strong> 150ms base, doubles per attempt, preventing thundering herd on concurrent publish.</span></li>
       <li><span class="marker">+</span><span><strong>Manifest concurrent write race window documented</strong> in code comments for future distributed-lock work.</span></li>
     </ul>
@@ -1729,7 +1744,7 @@
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Security hardening, silent failure fixes, and Ghost Brief™ dogfood completion.</h2>
-    <p class="release-lede">Ten targeted fixes from Ghost Brief™ dogfood passes 4 and 5. License bypass, race conditions, and silent failure modes that Ghost Brief™ surfaced against its own codebase — all closed.</p>
+    <p class="release-lede">Ten targeted fixes from Ghost Brief™ dogfood passes 4 and 5. License bypass, race conditions, and silent failure modes that Ghost Brief™ surfaced against its own codebase -- all closed.</p>
     <ul class="change-list">
       <li><span class="marker">!</span><span><strong>License timestamp validation bypass fixed.</strong> ISO-8601 regex guard now protects the monotonic clock ratchet against replay attacks.</span></li>
       <li><span class="marker">!</span><span><strong>Seat registration race condition fixed.</strong> AND logic now required on both SHA and nonce checks before seat is granted.</span></li>
@@ -1756,7 +1771,7 @@
       <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Brief™ interactive menu + critical npm fix.</h2>
-    <p class="release-lede">Ghost Brief™ is now accessible from the post-scan menu — no CLI flags required. Also fixes a critical packaging bug: <code>lib/ghostBrief.js</code> and <code>lib/ghostBriefAdapter.js</code> were missing from the published npm package in v8.0.0 and v8.0.1, causing Ghost Brief™ to fail on any fresh install.</p>
+    <p class="release-lede">Ghost Brief™ is now accessible from the post-scan menu -- no CLI flags required. Also fixes a critical packaging bug: <code>lib/ghostBrief.js</code> and <code>lib/ghostBriefAdapter.js</code> were missing from the published npm package in v8.0.0 and v8.0.1, causing Ghost Brief™ to fail on any fresh install.</p>
 
     <ul class="change-list">
       <li>
@@ -1769,7 +1784,7 @@
       </li>
       <li>
         <span class="marker">!</span>
-        <span><strong>Critical npm fix: lib/ added to package files array.</strong> <code>ghostBrief.js</code> and <code>ghostBriefAdapter.js</code> were not included in the published package. Any install of 8.0.0 or 8.0.1 would fail when Ghost Brief™ was invoked. Fixed — both files are now bundled correctly.</span>
+        <span><strong>Critical npm fix: lib/ added to package files array.</strong> <code>ghostBrief.js</code> and <code>ghostBriefAdapter.js</code> were not included in the published package. Any install of 8.0.0 or 8.0.1 would fail when Ghost Brief™ was invoked. Fixed -- both files are now bundled correctly.</span>
       </li>
       <li>
         <span class="marker">+</span>
@@ -1803,7 +1818,7 @@
       </li>
       <li>
         <span class="marker">+</span>
-        <span><strong>Seven-tier comparison table added to README.</strong> Open, Pro, Pro Max, Team, Team Max, Enterprise, Enterprise Max — with Ghost Brief™ availability column.</span>
+        <span><strong>Seven-tier comparison table added to README.</strong> Open, Pro, Pro Max, Team, Team Max, Enterprise, Enterprise Max -- with Ghost Brief™ availability column.</span>
       </li>
       <li>
         <span class="marker">+</span>
@@ -1823,7 +1838,7 @@
       <span class="release-date">June 16, 2026</span>
       <span class="release-badge" style="background:rgba(224,115,64,0.15);color:#e07340;border-color:rgba(224,115,64,0.3);">MAJOR</span>
     </div>
-    <h2 class="release-headline">Ghost Brief™ — the governed AI remediation pipeline.</h2>
+    <h2 class="release-headline">Ghost Brief™ -- the governed AI remediation pipeline.</h2>
     <p class="release-lede">Ghost Brief™ converts any Ghost scan into a validated, blast-radius-aware Claude Code prompt pack. Feed <code>ghost-brief.json</code> into Claude Code, Cursor, or Copilot. Ghost briefs the AI. The AI fixes the code. You ship.</p>
 
     <ul class="change-list">
@@ -1833,7 +1848,7 @@
       </li>
       <li>
         <span class="marker">+</span>
-        <span><strong>Blast-radius-aware prompt ordering.</strong> Prompts are sorted ascending by blast score — surgical fixes first, broad changes last. Your AI agent always works in the safest order possible.</span>
+        <span><strong>Blast-radius-aware prompt ordering.</strong> Prompts are sorted ascending by blast score -- surgical fixes first, broad changes last. Your AI agent always works in the safest order possible.</span>
       </li>
       <li>
         <span class="marker">+</span>
@@ -1841,11 +1856,11 @@
       </li>
       <li>
         <span class="marker">+</span>
-        <span><strong>Three new tiers: Pro Max, Team Max, Enterprise Max.</strong> Ghost Pro Max ($199/mo) adds Individual Brief generation. Ghost Team Max ($799/mo) adds Unified Brief across all seats — one master prompt pack that understands how every fix affects every other area. Ghost Enterprise Max ($2,500/mo) adds Unlimited Brief and dedicated Ghost Partner co-engagement with EJ Wisner directly.</span>
+        <span><strong>Three new tiers: Pro Max, Team Max, Enterprise Max.</strong> Ghost Pro Max ($199/mo) adds Individual Brief generation. Ghost Team Max ($799/mo) adds Unified Brief across all seats -- one master prompt pack that understands how every fix affects every other area. Ghost Enterprise Max ($2,500/mo) adds Unlimited Brief and dedicated Ghost Partner co-engagement with EJ Wisner directly.</span>
       </li>
       <li>
         <span class="marker">+</span>
-        <span><strong>Ghost Brief™ feature page.</strong> <a href="/ghost-brief.html">ghostarchitect.dev/ghost-brief.html</a> — hero, How It Works, anatomy of a Brief, tier table, and FAQ.</span>
+        <span><strong>Ghost Brief™ feature page.</strong> <a href="/ghost-brief.html">ghostarchitect.dev/ghost-brief.html</a> -- hero, How It Works, anatomy of a Brief, tier table, and FAQ.</span>
       </li>
       <li>
         <span class="marker">+</span>
@@ -1882,7 +1897,7 @@
     <ul class="change-list">
       <li>
         <span class="marker">+</span>
-        <span><strong>VERSION reads dynamically from package.json.</strong> No more manual sync on every publish — <code>npm version patch</code> bumps both the package and the CLI banner automatically.</span>
+        <span><strong>VERSION reads dynamically from package.json.</strong> No more manual sync on every publish -- <code>npm version patch</code> bumps both the package and the CLI banner automatically.</span>
       </li>
       <li>
         <span class="marker">+</span>
@@ -1902,7 +1917,7 @@
       <span class="release-date">June 4, 2026</span>
     </div>
     <h2 class="release-headline">Ghost Portal self-serve onboarding.</h2>
-    <p class="release-lede">Connect your GitHub account, get your Portal URL in under 60 seconds. No manual repo setup, no config files — one OAuth flow and you're live.</p>
+    <p class="release-lede">Connect your GitHub account, get your Portal URL in under 60 seconds. No manual repo setup, no config files -- one OAuth flow and you're live.</p>
 
     <ul class="change-list">
       <li>
@@ -1972,7 +1987,7 @@
       <span class="release-date">May 26, 2026</span>
     </div>
     <h2 class="release-headline">Public launch and Stripe live mode.</h2>
-    <p class="release-lede">v7.1 shipped on launch day alongside v7.0.0 — site overhaul live, Stripe payments enabled, Ghost Open freemium gate active.</p>
+    <p class="release-lede">v7.1 shipped on launch day alongside v7.0.0 -- site overhaul live, Stripe payments enabled, Ghost Open freemium gate active.</p>
 
     <ul class="change-list">
       <li>

@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="index, follow">
-  <meta name="description" content="Ghost Watcher™ monitors every commit automatically. When a developer pushes to GitHub, Ghost fires — analyzing changed files, surfacing findings, and generating AI remediation prompts. Results land in Ghost Portal before the PR reviewer opens the tab.">
-  <meta property="og:title" content="Ghost Watcher™ — Automatic Commit Monitoring for Every Push">
+  <meta name="description" content="Ghost Watcher™ monitors every commit automatically. When a developer pushes to GitHub, Ghost fires -- analyzing changed files, surfacing findings, and generating AI remediation prompts. Results land in Ghost Portal before the PR reviewer opens the tab.">
+  <meta property="og:title" content="Ghost Watcher™ -- Automatic Commit Monitoring for Every Push">
   <meta property="og:description" content="Ghost Watcher™ is a headless CI pipeline that runs inside GitHub Actions. Every commit triggers a full Ghost Architect™ scan automatically. Blast Radius. Conflict Detection. Ghost Brief. PR comment. Ghost Portal. All automatic.">
   <meta property="og:image" content="https://ghostarchitect.dev/og-image.png">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-watcher-v908">
   <meta property="og:site_name" content="Ghost Architect™">
   <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-watcher-v908">
-  <title>Ghost Watcher™ — Automatic Commit Monitoring for Every Push · Ghost Architect™</title>
+  <title>Ghost Watcher™: Automatic Commit Monitoring for Every Push · Ghost Architect™</title>
   <link rel="stylesheet" href="/assets/ga-nav.css" />
   <style>
     :root {
@@ -292,22 +292,22 @@
     <span class="article-author">By Ernst J. Wisner</span>
   </div>
 
-  <h1>Ghost Watcher™ — Your Last PR Review Missed Something. This Makes Sure It Never Happens Again.</h1>
+  <h1>Ghost Watcher™ -- Your Last PR Review Missed Something. This Makes Sure It Never Happens Again.</h1>
 
-  <p class="lede">Ghost Watcher™ is a headless CI pipeline that runs inside GitHub Actions. Every commit your team pushes triggers a full Ghost Architect™ scan automatically — Blast Radius, Conflict Detection, and Ghost Brief™ — with findings delivered to Ghost Portal and a PR comment posted before the reviewer opens the tab. No manual runs. No forgotten reviews. No surprises in production.</p>
+  <p class="lede">Ghost Watcher™ is a headless CI pipeline that runs inside GitHub Actions. Every commit your team pushes triggers a full Ghost Architect™ scan automatically -- Blast Radius, Conflict Detection, and Ghost Brief™ -- with findings delivered to Ghost Portal and a PR comment posted before the reviewer opens the tab. No manual runs. No forgotten reviews. No surprises in production.</p>
 
   <div class="article-body">
 
     <h2>The problem Ghost Watcher™ solves</h2>
 
-    <p>Ghost Architect™ has always been a pre-engagement triage tool. You run it before a project kicks off, before a change goes in, before a client signs. You get a map of the codebase — blast radius, conflict surface, risk profile — and you go in with eyes open.</p>
+    <p>Ghost Architect™ has always been a pre-engagement triage tool. You run it before a project kicks off, before a change goes in, before a client signs. You get a map of the codebase -- blast radius, conflict surface, risk profile -- and you go in with eyes open.</p>
 
     <p>But there is a gap. Once a project is underway, developers are committing code every day. Every commit is a new risk surface. Every push changes the blast radius of every other file. The pre-engagement scan you ran two weeks ago is already stale.</p>
 
-    <p>Ghost Watcher™ closes that gap. It watches every commit, runs the same analysis you would run manually, and delivers the results automatically — before anyone has a chance to miss them.</p>
+    <p>Ghost Watcher™ closes that gap. It watches every commit, runs the same analysis you would run manually, and delivers the results automatically -- before anyone has a chance to miss them.</p>
 
     <div class="callout">
-      <strong>The core insight:</strong> Code review catches what developers see. Ghost Watcher™ catches what they miss — the second-order effects, the schema mismatches, the blast radius of a change that looks small but touches everything.
+      <strong>The core insight:</strong> Code review catches what developers see. Ghost Watcher™ catches what they miss -- the second-order effects, the schema mismatches, the blast radius of a change that looks small but touches everything.
     </div>
 
     <h2>How Ghost Watcher™ works</h2>
@@ -318,7 +318,7 @@
       <div class="loop-num">1</div>
       <div class="loop-content">
         <strong>Changed file detection</strong>
-        <p>Ghost Watcher™ identifies exactly which files changed in the commit using git diff. Only changed files are analyzed as the primary targets — but the full codebase context is loaded to understand downstream impact.</p>
+        <p>Ghost Watcher™ identifies exactly which files changed in the commit using git diff. Only changed files are analyzed as the primary targets -- but the full codebase context is loaded to understand downstream impact.</p>
       </div>
     </div>
 
@@ -326,7 +326,7 @@
       <div class="loop-num">2</div>
       <div class="loop-content">
         <strong>Blast Radius Analysis</strong>
-        <p>Which files does this change affect? Ghost maps the dependency graph and produces a blast radius for every changed file — how many other files would need to change, what is the rollback complexity, what is the risk tier.</p>
+        <p>Which files does this change affect? Ghost maps the dependency graph and produces a blast radius for every changed file -- how many other files would need to change, what is the rollback complexity, what is the risk tier.</p>
       </div>
     </div>
 
@@ -334,7 +334,7 @@
       <div class="loop-num">3</div>
       <div class="loop-content">
         <strong>Conflict Detection</strong>
-        <p>Ghost scans for contract mismatches, schema conflicts, and config errors between the changed files and the rest of the codebase. These are the bugs that compile cleanly and only surface at runtime — or in production.</p>
+        <p>Ghost scans for contract mismatches, schema conflicts, and config errors between the changed files and the rest of the codebase. These are the bugs that compile cleanly and only surface at runtime -- or in production.</p>
       </div>
     </div>
 
@@ -342,7 +342,7 @@
       <div class="loop-num">4</div>
       <div class="loop-content">
         <strong>Ghost Brief™ generation</strong>
-        <p>Every finding gets a Ghost Brief™ prompt — a structured, blast-radius-aware instruction set your AI coding agent can execute immediately. No translating findings into prompts. No guessing what to fix first. Ghost briefs the AI. The AI fixes the code.</p>
+        <p>Every finding gets a Ghost Brief™ prompt -- a structured, blast-radius-aware instruction set your AI coding agent can execute immediately. No translating findings into prompts. No guessing what to fix first. Ghost briefs the AI. The AI fixes the code.</p>
       </div>
     </div>
 
@@ -358,13 +358,13 @@
       <div class="loop-num">6</div>
       <div class="loop-content">
         <strong>PR comment posted</strong>
-        <p>When the commit is part of a pull request, Ghost Watcher™ posts a comment directly on the PR — findings count, severity breakdown, Phase 1 and Phase 2 remediation list, and a link to Ghost Portal to copy prompts. The reviewer sees it before they read a single line of diff.</p>
+        <p>When the commit is part of a pull request, Ghost Watcher™ posts a comment directly on the PR -- findings count, severity breakdown, Phase 1 and Phase 2 remediation list, and a link to Ghost Portal to copy prompts. The reviewer sees it before they read a single line of diff.</p>
       </div>
     </div>
 
     <h2>What Ghost Watcher™ finds</h2>
 
-    <p>On the first run against Ghost Architect™'s own 194-file codebase — a real production TypeScript and JavaScript codebase — Ghost Watcher™ surfaced:</p>
+    <p>On the first run against Ghost Architect™'s own 194-file codebase -- a real production TypeScript and JavaScript codebase -- Ghost Watcher™ surfaced:</p>
 
     <ul>
       <li><strong>55 findings</strong> across Blast Radius and Conflict Detection</li>
@@ -386,11 +386,11 @@
     <ul>
       <li>Which GitHub repo to watch</li>
       <li>Which branches to monitor (with custom branch support)</li>
-      <li>Which scans to run — Blast Radius, Conflict Detection, Ghost Brief™</li>
+      <li>Which scans to run -- Blast Radius, Conflict Detection, Ghost Brief™</li>
       <li>Whether to post PR comments</li>
       <li>Email notification addresses</li>
       <li>Your GitHub Personal Access Token</li>
-      <li>Estimated commits per day — Ghost shows you the cost estimate before you confirm</li>
+      <li>Estimated commits per day -- Ghost shows you the cost estimate before you confirm</li>
     </ul>
 
     <p>Ghost pushes <code>ghost-watcher.yaml</code> and <code>.github/workflows/ghost-watcher.yml</code> to your repo. Version-pinned to the installed Ghost version. Custom branches injected directly into the GitHub Actions trigger.</p>
@@ -407,21 +407,21 @@
 
     <p>Push a commit. Ghost Watcher™ fires. Results appear in Ghost Portal.</p>
 
-    <h2>Ghost Portal — the command center</h2>
+    <h2>Ghost Portal -- the command center</h2>
 
     <p>Every Ghost Watcher™ run lands in Ghost Portal under the Ghost Watcher™ tile. Three tabs:</p>
 
     <ul>
-      <li><strong>Commits</strong> — every watched commit with severity chips. Click any commit to expand findings and Ghost Brief™ prompts inline.</li>
-      <li><strong>Findings</strong> — all findings aggregated across all watched commits, sorted by severity. Critical at the top.</li>
-      <li><strong>Prompts</strong> — all Ghost Brief™ prompts from all watched commits, ready to copy with one click. Paste into Claude Code, Cursor, or any AI coding tool.</li>
+      <li><strong>Commits</strong> -- every watched commit with severity chips. Click any commit to expand findings and Ghost Brief™ prompts inline.</li>
+      <li><strong>Findings</strong> -- all findings aggregated across all watched commits, sorted by severity. Critical at the top.</li>
+      <li><strong>Prompts</strong> -- all Ghost Brief™ prompts from all watched commits, ready to copy with one click. Paste into Claude Code, Cursor, or any AI coding tool.</li>
     </ul>
 
     <p>The Portal is where the loop closes. Developer commits. Ghost Watcher™ fires. Findings land. Developer opens Portal, copies the prompt for the critical finding, pastes it into Claude Code, ships the fix, and commits again. Ghost Watcher™ fires again. Findings drop. The codebase gets cleaner with every commit.</p>
 
     <h2>Cost transparency</h2>
 
-    <p>Ghost Watcher™ is BYOK — Bring Your Own Key. You pay Anthropic directly for API usage. Ghost does not mark up API costs or charge per scan.</p>
+    <p>Ghost Watcher™ is BYOK -- Bring Your Own Key. You pay Anthropic directly for API usage. Ghost does not mark up API costs or charge per scan.</p>
 
     <p>The Enable Watch wizard shows a cost estimate before you confirm setup:</p>
 
@@ -436,7 +436,7 @@
 
     <h2>Ghost Watcher™ never blocks a commit</h2>
 
-    <p>This is a hard design constraint. Ghost Watcher™ is advisory only. Findings are surfaced for remediation — they never prevent a commit from going through. Exit code is always 0.</p>
+    <p>This is a hard design constraint. Ghost Watcher™ is advisory only. Findings are surfaced for remediation -- they never prevent a commit from going through. Exit code is always 0.</p>
 
     <p>If the Anthropic API goes down mid-scan, Ghost Watcher™ catches the error, logs it as non-fatal, delivers whatever it completed, and exits 0. The commit still ships. The developer still gets whatever findings were generated before the failure.</p>
 
@@ -457,7 +457,7 @@
     <p><strong>Ghost Enterprise</strong> is for organizations with multiple codebases, large teams, and compliance requirements. Unlimited developers. Unlimited repos. Priority support.</p>
 
     <div class="callout cyan">
-      <strong>Note on Ghost Pro and Ghost Pro Max:</strong> Ghost Watcher™ is not included in Pro or Pro Max memberships. Those tiers are designed for individual consultants running manual pre-engagement scans. Ghost Watcher™ requires a team environment with GitHub Actions — it is a team and enterprise feature.
+      <strong>Note on Ghost Pro and Ghost Pro Max:</strong> Ghost Watcher™ is not included in Pro or Pro Max memberships. Those tiers are designed for individual consultants running manual pre-engagement scans. Ghost Watcher™ requires a team environment with GitHub Actions -- it is a team and enterprise feature.
     </div>
 
     <h2>What ships in v9.0.8</h2>
@@ -465,16 +465,16 @@
     <p>Ghost Watcher™ ships as part of Ghost Architect™ v9.0.8. Here is everything in this release:</p>
 
     <ul>
-      <li><strong>Ghost Watcher™ core pipeline</strong> — <code>ghost --watcher-commit</code> headless CI mode with Blast Radius, Conflict Detection, and Ghost Brief™</li>
-      <li><strong>GitHub Actions workflow template</strong> — auto-generated, version-pinned, branch-injected</li>
-      <li><strong>Enable Watch wizard</strong> — full interactive setup with cost estimator, custom branch support, and back/cancel at every step</li>
-      <li><strong>Ghost Portal Watch tab</strong> — Commits, Findings, and Prompts with one-click copy</li>
-      <li><strong>PR comment</strong> — automatic findings summary on every pull request</li>
-      <li><strong>Email notifications</strong> — findings summary after each run</li>
-      <li><strong>Team tier context cap</strong> — 150,000 token limit correctly applied in CI</li>
-      <li><strong>CI license validation</strong> — fingerprint bypass on ephemeral runners</li>
-      <li><strong>ghost-skip tag</strong> — bypass Ghost Watcher™ on specific commits</li>
-      <li><strong>Watch Status and Disable Watch</strong> — manage Ghost Watcher™ from the CLI menu with back/cancel support</li>
+      <li><strong>Ghost Watcher™ core pipeline</strong> -- <code>ghost --watcher-commit</code> headless CI mode with Blast Radius, Conflict Detection, and Ghost Brief™</li>
+      <li><strong>GitHub Actions workflow template</strong> -- auto-generated, version-pinned, branch-injected</li>
+      <li><strong>Enable Watch wizard</strong> -- full interactive setup with cost estimator, custom branch support, and back/cancel at every step</li>
+      <li><strong>Ghost Portal Watch tab</strong> -- Commits, Findings, and Prompts with one-click copy</li>
+      <li><strong>PR comment</strong> -- automatic findings summary on every pull request</li>
+      <li><strong>Email notifications</strong> -- findings summary after each run</li>
+      <li><strong>Team tier context cap</strong> -- 150,000 token limit correctly applied in CI</li>
+      <li><strong>CI license validation</strong> -- fingerprint bypass on ephemeral runners</li>
+      <li><strong>ghost-skip tag</strong> -- bypass Ghost Watcher™ on specific commits</li>
+      <li><strong>Watch Status and Disable Watch</strong> -- manage Ghost Watcher™ from the CLI menu with back/cancel support</li>
     </ul>
 
     <h2>What comes next</h2>
@@ -482,11 +482,11 @@
     <p>Ghost Watcher™ v9.0.8 is the foundation. The roadmap for v9.0.x includes:</p>
 
     <ul>
-      <li><strong>Auto-inject secrets via GitHub OAuth</strong> — the wizard handles all four secrets automatically. No manual GitHub settings.</li>
-      <li><strong>Ghost Pulse integration</strong> — Ghost Watcher™ run telemetry in your Ghost Pulse dashboard. See which repos are being watched, how many findings per day, and whether your codebase is getting cleaner over time.</li>
-      <li><strong>CI token provisioning</strong> — dedicated CI license tokens without machine fingerprinting, provisioned automatically during Enable Watch setup.</li>
-      <li><strong>Configure Watch wizard</strong> — change branches, scan types, and notifications without editing YAML.</li>
-      <li><strong>Resumability</strong> — if the Anthropic API fails mid-scan, Ghost Watcher™ picks up where it left off on the next run instead of starting over.</li>
+      <li><strong>Auto-inject secrets via GitHub OAuth</strong> -- the wizard handles all four secrets automatically. No manual GitHub settings.</li>
+      <li><strong>Ghost Pulse integration</strong> -- Ghost Watcher™ run telemetry in your Ghost Pulse dashboard. See which repos are being watched, how many findings per day, and whether your codebase is getting cleaner over time.</li>
+      <li><strong>CI token provisioning</strong> -- dedicated CI license tokens without machine fingerprinting, provisioned automatically during Enable Watch setup.</li>
+      <li><strong>Configure Watch wizard</strong> -- change branches, scan types, and notifications without editing YAML.</li>
+      <li><strong>Resumability</strong> -- if the Anthropic API fails mid-scan, Ghost Watcher™ picks up where it left off on the next run instead of starting over.</li>
     </ul>
 
     <div class="cta-block">

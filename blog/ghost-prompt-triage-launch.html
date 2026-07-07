@@ -6,13 +6,13 @@
   <meta name="color-scheme" content="dark" />
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
-  <title>Ghost Architect Open v5.2.0 — Prompt Triage Ships Free — Ghost Architect™</title>
-  <meta name="description" content="v5.2.0 brings Prompt Triage to Ghost Open. 16 detectors backed by published academic research. Cost pre-flight on every scan. Here's why prompt review is the next quality discipline — and why we made it free." />
+  <title>Ghost Architect Open v5.2.0: Prompt Triage Ships Free | Ghost Architect™</title>
+  <meta name="description" content="v5.2.0 brings Prompt Triage to Ghost Open. 16 detectors backed by published academic research. Cost pre-flight on every scan. Here's why prompt review is the next quality discipline -- and why we made it free." />
   <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-prompt-triage-launch" />
   <meta name="robots" content="index, follow" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-prompt-triage-launch" />
-  <meta property="og:title" content="Ghost Architect Open v5.2.0 — Prompt Triage Ships Free" />
+  <meta property="og:title" content="Ghost Architect Open v5.2.0 -- Prompt Triage Ships Free" />
   <meta property="og:description" content="Your prompts are production code. Find the bugs before your customers do. 16 detectors. Free in Ghost Open." />
   <meta property="og:image" content="https://ghostarchitect.dev/assets/prompt-triage-hero.png" />
   <meta property="og:site_name" content="Ghost Architect™" />
@@ -134,10 +134,10 @@
     <span>9 min read</span>
   </div>
 
-  <h1>Ghost Architect Open v5.2.0 — Prompt Triage Ships Free</h1>
+  <h1>Ghost Architect Open v5.2.0 -- Prompt Triage Ships Free</h1>
 
   <div class="hero-image-wrap">
-    <img src="/assets/prompt-triage-hero.png" alt="Prompt Triage feature overview — 16 detectors, $0.41 live test cost, 116 findings, 100% local execution" />
+    <img src="/assets/prompt-triage-hero.png" alt="Prompt Triage feature overview -- 16 detectors, $0.41 live test cost, 116 findings, 100% local execution" />
   </div>
 
   <div class="article-body">
@@ -165,25 +165,25 @@
       </div>
     </div>
 
-    <p>Those numbers come from a real smoke test we ran on seven of our own prompt files before publish. Seven prompts. Sixteen detectors. One hundred sixteen findings. Forty-one cents on Claude Haiku 4.5. Every one of those findings was a real defect, not a false positive — we use Ghost on Ghost.</p>
+    <p>Those numbers come from a real smoke test we ran on seven of our own prompt files before publish. Seven prompts. Sixteen detectors. One hundred sixteen findings. Forty-one cents on Claude Haiku 4.5. Every one of those findings was a real defect, not a false positive -- we use Ghost on Ghost.</p>
 
     <hr class="divider" />
 
     <h2>Why Prompt Review Is the Next Quality Discipline</h2>
 
-    <p>If you ship AI features, your prompts are running in production. They route customer interactions, shape outputs, decide what tools the model calls. They are production code by every reasonable definition — they execute, they have side effects, they cost money on every invocation, and when they break, customers see it.</p>
+    <p>If you ship AI features, your prompts are running in production. They route customer interactions, shape outputs, decide what tools the model calls. They are production code by every reasonable definition -- they execute, they have side effects, they cost money on every invocation, and when they break, customers see it.</p>
 
     <p>And yet, most teams have <strong>zero review process</strong> for them.</p>
 
     <p>The code review pipeline that catches a missing null check in a Pull Request does not look at prompts. The static analyzer that flags an unused variable does not look at prompts. The linter that complains about your indentation does not look at prompts. The same engineer who writes a prompt usually deploys it. There is no second set of eyes on the file that is driving thousands of LLM calls a day.</p>
 
-    <p>That gap is where Prompt Triage lives. It is a triage layer for prompt files — point it at a folder, it reads every prompt, and it flags the defects that the academic literature has identified as causes of unpredictable LLM behavior. Ambiguity. Conflicting instructions. Token overflows. Undefined output formats. Prompt injection patterns. Integration mismatches between what your prompt says and what your few-shot examples show.</p>
+    <p>That gap is where Prompt Triage lives. It is a triage layer for prompt files -- point it at a folder, it reads every prompt, and it flags the defects that the academic literature has identified as causes of unpredictable LLM behavior. Ambiguity. Conflicting instructions. Token overflows. Undefined output formats. Prompt injection patterns. Integration mismatches between what your prompt says and what your few-shot examples show.</p>
 
     <p>The kinds of bugs that make your AI hallucinate. The kinds of bugs that make it hedge with longer outputs. The kinds of bugs that quietly burn an extra ten percent of your API budget every month because nobody caught that a prompt asks for "concise" output but never bounds the response length.</p>
 
     <h2>The 16 Detectors</h2>
 
-    <p>The taxonomy is not ours. We operationalized it. The 16 detectors are derived from <strong>Tian et al. 2025</strong>, an academic survey of prompt defect categories that cause unpredictable LLM behavior. Each detector targets a specific defect class identified in the research. The point of the citation is not credentialism — it is that we are not inventing what "good prompt hygiene" means out of thin air. Researchers have already done that work. We turned it into a CLI tool.</p>
+    <p>The taxonomy is not ours. We operationalized it. The 16 detectors are derived from <strong>Tian et al. 2025</strong>, an academic survey of prompt defect categories that cause unpredictable LLM behavior. Each detector targets a specific defect class identified in the research. The point of the citation is not credentialism -- it is that we are not inventing what "good prompt hygiene" means out of thin air. Researchers have already done that work. We turned it into a CLI tool.</p>
 
     <p>The detectors fall into three tiers:</p>
 
@@ -198,15 +198,15 @@
       <tbody>
         <tr><td>Formatting</td><td><span class="tier-t1">T1 · Free</span></td><td>Unclosed code blocks, broken tags, mixed role conventions, stray line markers</td></tr>
         <tr><td>Length</td><td><span class="tier-t1">T1 · Free</span></td><td>Prompts too short to be useful or too long to be efficient</td></tr>
-        <tr><td>Unbounded Output</td><td><span class="tier-t1">T1 · Free</span></td><td>Output instructions with no length cap or stop conditions — runaway token bills</td></tr>
+        <tr><td>Unbounded Output</td><td><span class="tier-t1">T1 · Free</span></td><td>Output instructions with no length cap or stop conditions -- runaway token bills</td></tr>
         <tr><td>Injection Static Pattern</td><td><span class="tier-t1">T1 · Free</span></td><td>Known prompt injection patterns, jailbreak phrases, exfiltration attempts</td></tr>
         <tr><td>Role Separation</td><td><span class="tier-t1">T1 · Free</span></td><td>System / user / assistant boundaries that bleed into each other</td></tr>
-        <tr><td>Token Limit — Context Overflow</td><td><span class="tier-t1">T1 · Free</span></td><td>Prompts plus expected output exceeding the target model's context window</td></tr>
-        <tr><td>Token Limit — Excessive</td><td><span class="tier-t1">T1 · Free</span></td><td>Prompts consuming an unreasonable share of the context window for their job</td></tr>
+        <tr><td>Token Limit -- Context Overflow</td><td><span class="tier-t1">T1 · Free</span></td><td>Prompts plus expected output exceeding the target model's context window</td></tr>
+        <tr><td>Token Limit -- Excessive</td><td><span class="tier-t1">T1 · Free</span></td><td>Prompts consuming an unreasonable share of the context window for their job</td></tr>
         <tr><td>Ambiguous Instruction</td><td><span class="tier-t2">T2 · LLM-judged</span></td><td>Vague verbs, hedge words, missing acceptance criteria</td></tr>
         <tr><td>Underspecified Constraints</td><td><span class="tier-t2">T2 · LLM-judged</span></td><td>Missing edge cases, failure modes, examples of done</td></tr>
-        <tr><td>Conflicting Instructions</td><td><span class="tier-t2">T2 · LLM-judged</span></td><td>Two parts of the same prompt asking for opposite things — model hedges, output bloats</td></tr>
-        <tr><td>Undefined Output Format</td><td><span class="tier-t2">T2 · LLM-judged</span></td><td>You expect JSON but never said so — model picks any format, your parser breaks</td></tr>
+        <tr><td>Conflicting Instructions</td><td><span class="tier-t2">T2 · LLM-judged</span></td><td>Two parts of the same prompt asking for opposite things -- model hedges, output bloats</td></tr>
+        <tr><td>Undefined Output Format</td><td><span class="tier-t2">T2 · LLM-judged</span></td><td>You expect JSON but never said so -- model picks any format, your parser breaks</td></tr>
         <tr><td>Overloaded Prompt</td><td><span class="tier-t2">T2 · LLM-judged</span></td><td>A single prompt asking the model to do five things at once</td></tr>
         <tr><td>Poor Organization</td><td><span class="tier-t2">T2 · LLM-judged</span></td><td>Instructions scattered, context buried, constraints at the bottom</td></tr>
         <tr><td>Inefficient Few-Shot</td><td><span class="tier-t2">T2 · LLM-judged</span></td><td>Examples that don't demonstrate, contradict each other, or bloat without teaching</td></tr>
@@ -215,11 +215,11 @@
       </tbody>
     </table>
 
-    <p><strong>Tier 1</strong> detectors are pure regex and token counting. They are deterministic, fast, and free — no LLM call required, so they cost zero API spend. If you only run Tier 1, the entire scan costs nothing.</p>
+    <p><strong>Tier 1</strong> detectors are pure regex and token counting. They are deterministic, fast, and free -- no LLM call required, so they cost zero API spend. If you only run Tier 1, the entire scan costs nothing.</p>
 
-    <p><strong>Tier 2</strong> detectors use LLM judgment on semantic defects. They need a target model to make accuracy calls. We default to Claude Haiku 4.5 because the cost-to-accuracy ratio is excellent — about five to eight cents per prompt with all Tier 2 detectors firing. Run with Sonnet 4 if you need higher accuracy on mission-critical audits, at roughly five times the cost.</p>
+    <p><strong>Tier 2</strong> detectors use LLM judgment on semantic defects. They need a target model to make accuracy calls. We default to Claude Haiku 4.5 because the cost-to-accuracy ratio is excellent -- about five to eight cents per prompt with all Tier 2 detectors firing. Run with Sonnet 4 if you need higher accuracy on mission-critical audits, at roughly five times the cost.</p>
 
-    <p><strong>Tier 3</strong> is hybrid. Regex narrows the search to suspicious regions, then an LLM verifies. The new <code>integrationMismatch</code> detector in this release is the first Tier 3 in the pack. It catches the case where a prompt's instructions and its few-shot examples have drifted apart over time — the integration bug that breaks silently in production because the model keeps trying to satisfy both sources.</p>
+    <p><strong>Tier 3</strong> is hybrid. Regex narrows the search to suspicious regions, then an LLM verifies. The new <code>integrationMismatch</code> detector in this release is the first Tier 3 in the pack. It catches the case where a prompt's instructions and its few-shot examples have drifted apart over time -- the integration bug that breaks silently in production because the model keeps trying to satisfy both sources.</p>
 
     <h2>The Cost Story Nobody Talks About</h2>
 
@@ -235,9 +235,9 @@
       <li><strong>Token overflows</strong> cause failed requests, which mean retries. Same as above but worse because you spent tokens on the failed call too.</li>
     </ul>
 
-    <p>The math compounds across every prompt in your stack and every LLM call your product makes. A team running ten million LLM calls a month, with five percent of them affected by prompt defects that double their token spend, is paying ten percent more in API costs than they need to. That is real money. For a team spending fifty thousand dollars a month on Anthropic API, it is five thousand dollars a month — sixty thousand dollars a year — going to defects nobody has audited.</p>
+    <p>The math compounds across every prompt in your stack and every LLM call your product makes. A team running ten million LLM calls a month, with five percent of them affected by prompt defects that double their token spend, is paying ten percent more in API costs than they need to. That is real money. For a team spending fifty thousand dollars a month on Anthropic API, it is five thousand dollars a month -- sixty thousand dollars a year -- going to defects nobody has audited.</p>
 
-    <p>Prompt Triage finds those defects. Fixing them is on you — but at least now you know what to fix.</p>
+    <p>Prompt Triage finds those defects. Fixing them is on you -- but at least now you know what to fix.</p>
 
     <h2>Cost Pre-flight on Every Paid Scan</h2>
 
@@ -265,17 +265,17 @@
 <span class="ok">Reports saved:</span> ~/Ghost Architect Reports/prompt-triage/2026-05-10/
     </div>
 
-    <p>The estimate is a band, not a point — because token counts depend on the specific prompts you're auditing. The actual cost lands inside the band. Confirm or cancel before any LLM call happens. If you skip the target model, only Tier 1 detectors run and the scan costs nothing.</p>
+    <p>The estimate is a band, not a point -- because token counts depend on the specific prompts you're auditing. The actual cost lands inside the band. Confirm or cancel before any LLM call happens. If you skip the target model, only Tier 1 detectors run and the scan costs nothing.</p>
 
-    <p>This matters because the alternative — running a scan, watching tokens disappear, hoping it ends — is what teams reasonably fear about LLM-backed tools. Pre-flight removes that fear. You see the price before you spend.</p>
+    <p>This matters because the alternative -- running a scan, watching tokens disappear, hoping it ends -- is what teams reasonably fear about LLM-backed tools. Pre-flight removes that fear. You see the price before you spend.</p>
 
     <h2>Why Ghost Open Gets All 16 Detectors</h2>
 
-    <p>Same reason every other scan mode shipped in Open at v5.0. The buyer is an agency founder, a fractional CTO, a solo architect — somebody who is auditing a codebase or a prompt folder once, in a specific moment, to make a specific decision. They need the full picture in that one scan. They are not running prompt audits weekly to track drift over time. That is what Pro is for.</p>
+    <p>Same reason every other scan mode shipped in Open at v5.0. The buyer is an agency founder, a fractional CTO, a solo architect -- somebody who is auditing a codebase or a prompt folder once, in a specific moment, to make a specific decision. They need the full picture in that one scan. They are not running prompt audits weekly to track drift over time. That is what Pro is for.</p>
 
-    <p>Locking some detectors behind Pro would break the value proposition for the one-shot user — the same way locking Medium findings broke v4.7's free tier. So we did not do that. All 16 detectors are in Open. Cost pre-flight is in Open. PDF, Markdown, and TXT reports are in Open.</p>
+    <p>Locking some detectors behind Pro would break the value proposition for the one-shot user -- the same way locking Medium findings broke v4.7's free tier. So we did not do that. All 16 detectors are in Open. Cost pre-flight is in Open. PDF, Markdown, and TXT reports are in Open.</p>
 
-    <p>What Pro adds for Prompt Triage is the same thing Pro adds for code scans: project intelligence. Label a prompt-audit scan with a project name. Subsequent scans on that label produce a baseline comparison — which defects were resolved since last scan, which remain, which are new. Velocity tracking shows how fast your team is fixing prompt defects across weeks and months. The Project Dashboard surfaces prompt folders alongside code projects, so you can track quality across both at once. If you are running Prompt Triage weekly or monthly to keep prompt drift in check, Pro is the upgrade. If you are running one-off audits, Open is enough.</p>
+    <p>What Pro adds for Prompt Triage is the same thing Pro adds for code scans: project intelligence. Label a prompt-audit scan with a project name. Subsequent scans on that label produce a baseline comparison -- which defects were resolved since last scan, which remain, which are new. Velocity tracking shows how fast your team is fixing prompt defects across weeks and months. The Project Dashboard surfaces prompt folders alongside code projects, so you can track quality across both at once. If you are running Prompt Triage weekly or monthly to keep prompt drift in check, Pro is the upgrade. If you are running one-off audits, Open is enough.</p>
 
     <h3>// What's in each tier</h3>
 
@@ -312,19 +312,19 @@
 
     <h2>The Honest Reasoning</h2>
 
-    <p>The same logic that made me put the full scan engine in Ghost Open at v5.0 applies here. Prompt Triage is most valuable when it catches a defect before it ships to production. Locking that behind a paywall does not protect revenue — it just means the defects ship anyway, and a smaller number of people use the tool.</p>
+    <p>The same logic that made me put the full scan engine in Ghost Open at v5.0 applies here. Prompt Triage is most valuable when it catches a defect before it ships to production. Locking that behind a paywall does not protect revenue -- it just means the defects ship anyway, and a smaller number of people use the tool.</p>
 
     <p>Prompt review is going to be a standard quality discipline in the next eighteen months. Right now, almost no team does it. By the time it becomes table stakes, the teams that started early will have a measurable lead in production reliability and API spend. Ghost Architect's job is to make that head start as cheap as possible to take.</p>
 
-    <p>So Prompt Triage is in Open. Free. All 16 detectors. Cost pre-flight included. No marketing trick where Critical defects are shown but Medium defects are locked. Either you ship prompts to production or you don't — if you do, Ghost is for you.</p>
+    <p>So Prompt Triage is in Open. Free. All 16 detectors. Cost pre-flight included. No marketing trick where Critical defects are shown but Medium defects are locked. Either you ship prompts to production or you don't -- if you do, Ghost is for you.</p>
 
     <h2>What's Next</h2>
 
-    <p>v5.2.1 is already shipped on the Pro and Team branches — a small patch that tightens the tier gate on Project Intelligence so Open users skip the project-label prompt entirely. Open v5.2.0 is the public release; the patch only affects paid-tier UX.</p>
+    <p>v5.2.1 is already shipped on the Pro and Team branches -- a small patch that tightens the tier gate on Project Intelligence so Open users skip the project-label prompt entirely. Open v5.2.0 is the public release; the patch only affects paid-tier UX.</p>
 
-    <p>The next pack of work is on the prompt-pack consolidation problem. The 7-prompt smoke test we ran for this launch produced 116 findings — but about forty percent of those are the same root-cause defect surfaced under multiple detector angles. A prompt with one ambiguous instruction can simultaneously trigger Ambiguous Instruction, Underspecified Constraints, and Poor Organization. All three are technically correct, but presenting three separate findings makes the report noisier than it needs to be. v5.3 is going to add finding consolidation — group findings by root cause, show one primary defect with the related detectors listed underneath. Same accuracy, much cleaner report.</p>
+    <p>The next pack of work is on the prompt-pack consolidation problem. The 7-prompt smoke test we ran for this launch produced 116 findings -- but about forty percent of those are the same root-cause defect surfaced under multiple detector angles. A prompt with one ambiguous instruction can simultaneously trigger Ambiguous Instruction, Underspecified Constraints, and Poor Organization. All three are technically correct, but presenting three separate findings makes the report noisier than it needs to be. v5.3 is going to add finding consolidation -- group findings by root cause, show one primary defect with the related detectors listed underneath. Same accuracy, much cleaner report.</p>
 
-    <p>After that, the roadmap is about expanding the model registry beyond Anthropic. The detector logic does not care which model judges Tier 2 — we just need to wire up Llama, Mistral, and Qwen targets so teams running on those stacks can use Prompt Triage natively.</p>
+    <p>After that, the roadmap is about expanding the model registry beyond Anthropic. The detector logic does not care which model judges Tier 2 -- we just need to wire up Llama, Mistral, and Qwen targets so teams running on those stacks can use Prompt Triage natively.</p>
 
     <p>Long term, the same positioning applies to Prompt Triage as to the rest of Ghost: this is the thing you run before you ship. Not a continuous quality monitor. Not an A/B testing harness. The triage scan you run on a prompt folder once, to find what's broken, so you can fix it before it goes to production.</p>
 
