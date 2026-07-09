@@ -1432,6 +1432,7 @@
                             e.timestamp        = e.timestamp || s.generatedAt;
                             e.scanSeverity     = s.severityCounts || e.scanSeverity || null;
                             e.scanFindings     = Array.isArray(s.findings) ? s.findings : e.scanFindings;
+                            e.scanBlastObservations = Array.isArray(s.blastRadiusObservations) ? s.blastRadiusObservations : e.scanBlastObservations;
                             e.verifiedFindings = Array.isArray(s.verifiedFindings) ? s.verifiedFindings : e.verifiedFindings;
                             e.scanFindingCount = typeof s.findingCount === 'number' ? s.findingCount : e.scanFindingCount;
                             e.brief            = s.brief || e.brief || null;
@@ -1493,6 +1494,7 @@
             status:           e.status || 'complete',
             severity,
             findings,
+            blastObservations: e.scanBlastObservations || [],
             verifiedFindings: e.stateVerifiedFindings || e.verifiedFindings || [],
             resolvedFindings,
             newFindingIds:    [...newFindingIds],
@@ -2021,8 +2023,9 @@
         return `<div class="watch-drawer"><div class="watch-finding-detail">Ghost Watcher™ is analyzing this commit. Results will appear here automatically.</div></div>`;
       }
       const findings = Array.isArray(c.findings) ? c.findings : [];
+      const blastObs = Array.isArray(c.blastObservations) ? c.blastObservations : [];
       const prompts = c.brief?.prompts || [];
-      if (!findings.length && !prompts.length) {
+      if (!findings.length && !prompts.length && !blastObs.length) {
         return `<div class="watch-drawer"><div class="watch-finding-detail">No findings for this commit. Ghost Watcher™ scanned the change and flagged nothing.</div></div>`;
       }
       const promptByFindingId = new Map((c.brief?.prompts || []).map(p => [p.source_finding_id, p]));
@@ -2083,7 +2086,27 @@
           </div>`;
       }
 
-      return `<div class="watch-drawer">${items}${promptsHtml}</div>`;
+      // Blast Radius Observations: impact map, no action required. Rendered
+      // below the action-required findings with a distinct blue left border so
+      // they are never mistaken for defects (no severity color).
+      let blastHtml = '';
+      if (blastObs.length) {
+        const blastItems = blastObs.map(f => `
+            <div class="watch-finding" style="border-left:3px solid var(--cyan);background:rgba(0,191,216,0.06);">
+              <div class="watch-finding-top">
+                <span class="watch-finding-title">${escapeHtml(f.title || '(untitled observation)')}</span>
+              </div>
+              ${(Array.isArray(f.files) && f.files.length) ? `<div class="watch-finding-detail">${f.files.map(file => escapeHtml(file)).join(', ')}</div>` : ''}
+            </div>`).join('');
+        blastHtml = `
+          <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:12px;">
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:4px;">🔍 ${blastObs.length} · Blast Radius Observations -- No Action Required</div>
+            <div class="watch-finding-detail" style="margin-bottom:10px;">These files import from modules touched by this commit. No issues were identified -- review if making further changes to these areas.</div>
+            ${blastItems}
+          </div>`;
+      }
+
+      return `<div class="watch-drawer">${items}${blastHtml}${promptsHtml}</div>`;
     }
 
     function toggleWatchExpand(hash) {
