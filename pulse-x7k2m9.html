@@ -465,6 +465,11 @@
       white-space: nowrap;
     }
 
+    .exchange-actions {
+      display: flex;
+      gap: 6px;
+    }
+
     .review-btn {
       margin-top: 7px;
       background: rgba(0, 191, 216, 0.12);
@@ -478,6 +483,32 @@
       color: var(--cyan-bright);
       cursor: pointer;
       font-family: inherit;
+    }
+
+    .review-btn.view-btn {
+      background: rgba(0, 0, 0, 0.25);
+      border-color: var(--border);
+      color: var(--text-secondary);
+    }
+
+    .modal-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 12px;
+    }
+
+    .modal-meta-row .modal-meta-label {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 2px;
+    }
+
+    .modal-meta-row .modal-meta-value {
+      font-size: 11px;
+      color: var(--text-primary);
+      word-break: break-word;
     }
 
     .modal-overlay {
@@ -1093,6 +1124,57 @@
           <div class="modal-actions">
             <button class="modal-btn modal-btn-cancel" id="review-cancel-btn">Cancel</button>
             <button class="modal-btn modal-btn-send" id="review-send-btn">Send Response</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── VIEW EXCHANGE MODAL ── -->
+    <div class="modal-overlay" id="view-modal-overlay">
+      <div class="modal-box">
+        <div class="modal-header">
+          <div class="modal-title">View Exchange</div>
+          <button class="modal-close-btn" id="view-close-btn" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-meta-grid">
+            <div class="modal-meta-row">
+              <div class="modal-meta-label">Sender</div>
+              <div class="modal-meta-value" id="view-sender"></div>
+            </div>
+            <div class="modal-meta-row">
+              <div class="modal-meta-label">Status</div>
+              <div class="modal-meta-value" id="view-status"></div>
+            </div>
+            <div class="modal-meta-row">
+              <div class="modal-meta-label">Timestamp</div>
+              <div class="modal-meta-value" id="view-timestamp"></div>
+            </div>
+            <div class="modal-meta-row">
+              <div class="modal-meta-label">Layer</div>
+              <div class="modal-meta-value" id="view-layer"></div>
+            </div>
+          </div>
+          <div>
+            <div class="section-label" style="margin-bottom: 6px;">Subject</div>
+            <div class="modal-subject" id="view-subject"></div>
+          </div>
+          <div>
+            <div class="section-label" style="margin-bottom: 6px;">Full Body Preview</div>
+            <div class="modal-body-preview" id="view-body-preview"></div>
+          </div>
+          <div>
+            <div class="section-label" style="margin-bottom: 6px;">Response / Escalation Reason</div>
+            <div class="modal-body-preview" id="view-response-preview"></div>
+          </div>
+          <div>
+            <div class="section-label" style="margin-bottom: 6px;">Send Follow-up / Correction</div>
+            <textarea class="review-textarea" id="view-draft-textarea" rows="8"></textarea>
+          </div>
+          <div class="modal-error" id="view-error"></div>
+          <div class="modal-actions">
+            <button class="modal-btn modal-btn-cancel" id="view-cancel-btn">Cancel</button>
+            <button class="modal-btn modal-btn-send" id="view-send-btn">Send Follow-up</button>
           </div>
         </div>
       </div>
@@ -1902,6 +1984,9 @@
         const reviewBtn = (r.handled === 'drafted' && r.logKey)
           ? `<button class="review-btn" data-log-key="${keyAttr}">Review</button>`
           : '';
+        const viewBtn = r.logKey
+          ? `<button class="review-btn view-btn" data-log-key="${keyAttr}">View</button>`
+          : '';
         return `
           <div class="exchange-row" ${keyAttr ? `data-log-key="${keyAttr}"` : ''}>
             <div class="exchange-top">
@@ -1914,7 +1999,7 @@
             <div class="exchange-subject">${escapeHtml(subject)}</div>
             <div class="exchange-from">${escapeHtml(r.sender || 'unknown')}</div>
             ${preview ? `<div class="exchange-preview">${escapeHtml(preview.slice(0, 80))}</div>` : ''}
-            ${reviewBtn}
+            <div class="exchange-actions">${reviewBtn}${viewBtn}</div>
           </div>
         `;
       }).join('');
@@ -2058,16 +2143,131 @@
       }
     }
 
+    // ── View Exchange modal (any row, any status) ────────────────────────
+    let viewLogKey = null;
+
+    function viewPrefillText(entry) {
+      return entry.sentDraft || entry.draftFull || entry.responsePreview || entry.escalationReason || '';
+    }
+
+    function openViewModal(logKey) {
+      const entry = findRecentByLogKey(logKey);
+      if (!entry) return;
+
+      viewLogKey = logKey;
+      const errorEl = document.getElementById('view-error');
+      errorEl.style.display = 'none';
+      errorEl.textContent = '';
+
+      document.getElementById('view-sender').textContent = entry.sender || 'unknown';
+      const [, badgeLabel] = SUPPORT_BADGE[entry.handled] || [null, (entry.handled || '').toUpperCase()];
+      document.getElementById('view-status').textContent = badgeLabel;
+      document.getElementById('view-timestamp').textContent = new Date(entry.timestamp).toLocaleString();
+      document.getElementById('view-layer').textContent = entry.layer === 1 ? 'KB' : (entry.layer === 2 ? 'AI' : '--');
+      document.getElementById('view-subject').textContent = entry.subject || '(no subject)';
+      document.getElementById('view-body-preview').textContent = entry.bodyPreview || '(no body preview available)';
+      document.getElementById('view-response-preview').textContent =
+        (entry.escalated && entry.escalationReason) ? entry.escalationReason
+          : (entry.responsePreview || '(no response recorded)');
+
+      document.getElementById('view-draft-textarea').value = viewPrefillText(entry);
+
+      const sendBtn = document.getElementById('view-send-btn');
+      sendBtn.textContent = 'Send Follow-up';
+      sendBtn.disabled = false;
+
+      document.getElementById('view-modal-overlay').classList.add('show');
+    }
+
+    function closeViewModal() {
+      document.getElementById('view-modal-overlay').classList.remove('show');
+      viewLogKey = null;
+    }
+
+    async function sendFollowUp() {
+      const entry = findRecentByLogKey(viewLogKey);
+      const textarea = document.getElementById('view-draft-textarea');
+      const editedDraft = textarea.value.trim();
+      const errorEl = document.getElementById('view-error');
+      const sendBtn = document.getElementById('view-send-btn');
+
+      errorEl.style.display = 'none';
+      errorEl.textContent = '';
+
+      if (!entry) {
+        errorEl.textContent = 'This entry is no longer available -- close and refresh.';
+        errorEl.style.display = 'block';
+        return;
+      }
+      if (!editedDraft) {
+        errorEl.textContent = 'Message cannot be empty.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      sendBtn.disabled = true;
+      sendBtn.textContent = 'SENDING...';
+
+      try {
+        const res = await fetch(SUPPORT_SEND_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            logKey: viewLogKey,
+            editedDraft,
+            adminToken: SUPPORT_ADMIN_TOKEN,
+            followUp: true,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || `HTTP ${res.status}`);
+        }
+
+        entry.handled = 'responded';
+        const row = document.querySelector(`.exchange-row[data-log-key="${CSS.escape(viewLogKey)}"]`);
+        if (row) {
+          const badge = row.querySelector('.badge');
+          if (badge) {
+            badge.className = 'badge badge-responded';
+            badge.textContent = 'RESPONDED';
+          }
+          const reviewOnlyBtn = row.querySelector('.review-btn:not(.view-btn)');
+          if (reviewOnlyBtn) reviewOnlyBtn.remove();
+        }
+
+        closeViewModal();
+        showToast(`Sent to ${data.sentTo}`);
+      } catch (err) {
+        errorEl.textContent = err.message || 'Send failed -- try again.';
+        errorEl.style.display = 'block';
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'Send Follow-up';
+      }
+    }
+
     document.getElementById('support-exchanges').addEventListener('click', (e) => {
-      const btn = e.target.closest('.review-btn');
-      if (!btn) return;
-      openReviewModal(btn.dataset.logKey);
+      const reviewBtn = e.target.closest('.review-btn.view-btn') ? null : e.target.closest('.review-btn');
+      if (reviewBtn) {
+        openReviewModal(reviewBtn.dataset.logKey);
+        return;
+      }
+      const viewBtn = e.target.closest('.view-btn');
+      if (viewBtn) {
+        openViewModal(viewBtn.dataset.logKey);
+      }
     });
     document.getElementById('review-close-btn').addEventListener('click', closeReviewModal);
     document.getElementById('review-cancel-btn').addEventListener('click', closeReviewModal);
     document.getElementById('review-send-btn').addEventListener('click', sendReviewDraft);
     document.getElementById('review-modal-overlay').addEventListener('click', (e) => {
       if (e.target.id === 'review-modal-overlay') closeReviewModal();
+    });
+    document.getElementById('view-close-btn').addEventListener('click', closeViewModal);
+    document.getElementById('view-cancel-btn').addEventListener('click', closeViewModal);
+    document.getElementById('view-send-btn').addEventListener('click', sendFollowUp);
+    document.getElementById('view-modal-overlay').addEventListener('click', (e) => {
+      if (e.target.id === 'view-modal-overlay') closeViewModal();
     });
 
     // ── Web push notifications ──────────────────────────────────────────
