@@ -628,6 +628,42 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
     .support-toast.show { display: block; }
+
+    .notif-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 10px 4px 8px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .notif-btn::before {
+      content: '\1F514';
+      font-size: 10px;
+      filter: grayscale(1) opacity(0.7);
+    }
+    .notif-btn.notif-on {
+      color: var(--cyan-bright);
+      border-color: var(--border-strong);
+      background: rgba(0, 191, 216, 0.1);
+    }
+    .notif-btn.notif-on::before { filter: none; }
+    .notif-btn.notif-blocked {
+      color: var(--bad);
+      border-color: rgba(255, 122, 122, 0.4);
+      background: rgba(255, 122, 122, 0.08);
+    }
+    .notif-btn.notif-blocked::before { filter: none; }
+    .notif-btn:disabled { opacity: 0.6; cursor: default; }
   </style>
 </head>
 <body>
@@ -966,7 +1002,10 @@
       <div style="border-top: 1px solid var(--border); margin-top: 4px; padding-top: 4px;">
         <div class="body" id="support-body" style="padding-top: 14px;">
           <div class="section-header" style="margin-bottom: 14px;">
-            <div class="section-label">Support Inbox</div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div class="section-label">Support Inbox</div>
+              <button class="notif-btn" id="notif-btn" type="button">Enable Notifications</button>
+            </div>
             <div class="section-note" id="support-note">loading...</div>
           </div>
 
@@ -2030,6 +2069,103 @@
     document.getElementById('review-modal-overlay').addEventListener('click', (e) => {
       if (e.target.id === 'review-modal-overlay') closeReviewModal();
     });
+
+    // ── Web push notifications ──────────────────────────────────────────
+    const VAPID_PUBLIC_KEY = 'BMgmDYR7Wm-HZLf_L-7PEYEg6fnjEMMg3Bd7fwmscALUVejFOLObYgUSt-6184Zov36PNtgXio0jzPpxYyoKCeA';
+    // Reuses the same PULSE_TOKEN already public in this page (see the
+    // fetchWatcherStats() bearer token above) -- same accepted tradeoff as
+    // SUPPORT_ADMIN_TOKEN, one more admin-scoped token in a page only EJ uses.
+    const PULSE_TOKEN = 'caf9783a368daec034ae4dabc9d9570b70ec4a2dec842d926818ec5600ea3cc4';
+    const PUSH_SUBSCRIBE_ENDPOINT = 'https://signup.ghostarchitect.dev/push-subscribe';
+
+    function urlBase64ToUint8Array(base64String) {
+      const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+      const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+      const rawData = atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+      for (let i = 0; i < rawData.length; i++) outputArray[i] = rawData.charCodeAt(i);
+      return outputArray;
+    }
+
+    function setNotifButtonState(state) {
+      const btn = document.getElementById('notif-btn');
+      btn.classList.remove('notif-on', 'notif-blocked');
+      btn.disabled = false;
+      if (state === 'granted') {
+        btn.textContent = 'Notifications On';
+        btn.classList.add('notif-on');
+        btn.disabled = true;
+      } else if (state === 'denied') {
+        btn.textContent = 'Notifications Blocked';
+        btn.classList.add('notif-blocked');
+        btn.disabled = true;
+      } else {
+        btn.textContent = 'Enable Notifications';
+      }
+    }
+
+    async function initNotifButton() {
+      const btn = document.getElementById('notif-btn');
+      if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) {
+        btn.textContent = 'Push Not Supported';
+        btn.disabled = true;
+        return;
+      }
+
+      setNotifButtonState(Notification.permission);
+
+      // If permission was already granted in a prior visit, make sure the
+      // subscription actually still exists (and is stored server-side) --
+      // don't just trust the permission flag.
+      if (Notification.permission === 'granted') {
+        try {
+          const reg = await navigator.serviceWorker.ready;
+          const existing = await reg.pushManager.getSubscription();
+          if (!existing) setNotifButtonState('default');
+        } catch (_) { /* leave button showing granted state */ }
+      }
+
+      btn.addEventListener('click', async () => {
+        if (btn.disabled) return;
+        btn.textContent = 'Requesting...';
+        btn.disabled = true;
+        try {
+          const permission = await Notification.requestPermission();
+          setNotifButtonState(permission);
+          if (permission !== 'granted') return;
+
+          const reg = await navigator.serviceWorker.ready;
+          let subscription = await reg.pushManager.getSubscription();
+          if (!subscription) {
+            subscription = await reg.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
+            });
+          }
+
+          const res = await fetch(PUSH_SUBSCRIBE_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ subscription: subscription.toJSON(), adminToken: PULSE_TOKEN }),
+          });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+          setNotifButtonState('granted');
+        } catch (err) {
+          console.error('[ghost-pulse] push subscribe failed:', err);
+          setNotifButtonState(Notification.permission === 'granted' ? 'default' : Notification.permission);
+          btn.textContent = 'Enable Notifications';
+          btn.disabled = false;
+        }
+      });
+    }
+
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      navigator.serviceWorker.register('/sw.js').catch((err) => {
+        console.error('[ghost-pulse] service worker registration failed:', err);
+      });
+    }
+    initNotifButton();
 
     fetchSupportStats();
     setInterval(fetchSupportStats, REFRESH_INTERVAL_MS);
