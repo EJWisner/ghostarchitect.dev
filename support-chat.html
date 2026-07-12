@@ -282,9 +282,27 @@
       gap: 12px;
     }
 
-    .msg-row { display: flex; flex-direction: column; max-width: 84%; }
-    .msg-row.assistant { align-self: flex-start; align-items: flex-start; }
-    .msg-row.customer { align-self: flex-end; align-items: flex-end; }
+    .msg-row { display: flex; max-width: 84%; }
+    .msg-row.assistant { align-self: flex-start; align-items: flex-start; gap: 8px; }
+    .msg-row.customer { align-self: flex-end; flex-direction: column; align-items: flex-end; }
+
+    .msg-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      margin-top: 2px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .msg-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+    }
 
     .msg-label {
       font-size: 9px;
@@ -562,15 +580,27 @@
       thread.scrollTop = thread.scrollHeight;
     }
 
+    const AVATAR_SRC = '/spoc-avatar.jpg';
+
     function appendMessage(role, text, timestamp) {
       const thread = $('thread');
       const row = document.createElement('div');
-      row.className = `msg-row ${role === 'customer' ? 'customer' : 'assistant'}`;
-      row.innerHTML = `
-        <div class="msg-label">${role === 'customer' ? 'You' : 'Ghost Architect Support'}</div>
-        <div class="msg-bubble"></div>
-        <div class="msg-time">${timestamp ? formatTime(timestamp) : ''}</div>
-      `;
+      const isAssistant = role !== 'customer';
+      row.className = `msg-row ${isAssistant ? 'assistant' : 'customer'}`;
+      row.innerHTML = isAssistant
+        ? `
+          <img class="msg-avatar" src="${AVATAR_SRC}" alt="">
+          <div class="msg-content">
+            <div class="msg-label">Ghost Architect Support</div>
+            <div class="msg-bubble"></div>
+            <div class="msg-time">${timestamp ? formatTime(timestamp) : ''}</div>
+          </div>
+        `
+        : `
+          <div class="msg-label">You</div>
+          <div class="msg-bubble"></div>
+          <div class="msg-time">${timestamp ? formatTime(timestamp) : ''}</div>
+        `;
       row.querySelector('.msg-bubble').textContent = text;
       thread.appendChild(row);
       scrollThreadToBottom();
@@ -583,8 +613,11 @@
       row.className = 'msg-row assistant';
       row.id = 'typing-row';
       row.innerHTML = `
-        <div class="msg-label">Ghost Architect Support</div>
-        <div class="msg-bubble"><span class="typing-dots"><span></span><span></span><span></span></span></div>
+        <img class="msg-avatar" src="${AVATAR_SRC}" alt="">
+        <div class="msg-content">
+          <div class="msg-label">Ghost Architect Support</div>
+          <div class="msg-bubble"><span class="typing-dots"><span></span><span></span><span></span></span></div>
+        </div>
       `;
       thread.appendChild(row);
       scrollThreadToBottom();
