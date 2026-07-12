@@ -363,6 +363,107 @@
       line-height: 1.5;
       max-width: 320px;
     }
+
+    .filter-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .filter-btn {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--cyan), #0090a8);
+      border-color: var(--cyan);
+      color: #050a14;
+      font-weight: 700;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .badge-responded { background: rgba(0, 229, 168, 0.15); color: var(--good); }
+    .badge-drafted { background: rgba(255, 194, 102, 0.15); color: var(--warn); }
+    .badge-escalated { background: rgba(255, 122, 122, 0.15); color: var(--bad); }
+    .badge-rejected { background: rgba(138, 154, 175, 0.18); color: var(--text-tertiary); }
+
+    .exchange-row {
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(0, 191, 216, 0.08);
+    }
+    .exchange-row:last-child { border-bottom: none; }
+
+    .exchange-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .exchange-top-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .exchange-layer {
+      font-size: 9px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.05em;
+    }
+
+    .exchange-time {
+      font-size: 9px;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+    }
+
+    .exchange-subject {
+      font-size: 11px;
+      color: var(--text-primary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .exchange-from {
+      font-size: 10px;
+      color: var(--text-secondary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-top: 1px;
+    }
+
+    .exchange-preview {
+      font-size: 9px;
+      color: var(--text-tertiary);
+      font-style: italic;
+      margin-top: 3px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   </style>
 </head>
 <body>
@@ -693,6 +794,61 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SUPPORT INBOX SECTION ── -->
+      <div style="border-top: 1px solid var(--border); margin-top: 4px; padding-top: 4px;">
+        <div class="body" id="support-body" style="padding-top: 14px;">
+          <div class="section-header" style="margin-bottom: 14px;">
+            <div class="section-label">Support Inbox</div>
+            <div class="section-note" id="support-note">loading...</div>
+          </div>
+
+          <div class="filter-row" id="support-time-filters">
+            <button class="filter-btn" data-window="today">Today</button>
+            <button class="filter-btn active" data-window="last7d">7 Days</button>
+            <button class="filter-btn" data-window="last14d">14 Days</button>
+            <button class="filter-btn" data-window="last30d">30 Days</button>
+            <button class="filter-btn" data-window="allTime">All Time</button>
+          </div>
+
+          <div class="grid">
+            <div class="metric">
+              <div class="metric-label" style="color: var(--good);">Auto-Replied</div>
+              <div class="metric-value" id="support-responded" style="color: var(--good);"> -- </div>
+              <div class="metric-sub">Layer 1 auto-replies</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label" style="color: var(--warn);">Drafted / Pending</div>
+              <div class="metric-value" id="support-drafted" style="color: var(--warn);"> -- </div>
+              <div class="metric-sub">awaiting review</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label" style="color: var(--bad);">Escalated</div>
+              <div class="metric-value" id="support-escalated" style="color: var(--bad);"> -- </div>
+              <div class="metric-sub">sent to EJ</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label" style="color: var(--text-tertiary);">Rejected / Ignored</div>
+              <div class="metric-value" id="support-rejected" style="color: var(--text-tertiary);"> -- </div>
+              <div class="metric-sub">automated senders</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-header">
+              <div class="section-label">Recent Exchanges</div>
+              <div class="section-note" id="support-recent-note"></div>
+            </div>
+            <div class="filter-row" id="support-status-filters">
+              <button class="filter-btn active" data-status="responded">Responded</button>
+              <button class="filter-btn active" data-status="drafted">Drafted</button>
+              <button class="filter-btn active" data-status="escalated">Escalated</button>
+              <button class="filter-btn active" data-status="rejected">Rejected</button>
+            </div>
+            <div id="support-exchanges"><div class="empty-state">Loading...</div></div>
           </div>
         </div>
       </div>
@@ -1413,6 +1569,145 @@
 
     fetchPartnerStats();
     setInterval(fetchPartnerStats, REFRESH_INTERVAL_MS);
+
+    // ── Support inbox section ───────────────────────────────────────────
+    // Same tradeoff as the watcher-stats bearer token below: this exposes
+    // the admin token in a public GitHub Pages file. Accepted 2026-07-12
+    // per EJ (see signup-worker `wrangler secret put SUPPORT_ADMIN_TOKEN`).
+    const SUPPORT_ADMIN_TOKEN = 'f3826ee49aa8b57ab339c541bd0f840dcf676e773615720dc3cdc7d35734d40f';
+    const SUPPORT_ENDPOINT = 'https://signup.ghostarchitect.dev/support-stats';
+
+    let supportData = null;
+    let supportWindow = 'last7d';
+    const supportStatusFilters = new Set(['responded', 'drafted', 'escalated', 'rejected']);
+
+    const SUPPORT_WINDOW_MS = {
+      today: 24 * 60 * 60 * 1000,
+      last7d: 7 * 24 * 60 * 60 * 1000,
+      last14d: 14 * 24 * 60 * 60 * 1000,
+      last30d: 30 * 24 * 60 * 60 * 1000,
+      allTime: Infinity,
+    };
+
+    const SUPPORT_BADGE = {
+      responded: ['badge-responded', 'RESPONDED'],
+      drafted: ['badge-drafted', 'DRAFTED'],
+      escalated: ['badge-escalated', 'ESCALATED'],
+      rejected: ['badge-rejected', 'REJECTED'],
+    };
+
+    function relativeTime(ts) {
+      const diffMs = Date.now() - ts;
+      const min = Math.floor(diffMs / 60000);
+      if (min < 1) return 'just now';
+      if (min < 60) return `${min}m ago`;
+      const hr = Math.floor(min / 60);
+      if (hr < 24) return `${hr}h ago`;
+      const days = Math.floor(hr / 24);
+      if (days === 1) return 'yesterday';
+      if (days < 7) return `${days}d ago`;
+      return new Date(ts).toISOString().slice(0, 10);
+    }
+
+    async function fetchSupportStats() {
+      if (!SUPPORT_ADMIN_TOKEN) {
+        document.getElementById('support-note').textContent = 'admin token not configured';
+        document.getElementById('support-exchanges').innerHTML =
+          '<div class="empty-state">Support token not configured yet.</div>';
+        return;
+      }
+      try {
+        const res = await fetch(`${SUPPORT_ENDPOINT}?token=${encodeURIComponent(SUPPORT_ADMIN_TOKEN)}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        supportData = await res.json();
+        renderSupport();
+      } catch (err) {
+        console.error('[ghost-pulse] support fetch failed:', err);
+        document.getElementById('support-note').textContent = 'fetch failed · retry in 60s';
+        document.getElementById('support-exchanges').innerHTML =
+          '<div class="empty-state">Could not load support data.</div>';
+      }
+    }
+
+    function renderSupport() {
+      if (!supportData) return;
+      const summary = (supportData.summary && supportData.summary[supportWindow]) ||
+        { total: 0, responded: 0, drafted: 0, escalated: 0, rejected: 0 };
+
+      document.getElementById('support-responded').textContent = summary.responded;
+      document.getElementById('support-drafted').textContent = summary.drafted;
+      document.getElementById('support-escalated').textContent = summary.escalated;
+      document.getElementById('support-rejected').textContent = summary.rejected;
+      document.getElementById('support-note').textContent =
+        `${summary.total} total · updated ${new Date(supportData.generatedAt).toLocaleTimeString()}`;
+
+      const windowMs = SUPPORT_WINDOW_MS[supportWindow];
+      const now = Date.now();
+
+      const rows = (supportData.recent || [])
+        .filter(r => r.handled && supportStatusFilters.has(r.handled))
+        .filter(r => {
+          const ts = new Date(r.timestamp).getTime();
+          return windowMs === Infinity || now - ts < windowMs;
+        });
+
+      const note = document.getElementById('support-recent-note');
+      note.textContent = `${rows.length} shown (of last ${(supportData.recent || []).length} logged)`;
+
+      const container = document.getElementById('support-exchanges');
+      if (rows.length === 0) {
+        container.innerHTML = '<div class="empty-state">No exchanges match the current filters.</div>';
+        return;
+      }
+
+      container.innerHTML = rows.map(r => {
+        const [badgeClass, badgeLabel] = SUPPORT_BADGE[r.handled] || ['badge-rejected', (r.handled || '').toUpperCase()];
+        const layerLabel = r.layer === 1 ? 'KB' : (r.layer === 2 ? 'AI' : '--');
+        const ts = new Date(r.timestamp).getTime();
+        const subject = (r.subject || '(no subject)').slice(0, 50);
+        const preview = (r.escalated && r.escalationReason) ? r.escalationReason : (r.responsePreview || '');
+        return `
+          <div class="exchange-row">
+            <div class="exchange-top">
+              <div class="exchange-top-left">
+                <span class="badge ${badgeClass}">${badgeLabel}</span>
+                <span class="exchange-layer">${layerLabel}</span>
+              </div>
+              <span class="exchange-time">${relativeTime(ts)}</span>
+            </div>
+            <div class="exchange-subject">${escapeHtml(subject)}</div>
+            <div class="exchange-from">${escapeHtml(r.sender || 'unknown')}</div>
+            ${preview ? `<div class="exchange-preview">${escapeHtml(preview.slice(0, 80))}</div>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    document.getElementById('support-time-filters').addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      supportWindow = btn.dataset.window;
+      document.querySelectorAll('#support-time-filters .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderSupport();
+    });
+
+    document.getElementById('support-status-filters').addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      const status = btn.dataset.status;
+      if (supportStatusFilters.has(status)) {
+        supportStatusFilters.delete(status);
+        btn.classList.remove('active');
+      } else {
+        supportStatusFilters.add(status);
+        btn.classList.add('active');
+      }
+      renderSupport();
+    });
+
+    fetchSupportStats();
+    setInterval(fetchSupportStats, REFRESH_INTERVAL_MS);
   </script>
 </body>
 </html>
