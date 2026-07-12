@@ -2146,8 +2146,22 @@
     // ── View Exchange modal (any row, any status) ────────────────────────
     let viewLogKey = null;
 
+    // Escalation reason (active_customer_domain:gmail.com, keyword:fraud,
+    // etc.) is internal metadata, never customer-facing text -- it must
+    // never land in the pre-fill of a textarea EJ sends from. Escalated and
+    // rejected entries deliberately fall through to empty.
     function viewPrefillText(entry) {
-      return entry.sentDraft || entry.draftFull || entry.responsePreview || entry.escalationReason || '';
+      return entry.sentDraft || entry.draftFull || entry.responsePreview || '';
+    }
+
+    function viewPlaceholderText(entry) {
+      switch (entry.handled) {
+        case 'escalated': return 'Type your follow-up message to this customer...';
+        case 'rejected': return 'This email was rejected as automated. Type a message if you want to reply manually...';
+        case 'responded': return 'Edit or add to the previous response...';
+        case 'drafted': return 'Edit the draft before sending...';
+        default: return '';
+      }
     }
 
     function openViewModal(logKey) {
@@ -2170,7 +2184,9 @@
         (entry.escalated && entry.escalationReason) ? entry.escalationReason
           : (entry.responsePreview || '(no response recorded)');
 
-      document.getElementById('view-draft-textarea').value = viewPrefillText(entry);
+      const draftTextarea = document.getElementById('view-draft-textarea');
+      draftTextarea.value = viewPrefillText(entry);
+      draftTextarea.placeholder = viewPlaceholderText(entry);
 
       const sendBtn = document.getElementById('view-send-btn');
       sendBtn.textContent = 'Send Follow-up';
