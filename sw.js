@@ -17,7 +17,11 @@ self.addEventListener('push', (event) => {
     body: data.body || '',
     icon: '/icon.png',
     badge: '/icon.png',
-    tag: 'ghost-support',
+    // No tag: a shared tag makes each new push replace the previous
+    // notification instead of showing a fresh banner/alert, which on
+    // macOS Chrome can mean a second push silently swaps in behind an
+    // already-dismissed one instead of re-alerting. Every push should
+    // surface on its own.
     data: { url: data.url || `https://ghostarchitect.dev${PULSE_URL}` },
   };
 
