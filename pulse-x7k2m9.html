@@ -464,6 +464,170 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
+    .review-btn {
+      margin-top: 7px;
+      background: rgba(0, 191, 216, 0.12);
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cyan-bright);
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 14, 0.75);
+      z-index: 100;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 14px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .modal-overlay.show { display: flex; }
+
+    .modal-box {
+      background: linear-gradient(180deg, var(--bg-card-top) 0%, var(--bg-card) 100%);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.35);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+
+    .modal-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 2px 6px;
+    }
+
+    .modal-body {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .modal-subject {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .modal-body-preview {
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      white-space: pre-wrap;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+
+    .review-textarea {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      color: var(--text-primary);
+      font-size: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      line-height: 1.5;
+      resize: vertical;
+      outline: none;
+    }
+    .review-textarea:focus { border-color: var(--cyan); }
+
+    .review-draft-missing {
+      display: none;
+      font-size: 10px;
+      color: var(--warn);
+      font-style: italic;
+      margin-top: 6px;
+    }
+
+    .modal-error {
+      display: none;
+      font-size: 11px;
+      color: var(--bad);
+      background: rgba(255, 122, 122, 0.1);
+      border: 1px solid rgba(255, 122, 122, 0.3);
+      border-radius: 8px;
+      padding: 8px 10px;
+      line-height: 1.4;
+    }
+
+    .modal-actions { display: flex; gap: 8px; }
+
+    .modal-btn {
+      flex: 1;
+      border-radius: 6px;
+      padding: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: inherit;
+      border: 1px solid var(--border);
+    }
+    .modal-btn-cancel { background: rgba(0, 0, 0, 0.3); color: var(--text-secondary); }
+    .modal-btn-send {
+      background: linear-gradient(135deg, var(--cyan), #0090a8);
+      border: none;
+      color: #050a14;
+    }
+    .modal-btn:disabled { opacity: 0.6; cursor: default; }
+
+    .support-toast {
+      display: none;
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      background: rgba(0, 229, 168, 0.14);
+      border: 1px solid var(--good);
+      color: var(--good);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      max-width: 90vw;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+    .support-toast.show { display: block; }
   </style>
 </head>
 <body>
@@ -867,6 +1031,35 @@
         <div class="error-body" id="error-body">Could not reach pulse endpoint. Will retry in 60s.</div>
       </div>
     </div>
+
+    <!-- ── SUPPORT REVIEW MODAL ── -->
+    <div class="modal-overlay" id="review-modal-overlay">
+      <div class="modal-box">
+        <div class="modal-header">
+          <div class="modal-title">Review Draft</div>
+          <button class="modal-close-btn" id="review-close-btn" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div class="section-label" style="margin-bottom: 6px;">Customer's Question</div>
+            <div class="modal-subject" id="review-subject"></div>
+            <div class="modal-body-preview" id="review-body-preview"></div>
+          </div>
+          <div>
+            <div class="section-label" style="margin-bottom: 6px;">Draft Response</div>
+            <textarea class="review-textarea" id="review-draft-textarea" rows="8"></textarea>
+            <div class="review-draft-missing" id="review-draft-missing">Full draft not available -- check your review email.</div>
+          </div>
+          <div class="modal-error" id="review-error"></div>
+          <div class="modal-actions">
+            <button class="modal-btn modal-btn-cancel" id="review-cancel-btn">Cancel</button>
+            <button class="modal-btn modal-btn-send" id="review-send-btn">Send Response</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="support-toast" id="support-toast"></div>
   </div>
 
   <script>
@@ -1666,8 +1859,12 @@
         const ts = new Date(r.timestamp).getTime();
         const subject = (r.subject || '(no subject)').slice(0, 50);
         const preview = (r.escalated && r.escalationReason) ? r.escalationReason : (r.responsePreview || '');
+        const keyAttr = r.logKey ? escapeHtml(r.logKey) : '';
+        const reviewBtn = (r.handled === 'drafted' && r.logKey)
+          ? `<button class="review-btn" data-log-key="${keyAttr}">Review</button>`
+          : '';
         return `
-          <div class="exchange-row">
+          <div class="exchange-row" ${keyAttr ? `data-log-key="${keyAttr}"` : ''}>
             <div class="exchange-top">
               <div class="exchange-top-left">
                 <span class="badge ${badgeClass}">${badgeLabel}</span>
@@ -1678,6 +1875,7 @@
             <div class="exchange-subject">${escapeHtml(subject)}</div>
             <div class="exchange-from">${escapeHtml(r.sender || 'unknown')}</div>
             ${preview ? `<div class="exchange-preview">${escapeHtml(preview.slice(0, 80))}</div>` : ''}
+            ${reviewBtn}
           </div>
         `;
       }).join('');
@@ -1704,6 +1902,133 @@
         btn.classList.add('active');
       }
       renderSupport();
+    });
+
+    // ── Review & Send modal ─────────────────────────────────────────────
+    // NOTE: the task spec assumed https://support.ghostarchitect.workers.dev
+    // but the worker actually deployed to its default workers.dev URL,
+    // derived from the worker name (ghost-support-worker) in wrangler.toml.
+    // Verified via `wrangler deploy` output + a live /healthz check.
+    const SUPPORT_SEND_ENDPOINT = 'https://ghost-support-worker.ghostarchitect.workers.dev/support-send';
+    let reviewLogKey = null;
+    let toastTimer = null;
+
+    function showToast(message) {
+      const toast = document.getElementById('support-toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    function findRecentByLogKey(logKey) {
+      return (supportData && supportData.recent || []).find(r => r.logKey === logKey) || null;
+    }
+
+    function openReviewModal(logKey) {
+      const entry = findRecentByLogKey(logKey);
+      if (!entry) return;
+
+      reviewLogKey = logKey;
+      document.getElementById('review-error').style.display = 'none';
+      document.getElementById('review-error').textContent = '';
+      document.getElementById('review-subject').textContent = entry.subject || '(no subject)';
+      document.getElementById('review-body-preview').textContent = entry.bodyPreview || '(no preview available)';
+
+      const textarea = document.getElementById('review-draft-textarea');
+      const missingNote = document.getElementById('review-draft-missing');
+      if (entry.draftFull) {
+        textarea.value = entry.draftFull;
+        missingNote.style.display = 'none';
+      } else {
+        textarea.value = '';
+        missingNote.style.display = 'block';
+      }
+
+      const sendBtn = document.getElementById('review-send-btn');
+      sendBtn.textContent = 'Send Response';
+      sendBtn.disabled = false;
+
+      document.getElementById('review-modal-overlay').classList.add('show');
+    }
+
+    function closeReviewModal() {
+      document.getElementById('review-modal-overlay').classList.remove('show');
+      reviewLogKey = null;
+    }
+
+    async function sendReviewDraft() {
+      const entry = findRecentByLogKey(reviewLogKey);
+      const textarea = document.getElementById('review-draft-textarea');
+      const editedDraft = textarea.value.trim();
+      const errorEl = document.getElementById('review-error');
+      const sendBtn = document.getElementById('review-send-btn');
+
+      errorEl.style.display = 'none';
+      errorEl.textContent = '';
+
+      if (!entry) {
+        errorEl.textContent = 'This entry is no longer available -- close and refresh.';
+        errorEl.style.display = 'block';
+        return;
+      }
+      if (!editedDraft) {
+        errorEl.textContent = 'Draft text cannot be empty.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      sendBtn.disabled = true;
+      sendBtn.textContent = 'SENDING...';
+
+      try {
+        const res = await fetch(SUPPORT_SEND_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            logKey: reviewLogKey,
+            editedDraft,
+            adminToken: SUPPORT_ADMIN_TOKEN,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || `HTTP ${res.status}`);
+        }
+
+        // Update local state + the row's badge in place, no reload.
+        entry.handled = 'responded';
+        const row = document.querySelector(`.exchange-row[data-log-key="${CSS.escape(reviewLogKey)}"]`);
+        if (row) {
+          const badge = row.querySelector('.badge');
+          if (badge) {
+            badge.className = 'badge badge-responded';
+            badge.textContent = 'RESPONDED';
+          }
+          const btn = row.querySelector('.review-btn');
+          if (btn) btn.remove();
+        }
+
+        closeReviewModal();
+        showToast(`Sent to ${data.sentTo}`);
+      } catch (err) {
+        errorEl.textContent = err.message || 'Send failed -- try again.';
+        errorEl.style.display = 'block';
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'Send Response';
+      }
+    }
+
+    document.getElementById('support-exchanges').addEventListener('click', (e) => {
+      const btn = e.target.closest('.review-btn');
+      if (!btn) return;
+      openReviewModal(btn.dataset.logKey);
+    });
+    document.getElementById('review-close-btn').addEventListener('click', closeReviewModal);
+    document.getElementById('review-cancel-btn').addEventListener('click', closeReviewModal);
+    document.getElementById('review-send-btn').addEventListener('click', sendReviewDraft);
+    document.getElementById('review-modal-overlay').addEventListener('click', (e) => {
+      if (e.target.id === 'review-modal-overlay') closeReviewModal();
     });
 
     fetchSupportStats();
