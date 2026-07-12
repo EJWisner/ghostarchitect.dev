@@ -432,6 +432,16 @@
     }
     .input-bar .send-btn:disabled { opacity: 0.5; cursor: default; }
 
+    .resume-notice {
+      font-size: 10px;
+      color: var(--cyan-bright);
+      background: rgba(0, 191, 216, 0.08);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      text-align: center;
+    }
+
     .terminal-note {
       flex-shrink: 0;
       padding: 14px 16px;
@@ -539,6 +549,7 @@
       <div class="thread" id="thread"></div>
 
       <div class="input-bar" id="input-bar">
+        <div class="resume-notice" id="resume-notice" style="display:none;">Starting a new conversation -- your previous chat history has been loaded</div>
         <div class="input-row">
           <textarea id="chat-input" rows="1" maxlength="1000" placeholder="Type a message…"></textarea>
           <button class="send-btn" id="send-btn" aria-label="Send">➤</button>
@@ -566,6 +577,17 @@
     let sessionSource = null;
     let turnCount = 0;
     let sending = false;
+    // null | 'resolved' | 'expired' -- when set, the input stays active
+    // (instead of being blocked) and sending a message silently starts a
+    // new linked session via /chat-start + previousChatToken rather than
+    // /chat-message. Only enabled when we have a stored identity to start
+    // that new session with (see hasStoredIdentity()); otherwise the
+    // original blocking terminal-state behavior is kept.
+    let chatTerminalKind = null;
+
+    function hasStoredIdentity() {
+      return !!(localStorage.getItem(STORAGE_EMAIL) && localStorage.getItem(STORAGE_NAME));
+    }
 
     function showScreen(id) {
       document.querySelectorAll('.screen').forEach(el => el.classList.remove('show'));
@@ -703,13 +725,22 @@
       currentToken = token;
       sessionSource = session.source;
       turnCount = session.turnCount || 0;
+      chatTerminalKind = null;
       localStorage.setItem(STORAGE_TOKEN, token);
 
       renderQuestionCard(session);
       $('thread').innerHTML = '';
       (session.messages || []).forEach(m => appendMessage(m.role, m.text, m.timestamp));
+      $('resume-notice').style.display = 'none';
 
-      if (session.status === 'resolved') {
+      if (session.status === 'resolved' && hasStoredIdentity()) {
+        // Seamless resume path: keep the input active. Sending a message
+        // silently starts a new linked session instead of blocking.
+        chatTerminalKind = 'resolved';
+        $('input-bar').style.display = 'flex';
+        $('terminal-note').style.display = 'none';
+        setStatus('warn', 'Resolved');
+      } else if (session.status === 'resolved') {
         renderTerminalState('resolved');
       } else if (turnCount >= 10) {
         renderTerminalState('turn_limit');
@@ -722,11 +753,36 @@
       showScreen('screen-chat');
     }
 
+    // Entry point for an expired session when we have a stored identity to
+    // resume with. GET /chat-session withholds content for expired
+    // sessions (see server), so there is no prior thread to render here --
+    // the customer's history is still carried forward server-side via
+    // previousChatToken once they send a message (see resumeAsNewSession).
+    function enterExpiredResumeScreen(token) {
+      currentToken = token;
+      sessionSource = null;
+      turnCount = 0;
+      chatTerminalKind = 'expired';
+
+      $('question-card').style.display = 'none';
+      $('thread').innerHTML = '';
+      $('resume-notice').style.display = 'none';
+      $('input-bar').style.display = 'flex';
+      $('terminal-note').style.display = 'none';
+      setStatus('warn', 'Expired');
+
+      showScreen('screen-chat');
+    }
+
     async function loadSessionByToken(token, { silent } = {}) {
       try {
         const res = await fetch(`${API_BASE}/chat-session?token=${encodeURIComponent(token)}`, { cache: 'no-store' });
         const data = await res.json();
         if (!res.ok || !data.ok) {
+          if (data.error === 'expired' && hasStoredIdentity()) {
+            enterExpiredResumeScreen(token);
+            return true;
+          }
           if (!silent) {
             if (data.error === 'expired') {
               $('error-title').textContent = 'This chat has expired.';
@@ -888,6 +944,49 @@
     });
     $('send-btn').addEventListener('click', sendChatMessage);
 
+    // Silently starts a new linked session (POST /chat-start with
+    // previousChatToken) in place of a blocked /chat-message call, so a
+    // customer typing into a resolved or expired chat never hits a dead
+    // end. Does not append the customer's bubble or manage sending/disabled
+    // state -- the caller (sendChatMessage) already owns both, since this
+    // is invoked from two different points in that flow (immediately, and
+    // as a fallback after a failed /chat-message).
+    async function resumeAsNewSession(text) {
+      const email = localStorage.getItem(STORAGE_EMAIL);
+      const name = localStorage.getItem(STORAGE_NAME);
+      const previousChatToken = currentToken;
+
+      removeTypingIndicator();
+      appendTypingIndicator();
+
+      try {
+        const res = await fetch(`${API_BASE}/chat-start`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message: text, previousChatToken }),
+        });
+        const data = await res.json();
+        removeTypingIndicator();
+        if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
+
+        currentToken = data.chatToken;
+        chatTerminalKind = null;
+        turnCount = 1;
+        localStorage.setItem(STORAGE_TOKEN, data.chatToken);
+
+        $('resume-notice').style.display = 'block';
+        $('input-bar').style.display = 'flex';
+        $('terminal-note').style.display = 'none';
+        setStatus(null, 'Live');
+
+        appendMessage('assistant', data.initialResponse, new Date().toISOString());
+      } catch (err) {
+        console.error('[support-chat] resume failed:', err);
+        removeTypingIndicator();
+        appendMessage('assistant', 'Something went wrong starting a new conversation. Please try again or email support@ghostarchitect.dev.', new Date().toISOString());
+      }
+    }
+
     async function sendChatMessage() {
       if (sending) return;
       const input = $('chat-input');
@@ -905,6 +1004,11 @@
       appendTypingIndicator();
 
       try {
+        if (chatTerminalKind === 'resolved' || chatTerminalKind === 'expired') {
+          await resumeAsNewSession(text);
+          return;
+        }
+
         const res = await fetch(`${API_BASE}/chat-message`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -918,10 +1022,14 @@
           if (data.error === 'turn_limit_reached') {
             appendMessage('assistant', data.message || 'This chat has reached its limit.', new Date().toISOString());
             renderTerminalState('turn_limit');
-          } else if (data.error === 'expired') {
-            renderTerminalState('expired');
-          } else if (data.error === 'resolved') {
-            renderTerminalState('resolved');
+          } else if ((data.error === 'expired' || data.error === 'resolved') && hasStoredIdentity()) {
+            // The session was resolved/expired out from under this send
+            // (e.g. EJ resolved it from Pulse mid-conversation) -- resume
+            // seamlessly with the same text instead of blocking.
+            chatTerminalKind = data.error;
+            await resumeAsNewSession(text);
+          } else if (data.error === 'expired' || data.error === 'resolved') {
+            renderTerminalState(data.error);
           } else {
             appendMessage('assistant', 'Something went wrong sending that. Please try again.', new Date().toISOString());
           }
