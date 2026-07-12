@@ -98,6 +98,30 @@
       letter-spacing: 0.04em;
     }
 
+    .brand-spoc {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 5px;
+      font-size: 9px;
+      color: var(--text-tertiary);
+      line-height: 1.35;
+    }
+
+    .brand-spoc-avatar {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .spoc-accent {
+      color: var(--cyan-bright);
+      font-weight: 600;
+    }
+
     .session-status {
       display: flex;
       align-items: center;
@@ -434,6 +458,10 @@
       <div class="brand">
         <div class="brand-mark">Ghost Architect™</div>
         <div class="brand-sub">Support Chat</div>
+        <div class="brand-spoc">
+          <img src="/spoc-avatar.jpg" alt="" class="brand-spoc-avatar">
+          <span>Your SPOC: Single Point of Contact. We call him <span class="spoc-accent">Spock</span> for short.</span>
+        </div>
       </div>
       <div class="session-status">
         <div class="status-dot" id="status-dot"></div>
