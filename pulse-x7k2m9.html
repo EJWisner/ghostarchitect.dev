@@ -2451,6 +2451,8 @@
     // SUPPORT_ADMIN_TOKEN, one more admin-scoped token in a page only EJ uses.
     const PULSE_TOKEN = 'caf9783a368daec034ae4dabc9d9570b70ec4a2dec842d926818ec5600ea3cc4';
     const PUSH_SUBSCRIBE_ENDPOINT = 'https://signup.ghostarchitect.dev/push-subscribe';
+    const PUSH_UNSUBSCRIBE_ENDPOINT = 'https://signup.ghostarchitect.dev/push-unsubscribe';
+    const DEVICE_ID_STORAGE_KEY = 'ghost-pulse-device-id';
 
     function urlBase64ToUint8Array(base64String) {
       const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
@@ -2461,14 +2463,31 @@
       return outputArray;
     }
 
+    // Stable per-device identifier so each browser/device gets its own KV
+    // entry (push:{deviceId}) instead of every "Enable Notifications" click
+    // clobbering the same push:main record.
+    function getDeviceId() {
+      let id = localStorage.getItem(DEVICE_ID_STORAGE_KEY);
+      if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem(DEVICE_ID_STORAGE_KEY, id);
+      }
+      return id;
+    }
+
+    // state: 'unsupported' | 'default' | 'denied' | 'on'
+    // 'on' is the only clickable-to-toggle-off state; 'denied' is a hard
+    // browser-level block we can't undo from script.
     function setNotifButtonState(state) {
       const btn = document.getElementById('notif-btn');
       btn.classList.remove('notif-on', 'notif-blocked');
       btn.disabled = false;
-      if (state === 'granted') {
+      if (state === 'unsupported') {
+        btn.textContent = 'Push Not Supported';
+        btn.disabled = true;
+      } else if (state === 'on') {
         btn.textContent = 'Notifications On';
         btn.classList.add('notif-on');
-        btn.disabled = true;
       } else if (state === 'denied') {
         btn.textContent = 'Notifications Blocked';
         btn.classList.add('notif-blocked');
@@ -2478,58 +2497,92 @@
       }
     }
 
+    async function subscribeToPush() {
+      const btn = document.getElementById('notif-btn');
+      btn.textContent = 'Requesting...';
+      btn.disabled = true;
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission !== 'granted') {
+          setNotifButtonState(permission === 'denied' ? 'denied' : 'default');
+          return;
+        }
+
+        const reg = await navigator.serviceWorker.ready;
+        let subscription = await reg.pushManager.getSubscription();
+        if (!subscription) {
+          subscription = await reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
+          });
+        }
+
+        const res = await fetch(PUSH_SUBSCRIBE_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ subscription: subscription.toJSON(), deviceId: getDeviceId(), adminToken: PULSE_TOKEN }),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        setNotifButtonState('on');
+      } catch (err) {
+        console.error('[ghost-pulse] push subscribe failed:', err);
+        setNotifButtonState(Notification.permission === 'denied' ? 'denied' : 'default');
+      }
+    }
+
+    async function unsubscribeFromPush() {
+      const btn = document.getElementById('notif-btn');
+      btn.textContent = 'Removing...';
+      btn.disabled = true;
+      try {
+        const reg = await navigator.serviceWorker.ready;
+        const subscription = await reg.pushManager.getSubscription();
+        if (subscription) await subscription.unsubscribe();
+
+        await fetch(PUSH_UNSUBSCRIBE_ENDPOINT, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ deviceId: getDeviceId(), adminToken: PULSE_TOKEN }),
+        });
+
+        setNotifButtonState('default');
+      } catch (err) {
+        console.error('[ghost-pulse] push unsubscribe failed:', err);
+        // Reflect whatever's actually true rather than assuming success.
+        setNotifButtonState(Notification.permission === 'denied' ? 'denied' : 'on');
+      }
+    }
+
     async function initNotifButton() {
       const btn = document.getElementById('notif-btn');
       if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) {
-        btn.textContent = 'Push Not Supported';
-        btn.disabled = true;
+        setNotifButtonState('unsupported');
         return;
       }
 
-      setNotifButtonState(Notification.permission);
-
-      // If permission was already granted in a prior visit, make sure the
-      // subscription actually still exists (and is stored server-side) --
-      // don't just trust the permission flag.
-      if (Notification.permission === 'granted') {
+      if (Notification.permission === 'denied') {
+        setNotifButtonState('denied');
+      } else if (Notification.permission === 'granted') {
+        // Don't just trust the permission flag -- confirm there's an actual
+        // active subscription for this device before showing "on".
         try {
           const reg = await navigator.serviceWorker.ready;
           const existing = await reg.pushManager.getSubscription();
-          if (!existing) setNotifButtonState('default');
-        } catch (_) { /* leave button showing granted state */ }
+          setNotifButtonState(existing ? 'on' : 'default');
+        } catch (_) {
+          setNotifButtonState('default');
+        }
+      } else {
+        setNotifButtonState('default');
       }
 
-      btn.addEventListener('click', async () => {
+      btn.addEventListener('click', () => {
         if (btn.disabled) return;
-        btn.textContent = 'Requesting...';
-        btn.disabled = true;
-        try {
-          const permission = await Notification.requestPermission();
-          setNotifButtonState(permission);
-          if (permission !== 'granted') return;
-
-          const reg = await navigator.serviceWorker.ready;
-          let subscription = await reg.pushManager.getSubscription();
-          if (!subscription) {
-            subscription = await reg.pushManager.subscribe({
-              userVisibleOnly: true,
-              applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
-            });
-          }
-
-          const res = await fetch(PUSH_SUBSCRIBE_ENDPOINT, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ subscription: subscription.toJSON(), adminToken: PULSE_TOKEN }),
-          });
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-          setNotifButtonState('granted');
-        } catch (err) {
-          console.error('[ghost-pulse] push subscribe failed:', err);
-          setNotifButtonState(Notification.permission === 'granted' ? 'default' : Notification.permission);
-          btn.textContent = 'Enable Notifications';
-          btn.disabled = false;
+        if (btn.classList.contains('notif-on')) {
+          unsubscribeFromPush();
+        } else {
+          subscribeToPush();
         }
       });
     }
