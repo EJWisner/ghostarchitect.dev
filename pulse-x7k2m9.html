@@ -646,9 +646,6 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 200;
-      background: rgba(0, 229, 168, 0.14);
-      border: 1px solid var(--good);
-      color: var(--good);
       border-radius: 8px;
       padding: 10px 16px;
       font-size: 11px;
@@ -659,6 +656,66 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
     .support-toast.show { display: block; }
+    .support-toast.toast-success {
+      background: rgba(0, 229, 168, 0.14);
+      border: 1px solid var(--good);
+      color: var(--good);
+    }
+    .support-toast.toast-warning {
+      background: rgba(255, 194, 102, 0.14);
+      border: 1px solid var(--warn);
+      color: var(--warn);
+    }
+
+    .kb-toggle-row {
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      margin-top: 2px;
+    }
+
+    .kb-toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .kb-checkbox {
+      width: 14px;
+      height: 14px;
+      accent-color: var(--cyan);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .kb-trigger-field {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      margin-top: 0;
+      transition: max-height 0.25s ease, opacity 0.2s ease, margin-top 0.25s ease;
+    }
+    .kb-trigger-field.show {
+      max-height: 110px;
+      opacity: 1;
+      margin-top: 10px;
+    }
+
+    .kb-trigger-input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 9px 12px;
+      color: var(--text-primary);
+      font-size: 12px;
+      outline: none;
+      font-family: inherit;
+    }
+    .kb-trigger-input:focus { border-color: var(--cyan); }
 
     .notif-btn {
       display: inline-flex;
@@ -1120,6 +1177,16 @@
             <textarea class="review-textarea" id="review-draft-textarea" rows="8"></textarea>
             <div class="review-draft-missing" id="review-draft-missing">Full draft not available -- check your review email.</div>
           </div>
+          <div class="kb-toggle-row">
+            <label class="kb-toggle-label">
+              <input type="checkbox" class="kb-checkbox" id="review-kb-toggle">
+              <span>Save to knowledge base for future auto-replies</span>
+            </label>
+            <div class="kb-trigger-field" id="review-kb-trigger-field">
+              <div class="section-label" style="margin-bottom: 6px;">Trigger words (comma separated)</div>
+              <input type="text" class="kb-trigger-input" id="review-kb-triggers" placeholder="install, npm install, how do i install">
+            </div>
+          </div>
           <div class="modal-error" id="review-error"></div>
           <div class="modal-actions">
             <button class="modal-btn modal-btn-cancel" id="review-cancel-btn">Cancel</button>
@@ -1170,6 +1237,16 @@
           <div>
             <div class="section-label" style="margin-bottom: 6px;">Send Follow-up / Correction</div>
             <textarea class="review-textarea" id="view-draft-textarea" rows="8"></textarea>
+          </div>
+          <div class="kb-toggle-row">
+            <label class="kb-toggle-label">
+              <input type="checkbox" class="kb-checkbox" id="view-kb-toggle">
+              <span>Save to knowledge base for future auto-replies</span>
+            </label>
+            <div class="kb-trigger-field" id="view-kb-trigger-field">
+              <div class="section-label" style="margin-bottom: 6px;">Trigger words (comma separated)</div>
+              <input type="text" class="kb-trigger-input" id="view-kb-triggers" placeholder="install, npm install, how do i install">
+            </div>
           </div>
           <div class="modal-error" id="view-error"></div>
           <div class="modal-actions">
@@ -2034,12 +2111,15 @@
     // derived from the worker name (ghost-support-worker) in wrangler.toml.
     // Verified via `wrangler deploy` output + a live /healthz check.
     const SUPPORT_SEND_ENDPOINT = 'https://ghost-support-worker.ghostarchitect.workers.dev/support-send';
+    const SUPPORT_KB_ADD_ENDPOINT = 'https://ghost-support-worker.ghostarchitect.workers.dev/support-kb-add';
     let reviewLogKey = null;
     let toastTimer = null;
 
-    function showToast(message) {
+    function showToast(message, type) {
       const toast = document.getElementById('support-toast');
       toast.textContent = message;
+      toast.classList.remove('toast-success', 'toast-warning');
+      toast.classList.add(type === 'warning' ? 'toast-warning' : 'toast-success');
       toast.classList.add('show');
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
@@ -2047,6 +2127,72 @@
 
     function findRecentByLogKey(logKey) {
       return (supportData && supportData.recent || []).find(r => r.logKey === logKey) || null;
+    }
+
+    // ── Knowledge base learning (Save to KB toggle, both modals) ─────────
+    const KB_STOP_WORDS = new Set([
+      'how', 'do', 'i', 'can', 'is', 'the', 'a', 'an', 'does', 'will',
+      'what', 'where', 'when', 'why', 'who', 'ghost', 'architect',
+    ]);
+
+    function extractTriggerWords(subject) {
+      if (!subject) return [];
+      return subject
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .split(/\s+/)
+        .filter(w => w && !KB_STOP_WORDS.has(w))
+        .slice(0, 5);
+    }
+
+    // Resets a modal's KB toggle to OFF, hides the trigger field, and
+    // pre-fills the trigger-words input from the subject so it's ready the
+    // moment EJ flips the toggle on.
+    function resetKbToggle(prefix, subject) {
+      const toggle = document.getElementById(`${prefix}-kb-toggle`);
+      const field = document.getElementById(`${prefix}-kb-trigger-field`);
+      const triggersInput = document.getElementById(`${prefix}-kb-triggers`);
+      toggle.checked = false;
+      field.classList.remove('show');
+      triggersInput.value = extractTriggerWords(subject).join(', ');
+    }
+
+    // Best-effort: called only after the primary customer-facing send has
+    // already succeeded. Never throws -- a KB add failure must never look
+    // like the customer send failed.
+    async function maybePromoteToKb(prefix, { subject, sentText }) {
+      const toggle = document.getElementById(`${prefix}-kb-toggle`);
+      if (!toggle.checked) return;
+
+      const triggersInput = document.getElementById(`${prefix}-kb-triggers`);
+      const triggerPatterns = triggersInput.value
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean);
+
+      if (triggerPatterns.length === 0) {
+        showToast('Sent, but KB add skipped -- no trigger words', 'warning');
+        return;
+      }
+
+      try {
+        const res = await fetch(SUPPORT_KB_ADD_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            issue: (subject || '(no subject)').slice(0, 60),
+            triggerPatterns,
+            resolutionText: sentText,
+            adminToken: SUPPORT_ADMIN_TOKEN,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
+        showToast('Added to knowledge base', 'success');
+      } catch (err) {
+        console.error('[ghost-pulse] KB add failed:', err);
+        showToast('Sent but KB add failed -- add manually', 'warning');
+      }
     }
 
     function openReviewModal(logKey) {
@@ -2072,6 +2218,8 @@
       const sendBtn = document.getElementById('review-send-btn');
       sendBtn.textContent = 'Send Response';
       sendBtn.disabled = false;
+
+      resetKbToggle('review', entry.subject);
 
       document.getElementById('review-modal-overlay').classList.add('show');
     }
@@ -2134,7 +2282,8 @@
         }
 
         closeReviewModal();
-        showToast(`Sent to ${data.sentTo}`);
+        showToast(`Sent to ${data.sentTo}`, 'success');
+        await maybePromoteToKb('review', { subject: entry.subject, sentText: editedDraft });
       } catch (err) {
         errorEl.textContent = err.message || 'Send failed -- try again.';
         errorEl.style.display = 'block';
@@ -2191,6 +2340,8 @@
       const sendBtn = document.getElementById('view-send-btn');
       sendBtn.textContent = 'Send Follow-up';
       sendBtn.disabled = false;
+
+      resetKbToggle('view', entry.subject);
 
       document.getElementById('view-modal-overlay').classList.add('show');
     }
@@ -2253,7 +2404,8 @@
         }
 
         closeViewModal();
-        showToast(`Sent to ${data.sentTo}`);
+        showToast(`Sent to ${data.sentTo}`, 'success');
+        await maybePromoteToKb('view', { subject: entry.subject, sentText: editedDraft });
       } catch (err) {
         errorEl.textContent = err.message || 'Send failed -- try again.';
         errorEl.style.display = 'block';
@@ -2284,6 +2436,12 @@
     document.getElementById('view-send-btn').addEventListener('click', sendFollowUp);
     document.getElementById('view-modal-overlay').addEventListener('click', (e) => {
       if (e.target.id === 'view-modal-overlay') closeViewModal();
+    });
+
+    ['review', 'view'].forEach((prefix) => {
+      document.getElementById(`${prefix}-kb-toggle`).addEventListener('change', (e) => {
+        document.getElementById(`${prefix}-kb-trigger-field`).classList.toggle('show', e.target.checked);
+      });
     });
 
     // ── Web push notifications ──────────────────────────────────────────
