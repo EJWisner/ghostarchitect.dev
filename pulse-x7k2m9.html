@@ -407,6 +407,15 @@
     .badge-rejected { background: rgba(138, 154, 175, 0.18); color: var(--text-tertiary); }
     .badge-chat { background: rgba(124, 58, 237, 0.15); color: #a78bfa; }
 
+    .metric-clickable {
+      cursor: pointer;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .metric-clickable.active {
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 1px #7c3aed, 0 0 12px rgba(124, 58, 237, 0.28);
+    }
+
     .exchange-row {
       padding: 9px 0;
       border-bottom: 1px solid rgba(0, 191, 216, 0.08);
@@ -1130,12 +1139,12 @@
           </div>
 
           <div class="grid" style="margin-top: 10px;">
-            <div class="metric">
+            <div class="metric metric-clickable" id="metric-chats-active" role="button" tabindex="0">
               <div class="metric-label" style="color: #7c3aed;">Active Chats</div>
               <div class="metric-value" id="support-chats-active" style="color: #7c3aed;"> -- </div>
               <div class="metric-sub">live conversations</div>
             </div>
-            <div class="metric">
+            <div class="metric metric-clickable" id="metric-chats-offered" role="button" tabindex="0">
               <div class="metric-label" style="color: #a78bfa;">Chats Offered</div>
               <div class="metric-value" id="support-chats-offered" style="color: #a78bfa;"> -- </div>
               <div class="metric-sub">chat link sent, not opened yet</div>
@@ -1986,6 +1995,11 @@
     let supportData = null;
     let supportWindow = 'last7d';
     const supportStatusFilters = new Set(['responded', 'drafted', 'escalated', 'rejected', 'chat']);
+    // Exclusive drill-down from the Active Chats / Chats Offered stat cards --
+    // null | 'active' | 'offered'. When set, overrides supportStatusFilters
+    // entirely rather than composing with it (a stat-card tap is "show me
+    // just this", not an additional pill). Clicking a status pill clears it.
+    let supportChatDrilldown = null;
 
     const SUPPORT_WINDOW_MS = {
       today: 24 * 60 * 60 * 1000,
@@ -2053,14 +2067,21 @@
       const now = Date.now();
 
       const rows = (supportData.recent || [])
-        .filter(r => r.handled && supportStatusFilters.has(r.handled))
+        .filter(r => supportChatDrilldown
+          ? (r.handled === 'chat' && r.chatStatus === supportChatDrilldown)
+          : (r.handled && supportStatusFilters.has(r.handled)))
         .filter(r => {
           const ts = new Date(r.timestamp).getTime();
           return windowMs === Infinity || now - ts < windowMs;
         });
 
       const note = document.getElementById('support-recent-note');
-      note.textContent = `${rows.length} shown (of last ${(supportData.recent || []).length} logged)`;
+      if (supportChatDrilldown) {
+        const label = supportChatDrilldown === 'active' ? 'active chats' : 'chats offered';
+        note.textContent = `${rows.length} ${label}`;
+      } else {
+        note.textContent = `${rows.length} shown (of last ${(supportData.recent || []).length} logged)`;
+      }
 
       const container = document.getElementById('support-exchanges');
       if (rows.length === 0) {
@@ -2155,6 +2176,10 @@
     document.getElementById('support-status-filters').addEventListener('click', (e) => {
       const btn = e.target.closest('.filter-btn');
       if (!btn) return;
+      // Interacting with a status pill exits stat-card drill-down mode --
+      // the two filter systems don't compose, so clicking a pill hands
+      // control back to the pills.
+      setChatDrilldown(null);
       const status = btn.dataset.status;
       if (supportStatusFilters.has(status)) {
         supportStatusFilters.delete(status);
@@ -2165,6 +2190,27 @@
       }
       renderSupport();
     });
+
+    // ── Active Chats / Chats Offered stat-card drill-down ────────────────
+    function setChatDrilldown(value) {
+      supportChatDrilldown = (supportChatDrilldown === value) ? null : value;
+      document.getElementById('metric-chats-active').classList.toggle('active', supportChatDrilldown === 'active');
+      document.getElementById('metric-chats-offered').classList.toggle('active', supportChatDrilldown === 'offered');
+      renderSupport();
+    }
+
+    function wireChatDrilldownCard(id, value) {
+      const el = document.getElementById(id);
+      el.addEventListener('click', () => setChatDrilldown(value));
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setChatDrilldown(value);
+        }
+      });
+    }
+    wireChatDrilldownCard('metric-chats-active', 'active');
+    wireChatDrilldownCard('metric-chats-offered', 'offered');
 
     // ── Review & Send modal ─────────────────────────────────────────────
     // NOTE: the task spec assumed https://support.ghostarchitect.workers.dev

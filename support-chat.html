@@ -170,6 +170,15 @@
 
     .field textarea { min-height: 96px; line-height: 1.5; }
 
+    .char-counter {
+      font-size: 10px;
+      color: var(--text-tertiary);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .char-counter.warn { color: var(--warn); }
+    .char-counter.limit { color: var(--bad); }
+
     .btn {
       border: none;
       border-radius: 8px;
@@ -335,14 +344,19 @@
     .input-bar {
       flex-shrink: 0;
       display: flex;
-      gap: 8px;
-      align-items: flex-end;
+      flex-direction: column;
+      gap: 4px;
       padding: 10px 14px;
       border-top: 1px solid var(--border);
       background: rgba(8, 14, 26, 0.75);
       backdrop-filter: blur(10px);
       position: sticky;
       bottom: 0;
+    }
+    .input-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
     }
     .input-bar textarea {
       flex: 1;
@@ -431,7 +445,8 @@
         </div>
         <div class="field">
           <label for="form-message">How can we help you?</label>
-          <textarea id="form-message" placeholder="Describe your question or issue…"></textarea>
+          <textarea id="form-message" maxlength="2000" placeholder="Describe your question or issue…"></textarea>
+          <div class="char-counter" id="form-message-counter">0 / 2000</div>
         </div>
         <div class="form-error" id="form-error"></div>
         <button class="btn btn-primary" id="form-submit">Start Chat</button>
@@ -478,8 +493,11 @@
       <div class="thread" id="thread"></div>
 
       <div class="input-bar" id="input-bar">
-        <textarea id="chat-input" rows="1" placeholder="Type a message…"></textarea>
-        <button class="send-btn" id="send-btn" aria-label="Send">➤</button>
+        <div class="input-row">
+          <textarea id="chat-input" rows="1" maxlength="1000" placeholder="Type a message…"></textarea>
+          <button class="send-btn" id="send-btn" aria-label="Send">➤</button>
+        </div>
+        <div class="char-counter" id="chat-input-counter">0 / 1000</div>
       </div>
 
       <div class="terminal-note" id="terminal-note" style="display:none;"></div>
@@ -493,6 +511,8 @@
     const STORAGE_EMAIL = 'ghost_support_email';
     const STORAGE_NAME = 'ghost_support_name';
     const STORAGE_TOKEN = 'ghost_support_token';
+    const FORM_MESSAGE_LIMIT = 2000;
+    const CHAT_INPUT_LIMIT = 1000;
 
     const $ = (id) => document.getElementById(id);
 
@@ -526,6 +546,15 @@
       } catch (_) {
         return '';
       }
+    }
+
+    function updateCharCounter(textarea, counterEl, limit) {
+      const len = textarea.value.length;
+      counterEl.textContent = `${len} / ${limit}`;
+      counterEl.classList.remove('warn', 'limit');
+      if (len >= limit) counterEl.classList.add('limit');
+      else if (len >= limit * 0.8) counterEl.classList.add('warn');
+      return len;
     }
 
     function scrollThreadToBottom() {
@@ -707,6 +736,14 @@
       }
     });
 
+    function refreshFormSubmitState() {
+      $('form-submit').disabled = $('form-message').value.length >= FORM_MESSAGE_LIMIT;
+    }
+    $('form-message').addEventListener('input', () => {
+      updateCharCounter($('form-message'), $('form-message-counter'), FORM_MESSAGE_LIMIT);
+      refreshFormSubmitState();
+    });
+
     $('form-submit').addEventListener('click', async () => {
       const name = $('form-name').value.trim();
       const email = $('form-email').value.trim();
@@ -726,6 +763,11 @@
       }
       if (message.length < 20) {
         errorEl.textContent = 'Please add a bit more detail (at least 20 characters).';
+        errorEl.classList.add('show');
+        return;
+      }
+      if (message.length >= FORM_MESSAGE_LIMIT) {
+        errorEl.textContent = `Please shorten your message below ${FORM_MESSAGE_LIMIT} characters.`;
         errorEl.classList.add('show');
         return;
       }
@@ -772,7 +814,11 @@
       el.style.height = 'auto';
       el.style.height = Math.min(el.scrollHeight, 110) + 'px';
     }
-    $('chat-input').addEventListener('input', (e) => autoGrow(e.target));
+    $('chat-input').addEventListener('input', (e) => {
+      autoGrow(e.target);
+      const len = updateCharCounter(e.target, $('chat-input-counter'), CHAT_INPUT_LIMIT);
+      $('send-btn').disabled = sending || len >= CHAT_INPUT_LIMIT;
+    });
     $('chat-input').addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
@@ -786,10 +832,12 @@
       const input = $('chat-input');
       const text = input.value.trim();
       if (!text || !currentToken) return;
+      if (text.length >= CHAT_INPUT_LIMIT) return;
 
       sending = true;
       input.value = '';
       autoGrow(input);
+      updateCharCounter(input, $('chat-input-counter'), CHAT_INPUT_LIMIT);
       $('send-btn').disabled = true;
 
       appendMessage('customer', text, new Date().toISOString());
