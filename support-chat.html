@@ -1,0 +1,901 @@
+<!-- bust:2026-07-12 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="description" content="Live chat with Ghost Architect™ support.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Ghost Support Chat">
+  <meta name="theme-color" content="#080810">
+  <link rel="apple-touch-icon" href="/icon.png">
+  <link rel="icon" href="/icon.png">
+  <title>Support Chat: Ghost Architect™</title>
+  <style>
+    :root {
+      --bg-page: #080810;
+      --bg-card: rgba(10, 21, 40, 0.94);
+      --bg-card-top: rgba(18, 36, 64, 0.97);
+      --border: rgba(0, 191, 216, 0.28);
+      --border-strong: rgba(0, 191, 216, 0.55);
+      --cyan: #00bfd8;
+      --cyan-bright: #00e5ff;
+      --navy: #0a2540;
+      --text-primary: #f5f9ff;
+      --text-secondary: #b8c5d6;
+      --text-tertiary: #8a9aaf;
+      --good: #00e5a8;
+      --warn: #ffc266;
+      --bad: #ff7a7a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: var(--bg-page);
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      overscroll-behavior-y: none;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right)
+              env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+
+    .app {
+      max-width: 520px;
+      width: 100%;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8, 14, 26, 0.6);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-mark {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      background: linear-gradient(90deg, var(--cyan-bright), var(--cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-size: 10px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.04em;
+    }
+
+    .session-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--good);
+      box-shadow: 0 0 6px var(--good);
+    }
+    .status-dot.warn { background: var(--warn); box-shadow: 0 0 6px var(--warn); }
+    .status-dot.bad { background: var(--bad); box-shadow: 0 0 6px var(--bad); }
+
+    /* ── Screens ── */
+    .screen { display: none; flex: 1; flex-direction: column; min-height: 0; }
+    .screen.show { display: flex; }
+
+    /* ── Centered message screens (loading / form / resume / error) ── */
+    .center-screen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 24px 20px 40px;
+      gap: 18px;
+    }
+
+    .center-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .center-body {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 6px; }
+
+    .field label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+
+    .field input,
+    .field textarea {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--text-primary);
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      resize: none;
+    }
+    .field input:focus,
+    .field textarea:focus { border-color: var(--cyan); }
+
+    .field textarea { min-height: 96px; line-height: 1.5; }
+
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--cyan), #0090a8);
+      color: #050a14;
+    }
+    .btn-primary:disabled { opacity: 0.55; cursor: default; }
+    .btn-secondary {
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .btn-row { display: flex; gap: 10px; }
+    .btn-row .btn { flex: 1; }
+
+    .form-error {
+      display: none;
+      font-size: 12px;
+      color: var(--bad);
+      background: rgba(255, 122, 122, 0.1);
+      border: 1px solid rgba(255, 122, 122, 0.3);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .form-error.show { display: block; }
+
+    .mailto-link {
+      color: var(--cyan-bright);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ── Original question card ── */
+    .question-card {
+      flex-shrink: 0;
+      margin: 12px 16px 0;
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .question-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+    .question-card-label {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+    .question-card-subject {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-top: 2px;
+    }
+    .question-card-toggle {
+      font-size: 11px;
+      color: var(--cyan-bright);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .question-card-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+    .question-card-body.open {
+      max-height: 240px;
+      overflow-y: auto;
+      padding: 0 14px 14px;
+    }
+
+    /* ── Thread ── */
+    .thread {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .msg-row { display: flex; flex-direction: column; max-width: 84%; }
+    .msg-row.assistant { align-self: flex-start; align-items: flex-start; }
+    .msg-row.customer { align-self: flex-end; align-items: flex-end; }
+
+    .msg-label {
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan-bright);
+      margin-bottom: 4px;
+    }
+    .msg-row.customer .msg-label { color: var(--text-tertiary); }
+
+    .msg-bubble {
+      border-radius: 12px;
+      padding: 10px 13px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .msg-row.assistant .msg-bubble {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      border-top-left-radius: 3px;
+    }
+    .msg-row.customer .msg-bubble {
+      background: linear-gradient(135deg, var(--cyan), #0090a8);
+      color: #050a14;
+      border-top-right-radius: 3px;
+    }
+
+    .msg-time {
+      font-size: 9px;
+      color: var(--text-tertiary);
+      margin-top: 3px;
+    }
+
+    .typing-dots {
+      display: inline-flex;
+      gap: 3px;
+      padding: 2px 0;
+    }
+    .typing-dots span {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--cyan-bright);
+      animation: typing-bounce 1.2s infinite ease-in-out;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.15s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes typing-bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    /* ── Input area ── */
+    .input-bar {
+      flex-shrink: 0;
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      padding: 10px 14px;
+      border-top: 1px solid var(--border);
+      background: rgba(8, 14, 26, 0.75);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      bottom: 0;
+    }
+    .input-bar textarea {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 13px;
+      color: var(--text-primary);
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      resize: none;
+      max-height: 110px;
+      line-height: 1.4;
+    }
+    .input-bar textarea:focus { border-color: var(--cyan); }
+    .input-bar .send-btn {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, var(--cyan), #0090a8);
+      color: #050a14;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .input-bar .send-btn:disabled { opacity: 0.5; cursor: default; }
+
+    .terminal-note {
+      flex-shrink: 0;
+      padding: 14px 16px;
+      border-top: 1px solid var(--border);
+      background: rgba(8, 14, 26, 0.75);
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .footer-tag {
+      text-align: center;
+      font-size: 9px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.08em;
+      padding: 10px 0 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="brand-mark">Ghost Architect™</div>
+        <div class="brand-sub">Support Chat</div>
+      </div>
+      <div class="session-status">
+        <div class="status-dot" id="status-dot"></div>
+        <span id="status-text">Connecting</span>
+      </div>
+    </header>
+
+    <!-- ── Loading ── -->
+    <div class="screen show" id="screen-loading">
+      <div class="center-screen">
+        <div class="center-title">Loading your conversation…</div>
+      </div>
+    </div>
+
+    <!-- ── New chat form (Mode B) ── -->
+    <div class="screen" id="screen-form">
+      <div class="center-screen">
+        <div class="center-title">Start a conversation</div>
+        <div class="center-body">Tell us who you are and what's going on. We usually reply in seconds.</div>
+        <div class="field">
+          <label for="form-name">Name</label>
+          <input type="text" id="form-name" autocomplete="name" placeholder="Your name">
+        </div>
+        <div class="field">
+          <label for="form-email">Email</label>
+          <input type="email" id="form-email" autocomplete="email" placeholder="you@company.com">
+        </div>
+        <div class="field">
+          <label for="form-message">How can we help you?</label>
+          <textarea id="form-message" placeholder="Describe your question or issue…"></textarea>
+        </div>
+        <div class="form-error" id="form-error"></div>
+        <button class="btn btn-primary" id="form-submit">Start Chat</button>
+      </div>
+    </div>
+
+    <!-- ── Resume prompt ── -->
+    <div class="screen" id="screen-resume">
+      <div class="center-screen">
+        <div class="center-title" id="resume-title">Welcome back.</div>
+        <div class="center-body">Would you like to continue your previous conversation?</div>
+        <div class="btn-row">
+          <button class="btn btn-secondary" id="resume-no">Start New</button>
+          <button class="btn btn-primary" id="resume-yes">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Not found / expired / generic error ── -->
+    <div class="screen" id="screen-error">
+      <div class="center-screen">
+        <div class="center-title" id="error-title">This chat is no longer available.</div>
+        <div class="center-body" id="error-body">
+          The link may have expired. You can reach us directly at
+          <a class="mailto-link" href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a>.
+        </div>
+        <button class="btn btn-primary" id="error-new-chat">Start a New Chat</button>
+      </div>
+    </div>
+
+    <!-- ── Chat ── -->
+    <div class="screen" id="screen-chat">
+      <div class="question-card" id="question-card" style="display:none;">
+        <div class="question-card-header" id="question-card-header">
+          <div>
+            <div class="question-card-label">Original question</div>
+            <div class="question-card-subject" id="question-card-subject"></div>
+          </div>
+          <button class="question-card-toggle" id="question-card-toggle" type="button">Show</button>
+        </div>
+        <div class="question-card-body" id="question-card-body"></div>
+      </div>
+
+      <div class="thread" id="thread"></div>
+
+      <div class="input-bar" id="input-bar">
+        <textarea id="chat-input" rows="1" placeholder="Type a message…"></textarea>
+        <button class="send-btn" id="send-btn" aria-label="Send">➤</button>
+      </div>
+
+      <div class="terminal-note" id="terminal-note" style="display:none;"></div>
+    </div>
+
+    <div class="footer-tag">Ghost Architect™ · ghostarchitect.dev</div>
+  </div>
+
+  <script>
+    const API_BASE = 'https://ghost-support-worker.ghostarchitect.workers.dev';
+    const STORAGE_EMAIL = 'ghost_support_email';
+    const STORAGE_NAME = 'ghost_support_name';
+    const STORAGE_TOKEN = 'ghost_support_token';
+
+    const $ = (id) => document.getElementById(id);
+
+    let currentToken = null;
+    let sessionSource = null;
+    let turnCount = 0;
+    let sending = false;
+
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(el => el.classList.remove('show'));
+      $(id).classList.add('show');
+    }
+
+    function setStatus(state, text) {
+      const dot = $('status-dot');
+      dot.classList.remove('warn', 'bad');
+      if (state === 'warn') dot.classList.add('warn');
+      if (state === 'bad') dot.classList.add('bad');
+      $('status-text').textContent = text;
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+    }
+
+    function formatTime(ts) {
+      try {
+        return new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      } catch (_) {
+        return '';
+      }
+    }
+
+    function scrollThreadToBottom() {
+      const thread = $('thread');
+      thread.scrollTop = thread.scrollHeight;
+    }
+
+    function appendMessage(role, text, timestamp) {
+      const thread = $('thread');
+      const row = document.createElement('div');
+      row.className = `msg-row ${role === 'customer' ? 'customer' : 'assistant'}`;
+      row.innerHTML = `
+        <div class="msg-label">${role === 'customer' ? 'You' : 'Ghost Architect Support'}</div>
+        <div class="msg-bubble"></div>
+        <div class="msg-time">${timestamp ? formatTime(timestamp) : ''}</div>
+      `;
+      row.querySelector('.msg-bubble').textContent = text;
+      thread.appendChild(row);
+      scrollThreadToBottom();
+      return row.querySelector('.msg-bubble');
+    }
+
+    function appendTypingIndicator() {
+      const thread = $('thread');
+      const row = document.createElement('div');
+      row.className = 'msg-row assistant';
+      row.id = 'typing-row';
+      row.innerHTML = `
+        <div class="msg-label">Ghost Architect Support</div>
+        <div class="msg-bubble"><span class="typing-dots"><span></span><span></span><span></span></span></div>
+      `;
+      thread.appendChild(row);
+      scrollThreadToBottom();
+      return row;
+    }
+
+    function removeTypingIndicator() {
+      const row = $('typing-row');
+      if (row) row.remove();
+    }
+
+    function renderQuestionCard(session) {
+      if (session.source !== 'email' || !session.originalSubject) {
+        $('question-card').style.display = 'none';
+        return;
+      }
+      $('question-card').style.display = 'block';
+      $('question-card-subject').textContent = session.originalSubject;
+      $('question-card-body').textContent = session.originalBody || '';
+    }
+
+    $('question-card-header').addEventListener('click', () => {
+      const body = $('question-card-body');
+      const toggle = $('question-card-toggle');
+      const open = body.classList.toggle('open');
+      toggle.textContent = open ? 'Hide' : 'Show';
+    });
+
+    function renderTerminalState(kind) {
+      const inputBar = $('input-bar');
+      const note = $('terminal-note');
+      if (kind === 'turn_limit') {
+        inputBar.style.display = 'none';
+        note.style.display = 'block';
+        note.innerHTML = 'This chat has reached its limit. For further assistance please email ' +
+          '<a class="mailto-link" href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a>.';
+        setStatus('warn', 'Limit reached');
+      } else if (kind === 'resolved') {
+        inputBar.style.display = 'none';
+        note.style.display = 'block';
+        note.innerHTML = 'This conversation has been marked resolved. Reply to your email or ' +
+          '<a class="mailto-link" href="/support-chat.html">start a new chat</a> any time.';
+        setStatus('warn', 'Resolved');
+      } else if (kind === 'expired') {
+        inputBar.style.display = 'none';
+        note.style.display = 'block';
+        note.innerHTML = 'This chat link has expired. Reach us at ' +
+          '<a class="mailto-link" href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> or ' +
+          '<a class="mailto-link" href="/support-chat.html">start a new chat</a>.';
+        setStatus('bad', 'Expired');
+      }
+    }
+
+    function enterChatScreen(session, token) {
+      currentToken = token;
+      sessionSource = session.source;
+      turnCount = session.turnCount || 0;
+      localStorage.setItem(STORAGE_TOKEN, token);
+
+      renderQuestionCard(session);
+      $('thread').innerHTML = '';
+      (session.messages || []).forEach(m => appendMessage(m.role, m.text, m.timestamp));
+
+      if (session.status === 'resolved') {
+        renderTerminalState('resolved');
+      } else if (turnCount >= 10) {
+        renderTerminalState('turn_limit');
+      } else {
+        $('input-bar').style.display = 'flex';
+        $('terminal-note').style.display = 'none';
+        setStatus(null, session.status === 'offered' ? 'Waiting for you' : 'Live');
+      }
+
+      showScreen('screen-chat');
+    }
+
+    async function loadSessionByToken(token, { silent } = {}) {
+      try {
+        const res = await fetch(`${API_BASE}/chat-session?token=${encodeURIComponent(token)}`, { cache: 'no-store' });
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+          if (!silent) {
+            if (data.error === 'expired') {
+              $('error-title').textContent = 'This chat has expired.';
+              renderTerminalStateAsErrorScreen('expired');
+            } else {
+              $('error-title').textContent = 'Chat not found.';
+              $('error-body').innerHTML = 'That chat link is no longer valid. You can reach us directly at ' +
+                '<a class="mailto-link" href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a>.';
+            }
+            showScreen('screen-error');
+          }
+          return false;
+        }
+        enterChatScreen(data.session, token);
+        return true;
+      } catch (err) {
+        console.error('[support-chat] session load failed:', err);
+        if (!silent) {
+          $('error-title').textContent = 'Could not load this chat.';
+          $('error-body').innerHTML = 'Something went wrong. You can reach us directly at ' +
+            '<a class="mailto-link" href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a>.';
+          showScreen('screen-error');
+        }
+        return false;
+      }
+    }
+
+    function renderTerminalStateAsErrorScreen(kind) {
+      if (kind === 'expired') {
+        $('error-body').innerHTML = 'This chat link has expired (links are valid for 48 hours). ' +
+          'You can reach us directly at <a class="mailto-link" href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a>.';
+      }
+    }
+
+    $('error-new-chat').addEventListener('click', () => {
+      localStorage.removeItem(STORAGE_TOKEN);
+      const url = new URL(window.location.href);
+      url.searchParams.delete('token');
+      window.history.replaceState({}, '', url.toString());
+      showScreen('screen-form');
+    });
+
+    // ── New chat form ──
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    async function checkForResumableSession(email) {
+      try {
+        const res = await fetch(`${API_BASE}/chat-lookup?email=${encodeURIComponent(email)}`, { cache: 'no-store' });
+        const data = await res.json();
+        return data.ok ? data.chatToken : null;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    let emailLookupToken = null;
+    $('form-email').addEventListener('blur', async () => {
+      const email = $('form-email').value.trim();
+      if (!validateEmail(email)) return;
+      emailLookupToken = await checkForResumableSession(email);
+      if (emailLookupToken) {
+        $('resume-title').textContent = 'We found an existing conversation for this email.';
+        showScreen('screen-resume');
+        $('resume-yes').onclick = () => loadSessionByToken(emailLookupToken);
+        $('resume-no').onclick = () => { emailLookupToken = null; showScreen('screen-form'); };
+      }
+    });
+
+    $('form-submit').addEventListener('click', async () => {
+      const name = $('form-name').value.trim();
+      const email = $('form-email').value.trim();
+      const message = $('form-message').value.trim();
+      const errorEl = $('form-error');
+      errorEl.classList.remove('show');
+
+      if (!name || !email || !message) {
+        errorEl.textContent = 'Please fill in your name, email, and question.';
+        errorEl.classList.add('show');
+        return;
+      }
+      if (!validateEmail(email)) {
+        errorEl.textContent = 'Please enter a valid email address.';
+        errorEl.classList.add('show');
+        return;
+      }
+      if (message.length < 20) {
+        errorEl.textContent = 'Please add a bit more detail (at least 20 characters).';
+        errorEl.classList.add('show');
+        return;
+      }
+
+      const btn = $('form-submit');
+      btn.disabled = true;
+      btn.textContent = 'STARTING…';
+
+      try {
+        const res = await fetch(`${API_BASE}/chat-start`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message }),
+        });
+        const data = await res.json();
+        if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
+
+        localStorage.setItem(STORAGE_EMAIL, email);
+        localStorage.setItem(STORAGE_NAME, name);
+        localStorage.setItem(STORAGE_TOKEN, data.chatToken);
+
+        enterChatScreen({
+          source: 'website',
+          status: 'active',
+          originalSubject: message.slice(0, 80),
+          originalBody: message,
+          turnCount: 1,
+          messages: [
+            { role: 'customer', text: message, timestamp: new Date().toISOString() },
+            { role: 'assistant', text: data.initialResponse, timestamp: new Date().toISOString() },
+          ],
+        }, data.chatToken);
+      } catch (err) {
+        errorEl.textContent = 'Could not start chat -- try again in a moment.';
+        errorEl.classList.add('show');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Start Chat';
+      }
+    });
+
+    // ── Sending messages + streaming ──
+    function autoGrow(el) {
+      el.style.height = 'auto';
+      el.style.height = Math.min(el.scrollHeight, 110) + 'px';
+    }
+    $('chat-input').addEventListener('input', (e) => autoGrow(e.target));
+    $('chat-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendChatMessage();
+      }
+    });
+    $('send-btn').addEventListener('click', sendChatMessage);
+
+    async function sendChatMessage() {
+      if (sending) return;
+      const input = $('chat-input');
+      const text = input.value.trim();
+      if (!text || !currentToken) return;
+
+      sending = true;
+      input.value = '';
+      autoGrow(input);
+      $('send-btn').disabled = true;
+
+      appendMessage('customer', text, new Date().toISOString());
+      appendTypingIndicator();
+
+      try {
+        const res = await fetch(`${API_BASE}/chat-message`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: currentToken, message: text }),
+        });
+
+        const contentType = res.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          const data = await res.json();
+          removeTypingIndicator();
+          if (data.error === 'turn_limit_reached') {
+            appendMessage('assistant', data.message || 'This chat has reached its limit.', new Date().toISOString());
+            renderTerminalState('turn_limit');
+          } else if (data.error === 'expired') {
+            renderTerminalState('expired');
+          } else if (data.error === 'resolved') {
+            renderTerminalState('resolved');
+          } else {
+            appendMessage('assistant', 'Something went wrong sending that. Please try again.', new Date().toISOString());
+          }
+          return;
+        }
+
+        if (!res.ok || !res.body) {
+          removeTypingIndicator();
+          appendMessage('assistant', 'Something went wrong sending that. Please try again.', new Date().toISOString());
+          return;
+        }
+
+        removeTypingIndicator();
+        const bubble = appendMessage('assistant', '', new Date().toISOString());
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let fullText = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const events = buffer.split('\n\n');
+          buffer = events.pop();
+          for (const evt of events) {
+            const line = evt.split('\n').find(l => l.startsWith('data:'));
+            if (!line) continue;
+            let payload;
+            try { payload = JSON.parse(line.slice(5).trim()); } catch (_) { continue; }
+            if (payload.chunk) {
+              fullText += payload.chunk;
+              bubble.textContent = fullText;
+              scrollThreadToBottom();
+            }
+            if (payload.done) {
+              turnCount += 1;
+              if (turnCount >= 10) renderTerminalState('turn_limit');
+            }
+          }
+        }
+      } catch (err) {
+        console.error('[support-chat] send failed:', err);
+        removeTypingIndicator();
+        appendMessage('assistant', 'Something went wrong sending that. Please check your connection and try again.', new Date().toISOString());
+      } finally {
+        sending = false;
+        $('send-btn').disabled = false;
+      }
+    }
+
+    // ── Boot ──
+    (async function boot() {
+      const urlToken = new URL(window.location.href).searchParams.get('token');
+
+      if (urlToken) {
+        setStatus(null, 'Loading');
+        const ok = await loadSessionByToken(urlToken);
+        if (!ok) setStatus('bad', 'Unavailable');
+        return;
+      }
+
+      const storedToken = localStorage.getItem(STORAGE_TOKEN);
+      const storedName = localStorage.getItem(STORAGE_NAME);
+      if (storedToken) {
+        $('resume-title').textContent = storedName ? `Welcome back, ${storedName}.` : 'Welcome back.';
+        showScreen('screen-resume');
+        $('resume-yes').onclick = async () => {
+          const ok = await loadSessionByToken(storedToken, { silent: true });
+          if (!ok) {
+            localStorage.removeItem(STORAGE_TOKEN);
+            showScreen('screen-form');
+          }
+        };
+        $('resume-no').onclick = () => showScreen('screen-form');
+      } else {
+        const storedEmail = localStorage.getItem(STORAGE_EMAIL);
+        if (storedEmail) $('form-email').value = storedEmail;
+        if (storedName) $('form-name').value = storedName;
+        showScreen('screen-form');
+      }
+      setStatus(null, 'Ready');
+    })();
+  </script>
+</body>
+</html>

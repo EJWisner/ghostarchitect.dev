@@ -405,6 +405,7 @@
     .badge-drafted { background: rgba(255, 194, 102, 0.15); color: var(--warn); }
     .badge-escalated { background: rgba(255, 122, 122, 0.15); color: var(--bad); }
     .badge-rejected { background: rgba(138, 154, 175, 0.18); color: var(--text-tertiary); }
+    .badge-chat { background: rgba(124, 58, 237, 0.15); color: #a78bfa; }
 
     .exchange-row {
       padding: 9px 0;
@@ -1125,6 +1126,19 @@
               <div class="metric-label" style="color: var(--text-tertiary);">Rejected / Ignored</div>
               <div class="metric-value" id="support-rejected" style="color: var(--text-tertiary);"> -- </div>
               <div class="metric-sub">automated senders</div>
+            </div>
+          </div>
+
+          <div class="grid" style="margin-top: 10px;">
+            <div class="metric">
+              <div class="metric-label" style="color: #7c3aed;">Active Chats</div>
+              <div class="metric-value" id="support-chats-active" style="color: #7c3aed;"> -- </div>
+              <div class="metric-sub">live conversations</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label" style="color: #a78bfa;">Chats Offered</div>
+              <div class="metric-value" id="support-chats-offered" style="color: #a78bfa;"> -- </div>
+              <div class="metric-sub">chat link sent, not opened yet</div>
             </div>
           </div>
 
@@ -2029,6 +2043,8 @@
       document.getElementById('support-drafted').textContent = summary.drafted;
       document.getElementById('support-escalated').textContent = summary.escalated;
       document.getElementById('support-rejected').textContent = summary.rejected;
+      document.getElementById('support-chats-active').textContent = summary.chatsActive || 0;
+      document.getElementById('support-chats-offered').textContent = summary.chatsOffered || 0;
       document.getElementById('support-note').textContent =
         `${summary.total} total · updated ${new Date(supportData.generatedAt).toLocaleTimeString()}`;
 
@@ -2052,6 +2068,8 @@
       }
 
       container.innerHTML = rows.map(r => {
+        if (r.handled === 'chat') return renderChatRow(r);
+
         const [badgeClass, badgeLabel] = SUPPORT_BADGE[r.handled] || ['badge-rejected', (r.handled || '').toUpperCase()];
         const layerLabel = r.layer === 1 ? 'KB' : (r.layer === 2 ? 'AI' : '--');
         const ts = new Date(r.timestamp).getTime();
@@ -2080,6 +2098,48 @@
           </div>
         `;
       }).join('');
+    }
+
+    // ── Chat row rendering ────────────────────────────────────────────────
+    function renderChatRow(r) {
+      const ts = new Date(r.timestamp).getTime();
+      const subject = (r.subject || '(no subject)').slice(0, 50);
+      const subjectAttr = escapeHtml(r.subject || '(no subject)');
+      const chatToken = escapeHtml(r.chatToken || '');
+      const resolveBtn = r.chatStatus === 'active'
+        ? `<button class="review-btn chat-resolve-btn" data-chat-token="${chatToken}">Resolve</button>`
+        : '';
+      const kbRowVisible = r.chatStatus === 'resolved';
+      return `
+        <div class="exchange-row">
+          <div class="exchange-top">
+            <div class="exchange-top-left">
+              <span class="badge badge-chat">CHAT</span>
+              <span class="exchange-layer chat-status-text">${escapeHtml(r.chatStatus || '')}</span>
+              <span class="exchange-layer">${r.turnCount || 0} turns</span>
+            </div>
+            <span class="exchange-time">${relativeTime(ts)}</span>
+          </div>
+          <div class="exchange-subject">${escapeHtml(subject)}</div>
+          <div class="exchange-from">${escapeHtml(r.sender || 'unknown')} · ${r.chatSource === 'website' ? 'website' : 'email'}</div>
+          ${r.responsePreview ? `<div class="exchange-preview">${escapeHtml(r.responsePreview.slice(0, 80))}</div>` : ''}
+          <div class="exchange-actions">
+            <button class="review-btn chat-open-btn" data-chat-token="${chatToken}">Open Chat</button>
+            ${resolveBtn}
+          </div>
+          <div class="kb-toggle-row chat-kb-row" style="display:${kbRowVisible ? 'block' : 'none'};">
+            <label class="kb-toggle-label">
+              <input type="checkbox" class="kb-checkbox chat-kb-toggle" data-chat-token="${chatToken}" data-subject="${subjectAttr}">
+              <span>Save to knowledge base for future auto-replies</span>
+            </label>
+            <div class="kb-trigger-field chat-kb-trigger-field">
+              <div class="section-label" style="margin-bottom: 6px;">Trigger words (comma separated)</div>
+              <input type="text" class="kb-trigger-input chat-kb-triggers" value="${escapeHtml(extractTriggerWords(r.subject).join(', '))}">
+              <button class="review-btn chat-kb-save-btn" type="button" style="margin-top:8px;">Save to KB</button>
+            </div>
+          </div>
+        </div>
+      `;
     }
 
     document.getElementById('support-time-filters').addEventListener('click', (e) => {
@@ -2112,6 +2172,8 @@
     // Verified via `wrangler deploy` output + a live /healthz check.
     const SUPPORT_SEND_ENDPOINT = 'https://ghost-support-worker.ghostarchitect.workers.dev/support-send';
     const SUPPORT_KB_ADD_ENDPOINT = 'https://ghost-support-worker.ghostarchitect.workers.dev/support-kb-add';
+    const CHAT_RESOLVE_ENDPOINT = 'https://ghost-support-worker.ghostarchitect.workers.dev/chat-resolve';
+    const CHAT_SESSION_ENDPOINT = 'https://ghost-support-worker.ghostarchitect.workers.dev/chat-session';
     let reviewLogKey = null;
     let toastTimer = null;
 
@@ -2414,7 +2476,102 @@
       }
     }
 
+    // ── Chat row actions (Open Chat / Resolve / Save to KB) ──────────────
+    async function resolveChatRow(btn) {
+      const chatToken = btn.dataset.chatToken;
+      const row = btn.closest('.exchange-row');
+      btn.disabled = true;
+      btn.textContent = 'RESOLVING...';
+
+      try {
+        const res = await fetch(CHAT_RESOLVE_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: chatToken, adminToken: SUPPORT_ADMIN_TOKEN }),
+        });
+        const data = await res.json();
+        if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
+
+        const statusText = row.querySelector('.chat-status-text');
+        if (statusText) statusText.textContent = 'resolved';
+        btn.remove();
+
+        const kbRow = row.querySelector('.chat-kb-row');
+        if (kbRow) kbRow.style.display = 'block';
+
+        showToast('Chat marked resolved', 'success');
+      } catch (err) {
+        console.error('[ghost-pulse] chat resolve failed:', err);
+        showToast(err.message || 'Resolve failed -- try again', 'warning');
+        btn.disabled = false;
+        btn.textContent = 'Resolve';
+      }
+    }
+
+    async function saveChatToKb(btn) {
+      const triggerField = btn.closest('.chat-kb-trigger-field');
+      const kbRow = btn.closest('.chat-kb-row');
+      const toggle = kbRow.querySelector('.chat-kb-toggle');
+      const chatToken = toggle.dataset.chatToken;
+      const subject = toggle.dataset.subject || '';
+      const triggerPatterns = triggerField.querySelector('.chat-kb-triggers').value
+        .split(',').map(s => s.trim()).filter(Boolean);
+
+      if (triggerPatterns.length === 0) {
+        showToast('Add at least one trigger word first', 'warning');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'SAVING...';
+
+      try {
+        const sessionRes = await fetch(`${CHAT_SESSION_ENDPOINT}?token=${encodeURIComponent(chatToken)}`, { cache: 'no-store' });
+        const sessionData = await sessionRes.json();
+        if (!sessionRes.ok || !sessionData.ok) throw new Error(sessionData.error || 'could not load chat transcript');
+        const messages = sessionData.session.messages || [];
+        const lastAssistant = [...messages].reverse().find(m => m.role === 'assistant');
+        if (!lastAssistant) throw new Error('no assistant reply found in this chat');
+
+        const kbRes = await fetch(SUPPORT_KB_ADD_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            issue: (subject || '(no subject)').slice(0, 60),
+            triggerPatterns,
+            resolutionText: lastAssistant.text,
+            adminToken: SUPPORT_ADMIN_TOKEN,
+          }),
+        });
+        const kbData = await kbRes.json();
+        if (!kbRes.ok || !kbData.ok) throw new Error(kbData.error || `HTTP ${kbRes.status}`);
+
+        showToast('Added to knowledge base', 'success');
+        btn.textContent = 'Saved';
+      } catch (err) {
+        console.error('[ghost-pulse] chat KB add failed:', err);
+        showToast(err.message || 'KB add failed', 'warning');
+        btn.disabled = false;
+        btn.textContent = 'Save to KB';
+      }
+    }
+
     document.getElementById('support-exchanges').addEventListener('click', (e) => {
+      const chatOpenBtn = e.target.closest('.chat-open-btn');
+      if (chatOpenBtn) {
+        window.open(`https://ghostarchitect.dev/support-chat.html?token=${encodeURIComponent(chatOpenBtn.dataset.chatToken)}`, '_blank');
+        return;
+      }
+      const chatResolveBtn = e.target.closest('.chat-resolve-btn');
+      if (chatResolveBtn) {
+        resolveChatRow(chatResolveBtn);
+        return;
+      }
+      const chatKbSaveBtn = e.target.closest('.chat-kb-save-btn');
+      if (chatKbSaveBtn) {
+        saveChatToKb(chatKbSaveBtn);
+        return;
+      }
       const reviewBtn = e.target.closest('.review-btn.view-btn') ? null : e.target.closest('.review-btn');
       if (reviewBtn) {
         openReviewModal(reviewBtn.dataset.logKey);
@@ -2424,6 +2581,13 @@
       if (viewBtn) {
         openViewModal(viewBtn.dataset.logKey);
       }
+    });
+
+    document.getElementById('support-exchanges').addEventListener('change', (e) => {
+      const toggle = e.target.closest('.chat-kb-toggle');
+      if (!toggle) return;
+      const field = toggle.closest('.chat-kb-row').querySelector('.chat-kb-trigger-field');
+      field.classList.toggle('show', toggle.checked);
     });
     document.getElementById('review-close-btn').addEventListener('click', closeReviewModal);
     document.getElementById('review-cancel-btn').addEventListener('click', closeReviewModal);
