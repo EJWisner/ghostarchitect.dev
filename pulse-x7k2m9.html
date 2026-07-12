@@ -1152,6 +1152,7 @@
               <button class="filter-btn active" data-status="drafted">Drafted</button>
               <button class="filter-btn active" data-status="escalated">Escalated</button>
               <button class="filter-btn active" data-status="rejected">Rejected</button>
+              <button class="filter-btn active" data-status="chat">Chat</button>
             </div>
             <div id="support-exchanges"><div class="empty-state">Loading...</div></div>
           </div>
@@ -1984,7 +1985,7 @@
 
     let supportData = null;
     let supportWindow = 'last7d';
-    const supportStatusFilters = new Set(['responded', 'drafted', 'escalated', 'rejected']);
+    const supportStatusFilters = new Set(['responded', 'drafted', 'escalated', 'rejected', 'chat']);
 
     const SUPPORT_WINDOW_MS = {
       today: 24 * 60 * 60 * 1000,
