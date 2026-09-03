@@ -30,12 +30,27 @@
   else if (path.indexOf('inheritance-audit') !== -1 || path.indexOf('prompt-triage') !== -1 || path.indexOf('audit') !== -1 || path.indexOf('ghost-partner') !== -1 || path.indexOf('ghost-brief') !== -1 || path.indexOf('ghost-watcher') !== -1 || path.indexOf('ghost-triple-crown') !== -1 || path.indexOf('triple-crown-process') !== -1) activeGroup = 'modes';
   else if (path.indexOf('blog') !== -1 || path.indexOf('faq') !== -1 || path.indexOf('support') !== -1 || path.indexOf('security') !== -1 || path.indexOf('changelog') !== -1) activeGroup = 'resources';
 
+  // THE PRODUCT SWITCH (EJ, 2026-09-03: the choice of product must stand up on
+  // every page). Which side is lit comes from the page: the Local pages, a
+  // ?platform=local query, or a #local anchor light Local; everything else is
+  // hosted. It is a pair of links, not a toggle that hides anything.
+  var isLocalPage = activeGroup === 'local'
+    || /[?&]platform=local\b/.test(window.location.search)
+    || window.location.hash === '#local'
+    || path.indexOf('/blog/ghost-local-') === 0;
+  var switchHtml = ''
+    + '<div class="ga-product-switch" role="navigation" aria-label="Choose a product">'
+    + '  <a href="/#hosted" class="ga-product hosted' + (isLocalPage ? '' : ' on') + '" title="Ghost Architect: hosted model, pay per seat"><span class="dot"></span>Hosted</a>'
+    + '  <a href="/local.html" class="ga-product local' + (isLocalPage ? ' on' : '') + '" title="Ghost Architect Local: your hardware, your model, your network"><span class="dot"></span>Local</a>'
+    + '</div>';
+
   var navHtml = ''
     + '<nav class="ga-nav">'
     + '  <a href="/" class="ga-nav-logo">'
     + '    <img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />'
     + '    Ghost Architect&trade;'
     + '  </a>'
+    + switchHtml
     + '  <ul class="ga-nav-links">'
 
     // ── MODES dropdown ──
@@ -209,6 +224,7 @@
 
     // ── MOBILE MENU ──
     + '<div class="ga-mobile-menu" id="ga-mobile-menu">'
+    + switchHtml.replace('ga-product-switch', 'ga-product-switch mobile')
     + '  <div class="ga-mobile-group' + (activeGroup === 'modes' ? ' open' : '') + '" data-mobile-group>'
     + '    <button class="ga-mobile-group-header">'
     + '      Modes'
