@@ -104,10 +104,29 @@
   <p>Codebase intelligence, security triage, Adobe Commerce, and AI-assisted development -- written by practitioners who work with these systems every day.</p>
 </div>
 
+<div id="platform-switch" style="display:flex; gap:0.6rem; justify-content:center; flex-wrap:wrap; margin: 0 auto 1.6rem; font-family: var(--font-mono); font-size: 0.8rem;">
+  <a href="/blog.html" data-pick="all" style="text-decoration:none; padding: 0.45rem 1rem; border-radius: 999px; border: 1px solid var(--border); color: var(--text);">All posts</a>
+  <a href="/blog.html?platform=hosted" data-pick="hosted" style="text-decoration:none; padding: 0.45rem 1rem; border-radius: 999px; border: 1px solid var(--border); color: var(--text);">Ghost Architect&trade; (hosted)</a>
+  <a href="/blog.html?platform=local" data-pick="local" style="text-decoration:none; padding: 0.45rem 1rem; border-radius: 999px; border: 1px solid rgba(0,191,216,0.5); color: #00bfd8;">Ghost Architect&trade; Local</a>
+</div>
 <div class="blog-grid">
 
+  <!-- Post: Ask the code (Ghost Architect Local) -->
+  <a href="/blog/ghost-local-ask-the-code.html" class="post-card" data-platform="local" style="border-color: rgba(0,191,216,0.45);">
+    <div class="post-meta">
+      <span class="post-tag default" style="background: rgba(0,191,216,0.12); border-color: rgba(0,191,216,0.3); color: #00bfd8;">Ghost Architect&trade; Local</span>
+      <span class="post-tag default">7.0.4</span>
+      <span class="featured-badge">Latest</span>
+      <span>September 3, 2026</span>
+      <span>4 min read</span>
+    </div>
+    <h2>Stop looking for the ticket. Ask the code.</h2>
+    <p>The most expensive question in software is still "where are we on that?" Your codebase already knows. Your ticketing system is a rumor about it. Ghost Architect&trade; Local puts the answer on a page, on your own hardware, and tells you what it did not examine.</p>
+    <span class="read-more">Read the post &rarr;</span>
+  </a>
+
   <!-- Post: Ghost Triple Crown™ -->
-  <a href="/blog/ghost-triple-crown.html" class="post-card">
+  <a href="/blog/ghost-triple-crown.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default" style="background: rgba(0,191,216,0.12); border-color: rgba(0,191,216,0.3); color: #00bfd8;">Ghost Watcher™</span>
       <span class="post-tag default">v9.3.5</span>
@@ -121,7 +140,7 @@
     <span class="read-more">Read the post →</span>
   </a>
   <!-- Post: Ghost Triple Crown™ Process -- Case Study -->
-  <a href="/triple-crown-process.html" class="post-card">
+  <a href="/triple-crown-process.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default" style="background: rgba(0,191,216,0.12); border-color: rgba(0,191,216,0.3); color: #00bfd8;">Ghost Triple Crown™</span>
       <span class="post-tag default">Case Study</span>
@@ -134,7 +153,7 @@
     <span class="read-more">Read the case study →</span>
   </a>
   <!-- Post: Ghost Watcher v9.3.1 -- Stream or Batch -->
-  <a href="/blog/ghost-watcher-v931-stream-batch.html" class="post-card">
+  <a href="/blog/ghost-watcher-v931-stream-batch.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default" style="background: rgba(0,191,216,0.12); border-color: rgba(0,191,216,0.3); color: #00bfd8;">Ghost Watcher™</span>
       <span class="post-tag default">v9.3.1</span>
@@ -147,7 +166,7 @@
     <span class="read-more">Read the post →</span>
   </a>
   <!-- Post: Ghost Watcher v9.0.8 -->
-  <a href="/blog/ghost-watcher-v908.html" class="post-card">
+  <a href="/blog/ghost-watcher-v908.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default" style="background: rgba(0,191,216,0.12); border-color: rgba(0,191,216,0.3); color: #00bfd8;">Ghost Watcher™</span>
       <span class="post-tag default">v9.0.8</span>
@@ -160,7 +179,7 @@
     <span class="read-more">Read the post →</span>
   </a>
   <!-- Post: Ghost Partner Profiles v8.2.5 -->
-  <a href="/blog/ghost-partner-profiles-v825.html" class="post-card">
+  <a href="/blog/ghost-partner-profiles-v825.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default" style="background: rgba(224,115,64,0.15); border-color: rgba(224,115,64,0.35); color: #e07340;">Ghost Partner</span>
       <span class="post-tag default">v8.2.5</span>
@@ -174,7 +193,7 @@
   </a>
 
   <!-- Post: Executive Brief v8.2.1 -->
-  <a href="/blog/executive-brief-v821.html" class="post-card">
+  <a href="/blog/executive-brief-v821.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default" style="background: rgba(224,115,64,0.15); border-color: rgba(224,115,64,0.35); color: #e07340;">Executive Brief</span>
       <span class="post-tag default">v8.2.1</span>
@@ -202,7 +221,7 @@
   </a>
 
   <!-- Post: Ghost Brief™ Launch -->
-  <a href="/blog/ghost-brief-launch.html" class="post-card">
+  <a href="/blog/ghost-brief-launch.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default" style="background: rgba(224,115,64,0.15); border-color: rgba(224,115,64,0.35); color: #e07340;">v8.0.0 Launch</span>
       <span class="post-tag default">Ghost Brief™</span>
@@ -215,7 +234,7 @@
   </a>
 
   <!-- Post: Ghost Architect v7.0.0 Launch -->
-  <a href="/blog/ghost-v7-launch.html" class="post-card">
+  <a href="/blog/ghost-v7-launch.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default" style="background: linear-gradient(90deg, rgba(0,212,170,0.20), rgba(74,158,255,0.12)); border-color: rgba(0,212,170,0.40); color: var(--accent2);">v7.0.0 Launch</span>
       <span class="post-tag default">Release</span>
@@ -231,7 +250,7 @@
   </a>
 
   <!-- Post: Inheritance Audit Mode v5.4.0 -->
-  <a href="/blog/inheritance-audit-mode-launch.html" class="post-card">
+  <a href="/blog/inheritance-audit-mode-launch.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default" style="background: linear-gradient(90deg, rgba(74,158,255,0.18), rgba(0,212,170,0.12)); border-color: rgba(74,158,255,0.35); color: var(--accent);">v5.4.0 Launch</span>
       <span class="post-tag default">Inheritance Audit</span>
@@ -244,7 +263,7 @@
   </a>
 
   <!-- Post 0: Prompt Triage v5.3.0 Quality Release -->
-  <a href="/blog/ghost-prompt-triage-v53-clarity.html" class="post-card">
+  <a href="/blog/ghost-prompt-triage-v53-clarity.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default" style="background: rgba(0,255,255,0.10); border-color: rgba(0,255,255,0.30); color: #00ffff;">v5.3.0 Release</span>
       <span class="post-tag default">Prompt Engineering</span>
@@ -257,7 +276,7 @@
   </a>
 
   <!-- Post 1: Prompt Triage v5.2.0 Launch -->
-  <a href="/blog/ghost-prompt-triage-launch.html" class="post-card">
+  <a href="/blog/ghost-prompt-triage-launch.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default" style="background: rgba(0,255,255,0.10); border-color: rgba(0,255,255,0.30); color: #00ffff;">v5.2.0 Launch</span>
       <span class="post-tag default">Prompt Engineering</span>
@@ -270,7 +289,7 @@
   </a>
 
   <!-- Post 0: Magento 2.4.9 May 12 -->
-  <a href="/blog/magento-249-upgrade.html" class="post-card">
+  <a href="/blog/magento-249-upgrade.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag danger">May 12 Deadline</span>
       <span class="post-tag default">Adobe Commerce</span>
@@ -283,7 +302,7 @@
   </a>
 
   <!-- Post 0a: v5.0.0 Launch -->
-  <a href="/blog/ghost-open-v5-launch.html" class="post-card">
+  <a href="/blog/ghost-open-v5-launch.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default">v5.0.0 Launch</span>
       <span class="post-tag default">Open Source</span>
@@ -296,7 +315,7 @@
   </a>
 
   <!-- Post 0b: Ghost Partner introduction -->
-  <a href="/blog/introducing-ghost-partner.html" class="post-card">
+  <a href="/blog/introducing-ghost-partner.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default">Ghost Partner</span>
       <span class="post-tag default">For Consultants</span>
@@ -309,7 +328,7 @@
   </a>
 
   <!-- Post 1: EOL -->
-  <a href="/blog/magento-244-eol.html" class="post-card">
+  <a href="/blog/magento-244-eol.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag danger">End of Life</span>
       <span class="post-tag default">Adobe Commerce</span>
@@ -322,7 +341,7 @@
   </a>
 
   <!-- Post 2: Triage walkthrough -->
-  <a href="/blog/codebase-triage-walkthrough.html" class="post-card">
+  <a href="/blog/codebase-triage-walkthrough.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default">How It Works</span>
       <span class="post-tag default">Walkthrough</span>
@@ -335,7 +354,7 @@
   </a>
 
   <!-- Post 3: Meta scan -->
-  <a href="/blog/meta-extension-scan.html" class="post-card">
+  <a href="/blog/meta-extension-scan.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag danger">Case Study</span>
       <span class="post-tag default">Security</span>
@@ -348,7 +367,7 @@
   </a>
 
   <!-- Post 4: Cost post -->
-  <a href="/blog/cost-of-ai-codebase-analysis.html" class="post-card">
+  <a href="/blog/cost-of-ai-codebase-analysis.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default">Cost &amp; Economics</span>
       <span class="post-tag default">AI Analysis</span>
@@ -361,7 +380,7 @@
   </a>
 
   <!-- Post 5: Claude Code -->
-  <a href="/blog/why-claude-code-is-not-your-starting-point.html" class="post-card">
+  <a href="/blog/why-claude-code-is-not-your-starting-point.html" class="post-card" data-platform="hosted">
     <div class="post-meta">
       <span class="post-tag default">AI &amp; Engineering</span>
       <span class="post-tag default">Strategy</span>
@@ -380,5 +399,19 @@
   <span>© 2026 EJ Wisner · Ghost Architect™ · All rights reserved. · US Copyright Reg. #1-15123488721 · <a href="/support" style="color:var(--text-dim);text-decoration:none;">Support</a> · <a href="/privacy.html" style="color:var(--text-dim);text-decoration:none;">Privacy Policy</a> · <a href="/msa.html" style="color:var(--text-dim);text-decoration:none;">Terms of Service</a></span>
 </footer>
 <script src="/assets/ga-nav.js" defer></script>
+
+<script>
+(function(){
+  // Platform filter: ?platform=hosted|local narrows the grid; the picker marks itself.
+  var pick = new URLSearchParams(window.location.search).get('platform');
+  if (pick !== 'hosted' && pick !== 'local') pick = 'all';
+  document.querySelectorAll('.post-card[data-platform]').forEach(function(c){
+    c.style.display = (pick === 'all' || c.getAttribute('data-platform') === pick) ? '' : 'none';
+  });
+  document.querySelectorAll('#platform-switch a[data-pick]').forEach(function(a){
+    if (a.getAttribute('data-pick') === pick) { a.style.background = pick === 'local' ? 'rgba(0,191,216,0.15)' : 'var(--surface2, #1a1a24)'; a.style.fontWeight = '700'; }
+  });
+})();
+</script>
 </body>
 </html>

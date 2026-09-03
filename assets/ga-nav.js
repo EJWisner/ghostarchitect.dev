@@ -23,7 +23,10 @@
 
   // Which dropdown group is currently active?
   var activeGroup = null;
-  if (path.indexOf('for-agency-owners') !== -1 || path.indexOf('for-agency-teams') !== -1) activeGroup = 'solutions';
+  // Ghost Architect(tm) Local pages: /local, /download, /local-walkthrough, the Local blog
+  if (path.indexOf('/local') === 0 || path.indexOf('/download') === 0) activeGroup = 'local';
+  if (activeGroup) {}
+  else if (path.indexOf('for-agency-owners') !== -1 || path.indexOf('for-agency-teams') !== -1) activeGroup = 'solutions';
   else if (path.indexOf('inheritance-audit') !== -1 || path.indexOf('prompt-triage') !== -1 || path.indexOf('audit') !== -1 || path.indexOf('ghost-partner') !== -1 || path.indexOf('ghost-brief') !== -1 || path.indexOf('ghost-watcher') !== -1 || path.indexOf('ghost-triple-crown') !== -1 || path.indexOf('triple-crown-process') !== -1) activeGroup = 'modes';
   else if (path.indexOf('blog') !== -1 || path.indexOf('faq') !== -1 || path.indexOf('support') !== -1 || path.indexOf('security') !== -1 || path.indexOf('changelog') !== -1) activeGroup = 'resources';
 
@@ -79,6 +82,42 @@
     + '        <a href="/#ghost-partner" class="ga-dropdown-item">'
     + '          <div class="title">Ghost Partner&trade;</div>'
     + '          <div class="desc">Your methodology, your branding, your rates. White-label profiles.</div>'
+    + '        </a>'
+    + '      </div>'
+    + '    </li>'
+
+    // ── LOCAL dropdown (Ghost Architect(tm) Local: your hardware, your model, your network) ──
+    + '    <li class="ga-nav-item" data-dropdown>'
+    + '      <button class="ga-nav-link' + (activeGroup === 'local' ? ' active' : '') + '" aria-haspopup="true" aria-expanded="false">'
+    + '        Local <span class="pill local">NEW</span>'
+    + '        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>'
+    + '      </button>'
+    + '      <div class="ga-dropdown">'
+    + '        <div class="ga-dropdown-section-label">Ghost Architect&trade; Local</div>'
+    + '        <a href="/local.html" class="ga-dropdown-item' + (isActive('/local.html') ? ' active' : '') + '">'
+    + '          <div class="title">Overview <span class="pill local">NEW</span></div>'
+    + '          <div class="desc">Your hardware, your model, your network. Air-gapped if you need it. Fixed cost.</div>'
+    + '        </a>'
+    + '        <a href="/local-walkthrough.html" class="ga-dropdown-item' + (isActive('/local-walkthrough.html') ? ' active' : '') + '">'
+    + '          <div class="title">See it running</div>'
+    + '          <div class="desc">The fleet, the queue, LLM Status and the reports. Real screens, demo estate.</div>'
+    + '        </a>'
+    + '        <a href="/pricing.html#local" class="ga-dropdown-item">'
+    + '          <div class="title">Local pricing</div>'
+    + '          <div class="desc">Annual licence. No per-token bill. 7-day trial, half price when you convert.</div>'
+    + '        </a>'
+    + '        <a href="/download.html" class="ga-dropdown-item' + (isActive('/download.html') ? ' active' : '') + '">'
+    + '          <div class="title">Download &amp; install</div>'
+    + '          <div class="desc">The tarball, its SHA-256, and the installer, step by step.</div>'
+    + '        </a>'
+    + '        <a href="/security.html#local" class="ga-dropdown-item">'
+    + '          <div class="title">Zero egress, proven</div>'
+    + '          <div class="desc">What leaves your network (nothing) and the inventory the product prints to prove it.</div>'
+    + '        </a>'
+    + '        <div class="ga-dropdown-divider"></div>'
+    + '        <a href="/blog.html?platform=local" class="ga-dropdown-item">'
+    + '          <div class="title">Local blog</div>'
+    + '          <div class="desc">Stop looking for the ticket. Ask the code.</div>'
     + '        </a>'
     + '      </div>'
     + '    </li>'
@@ -185,6 +224,20 @@
     + '      <a href="/ghost-brief.html"' + (isActive('/ghost-brief.html') ? ' class="active"' : '') + '>Ghost Brief&trade; <span class="pill brief">NEW</span></a>'
     + '      <a href="/audit.html"' + (isActive('/audit.html') ? ' class="active"' : '') + '>Done-For-You Audit</a>'
     + '      <a href="/#ghost-partner">Ghost Partner&trade;</a>'
+    + '    </div>'
+    + '  </div>'
+    + '  <div class="ga-mobile-group' + (activeGroup === 'local' ? ' open' : '') + '" data-mobile-group>'
+    + '    <button class="ga-mobile-group-header">'
+    + '      Local <span class="pill local">NEW</span>'
+    + '      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>'
+    + '    </button>'
+    + '    <div class="ga-mobile-group-items">'
+    + '      <a href="/local.html"' + (isActive('/local.html') ? ' class="active"' : '') + '>Ghost Architect&trade; Local</a>'
+    + '      <a href="/local-walkthrough.html"' + (isActive('/local-walkthrough.html') ? ' class="active"' : '') + '>See it running</a>'
+    + '      <a href="/pricing.html#local">Local pricing</a>'
+    + '      <a href="/download.html"' + (isActive('/download.html') ? ' class="active"' : '') + '>Download &amp; install</a>'
+    + '      <a href="/security.html#local">Zero egress, proven</a>'
+    + '      <a href="/blog.html?platform=local">Local blog</a>'
     + '    </div>'
     + '  </div>'
     + '  <div class="ga-mobile-group' + (activeGroup === 'solutions' ? ' open' : '') + '" data-mobile-group>'

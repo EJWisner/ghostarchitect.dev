@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <title>Stop looking for the ticket. Ask the code. · Ghost Architect™ Local</title>
+  <meta name="description" content="The most expensive question in software is still where are we on that. Your codebase already knows. Ghost Architect Local puts the answer on a page, on your own hardware, and tells you what it did not examine." />
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-local-ask-the-code" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-local-ask-the-code" />
+  <meta property="og:title" content="Stop looking for the ticket. Ask the code." />
+  <meta property="og:description" content="Ghost Architect Local: codebase intelligence on your own hardware, honest about its own coverage." />
+  <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
+  <meta property="og:site_name" content="Ghost Architect™" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Stop looking for the ticket. Ask the code.",
+    "datePublished": "2026-09-03",
+    "dateModified": "2026-09-03",
+    "author": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "publisher": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "url": "https://ghostarchitect.dev/blog/ghost-local-ask-the-code",
+    "image": "https://ghostarchitect.dev/assets/local/og-local.png"
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #0a0a0f; --surface: #111118; --surface2: #1a1a24; --border: #2a2a3a;
+      --accent: #4a9eff; --accent2: #00d4aa; --accent3: #00ffff;
+      --danger: #ff4a6b; --warning: #ffaa00;
+      --brief: #00bfd8;
+      --text: #e8e8f0; --text-muted: #b0b0c0; --text-dim: #777788;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.6; overflow-x: hidden; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-family: var(--font-mono); transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); transition: transform 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 56px; left: 0; right: 0; background: rgba(10,10,15,0.98); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 1rem 2rem; flex-direction: column; gap: 1rem; z-index: 99; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--text-muted); text-decoration: none; font-family: var(--font-mono); font-size: 0.9rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } }
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .footer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-muted); font-weight: 600; margin-bottom: 0.25rem; }
+    .footer-logo img { width: 20px; height: 20px; border-radius: 4px; }
+    .article-wrap { max-width: 760px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .back-link { display: inline-block; color: var(--text-dim); text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; margin-bottom: 2rem; transition: color 0.2s; }
+    .back-link:hover { color: var(--accent); }
+    .article-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); margin-bottom: 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+    .article-tag { background: rgba(74,158,255,0.1); border: 1px solid rgba(74,158,255,0.2); border-radius: 4px; padding: 2px 10px; color: var(--accent); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .article-tag.launch { background: rgba(224,115,64,0.12); border-color: rgba(224,115,64,0.35); color: var(--brief); }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 1.5rem; }
+    .lede { font-size: 1.15rem; color: var(--text); line-height: 1.6; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .article-body h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; margin: 2.5rem 0 1rem; color: var(--text); }
+    .article-body h3 { font-size: 1rem; font-weight: 700; margin: 2rem 0 0.75rem; color: var(--accent); font-family: var(--font-mono); }
+    .article-body p { color: var(--text-muted); font-size: 1rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .article-body strong { color: var(--text); font-weight: 700; }
+    .article-body em { color: var(--text); font-style: italic; }
+    .article-body ul, .article-body ol { color: var(--text-muted); padding-left: 1.5rem; margin-bottom: 1.25rem; }
+    .article-body li { margin-bottom: 0.5rem; line-height: 1.7; }
+    .article-body code { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; font-family: var(--font-mono); font-size: 0.85em; color: var(--accent2); }
+    .article-body pre { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--brief); border-radius: 8px; padding: 1rem 1.25rem; margin: 1.5rem 0; overflow-x: auto; font-family: var(--font-mono); font-size: 0.88rem; color: var(--text); line-height: 1.5; }
+    .article-body pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+    .callout { background: var(--surface2); border-left: 3px solid var(--brief); border-radius: 0 8px 8px 0; padding: 1.25rem 1.5rem; margin: 2rem 0; }
+    .callout p { margin: 0; color: var(--text-muted); font-size: 0.95rem; }
+    .cta-band { background: linear-gradient(135deg, rgba(224,115,64,0.10), rgba(74,158,255,0.06)); border: 1px solid rgba(224,115,64,0.35); border-radius: 16px; padding: 2rem; margin: 3rem 0 1.5rem; text-align: center; }
+    .cta-band h3 { font-family: var(--font-sans) !important; color: var(--text) !important; font-size: 1.3rem !important; font-weight: 800 !important; margin: 0 0 0.75rem !important; }
+    .cta-band p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .cta-band .cta-btn { display: inline-block; background: var(--brief); color: #fff; font-weight: 700; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; transition: opacity 0.2s; }
+    .cta-band .cta-btn:hover { opacity: 0.85; }
+    .cta-band code { background: rgba(224,115,64,0.15); color: var(--brief); padding: 0.2rem 0.55rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.95em; }
+    .brief-accent { color: var(--brief); font-weight: 700; }
+  </style>
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
+</head>
+<body>
+
+<div id="ga-nav-mount"></div>
+
+<div class="article-wrap">
+  <a href="/blog.html?platform=local" class="back-link">&larr; All Local posts</a>
+
+  <div class="article-meta">
+    <span class="article-tag launch">Ghost Architect&trade; Local</span>
+    <span class="article-tag">7.0.4</span>
+    <span>September 3, 2026</span>
+    <span>4 min read</span>
+    <span>By Ernst J. Wisner</span>
+  </div>
+
+  <h1>Stop looking for the ticket. Ask the code.</h1>
+
+  <p class="lede">The most expensive question in software is still: where are we on that?</p>
+
+  <div class="article-body">
+    <p>Today the answer lives in a ticket. Find it, hope it is the right one, hope someone updated it, ask in the channel, wait. The senior developer knows, but she is in a meeting. The architect knows half of it. The project manager has a status column that was true last Thursday.</p>
+
+    <p><strong>Your codebase already knows where the project stands. Your ticketing system is a rumor about it.</strong></p>
+
+    <h2>What the code can answer, if something reads it</h2>
+    <p>Ghost Architect&trade; Local reads your codebase and puts the answer on a page: health, risk, what a change would reach, where the code disagrees with itself, and what to fix first. It runs entirely on your own hardware and your own network. Air gapped if that is how you work. Nothing leaves the building, because there is nothing on the other side to send it to.</p>
+    <p>Start from a blank screen or inherit a project nobody documented. From the first commit on, every scan is kept, so what changed and what it did to the health of the code is in front of you, not reconstructed in a meeting. Run it on a commit, on a push, or five minutes before someone asks.</p>
+
+    <h2>Who gets their time back</h2>
+    <p>Developers get the map: what a change reaches before they make it, where the seams are, what the last scan found in the files they are about to open. Architects get the seams: the places two parts of the system assume different things, found by reading the code rather than by remembering. Project managers get the status without chasing anyone, from a page that says which pass a scan is in and never claims a phase it cannot see. CTOs get all of it on machines they already own, scanned the way their team wants it scanned, and, if they deliver to clients, under their own name.</p>
+
+    <h2>What it will not do, on purpose</h2>
+    <p>We are not going to tell you a local model is smarter than a frontier model. It is not, and you already know that. What we will tell you is that Ghost Architect&trade; does not let the model make claims it cannot back.</p>
+    <ul>
+      <li>A report says how many files it read of how many exist, and claims nothing about the rest.</li>
+      <li>When a scan does not finish counting, the record says nobody counted, because zero reads as "we looked and your code is clean."</li>
+      <li>When the verdict hangs on one severity word, the report says so instead of hiding it in an average.</li>
+      <li>An estimate names its basis: measured on this machine from its own passes, or a stated constant when it has not measured yet.</li>
+      <li>A scan that was stopped is recorded as stopped. Every ending is a row an auditor can read.</li>
+    </ul>
+    <p>Right the first time is cheaper than fast and wrong, and anyone who has watched an agent confidently rewrite the wrong file already knows the price of the alternative. So a person stays in the loop by design: Ghost finds it, you decide, your tooling executes. Ghost Brief&trade; writes the prompt from your real files, dependencies and findings, and you run it on whatever assistant you already use.</p>
+
+    <h2>The estate, not the laptop</h2>
+    <p>A team does not run on one machine. Local is a hub and as many spokes as you enrol: one model server, one queue, one fleet page. Move a waiting scan to the top, pause a running one and requeue it, kill it from the hub while it runs on somebody else's machine, and the machine that holds the scan carries out the change and reports back. The LLM Status page shows the model, its memory, its speed today against the prior week, and the model server's own log, live, so the question "is it working or is it stuck" has an answer on a screen.</p>
+
+    <div class="callout">
+      <p><strong>The video below is the real product on a demo estate.</strong> Nine scans across six modes, four running at once, on a fleet larger than ours. Every screen is rendered by the product; only the data is invented.</p>
+    </div>
+    <p><a href="/local.html#see-it-running">Watch the sixty-nine seconds</a>, or <a href="/local-walkthrough.html">read every page in the walkthrough</a>.</p>
+
+    <div class="cta-band">
+      <h3>We are in the final step of beta and the commercial release is imminent.</h3>
+      <p>If you want an evaluation trial, the download page tells you how to get the tarball, verify it, and start the 7-day trial on your own hardware.</p>
+      <a href="/download.html" class="cta-btn">Request Ghost Architect&trade; Local</a>
+    </div>
+
+    <p style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.95rem; color: var(--text-dim);">EJ Wisner, founder of Ghost Architect&trade;. Local pricing is annual, per team size, with no per-token bill; the numbers are on the <a href="/pricing.html#local" style="color:#00bfd8;">pricing page</a>.</p>
+  </div>
+</div>
+
+<footer>
+  <a href="/" class="footer-logo">
+    <img src="/GHOSTLOGO.JPG" alt="Ghost Architect" />
+    Ghost Architect&trade;
+  </a>
+  <div>&copy; 2026 Ghost Platform&trade; &middot; <a href="/privacy.html" style="color: var(--text-dim);">Privacy</a> &middot; <a href="/support.html" style="color: var(--text-dim);">Support</a></div>
+</footer>
+
+<script src="/assets/ga-nav.js" defer></script>
+</body>
+</html>
