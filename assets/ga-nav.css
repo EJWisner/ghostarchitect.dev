@@ -212,3 +212,28 @@ nav.ga-nav {
   background: rgba(0,191,216,0.15); color: #00bfd8; border: 1px solid rgba(0,191,216,0.45);
   font-size: 0.6rem; letter-spacing: 0.08em; padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.35rem; vertical-align: middle;
 }
+
+/* ── THE PRODUCT SWITCH: two products, one choice, on every page, and it pops ── */
+.ga-product-switch {
+  display: inline-flex; align-items: stretch; margin-left: 1.4rem;
+  border: 1px solid var(--ga-nav-border); border-radius: 10px; overflow: hidden;
+  background: rgba(255,255,255,0.03);
+}
+.ga-product {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 16px; text-decoration: none;
+  font-family: var(--ga-nav-font-sans); font-weight: 800; font-size: 0.95rem; letter-spacing: 0.01em;
+  color: var(--ga-nav-text-muted); transition: all 0.15s;
+}
+.ga-product .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ga-nav-text-dim); transition: all 0.15s; }
+.ga-product:hover { color: var(--ga-nav-text); background: rgba(255,255,255,0.05); }
+.ga-product.hosted.on { color: #ffffff; background: linear-gradient(135deg, #4a9eff, #2f6fd6); box-shadow: 0 0 18px rgba(74,158,255,0.45); }
+.ga-product.hosted.on .dot { background: #ffffff; box-shadow: 0 0 8px #ffffff; }
+.ga-product.local.on { color: #06131a; background: linear-gradient(135deg, #00e5ff, #00bfd8); box-shadow: 0 0 18px rgba(0,229,255,0.5); }
+.ga-product.local.on .dot { background: #06131a; }
+.ga-product.hosted:not(.on):hover { color: #4a9eff; }
+.ga-product.local:not(.on):hover { color: #00e5ff; }
+.ga-product-switch.mobile { display: flex; margin: 0 0 12px; width: 100%; }
+.ga-product-switch.mobile .ga-product { flex: 1; justify-content: center; padding: 12px 16px; font-size: 1rem; }
+@media (max-width: 1100px) { nav.ga-nav .ga-product-switch { margin-left: 0.8rem; } .ga-product { padding: 6px 11px; font-size: 0.85rem; } }
+@media (max-width: 980px) { nav.ga-nav .ga-product-switch { display: none; } }
