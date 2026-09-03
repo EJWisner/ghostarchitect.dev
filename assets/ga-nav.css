@@ -237,3 +237,15 @@ nav.ga-nav {
 .ga-product-switch.mobile .ga-product { flex: 1; justify-content: center; padding: 12px 16px; font-size: 1rem; }
 @media (max-width: 1100px) { nav.ga-nav .ga-product-switch { margin-left: 0.8rem; } .ga-product { padding: 6px 11px; font-size: 0.85rem; } }
 @media (max-width: 980px) { nav.ga-nav .ga-product-switch { display: none; } }
+
+/* ── EJ, 2026-09-03: the menu was too soft. White menus, white everywhere. ── */
+.ga-nav-link { color: #ffffff; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.01em; }
+.ga-nav-link:hover { color: #ffffff; background: rgba(255,255,255,0.10); }
+.ga-nav-link.active { color: #ffffff; background: rgba(0,212,170,0.22); box-shadow: inset 0 0 0 1px rgba(0,212,170,0.55); }
+.ga-nav-link .chevron { opacity: 0.9; }
+.ga-dropdown-item .title { color: #ffffff; font-weight: 700; }
+.ga-dropdown-item .desc { color: #c9c9d6; }
+.ga-dropdown-section-label { color: #ffffff; opacity: 0.85; }
+.ga-mobile-group-header, .ga-mobile-flat-link, .ga-mobile-group-items a { color: #ffffff; font-weight: 700; }
+.ga-mobile-group-items a { opacity: 0.95; }
+.ga-nav-logo { color: #ffffff; }
