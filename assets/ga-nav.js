@@ -222,6 +222,12 @@
     + '  </button>'
     + '</nav>'
 
+    // ── THE TRIAL BAND (EJ, 2026-09-03): the green hosted trial and its Local twin, on every page ──
+    + '<div class="ga-trial-band">'
+    + '  <a href="/trial.html" class="ga-trial hosted">Start Free Trial &middot; 7 Days Pro Max</a>'
+    + '  <a href="/download.html" class="ga-trial local">Try Ghost Architect&trade; Local &middot; 7 Days on Your Hardware</a>'
+    + '</div>'
+
     // ── MOBILE MENU ──
     + '<div class="ga-mobile-menu" id="ga-mobile-menu">'
     + switchHtml.replace('ga-product-switch', 'ga-product-switch mobile')
