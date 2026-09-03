@@ -492,6 +492,13 @@
         <div class="center-title">Start a conversation</div>
         <div class="center-body">Tell us who you are and what's going on. We usually reply in seconds.</div>
         <div class="field">
+          <label for="form-platform">Which product?</label>
+          <select id="form-platform" style="background:#0a0a0f;color:#e8e8f0;border:1px solid #2a2a3a;border-radius:8px;padding:0.7rem 0.8rem;font:inherit">
+            <option value="hosted">Ghost Architect (hosted, API key, subscription)</option>
+            <option value="local">Ghost Architect Local (your hardware, annual licence)</option>
+          </select>
+        </div>
+        <div class="field">
           <label for="form-name">Name</label>
           <input type="text" id="form-name" autocomplete="name" placeholder="Your name">
         </div>
@@ -565,6 +572,10 @@
 
   <script>
     const API_BASE = 'https://ghost-support-worker.ghostarchitect.workers.dev';
+      // Platform picker (2026-09-03): a Local question must not be answered with hosted assumptions.
+      // ?platform=local preselects it (the Local pages link here that way); the worker receives `platform`.
+      function currentPlatform(){ var el = document.getElementById('form-platform'); return el && el.value === 'local' ? 'local' : 'hosted'; }
+      (function(){ try { var p = new URLSearchParams(window.location.search).get('platform'); var el = document.getElementById('form-platform'); if (el && p === 'local') el.value = 'local'; } catch (e) {} })();
     const STORAGE_EMAIL = 'ghost_support_email';
     const STORAGE_NAME = 'ghost_support_name';
     const STORAGE_TOKEN = 'ghost_support_token';
@@ -897,7 +908,7 @@
         const res = await fetch(`${API_BASE}/chat-start`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, message }),
+          body: JSON.stringify({ name, email, message, platform: currentPlatform() }),
         });
         const data = await res.json();
         if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
@@ -963,7 +974,7 @@
         const res = await fetch(`${API_BASE}/chat-start`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, message: text, previousChatToken }),
+          body: JSON.stringify({ name, email, message: text, previousChatToken, platform: currentPlatform() }),
         });
         const data = await res.json();
         removeTypingIndicator();

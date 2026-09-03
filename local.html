@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <title>Ghost Architect™ Local: codebase intelligence on your own hardware</title>
+  <meta name="description" content="Ghost Architect™ Local runs on your hardware, on your model, inside your network. Air-gapped if you need it. Fixed annual cost, no per-token bill, and every report tells you what it did not examine." />
+  <link rel="canonical" href="https://ghostarchitect.dev/local.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev/local.html" />
+  <meta property="og:title" content="Ghost Architect™ Local: your code never leaves the building" />
+  <meta property="og:description" content="Codebase intelligence that runs on your own machines. Your code never leaves. Your cost never surprises you. The report tells you what it does not know." />
+  <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
+  <meta property="og:site_name" content="Ghost Architect™" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ghost Architect™ Local: your code never leaves the building" />
+  <meta name="twitter:description" content="Codebase intelligence on your own hardware. Air-gapped if you need it. Fixed cost. Honest about its own coverage." />
+  <meta name="twitter:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
+  <link rel="stylesheet" href="/assets/ga-nav.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Ghost Architect Local",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "macOS, Linux, Windows",
+    "url": "https://ghostarchitect.dev/local.html",
+    "softwareVersion": "7.0.4",
+    "description": "Codebase intelligence that runs entirely on the customer's own hardware and network, with a local model. Points of Interest, Blast Radius, Conflict Detection, Pre-Sprint Planning, Recon, Ghost Brief and commit scans, with a fleet view across machines.",
+    "offers": [
+      { "@type": "Offer", "name": "Solo Developer", "price": "999", "priceCurrency": "USD", "description": "Annual licence, one seat" },
+      { "@type": "Offer", "name": "Small Team", "price": "4999", "priceCurrency": "USD", "description": "Annual licence, five seats" },
+      { "@type": "Offer", "name": "Agency", "price": "12499", "priceCurrency": "USD", "description": "Annual licence, fifteen seats" },
+      { "@type": "Offer", "name": "Enterprise", "price": "24999", "priceCurrency": "USD", "description": "Annual licence, negotiated seats" }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #0a0a0f; --surface: #111118; --surface2: #1a1a24; --border: #2a2a3a;
+      --accent: #4a9eff; --accent2: #00d4aa; --local: #00bfd8; --danger: #ff4a6b; --warning: #ffaa00;
+      --text: #e8e8f0; --text-muted: #b0b0c0; --text-dim: #777788;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.6; }
+    a { color: var(--local); }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .eyebrow { display: inline-block; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--local); border: 1px solid rgba(0,191,216,0.4); background: rgba(0,191,216,0.08); border-radius: 999px; padding: 0.35rem 0.9rem; }
+    .hero { padding: 5.5rem 0 3rem; text-align: center; background: radial-gradient(ellipse at top, rgba(0,191,216,0.10), transparent 60%); }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; margin: 1.2rem auto 1rem; max-width: 860px; letter-spacing: -0.02em; }
+    .hero h1 em { font-style: normal; color: var(--local); }
+    .hero .sub { font-size: 1.2rem; color: var(--text-muted); max-width: 760px; margin: 0 auto 2rem; }
+    .cta { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 0.85rem 1.5rem; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 1rem; border: 1px solid var(--border); color: var(--text); background: var(--surface); transition: transform .12s ease, border-color .12s ease; }
+    .btn:hover { transform: translateY(-1px); border-color: var(--local); }
+    .btn.primary { background: linear-gradient(135deg, #00bfd8, #00d4aa); color: #06131a; border: none; }
+    .btn.ghost { background: transparent; }
+    .strip { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-top: 2.2rem; font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent2); }
+    .strip span::before { content: "\2713  "; }
+    section { padding: 4rem 0; border-top: 1px solid var(--border); }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing: -0.01em; margin-bottom: 0.6rem; }
+    .lede { color: var(--text-muted); font-size: 1.1rem; max-width: 800px; margin-bottom: 2rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; }
+    .card h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .card p { color: var(--text-muted); font-size: 0.95rem; }
+    .card .k { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--local); margin-bottom: 0.5rem; }
+    .story p { font-size: 1.15rem; max-width: 800px; margin-bottom: 1.1rem; color: var(--text); }
+    .story p.big { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+    .story p.big em { font-style: normal; color: var(--local); }
+    .video { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: #000; margin: 0 auto; max-width: 1000px; }
+    .video video { width: 100%; height: auto; display: block; }
+    .video-note { text-align: center; color: var(--text-dim); font-family: var(--font-mono); font-size: 0.78rem; margin-top: 0.8rem; }
+    .honest { border-left: 4px solid var(--local); background: rgba(0,191,216,0.06); border-radius: 0 12px 12px 0; padding: 1.2rem 1.4rem; margin-top: 1rem; }
+    .honest code, code.inline { font-family: var(--font-mono); font-size: 0.9em; color: var(--text); background: var(--surface2); padding: 0.1rem 0.4rem; border-radius: 5px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.95rem; }
+    th, td { text-align: left; padding: 0.8rem 0.9rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--text-dim); font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    td.l { color: var(--local); font-weight: 600; }
+    .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; }
+    .tier { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.3rem; text-align: center; }
+    .tier .name { font-weight: 700; }
+    .tier .price { font-size: 1.9rem; font-weight: 800; margin: 0.4rem 0 0.1rem; }
+    .tier .unit { color: var(--text-dim); font-family: var(--font-mono); font-size: 0.75rem; }
+    .tier .seats { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem; }
+    .tier.hi { border-color: var(--local); box-shadow: 0 0 0 1px rgba(0,191,216,0.25) inset; }
+    details { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 0.7rem; }
+    summary { cursor: pointer; font-weight: 600; }
+    details p { color: var(--text-muted); margin-top: 0.6rem; }
+    .fine { color: var(--text-dim); font-size: 0.85rem; margin-top: 1rem; }
+    footer { padding: 2rem 1.5rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-dim); font-size: 0.85rem; }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    @media (max-width: 720px) { .hero { padding-top: 4rem; } section { padding: 3rem 0; } }
+  </style>
+</head>
+<body>
+<div id="ga-nav-mount"></div>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Ghost Architect&trade; Local &middot; 7.0.4 &middot; commercial release imminent</span>
+    <h1>Your code never leaves the building. <em>Your cost never surprises you.</em></h1>
+    <p class="sub">Codebase intelligence that runs on your own machines, on a model you own, inside your network. Air-gapped if that is how you work. And every report tells you what it did not examine.</p>
+    <div class="cta">
+      <a href="/download.html" class="btn primary">Download and try it free for 7 days</a>
+      <a href="/local-walkthrough.html" class="btn">See it running</a>
+      <a href="/pricing.html#local" class="btn ghost">Local pricing</a>
+    </div>
+    <div class="strip">
+      <span>Zero egress at the code level</span>
+      <span>One annual licence, no per-token bill</span>
+      <span>Hub and spokes across your machines</span>
+      <span>macOS, Linux and Windows</span>
+    </div>
+  </div>
+</div>
+
+<section class="story">
+  <div class="wrap">
+    <p class="big">The most expensive question in software is still: <em>where are we on that?</em></p>
+    <p>Today the answer lives in a ticket. Find it, hope it is the right one, hope someone updated it, ask in the channel, wait. Your codebase already knows where the project stands. Your ticketing system is a rumor about it.</p>
+    <p>Ghost Architect&trade; Local reads your codebase and puts the answer on a page: health, risk, what a change would reach, where the code disagrees with itself, and what to fix first. Run it on a commit, on a push, or five minutes before someone asks. Every scan is kept, so what changed and what it did to the health of the code is in front of you, not reconstructed in a meeting.</p>
+    <p class="big">Stop looking for the ticket. <em>Ask the code.</em></p>
+  </div>
+</section>
+
+<section id="see-it-running" style="scroll-margin-top:90px">
+  <div class="wrap">
+    <h2>See it running</h2>
+    <p class="lede">Sixty-nine seconds: the fleet, the queue with nine scans across six modes, LLM Status, and two reports. Every screen is the real product, rendered with demo data. Open the <a href="/local-walkthrough.html">full walkthrough</a> to read each page at your own pace.</p>
+    <div class="video">
+      <video controls preload="metadata" poster="/assets/local/demo-poster.jpg" playsinline>
+        <source src="/assets/local/ghost-architect-local-demo.mp4" type="video/mp4" />
+        Your browser does not play MP4. <a href="/local-walkthrough.html">Open the walkthrough instead.</a>
+      </video>
+    </div>
+    <p class="video-note">Demo estate: Meridian Software, a hub and four inference nodes. Real pages, demo data, captions on, no voiceover.</p>
+  </div>
+</section>
+
+<section id="for-the-cto" style="scroll-margin-top:90px">
+  <div class="wrap">
+    <span class="eyebrow">For the CTO</span>
+    <h2 style="margin-top:0.8rem">It solves your problems, not just your code's</h2>
+    <p class="lede">The reasons a CTO looks at a local tool at all, and what happens to each of them.</p>
+    <div class="grid">
+      <div class="card"><div class="k">Source that may not leave</div><h3>Three clients forbid their code from leaving infrastructure they control</h3><p>The model runs on your hardware, so there is nothing on the other side to send the code to. Zero-egress mode refuses every outbound destination at the code level and prints the inventory that proves it, which is the page your security director reads.</p></div>
+      <div class="card"><div class="k">Spend you cannot forecast</div><h3>The AI line on the invoice moves every month</h3><p>One annual licence, sized to the team. No meter, no per-token bill. A bad answer costs a re-run on machines you already own, not another line on an invoice, and the trial converts at half price for the first year.</p></div>
+      <div class="card"><div class="k">Confident tools you cannot trust</div><h3>Every scanner reports with the same confidence whether it read the whole tree or a tenth of it</h3><p>Ghost prints its coverage in files and passes, says nobody counted rather than zero when a scan died early, and tells you when a verdict hangs on one severity word. You know what was measured and what was not before you put a number in front of a client.</p></div>
+      <div class="card"><div class="k">Status by chasing people</div><h3>"Where are we on that?" costs a meeting</h3><p>Every scan is kept, with its health score and trend, so the state of a codebase is on a page rather than in someone's head. Run it on a commit, on a push, or five minutes before the question.</p></div>
+      <div class="card"><div class="k">Inherited codebases</div><h3>A new engagement starts with a system nobody documented</h3><p>Recon sizes it in one call and says what a full scan would read; Points of Interest reads it and grades it with the evidence beside each finding; Ghost Brief&trade; turns the findings into a prompt written from the real files, for the assistant your team already uses.</p></div>
+      <div class="card"><div class="k">Auditors and renewals</div><h3>SOC 2 renews in January and the auditor wants records, not assurances</h3><p>A compliance ledger with a row for every scan ending, who ran it and on what; signed CSV and PDF exports; a hash-chained audit log the product verifies in front of you. Evidence you can hand over.</p></div>
+      <div class="card"><div class="k">Six teams, not one laptop</div><h3>A tool that tells one engineer what one engineer scanned does not survive contact with six delivery teams</h3><p>A hub and spokes: one queue for the whole fleet in the order you set, one Fleet page that says what every machine is doing, and LLM Status that tells you whether the model under all of it is healthy today against last week.</p></div>
+      <div class="card"><div class="k">Sizing the hardware</div><h3>What does forty engineers cost in machines?</h3><p>The product measures its own pass time and prints the basis of every estimate, and LLM Status shows memory held and available per machine, so the second scan on your hardware is sized from the first and the next machine is a decision, not a guess.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>What you get</h2>
+    <p class="lede">The same scan modes as the hosted product, on your hardware, plus the estate view a team needs when the work runs on more than one machine.</p>
+    <div class="grid">
+      <div class="card"><div class="k">Points of Interest</div><h3>The health of the codebase, with its evidence</h3><p>A multi-pass read of the whole tree. Findings are verified against the source before they reach the page, the health score shows the denominator it was computed from, and the trend runs scan over scan.</p></div>
+      <div class="card"><div class="k">Blast Radius</div><h3>What a change reaches</h3><p>Point it at the files you are about to touch and it maps what they pull in and what pulls on them, so the review starts with the map instead of building it.</p></div>
+      <div class="card"><div class="k">Conflict Detection</div><h3>Where the code disagrees with itself</h3><p>Contracts, schemas and the seams between components, read for the places two parts of the system assume different things.</p></div>
+      <div class="card"><div class="k">Pre-Sprint Planning</div><h3>Risk before the sprint starts</h3><p>From the code as it is today: what the planned work will touch, what is fragile there, and what to settle first.</p></div>
+      <div class="card"><div class="k">Pre-Engagement Recon</div><h3>A sizing estimate that says it is one</h3><p>One planner call that reports what a full scan would read, how many passes, and how long, with the basis of the estimate printed beside the number.</p></div>
+      <div class="card"><div class="k">Ghost Brief&trade;</div><h3>The prompt, written from your code</h3><p>Remediation instructions grounded in your real files, dependencies and findings, for whatever coding assistant you already use. Ghost finds it, you decide, your tooling executes.</p></div>
+      <div class="card"><div class="k">On every commit</div><h3>Ghost Triple Crown&trade; from a hook</h3><p>A post-commit hook runs the three-pass review and reports the commit risk to the fleet page. Pull request comments to a git server on your LAN when you turn them on.</p></div>
+      <div class="card"><div class="k">The estate</div><h3>Fleet, queue, LLM Status</h3><p>One line for the whole fleet, in the order you choose. The machine that holds a scan carries out a move, a pause or a kill and reports back. LLM Status shows the model, its memory, its speed today against the prior week, and the model server's own log, live.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>It tells you what it did not do</h2>
+    <p class="lede">We are not going to tell you a local model is smarter than a frontier model. It is not, and you already know that. What we will tell you is that Ghost Architect&trade; does not let the model make claims it cannot back.</p>
+    <div class="grid">
+      <div class="card"><h3>Coverage, in files and passes</h3><p>A report says <code class="inline">8 of 52 files analysed</code> and claims nothing about the other 44. A scan that stopped early says so on the page and in the record.</p></div>
+      <div class="card"><h3>Nothing counted is not zero</h3><p>When a scan dies before it finishes counting, the record says nobody counted rather than reporting zero findings, because zero reads as "we looked and your code is clean."</p></div>
+      <div class="card"><h3>A verdict that hangs on one word says so</h3><p>The report prints what the score would be if one finding were graded one band lower. When the verdict flips on that word, it tells you, instead of burying the fragility in an average.</p></div>
+      <div class="card"><h3>Estimates name their basis</h3><p>"About 120 minutes, measured on this machine: 6 recent passes, median 10 min each." Not a constant dressed as a measurement.</p></div>
+      <div class="card"><h3>Every ending is recorded</h3><p>Completed, failed, cancelled, killed, lost: each is a row in the compliance ledger with the scan it belongs to, exportable for an auditor.</p></div>
+      <div class="card"><h3>Egress is an inventory, not a promise</h3><p>The product prints every destination it can send to, what it would send, and the switch that turns it off. In zero-egress mode the switches are off at the code level. <a href="/security.html#local">Read how.</a></p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>How it runs, and what it runs on</h2>
+    <p class="lede">A hub and as many spokes as you enrol. The hub holds the model server, the queue and the fleet page; a spoke is any machine that runs scans and reports them back. Everything talks over your LAN.</p>
+    <div class="honest">
+      <p><strong>Hardware, stated as measured, not as a brochure.</strong> On our own estate, a MacBook Air with 24 GB running <code>qwen3:14b</code> through Ollama, a Points of Interest pass takes about ten minutes, and a 125-file codebase is 20 to 27 passes. A bigger machine or a smaller model is faster. The product measures its own pass time and prints the basis of every estimate it makes, so the second scan on your hardware is sized from the first.</p>
+      <p style="margin-top:0.8rem"><strong>What you need:</strong> macOS 13 or later, Linux, or Windows 10 or later; Node.js 24 or later; a model server on your network with a model pulled: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint you point it at. The installer checks the OS and Node floors and refuses rather than guessing. The Linux installer is verified on a fresh machine for every release; the Windows installer (PowerShell, elevated prompt, Windows Services) ships covered by tests but has not yet been run on a real Windows machine, and its own header says so.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Local or hosted?</h2>
+    <p class="lede">Same modes, same reports, two different deals. If your clients forbid source from leaving infrastructure they control, Local is the one built for you. If you want a frontier model's judgment and a subscription you can start in a minute, <a href="/">the hosted product</a> is right there.</p>
+    <table>
+      <tr><th></th><th>Ghost Architect&trade; Local</th><th>Ghost Architect&trade; (hosted)</th></tr>
+      <tr><td>Where the model runs</td><td class="l">Your machines, your model server</td><td>A frontier model, through your API key</td></tr>
+      <tr><td>Where your code goes</td><td class="l">Nowhere. Zero egress at the code level</td><td>To the model provider you chose, per request</td></tr>
+      <tr><td>How you pay</td><td class="l">One annual licence per team size</td><td>Monthly per seat, plus your model usage</td></tr>
+      <tr><td>What a bad answer costs</td><td class="l">A re-run on hardware you already own</td><td>Another line on the invoice</td></tr>
+      <tr><td>Multiple machines</td><td class="l">Hub and spokes, one fleet page</td><td>Per machine</td></tr>
+      <tr><td>Air-gapped</td><td class="l">Yes, after activation</td><td>No</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <h2>Pricing that does not move</h2>
+    <p class="lede">An annual licence, sized to the team. No per-token bill, no metering, no surprise in month four. Try it free for 7 days; convert during the trial and the first year is half price.</p>
+    <div class="tiers">
+      <div class="tier"><div class="name">Solo Developer</div><div class="price">$999</div><div class="unit">per year</div><div class="seats">1 seat</div></div>
+      <div class="tier hi"><div class="name">Small Team</div><div class="price">$4,999</div><div class="unit">per year</div><div class="seats">5 seats</div></div>
+      <div class="tier"><div class="name">Agency</div><div class="price">$12,499</div><div class="unit">per year</div><div class="seats">15 seats</div></div>
+      <div class="tier"><div class="name">Enterprise</div><div class="price">$24,999</div><div class="unit">per year</div><div class="seats">Seats and departments negotiated</div></div>
+    </div>
+    <p class="fine">Prices in USD. A licence carries its seat count and departments; the product shows both in Admin Console. The trial converts from inside the product with a 50 percent first-year discount applied on the invoice itself. <a href="/pricing.html#local">Full pricing and what each tier includes.</a></p>
+    <div class="cta" style="margin-top:1.6rem"><a href="/download.html" class="btn primary">Download and try it</a><a href="/contact.html" class="btn">Talk to EJ about Enterprise</a></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Questions people ask first</h2>
+    <details><summary>Does anything leave my network?</summary><p>One call, once: licence activation sends the licence key and an install id to ghostarchitect.dev and gets a signed licence back. Nothing from the codebase is in it. After that the product runs with egress off at the code level, and the egress inventory it prints lists every destination that could exist and shows each one switched off.</p></details>
+    <details><summary>Which models does it use?</summary><p>Whatever your model server serves: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. Our estate runs qwen3:14b. The LLM Status page shows the model, quantization, context window, memory and measured speed, so you can see what a model change did.</p></details>
+    <details><summary>Is it the same as Ghost Architect Open?</summary><p>No. Open is the free hosted-model tier on npm. Local is a separate product delivered directly by us as a tarball, installed with its own installer, licensed per team, and it does not use a hosted model at all.</p></details>
+    <details><summary>How long does a scan take?</summary><p>It depends on your hardware and model, and the product tells you before you commit: the estimate names its basis, and once you have run a few passes it is measured from your own machine rather than a constant. On a 24 GB laptop with a 14B model, plan on hours for a real codebase and start it in the background; the fleet page and email tell you when it is done.</p></details>
+    <details><summary>Can I run it in CI or on a commit hook?</summary><p>Yes. The CLI has a non-interactive mode, the CLI registers a post-commit hook that runs the Triple Crown, and the REST API on the hub is documented at /api/v1/docs on your own install.</p></details>
+    <details><summary>Do I get the source?</summary><p>The product ships as source in the tarball; that is what the installer installs. It is licensed, not open source, and the licence is signed and verified on the machine.</p></details>
+  </div>
+</section>
+
+<footer>
+  <a href="/">Ghost Architect&trade;</a> &middot; <a href="/local.html">Local</a> &middot; <a href="/pricing.html#local">Pricing</a> &middot; <a href="/download.html">Download</a> &middot; <a href="/security.html#local">Security</a> &middot; <a href="/support.html">Support</a><br>
+  <span style="display:inline-block;margin-top:0.5rem">&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved.</span>
+</footer>
+<script src="/assets/ga-nav.js" defer></script>
+</body>
+</html>

@@ -7,7 +7,7 @@
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
   <title>Security &amp; Trust: Ghost Architect&trade;</title>
-  <meta name="description" content="How Ghost Architect handles your code, your API keys, and your data. Built for security-conscious teams: runs locally, BYOK, no source code on our infrastructure." />
+  <meta name="description" content="How Ghost Architect handles your code, your API keys, and your data, and how Ghost Architect Local keeps all of it on your own hardware with zero egress. Built for security-conscious teams: runs locally, BYOK, no source code on our infrastructure." />
   <link rel="canonical" href="https://ghostarchitect.dev/security" />
 
   <!-- Open Graph -->
@@ -414,6 +414,23 @@
     <p class="compliance-body" style="margin-top: 14px;">When Ghost Architect&trade;'s enterprise revenue justifies the audit cost, and when an enterprise customer requires it as a condition of contract, we will pursue SOC 2 readiness through a recognized provider. Until then, we direct your security team to this page, to Anthropic's enterprise compliance documentation, and to the source code itself.</p>
   </div>
 </div>
+
+<section class="section" id="local" style="scroll-margin-top: 90px; border-top: 1px solid rgba(0,191,216,0.35); padding-top: 3rem;">
+  <div class="section-eyebrow" style="color:#00bfd8;">// ghost architect local</div>
+  <h2 class="section-title">Zero egress, at the code level, with the inventory that proves it</h2>
+  <p class="section-body">Everything above describes the hosted product, where the model is a frontier model reached through your own API key. <strong>Ghost Architect&trade; Local is a different deal: the model runs on your hardware too.</strong> Your source never leaves your network, because there is nothing on the other side to send it to.</p>
+  <ul style="color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin: 18px 0 0 1.5rem; max-width: 820px;">
+    <li><strong style="color: var(--text-primary);">One call home, once.</strong> Licence activation sends the licence key and an install id to ghostarchitect.dev and receives a signed licence. Nothing from the codebase is in the request. The licence is verified on the machine with Ed25519; there is no phone-home to keep running.</li>
+    <li><strong style="color: var(--text-primary);">An egress inventory, not a policy page.</strong> The product prints every destination it is capable of sending to (email, webhooks, team sync, PR comments, a git server), what each one would carry, and the switch that turns it off. The inventory is generated from the code that gates the traffic, so it cannot drift from what the product does.</li>
+    <li><strong style="color: var(--text-primary);">Zero-egress mode refuses, it does not warn.</strong> Turn it on and every outbound integration is refused at the code level, including a spoke enrolling against a hub outside your LAN. The refusal is written to the audit log.</li>
+    <li><strong style="color: var(--text-primary);">A compliance ledger your auditor can read.</strong> Every scan ending, completed, failed, cancelled, killed or lost, is a row with the scan it belongs to, the person, the project label and the directory name (never the full path). Exports are CSV or PDF, signed, with the signing key rotated from Admin Console.</li>
+    <li><strong style="color: var(--text-primary);">A hash-chained audit log.</strong> The audit log is chained line by line and the Audit page verifies the chain inside every file it opens, and says which files it opened, so "the chain verifies" and "no file is missing" are two claims kept apart on purpose.</li>
+    <li><strong style="color: var(--text-primary);">Reports that name their coverage.</strong> A report says how many files it read of how many exist and claims nothing about the rest. A scan that never finished counting says nobody counted, never zero.</li>
+    <li><strong style="color: var(--text-primary);">Redaction before the model sees it.</strong> Credentials, keys, connection strings and tokens are redacted from the text the model receives, and the redactor fails closed: a file it cannot redact is not sent.</li>
+    <li><strong style="color: var(--text-primary);">Verify it yourself.</strong> Run it behind a packet inspector with zero-egress on. After activation you will see LAN traffic between your own machines and nothing else. The product ships as source in the tarball you install, so the code that makes these claims is the code you can read.</li>
+  </ul>
+  <p class="section-body" style="margin-top: 1.2rem;"><a href="/local.html" style="color:#00bfd8;">What Ghost Architect&trade; Local is</a> &middot; <a href="/download.html" style="color:#00bfd8;">Download and install</a></p>
+</section>
 
 <section class="section">
   <div class="section-eyebrow">// for security reviewers</div>
