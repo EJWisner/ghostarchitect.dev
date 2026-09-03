@@ -211,7 +211,7 @@
 
     // ── CTA button ──
     + '    <li class="ga-nav-item">'
-    + '      <a href="/pricing" class="ga-nav-cta">'
+    + '      <a href="' + (isLocalPage ? '/pricing.html#local' : '/pricing.html#plans') + '" class="ga-nav-cta">'
     + '        \uD83D\uDC7B See Plans'
     + '      </a>'
     + '    </li>'
