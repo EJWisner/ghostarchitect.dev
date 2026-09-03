@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="dark" />
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <title>Download and install Ghost Architect™ Local</title>
-  <meta name="description" content="Get Ghost Architect™ Local 7.0.4: request the tarball, verify its SHA-256, run the installer, activate your 7-day trial. macOS 13+ and Linux." />
+  <meta name="description" content="Get Ghost Architect™ Local 7.0.4: request the tarball, verify its SHA-256, run the installer, activate your 7-day trial. macOS 13+, Linux and Windows 10+." />
   <link rel="canonical" href="https://ghostarchitect.dev/download.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ghostarchitect.dev/download.html" />
@@ -74,10 +74,10 @@
 <section><div class="wrap">
   <h2>2. What you need</h2>
   <div class="row">
-    <div class="card"><h3>macOS 13 or later, or Linux</h3><p>The installer checks the OS version and stops below the floor. Linux installs run as a service account with a data root the installer creates; the Linux path is verified on a fresh runner for every release.</p></div>
+    <div class="card"><h3>macOS 13 or later, Linux, or Windows 10 or later</h3><p>The installer checks the OS floor and stops below it. Linux installs run as a service account with a data root the installer creates, and the Linux path is verified on a fresh machine for every release. Windows uses a PowerShell installer from an elevated prompt and registers Windows Services; it ships covered by tests but has not yet been run on a real Windows machine, and says so in its own header. Treat a Windows install as a first run and send us the console output.</p></div>
     <div class="card"><h3>Node.js 24 or later</h3><p>The installer checks it and does not install it. Get it from nodejs.org or your version manager first.</p></div>
     <div class="card"><h3>A model server with a model pulled</h3><p>Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint on your network. Our estate runs qwen3:14b on Ollama. The installer asks which and checks it answers.</p></div>
-    <div class="card"><h3>Windows</h3><p>Has its own install path in the guide inside the tarball (INSTALL.md, section 9). Ask if you want it before you request the download.</p></div>
+    <div class="card"><h3>A second machine, when you want the estate</h3><p>Any of the three can be a spoke. Enrol it from Admin Console on the hub and it runs scans and reports them back; the model calls go to the hub's model server over your LAN.</p></div>
   </div>
 </div></section>
 
@@ -86,8 +86,9 @@
   <p>Everything happens inside the directory you unpack. Keep that directory; the global <code>ghost</code> command links into it rather than copying it.</p>
   <pre><code>tar -xzf ghost-architect-local-7.0.4.tgz
 cd package
-bash install/setup.sh            # macOS
-sudo bash install/setup-linux.sh # Linux</code></pre>
+bash install/setup.sh              # macOS
+sudo bash install/setup-linux.sh   # Linux
+.\install\setup.ps1                 # Windows, elevated PowerShell</code></pre>
   <p>The installer tells you the three things it changes on your machine before it changes them, and the full guide, INSTALL.md, is in the directory you just unpacked. Re-running the installer is the supported upgrade path: your service account, data root and signing key are left alone.</p>
 </div></section>
 

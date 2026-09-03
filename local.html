@@ -25,7 +25,7 @@
     "@type": "SoftwareApplication",
     "name": "Ghost Architect Local",
     "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "macOS, Linux",
+    "operatingSystem": "macOS, Linux, Windows",
     "url": "https://ghostarchitect.dev/local.html",
     "softwareVersion": "7.0.4",
     "description": "Codebase intelligence that runs entirely on the customer's own hardware and network, with a local model. Points of Interest, Blast Radius, Conflict Detection, Pre-Sprint Planning, Recon, Ghost Brief and commit scans, with a fleet view across machines.",
@@ -115,7 +115,7 @@
       <span>Zero egress at the code level</span>
       <span>One annual licence, no per-token bill</span>
       <span>Hub and spokes across your machines</span>
-      <span>macOS and Linux</span>
+      <span>macOS, Linux and Windows</span>
     </div>
   </div>
 </div>
@@ -140,6 +140,24 @@
       </video>
     </div>
     <p class="video-note">Demo estate: Meridian Software, a hub and four inference nodes. Real pages, demo data, captions on, no voiceover.</p>
+  </div>
+</section>
+
+<section id="for-the-cto" style="scroll-margin-top:90px">
+  <div class="wrap">
+    <span class="eyebrow">For the CTO</span>
+    <h2 style="margin-top:0.8rem">It solves your problems, not just your code's</h2>
+    <p class="lede">The reasons a CTO looks at a local tool at all, and what happens to each of them.</p>
+    <div class="grid">
+      <div class="card"><div class="k">Source that may not leave</div><h3>Three clients forbid their code from leaving infrastructure they control</h3><p>The model runs on your hardware, so there is nothing on the other side to send the code to. Zero-egress mode refuses every outbound destination at the code level and prints the inventory that proves it, which is the page your security director reads.</p></div>
+      <div class="card"><div class="k">Spend you cannot forecast</div><h3>The AI line on the invoice moves every month</h3><p>One annual licence, sized to the team. No meter, no per-token bill. A bad answer costs a re-run on machines you already own, not another line on an invoice, and the trial converts at half price for the first year.</p></div>
+      <div class="card"><div class="k">Confident tools you cannot trust</div><h3>Every scanner reports with the same confidence whether it read the whole tree or a tenth of it</h3><p>Ghost prints its coverage in files and passes, says nobody counted rather than zero when a scan died early, and tells you when a verdict hangs on one severity word. You know what was measured and what was not before you put a number in front of a client.</p></div>
+      <div class="card"><div class="k">Status by chasing people</div><h3>"Where are we on that?" costs a meeting</h3><p>Every scan is kept, with its health score and trend, so the state of a codebase is on a page rather than in someone's head. Run it on a commit, on a push, or five minutes before the question.</p></div>
+      <div class="card"><div class="k">Inherited codebases</div><h3>A new engagement starts with a system nobody documented</h3><p>Recon sizes it in one call and says what a full scan would read; Points of Interest reads it and grades it with the evidence beside each finding; Ghost Brief&trade; turns the findings into a prompt written from the real files, for the assistant your team already uses.</p></div>
+      <div class="card"><div class="k">Auditors and renewals</div><h3>SOC 2 renews in January and the auditor wants records, not assurances</h3><p>A compliance ledger with a row for every scan ending, who ran it and on what; signed CSV and PDF exports; a hash-chained audit log the product verifies in front of you. Evidence you can hand over.</p></div>
+      <div class="card"><div class="k">Six teams, not one laptop</div><h3>A tool that tells one engineer what one engineer scanned does not survive contact with six delivery teams</h3><p>A hub and spokes: one queue for the whole fleet in the order you set, one Fleet page that says what every machine is doing, and LLM Status that tells you whether the model under all of it is healthy today against last week.</p></div>
+      <div class="card"><div class="k">Sizing the hardware</div><h3>What does forty engineers cost in machines?</h3><p>The product measures its own pass time and prints the basis of every estimate, and LLM Status shows memory held and available per machine, so the second scan on your hardware is sized from the first and the next machine is a decision, not a guess.</p></div>
+    </div>
   </div>
 </section>
 
@@ -181,7 +199,7 @@
     <p class="lede">A hub and as many spokes as you enrol. The hub holds the model server, the queue and the fleet page; a spoke is any machine that runs scans and reports them back. Everything talks over your LAN.</p>
     <div class="honest">
       <p><strong>Hardware, stated as measured, not as a brochure.</strong> On our own estate, a MacBook Air with 24 GB running <code>qwen3:14b</code> through Ollama, a Points of Interest pass takes about ten minutes, and a 125-file codebase is 20 to 27 passes. A bigger machine or a smaller model is faster. The product measures its own pass time and prints the basis of every estimate it makes, so the second scan on your hardware is sized from the first.</p>
-      <p style="margin-top:0.8rem"><strong>What you need:</strong> macOS 13 or later, or Linux; Node.js 24 or later; a model server on your network with a model pulled: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint you point it at. The installer checks the first two and refuses rather than guessing. Windows has its own path in the install guide.</p>
+      <p style="margin-top:0.8rem"><strong>What you need:</strong> macOS 13 or later, Linux, or Windows 10 or later; Node.js 24 or later; a model server on your network with a model pulled: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint you point it at. The installer checks the OS and Node floors and refuses rather than guessing. The Linux installer is verified on a fresh machine for every release; the Windows installer (PowerShell, elevated prompt, Windows Services) ships covered by tests but has not yet been run on a real Windows machine, and its own header says so.</p>
     </div>
   </div>
 </section>
