@@ -119,7 +119,7 @@
     + '        </a>'
     + '        <a href="/pricing.html#local" class="ga-dropdown-item">'
     + '          <div class="title">Local pricing</div>'
-    + '          <div class="desc">Annual licence. No per-token bill. 7-day trial, half price when you convert.</div>'
+    + '          <div class="desc">Annual licence. No per-token bill. Evaluation trial, half price when you convert.</div>'
     + '        </a>'
     + '        <a href="/download.html" class="ga-dropdown-item' + (isActive('/download.html') ? ' active' : '') + '">'
     + '          <div class="title">Download &amp; install</div>'
@@ -225,7 +225,7 @@
     // ── THE TRIAL BAND (EJ, 2026-09-03): the green hosted trial and its Local twin, on every page ──
     + '<div class="ga-trial-band">'
     + '  <a href="/trial.html" class="ga-trial hosted">Start Free Trial &middot; 7 Days Pro Max</a>'
-    + '  <a href="/download.html" class="ga-trial local">Try Ghost Architect&trade; Local &middot; 7 Days on Your Hardware</a>'
+    + '  <a href="/download.html" class="ga-trial local">Evaluation Trial &middot; Ghost Architect&trade; Local</a>'
     + '</div>'
 
     // ── MOBILE MENU ──
