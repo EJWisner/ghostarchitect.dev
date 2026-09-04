@@ -179,7 +179,7 @@
         "name": "How much does Ghost Architect cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ghost Open is free and open-source under the MIT license. Ghost Pro is $99/month. Ghost Pro Max is $199/month and includes Ghost Brief™. Ghost Team is $399/month for up to 5 seats. Ghost Team Max is $799/month and includes the Unified Brief. Ghost Enterprise starts at $1,200/month. Ghost Enterprise Max starts at $2,500/month with unlimited Briefs, formal MSA, and dedicated Ghost Partner co-engagement."
+          "text": "Ghost Open is free and open-source under the MIT license. Ghost Pro is $25/month. Ghost Pro Max is $99/month and includes Ghost Brief™. Ghost Team is $399/month for up to 5 seats. Ghost Team Max is $799/month and includes the Unified Brief. Ghost Enterprise starts at $1,200/month. Ghost Enterprise Max starts at $2,500/month with unlimited Briefs, formal MSA, and dedicated Ghost Partner co-engagement."
         }
       },
       {
@@ -438,7 +438,7 @@
     /* CAPABILITIES */
     .capabilities-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 1px;
       background: var(--border);
       border: 1px solid var(--border);
@@ -453,6 +453,9 @@
     }
 
     .capability-card:hover { background: var(--surface2); }
+    .capability-card.wide { grid-column: span 2; }
+    @media (max-width: 1100px) { .capabilities-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .capabilities-grid { grid-template-columns: 1fr; } .capability-card.wide { grid-column: 1 / -1; } }
 
     .capability-icon {
       font-size: 1.8rem;
@@ -989,7 +992,7 @@
       letter-spacing: 0.01em;
     }
   </style>
-  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260903e" />
+  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260904a" />
 </head>
 <body>
 
@@ -1264,7 +1267,7 @@
       <h3>Conflict Detection</h3>
       <p>Find contract mismatches, schema conflicts, config errors, and constant disagreements across any language or platform.</p>
     </div>
-    <div class="capability-card" style="border-left:3px solid var(--accent2);position:relative;">
+    <div class="capability-card wide" style="border-left:3px solid var(--accent2);position:relative;">
       <div style="position:absolute;top:0.75rem;right:0.85rem;display:flex;gap:0.35rem;">
         <span style="background:var(--accent2);color:#000;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">👑 Triple Crown</span>
         <span style="background:#e07340;color:#fff;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">NEW</span>
@@ -1298,7 +1301,7 @@
       <h3>Prompt Triage</h3>
       <p>If you ship AI features, your prompts are production code. Ghost audits a folder of LLM prompts and surfaces 16 categories of defects backed by the Tian et al. 2025 academic taxonomy. <a href="/prompt-triage.html" style="color:var(--accent2);font-weight:600;">Learn more &rarr;</a></p>
     </div>
-    <div class="capability-card" style="border-left:3px solid #e07340;position:relative;grid-column: 3 / -1;">
+    <div class="capability-card wide" style="border-left:3px solid #e07340;position:relative;">
       <div style="position:absolute;top:0.75rem;right:0.85rem;background:#e07340;color:#fff;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">NEW</div>
       <div class="capability-icon">📊</div>
       <h3>Executive Brief™</h3>
@@ -1306,7 +1309,7 @@
       <p>After every scan, Ghost generates an Executive Brief: a one-page business intelligence report with a health score, plain-language risk summary, and a cost comparison showing what remediation costs manually versus with AI. No jargon. No code. Just the business case.</p>
       <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;margin-top:0.75rem;">24 hours of manual remediation at $4,800 becomes 3 hours and $3.60 in API costs. That table closes deals. Available on Pro Max, Team Max, and Enterprise Max.</p>
     </div>
-    <div class="capability-card" style="border-left:3px solid #e07340;position:relative;">
+    <div class="capability-card wide" style="border-left:3px solid #e07340;position:relative;">
       <div class="capability-icon">👤</div>
       <h3>Ghost Partner™ Profiles</h3>
       <p style="font-size:1.05rem;font-weight:600;color:#e07340;margin-bottom:0.75rem;">Your name. Your branding. Your methodology. White-labeled across every report.</p>
@@ -1578,6 +1581,6 @@
 <div id="sticky-cta" style="position:fixed;bottom:2rem;right:2rem;z-index:999;">
   <a href="/pricing" style="display:inline-block;background:linear-gradient(135deg,#4a9eff,#00d4aa);color:#fff;font-family:Inter,sans-serif;font-weight:700;font-size:0.95rem;padding:0.85rem 1.5rem;border-radius:50px;text-decoration:none;box-shadow:0 4px 24px rgba(74,158,255,0.4);white-space:nowrap;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">👻 See Plans →</a>
 </div>
-<script src="/assets/ga-nav.js?v=20260903e" defer></script>
+<script src="/assets/ga-nav.js?v=20260904a" defer></script>
 </body>
 </html>

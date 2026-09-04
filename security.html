@@ -310,7 +310,7 @@
     }
   </style>
 
-  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260903e" />
+  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260904a" />
 </head>
 <body>
 
@@ -319,8 +319,39 @@
 <section class="hero">
   <div class="hero-eyebrow">// security &amp; trust</div>
   <h1 class="hero-headline">Your code never leaves your machine.<br><em>That is the architecture, not a promise.</em></h1>
-  <p class="hero-subhead">Ghost Architect&trade; is a command-line tool that runs entirely on your laptop, your server, or your CI runner. There is no Ghost cloud that sees your source. There is no central server holding your scans. The product is designed so that even if Ghost Architect&trade; were compromised tomorrow, your codebase would not be affected.</p>
+  <p class="hero-subhead">Ghost Architect&trade; is a command-line tool that runs entirely on your laptop, your server, or your CI runner. There is no Ghost cloud that sees your source. There is no central server holding your scans. The product is designed so that even if Ghost Architect&trade; were compromised tomorrow, your codebase would not be affected. That holds for both products: with the hosted product the model is a frontier model reached through your own API key; with <a href="#local" style="color:#00bfd8;">Ghost Architect&trade; Local</a> the model runs on your hardware too, and nothing leaves your network.</p>
 </section>
+
+<!-- TWO PRODUCTS, TWO TRUST MODELS -->
+<div class="two-trust">
+  <a class="trust-card hosted" href="#dataflow">
+    <div class="trust-eyebrow">Ghost Architect&trade; &middot; hosted model</div>
+    <h3>Your code goes to the model provider you chose, and nowhere else.</h3>
+    <p>The scanner runs on your machine. The only outbound traffic is the request to Anthropic, under your own API key. We operate no server that sees your source.</p>
+    <span class="trust-link">How the data flows &darr;</span>
+  </a>
+  <a class="trust-card local" href="#local">
+    <div class="trust-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="trust-new">NEW</span></div>
+    <h3>Your code never leaves the building. Zero egress, refused at the code level.</h3>
+    <p>The model runs on your machines, inside your network. One licence activation, then nothing calls home. An egress inventory generated from the code, a hash-chained audit log, a compliance ledger your auditor can read.</p>
+    <span class="trust-link">The Local trust model &darr;</span>
+  </a>
+</div>
+<style>
+  .two-trust { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; max-width: 1000px; margin: 0 auto 2.5rem; padding: 0 2rem; }
+  .trust-card { display: block; text-decoration: none; color: inherit; background: var(--surface, #111118); border: 1px solid var(--border, #2a2a3a); border-radius: 16px; padding: 1.5rem 1.6rem; transition: border-color .15s, transform .15s; }
+  .trust-card:hover { transform: translateY(-2px); }
+  .trust-card.hosted { border-top: 3px solid #4a9eff; } .trust-card.hosted:hover { border-color: #4a9eff; }
+  .trust-card.local { border-top: 3px solid #00bfd8; } .trust-card.local:hover { border-color: #00bfd8; }
+  .trust-eyebrow { font-family: var(--font-mono, monospace); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.6rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+  .trust-card.hosted .trust-eyebrow { color: #4a9eff; } .trust-card.local .trust-eyebrow { color: #00bfd8; }
+  .trust-new { background: #00bfd8; color: #06131a; font-size: 0.6rem; padding: 0.12rem 0.45rem; border-radius: 4px; font-weight: 700; }
+  .trust-card h3 { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.3; margin: 0 0 0.6rem; }
+  .trust-card p { font-size: 0.92rem; line-height: 1.6; margin: 0 0 0.8rem; color: var(--text-secondary, #a0a0b0); }
+  .trust-link { font-size: 0.85rem; font-weight: 600; }
+  .trust-card.hosted .trust-link { color: #4a9eff; } .trust-card.local .trust-link { color: #00bfd8; }
+  @media (max-width: 760px) { .two-trust { grid-template-columns: 1fr; } }
+</style>
 
 <div class="tldr">
   <div class="tldr-card">
@@ -348,13 +379,17 @@
       </div>
       <div class="tldr-item">
         <span class="tldr-check">&check;</span>
+        <div class="tldr-text"><strong style="color:#00bfd8;">Ghost Architect&trade; Local</strong>The model runs on your hardware too. Zero egress, refused at the code level, with the inventory that proves it. <a href="#local" style="color:#00bfd8;">Details &darr;</a></div>
+      </div>
+      <div class="tldr-item">
+        <span class="tldr-check">&check;</span>
         <div class="tldr-text"><strong>MIT-licensed CLI</strong>Ghost Open ships free on <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer">npm</a> under the MIT license. Repository on <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener noreferrer">GitHub</a>.</div>
       </div>
     </div>
   </div>
 </div>
 
-<section class="section">
+<section class="section" id="dataflow" style="scroll-margin-top: 90px;">
   <div class="section-eyebrow">// data flow</div>
   <h2 class="section-title">Where your code actually goes during a scan</h2>
   <p class="section-body">When you run Ghost Architect&trade; against a codebase, here is the complete path the data takes. There are no hidden steps.</p>
@@ -459,7 +494,7 @@
   &copy; 2026 Ghost Architect&trade;. All rights reserved.
 </footer>
 
-<script src="/assets/ga-nav.js?v=20260903e" defer></script>
+<script src="/assets/ga-nav.js?v=20260904a" defer></script>
 
 </body>
 </html>
