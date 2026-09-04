@@ -344,8 +344,29 @@
     footer a { color: var(--text-tertiary); margin: 0 8px; }
     footer a:hover { color: var(--cyan); }
 
+    /* TWO PRODUCTS, TWO COLUMNS */
+    .two-logs { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 1640px; margin: 24px auto 0; padding: 0 1.5rem 2rem; align-items: start; }
+    .log-col { border: 1px solid var(--border); border-radius: 16px; min-width: 0; padding-bottom: 0.5rem; scroll-margin-top: 80px; background: rgba(255,255,255,0.012); }
+    .log-hosted { border-top: 4px solid #4a9eff; }
+    .log-local { border-top: 4px solid #00bfd8; }
+    .log-head { padding: 1.5rem 1.5rem 1.2rem; border-bottom: 1px solid var(--border); }
+    .log-eyebrow { font-family: var(--font-mono); font-size: 1.45rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; display: flex; gap: 0.7rem; align-items: center; flex-wrap: wrap; line-height: 1.2; }
+    .log-hosted .log-eyebrow { color: #8cc6ff; text-shadow: 0 0 18px rgba(74,158,255,0.55); }
+    .log-local .log-eyebrow { color: #4df2ff; text-shadow: 0 0 18px rgba(0,229,255,0.55); }
+    .log-new { background: #00bfd8; color: #06131a; font-size: 0.7rem; letter-spacing: 0.1em; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 700; text-shadow: none; }
+    .log-head p { color: var(--text-secondary); margin: 0.6rem 0 0; font-size: 0.95rem; line-height: 1.55; }
+    .log-head p a { color: var(--cyan-bright); }
+    .log-col .install { max-width: none; margin: 0; padding: 18px 18px 0; }
+    .log-col .section { max-width: none; padding: 14px 18px; }
+    .log-col .release-card { padding: 24px 24px 22px; }
+    .log-local .release-card { border-color: rgba(0,191,216,0.45); }
+    .log-local .release-version { color: #4df2ff; }
+    .release-badge.local { background: rgba(0,191,216,0.14); color: #4df2ff; border-color: rgba(0,191,216,0.45); }
+    @media (max-width: 1100px) { .two-logs { grid-template-columns: 1fr; } }
     @media (max-width: 720px) {
       .install-card { flex-direction: column; align-items: flex-start; }
+      .log-col .section { padding: 10px 10px; }
+      .log-col .release-card { padding: 18px 16px; }
       .change-list li { grid-template-columns: 16px 1fr; gap: 10px; font-size: 15px; }
       .closing-inner { flex-direction: column; align-items: flex-start; }
     }
@@ -369,6 +390,13 @@
     <p class="manifesto-body">Ghost Architect&trade; is not a launch-and-forget product. Every version below represents a real response -- to a gap we found, a customer need we heard, or a standard we weren't yet meeting. Ghost Watcher&trade; runs on every commit we make. We hold ourselves to the same bar we set for your codebase. This changelog is not a list of patches. It is a record of a product that takes its own advice.</p>
   </div>
 </section>
+
+<div class="two-logs">
+<div class="log-col log-hosted" id="hosted">
+  <div class="log-head">
+    <div class="log-eyebrow">Ghost Architect&trade; &middot; hosted model</div>
+    <p>The npm product: install it, bring your own API key, and the licence unlocks the paid tiers. Latest v11.0.3, July 11, 2026.</p>
+  </div>
 
 <div class="install">
   <div class="install-card">
@@ -2371,13 +2399,97 @@
   </div>
 </section>
 
+</div><!-- /log-hosted -->
+
+<div class="log-col log-local" id="local">
+  <div class="log-head">
+    <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.0.4, September 3, 2026. <a href="/download.html">Request the download.</a></p>
+  </div>
+
+<section class="section">
+  <div class="release-card current">
+    <div class="release-meta">
+      <span class="release-version">7.0.4</span>
+      <span class="release-date">September 3, 2026</span>
+      <span class="release-badge">Latest</span>
+      <span class="release-badge local">Out of beta</span>
+    </div>
+    <h2 class="release-headline">Out of beta: the estate tells the truth about itself</h2>
+    <p class="release-lede">7.0.4 -- The first release after beta. The Fleet page gains an LLM Status tab: the model each machine runs, memory held and available, the context window, decode and prompt-reading speed today against the prior six days, and the model server's live log. The balancer's memory veto reads real records again and each machine's available memory is printed. Time estimates are measured from this machine's own passes and say which basis they used. Every event of a pass names the same total. A compliance row names its scan and tells the project label from the directory. Which scan endings send email is a setting. The archive has a search before its page. Full gate: 537 of 537 smoke tests, 12 of 12 simulation flows, Linux root install green.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.0.3</span>
+      <span class="release-date">August 29, 2026</span>
+      <span class="release-badge local">Beta</span>
+    </div>
+    <h2 class="release-headline">Trust the portal's certificate, and reports that say what they could not do</h2>
+    <p class="release-lede">7.0.3 -- The portal tells you how to trust its certificate: a guide, a warning before the first browser opens, and Admin Console prints the fingerprint and the trust commands for your platform. A finding the report writer could not expand stays in the report as the analysis recorded it, and the writer runs on a measured budget instead of a fixed thirty seconds. The usage report no longer prints a token total it never measured. Underneath: the verifier no longer deletes a true finding because its own remediation pattern is present, a report the parser cannot read no longer reports a healthy codebase, a redaction marker corroborates a hardcoded-secret finding instead of refuting it, findings are written to the debug record as they enter verification so a scan can be replayed, and a retry that changes nothing is not retried. 438 of 438 smoke tests, 12 of 12 flows.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.0.2</span>
+      <span class="release-date">August 28, 2026</span>
+      <span class="release-badge local">Beta</span>
+    </div>
+    <h2 class="release-headline">Zero egress refuses, and a spoke records who ran the scan</h2>
+    <p class="release-lede">7.0.2 -- Zero-egress mode now refuses a model endpoint that would send source code off the machine, at all three moments it can be reached. A spoke records who ran a scan, which it never did before; the hub records what it serves from an identity it verified itself, and that identity is signed, so editing the cached copy breaks it rather than silently succeeding. 422 of 422 tests, 12 of 12 flows.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.0.1</span>
+      <span class="release-date">August 23, 2026</span>
+      <span class="release-badge local">First delivery</span>
+    </div>
+    <h2 class="release-headline">The first tarball: a Linux hub install with a service account and two services</h2>
+    <p class="release-lede">7.0.1 -- The first build delivered through the private delivery repository, as a tarball with a published SHA-256 to check before unpacking. The Linux installer provisions a dedicated service account, the data root and two systemd units, portal and scheduler, with the portal on port 3443. Also in this build: a screen-leak fix and a bracketed-paste fix in the interactive shell.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.0.0</span>
+      <span class="release-date">August 7, 2026</span>
+      <span class="release-badge local">Beta</span>
+    </div>
+    <h2 class="release-headline">Version 7: the Local line gets its own number</h2>
+    <p class="release-lede">7.0.0 -- Ghost Architect&trade; Local takes the 7.0 line, and the version the product displays derives from one place, so a release cannot show two numbers.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">1.0.0</span>
+      <span class="release-date">July 2026</span>
+      <span class="release-badge local">First build</span>
+    </div>
+    <h2 class="release-headline">The first Local build: your model, your hardware, Ed25519 licences</h2>
+    <p class="release-lede">1.0.0 -- The full architecture build. A model-provider abstraction so the product runs on Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. Ed25519 is the only licence signature scheme the product signs or verifies, and the key the product trusts is the public half of the key the activation service signs with. Recon reports carry an honest sizing notice instead of a fabricated 100/100 health score; a recon no longer writes a perfect score into a project's trend history or generates a client report for a scan that assessed nothing.</p>
+  </div>
+</section>
+
+</div><!-- /log-local -->
+</div><!-- /two-logs -->
+
 <!-- ─────────────────────────────────────────────────────────────── -->
 <!-- Closing band                                                    -->
 <!-- ─────────────────────────────────────────────────────────────── -->
 <div class="closing-band">
   <div class="closing-inner">
     <div class="closing-text">
-      <strong>Already running an older version?</strong> Run <code style="background: var(--bg-page); border: 1px solid var(--border-dim); padding: 2px 7px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.92em; color: var(--cyan-bright);">npm update -g ghost-architect-open</code> to pull v7.2.2. Your config, scan history, and license persist. Nothing breaks.
+      <strong>Already running an older version?</strong> Run <code style="background: var(--bg-page); border: 1px solid var(--border-dim); padding: 2px 7px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.92em; color: var(--cyan-bright);">npm update -g ghost-architect-open</code> to pull the current release. Your config, scan history, and license persist. Nothing breaks. Ghost Architect&trade; Local upgrades by re-running its installer on the new tarball.
     </div>
     <a href="/pricing.html" class="closing-btn">See pricing &rarr;</a>
   </div>
