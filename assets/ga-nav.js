@@ -290,7 +290,9 @@
     + '      <a href="/support.html"' + (isActive('/support') || isActive('/support.html') ? ' class="active"' : '') + '>Support</a>'
     + '    </div>'
     + '  </div>'
-    + '  <a href="/pricing.html" class="ga-mobile-cta">\uD83D\uDC7B See Plans</a>'
+    // EJ, from his phone, 23:03: with Local lit in the switch, See Plans must land on
+    // the Local column, as the desktop button already does.
+    + '  <a href="' + (isLocalPage ? '/pricing.html#local' : '/pricing.html#plans') + '" class="ga-mobile-cta">\uD83D\uDC7B See Plans</a>'
     + '</div>';
 
   // Mount: prefer #ga-nav-mount, else insert at top of <body>
