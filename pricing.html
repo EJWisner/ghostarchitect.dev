@@ -166,6 +166,9 @@
       text-align: center;
       padding: 2rem 2rem 3rem;
       position: relative;
+      /* The 600px glow below is wider than a phone; without this the whole
+         page scrolled sideways on an iPhone (measured at 390px: 495px wide). */
+      overflow: hidden;
     }
     .hero::before {
       content: '';
@@ -471,6 +474,17 @@
       text-transform: uppercase;
       margin-bottom: 1.5rem;
     }
+    /* TWO PRODUCTS BELOW THE COLUMNS TOO: the trust cards and the FAQ are
+       grouped and labelled per product, so a phone reader who scrolled past
+       the Local column does not land in hosted-only copy. */
+    .trust-eyebrow { font-family: var(--font-mono); font-size: 1rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 1rem; line-height: 1.3; }
+    .trust-eyebrow.hosted { color: #8cc6ff; text-shadow: 0 0 14px rgba(74,158,255,0.45); }
+    .trust-eyebrow.local { color: #4df2ff; text-shadow: 0 0 14px rgba(0,229,255,0.45); }
+    .trust-block.local .trust-item { border-color: rgba(0,191,216,0.45); }
+    .trust-block.local .trust-item h4 { color: #4df2ff; }
+    .trust-grid.local-grid { margin-bottom: 4rem; }
+    .faq-title.local { color: #4df2ff; margin-top: 3rem; }
+    .faq-block.local .faq-item:first-of-type { border-top: 1px solid rgba(0,191,216,0.45); }
     .faq-item { border-top: 1px solid var(--border); padding: 1.25rem 0; }
     .faq-item:last-child { border-bottom: 1px solid var(--border); }
     .faq-q { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; }
@@ -504,7 +518,7 @@
       .hero-logo-wrap img { height: 160px; }
     }
   </style>
-  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260904b" />
+  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260904c" />
 <style>
   /* TWO PRODUCTS, TWO COLUMNS */
   .two-products { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 1640px; margin: 0 auto; padding: 0 1.5rem 4rem; align-items: start; }
@@ -957,10 +971,12 @@
 
 <!-- TRUST SECTION -->
 <div class="trust">
+  <div class="trust-block hosted">
+  <div class="trust-eyebrow hosted">Ghost Architect&trade; &middot; hosted model</div>
   <div class="trust-grid">
     <div class="trust-item">
       <h4>// your code stays yours</h4>
-      <p>Ghost runs locally. Your source code is never uploaded to our servers. BYOK -- your Anthropic API key, your pipeline.</p>
+      <p>Ghost Architect&trade; runs on your machine. Your source code goes from your machine to Anthropic's API with your own key and is never uploaded to our servers. BYOK -- your Anthropic API key, your pipeline.</p>
     </div>
     <div class="trust-item">
       <h4>// api data deleted in 7 days</h4>
@@ -975,8 +991,32 @@
       <p>Your license key is auto-generated at Stripe checkout and emailed instantly. Activate with one command: <code>ghost --activate &lt;KEY&gt;</code>. No GitHub setup, no waiting.</p>
     </div>
   </div>
+  </div><!-- /trust-block hosted -->
 
-  <div class="faq-title">// frequently asked</div>
+  <div class="trust-block local" id="local-trust">
+  <div class="trust-eyebrow local">Ghost Architect&trade; Local &middot; your hardware</div>
+  <div class="trust-grid local-grid">
+    <div class="trust-item">
+      <h4>// your code never leaves your network</h4>
+      <p>Ghost Architect&trade; Local runs on hardware you own against your own model server. No API key, no cloud call. From the Agency tier up, zero-egress mode refuses any endpoint that would send source code off the machine, at the code level, with the inventory that proves it.</p>
+    </div>
+    <div class="trust-item">
+      <h4>// no third party sees your code</h4>
+      <p>There is no Anthropic call to make. The model is yours: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. There is no third-party retention policy to take on trust, because there is no third party.</p>
+    </div>
+    <div class="trust-item">
+      <h4>// evaluation trial, then an annual licence</h4>
+      <p>Start with the evaluation trial; it starts inside the product on first use and the product tells you the day it ends. Convert during it and your first year is half price. Annual licence, no per-token bill. Enterprise includes a formal MSA.</p>
+    </div>
+    <div class="trust-item">
+      <h4>// delivered by a person</h4>
+      <p><a href="/download.html#request">Request the download</a> and EJ replies with the tarball, with a published SHA-256 to check before you unpack it, or with access to the delivery repository on GitHub, usually the same day.</p>
+    </div>
+  </div>
+  </div><!-- /trust-block local -->
+
+  <div class="faq-block hosted">
+  <div class="faq-title">// frequently asked &middot; Ghost Architect&trade; hosted model</div>
 
   <div class="faq-item">
     <div class="faq-q">What is Ghost Brief™ and which tiers include it?</div>
@@ -1012,6 +1052,41 @@
     <div class="faq-q">Can I use Ghost Architect on a client's private repository?</div>
     <div class="faq-a">Yes. Ghost Architect supports private GitHub, GitLab, and Bitbucket repositories. Authenticate with a personal access token, Ghost clones the repo locally, runs the scan, and removes the local clone when done. Your client's code never touches any third-party infrastructure beyond your own Anthropic API key.</div>
   </div>
+  </div><!-- /faq-block hosted -->
+
+  <div class="faq-block local" id="local-faq">
+  <div class="faq-title local">// frequently asked &middot; Ghost Architect&trade; Local</div>
+
+  <div class="faq-item">
+    <div class="faq-q">What is Ghost Architect&trade; Local, and how is it different from the hosted model?</div>
+    <div class="faq-a">The same scans and the same reports, running entirely on hardware you own against a model server you run. The hosted model sends your code to Anthropic's API with your own key and bills a monthly membership; Local sends nothing anywhere, needs no API key, and is an annual licence per seat band. Choose Local when the code cannot leave the building, or when a per-token bill is the wrong shape for your team.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Do I need an Anthropic API key for Ghost Architect&trade; Local?</div>
+    <div class="faq-a">No. Local runs against your own model server: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. The model, the weights and every prompt stay on your network.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">How does the evaluation trial work?</div>
+    <div class="faq-a"><a href="/download.html#request">Request the download</a>, install it, and the trial starts inside the product on first use, registered against that install; the product tells you the day it ends. No card. Convert during the trial and your first year is half price.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Which Local tiers include zero egress?</div>
+    <div class="faq-a">Agency ($12,499 a year, 15 seats) and Enterprise ($24,999 a year, unlimited seats). Zero-egress mode refuses, at the code level, any model endpoint that would send source code off the machine, and ships with the egress inventory that proves what the product can and cannot reach. Solo and Small Team run against your own model server too; they do not carry the enforced refusal.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">How is Local delivered, and how do I upgrade?</div>
+    <div class="faq-a">By a person, not a package registry. EJ sends the tarball with a published SHA-256 to check before you unpack it, or gives your GitHub account access to the delivery repository. On Linux the installer provisions a service account and two systemd units (the portal and the scheduler). You upgrade by re-running the installer on the new tarball; your configuration, scan history and licence persist. The <a href="/changelog.html#local">changelog</a> lists every release.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">What hardware do I need?</div>
+    <div class="faq-a">Whatever runs your model server. Ghost Architect&trade; Local measures its own pass times on your machine and estimates from them, so every time estimate you see is yours and not a benchmark from ours. Larger models read code more carefully and take longer per pass; the product's LLM Status page shows your machine's speed, memory and context window so you can see the trade-off before a long scan.</div>
+  </div>
+  </div><!-- /faq-block local -->
 </div>
 
 <footer>
@@ -1024,7 +1099,7 @@
 </footer>
 
 
-<script src="/assets/ga-nav.js?v=20260904b" defer></script>
+<script src="/assets/ga-nav.js?v=20260904c" defer></script>
 
 <script>
 (function(){
