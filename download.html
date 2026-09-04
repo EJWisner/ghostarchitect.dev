@@ -40,6 +40,21 @@
     .row { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; margin-top:1rem; }
     footer { padding:2rem 1.5rem; border-top:1px solid var(--border); text-align:center; color:var(--text-dim); font-size:.85rem; }
     footer a { color:var(--text-muted); text-decoration:none; }
+    .trial-form { margin-top:1rem; display:grid; gap:.8rem; position:relative; color-scheme:dark; }
+    .trial-form label[hidden] { display:none; }
+    .f-row { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; }
+    .trial-form label { display:flex; flex-direction:column; gap:.3rem; font-size:.85rem; color:var(--text-muted); }
+    .trial-form input[type=text], .trial-form input[type=email], .trial-form select { background:#07070c; border:1px solid var(--border); border-radius:8px; padding:.6rem .7rem; color:var(--text); font:inherit; font-size:.95rem; width:100%; }
+    .trial-form input:focus, .trial-form select:focus { outline:none; border-color:var(--local); }
+    .trial-form button { border:none; cursor:pointer; font:inherit; font-weight:700; justify-self:start; }
+    .trial-form button[disabled] { opacity:.6; cursor:default; }
+    .f-radio { border:1px solid var(--border); border-radius:8px; padding:.6rem .9rem .7rem; display:flex; gap:1.4rem; flex-wrap:wrap; color:var(--text-muted); font-size:.85rem; }
+    .f-radio legend { padding:0 .3rem; }
+    .f-radio label { flex-direction:row; align-items:center; gap:.4rem; color:var(--text); }
+    .f-msg { font-size:.9rem; min-height:1.2em; color:var(--text-muted); }
+    .f-msg.error { color:#ff6b6b; }
+    .f-msg.success { color:var(--accent2); font-size:1rem; }
+    @media (max-width:600px) { .f-row { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
@@ -53,10 +68,29 @@
 
 <section><div class="wrap">
   <h2>1. Get the tarball</h2>
-  <div class="card">
+  <div class="card" id="request" style="scroll-margin-top: 90px;">
     <h3>Request the download</h3>
-    <p>Send one email and you get a download link back, usually the same day. Say which machine it is for (macOS or Linux) and how many people will use it, so the trial is set up right.</p>
-    <p style="margin-top:.9rem"><a class="btn primary" href="mailto:support@ghostarchitect.dev?subject=Ghost%20Architect%20Local%207.0.4%20download&body=Platform%20(macOS%20or%20Linux)%3A%0ATeam%20size%3A%0ACompany%3A%0A">Request Ghost Architect Local 7.0.4</a></p>
+    <p>Fill this in and EJ replies with the download link, or with access to the delivery repository on GitHub, usually the same day. The GitHub username is for that access. The model question is so the trial is set up for the hardware you have.</p>
+    <form id="trial-form" class="trial-form" novalidate>
+      <div class="f-row">
+        <label>Name <input name="name" type="text" required autocomplete="name" maxlength="120"></label>
+        <label>Work email <input name="email" type="email" required autocomplete="email" maxlength="200"></label>
+      </div>
+      <div class="f-row">
+        <label>GitHub username <input name="github" type="text" required autocomplete="username" maxlength="80" placeholder="octocat"></label>
+        <label>Operating system <select name="os"><option value="">Choose one</option><option>macOS</option><option>Linux</option><option>Windows</option></select></label>
+      </div>
+      <fieldset class="f-radio">
+        <legend>Do you run your own model today?</legend>
+        <label><input type="radio" name="ownModel" value="yes" required> Yes</label>
+        <label><input type="radio" name="ownModel" value="no"> Not yet</label>
+      </fieldset>
+      <label id="model-wrap" hidden>Which model, and on what server? <input name="model" type="text" maxlength="200" placeholder="qwen3:14b on Ollama"></label>
+      <label>How many people will use it? <select name="teamSize"><option value="">Choose one</option><option>1</option><option>2 to 5</option><option>6 to 15</option><option>16 or more</option></select></label>
+      <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+      <button type="submit" class="btn primary">Request Ghost Architect&trade; Local 7.0.4</button>
+      <div class="f-msg" id="tf-msg" role="status" aria-live="polite"></div>
+    </form>
     <p style="margin-top:.9rem;font-size:.9rem">Already a customer with access to the delivery repository? <code>gh release download v7.0.4 --repo EJWisner/ghost-local-delivery</code></p>
   </div>
   <div class="card">
@@ -114,5 +148,39 @@ sudo bash install/setup-linux.sh   # Linux
   <span style="display:inline-block;margin-top:.5rem">&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved.</span>
 </footer>
 <script src="/assets/ga-nav.js?v=20260904a" defer></script>
+<script>
+(function(){
+  var form = document.getElementById('trial-form'); if (!form) return;
+  var msg = document.getElementById('tf-msg');
+  var modelWrap = document.getElementById('model-wrap');
+  form.querySelectorAll('input[name=ownModel]').forEach(function(r){
+    r.addEventListener('change', function(){ modelWrap.hidden = form.ownModel.value !== 'yes'; });
+  });
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var d = {}; new FormData(form).forEach(function(v, k){ d[k] = v; });
+    if (!d.name || !d.email || !d.github || !d.ownModel) {
+      msg.className = 'f-msg error'; msg.textContent = 'Name, email, GitHub username and the model question are needed.'; return;
+    }
+    var btn = form.querySelector('button'); btn.disabled = true; msg.className = 'f-msg'; msg.textContent = 'Sending...';
+    fetch('https://signup.ghostarchitect.dev/local-trial-request', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
+      .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, j: j }; }); })
+      .then(function(res){
+        if (res.ok && res.j && res.j.status === 'ok') {
+          form.innerHTML = '<div class="f-msg success" role="status"><strong>Request received.</strong> '
+            + (res.j.emailed ? 'A confirmation is on its way to your inbox, and ' : '')
+            + 'EJ will reply with the download link or GitHub access, usually the same day.'
+            + (res.j.id ? ' Request id ' + res.j.id + '.' : '') + '</div>';
+        } else {
+          throw new Error((res.j && res.j.message) || 'request failed');
+        }
+      })
+      .catch(function(err){
+        btn.disabled = false; msg.className = 'f-msg error';
+        msg.textContent = 'That did not go through (' + err.message + '). Email support@ghostarchitect.dev instead and we will sort it out.';
+      });
+  });
+})();
+</script>
 </body>
 </html>
