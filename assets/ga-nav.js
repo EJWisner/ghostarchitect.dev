@@ -167,12 +167,12 @@
 
     // ── PRICING (flat) ──
     + '    <li class="ga-nav-item">'
-    + '      <a href="/pricing" class="ga-nav-link' + (isActive('/pricing') || isActive('/pricing.html') || isActive('/plans.html') ? ' active' : '') + '">Pricing</a>'
+    + '      <a href="/pricing.html" class="ga-nav-link' + (isActive('/pricing') || isActive('/pricing.html') || isActive('/plans.html') ? ' active' : '') + '">Pricing</a>'
     + '    </li>'
 
     // ── CONTACT (flat) ──
     + '    <li class="ga-nav-item">'
-    + '      <a href="/contact" class="ga-nav-link' + (isActive('/contact') || isActive('/contact.html') ? ' active' : '') + '">Contact &amp; Support</a>'
+    + '      <a href="/contact.html" class="ga-nav-link' + (isActive('/contact') || isActive('/contact.html') ? ' active' : '') + '">Contact &amp; Support</a>'
     + '    </li>'
 
     // ── RESOURCES dropdown ──
@@ -202,7 +202,7 @@
     + '          <div class="title">FAQ</div>'
     + '          <div class="desc">Common questions answered.</div>'
     + '        </a>'
-    + '        <a href="/support" class="ga-dropdown-item' + (isActive('/support') || isActive('/support.html') ? ' active' : '') + '">'
+    + '        <a href="/support.html" class="ga-dropdown-item' + (isActive('/support') || isActive('/support.html') ? ' active' : '') + '">'
     + '          <div class="title">Support</div>'
     + '          <div class="desc">Contact, docs, status.</div>'
     + '        </a>'
@@ -221,6 +221,12 @@
     + '    <span></span><span></span><span></span>'
     + '  </button>'
     + '</nav>'
+
+    // ── THE TRIAL BAND (EJ, 2026-09-03): the green hosted trial and its Local twin, on every page ──
+    + '<div class="ga-trial-band">'
+    + '  <a href="/trial.html" class="ga-trial hosted">Start Free Trial &middot; 7 Days Pro Max</a>'
+    + '  <a href="/download.html" class="ga-trial local">Try Ghost Architect&trade; Local &middot; 7 Days on Your Hardware</a>'
+    + '</div>'
 
     // ── MOBILE MENU ──
     + '<div class="ga-mobile-menu" id="ga-mobile-menu">'
@@ -268,8 +274,8 @@
     + '      <a href="/security.html"' + (isActive('/security.html') || isActive('/security') ? ' class="active"' : '') + '>For CTOs &amp; Security</a>'
     + '    </div>'
     + '  </div>'
-    + '  <a href="/pricing" class="ga-mobile-flat-link' + (isActive('/pricing') || isActive('/pricing.html') ? ' active' : '') + '">Pricing</a>'
-    + '  <a href="/contact" class="ga-mobile-flat-link' + (isActive('/contact') || isActive('/contact.html') ? ' active' : '') + '">Contact &amp; Support</a>'
+    + '  <a href="/pricing.html" class="ga-mobile-flat-link' + (isActive('/pricing') || isActive('/pricing.html') ? ' active' : '') + '">Pricing</a>'
+    + '  <a href="/contact.html" class="ga-mobile-flat-link' + (isActive('/contact') || isActive('/contact.html') ? ' active' : '') + '">Contact &amp; Support</a>'
     + '  <div class="ga-mobile-group' + (activeGroup === 'resources' ? ' open' : '') + '" data-mobile-group>'
     + '    <button class="ga-mobile-group-header">'
     + '      Resources'
@@ -281,10 +287,10 @@
     + '      <a href="/blog.html"' + (isActive('/blog.html') ? ' class="active"' : '') + '>Blog</a>'
     + '      <a href="/changelog.html"' + (isActive('/changelog.html') || isActive('/changelog') ? ' class="active"' : '') + '>Changelog</a>'
     + '      <a href="/#faq">FAQ</a>'
-    + '      <a href="/support"' + (isActive('/support') || isActive('/support.html') ? ' class="active"' : '') + '>Support</a>'
+    + '      <a href="/support.html"' + (isActive('/support') || isActive('/support.html') ? ' class="active"' : '') + '>Support</a>'
     + '    </div>'
     + '  </div>'
-    + '  <a href="/pricing" class="ga-mobile-cta">\uD83D\uDC7B See Plans</a>'
+    + '  <a href="/pricing.html" class="ga-mobile-cta">\uD83D\uDC7B See Plans</a>'
     + '</div>';
 
   // Mount: prefer #ga-nav-mount, else insert at top of <body>

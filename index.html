@@ -179,7 +179,7 @@
         "name": "How much does Ghost Architect cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ghost Open is free and open-source under the MIT license. Ghost Pro is $99/month. Ghost Pro Max is $199/month and includes Ghost Brief™. Ghost Team is $399/month for up to 5 seats. Ghost Team Max is $799/month and includes the Unified Brief. Ghost Enterprise starts at $1,200/month. Ghost Enterprise Max starts at $2,500/month with unlimited Briefs, formal MSA, and dedicated Ghost Partner co-engagement."
+          "text": "Ghost Open is free and open-source under the MIT license. Ghost Pro is $25/month. Ghost Pro Max is $99/month and includes Ghost Brief™. Ghost Team is $399/month for up to 5 seats. Ghost Team Max is $799/month and includes the Unified Brief. Ghost Enterprise starts at $1,200/month. Ghost Enterprise Max starts at $2,500/month with unlimited Briefs, formal MSA, and dedicated Ghost Partner co-engagement."
         }
       },
       {
@@ -336,6 +336,7 @@
       margin-bottom: 1rem;
     }
     .btn-trial-hero:hover { opacity: 0.88; }
+    .btn-trial-hero.btn-trial-local { background: linear-gradient(135deg, #00e5ff, #00bfd8); color: #06131a; box-shadow: 0 0 16px rgba(0,229,255,0.35); margin-left: 0.6rem; }
 
     .btn-primary {
       background: var(--accent);
@@ -437,7 +438,7 @@
     /* CAPABILITIES */
     .capabilities-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 1px;
       background: var(--border);
       border: 1px solid var(--border);
@@ -452,6 +453,9 @@
     }
 
     .capability-card:hover { background: var(--surface2); }
+    .capability-card.wide { grid-column: span 2; }
+    @media (max-width: 1100px) { .capabilities-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .capabilities-grid { grid-template-columns: 1fr; } .capability-card.wide { grid-column: 1 / -1; } }
 
     .capability-icon {
       font-size: 1.8rem;
@@ -988,7 +992,7 @@
       letter-spacing: 0.01em;
     }
   </style>
-  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260903d" />
+  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260904a" />
 </head>
 <body>
 
@@ -1033,7 +1037,8 @@
   <p class="hero-accent">One finding pays for a year of Ghost.</p>
   <div class="hero-cta">
     <a href="/trial.html" class="btn-trial-hero">Start Free Trial -- 7 Days Pro Max</a>
-    <a href="/pricing" class="btn-primary">See Plans →</a>
+    <a href="/download.html" class="btn-trial-hero btn-trial-local">Try Ghost Architect&trade; Local -- 7 Days, Your Hardware</a>
+    <a href="/pricing.html" class="btn-primary">See Plans →</a>
     <a href="https://www.npmjs.com/package/ghost-architect-open" class="btn-secondary" target="_blank" rel="noopener noreferrer">Install Ghost Open Free →</a>
   </div>
   <div>
@@ -1133,7 +1138,7 @@
         <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem;">Built for the people writing the check. <strong style="color: var(--text);">Agency founders</strong> pricing the SOW, <strong style="color: var(--text);">PE diligence teams</strong> pre-LOI, and <strong style="color: var(--text);">fractional CTOs</strong> walking into engagements cold.</p>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <a href="/inheritance-audit.html" style="display: inline-block; background: var(--accent); color: #000; font-weight: 700; font-size: 0.9rem; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: all 0.2s;">See the audit →</a>
-          <a href="/pricing" style="display: inline-block; background: transparent; color: var(--text-muted); border: 1px solid var(--border); font-size: 0.9rem; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: all 0.2s;">Unlock on Ghost Pro →</a>
+          <a href="/pricing.html" style="display: inline-block; background: transparent; color: var(--text-muted); border: 1px solid var(--border); font-size: 0.9rem; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: all 0.2s;">Unlock on Ghost Pro →</a>
         </div>
         <div style="margin-top: 1rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);">Premium feature · Ghost Pro, Team, Enterprise</div>
       </div>
@@ -1262,7 +1267,7 @@
       <h3>Conflict Detection</h3>
       <p>Find contract mismatches, schema conflicts, config errors, and constant disagreements across any language or platform.</p>
     </div>
-    <div class="capability-card" style="border-left:3px solid var(--accent2);position:relative;">
+    <div class="capability-card wide" style="border-left:3px solid var(--accent2);position:relative;">
       <div style="position:absolute;top:0.75rem;right:0.85rem;display:flex;gap:0.35rem;">
         <span style="background:var(--accent2);color:#000;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">👑 Triple Crown</span>
         <span style="background:#e07340;color:#fff;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">NEW</span>
@@ -1296,7 +1301,7 @@
       <h3>Prompt Triage</h3>
       <p>If you ship AI features, your prompts are production code. Ghost audits a folder of LLM prompts and surfaces 16 categories of defects backed by the Tian et al. 2025 academic taxonomy. <a href="/prompt-triage.html" style="color:var(--accent2);font-weight:600;">Learn more &rarr;</a></p>
     </div>
-    <div class="capability-card" style="border-left:3px solid #e07340;position:relative;grid-column: 3 / -1;">
+    <div class="capability-card wide" style="border-left:3px solid #e07340;position:relative;">
       <div style="position:absolute;top:0.75rem;right:0.85rem;background:#e07340;color:#fff;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">NEW</div>
       <div class="capability-icon">📊</div>
       <h3>Executive Brief™</h3>
@@ -1304,7 +1309,7 @@
       <p>After every scan, Ghost generates an Executive Brief: a one-page business intelligence report with a health score, plain-language risk summary, and a cost comparison showing what remediation costs manually versus with AI. No jargon. No code. Just the business case.</p>
       <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;margin-top:0.75rem;">24 hours of manual remediation at $4,800 becomes 3 hours and $3.60 in API costs. That table closes deals. Available on Pro Max, Team Max, and Enterprise Max.</p>
     </div>
-    <div class="capability-card" style="border-left:3px solid #e07340;position:relative;">
+    <div class="capability-card wide" style="border-left:3px solid #e07340;position:relative;">
       <div class="capability-icon">👤</div>
       <h3>Ghost Partner™ Profiles</h3>
       <p style="font-size:1.05rem;font-weight:600;color:#e07340;margin-bottom:0.75rem;">Your name. Your branding. Your methodology. White-labeled across every report.</p>
@@ -1372,8 +1377,8 @@
     </div>
     <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 1.5rem;">One avoided misscope pays for Ghost Pro for fifteen years. Read the full case for agency owners, including the eight questions every owner should be able to answer before signing, ROI math on a real $120K Adobe Commerce engagement, and tier comparison.</p>
     <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-      <a href="/for-agency-owners" style="display: inline-block; background: var(--accent2); color: #000; padding: 0.9rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.95rem;">Read the case for agency owners &rarr;</a>
-      <a href="/pricing" style="display: inline-block; border: 1px solid var(--border); color: var(--text-muted); padding: 0.9rem 2rem; border-radius: 8px; text-decoration: none; font-size: 0.95rem;">See plans</a>
+      <a href="/for-agency-owners.html" style="display: inline-block; background: var(--accent2); color: #000; padding: 0.9rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.95rem;">Read the case for agency owners &rarr;</a>
+      <a href="/pricing.html" style="display: inline-block; border: 1px solid var(--border); color: var(--text-muted); padding: 0.9rem 2rem; border-radius: 8px; text-decoration: none; font-size: 0.95rem;">See plans</a>
     </div>
   </div>
 </div>
@@ -1407,7 +1412,7 @@
       </div>
     </div>
     <div class="agency-tier-note">
-      <strong>Agency-tier plans available.</strong> Ghost Architect™ offers plans designed for multi-client portfolios, team access, and enterprise delivery workflows. <a href="/pricing" style="color: var(--accent);">See pricing →</a>
+      <strong>Agency-tier plans available.</strong> Ghost Architect™ offers plans designed for multi-client portfolios, team access, and enterprise delivery workflows. <a href="/pricing.html" style="color: var(--accent);">See pricing →</a>
     </div>
     <p style="margin-top:1.5rem;font-size:0.95rem;color:var(--text);font-weight:600;">Solo developer or independent architect? Ghost Architect™ works just as well for individuals. Start with Ghost Open free, upgrade when you need more.</p>
   </div>
@@ -1444,7 +1449,7 @@
     </div>
 
     <div style="background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.2);border-radius:10px;padding:1.25rem 1.5rem;font-size:0.875rem;color:var(--text-muted);line-height:1.6;">
-      <strong style="color:var(--accent);">Available on Ghost Pro and above.</strong> Ghost Partner profile loading and per-profile billing rates ship with Pro ($99/mo). White-label PDF output ships with Enterprise (from $1,200/mo). <a href="/pricing" style="color:var(--accent);">See pricing →</a>
+      <strong style="color:var(--accent);">Available on Ghost Pro and above.</strong> Ghost Partner profile loading and per-profile billing rates ship with Pro ($99/mo). White-label PDF output ships with Enterprise (from $1,200/mo). <a href="/pricing.html" style="color:var(--accent);">See pricing →</a>
     </div>
   </section>
 </div>
@@ -1569,13 +1574,13 @@
     <img src="GHOSTLOGO.JPG" alt="Ghost Architect" width="20" height="20" loading="lazy" />
     Ghost Architect™
   </a>
-  <span class="footer-copy">© 2026 EJ Wisner · Ghost Architect™ · All rights reserved. · US Copyright Reg. #1-15123488721 · <a href="/support" style="color:var(--text-muted);text-decoration:none;">Support</a> · <a href="/privacy.html" style="color:var(--text-muted);text-decoration:none;">Privacy Policy</a> · <a href="/msa.html" style="color:var(--text-muted);text-decoration:none;">Terms of Service</a></span>
+  <span class="footer-copy">© 2026 EJ Wisner · Ghost Architect™ · All rights reserved. · US Copyright Reg. #1-15123488721 · <a href="/support.html" style="color:var(--text-muted);text-decoration:none;">Support</a> · <a href="/privacy.html" style="color:var(--text-muted);text-decoration:none;">Privacy Policy</a> · <a href="/msa.html" style="color:var(--text-muted);text-decoration:none;">Terms of Service</a></span>
 </footer>
 
 <!-- STICKY CTA -->
 <div id="sticky-cta" style="position:fixed;bottom:2rem;right:2rem;z-index:999;">
-  <a href="/pricing" style="display:inline-block;background:linear-gradient(135deg,#4a9eff,#00d4aa);color:#fff;font-family:Inter,sans-serif;font-weight:700;font-size:0.95rem;padding:0.85rem 1.5rem;border-radius:50px;text-decoration:none;box-shadow:0 4px 24px rgba(74,158,255,0.4);white-space:nowrap;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">👻 See Plans →</a>
+  <a href="/pricing.html" style="display:inline-block;background:linear-gradient(135deg,#4a9eff,#00d4aa);color:#fff;font-family:Inter,sans-serif;font-weight:700;font-size:0.95rem;padding:0.85rem 1.5rem;border-radius:50px;text-decoration:none;box-shadow:0 4px 24px rgba(74,158,255,0.4);white-space:nowrap;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">👻 See Plans →</a>
 </div>
-<script src="/assets/ga-nav.js?v=20260903d" defer></script>
+<script src="/assets/ga-nav.js?v=20260904a" defer></script>
 </body>
 </html>
