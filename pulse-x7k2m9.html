@@ -2014,11 +2014,50 @@
     fetchPartnerStats();
     setInterval(fetchPartnerStats, REFRESH_INTERVAL_MS);
 
+    // ── Admin tokens, entered rather than published ─────────────────────
+    // Held per browser in localStorage. Cleared with clearPulseSecrets() from
+    // the console, or by the 401 handler when a token stops working, which is
+    // what happens the first time you load this page after rotating them.
+    const PULSE_SECRET_KEYS = { support: 'ghost_pulse_support_admin_token', pulse: 'ghost_pulse_token' };
+
+    function pulseSecret(which) {
+      try { return localStorage.getItem(PULSE_SECRET_KEYS[which]) || ''; } catch (e) { return ''; }
+    }
+
+    function clearPulseSecrets() {
+      try {
+        Object.values(PULSE_SECRET_KEYS).forEach(k => localStorage.removeItem(k));
+      } catch (e) {}
+      location.reload();
+    }
+
+    // Asks once per browser, before anything tries to use a token. Returns
+    // false when the prompt is dismissed, and the page then simply shows no
+    // admin data rather than firing a wall of 401s.
+    function unlockPulse() {
+      var missing = Object.keys(PULSE_SECRET_KEYS).filter(k => !pulseSecret(k));
+      if (missing.length === 0) return true;
+      var label = {
+        support: 'SUPPORT_ADMIN_TOKEN (support inbox, chats, knowledge base)',
+        pulse: 'PULSE_TOKEN (watcher stats, push notifications)',
+      };
+      for (var i = 0; i < missing.length; i++) {
+        var key = missing[i];
+        var value = window.prompt('Ghost Pulse is locked.\n\nPaste ' + label[key] + ':');
+        if (!value || !value.trim()) return false;
+        try { localStorage.setItem(PULSE_SECRET_KEYS[key], value.trim()); } catch (e) {}
+      }
+      location.reload();   // re-read the constants with the values now present
+      return true;
+    }
+
     // ── Support inbox section ───────────────────────────────────────────
-    // Same tradeoff as the watcher-stats bearer token below: this exposes
-    // the admin token in a public GitHub Pages file. Accepted 2026-07-12
-    // per EJ (see signup-worker `wrangler secret put SUPPORT_ADMIN_TOKEN`).
-    const SUPPORT_ADMIN_TOKEN = 'f3826ee49aa8b57ab339c541bd0f840dcf676e773615720dc3cdc7d35734d40f';
+    // The admin tokens used to be literals in this file. This site is a PUBLIC
+    // GitHub repository, so that published them: not obscured by the filename,
+    // published, and kept in the history of every commit that touched this
+    // page. They are now entered once per browser and held in localStorage, so
+    // nothing secret is committed. See unlockPulse() below.
+    const SUPPORT_ADMIN_TOKEN = pulseSecret('support');
     const SUPPORT_ENDPOINT = 'https://signup.ghostarchitect.dev/support-stats';
 
     let supportData = null;
@@ -2090,6 +2129,14 @@
       }
       try {
         const res = await fetch(`${SUPPORT_ENDPOINT}?token=${encodeURIComponent(SUPPORT_ADMIN_TOKEN)}`, { cache: 'no-store' });
+        if (res.status === 401) {
+          // The stored token is no longer valid. That is the expected state on
+          // the first load after a rotation, so clear it and ask again rather
+          // than leaving the page looking broken.
+          console.warn('[ghost-pulse] admin token rejected -- clearing so it can be re-entered');
+          clearPulseSecrets();
+          return;
+        }
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         supportData = await res.json();
         renderSupport();
@@ -2771,10 +2818,7 @@
 
     // ── Web push notifications ──────────────────────────────────────────
     const VAPID_PUBLIC_KEY = 'BMgmDYR7Wm-HZLf_L-7PEYEg6fnjEMMg3Bd7fwmscALUVejFOLObYgUSt-6184Zov36PNtgXio0jzPpxYyoKCeA';
-    // Reuses the same PULSE_TOKEN already public in this page (see the
-    // fetchWatcherStats() bearer token above) -- same accepted tradeoff as
-    // SUPPORT_ADMIN_TOKEN, one more admin-scoped token in a page only EJ uses.
-    const PULSE_TOKEN = 'caf9783a368daec034ae4dabc9d9570b70ec4a2dec842d926818ec5600ea3cc4';
+    const PULSE_TOKEN = pulseSecret('pulse');
     const PUSH_SUBSCRIBE_ENDPOINT = 'https://signup.ghostarchitect.dev/push-subscribe';
     const PUSH_UNSUBSCRIBE_ENDPOINT = 'https://signup.ghostarchitect.dev/push-unsubscribe';
     const DEVICE_ID_STORAGE_KEY = 'ghost-pulse-device-id';
@@ -2911,6 +2955,13 @@
         }
       });
     }
+
+    // Ask for the admin tokens before the first request that needs one. They
+    // used to be literals in this file, which published them in a public
+    // repository; now they live only in this browser. Dismissing the prompt
+    // leaves the page loaded but without admin data, which is a better failure
+    // than a wall of 401s.
+    unlockPulse();
 
     if ('serviceWorker' in navigator && 'PushManager' in window) {
       navigator.serviceWorker.register('/sw.js').catch((err) => {
