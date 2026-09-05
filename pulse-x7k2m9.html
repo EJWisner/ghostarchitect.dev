@@ -406,6 +406,13 @@
     .badge-escalated { background: rgba(255, 122, 122, 0.15); color: var(--bad); }
     .badge-rejected { background: rgba(138, 154, 175, 0.18); color: var(--text-tertiary); }
     .badge-chat { background: rgba(124, 58, 237, 0.15); color: #a78bfa; }
+    /* Which product the conversation came in about. Distinct from the
+       status badges on purpose: this is not a state, it is which knowledge
+       base answered, and it is the thing that decides whether the answer was
+       right at all. */
+    .badge-hosted { background: rgba(74, 158, 255, 0.15); color: #4a9eff; }
+    .badge-local { background: rgba(53, 214, 196, 0.15); color: #35d6c4; }
+    .badge-unknown { background: rgba(136, 136, 153, 0.13); color: #888899; }
 
     .metric-clickable {
       cursor: pointer;
@@ -1156,6 +1163,12 @@
               <div class="section-label">Recent Exchanges</div>
               <div class="section-note" id="support-recent-note"></div>
             </div>
+            <div class="filter-row" id="support-product-filters">
+              <button class="filter-btn active" data-product="hosted">Hosted</button>
+              <button class="filter-btn active" data-product="local">Local</button>
+              <button class="filter-btn active" data-product="unknown">Unknown</button>
+            </div>
+
             <div class="filter-row" id="support-status-filters">
               <button class="filter-btn active" data-status="responded">Responded</button>
               <button class="filter-btn active" data-status="drafted">Drafted</button>
@@ -2007,6 +2020,29 @@
     let supportData = null;
     let supportWindow = 'last7d';
     const supportStatusFilters = new Set(['responded', 'drafted', 'escalated', 'rejected', 'chat']);
+    // Which product the row came in about. 'unknown' covers everything logged
+    // before the edition split shipped (2026-09-05) plus inbound email whose
+    // wording was not one-sided enough for the worker to infer an edition,
+    // which is a real category worth being able to look at on its own.
+    const supportProductFilters = new Set(['hosted', 'local', 'unknown']);
+
+    function rowProduct(r) {
+      return (r.product === 'hosted' || r.product === 'local') ? r.product : 'unknown';
+    }
+
+    function productBadge(r) {
+      const p = rowProduct(r);
+      const label = p === 'local' ? 'LOCAL' : p === 'hosted' ? 'HOSTED' : 'UNKNOWN';
+      // How the edition was decided matters when reading a row: a picker
+      // choice is the customer's word, an inference is the worker's guess.
+      const title = p === 'unknown'
+        ? 'No edition recorded (logged before the product split, or too ambiguous to infer)'
+        : (r.productSource === 'picker'
+            ? 'Chosen by the customer in the product picker'
+            : 'Inferred by the worker from the wording of the message');
+      const mark = (p !== 'unknown' && r.productSource !== 'picker') ? '?' : '';
+      return `<span class="badge badge-${p}" title="${escapeHtml(title)}">${label}${mark}</span>`;
+    }
     // Exclusive drill-down from the Active Chats / Chats Offered stat cards --
     // null | 'active' | 'offered'. When set, overrides supportStatusFilters
     // entirely rather than composing with it (a stat-card tap is "show me
@@ -2072,8 +2108,16 @@
       document.getElementById('support-rejected').textContent = summary.rejected;
       document.getElementById('support-chats-active').textContent = summary.chatsActive || 0;
       document.getElementById('support-chats-offered').textContent = summary.chatsOffered || 0;
+      // Split by product in the header line too, so the mix is visible without
+      // touching a filter. Older aggregations have no product counts; fall
+      // back to the plain total rather than printing zeros that look real.
+      const hasProductCounts = typeof summary.productHosted === 'number';
+      const productNote = hasProductCounts
+        ? ` · ${summary.productHosted} hosted / ${summary.productLocal} Local` +
+          (summary.productUnknown ? ` / ${summary.productUnknown} unknown` : '')
+        : '';
       document.getElementById('support-note').textContent =
-        `${summary.total} total · updated ${new Date(supportData.generatedAt).toLocaleTimeString()}`;
+        `${summary.total} total${productNote} · updated ${new Date(supportData.generatedAt).toLocaleTimeString()}`;
 
       const windowMs = SUPPORT_WINDOW_MS[supportWindow];
       const now = Date.now();
@@ -2082,6 +2126,7 @@
         .filter(r => supportChatDrilldown
           ? (r.handled === 'chat' && r.chatStatus === supportChatDrilldown)
           : (r.handled && supportStatusFilters.has(r.handled)))
+        .filter(r => supportProductFilters.has(rowProduct(r)))
         .filter(r => {
           const ts = new Date(r.timestamp).getTime();
           return windowMs === Infinity || now - ts < windowMs;
@@ -2121,6 +2166,7 @@
             <div class="exchange-top">
               <div class="exchange-top-left">
                 <span class="badge ${badgeClass}">${badgeLabel}</span>
+                ${productBadge(r)}
                 <span class="exchange-layer">${layerLabel}</span>
               </div>
               <span class="exchange-time">${relativeTime(ts)}</span>
@@ -2149,6 +2195,7 @@
           <div class="exchange-top">
             <div class="exchange-top-left">
               <span class="badge badge-chat">CHAT</span>
+              ${productBadge(r)}
               <span class="exchange-layer chat-status-text">${escapeHtml(r.chatStatus || '')}</span>
               <span class="exchange-layer">${r.turnCount || 0} turns</span>
             </div>
@@ -2188,6 +2235,20 @@
       supportWindow = btn.dataset.window;
       document.querySelectorAll('#support-time-filters .filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      renderSupport();
+    });
+
+    document.getElementById('support-product-filters').addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      const product = btn.dataset.product;
+      if (supportProductFilters.has(product)) {
+        supportProductFilters.delete(product);
+        btn.classList.remove('active');
+      } else {
+        supportProductFilters.add(product);
+        btn.classList.add('active');
+      }
       renderSupport();
     });
 
