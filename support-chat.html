@@ -661,16 +661,15 @@
     }
 
     // The reveal carries the word Local, so only a returning Local customer
-    // sees it. The video src is attached here rather than in the markup, so a
-    // hosted customer never downloads a file that is not for them.
-    function maybeShowResumeReveal() {
+    // sees it. The video sources are attached at this moment rather than in
+    // the markup, so a hosted customer never downloads a file that is not for
+    // them, not even the poster.
+    function applyResumeReveal(isLocal) {
       var wrap = document.getElementById('resume-reveal');
       if (!wrap) return;
-      var isLocal = storedProduct() === 'local';
-      wrap.classList.toggle('show', isLocal);
+      wrap.classList.toggle('show', !!isLocal);
       if (!isLocal) return;
 
-      // Attach the poster only now, for the same reason as the video below.
       var poster = document.getElementById('resume-reveal-poster');
       if (poster && !poster.getAttribute('src')) {
         poster.setAttribute('src', poster.getAttribute('data-src'));
@@ -702,6 +701,29 @@
         var played = v.play();
         if (played && played.catch) played.catch(function () {});  // blocked autoplay leaves the poster
       } catch (e) {}
+    }
+
+    function maybeShowResumeReveal() {
+      var stored = storedProduct();
+      if (stored) { applyResumeReveal(stored === 'local'); return; }
+
+      // Nothing remembered. That is every customer whose conversation predates
+      // the chat recording a product, so falling straight through to "hide"
+      // would mean the reveal never appears for anyone who was already using
+      // support. Ask the server instead: the session record knows. The screen
+      // is already on screen, so this resolves behind it rather than delaying it.
+      var token = null;
+      try { token = localStorage.getItem(STORAGE_TOKEN); } catch (e) {}
+      if (!token) { applyResumeReveal(false); return; }
+
+      fetch(`${API_BASE}/chat-session?token=${encodeURIComponent(token)}`, { cache: 'no-store' })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          var product = (d && d.ok && d.session) ? d.session.product : null;
+          rememberProduct(product);
+          applyResumeReveal(product === 'local');
+        })
+        .catch(function () { applyResumeReveal(false); });
     }
     const FORM_MESSAGE_LIMIT = 2000;
     const CHAT_INPUT_LIMIT = 1000;
