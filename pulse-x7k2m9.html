@@ -1209,6 +1209,12 @@
             <div class="kb-trigger-field" id="review-kb-trigger-field">
               <div class="section-label" style="margin-bottom: 6px;">Trigger words (comma separated)</div>
               <input type="text" class="kb-trigger-input" id="review-kb-triggers" placeholder="install, npm install, how do i install">
+              <div class="section-label" style="margin-bottom: 6px; margin-top: 10px;">Which product does this answer apply to?</div>
+              <select class="kb-trigger-input kb-product" id="review-kb-product" style="width:100%;">
+                <option value="hosted">Ghost Architect (hosted)</option>
+                <option value="local">Ghost Architect Local</option>
+                <option value="both">Both products</option>
+              </select>
             </div>
           </div>
           <div class="modal-error" id="review-error"></div>
@@ -1270,6 +1276,12 @@
             <div class="kb-trigger-field" id="view-kb-trigger-field">
               <div class="section-label" style="margin-bottom: 6px;">Trigger words (comma separated)</div>
               <input type="text" class="kb-trigger-input" id="view-kb-triggers" placeholder="install, npm install, how do i install">
+              <div class="section-label" style="margin-bottom: 6px; margin-top: 10px;">Which product does this answer apply to?</div>
+              <select class="kb-trigger-input kb-product" id="view-kb-product" style="width:100%;">
+                <option value="hosted">Ghost Architect (hosted)</option>
+                <option value="local">Ghost Architect Local</option>
+                <option value="both">Both products</option>
+              </select>
             </div>
           </div>
           <div class="modal-error" id="view-error"></div>
@@ -2157,6 +2169,12 @@
             <div class="kb-trigger-field chat-kb-trigger-field">
               <div class="section-label" style="margin-bottom: 6px;">Trigger words (comma separated)</div>
               <input type="text" class="kb-trigger-input chat-kb-triggers" value="${escapeHtml(extractTriggerWords(r.subject).join(', '))}">
+              <div class="section-label" style="margin-bottom: 6px; margin-top: 10px;">Which product does this answer apply to?</div>
+              <select class="kb-trigger-input chat-kb-product" style="width:100%;">
+                <option value="hosted">Ghost Architect (hosted)</option>
+                <option value="local">Ghost Architect Local</option>
+                <option value="both">Both products</option>
+              </select>
               <button class="review-btn chat-kb-save-btn" type="button" style="margin-top:8px;">Save to KB</button>
             </div>
           </div>
@@ -2284,6 +2302,13 @@
         return;
       }
 
+      // Which product's knowledge this answer joins. The worker rejects an
+      // untagged entry outright: an entry that answered a hosted question but
+      // filed under 'both' would start answering Local questions with hosted
+      // text, which is the exact failure the edition split exists to remove.
+      const productSel = document.getElementById(`${prefix}-kb-product`);
+      const product = productSel ? productSel.value : 'hosted';
+
       try {
         const res = await fetch(SUPPORT_KB_ADD_ENDPOINT, {
           method: 'POST',
@@ -2292,6 +2317,7 @@
             issue: (subject || '(no subject)').slice(0, 60),
             triggerPatterns,
             resolutionText: sentText,
+            product,
             adminToken: SUPPORT_ADMIN_TOKEN,
           }),
         });
@@ -2555,6 +2581,14 @@
       }
     }
 
+    // A hand-picked product must win over the session-derived default that
+    // saveChatToKb applies on click. `change` bubbles, so this covers rows
+    // rendered later too.
+    document.addEventListener('change', (e) => {
+      const sel = e.target.closest && e.target.closest('.chat-kb-product');
+      if (sel) sel.dataset.touched = '1';
+    });
+
     async function saveChatToKb(btn) {
       const triggerField = btn.closest('.chat-kb-trigger-field');
       const kbRow = btn.closest('.chat-kb-row');
@@ -2563,6 +2597,7 @@
       const subject = toggle.dataset.subject || '';
       const triggerPatterns = triggerField.querySelector('.chat-kb-triggers').value
         .split(',').map(s => s.trim()).filter(Boolean);
+      const productSel = triggerField.querySelector('.chat-kb-product');
 
       if (triggerPatterns.length === 0) {
         showToast('Add at least one trigger word first', 'warning');
@@ -2580,6 +2615,15 @@
         const lastAssistant = [...messages].reverse().find(m => m.role === 'assistant');
         if (!lastAssistant) throw new Error('no assistant reply found in this chat');
 
+        // Default to the edition this conversation was actually answered
+        // under, so the common case is one click and correct. Still editable:
+        // an answer that happens to be true for both belongs under 'both'.
+        const sessionProduct = sessionData.session.product;
+        if (productSel && !productSel.dataset.touched && (sessionProduct === 'hosted' || sessionProduct === 'local')) {
+          productSel.value = sessionProduct;
+        }
+        const product = productSel ? productSel.value : (sessionProduct || 'hosted');
+
         const kbRes = await fetch(SUPPORT_KB_ADD_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -2587,6 +2631,7 @@
             issue: (subject || '(no subject)').slice(0, 60),
             triggerPatterns,
             resolutionText: lastAssistant.text,
+            product,
             adminToken: SUPPORT_ADMIN_TOKEN,
           }),
         });
