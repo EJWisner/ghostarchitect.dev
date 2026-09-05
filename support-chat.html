@@ -840,6 +840,20 @@
 
     const AVATAR_SRC = '/spoc-avatar.jpg';
 
+    // The agent is told to write plain prose, but a long technical answer can
+    // still come back with markdown in it, and this thread renders with
+    // textContent, so the customer would literally read the asterisks. The
+    // prompt is the intent; this is the guarantee. Deliberately conservative:
+    // it unwraps emphasis and drops heading hashes, and leaves everything else
+    // alone so a glob like *.log or a path survives untouched.
+    function stripMarkdown(text) {
+      return String(text == null ? '' : text)
+        .replace(/\*\*(?=\S)([\s\S]*?\S)\*\*/g, '$1')
+        .replace(/__(?=\S)([\s\S]*?\S)__/g, '$1')
+        .replace(/^\s{0,3}#{1,6}\s+/gm, '')
+        .replace(/^(\s*)\*\s+/gm, '$1- ');
+    }
+
     function appendMessage(role, text, timestamp) {
       const thread = $('thread');
       const row = document.createElement('div');
@@ -859,7 +873,7 @@
           <div class="msg-bubble"></div>
           <div class="msg-time">${timestamp ? formatTime(timestamp) : ''}</div>
         `;
-      row.querySelector('.msg-bubble').textContent = text;
+      row.querySelector('.msg-bubble').textContent = stripMarkdown(text);
       thread.appendChild(row);
       scrollThreadToBottom();
       return row.querySelector('.msg-bubble');
@@ -1281,7 +1295,9 @@
             try { payload = JSON.parse(line.slice(5).trim()); } catch (_) { continue; }
             if (payload.chunk) {
               fullText += payload.chunk;
-              bubble.textContent = fullText;
+              // Cleaned on every repaint rather than only at the end, so a
+              // half-streamed answer never flashes raw asterisks.
+              bubble.textContent = stripMarkdown(fullText);
               scrollThreadToBottom();
             }
             if (payload.done) {
