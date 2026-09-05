@@ -509,7 +509,8 @@
         <div class="center-body">Tell us who you are and what's going on. We usually reply in seconds.</div>
         <div class="field">
           <label for="form-platform">Which product?</label>
-          <select id="form-platform" style="background:#0a0a0f;color:#e8e8f0;border:1px solid #2a2a3a;border-radius:8px;padding:0.7rem 0.8rem;font:inherit">
+          <select id="form-platform" required style="background:#0a0a0f;color:#e8e8f0;border:1px solid #2a2a3a;border-radius:8px;padding:0.7rem 0.8rem;font:inherit">
+            <option value="" disabled selected>Choose your product…</option>
             <option value="hosted">Ghost Architect (hosted, API key, subscription)</option>
             <option value="local">Ghost Architect Local (your hardware, annual licence)</option>
           </select>
@@ -601,9 +602,20 @@
   <script>
     const API_BASE = 'https://ghost-support-worker.ghostarchitect.workers.dev';
       // Platform picker (2026-09-03): a Local question must not be answered with hosted assumptions.
-      // ?platform=local preselects it (the Local pages link here that way); the worker receives `platform`.
-      function currentPlatform(){ var el = document.getElementById('form-platform'); return el && el.value === 'local' ? 'local' : 'hosted'; }
-      (function(){ try { var p = new URLSearchParams(window.location.search).get('platform'); var el = document.getElementById('form-platform'); if (el && p === 'local') el.value = 'local'; } catch (e) {} })();
+      // ?platform=local and ?platform=hosted both preselect (the product pages
+      // link here that way). Someone arriving at the bare URL picks for
+      // themselves: this used to fall back to 'hosted', which quietly answered
+      // Local customers out of the hosted knowledge base, which is the whole
+      // failure this picker exists to prevent. An unanswered question is
+      // better than a confidently wrong one, so submit is blocked until it is set.
+      function currentPlatform(){ var el = document.getElementById('form-platform'); return el ? el.value : ''; }
+      (function(){
+        try {
+          var p = (new URLSearchParams(window.location.search).get('platform') || '').toLowerCase();
+          var el = document.getElementById('form-platform');
+          if (el && (p === 'local' || p === 'hosted')) el.value = p;
+        } catch (e) {}
+      })();
     const STORAGE_EMAIL = 'ghost_support_email';
     const STORAGE_NAME = 'ghost_support_name';
     const STORAGE_TOKEN = 'ghost_support_token';
@@ -968,6 +980,12 @@
         errorEl.classList.add('show');
         return;
       }
+      if (currentPlatform() !== 'hosted' && currentPlatform() !== 'local') {
+        errorEl.textContent = 'Please choose which product you are asking about, so the answer comes from the right place.';
+        errorEl.classList.add('show');
+        document.getElementById('form-platform').focus();
+        return;
+      }
       if (message.length < 20) {
         errorEl.textContent = 'Please add a bit more detail (at least 20 characters).';
         errorEl.classList.add('show');
@@ -999,7 +1017,7 @@
         enterChatScreen({
           source: 'website',
           status: 'active',
-          product: currentPlatform(),
+          product: currentPlatform() === 'local' ? 'local' : 'hosted',
           originalSubject: message.slice(0, 80),
           originalBody: message,
           turnCount: 1,
