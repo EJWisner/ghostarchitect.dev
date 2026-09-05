@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Support: Ghost Architect™</title>
-  <meta name="description" content="Support and help for Ghost Architect™ -- the CLI codebase triage tool and companion mobile app." />
+  <meta name="description" content="Support and help for Ghost Architect™ -- the hosted CLI, the Ghost Architect Mobile app, and Ghost Architect™ Local." />
   <link rel="canonical" href="https://ghostarchitect.dev/support" />
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
@@ -14,6 +14,7 @@
       --surface: #111118;
       --border: #2a2a3a;
       --accent: #4a9eff;
+      --accent-local: #35d6c4;
       --text: #e8e8f0;
       --text-muted: #888899;
       --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
@@ -21,25 +22,19 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.8; }
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(10,10,15,0.92); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem; display: flex; align-items: center; height: 56px;
-    }
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem; }
-    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; }
     .content { max-width: 760px; margin: 0 auto; padding: 4rem 2rem; }
     h1 { font-size: 2rem; margin-bottom: 0.5rem; color: var(--text); }
-    .tagline { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 3rem; font-family: var(--font-mono); }
+    .tagline { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem; font-family: var(--font-mono); }
     h2 { font-size: 1.2rem; color: var(--accent); margin: 2.5rem 0 1rem; font-family: var(--font-mono); }
     h3 { font-size: 1rem; color: var(--text); margin: 1.5rem 0 0.5rem; font-weight: 600; }
     p { margin-bottom: 1rem; color: var(--text); }
     ul { margin: 0 0 1rem 1.5rem; }
     li { margin-bottom: 0.5rem; color: var(--text); }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    .content a, footer a { color: var(--accent); text-decoration: none; }
+    .content a:hover, footer a:hover { text-decoration: underline; }
     code { font-family: var(--font-mono); background: var(--surface); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; border: 1px solid var(--border); }
+    pre { font-family: var(--font-mono); background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 0.9rem 1rem; margin-bottom: 1rem; overflow-x: auto; font-size: 0.85rem; line-height: 1.7; }
+    pre code { background: none; border: none; padding: 0; }
     .contact-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -50,93 +45,284 @@
     .contact-card p { margin-bottom: 0.5rem; }
     .contact-card p:last-child { margin-bottom: 0; }
     .response-time { color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-mono); }
+    .chat-cta {
+      display: inline-block; margin-top: 1rem;
+      background: var(--accent); color: #06121f; font-weight: 700;
+      padding: 0.6rem 1.1rem; border-radius: 6px; text-decoration: none; font-size: 0.9rem;
+    }
+    .chat-cta:hover { text-decoration: none; filter: brightness(1.08); }
+
+    /* ── Product switch ──
+       The site's top nav splits hosted from Local, but Support used to be a
+       single hosted-flavoured page that every Local page linked to, which
+       dropped a Local reader back onto hosted answers. This switch is the
+       page's own copy of that split, and it drives both the FAQ below and
+       the product the support chat opens with. */
+    .product-switch { display: flex; gap: 8px; margin: 0 0 2.5rem; flex-wrap: wrap; }
+    .product-switch a {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border); border-radius: 999px;
+      padding: 0.45rem 0.95rem; font-size: 0.85rem; color: var(--text-muted);
+      background: var(--surface); text-decoration: none; font-family: var(--font-mono);
+    }
+    .product-switch a:hover { text-decoration: none; color: var(--text); }
+    .product-switch a .dot { width: 8px; height: 8px; border-radius: 50%; background: #3a3a4a; }
+    .product-switch a.on { color: var(--text); border-color: var(--accent); }
+    .product-switch a.on .dot { background: var(--accent); }
+    .product-switch a.local.on { border-color: var(--accent-local); }
+    .product-switch a.local.on .dot { background: var(--accent-local); }
+
+    body[data-platform="local"] .content h2 { color: var(--accent-local); }
+    body[data-platform="local"] .content a { color: var(--accent-local); }
+    body[data-platform="local"] .content .chat-cta { background: var(--accent-local); color: #04201d; }
+
+    /* Toggled by the switch. Hidden by default so the page never flashes the
+       wrong product's answers before the script runs. */
+    .for-hosted, .for-local { display: none; }
+    body[data-platform="hosted"] .for-hosted { display: block; }
+    body[data-platform="local"] .for-local { display: block; }
+
+    .callout {
+      border-left: 3px solid var(--accent-local); background: rgba(53,214,196,0.06);
+      padding: 0.9rem 1.1rem; margin: 1.25rem 0; border-radius: 0 6px 6px 0;
+    }
+    .callout p:last-child { margin-bottom: 0; }
     footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 4rem; }
   </style>
-  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260904c" />
+  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260905a" />
 </head>
-<body>
-
+<body data-platform="hosted">
 
 <div id="ga-nav-mount"></div>
 
-
 <div class="content">
   <h1>Support</h1>
-  <p class="tagline">Help for Ghost Architect™ CLI and the Ghost Architect Mobile app.</p>
+  <p class="tagline" id="page-tagline">Help for Ghost Architect™.</p>
+
+  <nav class="product-switch" aria-label="Which product do you need help with?">
+    <a href="/support.html?platform=hosted" class="hosted" id="switch-hosted"><span class="dot"></span>Hosted</a>
+    <a href="/support.html?platform=local" class="local" id="switch-local"><span class="dot"></span>Local</a>
+  </nav>
 
   <h2>// contact</h2>
   <div class="contact-card">
     <p><strong>Email:</strong> <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a></p>
     <p class="response-time">Typical response time: within 1 business day</p>
+    <p><a class="chat-cta" id="chat-cta" href="/support-chat.html">Start a live chat</a></p>
   </div>
 
-  <h2>// ghost architect mobile</h2>
-  <p>Ghost Architect Mobile is the iOS and iPadOS companion app for Ghost Architect™. It gives architects, CTOs, and agency leaders a portfolio view of all their Ghost reports -- remediation progress, critical findings, and estimated cost -- on their phone or tablet.</p>
+  <!-- ══════════════════════ HOSTED ══════════════════════ -->
+  <div class="for-hosted">
 
-  <h3>What does the app do?</h3>
-  <p>Ghost Architect Mobile reads Ghost Architect™ reports from a private GitHub repository and displays them as an interactive portfolio. You can see overall remediation progress across all your projects, drill into any individual project's findings, and present results to stakeholders in a client-ready Present Mode.</p>
+    <h2>// ghost architect cli</h2>
 
-  <h3>Do I need a Ghost Architect™ membership to use the app?</h3>
-  <p>You need Ghost Architect™ Pro, Team, or Enterprise to generate reports that can be published to the mobile app. Ghost Open (the free tier) does not include mobile publishing.</p>
+    <h3>What is Ghost Architect™?</h3>
+    <p>Ghost Architect™ is an AI-powered codebase triage tool that runs locally in your terminal. It reads your codebase, categorizes findings by severity and business impact, estimates remediation cost, and generates reports you can share with clients or stakeholders. It works on any language, any platform, any codebase.</p>
 
-  <h3>How do I connect my own data?</h3>
-  <p>The app uses a GitHub Personal Access Token (PAT) to read reports from a private repository you control. Tap <strong>Settings</strong> in the app, enter your GitHub PAT and repository URL, and your reports will sync. Your PAT is stored only on your device -- it is never transmitted to Ghost Architect™ servers.</p>
+    <h3>How do I install it?</h3>
+    <p>Ghost Open (free tier) is available on npm:</p>
+    <p><code>npm install -g ghost-architect-open</code></p>
+    <p>Ghost Pro, Team, and Enterprise are distributed via private npm with installation instructions delivered after purchase at <a href="/pricing.html">ghostarchitect.dev/pricing</a>.</p>
 
-  <h3>What is Demo Mode?</h3>
-  <p>When you first install the app, you see a seeded demo portfolio with a single example project (<code>meta-for-magento2</code>) showing what Ghost Architect™ reports look like. Demo data stays until you connect your own GitHub repository in Settings. You can revisit Demo Mode at any time from Settings.</p>
+    <h3>What are the requirements?</h3>
+    <ul>
+      <li>Node.js 18 or later</li>
+      <li>An Anthropic API key (BYOK -- Bring Your Own Key)</li>
+      <li>macOS, Windows, or Linux</li>
+    </ul>
 
-  <h3>Why is my report not showing up?</h3>
-  <ul>
-    <li>Confirm your GitHub PAT has <code>repo</code> scope for the repository</li>
-    <li>Confirm the repository contains Ghost Architect report files at the expected path</li>
-    <li>Confirm you are on a Ghost Pro, Team, or Enterprise plan (reports from Ghost Open are not published to the mobile app)</li>
-    <li>Pull down on the portfolio screen to force a refresh</li>
-  </ul>
+    <h3>Is my code sent to your servers?</h3>
+    <p>No. Ghost Architect™ runs entirely on your machine. Your code is sent directly from your machine to the Anthropic API using your own API key -- Ghost Architect™ servers never see your code. See the <a href="/privacy.html">Privacy Policy</a> for details.</p>
 
-  <h2>// ghost architect cli</h2>
+    <h3>My code cannot leave our infrastructure at all. What then?</h3>
+    <p>Then the hosted product is not the right one, and that is what <a href="/local.html?platform=local">Ghost Architect™ Local</a> is for: it runs against a model you host, on your own hardware, with a zero-egress mode. Nothing goes to a model provider because there is no model provider.</p>
 
-  <h3>What is Ghost Architect™?</h3>
-  <p>Ghost Architect™ is an AI-powered codebase triage tool that runs locally in your terminal. It reads your codebase, categorizes findings by severity and business impact, estimates remediation cost, and generates reports you can share with clients or stakeholders. It works on any language, any platform, any codebase.</p>
+    <h2>// ghost architect mobile</h2>
+    <p>Ghost Architect Mobile is the iOS and iPadOS companion app for Ghost Architect™. It gives architects, CTOs, and agency leaders a portfolio view of all their Ghost reports -- remediation progress, critical findings, and estimated cost -- on their phone or tablet.</p>
 
-  <h3>How do I install it?</h3>
-  <p>Ghost Open (free tier) is available on npm:</p>
-  <p><code>npm install -g ghost-architect-open</code></p>
-  <p>Ghost Pro, Team, and Enterprise are distributed via private npm with installation instructions delivered after purchase at <a href="/pricing.html">ghostarchitect.dev/pricing</a>.</p>
+    <h3>What does the app do?</h3>
+    <p>Ghost Architect Mobile reads Ghost Architect™ reports from a private GitHub repository and displays them as an interactive portfolio. You can see overall remediation progress across all your projects, drill into any individual project's findings, and present results to stakeholders in a client-ready Present Mode.</p>
 
-  <h3>What are the requirements?</h3>
-  <ul>
-    <li>Node.js 18 or later</li>
-    <li>An Anthropic API key (BYOK -- Bring Your Own Key)</li>
-    <li>macOS, Windows, or Linux</li>
-  </ul>
+    <h3>Do I need a Ghost Architect™ membership to use the app?</h3>
+    <p>You need Ghost Architect™ Pro, Team, or Enterprise to generate reports that can be published to the mobile app. Ghost Open (the free tier) does not include mobile publishing.</p>
 
-  <h3>Is my code sent to your servers?</h3>
-  <p>No. Ghost Architect™ runs entirely on your machine. Your code is sent directly from your machine to the Anthropic API using your own API key -- Ghost Architect™ servers never see your code. See the <a href="/privacy.html">Privacy Policy</a> for details.</p>
+    <h3>How do I connect my own data?</h3>
+    <p>The app uses a GitHub Personal Access Token (PAT) to read reports from a private repository you control. Tap <strong>Settings</strong> in the app, enter your GitHub PAT and repository URL, and your reports will sync. Your PAT is stored only on your device -- it is never transmitted to Ghost Architect™ servers.</p>
 
-  <h2>// billing and memberships</h2>
+    <h3>What is Demo Mode?</h3>
+    <p>When you first install the app, you see a seeded demo portfolio with a single example project (<code>meta-for-magento2</code>) showing what Ghost Architect™ reports look like. Demo data stays until you connect your own GitHub repository in Settings. You can revisit Demo Mode at any time from Settings.</p>
 
-  <h3>How do I cancel my membership?</h3>
-  <p>Ghost Architect™ Pro, Team, and Enterprise memberships are managed through Stripe. You will receive a billing portal link in your purchase confirmation email. If you cannot locate the link, email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> and we will send you one.</p>
+    <h3>Why is my report not showing up?</h3>
+    <ul>
+      <li>Confirm your GitHub PAT has <code>repo</code> scope for the repository</li>
+      <li>Confirm the repository contains Ghost Architect report files at the expected path</li>
+      <li>Confirm you are on a Ghost Pro, Team, or Enterprise plan (reports from Ghost Open are not published to the mobile app)</li>
+      <li>Pull down on the portfolio screen to force a refresh</li>
+    </ul>
 
-  <h3>Do you offer refunds?</h3>
-  <p>Refund requests are handled on a case-by-case basis. Contact <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with your membership details and we will work with you directly.</p>
+    <h2>// billing and memberships</h2>
 
+    <h3>How do I cancel my membership?</h3>
+    <p>Ghost Architect™ Pro, Team, and Enterprise memberships are managed through Stripe. You will receive a billing portal link in your purchase confirmation email. If you cannot locate the link, email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> and we will send you one.</p>
+
+    <h3>Do you offer refunds?</h3>
+    <p>Refund requests are handled on a case-by-case basis. Contact <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with your membership details and we will work with you directly.</p>
+
+  </div>
+
+  <!-- ══════════════════════ LOCAL ══════════════════════ -->
+  <div class="for-local">
+
+    <h2>// what ghost architect™ local is</h2>
+    <p>Ghost Architect™ Local is the LAN-deployed edition. Every scan runs against a model server you host yourself, on a machine you own. Your code is read from your disk, analysed by your model, and written to reports on your machines.</p>
+
+    <div class="callout">
+      <p><strong>It is a different product from the hosted one.</strong> Local is not on npm, does not use a frontier model, and does not need an Anthropic API key. If you installed something with <code>npm install -g ghost-architect-open</code>, that is the hosted product, not Local.</p>
+    </div>
+
+    <h2>// getting it</h2>
+
+    <h3>How do I get the download?</h3>
+    <p>Local is delivered directly by us, not through a public package registry. Fill in the form on the <a href="/download.html?platform=local">download page</a> and EJ replies with the link, or with access to the delivery repository, usually the same day. If you already have repository access:</p>
+    <pre><code>gh release download v7.0.4 --repo EJWisner/ghost-local-delivery</code></pre>
+
+    <h3>How do I verify the tarball before I install it?</h3>
+    <p>The file is about to become a global command on your machine, so check it first:</p>
+    <pre><code>shasum -a 256 ghost-architect-local-7.0.4.tgz</code></pre>
+    <p>On Windows PowerShell: <code>Get-FileHash -Algorithm SHA256 ghost-architect-local-7.0.4.tgz</code></p>
+    <p>Expected for 7.0.4: <code>12b6d385a7f4f9140c0378064a6c1235fed19f6729275e65759041d5a9e9d8fb</code></p>
+    <p>If the hash does not match, stop. Do not install it. Email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with what you got.</p>
+
+    <h2>// requirements</h2>
+    <ul>
+      <li>macOS 13 or later, Linux, or Windows 10 or later. The installer checks the OS floor and stops below it rather than guessing.</li>
+      <li>Node.js 24 or later. The installer checks for it and does not install it.</li>
+      <li>A model server on your network with a model pulled: Ollama, vLLM, LM Studio, Jan.ai, or any OpenAI-compatible endpoint. Our own estate runs <code>qwen3:14b</code> on Ollama.</li>
+      <li>Roughly 20 GB of disk for a code-capable model.</li>
+      <li>A second machine only if you want the fleet view. Any of the three platforms can be a spoke.</li>
+    </ul>
+    <p>The installer does not install Node.js, Homebrew or Ollama for you. It checks for them and stops with a single list of what is missing.</p>
+
+    <h2>// installing</h2>
+    <p>Everything happens inside the directory you unpack. Keep that directory: the global <code>ghost</code> command links into it rather than copying it.</p>
+    <pre><code>tar -xzf ghost-architect-local-7.0.4.tgz
+cd package
+bash install/setup.sh              # macOS
+sudo bash install/setup-linux.sh   # Linux
+.\install\setup.ps1                # Windows, elevated PowerShell</code></pre>
+    <p>The installer tells you the three things it changes on your machine before it changes them, and the full guide, <code>INSTALL.md</code>, is in the directory you just unpacked.</p>
+
+    <h3>How do I upgrade?</h3>
+    <p>Re-running the installer is the supported upgrade path. Your service account, data root and signing key are left alone.</p>
+
+    <h3>Is the Windows installer safe to use?</h3>
+    <p>Honest answer: it ships covered by tests but has not yet been run on a real Windows machine, and says so in its own header. Treat a Windows install as a first run and send us the console output either way.</p>
+
+    <h2>// first run and the evaluation trial</h2>
+    <p>Run <code>ghost</code>. The evaluation trial starts on first use, registered against that install, and the product tells you the day it ends. No card, no account.</p>
+    <p>Start with Recon: one planner call that sizes the codebase and tells you what a full scan would read, how many passes, and how long, with the basis of that estimate printed beside the number.</p>
+    <p>Then open the portal it prints (<code>https://localhost:3443</code> by default) for the Fleet page, the queue, LLM Status and the reports.</p>
+    <p>To keep it, convert from inside the product during the evaluation. The licence arrives by email, signed, and activates against that install.</p>
+
+    <h2>// hub and spokes</h2>
+
+    <h3>What is the difference?</h3>
+    <p>One machine is the <strong>hub</strong>: it holds the model server, the user roster, the licence, the portal and the queue. Every other machine is a <strong>spoke</strong>. A spoke runs scans and reports them back, and its model calls relay to the hub's model server over your LAN, so a spoke does not need its own model. A solo installation is just a hub.</p>
+
+    <h3>How do I add a machine?</h3>
+    <p>Enrol it from Admin Console on the hub. On the new machine, run <code>ghost</code>, choose Spoke, and enter the hub address plus the activation token from your admin.</p>
+
+    <h3>What do the roles mean?</h3>
+    <ul>
+      <li><strong>admin</strong> and <strong>architect</strong> see the full portal</li>
+      <li><strong>developer</strong> works with assigned projects</li>
+      <li><strong>viewer</strong> sees project health and reports</li>
+      <li><strong>auditor</strong> sees the audit log and compliance exports</li>
+    </ul>
+
+    <h2>// the portal says "not secure"</h2>
+    <p>That is expected on a first visit, and please do not just click through it. Your hub generates its own TLS certificate at install time, and a browser will not trust it until you tell it to. The connection is encrypted either way; what the browser cannot confirm yet is your hub's identity.</p>
+    <p>Admin Console, System Settings, TLS prints the exact commands with your own hub address already filled in, and <code>docs/PORTAL-CERTIFICATE.md</code> in your install has the steps for macOS, Windows and Linux. It takes about two minutes per machine. A certificate from your own internal CA removes the step entirely.</p>
+
+    <h2>// zero egress</h2>
+
+    <h3>Does anything leave my network?</h3>
+    <p>One call, once: licence activation sends the licence key and an install id to ghostarchitect.dev and gets a signed licence back. Nothing from your codebase is in it. After that you can turn on zero-egress mode and the product refuses every internet-bound destination at the code level.</p>
+    <p>What stays reachable under zero egress are the LAN destinations you control: your model endpoint, your SMTP relay, your SIEM collector, and hub-to-spoke traffic between your own machines. Those do need to actually be on your network for the containment to hold.</p>
+
+    <h3>How do I know what it can send?</h3>
+    <p>Look in the product, not at a page like this one: <strong>Admin Console, System Settings, Egress Inventory</strong> lists every vector, its current on/off status, exactly what it would send, and how to turn it off. That screen is generated from the same code that gates the traffic, so it cannot drift from reality the way documentation can.</p>
+
+    <h3>Activation fails with zero egress on. Is that a bug?</h3>
+    <p>No, that is the design. Licence key activation is an outbound call, so zero egress blocks it and the product says so directly. Install the signed licence file instead:</p>
+    <pre><code>ghost --install-license /path/to/license.json</code></pre>
+    <p>Ask us for the file rather than turning zero egress off.</p>
+
+    <h2>// licences</h2>
+
+    <h3>How do I install a purchased licence?</h3>
+    <p>Two paths, both ending with a signed <code>license.json</code> in your data root, after which licence checks run fully offline. With outbound access: run <code>ghost</code>, open Admin Console, then License Management, and enter your key. Fully offline: we send you the signed file and you run <code>ghost --install-license</code>.</p>
+
+    <h3>What does it cost?</h3>
+    <p>Local is an annual licence with no per-token bill. Current terms are on the <a href="/pricing.html#local">pricing page</a>, and for anything that turns on team size, departments or seats, email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> and EJ will confirm it for your situation directly rather than have you work it out from a table.</p>
+
+    <h2>// if something goes wrong</h2>
+    <ul>
+      <li><code>ghost --version</code> confirms the CLI is installed and on your PATH.</li>
+      <li><code>logs/portal.log</code> in your data root (usually <code>~/.ghost-local/logs/portal.log</code>) is the first place to look if the portal address does not answer. It holds both the portal's output and its errors.</li>
+      <li><code>logs/scheduler.log</code> is where to look if a scheduled job did not run.</li>
+      <li>If the installer's self-test failed, the product is installed and your model provider is the thing to look at. That is why the installer says so rather than claiming a broken install.</li>
+    </ul>
+    <p>Anything else: email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> and include the installer output, or start a chat above with the product set to Local.</p>
+
+  </div>
+
+  <!-- ══════════════════════ BOTH ══════════════════════ -->
   <h2>// bug reports and feature requests</h2>
-  <p>For all tiers (Ghost Open, Pro, Team, Enterprise, and Ghost Architect Mobile), email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with:</p>
+  <p>Email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with:</p>
   <ul>
     <li>A clear description of the issue or requested feature</li>
-    <li>Your Ghost Architect™ version (run <code>ghost --version</code> in the CLI)</li>
+    <li>Which product you are on, hosted or Local</li>
+    <li>Your version (run <code>ghost --version</code>)</li>
     <li>Your operating system</li>
     <li>Any relevant error messages or screenshots</li>
   </ul>
 
   <h2>// security disclosures</h2>
-  <p>If you discover a security issue in Ghost Architect™, please disclose it responsibly by emailing <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with "SECURITY" in the subject line.</p>
+  <p>If you discover a security issue in Ghost Architect™, please disclose it responsibly by emailing <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with "SECURITY" in the subject line. Security reports are never handled by the automated support agent; they go to EJ directly.</p>
 
 </div>
 <footer>
   © 2026 Ghost Architect™. All rights reserved. · <a href="/">Home</a> · <a href="/privacy.html">Privacy</a> · <a href="/pricing.html">Pricing</a>
 </footer>
-<script src="/assets/ga-nav.js?v=20260904c" defer></script>
+
+<script>
+  // Which product this page is answering about. Reads ?platform=local (what
+  // the Local nav links here with, and what ga-nav.js already uses to keep the
+  // Local side of the top nav lit), or #local. Everything else is hosted.
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var raw = (params.get('platform') || '').toLowerCase();
+    if (!raw && window.location.hash === '#local') raw = 'local';
+    var platform = raw === 'local' ? 'local' : 'hosted';
+
+    document.body.setAttribute('data-platform', platform);
+
+    document.getElementById('switch-' + platform).classList.add('on');
+
+    document.getElementById('page-tagline').textContent = platform === 'local'
+      ? 'Help for Ghost Architect™ Local: your hardware, your model, your network.'
+      : 'Help for Ghost Architect™ CLI and the Ghost Architect Mobile app.';
+
+    // Hand the chat the product too, so the agent answers out of the right
+    // knowledge base instead of guessing from the question.
+    document.getElementById('chat-cta').href = '/support-chat.html?platform=' + platform;
+
+    document.title = platform === 'local'
+      ? 'Support: Ghost Architect™ Local'
+      : 'Support: Ghost Architect™';
+  })();
+</script>
+<script src="/assets/ga-nav.js?v=20260905a" defer></script>
 </body>
 </html>

@@ -453,6 +453,22 @@
       text-align: center;
     }
 
+    /* Which product this conversation is answering about. Always visible in
+       the chat, because the agent's answer is only correct relative to it. */
+    .product-bar {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      padding: 9px 14px; margin: 0 0 2px;
+      background: #0d0d14; border-bottom: 1px solid #1e1e2c;
+      font-size: 12px; color: var(--text-secondary);
+    }
+    .product-bar-label { letter-spacing: 0.06em; text-transform: uppercase; font-size: 10px; color: var(--text-tertiary); }
+    .product-bar select {
+      background: #0a0a0f; color: #e8e8f0; border: 1px solid #2a2a3a;
+      border-radius: 6px; padding: 4px 8px; font: inherit; font-size: 12px; cursor: pointer;
+    }
+    .product-bar-note { font-size: 11px; color: var(--text-tertiary); }
+    .product-bar-note.saved { color: #7ee0a8; }
+
     .footer-tag {
       text-align: center;
       font-size: 9px;
@@ -542,6 +558,18 @@
 
     <!-- ── Chat ── -->
     <div class="screen" id="screen-chat">
+      <!-- The agent answers out of one edition's knowledge base. Show which,
+           and let the customer correct it without losing the conversation:
+           POST /chat-set-product switches the knowledge for the next turn. -->
+      <div class="product-bar" id="product-bar">
+        <span class="product-bar-label">Answering about</span>
+        <select id="chat-product" aria-label="Which product this conversation is about">
+          <option value="hosted">Ghost Architect™ (hosted)</option>
+          <option value="local">Ghost Architect™ Local</option>
+        </select>
+        <span class="product-bar-note" id="product-bar-note"></span>
+      </div>
+
       <div class="question-card" id="question-card" style="display:none;">
         <div class="question-card-header" id="question-card-header">
           <div>
@@ -604,6 +632,56 @@
       document.querySelectorAll('.screen').forEach(el => el.classList.remove('show'));
       $(id).classList.add('show');
     }
+
+    // ── Which edition this conversation is answering about ──
+    // Set from the session on load, changeable mid-conversation. The worker
+    // keeps the transcript and tells the agent on the next turn that earlier
+    // answers were written for the other edition, so nothing is lost and
+    // nothing silently contradicts itself.
+    var currentProduct = 'hosted';
+
+    function setChatProduct(product) {
+      currentProduct = (product === 'local') ? 'local' : 'hosted';
+      var el = document.getElementById('chat-product');
+      if (el) el.value = currentProduct;
+      setProductNote('');
+    }
+
+    function setProductNote(text, saved) {
+      var el = document.getElementById('product-bar-note');
+      if (!el) return;
+      el.textContent = text || '';
+      el.classList.toggle('saved', !!saved);
+    }
+
+    (function () {
+      var el = document.getElementById('chat-product');
+      if (!el) return;
+      el.addEventListener('change', async function () {
+        var next = el.value === 'local' ? 'local' : 'hosted';
+        if (!currentToken) { currentProduct = next; return; }
+        var previous = currentProduct;
+        el.disabled = true;
+        setProductNote('Switching…');
+        try {
+          const res = await fetch(`${API_BASE}/chat-set-product`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: currentToken, product: next }),
+          });
+          const data = await res.json();
+          if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
+          currentProduct = next;
+          setProductNote('Switched. Ask your question again and I will answer for this product.', true);
+        } catch (err) {
+          console.error('[support-chat] product switch failed:', err);
+          el.value = previous;
+          setProductNote('Could not switch just now. Try again in a moment.');
+        } finally {
+          el.disabled = false;
+        }
+      });
+    })();
 
     function setStatus(state, text) {
       const dot = $('status-dot');
@@ -735,6 +813,7 @@
     function enterChatScreen(session, token) {
       currentToken = token;
       sessionSource = session.source;
+      setChatProduct(session.product);
       turnCount = session.turnCount || 0;
       chatTerminalKind = null;
       localStorage.setItem(STORAGE_TOKEN, token);
@@ -920,6 +999,7 @@
         enterChatScreen({
           source: 'website',
           status: 'active',
+          product: currentPlatform(),
           originalSubject: message.slice(0, 80),
           originalBody: message,
           turnCount: 1,
@@ -974,7 +1054,7 @@
         const res = await fetch(`${API_BASE}/chat-start`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, message: text, previousChatToken, platform: currentPlatform() }),
+          body: JSON.stringify({ name, email, message: text, previousChatToken, platform: currentProduct }),
         });
         const data = await res.json();
         removeTypingIndicator();
@@ -982,6 +1062,7 @@
 
         currentToken = data.chatToken;
         chatTerminalKind = null;
+        setChatProduct(currentProduct);
         turnCount = 1;
         localStorage.setItem(STORAGE_TOKEN, data.chatToken);
 

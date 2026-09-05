@@ -38,6 +38,13 @@
     || /[?&]platform=local\b/.test(window.location.search)
     || window.location.hash === '#local'
     || path.indexOf('/blog/ghost-local-') === 0;
+
+  // Support is the only Resources destination whose CONTENT is product
+  // specific (support.html reads ?platform=local). Every other nav link is
+  // the same page for both products, so only this one carries the side the
+  // reader is already on. Without it, the Support link on a Local page
+  // silently hands them hosted answers.
+  var supportHref = '/support.html' + (isLocalPage ? '?platform=local' : '');
   var switchHtml = ''
     + '<div class="ga-product-switch" role="navigation" aria-label="Choose a product">'
     + '  <a href="/#hosted" class="ga-product hosted' + (isLocalPage ? '' : ' on') + '" title="Ghost Architect: hosted model, pay per seat"><span class="dot"></span>Hosted</a>'
@@ -125,6 +132,10 @@
     + '          <div class="title">Download &amp; install</div>'
     + '          <div class="desc">The tarball, its SHA-256, and the installer, step by step.</div>'
     + '        </a>'
+    + '        <a href="/support.html?platform=local" class="ga-dropdown-item">'
+    + '          <div class="title">Local support</div>'
+    + '          <div class="desc">Install, hub and spokes, zero egress, licences. Plus live chat set to Local.</div>'
+    + '        </a>'
     + '        <a href="/security.html#local" class="ga-dropdown-item">'
     + '          <div class="title">Zero egress, proven</div>'
     + '          <div class="desc">What leaves your network (nothing) and the inventory the product prints to prove it.</div>'
@@ -202,7 +213,7 @@
     + '          <div class="title">FAQ</div>'
     + '          <div class="desc">Common questions answered.</div>'
     + '        </a>'
-    + '        <a href="/support.html" class="ga-dropdown-item' + (isActive('/support') || isActive('/support.html') ? ' active' : '') + '">'
+    + '        <a href="' + supportHref + '" class="ga-dropdown-item' + (isActive('/support') || isActive('/support.html') ? ' active' : '') + '">'
     + '          <div class="title">Support</div>'
     + '          <div class="desc">Contact, docs, status.</div>'
     + '        </a>'
@@ -287,7 +298,7 @@
     + '      <a href="/blog.html"' + (isActive('/blog.html') ? ' class="active"' : '') + '>Blog</a>'
     + '      <a href="/changelog.html"' + (isActive('/changelog.html') || isActive('/changelog') ? ' class="active"' : '') + '>Changelog</a>'
     + '      <a href="/#faq">FAQ</a>'
-    + '      <a href="/support.html"' + (isActive('/support') || isActive('/support.html') ? ' class="active"' : '') + '>Support</a>'
+    + '      <a href="' + supportHref + '"' + (isActive('/support') || isActive('/support.html') ? ' class="active"' : '') + '>Support</a>'
     + '    </div>'
     + '  </div>'
     // EJ, from his phone, 23:03: with Local lit in the switch, See Plans must land on
