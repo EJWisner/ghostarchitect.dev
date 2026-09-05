@@ -45,6 +45,10 @@
   // reader is already on. Without it, the Support link on a Local page
   // silently hands them hosted answers.
   var supportHref = '/support.html' + (isLocalPage ? '?platform=local' : '');
+  // "Contact & Support" is the most-used way into support, and its form asks
+  // for a version and a tier that differ per product, so it needs the side the
+  // reader is on just as much as the FAQ does.
+  var contactHref = '/contact.html' + (isLocalPage ? '?platform=local' : '');
   var switchHtml = ''
     + '<div class="ga-product-switch" role="navigation" aria-label="Choose a product">'
     + '  <a href="/#hosted" class="ga-product hosted' + (isLocalPage ? '' : ' on') + '" title="Ghost Architect: hosted model, pay per seat"><span class="dot"></span>Hosted</a>'
@@ -183,7 +187,7 @@
 
     // ── CONTACT (flat) ──
     + '    <li class="ga-nav-item">'
-    + '      <a href="/contact.html" class="ga-nav-link' + (isActive('/contact') || isActive('/contact.html') ? ' active' : '') + '">Contact &amp; Support</a>'
+    + '      <a href="' + contactHref + '" class="ga-nav-link' + (isActive('/contact') || isActive('/contact.html') ? ' active' : '') + '">Contact &amp; Support</a>'
     + '    </li>'
 
     // ── RESOURCES dropdown ──
@@ -286,7 +290,7 @@
     + '    </div>'
     + '  </div>'
     + '  <a href="/pricing.html" class="ga-mobile-flat-link' + (isActive('/pricing') || isActive('/pricing.html') ? ' active' : '') + '">Pricing</a>'
-    + '  <a href="/contact.html" class="ga-mobile-flat-link' + (isActive('/contact') || isActive('/contact.html') ? ' active' : '') + '">Contact &amp; Support</a>'
+    + '  <a href="' + contactHref + '" class="ga-mobile-flat-link' + (isActive('/contact') || isActive('/contact.html') ? ' active' : '') + '">Contact &amp; Support</a>'
     + '  <div class="ga-mobile-group' + (activeGroup === 'resources' ? ' open' : '') + '" data-mobile-group>'
     + '    <button class="ga-mobile-group-header">'
     + '      Resources'
