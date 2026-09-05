@@ -413,6 +413,10 @@
     .badge-hosted { background: rgba(74, 158, 255, 0.15); color: #4a9eff; }
     .badge-local { background: rgba(53, 214, 196, 0.15); color: #35d6c4; }
     .badge-unknown { background: rgba(136, 136, 153, 0.13); color: #888899; }
+    /* Answered from an approved entry, so it cost nothing and said exactly
+       what Ernst approved. Worth seeing at a glance: it is the payoff for
+       every entry promoted to the knowledge base. */
+    .badge-kb { background: rgba(0, 229, 168, 0.13); color: #00e5a8; }
 
     .metric-clickable {
       cursor: pointer;
@@ -2196,6 +2200,7 @@
             <div class="exchange-top-left">
               <span class="badge badge-chat">CHAT</span>
               ${productBadge(r)}
+              ${r.lastAnswerKbEntryId ? `<span class="badge badge-kb" title="Answered from ${escapeHtml(r.lastAnswerKbEntryId)} -- no model call, no cost">KB</span>` : ''}
               <span class="exchange-layer chat-status-text">${escapeHtml(r.chatStatus || '')}</span>
               <span class="exchange-layer">${r.turnCount || 0} turns</span>
             </div>
@@ -2675,6 +2680,9 @@
         const messages = sessionData.session.messages || [];
         const lastAssistant = [...messages].reverse().find(m => m.role === 'assistant');
         if (!lastAssistant) throw new Error('no assistant reply found in this chat');
+        if (lastAssistant.kbEntryId) {
+          throw new Error(`that reply already came from ${lastAssistant.kbEntryId} -- edit that entry instead of adding a duplicate`);
+        }
 
         // Default to the edition this conversation was actually answered
         // under, so the common case is one click and correct. Still editable:
