@@ -469,6 +469,29 @@
     .product-bar-note { font-size: 11px; color: var(--text-tertiary); }
     .product-bar-note.saved { color: #7ee0a8; }
 
+    /* Ghost Architect(TM) Local reveal, shown on the Welcome back screen to
+       returning LOCAL customers only. The animation carries the word Local, so
+       putting it in front of a hosted customer would be the same cross-product
+       bleed the product picker exists to prevent, just visual instead of
+       textual. Hidden by default and only revealed once the stored product
+       says local. */
+    .resume-reveal { display: none; margin: 0 auto 1.25rem; width: 168px; max-width: 46vw; }
+    .resume-reveal video, .resume-reveal img {
+      display: block; width: 100%; height: auto; border-radius: 12px;
+      border: 1px solid #1e1e2c; background: #05050a;
+    }
+    .resume-reveal.show { display: block; }
+    /* Default: the video plays and the still is out of the way. This pair must
+       come BEFORE the media query below, or the later flat rule wins on equal
+       specificity and reduced-motion users are left with nothing at all. */
+    .resume-reveal img { display: none; }
+    /* Anyone who has asked for less motion gets the finished frame, not a
+       6-second animation they did not want on a support page. */
+    @media (prefers-reduced-motion: reduce) {
+      .resume-reveal video { display: none; }
+      .resume-reveal img { display: block; }
+    }
+
     .footer-tag {
       text-align: center;
       font-size: 9px;
@@ -536,6 +559,12 @@
     <!-- ── Resume prompt ── -->
     <div class="screen" id="screen-resume">
       <div class="center-screen">
+        <div class="resume-reveal" id="resume-reveal">
+          <video id="resume-reveal-video" muted playsinline preload="none"
+                 aria-label="Ghost Architect Local"></video>
+          <img id="resume-reveal-poster" alt="Ghost Architect Local"
+               data-src="/assets/ghost-local-reveal-poster.jpg?v=1" />
+        </div>
         <div class="center-title" id="resume-title">Welcome back.</div>
         <div class="center-body">Would you like to continue your previous conversation?</div>
         <div class="btn-row">
@@ -619,6 +648,61 @@
     const STORAGE_EMAIL = 'ghost_support_email';
     const STORAGE_NAME = 'ghost_support_name';
     const STORAGE_TOKEN = 'ghost_support_token';
+    // Remembered so the Welcome back screen knows which product this returning
+    // customer is on before anything is fetched. Without it the screen would
+    // have to wait on /chat-session to decide what to render.
+    const STORAGE_PRODUCT = 'ghost_support_product';
+
+    function rememberProduct(p) {
+      try { if (p === 'local' || p === 'hosted') localStorage.setItem(STORAGE_PRODUCT, p); } catch (e) {}
+    }
+    function storedProduct() {
+      try { return localStorage.getItem(STORAGE_PRODUCT) || ''; } catch (e) { return ''; }
+    }
+
+    // The reveal carries the word Local, so only a returning Local customer
+    // sees it. The video src is attached here rather than in the markup, so a
+    // hosted customer never downloads a file that is not for them.
+    function maybeShowResumeReveal() {
+      var wrap = document.getElementById('resume-reveal');
+      if (!wrap) return;
+      var isLocal = storedProduct() === 'local';
+      wrap.classList.toggle('show', isLocal);
+      if (!isLocal) return;
+
+      // Attach the poster only now, for the same reason as the video below.
+      var poster = document.getElementById('resume-reveal-poster');
+      if (poster && !poster.getAttribute('src')) {
+        poster.setAttribute('src', poster.getAttribute('data-src'));
+      }
+
+      var reduced = false;
+      try { reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+      if (reduced) return;  // CSS shows the finished frame instead; no video download
+
+      var v = document.getElementById('resume-reveal-video');
+      if (!v) return;
+      if (!v.dataset.loaded) {
+        v.setAttribute('poster', '/assets/ghost-local-reveal-poster.jpg?v=1');
+        // MP4 first: it is the smaller file and every mainstream browser
+        // decodes H.264. The WebM is only fetched by a browser that cannot,
+        // and a browser that can play neither simply keeps showing the poster.
+        [['/assets/ghost-local-reveal.mp4?v=1', 'video/mp4'],
+         ['/assets/ghost-local-reveal.webm?v=1', 'video/webm']].forEach(function (pair) {
+          var src = document.createElement('source');
+          src.setAttribute('src', pair[0]);
+          src.setAttribute('type', pair[1]);
+          v.appendChild(src);
+        });
+        v.dataset.loaded = '1';
+        v.load();
+      }
+      try {
+        v.currentTime = 0;
+        var played = v.play();
+        if (played && played.catch) played.catch(function () {});  // blocked autoplay leaves the poster
+      } catch (e) {}
+    }
     const FORM_MESSAGE_LIMIT = 2000;
     const CHAT_INPUT_LIMIT = 1000;
 
@@ -654,6 +738,7 @@
 
     function setChatProduct(product) {
       currentProduct = (product === 'local') ? 'local' : 'hosted';
+      rememberProduct(currentProduct);
       var el = document.getElementById('chat-product');
       if (el) el.value = currentProduct;
       setProductNote('');
@@ -950,6 +1035,7 @@
       if (emailLookupToken) {
         $('resume-title').textContent = 'We found an existing conversation for this email.';
         showScreen('screen-resume');
+        maybeShowResumeReveal();
         $('resume-yes').onclick = () => loadSessionByToken(emailLookupToken);
         $('resume-no').onclick = () => { emailLookupToken = null; showScreen('screen-form'); };
       }
@@ -1012,6 +1098,7 @@
 
         localStorage.setItem(STORAGE_EMAIL, email);
         localStorage.setItem(STORAGE_NAME, name);
+        rememberProduct(currentPlatform());
         localStorage.setItem(STORAGE_TOKEN, data.chatToken);
 
         enterChatScreen({
@@ -1207,6 +1294,7 @@
       if (storedToken) {
         $('resume-title').textContent = storedName ? `Welcome back, ${storedName}.` : 'Welcome back.';
         showScreen('screen-resume');
+        maybeShowResumeReveal();
         $('resume-yes').onclick = async () => {
           const ok = await loadSessionByToken(storedToken, { silent: true });
           if (!ok) {
