@@ -851,7 +851,13 @@
         .replace(/\*\*(?=\S)([\s\S]*?\S)\*\*/g, '$1')
         .replace(/__(?=\S)([\s\S]*?\S)__/g, '$1')
         .replace(/^\s{0,3}#{1,6}\s+/gm, '')
-        .replace(/^(\s*)\*\s+/gm, '$1- ');
+        .replace(/^(\s*)\*\s+/gm, '$1- ')
+        // Inline code spans. The prompt asks for bare commands, but a model
+        // reaching for `ghost --version` is a habit no rule fully removes, and
+        // a stray backtick in a support reply looks like a typo. Fenced blocks
+        // (three backticks) are left alone: those carry real formatting intent
+        // and stripping them would run the code into the prose.
+        .replace(/(^|[^`])`([^`\n]+)`(?!`)/g, '$1$2');
     }
 
     function appendMessage(role, text, timestamp) {
