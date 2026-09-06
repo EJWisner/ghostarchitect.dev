@@ -741,6 +741,68 @@
     }
     .kb-trigger-input:focus { border-color: var(--cyan); }
 
+    /* Shown whenever a token is missing. Before this, dismissing the prompt
+       left the page loaded, empty, and with no way back in: the prompt fires
+       only on load, so the sole recovery was knowing to refresh. On a phone
+       Cancel is easy to hit by accident, and a returning user on a new device
+       hits it first. */
+    .lock-banner {
+      display: none;
+      /* Above .error-overlay (z-index 10), which covers everything below the
+         titlebar whenever a fetch fails. Found by driving the page rather than
+         reading it: with no network the overlay swallowed the unlock button,
+         so the one control that exists to be reachable when things are wrong
+         was unreachable exactly then. */
+      position: relative;
+      z-index: 20;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: rgba(224, 115, 64, 0.12);
+      border-bottom: 1px solid rgba(224, 115, 64, 0.3);
+      padding: 10px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #e07340;
+      text-align: center;
+    }
+    .lock-banner.is-locked { display: flex; }
+    .unlock-btn {
+      background: rgba(224, 115, 64, 0.18);
+      border: 1px solid rgba(224, 115, 64, 0.55);
+      border-radius: 20px;
+      /* 44px min height: this is tapped on a phone, and the prompt it reopens
+         is the whole point of the banner. */
+      min-height: 44px;
+      padding: 10px 18px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ffb98d;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .unlock-btn:hover { background: rgba(224, 115, 64, 0.3); }
+    /* Always available, so a token that is wrong rather than missing can be
+       replaced without opening a console. */
+    .relock-btn {
+      background: none;
+      border: none;
+      padding: 4px 6px;
+      font-family: inherit;
+      font-size: 9px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      text-decoration: underline;
+      opacity: 0.7;
+    }
+    .relock-btn:hover { opacity: 1; }
     .notif-btn {
       display: inline-flex;
       align-items: center;
@@ -786,7 +848,15 @@
           <div class="brand-mark"></div>
           <span class="brand-text">GHOST PULSE</span>
         </div>
-        <div class="refresh-pill" id="refresh-pill">LIVE · 60S</div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button class="relock-btn" id="relock-btn" type="button" title="Replace the tokens stored in this browser">Tokens</button>
+          <div class="refresh-pill" id="refresh-pill">LIVE · 60S</div>
+        </div>
+      </div>
+
+      <div class="lock-banner" id="lock-banner">
+        <span id="lock-banner-text">Ghost Pulse is locked.</span>
+        <button class="unlock-btn" id="unlock-btn" type="button">Enter tokens</button>
       </div>
 
       <div id="promo-banner" style="display:none; background: rgba(224,115,64,0.12); border-bottom: 1px solid rgba(224,115,64,0.3); padding: 8px 20px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #e07340; text-align: center;"></div>
@@ -2034,24 +2104,59 @@
       location.reload();
     }
 
+    function missingPulseSecrets() {
+      return Object.keys(PULSE_SECRET_KEYS).filter(k => !pulseSecret(k));
+    }
+
+    // The banner is the way back in. unlockPulse() prompts only on load, so
+    // before this a dismissed prompt left the page empty with no affordance to
+    // reopen it and no hint that a refresh was the answer.
+    function renderLockState() {
+      var banner = document.getElementById('lock-banner');
+      if (!banner) return;
+      var missing = missingPulseSecrets();
+      banner.classList.toggle('is-locked', missing.length > 0);
+      if (!missing.length) return;
+      var names = {
+        support: 'the support token',
+        pulse: 'the watcher token',
+      };
+      document.getElementById('lock-banner-text').textContent =
+        missing.length === 2
+          ? 'Ghost Pulse is locked. Both tokens are needed on this device.'
+          : 'Ghost Pulse is partly locked: ' + names[missing[0]] + ' is not entered on this device.';
+    }
+
     // Asks once per browser, before anything tries to use a token. Returns
     // false when the prompt is dismissed, and the page then simply shows no
     // admin data rather than firing a wall of 401s.
-    function unlockPulse() {
-      var missing = Object.keys(PULSE_SECRET_KEYS).filter(k => !pulseSecret(k));
-      if (missing.length === 0) return true;
+    // force: ask for every token, including ones already stored, so a token
+    // that is WRONG rather than missing can be replaced from the page.
+    function unlockPulse(force) {
+      var keys = force ? Object.keys(PULSE_SECRET_KEYS) : missingPulseSecrets();
+      if (keys.length === 0) return true;
       var label = {
         support: 'SUPPORT_ADMIN_TOKEN (support inbox, chats, knowledge base)',
         pulse: 'PULSE_TOKEN (watcher stats, push notifications)',
       };
-      for (var i = 0; i < missing.length; i++) {
-        var key = missing[i];
-        var value = window.prompt('Ghost Pulse is locked.\n\nPaste ' + label[key] + ':');
-        if (!value || !value.trim()) return false;
-        try { localStorage.setItem(PULSE_SECRET_KEYS[key], value.trim()); } catch (e) {}
+      var stored = 0;
+      for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+        var value = window.prompt(
+          'Ghost Pulse (' + (i + 1) + ' of ' + keys.length + ')\n\nPaste ' + label[key] + ':'
+        );
+        // Cancelling ONE no longer abandons the rest. Dismissing the support
+        // prompt used to skip the watcher prompt entirely, so a user who wanted
+        // to enter only one of them could not.
+        if (!value || !value.trim()) continue;
+        try { localStorage.setItem(PULSE_SECRET_KEYS[key], value.trim()); stored++; } catch (e) {}
       }
-      location.reload();   // re-read the constants with the values now present
-      return true;
+      if (stored > 0) {
+        location.reload();  // re-read the constants with the values now present
+        return true;
+      }
+      renderLockState();
+      return false;
     }
 
     // ── Support inbox section ───────────────────────────────────────────
@@ -2966,6 +3071,16 @@
     // leaves the page loaded but without admin data, which is a better failure
     // than a wall of 401s.
     unlockPulse();
+    renderLockState();
+    document.getElementById('unlock-btn').addEventListener('click', function () {
+      unlockPulse(true);
+    });
+    // A token that is WRONG shows no banner, because something is stored. The
+    // 401 handler clears it on the next fetch, but that can be a minute away,
+    // so this is the manual way to replace one now.
+    document.getElementById('relock-btn').addEventListener('click', function () {
+      unlockPulse(true);
+    });
 
     if ('serviceWorker' in navigator && 'PushManager' in window) {
       navigator.serviceWorker.register('/sw.js').catch((err) => {
