@@ -417,6 +417,9 @@
        what Ernst approved. Worth seeing at a glance: it is the payoff for
        every entry promoted to the knowledge base. */
     .badge-kb { background: rgba(0, 229, 168, 0.13); color: #00e5a8; }
+    /* The customer was told their question was going to EJ and the alert never
+       arrived. The conversation is still here; nothing else would have said so. */
+    .badge-noalert { background: rgba(255, 92, 92, 0.18); color: #ff8080; }
 
     .metric-clickable {
       cursor: pointer;
@@ -2248,6 +2251,7 @@
               <span class="badge badge-chat">CHAT</span>
               ${productBadge(r)}
               ${r.lastAnswerKbEntryId ? `<span class="badge badge-kb" title="Answered from ${escapeHtml(r.lastAnswerKbEntryId)} -- no model call, no cost">KB</span>` : ''}
+              ${r.escalationNotifyFailed ? `<span class="badge badge-noalert" title="This was escalated and the alert email did not send. The customer was told it was being passed on.">ALERT NOT SENT</span>` : ''}
               <span class="exchange-layer chat-status-text">${escapeHtml(r.chatStatus || '')}</span>
               <span class="exchange-layer">${r.turnCount || 0} turns</span>
             </div>
