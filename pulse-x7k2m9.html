@@ -919,6 +919,14 @@
           <div class="section-label" style="color: #00bfd8;">Ghost Watcher(tm) Run Telemetry</div>
           <div class="section-note" id="watcher-note">loading...</div>
         </div>
+        <!-- The window applies to every card below except Total Runs, which is
+             always all-time. The same row the support inbox uses. -->
+        <div class="filter-row" id="watcher-time-filters">
+          <button class="filter-btn active" data-window="7">7 Days</button>
+          <button class="filter-btn" data-window="14">14 Days</button>
+          <button class="filter-btn" data-window="30">30 Days</button>
+          <button class="filter-btn" data-window="all">All Time</button>
+        </div>
         <div class="grid" style="grid-template-columns: 1fr 1fr;">
           <div class="metric">
             <div class="metric-label">Total Runs</div>
@@ -926,16 +934,16 @@
             <div class="metric-sub">all-time Watch runs</div>
           </div>
           <div class="metric">
-            <div class="metric-label">Last 7 Days</div>
+            <div class="metric-label" id="watcher-window-label">Last 7 Days</div>
             <div class="metric-value" id="watcher-runs-7d">&#8212;</div>
-            <div class="metric-sub">Watch runs this week</div>
+            <div class="metric-sub" id="watcher-window-sub">Watch runs in the last 7 days</div>
           </div>
         </div>
         <div class="grid" style="grid-template-columns: 1fr 1fr 1fr 1fr; margin-top: 12px;">
           <div class="metric">
-            <div class="metric-label">Total Findings</div>
+            <div class="metric-label">Findings</div>
             <div class="metric-value" id="watcher-findings">&#8212;</div>
-            <div class="metric-sub">all-time surfaced</div>
+            <div class="metric-sub watcher-window-word">surfaced, last 7 days</div>
           </div>
           <div class="metric">
             <div class="metric-label">Avg / Run</div>
@@ -943,41 +951,41 @@
             <div class="metric-sub">findings per run</div>
           </div>
           <div class="metric">
-            <div class="metric-label">Total Prompts</div>
+            <div class="metric-label">Prompts</div>
             <div class="metric-value" id="watcher-prompts">&#8212;</div>
-            <div class="metric-sub">Ghost Brief generated</div>
+            <div class="metric-sub watcher-window-word">Ghost Brief generated, last 7 days</div>
           </div>
           <div class="metric">
             <div class="metric-label">Active Repos</div>
             <div class="metric-value" id="watcher-users">&#8212;</div>
-            <div class="metric-sub">unique installs watching</div>
+            <div class="metric-sub watcher-window-word">unique installs watching, last 7 days</div>
           </div>
         </div>
         <div class="grid" style="grid-template-columns: 1fr 1fr 1fr 1fr; margin-top: 12px;">
           <div class="metric">
             <div class="metric-label" style="color: #ff5555;">Critical</div>
             <div class="metric-value" id="watcher-critical" style="color: #ff5555;">&#8212;</div>
-            <div class="metric-sub">all-time</div>
+            <div class="metric-sub watcher-window-word">last 7 days</div>
           </div>
           <div class="metric">
             <div class="metric-label" style="color: #e07340;">High</div>
             <div class="metric-value" id="watcher-high" style="color: #e07340;">&#8212;</div>
-            <div class="metric-sub">all-time</div>
+            <div class="metric-sub watcher-window-word">last 7 days</div>
           </div>
           <div class="metric">
             <div class="metric-label" style="color: #ffb030;">Medium</div>
             <div class="metric-value" id="watcher-medium" style="color: #ffb030;">&#8212;</div>
-            <div class="metric-sub">all-time</div>
+            <div class="metric-sub watcher-window-word">last 7 days</div>
           </div>
           <div class="metric">
             <div class="metric-label" style="color: #8888aa;">Low</div>
             <div class="metric-value" id="watcher-low" style="color: #8888aa;">&#8212;</div>
-            <div class="metric-sub">all-time</div>
+            <div class="metric-sub watcher-window-word">last 7 days</div>
           </div>
         </div>
         <div class="section" style="margin-top: 14px;">
           <div class="section-header">
-            <div class="section-label">Watch Runs Last 7 Days</div>
+            <div class="section-label" id="watcher-series-label">Watch Runs Last 7 Days</div>
             <div class="section-note" id="watcher-trend"></div>
           </div>
           <svg class="spark-svg" id="watcher-sparkline" viewBox="0 0 400 56" preserveAspectRatio="none"></svg>
@@ -1727,50 +1735,121 @@
     }
 
 
+    // ── Ghost Watcher(tm) telemetry ─────────────────────────────────────
+    // The window the cards show. Total Runs is always all-time; everything
+    // else is computed by the worker inside this window. The worker's older
+    // shape (no window fields) still renders, as the 7-day view it always was.
+    let watcherWindow = '7';
+    let watcherData = null;
+
+    function watcherWindowWords() {
+      return watcherWindow === 'all' ? 'all time' : 'last ' + watcherWindow + ' days';
+    }
+
     async function fetchWatcherStats() {
-      const res = await fetch('https://signup.ghostarchitect.dev/watcher-stats', {
-        headers: { Authorization: 'Bearer caf9783a368daec034ae4dabc9d9570b70ec4a2dec842d926818ec5600ea3cc4' },
+      // The token is the one the "Ghost Pulse is locked" prompt collected. Until
+      // 2026-09-06 this call carried its own copy of the pre-rotation token as a
+      // literal, missed by the commit that moved the others into the prompt, so
+      // the rotation that burned the published values also darkened these cards.
+      const token = pulseSecret('pulse');
+      if (!token) throw new Error('no PULSE_TOKEN in this browser');
+      const res = await fetch('https://signup.ghostarchitect.dev/watcher-stats?days=' + encodeURIComponent(watcherWindow), {
+        headers: { Authorization: 'Bearer ' + token },
+        cache: 'no-store',
       });
+      if (res.status === 401) {
+        // The stored token is no longer valid: the state every browser is in on
+        // its first load after a rotation. Clear and ask again, as the support
+        // section does, rather than leaving the cards dark.
+        console.warn('[ghost-pulse] PULSE_TOKEN rejected by watcher-stats -- clearing so it can be re-entered');
+        clearPulseSecrets();
+        throw new Error('watcher-stats 401');
+      }
       if (!res.ok) throw new Error('watcher-stats ' + res.status);
       return res.json();
     }
 
     function renderWatcherStats(w) {
       const $ = (id) => document.getElementById(id);
-      $('watcher-total-runs').textContent = w.totalRuns.toLocaleString();
-      $('watcher-runs-7d').textContent    = w.runsLast7d.toLocaleString();
-      $('watcher-findings').textContent   = w.totalFindings.toLocaleString();
-      $('watcher-avg').textContent        = w.avgFindings.toLocaleString();
-      $('watcher-prompts').textContent    = w.totalPrompts.toLocaleString();
-      $('watcher-users').textContent      = w.uniqueUsers.toLocaleString();
-      $('watcher-critical').textContent   = w.severity.critical.toLocaleString();
-      $('watcher-high').textContent       = w.severity.high.toLocaleString();
-      $('watcher-medium').textContent     = w.severity.medium.toLocaleString();
-      $('watcher-low').textContent        = w.severity.low.toLocaleString();
-      $('watcher-note').textContent       = 'as of ' + new Date(w.generatedAt).toLocaleTimeString();
+      watcherData = w;
+      const words = watcherWindowWords();
+      // Window-scoped fields when the worker sends them; the pre-window shape otherwise.
+      const inWindow = w.window && typeof w.window === 'object' ? w.window : null;
+      const runs      = inWindow ? inWindow.runs      : w.runsLast7d;
+      const findings  = inWindow ? inWindow.findings  : w.totalFindings;
+      const prompts   = inWindow ? inWindow.prompts   : w.totalPrompts;
+      const avg       = inWindow ? inWindow.avgFindings : w.avgFindings;
+      const users     = inWindow ? inWindow.uniqueUsers : w.uniqueUsers;
+      const severity  = inWindow ? inWindow.severity  : w.severity;
+      const series    = inWindow && Array.isArray(inWindow.dailySeries) ? inWindow.dailySeries : (w.dailySeries || []);
+      $('watcher-total-runs').textContent = (w.totalRuns || 0).toLocaleString();
+      $('watcher-window-label').textContent = watcherWindow === 'all' ? 'All Time' : 'Last ' + watcherWindow + ' Days';
+      $('watcher-window-sub').textContent = 'Watch runs, ' + words;
+      $('watcher-runs-7d').textContent    = (runs || 0).toLocaleString();
+      $('watcher-findings').textContent   = (findings || 0).toLocaleString();
+      $('watcher-avg').textContent        = (avg || 0).toLocaleString();
+      $('watcher-prompts').textContent    = (prompts || 0).toLocaleString();
+      $('watcher-users').textContent      = (users || 0).toLocaleString();
+      $('watcher-critical').textContent   = ((severity && severity.critical) || 0).toLocaleString();
+      $('watcher-high').textContent       = ((severity && severity.high) || 0).toLocaleString();
+      $('watcher-medium').textContent     = ((severity && severity.medium) || 0).toLocaleString();
+      $('watcher-low').textContent        = ((severity && severity.low) || 0).toLocaleString();
+      document.querySelectorAll('#watcher-time-filters ~ .grid .watcher-window-word').forEach((el) => {
+        const head = el.textContent.split(',')[0].trim();
+        el.textContent = (head === 'last' || /^last \d+ days$|^all time$/.test(head)) ? words : head + ', ' + words;
+      });
+      const stale = !inWindow && watcherWindow !== '7'
+        ? ' · worker predates the window buttons, showing the 7-day view' : '';
+      $('watcher-note').textContent = 'as of ' + new Date(w.generatedAt).toLocaleTimeString() + stale;
+      $('watcher-series-label').textContent = 'Watch Runs ' + (watcherWindow === 'all' ? '(last 30 days shown)' : 'Last ' + watcherWindow + ' Days');
       const svg = $('watcher-sparkline');
-      if (svg && w.dailySeries && w.dailySeries.length > 0) {
-        const max = Math.max(...w.dailySeries, 1);
+      if (svg && series.length > 0) {
+        const max = Math.max(...series, 1);
         const W = 400, H = 56, pad = 4;
-        const pts = w.dailySeries.map((v, i) => {
-          const x = pad + (i / (w.dailySeries.length - 1)) * (W - 2 * pad);
+        const denom = Math.max(series.length - 1, 1);
+        const pts = series.map((v, i) => {
+          const x = pad + (i / denom) * (W - 2 * pad);
           const y = H - pad - ((v / max) * (H - 2 * pad));
           return x + ',' + y;
         }).join(' ');
         svg.innerHTML = '<polyline points="' + pts + '" fill="none" stroke="#00bfd8" stroke-width="2" stroke-linejoin="round"/>' +
-          w.dailySeries.map((v, i) => {
-            const x = pad + (i / (w.dailySeries.length - 1)) * (W - 2 * pad);
+          series.map((v, i) => {
+            const x = pad + (i / denom) * (W - 2 * pad);
             const y = H - pad - ((v / max) * (H - 2 * pad));
             return '<circle cx="' + x + '" cy="' + y + '" r="3" fill="#00bfd8"/>';
           }).join('');
-        $('watcher-trend').textContent = w.dailySeries.reduce((s,v) => s+v, 0) + ' runs in last 7 days';
+        $('watcher-trend').textContent = series.reduce((s, v) => s + v, 0) + ' runs in the ' + series.length + ' days shown';
+      } else if (svg) {
+        svg.innerHTML = '';
+        $('watcher-trend').textContent = '';
       }
     }
 
-    function renderWatcherError() {
+    function renderWatcherError(err) {
       const el = document.getElementById('watcher-note');
-      if (el) el.textContent = 'watcher fetch failed';
+      if (!el) return;
+      el.textContent = err && /no PULSE_TOKEN/.test(String(err.message))
+        ? 'locked: paste PULSE_TOKEN (reload to be asked)'
+        : 'watcher fetch failed';
     }
+
+    async function refreshWatcher() {
+      try {
+        renderWatcherStats(await fetchWatcherStats());
+      } catch (err) {
+        console.error('[ghost-pulse] watcher fetch failed:', err);
+        renderWatcherError(err);
+      }
+    }
+
+    document.getElementById('watcher-time-filters').addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      watcherWindow = btn.dataset.window;
+      document.querySelectorAll('#watcher-time-filters .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      refreshWatcher();
+    });
 
     async function tick() {
       // Pulse data (worker endpoint) and npm data are independent.
@@ -1783,13 +1862,8 @@
       })();
 
       const watcherPromise = (async () => {
-        try {
-          await new Promise(r => setTimeout(r, 1500));
-          const w = await fetchWatcherStats();
-          renderWatcherStats(w);
-        } catch (err) {
-          renderWatcherError();
-        }
+        await new Promise(r => setTimeout(r, 1500));
+        await refreshWatcher();
       })();
       const npmPromise = (async () => {
         try {
