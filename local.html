@@ -164,7 +164,7 @@
 <section>
   <div class="wrap">
     <h2>What you get</h2>
-    <p class="lede">The same scan modes as the hosted product, on your hardware, plus the estate view a team needs when the work runs on more than one machine.</p>
+    <p class="lede">The same scan modes as Ghost Architect&trade; Cloud, on your hardware, plus the estate view a team needs when the work runs on more than one machine.</p>
     <div class="grid">
       <div class="card"><div class="k">Points of Interest</div><h3>The health of the codebase, with its evidence</h3><p>A multi-pass read of the whole tree. Findings are verified against the source before they reach the page, the health score shows the denominator it was computed from, and the trend runs scan over scan.</p></div>
       <div class="card"><div class="k">Blast Radius</div><h3>What a change reaches</h3><p>Point it at the files you are about to touch and it maps what they pull in and what pulls on them, so the review starts with the map instead of building it.</p></div>
@@ -206,10 +206,10 @@
 
 <section>
   <div class="wrap">
-    <h2>Local or hosted?</h2>
-    <p class="lede">Same modes, same reports, two different deals. If your clients forbid source from leaving infrastructure they control, Local is the one built for you. If you want a frontier model's judgment and a subscription you can start in a minute, <a href="/">the hosted product</a> is right there.</p>
+    <h2>Local or Cloud?</h2>
+    <p class="lede">Same modes, same reports, two different deals. If your clients forbid source from leaving infrastructure they control, Local is the one built for you. If you want a frontier model's judgment and a subscription you can start in a minute, <a href="/">Ghost Architect&trade; Cloud</a> is right there.</p>
     <table>
-      <tr><th></th><th>Ghost Architect&trade; Local</th><th>Ghost Architect&trade; (hosted)</th></tr>
+      <tr><th></th><th>Ghost Architect&trade; Local</th><th>Ghost Architect&trade; Cloud</th></tr>
       <tr><td>Where the model runs</td><td class="l">Your machines, your model server</td><td>A frontier model, through your API key</td></tr>
       <tr><td>Where your code goes</td><td class="l">Nowhere. Zero egress at the code level</td><td>To the model provider you chose, per request</td></tr>
       <tr><td>How you pay</td><td class="l">One annual licence per team size</td><td>Monthly per seat, plus your model usage</td></tr>
@@ -240,7 +240,7 @@
     <h2>Questions people ask first</h2>
     <details><summary>Does anything leave my network?</summary><p>One call, once: licence activation sends the licence key and an install id to ghostarchitect.dev and gets a signed licence back. Nothing from the codebase is in it. After that the product runs with egress off at the code level, and the egress inventory it prints lists every destination that could exist and shows each one switched off.</p></details>
     <details><summary>Which models does it use?</summary><p>Whatever your model server serves: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. Our estate runs qwen3:14b. The LLM Status page shows the model, quantization, context window, memory and measured speed, so you can see what a model change did.</p></details>
-    <details><summary>Is it the same as Ghost Architect Open?</summary><p>No. Open is the free hosted-model tier on npm. Local is a separate product delivered directly by us as a tarball, installed with its own installer, licensed per team, and it does not use a hosted model at all.</p></details>
+    <details><summary>Is it the same as Ghost Architect Open?</summary><p>No. Open is the free tier of Ghost Architect&trade; Cloud on npm. Local is a separate product delivered directly by us as a tarball, installed with its own installer, licensed per team, and it does not use a hosted model at all.</p></details>
     <details><summary>How long does a scan take?</summary><p>It depends on your hardware and model, and the product tells you before you commit: the estimate names its basis, and once you have run a few passes it is measured from your own machine rather than a constant. On a 24 GB laptop with a 14B model, plan on hours for a real codebase and start it in the background; the fleet page and email tell you when it is done.</p></details>
     <details><summary>Can I run it in CI or on a commit hook?</summary><p>Yes. The CLI has a non-interactive mode, the CLI registers a post-commit hook that runs the Triple Crown, and the REST API on the hub is documented at /api/v1/docs on your own install.</p></details>
     <details><summary>Do I get the source?</summary><p>The product ships as source in the tarball; that is what the installer installs. It is licensed, not open source, and the licence is signed and verified on the machine.</p></details>

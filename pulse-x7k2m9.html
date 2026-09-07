@@ -1179,7 +1179,7 @@
               <div class="section-note" id="support-recent-note"></div>
             </div>
             <div class="filter-row" id="support-product-filters">
-              <button class="filter-btn active" data-product="hosted">Hosted</button>
+              <button class="filter-btn active" data-product="hosted">Cloud</button>
               <button class="filter-btn active" data-product="local">Local</button>
               <button class="filter-btn active" data-product="unknown">Unknown</button>
             </div>
@@ -1239,7 +1239,7 @@
               <input type="text" class="kb-trigger-input" id="review-kb-triggers" placeholder="install, npm install, how do i install">
               <div class="section-label" style="margin-bottom: 6px; margin-top: 10px;">Which product does this answer apply to?</div>
               <select class="kb-trigger-input kb-product" id="review-kb-product" style="width:100%;">
-                <option value="hosted">Ghost Architect (hosted)</option>
+                <option value="hosted">Ghost Architect Cloud</option>
                 <option value="local">Ghost Architect Local</option>
                 <option value="both">Both products</option>
               </select>
@@ -1306,7 +1306,7 @@
               <input type="text" class="kb-trigger-input" id="view-kb-triggers" placeholder="install, npm install, how do i install">
               <div class="section-label" style="margin-bottom: 6px; margin-top: 10px;">Which product does this answer apply to?</div>
               <select class="kb-trigger-input kb-product" id="view-kb-product" style="width:100%;">
-                <option value="hosted">Ghost Architect (hosted)</option>
+                <option value="hosted">Ghost Architect Cloud</option>
                 <option value="local">Ghost Architect Local</option>
                 <option value="both">Both products</option>
               </select>
@@ -2152,7 +2152,7 @@
 
     function productBadge(r) {
       const p = rowProduct(r);
-      const label = p === 'local' ? 'LOCAL' : p === 'hosted' ? 'HOSTED' : 'UNKNOWN';
+      const label = p === 'local' ? 'LOCAL' : p === 'hosted' ? 'CLOUD' : 'UNKNOWN';
       // How the edition was decided matters when reading a row: a picker
       // choice is the customer's word, an inference is the worker's guess.
       const title = p === 'unknown'
@@ -2241,7 +2241,7 @@
       // back to the plain total rather than printing zeros that look real.
       const hasProductCounts = typeof summary.productHosted === 'number';
       const productNote = hasProductCounts
-        ? ` · ${summary.productHosted} hosted / ${summary.productLocal} Local` +
+        ? ` · ${summary.productHosted} Cloud / ${summary.productLocal} Local` +
           (summary.productUnknown ? ` / ${summary.productUnknown} unknown` : '')
         : '';
       document.getElementById('support-note').textContent =
@@ -2348,7 +2348,7 @@
               <input type="text" class="kb-trigger-input chat-kb-triggers" value="${escapeHtml(extractTriggerWords(r.subject).join(', '))}">
               <div class="section-label" style="margin-bottom: 6px; margin-top: 10px;">Which product does this answer apply to?</div>
               <select class="kb-trigger-input chat-kb-product" style="width:100%;">
-                <option value="hosted">Ghost Architect (hosted)</option>
+                <option value="hosted">Ghost Architect Cloud</option>
                 <option value="local">Ghost Architect Local</option>
                 <option value="both">Both products</option>
               </select>
