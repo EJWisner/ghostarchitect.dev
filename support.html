@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Support: Ghost Architect™</title>
-  <meta name="description" content="Support and help for Ghost Architect™ -- the hosted CLI, the Ghost Architect Mobile app, and Ghost Architect™ Local." />
+  <meta name="description" content="Support and help for Ghost Architect™ Cloud, the Ghost Architect Mobile app, and Ghost Architect™ Local." />
   <link rel="canonical" href="https://ghostarchitect.dev/support" />
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
@@ -100,7 +100,7 @@
   <p class="tagline" id="page-tagline">Help for Ghost Architect™.</p>
 
   <nav class="product-switch" aria-label="Which product do you need help with?">
-    <a href="/support.html?platform=hosted" class="hosted" id="switch-hosted"><span class="dot"></span>Hosted</a>
+    <a href="/support.html?platform=hosted" class="hosted" id="switch-hosted"><span class="dot"></span>Cloud</a>
     <a href="/support.html?platform=local" class="local" id="switch-local"><span class="dot"></span>Local</a>
   </nav>
 
@@ -135,7 +135,7 @@
     <p>No. Ghost Architect™ runs entirely on your machine. Your code is sent directly from your machine to the Anthropic API using your own API key -- Ghost Architect™ servers never see your code. See the <a href="/privacy.html">Privacy Policy</a> for details.</p>
 
     <h3>My code cannot leave our infrastructure at all. What then?</h3>
-    <p>Then the hosted product is not the right one, and that is what <a href="/local.html?platform=local">Ghost Architect™ Local</a> is for: it runs against a model you host, on your own hardware, with a zero-egress mode. Nothing goes to a model provider because there is no model provider.</p>
+    <p>Then Ghost Architect™ Cloud is not the right one, and that is what <a href="/local.html?platform=local">Ghost Architect™ Local</a> is for: it runs against a model you host, on your own hardware, with a zero-egress mode. Nothing goes to a model provider because there is no model provider.</p>
 
     <h2>// ghost architect mobile</h2>
     <p>Ghost Architect Mobile is the iOS and iPadOS companion app for Ghost Architect™. It gives architects, CTOs, and agency leaders a portfolio view of all their Ghost reports -- remediation progress, critical findings, and estimated cost -- on their phone or tablet.</p>
@@ -177,7 +177,7 @@
     <p>Ghost Architect™ Local is the LAN-deployed edition. Every scan runs against a model server you host yourself, on a machine you own. Your code is read from your disk, analysed by your model, and written to reports on your machines.</p>
 
     <div class="callout">
-      <p><strong>It is a different product from the hosted one.</strong> Local is not on npm, does not use a frontier model, and does not need an Anthropic API key. If you installed something with <code>npm install -g ghost-architect-open</code>, that is the hosted product, not Local.</p>
+      <p><strong>It is a different product from Ghost Architect™ Cloud.</strong> Local is not on npm, does not use a frontier model, and does not need an Anthropic API key. If you installed something with <code>npm install -g ghost-architect-open</code>, that is Ghost Architect™ Cloud, not Local.</p>
     </div>
 
     <h2>// getting it</h2>
@@ -282,7 +282,7 @@ sudo bash install/setup-linux.sh   # Linux
   <p>Email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with:</p>
   <ul>
     <li>A clear description of the issue or requested feature</li>
-    <li>Which product you are on, hosted or Local</li>
+    <li>Which product you are on, Cloud or Local</li>
     <li>Your version (run <code>ghost --version</code>)</li>
     <li>Your operating system</li>
     <li>Any relevant error messages or screenshots</li>

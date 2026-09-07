@@ -51,7 +51,7 @@
   var contactHref = '/contact.html' + (isLocalPage ? '?platform=local' : '');
   var switchHtml = ''
     + '<div class="ga-product-switch" role="navigation" aria-label="Choose a product">'
-    + '  <a href="/#hosted" class="ga-product hosted' + (isLocalPage ? '' : ' on') + '" title="Ghost Architect: hosted model, pay per seat"><span class="dot"></span>Hosted</a>'
+    + '  <a href="/#hosted" class="ga-product hosted' + (isLocalPage ? '' : ' on') + '" title="Ghost Architect Cloud: frontier model, pay per seat"><span class="dot"></span>Cloud</a>'
     + '  <a href="/local.html" class="ga-product local' + (isLocalPage ? ' on' : '') + '" title="Ghost Architect Local: your hardware, your model, your network"><span class="dot"></span>Local</a>'
     + '</div>';
 
