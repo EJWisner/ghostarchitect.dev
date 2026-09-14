@@ -184,13 +184,13 @@
 
     <h3>How do I get the download?</h3>
     <p>Local is delivered directly by us, not through a public package registry. Fill in the form on the <a href="/download.html?platform=local">download page</a> and EJ replies with the link, or with access to the delivery repository, usually the same day. If you already have repository access:</p>
-    <pre><code>gh release download v7.0.4 --repo EJWisner/ghost-local-delivery</code></pre>
+    <pre><code>gh release download v7.1.6 --repo EJWisner/ghost-local-delivery</code></pre>
 
     <h3>How do I verify the tarball before I install it?</h3>
     <p>The file is about to become a global command on your machine, so check it first:</p>
-    <pre><code>shasum -a 256 ghost-architect-local-7.0.4.tgz</code></pre>
-    <p>On Windows PowerShell: <code>Get-FileHash -Algorithm SHA256 ghost-architect-local-7.0.4.tgz</code></p>
-    <p>Expected for 7.0.4: <code>12b6d385a7f4f9140c0378064a6c1235fed19f6729275e65759041d5a9e9d8fb</code></p>
+    <pre><code>shasum -a 256 ghost-architect-local-7.1.6.tgz</code></pre>
+    <p>On Windows PowerShell: <code>Get-FileHash -Algorithm SHA256 ghost-architect-local-7.1.6.tgz</code></p>
+    <p>Expected for 7.1.6: <code>a1b556905057858af6088ccc5667a19ad8db309ee4fd8c9540bb12d6d3c80fa1</code></p>
     <p>If the hash does not match, stop. Do not install it. Email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with what you got.</p>
 
     <h2>// requirements</h2>
@@ -205,7 +205,7 @@
 
     <h2>// installing</h2>
     <p>Everything happens inside the directory you unpack. Keep that directory: the global <code>ghost</code> command links into it rather than copying it.</p>
-    <pre><code>tar -xzf ghost-architect-local-7.0.4.tgz
+    <pre><code>tar -xzf ghost-architect-local-7.1.6.tgz
 cd package
 bash install/setup.sh              # macOS
 sudo bash install/setup-linux.sh   # Linux
@@ -216,7 +216,7 @@ sudo bash install/setup-linux.sh   # Linux
     <p>Re-running the installer is the supported upgrade path. Your service account, data root and signing key are left alone.</p>
 
     <h3>Is the Windows installer safe to use?</h3>
-    <p>Honest answer: it ships covered by tests but has not yet been run on a real Windows machine, and says so in its own header. Treat a Windows install as a first run and send us the console output either way.</p>
+    <p>Honest answer: it runs on real Windows hardware here. Ghost Architect&trade; Local is installed on a Windows machine as two Windows Services, and the full test suite runs on that machine on every push. What we have not done is watch a fresh install on a machine that is not ours, so send us the console output of yours either way.</p>
 
     <h2>// first run and the evaluation trial</h2>
     <p>Run <code>ghost</code>. The evaluation trial starts on first use, registered against that install, and the product tells you the day it ends. No card, no account.</p>
