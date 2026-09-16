@@ -848,6 +848,28 @@
           </div>
         </div>
 
+        <!-- CC-611: installs heard from. Empty until 2026-09-16, because the
+             heartbeat was refused by the server for the life of the product. -->
+        <div class="section">
+          <div class="section-header">
+            <div class="section-label">Installs Heard From · Last 7d</div>
+            <div class="section-note" id="heartbeat-note"></div>
+          </div>
+          <div class="bars" id="heartbeat-bars">
+            <div class="empty-state">Waiting for heartbeats...</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-label">Installed Versions · Machines Heard From</div>
+            <div class="section-note" id="heartbeat-versions-note"></div>
+          </div>
+          <div class="bars" id="heartbeat-versions-bars">
+            <div class="empty-state">Waiting for heartbeats...</div>
+          </div>
+        </div>
+
         <div class="section">
           <div class="section-header">
             <div class="section-label">Days Active · Last 7d</div>
@@ -1334,6 +1356,18 @@
     const STALE_THRESHOLD_MS = 5 * 60 * 1000;
     let lastSuccessfulFetch = null;
 
+    // CC-611: which product line an install belongs to, and the source a
+    // heartbeat is filed under. One telemetry endpoint serves several lines,
+    // and until 2026-09-16 no record said which, because no heartbeat had ever
+    // been accepted: the worker answered 400 missing_fields to every one.
+    const LINE_LABELS = {
+      'ghost-architect-local': 'Ghost Architect\u2122 Local',
+      'ghost-architect-pro': 'Ghost Architect\u2122 Pro',
+      'ghost-architect-team': 'Ghost Architect\u2122 Team',
+      'ghost-architect-cloud': 'Ghost Architect\u2122 Cloud',
+      'unnamed': 'client did not say',
+    };
+
     const SOURCE_LABELS = {
       'cli-firstrun': 'Opt-in',
       'cli-firstrun-no': 'Declined',
@@ -1423,8 +1457,49 @@
       document.getElementById('optin-rate').textContent = agg.optInRate + '%';
       document.getElementById('optin-rate-sub').textContent = `of ${agg.promptedUsers} prompted`;
       document.getElementById('version-adoption').textContent = agg.versionPct + '%';
+      // CC-611: the denominator versionPct was actually computed over, which
+      // is not recentCount once more than one product line reports. A machine
+      // on a line with no declared latest version is NOT counted as stale; it
+      // is named separately, because I COULD NOT LOOK is an answer and zero is
+      // not. Older workers do not send these fields, so both fall back.
+      const versionDenom = Number.isFinite(agg.versionComparableCount) ? agg.versionComparableCount : agg.recentCount;
+      const notComparable = Number.isFinite(agg.versionNotComparable) ? agg.versionNotComparable : 0;
       document.getElementById('version-sub').textContent =
-        `${agg.onLatest} of ${agg.recentCount} on v${agg.latestVersion}`;
+        `${agg.onLatest} of ${versionDenom} on latest${notComparable > 0 ? ` · ${notComparable} not comparable` : ''}`;
+
+      // ── CC-611: INSTALLS HEARD FROM ──────────────────────────────────
+      //
+      // Reported in machines, not events: a machine that checks in every day
+      // for a week is one install, not seven.
+      //
+      // Two different nothings, two different sentences. A worker too old to
+      // report heartbeats is UNKNOWN; a worker reporting that nothing has
+      // checked in is zero. A bare 0 would read as "nobody is running this",
+      // which is the wrong conclusion from either.
+      const hb = agg.heartbeats || null;
+      if (!hb) {
+        document.getElementById('heartbeat-note').textContent = 'this page is ahead of the worker';
+        document.getElementById('heartbeat-bars').innerHTML =
+          '<div class="empty-state">The worker does not report heartbeats yet, so this is unknown rather than zero.</div>';
+        document.getElementById('heartbeat-versions-note').textContent = '';
+        document.getElementById('heartbeat-versions-bars').innerHTML =
+          '<div class="empty-state">Nothing to show until the worker reports heartbeats.</div>';
+      } else {
+        const lastHeard = hb.lastAt ? new Date(hb.lastAt) : null;
+        const hoursSince = lastHeard ? Math.floor((Date.now() - lastHeard.getTime()) / 3600000) : null;
+        const renewals = Array.isArray(hb.renewalsWithin30d) ? hb.renewalsWithin30d : [];
+        const heardNote = lastHeard
+          ? `${hb.installs7d} machine${hb.installs7d === 1 ? '' : 's'} · last heard ${hoursSince < 1 ? 'under an hour' : hoursSince + 'h'} ago`
+          : 'never heard from';
+        renderHistogram('heartbeat-bars', 'heartbeat-note',
+          (hb.byLine || []).map(([line, n]) => [LINE_LABELS[line] || line, n]),
+          renewals.length > 0
+            ? `${heardNote} · ${renewals.length} license${renewals.length === 1 ? '' : 's'} expiring within 30 days`
+            : heardNote);
+        renderHistogram('heartbeat-versions-bars', 'heartbeat-versions-note',
+          (hb.byVersion || []).map(([v, n]) => [`v${v}`, n]),
+          `${hb.installsAllTime} machine${hb.installsAllTime === 1 ? '' : 's'} all-time · ${hb.eventsAllTime} check-in${hb.eventsAllTime === 1 ? '' : 's'}`);
+      }
 
       // Days Active histogram (only meaningful with 7+ days of telemetry)
       if ((agg.telemetryDays || 0) >= 7) {
