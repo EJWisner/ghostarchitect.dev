@@ -49,6 +49,11 @@
   // for a version and a tier that differ per product, so it needs the side the
   // reader is on just as much as the FAQ does.
   var contactHref = '/contact.html' + (isLocalPage ? '?platform=local' : '');
+  // The changelog page renders both product logs on one page (#hosted, #local)
+  // rather than being two pages, so the nav's Cloud/Local switch has to reach it as
+  // an anchor. EJ, from his phone: tapped the switch to Local, opened Changelog from
+  // Resources, and landed back on Cloud's section because this was a bare href.
+  var changelogHref = '/changelog.html' + (isLocalPage ? '#local' : '#hosted');
   var switchHtml = ''
     + '<div class="ga-product-switch" role="navigation" aria-label="Choose a product">'
     + '  <a href="/#hosted" class="ga-product hosted' + (isLocalPage ? '' : ' on') + '" title="Ghost Architect Cloud: frontier model, pay per seat"><span class="dot"></span>Cloud</a>'
@@ -209,7 +214,7 @@
     + '          <div class="title">Blog</div>'
     + '          <div class="desc">Releases, deep-dives, agency war stories.</div>'
     + '        </a>'
-    + '        <a href="/changelog.html" class="ga-dropdown-item' + (isActive('/changelog.html') || isActive('/changelog') ? ' active' : '') + '">'
+    + '        <a href="' + changelogHref + '" class="ga-dropdown-item' + (isActive('/changelog.html') || isActive('/changelog') ? ' active' : '') + '">'
     + '          <div class="title">Changelog</div>'
     + '          <div class="desc">What shipped, and when. Release notes for every version.</div>'
     + '        </a>'
@@ -300,7 +305,7 @@
     + '      <a href="/partner.html"' + (isActive('/partner.html') || isActive('/partner') ? ' class="active"' : '') + '>Refer &amp; Earn</a>'
     + '      <a href="/security.html"' + (isActive('/security.html') || isActive('/security') ? ' class="active"' : '') + '>Security &amp; Trust</a>'
     + '      <a href="/blog.html"' + (isActive('/blog.html') ? ' class="active"' : '') + '>Blog</a>'
-    + '      <a href="/changelog.html"' + (isActive('/changelog.html') || isActive('/changelog') ? ' class="active"' : '') + '>Changelog</a>'
+    + '      <a href="' + changelogHref + '"' + (isActive('/changelog.html') || isActive('/changelog') ? ' class="active"' : '') + '>Changelog</a>'
     + '      <a href="/#faq">FAQ</a>'
     + '      <a href="' + supportHref + '"' + (isActive('/support') || isActive('/support.html') ? ' class="active"' : '') + '>Support</a>'
     + '    </div>'
