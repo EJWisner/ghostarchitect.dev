@@ -2404,15 +2404,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.2, September 23, 2026. <a href="/download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.3, September 23, 2026. <a href="/download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.2</span>
+      <span class="release-version">7.4.3</span>
       <span class="release-date">September 23, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Scans keep their work through an update, and a quiet peer is reported</h2>
+    <p class="release-lede">7.4.3 -- A long scan reads your code in passes and then merges what the passes found, step by step. Finished passes were already saved as they went; the merge steps now are too, so a scan that is stopped and started again reuses the merges it had finished. An administrator can now stand every background scan down for an update with one command. Each scan is written down with the exact request it was started with, including how many passes it asked for, and a scan in the middle of a pass can be given time to save it first. When the portal starts again, the scans carry on in the order they held, reusing their saved passes and merges. A scan somebody paused stays paused, and nobody is emailed that a scan was killed, because it was not. When a peer hub has not answered a health check for 15 minutes, the hub emails its administrators, and it emails again when the peer answers, saying how long it was quiet. A machine that is down and one too busy to answer look the same from the hub, and neither is working for the fleet, so both are reported.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.2</span>
+      <span class="release-date">September 23, 2026</span>
     </div>
     <h2 class="release-headline">A hub can cap the size of the work it sends each peer</h2>
     <p class="release-lede">7.4.2 -- When a hub is busy, it hands model calls to its peer hubs, and until now the only size check was whether a peer's model could hold the call. A machine can hold a large call and still be the wrong place for it. A smaller machine given a long call puts every core into it and stops answering, so the hub that sent the work cannot see its progress or reach it for the length of the call. The Fleet page's Load balancing table now has a "Largest prompt sent" setting for each peer. A call whose prompt is larger than that stays on this hub; a smaller one is still sent when the hub is busy. The decision is written to the scan log with both numbers, and the Fleet page says why a call stayed home. Only an administrator can change the setting, and each change is recorded with who made it and what it was before. A peer with no limit set is sent exactly what it was sent before.</p>
