@@ -2404,15 +2404,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.1, September 23, 2026. <a href="/download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.2, September 23, 2026. <a href="/download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.1</span>
+      <span class="release-version">7.4.2</span>
       <span class="release-date">September 23, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A hub can cap the size of the work it sends each peer</h2>
+    <p class="release-lede">7.4.2 -- When a hub is busy, it hands model calls to its peer hubs, and until now the only size check was whether a peer's model could hold the call. A machine can hold a large call and still be the wrong place for it. A smaller machine given a long call puts every core into it and stops answering, so the hub that sent the work cannot see its progress or reach it for the length of the call. The Fleet page's Load balancing table now has a "Largest prompt sent" setting for each peer. A call whose prompt is larger than that stays on this hub; a smaller one is still sent when the hub is busy. The decision is written to the scan log with both numbers, and the Fleet page says why a call stayed home. Only an administrator can change the setting, and each change is recorded with who made it and what it was before. A peer with no limit set is sent exactly what it was sent before.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.1</span>
+      <span class="release-date">September 23, 2026</span>
     </div>
     <h2 class="release-headline">A report written from all of its findings</h2>
     <p class="release-lede">7.4.1 -- When a scan handed its final report off to be written in the background, which is the usual way a hub finishes a scan, the step that fits the findings into the model's context window was never told how large that window is. On a large codebase the report prompt could then be bigger than the model can read, and the model read only part of it: in the case that found this, about a third. The report was written from what it read. That step is now told the window size and fits the findings to it. When a single merged set of findings is still too large, it is shortened only as far as the window needs, with a note at the cut, and the report says so. It is no longer sent back to the model to be merged with nothing, which cost model calls and did not make it smaller.</p>
