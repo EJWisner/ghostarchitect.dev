@@ -2404,15 +2404,59 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.3.1, September 20, 2026. <a href="/download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.1, September 23, 2026. <a href="/download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">7.4.1</span>
+      <span class="release-date">September 23, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A report written from all of its findings</h2>
+    <p class="release-lede">7.4.1 -- When a scan handed its final report off to be written in the background, which is the usual way a hub finishes a scan, the step that fits the findings into the model's context window was never told how large that window is. On a large codebase the report prompt could then be bigger than the model can read, and the model read only part of it: in the case that found this, about a third. The report was written from what it read. That step is now told the window size and fits the findings to it. When a single merged set of findings is still too large, it is shortened only as far as the window needs, with a note at the cut, and the report says so. It is no longer sent back to the model to be merged with nothing, which cost model calls and did not make it smaller.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.0</span>
+      <span class="release-date">September 22, 2026</span>
+    </div>
+    <h2 class="release-headline">A merge that repeated itself, and a hub that trusted a fast re-read</h2>
+    <p class="release-lede">7.4.0 -- On a large codebase, Ghost Architect&trade; Local merges the findings from its passes in steps so each step fits the model's context window. When two merged groups were each too big to go into one prompt together, every step after that sent each group back on its own, got the same group back, and tried again. Nothing was combined, and the scan kept going until someone stopped it: four and a half hours on one scan before this was found. Now a step that cannot combine anything puts every group into one final prompt. A small group goes in whole, and a large one is shortened only as far as the window needs, with a note at the cut. The report says when this happened. A hub that takes work from other hubs estimates how long a call will take before accepting it, from how fast it has recently read prompts. When it was sent the same prompt more than once, the model server answered the repeats almost instantly, because it still held the prompt it had just read. Those repeats counted as fast readings and pulled the estimate down, so the hub accepted a much larger call it then could not finish before its deadline. Each call now records a short fingerprint of its prompt (a digest, not the text), and only the first reading of any prompt counts toward the estimate.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.3.9</span>
+      <span class="release-date">September 22, 2026</span>
+    </div>
+    <h2 class="release-headline">A perfect score for a scan that looked at nothing</h2>
+    <p class="release-lede">7.3.9 -- A scan whose target resolved to zero files, a path that pointed at nothing or a profile that excluded everything, came back as "100/100, Production ready". Nothing had been looked at. A score of 100 says a codebase was measured and found clean, and this one was not measured at all. Such a scan now carries no score, and its report says plainly that no files were provided to analyze and that the path or profile should be checked. The Project Dashboard says the same thing instead of ranking that project at 100, including for scans that ran on another hub and were sent to this one. A scan that was given files and found nothing wrong still scores 100, because that one is a measurement. When a scan has no score (it confirmed none of the findings it raised, it was cut off before it finished, or it was given no files), the report prepared for a client read "Health Score: null/100" followed by "Critical risk, do not proceed without remediation", above a finding count of zero. That is the opposite of what happened. The client report now reads "Health Score: not rated" with one sentence giving the reason, and leaves out the verdict, the trend and the scoring note, since each of those describes a number that is not there. Scored reports are unchanged. Before a finding reaches a report, Ghost Architect&trade; Local checks the names it cites against the source it cites. That check only recognised a name written as a method call on an object or class, or quoted as code. A plain mention of a function, such as "errors from hash_file() are suppressed", was never checked, so a finding that named the wrong function in plain words went out as though it had been verified. Those names are now checked like any other: a name that is not in the cited code marks the finding unverified. Ordinary words that happen to sit next to a bracket, such as "entries (values ...)" or "file(s)", are not mistaken for function names. 7.3.9 carries everything in 7.3.0, 7.3.1 and 7.3.2 as well.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.3.2</span>
+      <span class="release-date">September 21, 2026</span>
+    </div>
+    <h2 class="release-headline">The Scan Queue named the wrong machine</h2>
+    <p class="release-lede">7.3.2 -- The Scan Queue's "Running on" column is supposed to name the machine whose model is working on a scan right now, and to name a peer hub while a call is out on it. For a POI scan's write-up stage it never did. That stage is registered under its own name so the page can tell it apart from the analysis stage, but every event recorded for the same call, including the line saying which peer it was sent to, is written under the scan's original mode. The lookup asked for the wrong name, found nothing, and the column fell back to naming this hub, even when the line one row up in the same log said the call had gone to the peer. The work really was on the peer; the page reported the silence as "here" instead of "unknown". The lookup now asks for the call's real mode, the one the log was always written under.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">7.3.1</span>
       <span class="release-date">September 20, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">The trial notice a paying customer could not get rid of</h2>
     <p class="release-lede">7.3.1 -- Every portal page carries an evaluation notice, and it decided whether to draw itself by asking whether a trial had ever been started on the install rather than whether the machine is an evaluation now. Installing a licence does not remove that record and nothing else clears it, so from the moment a customer converted, the notice went on telling them at the top of every screen that their evaluation had ended and that a licence would turn everything back on -- on a machine that had one. It fired for every customer who converted, at the moment they started paying, and no restart or upgrade would have cleared it. The notice now asks whether the machine holds a licence before it draws, and any licence silences it, because an expired or unreadable licence is still not an evaluation. It asks by looking for the file rather than by validating it, so that a notice drawn on every request, every poll and every refresh still writes nothing to disk.</p>
