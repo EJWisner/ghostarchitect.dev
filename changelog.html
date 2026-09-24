@@ -2404,15 +2404,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.9, September 24, 2026. <a href="/download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.10, September 24, 2026. <a href="/download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.9</span>
+      <span class="release-version">7.4.10</span>
       <span class="release-date">September 24, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Cleaner reports, a fleet that hands work on sooner, and Unlimited for Enterprise</h2>
+    <p class="release-lede">7.4.10 -- Finding headings now carry the finding's own title, never the template's words or labels like (Batch 2), and a finding the findings file lists once is printed once. A finding now points at the file it is about: code before a README or CHANGELOG, and a file the finding names before one it only lists. A cited path with the wrong directory shows the file Ghost actually read. A finding that calls a function unused, when the code calls it, is set aside with the lines that call it. In a fleet, a peer whose relayed call has just come back is offered the next call at once, instead of looking full until its next health reading. The Scan Queue no longer says a peer is holding nothing while one of this hub's calls is running on it. On a CPU-only machine each call's speed is now compared with what that machine did before at a similar prompt size, so a normal speed for a larger prompt is no longer called slow. The warning says what it was compared with. An Enterprise licence now says Unlimited on the license banner, System Status and the Users page, instead of 10000.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.9</span>
+      <span class="release-date">September 24, 2026</span>
     </div>
     <h2 class="release-headline">A long code name is no longer mistaken for an AWS secret</h2>
     <p class="release-lede">7.4.9 -- Ghost hides anything shaped like an AWS secret key before the model reads your code. Some code names have exactly that shape, and Ghost was hiding them too, so the model reported a hardcoded AWS secret that was not there. Ghost now recognises a name made of words, such as Documentation/UndocumentedBooleanMethods or a long test name, and leaves it as written. A real key is still hidden, whether it stands alone or is assigned to a variable.</p>
