@@ -2404,15 +2404,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.5, September 23, 2026. <a href="/download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.6, September 23, 2026. <a href="/download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.5</span>
+      <span class="release-version">7.4.6</span>
       <span class="release-date">September 23, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">An update no longer throws away the work the model is doing</h2>
+    <p class="release-lede">7.4.6 -- Before an update, Ghost stops the scans on the machine and starts them again afterwards. It now waits for the scan the model is actually working on, whether that is a pass or a merge step, until its answer is saved, and stops the scans that are only waiting in line straight away. On the Scan Queue, Recently ended shows these scans as "stood down" instead of "killed", because they carry on by themselves after the update. The same code is now split into the same passes every time. Files that ranked equally were kept in the order the disk listed them, which changes from run to run, so most saved pass answers went unused on a repeat scan. Equal files are now ordered by their path, and a repeat scan keeps its saved pass size when only the machine's speed setting has changed. The first scan of each project after this update splits its files once more under the new order. When a scan is stopped, the email counts only the saved passes a restart will reuse. And when LLM Status says a model call read less of its prompt than it was sent, it names the scan, the step and the time of that call, and when it stops counting.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.5</span>
+      <span class="release-date">September 23, 2026</span>
     </div>
     <h2 class="release-headline">A merge or report line that never ends is cleaned up</h2>
     <p class="release-lede">7.4.5 -- The model writing a merge step or the final report sometimes starts a line and never finishes it, drifting into an endless run of loosely related words. Ghost now keeps such a line only up to its last complete sentence and keeps everything else in the answer. When a line runs past 40,000 characters, Ghost also stops the model there instead of letting it write to the end. On one scan this week that line reached 116,860 characters and took 22 minutes; stopped at 40,000, the same step takes about 9. A line that runs on for a while and then ends is left to finish, because the model often goes back to writing real findings after it.</p>
