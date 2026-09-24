@@ -2404,15 +2404,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.7, September 24, 2026. <a href="/download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.8, September 24, 2026. <a href="/download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.7</span>
+      <span class="release-version">7.4.8</span>
       <span class="release-date">September 24, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Severity you can trust, and a backup that pauses the scans</h2>
+    <p class="release-lede">7.4.8 -- Ghost was hiding values like "dummy" and "YOUR_API_KEY" as if they were secrets, then reading the hidden value as proof of a real secret. Those findings came out CRITICAL. Ghost now leaves a placeholder as it is written and still hides anything that could be real. A finding whose every cited file is test or example code is now MEDIUM at most, because that code does not run in production. The finding says what it was first rated and why it was lowered. The severity rubric now says that CRITICAL and HIGH need a production path, that a placeholder is not a secret, and that code which logs an error and returns an error response is reporting it, not swallowing it. The first scan of each project after this update analyses every file again; later scans reuse that work as before. The daily backup now pauses the scans instead of waiting for a quiet machine that may never come. Each scan pauses after the pass it is on, the backup runs, and the scans restart on their own. Every queue screen says "pausing for backup" while it happens. The daily usage report lists each project once, with its findings scan by scan and a count of the attempts that ended early.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.7</span>
+      <span class="release-date">September 24, 2026</span>
     </div>
     <h2 class="release-headline">A report entry that runs on is stopped in seconds, not minutes</h2>
     <p class="release-lede">7.4.7 -- When Ghost writes the report, the model writes one entry per finding. On a scan this week it wrote one entry as a single line of more than 52,000 characters of repeated words and kept going for over 11 minutes. Ghost already throws away an entry like that, so the time was wasted. Ghost now stops the model as soon as a line in an entry passes the length it would throw away, writes that entry again on its own, and does the same for any entries the runaway left unwritten. If the rewrite runs on too, the entry is built from the finding's own details instead.</p>
