@@ -3,3 +3,10 @@ node_modules/
 package-lock.json
 .DS_Store
 .claude/
+
+# /next/ staging: working notes stay local, the site files are published
+next/PORTING.md
+next/SHOTLIST.md
+next/Preview Site.command
+next/.stage/
+next/media/

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <!-- PREVIEW BUILD: keep noindex until this replaces /security.html -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Security &amp; Trust: Ghost Architect&trade;</title>
+  <meta name="description" content="How Ghost Architect handles your code, your API keys, and your data, and how Ghost Architect Local keeps all of it on your own hardware with zero egress. Built for security-conscious teams: runs locally, BYOK, no source code on our infrastructure." />
+  <link rel="canonical" href="https://ghostarchitect.dev/security" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev/security.html" />
+  <meta property="og:title" content="Security &amp; Trust -- Ghost Architect&trade;" />
+  <meta property="og:description" content="How Ghost Architect handles your code, your API keys, and your data." />
+  <meta property="og:site_name" content="Ghost Architect&trade;" />
+
+  <meta name="theme-color" content="#0a0a0f" />
+  <!-- Paths are relative to /next/ so the page also opens straight from the folder (file://).
+       When this replaces the live page, change ../ to / on these references. -->
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css" />
+  <!-- Page-specific CSS: only what site.css cannot express (labelled rows, the at-a-glance grid, an amber eyebrow). -->
+  <style>
+    .band[id] { scroll-margin-top: calc(var(--nav-h) + 1rem); }
+    .band > .lede { max-width: 68ch; }
+    .eyebrow.amber { color: var(--warning); }
+    a.local-link { color: var(--local); }
+    .lede strong { color: var(--text); font-weight: 600; }
+    .items strong { color: var(--text); font-weight: 600; }
+    .items code, .callout code { font-family: var(--font-mono); font-size: 0.86em; color: var(--text); background: rgba(255,255,255,0.06); padding: 0.08rem 0.4rem; border-radius: 4px; }
+    .glance { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem 2rem; margin-top: 0.4rem; }
+    .glance li { grid-template-columns: 1.4rem 1fr; }
+    .glance .n { color: var(--accent2); }
+    .glance h3 { color: var(--text); font-family: var(--font-mono); font-size: 0.86rem; letter-spacing: 0.02em; }
+    .glance h3.local { color: var(--local); }
+    .glance .t { font-size: 0.92rem; margin-top: 0.2rem; }
+    .qa { gap: 0; margin-top: 1.4rem; max-width: 900px; }
+    .qa li { grid-template-columns: 10rem 1fr; gap: 1.4rem; padding: 1.1rem 0; border-top: 1px solid var(--border); }
+    .qa li:last-child { border-bottom: 1px solid var(--border); }
+    .qa .n { font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.74rem; }
+    .qa .t { font-size: 0.98rem; margin: 0; }
+    .final .lede { margin-left: auto; margin-right: auto; }
+    .final .hero-cta { justify-content: center; }
+    @media (max-width: 720px) {
+      .qa li { grid-template-columns: 1fr; gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body data-product="cloud">
+
+<canvas id="lattice" aria-hidden="true" data-ambient></canvas>
+
+<div id="ga-nav-mount"></div>
+
+<main class="page">
+
+  <!-- HERO -->
+  <header class="page-hero">
+    <p class="eyebrow">// security &amp; trust</p>
+    <h1>Your code never leaves your machine.<br><em>That is the architecture, not a promise.</em></h1>
+    <p class="lede">Ghost Architect&trade; is a command-line tool that runs entirely on your laptop, your server, or your CI runner. No Ghost Architect&trade; server ever sees your source. There is no central server holding your scans. The product is designed so that even if Ghost Architect&trade; were compromised tomorrow, your codebase would not be affected. That holds for both products: with Ghost Architect&trade; Cloud the cloud is the model provider&rsquo;s, reached with your own API key, and never ours; with <a href="#local" class="local-link">Ghost Architect&trade; Local</a> the model runs on your hardware too, and nothing leaves your network.</p>
+  </header>
+
+  <!-- TWO PRODUCTS, TWO TRUST MODELS -->
+  <section class="band">
+    <div class="door-grid">
+      <a class="door cloud" href="#dataflow">
+        <p class="label blue">Ghost Architect&trade; Cloud</p>
+        <div class="door-title">Your code goes to the model provider you chose, and nowhere else.</div>
+        <p>The scanner runs on your machine. The only outbound traffic is the request to Anthropic, under your own API key. We operate no server that sees your source.</p>
+        <div class="go">How the data flows &darr;</div>
+      </a>
+      <a class="door local" href="#local">
+        <p class="label local">Ghost Architect&trade; Local &middot; your hardware <span class="pill local">NEW</span></p>
+        <div class="door-title">Your code never leaves the building. Zero egress, refused at the code level.</div>
+        <p>The model runs on your machines, inside your network. One licence activation, then nothing calls home. An egress inventory generated from the code, a hash-chained audit log, a compliance ledger your auditor can read.</p>
+        <div class="go">The Local trust model &darr;</div>
+      </a>
+    </div>
+
+    <div class="callout teal">
+      <div class="k">At a glance</div>
+      <ul class="items glance">
+        <li><span class="n">&check;</span><div><h3>Local execution</h3><p class="t">The scanner runs on your machine. No code is uploaded to Ghost Architect&trade;.</p></div></li>
+        <li><span class="n">&check;</span><div><h3>BYOK Anthropic API</h3><p class="t">You bring your own Anthropic API key. We never see it.</p></div></li>
+        <li><span class="n">&check;</span><div><h3>No central storage</h3><p class="t">We operate no servers that hold customer source code.</p></div></li>
+        <li><span class="n">&check;</span><div><h3>Reports stay yours</h3><p class="t">Findings live in your own private GitHub repository.</p></div></li>
+        <li><span class="n">&check;</span><div><h3>Telemetry is opt-out</h3><p class="t">Set <code>GHOST_NO_PING=1</code> to disable all outbound calls.</p></div></li>
+        <li><span class="n">&check;</span><div><h3 class="local">Ghost Architect&trade; Local</h3><p class="t">The model runs on your hardware too. Zero egress, refused at the code level, with the inventory that proves it. <a href="#local" class="local-link">Details &darr;</a></p></div></li>
+        <li><span class="n">&check;</span><div><h3>MIT-licensed CLI</h3><p class="t">Ghost Open ships free on <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer">npm</a> under the MIT license. Repository on <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener noreferrer">GitHub</a>.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- DATA FLOW -->
+  <section class="band" id="dataflow">
+    <p class="eyebrow">// data flow</p>
+    <h2>Where your code actually goes during a scan</h2>
+    <p class="lede">When you run Ghost Architect&trade; against a codebase, here is the complete path the data takes. There are no hidden steps.</p>
+
+    <ul class="items qa">
+      <li><span class="n">Step 1</span><div><p class="t">Ghost Architect&trade; reads your local files. <strong>Nothing is uploaded yet.</strong> File reading happens entirely on your machine.</p></div></li>
+      <li><span class="n">Step 2</span><div><p class="t">Relevant code chunks are sent <strong>directly to Anthropic's API</strong> using <strong>your own API key</strong>. The traffic goes from your machine to Anthropic. Ghost Architect&trade; is not a relay, proxy, or middle hop. Anthropic's enterprise data retention policies apply (zero data retention by default on paid plans). See <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropic's privacy policy</a>.</p></div></li>
+      <li><span class="n">Step 3</span><div><p class="t">Anthropic's API returns analysis. The response comes back to your machine.</p></div></li>
+      <li><span class="n">Step 4</span><div><p class="t">Ghost Architect&trade; writes the findings report locally as PDF, Markdown, or text. On Team and Enterprise tiers, the report is committed to a private GitHub repository <strong>that you own and control</strong>. We do not host these repositories.</p></div></li>
+      <li><span class="n">Step 5</span><div><p class="t">A small heartbeat ping containing the CLI version, an anonymized install ID, and the event type (for example <code>cli-firstrun-docker</code>) may be sent to our telemetry endpoint. <strong>This ping contains no source code, no file paths, no findings, no API keys, and no personally identifiable information.</strong> You can disable it entirely by setting the environment variable <code>GHOST_NO_PING=1</code>.</p></div></li>
+    </ul>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section class="band">
+    <p class="eyebrow">// architecture</p>
+    <h2>What we operate, and what we do not</h2>
+
+    <ul class="items qa">
+      <li><span class="n">We operate</span><div><p class="t">A static marketing website (this one), a Cloudflare Worker that receives anonymous heartbeat pings for install analytics, an Airtable base that stores those anonymous pings, and the Ghost Open package on the public npm registry.</p></div></li>
+      <li><span class="n">We do not operate</span><div><p class="t">Any server that stores, processes, or transmits customer source code. Any database of customer findings reports. Any AI inference infrastructure that sees your code. Any analytics service that profiles your team or users.</p></div></li>
+      <li><span class="n">Source control</span><div><p class="t">For Team and Enterprise tiers, findings reports are synced to a private GitHub repository <strong>provisioned in your own GitHub organization</strong>. Ghost Architect&trade; does not host these repositories. Access control, retention, and deletion are managed entirely by you under GitHub's terms.</p></div></li>
+      <li><span class="n">Authentication</span><div><p class="t">Your Anthropic API key is stored locally on your machine in a configuration file you control. It is never transmitted to Ghost Architect&trade;. You can rotate or revoke it at any time without involving us.</p></div></li>
+    </ul>
+  </section>
+
+  <!-- COMPLIANCE POSTURE -->
+  <section class="band solid-band">
+    <p class="eyebrow amber">// compliance posture</p>
+    <h2>On SOC 2 and ISO 27001</h2>
+    <div class="prose">
+      <p>Ghost Architect&trade; is operated by a solo founder running a deliberately minimal infrastructure footprint. We do not currently hold SOC 2 Type II or ISO 27001 certifications. We believe in being direct about that rather than displaying badges we have not earned.</p>
+      <p>The reason we are comfortable engaging with security-conscious teams without those certifications is that <strong>the product is architected so that the data those frameworks are designed to protect never enters our infrastructure in the first place</strong>. Your source code, your API keys, and your findings reports all stay on systems you control. There is no Ghost Architect&trade; data plane for an auditor to certify.</p>
+      <p>When Ghost Architect&trade;'s enterprise revenue justifies the audit cost, and when an enterprise customer requires it as a condition of contract, we will pursue SOC 2 readiness through a recognized provider. Until then, we direct your security team to this page, to Anthropic's enterprise compliance documentation, and to the source code itself.</p>
+    </div>
+  </section>
+
+  <!-- GHOST ARCHITECT LOCAL -->
+  <section class="band" id="local">
+    <p class="eyebrow local">// ghost architect local</p>
+    <h2>Zero egress, at the code level, with the inventory that proves it</h2>
+    <p class="lede">Everything above describes Ghost Architect&trade; Cloud, where the model is a frontier model reached through your own API key. <strong>Ghost Architect&trade; Local is a different deal: the model runs on your hardware too.</strong> Your source never leaves your network, because there is nothing on the other side to send it to.</p>
+    <div class="prose">
+      <ul>
+        <li><strong>One call home, once.</strong> Licence activation sends the licence key and an install id to ghostarchitect.dev and receives a signed licence. Nothing from the codebase is in the request. The licence is verified on the machine with Ed25519; there is no phone-home to keep running.</li>
+        <li><strong>An egress inventory, not a policy page.</strong> The product prints every destination it is capable of sending to (email, webhooks, team sync, PR comments, a git server), what each one would carry, and the switch that turns it off. The inventory is generated from the code that gates the traffic, so it cannot drift from what the product does.</li>
+        <li><strong>Zero-egress mode refuses, it does not warn.</strong> Turn it on and every outbound integration is refused at the code level, including a spoke enrolling against a hub outside your LAN. The refusal is written to the audit log.</li>
+        <li><strong>A compliance ledger your auditor can read.</strong> Every scan ending, completed, failed, cancelled, killed or lost, is a row with the scan it belongs to, the person, the project label and the directory name (never the full path). Exports are CSV or PDF, signed, with the signing key rotated from Admin Console.</li>
+        <li><strong>A hash-chained audit log.</strong> The audit log is chained line by line and the Audit page verifies the chain inside every file it opens, and says which files it opened, so "the chain verifies" and "no file is missing" are two claims kept apart on purpose.</li>
+        <li><strong>Reports that name their coverage.</strong> A report says how many files it read of how many exist and claims nothing about the rest. A scan that never finished counting says nobody counted, never zero.</li>
+        <li><strong>Redaction before the model sees it.</strong> Credentials, keys, connection strings and tokens are redacted from the text the model receives, and the redactor fails closed: a file it cannot redact is not sent.</li>
+        <li><strong>Verify it yourself.</strong> Run it behind a packet inspector with zero-egress on. After activation you will see LAN traffic between your own machines and nothing else. The product ships as source in the tarball you install, so the code that makes these claims is the code you can read.</li>
+      </ul>
+      <p><a href="local.html" class="local-link">What Ghost Architect&trade; Local is</a> &middot; <a href="download.html" class="local-link">Download and install</a></p>
+    </div>
+  </section>
+
+  <!-- FOR SECURITY REVIEWERS -->
+  <section class="band">
+    <p class="eyebrow">// for security reviewers</p>
+    <h2>Verifying these claims yourself</h2>
+    <p class="lede">Everything described on this page is independently verifiable.</p>
+    <div class="prose">
+      <ul>
+        <li><strong>Inspect the source.</strong> Ghost Open is installable from npm as <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener"><code>ghost-architect-open</code></a> under the MIT license. Read the package contents before you run it.</li>
+        <li><strong>Watch the network.</strong> Run Ghost Architect&trade; behind a packet inspector. You will see two endpoints: the Anthropic API and our telemetry endpoint. Nothing else.</li>
+        <li><strong>Disable telemetry.</strong> Set <code>GHOST_NO_PING=1</code> in your environment. All outbound calls from Ghost Architect&trade; itself stop. Only Anthropic calls remain, and those use your key.</li>
+        <li><strong>Run it air-gapped.</strong> Ghost Architect&trade; will run on an isolated machine with only Anthropic API access. No connection to Ghost Architect&trade; infrastructure is required for scanning to function.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="band final">
+    <h2>Security team has questions?</h2>
+    <p class="lede">We answer security review questionnaires directly. No vendor portal, no compliance theater.</p>
+    <div class="hero-cta">
+      <a href="mailto:support@ghostarchitect.dev?subject=Security%20review" class="btn btn-cloud">support@ghostarchitect.dev</a>
+    </div>
+    <p class="fine">Last updated: May 15, 2026</p>
+  </section>
+
+</main>
+
+<footer>
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; US Copyright Reg. #1-15123488721 &middot; <a href="support.html">Support</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="msa.html">Terms of Service</a></span>
+</footer>
+
+<script src="../assets/ga-nav.js?v=20260920b" defer></script>
+<script>
+  // Quiet text reveals. Falls back to visible if IntersectionObserver is missing.
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+<script src="next-nav.js" defer></script>
+<script src="scene.js" defer></script>
+</body>
+</html>

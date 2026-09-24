@@ -1,0 +1,7 @@
+{
+  "name": "ghostarchitect-next",
+  "private": true,
+  "description": "Cinematic homepage for ghostarchitect.dev. Source in src/, bundle committed as scene.js. Run ./build.sh after editing src/scene.js.",
+  "scripts": { "build": "esbuild src/scene.js --bundle --minify --format=iife --target=es2020 --outfile=scene.js --legal-comments=none" },
+  "devDependencies": { "esbuild": "^0.25.0", "three": "0.186.1" }
+}

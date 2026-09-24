@@ -1,0 +1,2536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- PREVIEW BUILD: keep noindex until this replaces /changelog.html. Regenerate with tools/port-changelog.py after each release. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Changelog &middot; Ghost Architect&trade;</title>
+  <meta name="description" content="Ghost Architect™ release notes. v8.1.5 ships 10 security and reliability fixes. v8.0.0 introduces Ghost Brief™ -- the governed AI remediation pipeline. Plus v7 highlights." />
+  <meta name="description" content="Ghost Architect™ release notes. v7.0.0 ships the unified Open tier as the trial, cost transparency in Question mode, and the LAUNCH50 promo. Plus what landed in v6 and the v5 highlights." />
+  <link rel="canonical" href="https://ghostarchitect.dev/changelog" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev/changelog.html" />
+  <meta property="og:title" content="Changelog &middot; Ghost Architect&trade;" />
+  <meta property="og:description" content="Ghost Architect™ release notes. v8.1.5 ships 10 security and reliability fixes. v8.0.0 introduces the governed AI remediation pipeline." />
+  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
+  <meta property="og:site_name" content="Ghost Architect&trade;" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css" />
+  <link rel="stylesheet" href="changelog.css" />
+</head>
+<body data-product="cloud">
+
+<canvas id="lattice" aria-hidden="true" data-ambient></canvas>
+
+<div id="ga-nav-mount"></div>
+
+<main class="page changelog">
+<section class="hero">
+  <div class="hero-eyebrow">// changelog</div>
+  <h1 class="hero-headline">Release notes.<br><em>What shipped, and when.</em></h1>
+  <p class="hero-subhead">Ghost Architect&trade; ships fast. This page is the official record of what landed in each release, in plain language, with the user-facing change first. For deeper context on individual releases, see the corresponding posts on the <a href="blog.html">blog</a>.</p>
+</section>
+
+<section class="manifesto">
+  <div class="manifesto-card">
+    <h2 class="manifesto-headline">We ship. We listen. We improve. Repeat.</h2>
+    <p class="manifesto-body">Ghost Architect&trade; is not a launch-and-forget product. Every version below represents a real response -- to a gap we found, a customer need we heard, or a standard we weren't yet meeting. Ghost Watcher&trade; runs on every commit we make. We hold ourselves to the same bar we set for your codebase. This changelog is not a list of patches. It is a record of a product that takes its own advice.</p>
+  </div>
+</section>
+
+<div class="two-logs">
+<div class="log-col log-hosted" id="hosted">
+  <div class="log-head">
+    <div class="log-eyebrow">Ghost Architect&trade; Cloud</div>
+    <p>The npm product: install it, bring your own API key, and the licence unlocks the paid tiers. Latest v11.0.3, July 11, 2026.</p>
+  </div>
+
+<div class="install">
+  <div class="install-card">
+    <div class="install-meta">
+      <span class="install-label">Current release</span>
+      <span class="install-version">v11.0.3 <span class="version-date">July 11, 2026</span></span>
+    </div>
+    <div class="install-cmd"><span class="prompt">$</span>npm install -g ghost-architect-open</div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v11.0.3                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card current">
+    <div class="release-meta">
+      <span class="release-version">v11.0.3</span>
+      <span class="release-date">July 11, 2026</span>
+      <span class="release-badge">Latest</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Renewal Recovery, Forecast Completeness, and Revocation Routing</h2>
+    <p class="release-lede">v11.0.3 -- Renewal and recovery screens now include the activation step, Commit Forecast saves the complete findings sidecar, revocation checks are license-aware on machines running more than one license, and the new --list-sessions flag shows every resumable scan session.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v11.0.2                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v11.0.2</span>
+      <span class="release-date">July 10, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Recon Disclosure, Resume Honesty, and Renewal Copy</h2>
+    <p class="release-lede">v11.0.2 -- Recon's fallback-to-heuristics disclosure is live and its cost stamp is now accurate, expired customers using profile management commands see renewal guidance instead of a generic activation prompt, a scan that only partially resumes now honestly reports incomplete instead of complete, and session listing includes scans saved to the fallback directory.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v11.0.1                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v11.0.1</span>
+      <span class="release-date">July 10, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Model Compatibility, CI Token Integrity, and Watcher Fixes</h2>
+    <p class="release-lede">v11.0.1 -- Claude Sonnet 5, Opus 4.8, and Fable 5 now work across every scan mode instead of failing outright, ghost --export-ci-token validates the exact token it exports instead of a different one, a malformed Ghost Watcher config value no longer blocks a commit, and a resumed prompts batch can no longer report a failed scan as complete.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v11.0.0                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v11.0.0</span>
+      <span class="release-date">July 10, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Checkpoint Salvage, License Session Refresh, and CI Token Export</h2>
+    <p class="release-lede">v11.0.0 -- A checkpoint-salvage bug that corrupted recovered findings after a crash is fixed, license changes like activation and renewal now take effect immediately instead of requiring a restart, the new ghost --export-ci-token command makes CI secret setup reliable, and the Ghost Watcher paywall no longer pitches a free trial to accounts it cannot actually help.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.16                                                       -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.16</span>
+      <span class="release-date">July 9, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher Trust and Display</h2>
+    <p class="release-lede">v10.0.16 -- Ghost Watcher now separates blast radius observations from action-required findings.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.15                                                       -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.15</span>
+      <span class="release-date">July 9, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Chat Response Calibration</h2>
+    <p class="release-lede">v10.0.15 -- Chat and question mode now scales response depth to question complexity.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.14                                                       -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.14</span>
+      <span class="release-date">July 9, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Report Polish, Verifier Trust, and Copy Accuracy</h2>
+    <p class="release-lede">v10.0.14 -- Report polish, verifier trust fixes, AWS SHA redactor fix, Windows menu restored, clock-skew license panel fixed.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.13                                                       -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.13</span>
+      <span class="release-date">July 9, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Scan Quality and Audit Pricing</h2>
+    <p class="release-lede">v10.0.13 -- assets/ directory and common binary asset extensions excluded from scans, audit paywall pricing corrected.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.12                                                       -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.12</span>
+      <span class="release-date">July 9, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Session Recovery, Publish Reliability, License Copy, and Email Polish</h2>
+    <p class="release-lede">v10.0.12 -- Session resume fixed, concurrent publish locking, clock state hardened, GitHub PAT env var support, email em dashes removed.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.11                                                       -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.11</span>
+      <span class="release-date">July 9, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Clock Tolerance, Session Safety, and Publish Recovery</h2>
+    <p class="release-lede">v10.0.11 -- Clock ratchet window widened to 5 minutes, session salvage filters by project, interrupted publish recovery loop fixed, audit and multipass error handling hardened.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.10                                                       -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.10</span>
+      <span class="release-date">July 8, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">License Ratchet, Quota Safety, and Verifier Quality</h2>
+    <p class="release-lede">v10.0.10 -- Clock ratchet rejects past timestamps, quota counters fail-closed, verifier drops disputed findings, narrator cap raised to 30 with transparency, reliability hardening.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.9                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.9</span>
+      <span class="release-date">July 8, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Reliability, Data Integrity, and Credential Safety</h2>
+    <p class="release-lede">v10.0.9 -- Manifest parser crash-proofed, credential safety enforced, mobile publish atomicity added, batch store locking, rate limit handling.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.8                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.8</span>
+      <span class="release-date">July 8, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Reconfigure Menu Repo URL, Session Recovery, and Verifier</h2>
+    <p class="release-lede">v10.0.8 -- Reconfigure menu repo URL fixed, session recovery visible, verifier regeneration improved, profile model validation added.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.7                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.7</span>
+      <span class="release-date">July 8, 2026</span>
+      <span class="release-badge kind-blue">HOTFIX</span>
+    </div>
+    <h2 class="release-headline">Reconfigure Menu Crash and SCAN_QUOTA Single Source of Truth</h2>
+    <p class="release-lede">v10.0.7 -- Reconfigure menu no longer crashes with a ReferenceError, and FREE_QUOTA is removed entirely so the free-scan quota has one source of truth.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.6                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.6</span>
+      <span class="release-date">July 8, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Cost Reporting, Selective Reconfigure, and Security Hardening</h2>
+    <p class="release-lede">v10.0.6 -- Cost reporting fixed, selective reconfigure menu, GitHub token secured in OS keychain, prompt injection hardened.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.5                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.5</span>
+      <span class="release-date">July 8, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Executive Brief Empty State, Ghost Brief Output Flag, and Install</h2>
+    <p class="release-lede">v10.0.5 -- Executive Brief renders a graceful empty state, Ghost Brief --output flag wired through, README install command updated to --location=global.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.4                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.4</span>
+      <span class="release-date">July 7, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Prompt Triage Redaction, Wizard Loop, and Paywall Copy Patch</h2>
+    <p class="release-lede">v10.0.4 -- Prompt Triage now redacts before API calls, keyless wizard loop fixed, paywall copy corrected, pricing constants completed.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.3                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.3</span>
+      <span class="release-date">July 7, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Privacy, LICENSE, Trial Funnel, and License Detection Patch</h2>
+    <p class="release-lede">v10.0.3 -- Privacy copy corrected, LICENSE fixed, Ghost Watcher false-clean fixed, trial funnel improved, profile creation fixed, license detection live, 549 em dashes removed from site.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.2                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.2</span>
+      <span class="release-date">July 6, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">License Key, Watch Setup, and Cost Estimator Patch</h2>
+    <p class="release-lede">License key generation fixed, Ghost Watcher Windows setup fixed, cost estimates corrected for audit and prompt-triage.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.1                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.1</span>
+      <span class="release-date">July 6, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Trial Funnel and Paywall Patch</h2>
+    <p class="release-lede">Trial funnel fixed, Ghost Brief working, Watcher regex patched, 9 conversion and trust improvements.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v10.0.0                                                        -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v10.0.0</span>
+      <span class="release-date">July 6, 2026</span>
+      <span class="release-badge kind-blue">MAJOR</span>
+    </div>
+    <h2 class="release-headline">Full 32-Finding Audit Remediation</h2>
+    <p class="release-lede">Full 32-finding audit remediation. Pricing fixed, trial CTA live, portal link fixed, 32 trust and conversion improvements.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.40                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.40</span>
+      <span class="release-date">July 5, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Multipass Crash Fix</h2>
+    <p class="release-lede">Patched a ReferenceError in the multi-pass scanner: two constants (IS_WINDOWS and SYM) were trapped inside a JSDoc comment instead of live code, so pass-complete, batch-merge, and coverage output could crash. Both declarations moved to live code. Caught by Ghost Watcher automated conflict detection.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.39                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.39</span>
+      <span class="release-date">July 5, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Guided Analysis Prompt + First-Run License Flow</h2>
+    <p class="release-lede">After processing your files, Ghost now opens with "Ready to analyze N files. What would you like Ghost to do?" instead of dropping straight into the menu. First-run onboarding asks whether you have a license key before setup: enter one to activate immediately, or head to the free 7-day trial or Ghost Open. A bad key warns and continues rather than killing the session. Plus a README note on running Ghost from any directory and entering the full path when prompted.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.38                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.38</span>
+      <span class="release-date">July 5, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Cross-Platform Config Hardening + Git Hook Intelligence</h2>
+    <p class="release-lede">Linux sudo ghost --activate no longer silently drops to Open tier on relaunch: the license store now resolves to the invoking user's real home, with automatic ownership reconciliation and five Configstore instances consolidated into one. Ghost also recognizes extensionless Git hook files (pre-commit, post-checkout, commit-msg, and 13 others) across the directory, ZIP, and GitHub loaders, so a .git/hooks folder is fully analyzed. Test suite now 30 tests.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.37                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.37</span>
+      <span class="release-date">July 3, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Regression Guard Added</h2>
+    <p class="release-lede">Locked in the v9.4.36 forecast context-cap fix with a dedicated regression fixture -- it asserts resolveContextCap() returns an object and that .effective extraction is required, so the bug can't silently return. Also reconciled the v9.4.35 self-audit count to 14 findings. Test suite now 29 tests.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.36                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.36</span>
+      <span class="release-date">July 2, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher Caught One</h2>
+    <p class="release-lede">Ghost Watcher flagged a real bug on the v9.4.35 release commit. forecast-overlay.js was using the resolveContextCap() return object as a number instead of extracting .effective -- silently bypassing the tier context cap on large change sets. Ghost Watcher caught it automatically. Fixed same session.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.35                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.35</span>
+      <span class="release-date">July 2, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">POI Self-Audit -- 14 Findings Resolved</h2>
+    <p class="release-lede">Ghost scanned Ghost. POI self-audit identified and resolved 14 latent findings across error handling, concurrency, and silent failure paths -- none affecting the happy path, all affecting edge-case reliability. Includes 3 new regression fixtures and a 28-test suite.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.34                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.34</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Self-refuting findings get a second line of defense.</h2>
+    <p class="release-lede">Conflict Detection already suppresses findings that talk themselves out of being conflicts at generation time. This release adds a post-generation safety net that catches two more self-refuting phrasings, so anything that slips past the prompt still gets filtered before it reaches your report. A verified annotation also documents the token counter's intentional cache isolation.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>@ghost-verified annotation added to tokenizer.js countTokensExactImpl delegation -- Gemini/unknown cache-namespace isolation is an intentional performance trade-off, not a conflict</strong></span></li>
+      <li><span class="marker">+</span><span><strong>SELF_REFUTING_RE extended with two new patterns: "not a runtime failure" and "performance issue, not a correctness" -- post-generation filter now catches self-refuting findings that slip past the prompt-side DO NOT FLAG rule</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.33                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.33</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Tighter Conflict Detection and cleaner token caching.</h2>
+    <p class="release-lede">Conflict Detection now suppresses findings that talk themselves out of being conflicts: if a finding's own description says there is no runtime failure or that it is correct behavior, it never reaches your report. Under the hood, the token counter's fast and exact caches are now fully isolated, and a dead import was removed.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>tokenizer.js: fixed countTokensExact OpenAI delegation -- now calls countTokensImpl() directly instead of countTokens() to keep 'fast' and 'exact' cache namespaces genuinely isolated; removed dead resolveApiKey import</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Conflict Detection prompt: added self-refuting DO NOT FLAG rule -- findings that self-describe as "no current runtime failure", "no runtime impact", "correct behavior", or "redundancy rather than a conflict" are now suppressed at generation</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Prompt snapshots regenerated to match updated conflict prompt</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.32                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.32</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Verification annotation for the prompt-triage cost imports.</h2>
+    <p class="release-lede">A flagged import in the prompt-triage mode was reviewed and confirmed as a false positive. The four cost helpers it uses are correctly exported and imported directly from the core estimator, so the annotation records that verification in place. No behavior change.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>@ghost-verified annotation added to src/modes/prompt-triage.js import block -- confirmed false positive, all four functions (estimateMultiCallCost, formatCost, formatCostRange, calcActualCost) are correctly exported from src/core/estimator.js and imported directly; src/estimator.js barrel shim gap is latent, not live</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.31                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.31</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher™ now tracks what you fixed.</h2>
+    <p class="release-lede">Every Watcher run now compares against the last one. Findings that disappear after a fix move to a Resolved section in your portal, tagged with the commit that closed them, and brand-new findings are marked as first seen on this commit. It is branch-aware, so parallel work does not muddy the picture.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Finding lifecycle tracking: resolved and new findings are computed on every Watcher run and shown in the portal, with the commit each finding was fixed in</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Resolved findings render as a collapsible green section in the Watch tab, so a fixed backlog reads as progress rather than vanishing silently</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Reviewed findings marked @ghost-verified now persist to the commit state, closing a gap where they could disappear from the portal on some commits</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Model support: Claude Fable 5, Opus 4.8, and Opus 5 added to the pricing and sampling tables so cost estimates stay accurate across the current model lineup</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.30                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.30</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Sharper conflict findings, sturdier parsing.</h2>
+    <p class="release-lede">A quality pass on Conflict Detection. The scanner now suppresses speculative and hypothetical findings at the source, so what surfaces is grounded in a code path that runs today rather than a what-if. Under the hood, the findings parser gained two more recovery tiers for imperfect model output, and CI moved to Node.js 24.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Conflict Detection hard-suppresses speculative and hypothetical findings at generation, so only conflicts with a real runtime path surface (DO NOT FLAG, CONFIDENCE RULE, and SEVERITY RULE all tightened to remove the low-severity carve-out for what-ifs)</strong></span></li>
+      <li><span class="marker">+</span><span><strong>The findings parser gained two new JSON recovery tiers, a trailing-comma sweep and a trailing-comma-plus-truncation pass, so imperfect model output is repaired instead of dropped</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Continuous integration now runs on Node.js 24</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Internal annotation on the license clock state key, confirming a reviewed false positive with no collision risk</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.29                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.29</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Docs match the config.</h2>
+    <p class="release-lede">A documentation fix. The Ghost Watcher config example in the README now shows the structured blast-radius block, so copying it preserves the release-commit skip behavior added last release instead of silently reverting to the older on/off form.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: the README Ghost Watcher config example now uses the structured blast-radius block, so copying it keeps the release-commit skip behavior instead of silently losing it</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.28                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.28</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Quieter Ghost Watcher on release commits.</h2>
+    <p class="release-lede">A small workflow refinement. Ghost Watcher now skips the Blast Radius pass on version-tagged release commits, which produced impact-analysis noise rather than actionable findings. Conflict Detection and Ghost Brief still run on every commit.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: Ghost Watcher skips the Blast Radius pass on version-tagged release commits, cutting impact-analysis noise while keeping Conflict Detection and Ghost Brief on every commit</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: the generated Watch config now uses a structured blast-radius block with an enable flag and skip patterns, so regenerating the config preserves these settings</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.27                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.27</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Batch synthesis fails loudly, not silently.</h2>
+    <p class="release-lede">A follow-up hardening release. The multi-pass Blast Radius synthesis introduced last release now surfaces batch failures as an explicit error instead of returning a blank report, so a failed synthesis never gets saved as an empty file.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: multi-pass Blast Radius synthesis now raises an explicit error when a batch request fails, instead of silently producing an empty report</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.26                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.26</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">More reliable Ghost Watcher runs on CI.</h2>
+    <p class="release-lede">A reliability release. Ghost Watcher's Blast Radius narration and multi-pass synthesis no longer depend on long-lived streaming connections, which occasionally dropped on CI runners and produced degraded results. Those paths now use blocking and batch requests instead, so large-codebase runs complete cleanly.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: Ghost Watcher Blast Radius narration now uses a blocking request instead of a streaming one, removing the connection-drop failures that produced degraded results on CI</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: multi-pass Blast Radius synthesis now runs through the batch API, matching how the other scan modes already operate, with no client-side timeout risk</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.25                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.25</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Quieter Conflict Detection, fewer self-cancelling findings.</h2>
+    <p class="release-lede">A precision release. Conflict Detection sometimes surfaced findings that its own explanation admitted were not real conflicts. The noise filter now recognizes more of those self-cancelling phrasings and drops them before they reach you.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: the Conflict Detection noise filter now catches more model-generated self-negations (findings whose own description says there is no real conflict) and drops them before they surface</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.24                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.24</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">More reliable auto-patches and accurate telemetry.</h2>
+    <p class="release-lede">A small correctness release. The automated patch generator no longer drops switch-case lines from a fix, cancelled Ghost Watcher runs now report the right version, and an internal detector-ranking path was made consistent.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: generated fix patches no longer strip switch-case labels, so the resulting code stays syntactically valid</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: cancelled or failed Ghost Watcher runs now report the actual installed version in telemetry instead of a stale hardcoded one</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: made an internal detector-ranking lookup consistent and marked two reviewed classification notes</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.23                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.23</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Cleaner Prompt Triage dedup, no duplicate signal.</h2>
+    <p class="release-lede">A small correctness release. Two Prompt Triage detectors were reclassified back to their documented roles as broad fallbacks, so overlapping findings no longer surface twice. One internal publish path was annotated as reviewed to keep future self-scans quiet.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: two overlapping Prompt Triage detectors no longer emit duplicate findings on the same range; the more-specific detector now correctly wins</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: annotated an intentionally-minimal mobile publish payload as reviewed so it is not re-flagged by self-scans</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.22                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.22</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Accurate mobile dashboards and verified diff output.</h2>
+    <p class="release-lede">A maintenance release closing out the precision work from this cycle. Scan records now persist every field the Ghost Mobile portfolio dashboard reads, so finding and severity counts render correctly instead of showing zero. The unified-diff renderer was verified correct on multi-hunk output, and the bundled conflict-prompt snapshots were refreshed to match the tightened v0.4 wording.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: saved scan records now include every field the Ghost Mobile dashboard reads, so it reports findings and severity counts correctly instead of showing zero</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: verified the unified-diff renderer produces correct line numbers across multi-hunk output</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: refreshed the bundled conflict-detection prompt snapshots to match the tightened wording shipped last release</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.21                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.21</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Sharper Conflict Detection and fewer false positives.</h2>
+    <p class="release-lede">A maintenance release focused on precision. Conflict Detection now requires concrete runtime impact before flagging an issue, cutting speculative noise. Recurring intentional-design findings are marked reviewed so they stop resurfacing, the mobile portfolio dashboard reports findings correctly, and the Ghost Portal degraded-run banner now names the exact commit affected.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: Conflict Detection tightened to require concrete runtime impact before flagging, with an explicit do-not-flag list and a confidence rule to reduce false positives</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: seven recurring intentional-design findings are now marked reviewed so they no longer resurface on every scan</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the mobile portfolio dashboard now reports finding and severity counts correctly instead of showing zero</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: two prompt detectors promoted so their higher-severity findings are no longer suppressed by lower-severity ones</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: single-pass scans now handle models that reject the temperature parameter, matching the multi-pass path</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the Ghost Portal degraded-run banner now names the exact commit affected by a narrator interruption</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: extracted a duplicated similarity threshold to a named constant and flagged token-counting detectors that may make network calls</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.20                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.20</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Clearer Watch notifications, more resilient parsing, and an instant live dashboard.</h2>
+    <p class="release-lede">A maintenance release. When a Blast Radius analysis is interrupted, Ghost Watcher&trade; now emails a clear rerun notice instead of raw, unnarrated findings, and the narrator has twice as long to finish before timing out. Conflict scans recover more partial results, the Ghost Portal gains a per-commit filter, and the live usage dashboard reflects new activity immediately.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: an interrupted Blast Radius run now sends a clear rerun notice email instead of raw, unnarrated findings</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the Blast Radius narrator timeout increased from 90 seconds to 180 seconds to reduce interruptions on CI runners</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: conflict scans now recover partial results from responses containing non-standard backslash escape sequences</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the Ghost Portal Findings and Prompts tabs now offer a per-commit filter when multiple commits are in range</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the live usage dashboard now reflects new activity immediately instead of waiting on an edge cache</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: corrected detector identifiers in a bundled audit fixture and aligned a batch preflight request with production settings</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.19                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.19</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Cleaner duplicate handling and more resilient large-scan parsing.</h2>
+    <p class="release-lede">A maintenance release refining Ghost Architect&trade;'s internals. Two prompt detectors now deduplicate correctly, conflict scans on very large codebases recover gracefully when a response is cut short, and the automated patch generator no longer mishandles method-shaped edits. All surfaced by Ghost scanning its own code.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: two token-limit detectors now suppress duplicate findings correctly instead of slipping through the dedup pass</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: conflict scans on large codebases now recover partial results when a batch response is truncated mid-output</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the automated patch generator no longer inserts a method body without its signature when a match is uncertain</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: removed dead confidence-rescaling code and refreshed a bundled audit fixture</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.18                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.18</span>
+      <span class="release-date">July 1, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Watch defaults corrected: new repos run unlimited iterations unless you say otherwise.</h2>
+    <p class="release-lede">A small maintenance release. Enabling Ghost Watcher&trade; on a new repository no longer bakes a hidden five-iteration cap into the generated config: the iteration limit is now opt-in, matching the documented behavior that no configuration means no limit. Plus an internal documentation correction.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: newly enabled Watch repositories now run without an iteration limit unless one is explicitly configured</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: corrected a stale internal comment about a detector's findings cap</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.17                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.17</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Sharper self-review: correct duplicate suppression, model-accurate cost, and cleaner telemetry.</h2>
+    <p class="release-lede">A maintenance release resolving issues Ghost Architect&trade; found while scanning its own codebase. Duplicate findings are now suppressed correctly, batch cost estimates reflect whichever Claude model you have configured, and a redundant telemetry file that stored raw commit and repository identifiers on disk has been removed.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: a detector ID mismatch that stopped duplicate findings from being suppressed is corrected</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: Ghost Watcher&trade; batch cost estimates now use your configured model instead of a fixed default</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: one prompt detector aligned to the same findings cap as its siblings, so it no longer truncates early</strong></span></li>
+      <li><span class="marker">+</span><span><strong>privacy: removed a redundant local telemetry file that wrote unhashed commit and repository identifiers to disk</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: aligned internal detector tier labels and narrowed a test-file exclusion to be specific rather than broad</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.16                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.16</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Internal tidy-up: one shared temperature guard, accurate mobile cost estimates, and sharper code-vs-prose detection.</h2>
+    <p class="release-lede">A maintenance release that consolidates duplicated logic and sharpens a few internal heuristics. The model temperature guard now lives in one shared place instead of three copies, the mobile dashboard reads cost and effort estimates correctly, and the report verifier no longer mistakes cost or effort ranges for source line numbers.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: the model temperature guard is now a single shared utility, so every API path handles newer Claude models identically</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the mobile dashboard now shows estimated hours and cost instead of dashes when the values live in scan metadata</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: patch cleanup no longer strips valid code lines that end in a colon (switch-case labels, type annotations)</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the report verifier no longer flags cost ranges or effort ranges as if they were source line-number citations</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: removed a dead guard and clarified an internal function name</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.15                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.15</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Follow-up correctness pass: Enterprise URL parsing everywhere, clearer cap warnings, and aligned docs.</h2>
+    <p class="release-lede">A small maintenance release tidying up the last loose ends from the v9.4.14 correctness work. The final naive repository-URL parser now handles GitHub Enterprise Server hosts, a context-limit warning no longer names a flag you never typed, and several in-code docs and bundled prompt snapshots were brought back in line with the actual behavior.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: the last remaining repository-URL parser now handles GitHub Enterprise Server hosts, subpaths, and SSH URLs</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the context-limit warning no longer references the --max-context flag when you did not pass one</strong></span></li>
+      <li><span class="marker">+</span><span><strong>chore: removed a dead import and corrected several in-code documentation comments to match current behavior</strong></span></li>
+      <li><span class="marker">+</span><span><strong>docs: regenerated the bundled prompt snapshots so they reflect the current scan output format</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.14                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.14</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Correctness pass: GitHub Enterprise publishing, accurate audit confidence, and safer model handling.</h2>
+    <p class="release-lede">A maintenance release of 18 internal consistency fixes surfaced by Ghost Architect&trade; scanning its own codebase. Portal publishing now parses GitHub Enterprise Server repositories correctly, audit confidence scores render on the right scale, file publishing uses one consistent encoding path across every destination, and model sampling parameters are selected from an explicit allowlist so the newest Claude models are handled cleanly.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: portal publishing parses GitHub Enterprise Server repositories (custom hosts, subpaths, SSH URLs) correctly</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: audit confidence scores now display on the correct 0 to 100 scale</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: file publishing uses one consistent encoding path across portal, mobile, team, and enterprise destinations</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: temperature handling for newer Claude models now uses an explicit allowlist instead of fragile name matching</strong></span></li>
+      <li><span class="marker">+</span><span><strong>compat: fourteen further internal consistency cleanups across conflict detection, cost tracking, and session handling</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.13                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.13</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Enterprise reliability: cleaner cancels, GitHub Enterprise support, and a sharper Watch tab.</h2>
+    <p class="release-lede">A maintenance release focused on Ghost Watcher&trade; reliability for larger and enterprise teams. Cancelled CI runs now resolve cleanly instead of showing a stuck Analyzing state, GitHub Enterprise Server repositories parse correctly, conflict scans on big codebases submit in right-sized pieces, and the dashboard's open-issue export is accurate. Plus forward-looking support for the newest Claude models.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: a cancelled Ghost Watcher&trade; run now shows a clear Cancelled state in the Watch tab instead of spinning on Analyzing forever</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: GitHub Enterprise Server repositories (custom hosts, subpaths, SSH URLs) now parse correctly for enterprise and mobile publishing</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: conflict scans on large codebases submit each chunk as its own request, eliminating oversized uploads that could hang</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: the dashboard's open-issue (Jira) export is now accurate, including when a project is fully resolved</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: concurrent watcher runs no longer drop in-flight scan state under a race</strong></span></li>
+      <li><span class="marker">+</span><span><strong>compat: forward support for the newest Claude models, plus a dozen internal consistency cleanups</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.12                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.12</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Conflict Detection scales to large codebases without dropping its connection.</h2>
+    <p class="release-lede">On big repositories, Ghost Watcher&trade; used to send the entire codebase as one oversized request that constrained CI networks could drop mid-upload. It now splits the work into right-sized batches automatically, then merges every batch's findings back together. No conflicts lost, no hung scans.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: Conflict Detection splits large codebases into sub-900 KB batches to prevent CI upload drops on big repositories</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: findings from every batch are merged back together, so nothing is dropped when a scan spans multiple batches</strong></span></li>
+      <li><span class="marker">+</span><span><strong>test: conflict-chunking smoke test added and wired into the npm test chain</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.11                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.11</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher&trade; keeps going when the network blinks, and tells you when it did.</h2>
+    <p class="release-lede">A dropped connection mid-scan no longer means a degraded report in silence. Ghost Watcher&trade; now retries narration automatically, and if results still come through unnarrated, the Watch tab flags the affected commits so you know to rerun. The conflict filter also got sharper at telling real conflicts from ones the analysis talked itself out of.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: blast narrator retries once on a transient CI connection drop (90s timeout) before falling back to raw findings</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: degraded-run warning banner + rerun link in the Watch Findings tab when a commit's findings came through unnarrated</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: self-refuting conflict filter now catches more self-cancelling phrasings while keeping genuine "values match but will conflict if X changes" findings</strong></span></li>
+      <li><span class="marker">+</span><span><strong>test: self-refuting-filter smoke test (16 cases) wired into the npm test chain</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.10                                                         -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.10</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Sharper findings: junk file references and self-cancelling conflicts filtered out.</h2>
+    <p class="release-lede">Ghost Watcher&trade; now drops noise before it reaches your report. Stray version strings and malformed file references are kept out of findings, routine release-safety report sections are no longer mistaken for issues, and conflict findings that contradict themselves are removed before they surface.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: junk file tokens (version strings, paren-contaminated paths) rejected from Files extraction</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: rollback-plan report sections no longer parsed as findings</strong></span></li>
+      <li><span class="marker">+</span><span><strong>fix: self-refuting conflict findings dropped before surfacing</strong></span></li>
+      <li><span class="marker">+</span><span><strong>test: finding-parser smoke test wired into npm test chain with junk-rejection regression coverage</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.9                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.9</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Documentation files no longer trigger false @ghost-verified findings.</h2>
+    <p class="release-lede">The @ghost-verified annotation is now restricted to source files. Documentation files that merely contain the marker as text (changelogs, READMEs, configs) are no longer eligible, closing the last doc-text false-positive in Ghost Watcher&trade;.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>fix: scanForVerified SOURCE_EXTENSIONS allowlist -- non-source files (.md, .json, .yaml, .yml, .txt) no longer eligible for @ghost-verified annotation, closing doc-text false-positive verified findings</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.8                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.8</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Internal documentation improvements.</h2>
+    <p class="release-lede">Ghost Watcher&trade; configuration comments clarified. No change to behavior.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Docs: clarified the Ghost Watcher&trade; batch timeout vs Actions job timeout relationship, and the source of token-usage rates</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.7                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.7</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher reliability improvements.</h2>
+    <p class="release-lede">Two fixes to Ghost Watcher&trade;. The codebase path is now correctly passed through to the Ghost Brief&trade; instead of falling back to the working directory, and the <strong>@ghost-verified</strong> annotation is now detected only in real code comments, so a file that merely mentions the marker is no longer mistaken for a reviewed one.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Fix: codebase path now correctly passed to Ghost Brief&trade; in every scan</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Fix: @ghost-verified detection scoped to real code comments only; Python, SQL, and CSS comment styles now supported</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.6                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.6</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher pricing cards now show API cost transparency.</h2>
+    <p class="release-lede">Ghost Watcher&trade; runs on your own Anthropic API key. The Team, Team Max, Enterprise, and Enterprise Max pricing cards now state the typical per-commit cost up front, so there are no surprises when you connect your key.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Add: pricing cards note that Ghost Watcher&trade; uses your Anthropic API key, with a typical cost of $1-2 per commit scan</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.5                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.5</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge kind-green">FEATURE</span>
+    </div>
+    <h2 class="release-headline">Ghost Portal now shows a Reviewed &middot; Expected Behavior section for @ghost-verified findings.</h2>
+    <p class="release-lede">Findings a developer marked <strong>@ghost-verified</strong> in source are already kept out of the active list, the PR comment, and Ghost Brief&trade;. The Ghost Portal Findings tab now surfaces them in their own collapsed <strong>Reviewed &middot; Expected Behavior</strong> section below the active findings, so reviewers can see what was deliberately accepted without it cluttering the work that still needs attention.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Add: Ghost Portal Findings tab renders a collapsed Reviewed &middot; Expected Behavior section for @ghost-verified findings, with the reviewer's reason when provided</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Detail: the section appears even when every finding on a commit was verified, and reads as informational, no severity, no action required</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.4                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.4</span>
+      <span class="release-date">June 30, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Trial-tier context cap made explicit; conflict-report narration temperature aligned.</h2>
+    <p class="release-lede">The trial tier now has an explicit 50K context cap (matching Open) instead of relying on a fallback, and the conflict-report narrator now generates prose at the same temperature as the rest of the report-narration family for consistent output.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Fix: trial tier has an explicit context cap (50K, matching Open), with a matching upgrade hint, locked in by a test</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Change: narrateConflictReport temperature aligned to 0.3, matching the report-narration family</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.3                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.3</span>
+      <span class="release-date">June 29, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Findings you marked @ghost-verified no longer generate Ghost Brief&trade; prompts.</h2>
+    <p class="release-lede">A finding marked <strong>@ghost-verified</strong> was already kept out of the PR comment and scan file, but Ghost Brief&trade; still generated a remediation prompt for it. Ghost Brief&trade; and its detailed-prompt step now build from the active finding set only, so verified findings are excluded end to end. Internal hardening also makes the Ghost Brief&trade; tier gate impossible to drift, and adds the agent-loop error contract to the CI test suite.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Fix: @ghost-verified findings are now excluded from Ghost Brief&trade; and detailed prompt generation, not just the PR comment and scan file</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Change: the Ghost Brief&trade; tier gate now derives from the tier policy via a shared allowedTiers() helper, so it can no longer drift from the source of truth</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Change: the agent-loop API-error test is now part of the CI test suite, covering the loop result contract on every run</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.2                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.2</span>
+      <span class="release-date">June 29, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher&trade; CI runs no longer cut off on large codebases.</h2>
+    <p class="release-lede">The GitHub Actions job timeout was raised to 360 minutes (GitHub's maximum) in both the generated workflow and its template. The Actions job is intentionally no longer the limiting factor: batch poll timeouts and the store-and-resume logic own time management, so a long scan is stored and resumed on the next push instead of being killed at the finish line and firing an unnecessary incomplete-run email.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Fix: Ghost Watcher&trade; Actions job timeout raised to 360 minutes in the live workflow and the generator template; large-codebase scans are no longer cut off mid-run</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Change: the Actions job is no longer the limiting factor; batch poll timeouts and store-and-resume own time management, so work is never lost on a long run</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.1                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.1</span>
+      <span class="release-date">June 29, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Brief&trade; and Executive Brief gating corrected to Max-only everywhere.</h2>
+    <p class="release-lede">The interactive menu and <strong>ghost --brief</strong> command wrongly let non-Max Team and Enterprise users generate a Ghost Brief&trade;, even though Ghost Watcher&trade; and the docs restrict it to the Max tiers. Both gates now use a single shared Max-tier constant, so Ghost Brief&trade; and Executive Brief are consistently available on Pro Max, Team Max, and Enterprise Max only.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Fix: Ghost Brief&trade; interactive menu and ghost --brief now gate to Max tiers (pro-max, team-max, enterprise-max), matching the tier policy and Ghost Watcher&trade;</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Fix: Executive Brief shared the same incorrect gate and is now correctly Max-only as well</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Change: two divergent tier arrays replaced with one shared MAX_TIERS constant so the gate cannot drift again</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.4.0                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.4.0</span>
+      <span class="release-date">June 29, 2026</span>
+      <span class="release-badge kind-green">FEATURE</span>
+    </div>
+    <h2 class="release-headline">Mark false positives with @ghost-verified; Ghost Watcher&trade; keeps real findings clean.</h2>
+    <p class="release-lede">Developers can mark a reviewed-and-accepted finding by dropping a <strong>@ghost-verified</strong> comment in the source file, with an optional reason. Ghost Watcher&trade; segregates those findings into a Reviewed &middot; Expected Behavior section of the PR comment and scan file, so real findings stay front and center and accepted ones stop nagging on every commit.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Add: @ghost-verified annotation system. Mark a finding's file with @ghost-verified (optionally @ghost-verified: reason) to flag it as reviewed and expected</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Add: Ghost Watcher&trade; segregates verified findings into a Reviewed &middot; Expected Behavior section in PR comments, keeping the active findings list clean</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Add: verified findings are retained under a verifiedFindings key in the scan file, so suppression stays auditable and reversible</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Detail: file-level scope, a finding is verified when any of its files carries the marker; detection uses indexOf scanning and is immune to catastrophic regex backtracking</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.9                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.9</span>
+      <span class="release-date">June 29, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Max-tier licenses now activate from the CLI.</h2>
+    <p class="release-lede">Pro Max, Team Max, and Enterprise Max license keys now activate correctly via <strong>ghost --activate</strong>. The license parser and token validator previously did not recognize the Max-tier key codes, so activation failed before reaching the server.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Fix: CLI license parser recognizes the Pro Max, Team Max, and Enterprise Max key codes; activation no longer fails on a Max-tier key</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Fix: token validator accepts pro-max, team-max, and enterprise-max so the signed activation token passes local verification</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.8                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.8</span>
+      <span class="release-date">June 29, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Brief™ is now Max-tier only; Ghost Watcher™ gains opt-in conflict verification.</h2>
+    <p class="release-lede">Ghost Brief™ is enforced as a Max-tier feature (Pro Max, Team Max, Enterprise Max). Ghost Watcher™ can optionally verify conflict findings before reporting them, dropping false positives. Plus internal refactors to the redactor and batch cost calculation.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Change: Ghost Brief™ tier gate enforced at Max tiers only (pro-max, team-max, enterprise-max); it was defined but never checked, so any tier could generate a brief</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Add: opt-in conflict_verify in Ghost Watcher™ runs the agent verifier in quick mode, keeping confirmed and possible findings and dropping false positives</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Add: detailed_prompts config key documented in ghost-watcher.yaml (default true)</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Change: redactor.js PEM replacement strings extracted to named constants; redaction output is unchanged</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Fix: buildTokenUsage derives batch rates from the estimator pricing table instead of hardcoded values</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.7                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.7</span>
+      <span class="release-date">June 29, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Max-tier context caps fixed; Ghost Watcher™ iteration limit is now opt-in.</h2>
+    <p class="release-lede">Pro Max, Team Max, and Enterprise Max now correctly receive 100K, 150K, and 200K token context caps. The Ghost Watcher™ iteration limit is opt-in: no config means no limit. Internal cleanup removes a duplicated quota constant.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Fix: Pro Max / Team Max / Enterprise Max now get 100K / 150K / 200K token caps instead of silently falling back to the Open 50K cap</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Change: Ghost Watcher™ iteration limit fires only when iterations.max is set in ghost-watcher.yaml; no config means no limit</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Add: shouldSkipForIterationLimit() extracted as an exported pure helper with full test coverage</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Fix: removed duplicated FREE_QUOTA constant from freemium.js; quota now imports SCAN_QUOTA from the single policy source of truth</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.6                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.6</span>
+      <span class="release-date">June 29, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Token and cost telemetry added to the Ghost Watcher™ writer.</h2>
+    <p class="release-lede">All batch paths (blast, conflict, prompts, resume) now record inputTokens, outputTokens, and estimatedCostUsd at Anthropic batch API rates ($1.50/$7.50 per 1M tokens). Unit tests added for buildTokenUsage and sumBatchUsage.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Add: tokenUsage payload (inputTokens, outputTokens, estimatedCostUsd) on every completed commit-state write</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Add: buildTokenUsage() prices batch usage at $1.50/1M input and $7.50/1M output, rounded to 6 decimal places</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Add: sumBatchUsage() totals usage across batch results, treating missing usage as zero so it never yields NaN</strong></span></li>
+      <li><span class="marker">+</span><span><strong>Add: tests/watcher-token-usage.smoke.mjs unit tests for buildTokenUsage and sumBatchUsage</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.5                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.5</span>
+      <span class="release-date">June 28, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher™ PR comments are now fully markdown-escaped.</h2>
+    <p class="release-lede">Finding titles, severity labels, and branch names are now safely escaped before being written to GitHub PR comments. Prevents markdown injection from LLM-authored finding titles or attacker-controlled fork branch names.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>Fix: escapeMarkdown() helper added to watcher-commit.js</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: f.title and f.severity escaped in PHASE 1 and PHASE 2 finding loops</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: refName and actor escaped in main and clean-scan PR comment headers</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Prevents markdown injection from LLM-authored finding titles or fork branch names</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.4                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.4</span>
+      <span class="release-date">June 27, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher™ email notifications are now fully HTML-escaped.</h2>
+    <p class="release-lede">Finding titles, detail text, file paths, and repo names are now safely escaped in all six Ghost Watcher™ email templates. Prevents HTML and content injection from LLM-authored findings or crafted codebase content.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>Fix: escapeHtml() added to all six Ghost Watcher email templates</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: f.title, f.detail, f.severity, f.files escaped in findings email</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: repo, shortSha, portalSlug escaped across all email templates</strong></span></li>
+      <li><span class="marker">+</span><span><strong>New: open repo test suite expanded from 4 to 14 suites</strong></span></li>
+      <li><span class="marker">+</span><span><strong>New: ad-hoc test directory added</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Synthetic credential in verifier test fixture</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.3                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.3</span>
+      <span class="release-date">June 27, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher™ now generates detailed remediation prompts for every finding.</h2>
+    <p class="release-lede">Every Ghost Watcher™ scan now produces LLM-authored, developer-ready remediation prompts. Paste directly into Claude Code, Cursor, Copilot, or any AI coding tool. No preamble. No boilerplate. Just the prompt.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>New: Step 8e -- one batch API call per finding generates a detailed developer-ready remediation prompt</strong></span></li>
+      <li><span class="marker">+</span><span><strong>New: Prompts replace templated output in Ghost Brief after enrichment</strong></span></li>
+      <li><span class="marker">+</span><span><strong>New: Basic brief ships immediately -- detailed prompts follow on next push if batch times out</strong></span></li>
+      <li><span class="marker">+</span><span><strong>New: max_tokens 4096 ensures no prompt is ever truncated</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: yaml dependency now properly installed in open repo</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.2                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.2</span>
+      <span class="release-date">June 27, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Blast Radius findings now carry file data in Ghost Watcher™.</h2>
+    <p class="release-lede">Ghost Watcher™ blast scans now populate file arrays correctly. Ghost Brief™ generates after every scan -- not just conflict scans. Every finding has files. Every finding gets a prompt.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>Fix: extractBlastSectionFiles() recovers file paths from raw blast bullet lines</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Section title file seeded as primary, dependent files follow in order</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: enrichBlastFindingFiles() fills empty files arrays and recomputes finding IDs</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Pre-narration enrichment gives narrator real file paths</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Ghost Brief generates after blast-only Ghost Watcher runs</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: briefPromptCount and blastFileCount now reflect actual findings</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.1                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.1</span>
+      <span class="release-date">June 26, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher™ now sends email notifications.</h2>
+    <p class="release-lede">Findings email delivers per-finding detail and severity summary when issues are detected. Clean scan email confirms when a commit scans clean. Both fire-and-forget and never block the CI pipeline.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>New: Findings email.</strong> Ghost Watcher sends a full findings report to configured recipients when issues are detected -- severity summary, per-finding title, files affected, and detail.</span></li>
+      <li><span class="marker">+</span><span><strong>New: Clean scan email.</strong> Ghost Watcher sends a confirmation when a commit scans clean with zero findings.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.3.0                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.3.0</span>
+      <span class="release-date">June 26, 2026</span>
+      <span class="release-badge kind-blue">MINOR</span>
+    </div>
+    <h2 class="release-headline">Stream or batch. Your scan, your budget.</h2>
+    <p class="release-lede">Every scan now opens with a cost estimate and a choice -- stream for real-time results or submit as a batch and save 50% on API charges. Same analysis, same report, you decide.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>New: Streaming vs batch transport menu.</strong> Cost estimate before every scan with arrow-key selection.</span></li>
+      <li><span class="marker">+</span><span><strong>New: <code>ghost batch-status</code> and <code>ghost batch-retrieve</code> commands.</strong></span></li>
+      <li><span class="marker">+</span><span><strong>New: Pending batch entries appear in the main menu when ready.</strong></span></li>
+      <li><span class="marker">+</span><span><strong>New: Transport metadata stamped in every report artifact.</strong></span></li>
+      <li><span class="marker">+</span><span><strong>New: Question mode batch support.</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Deterministic output.</strong> <code>temperature 0</code> across all Anthropic call sites.</span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Setup wizard now uses actual tier cap not hardcoded 50K.</strong></span></li>
+      <li><span class="marker">!</span><span><strong>Fix: Repo name derived from git remote origin not directory name.</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.2.3                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.2.3</span>
+      <span class="release-date">June 25, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Brief™ generates correctly after a batch scan.</h2>
+    <p class="release-lede">Closes the final gap in the Batches API path. Raw blast batch output is now narrated before <code>extractFindings</code> runs, so Ghost Brief™ receives findings with fully populated <code>files</code> arrays. The end-to-end batch flow -- scan to Brief -- is validated.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>Ghost Brief™ findings population fixed.</strong> Raw blast batch output is narrated before <code>extractFindings</code>, so each finding arrives with a populated <code>files</code> array. Ghost Brief™ now generates correctly after a Ghost Watcher™ batch scan.</span></li>
+      <li><span class="marker">+</span><span><strong>End-to-end batch validation.</strong> Ghost Watcher™ test run confirms Ghost Brief™ generation after an async batch scan.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.2.2                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.2.2</span>
+      <span class="release-date">June 25, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Native fetch batch transport for GitHub Actions reliability.</h2>
+    <p class="release-lede">The Anthropic SDK's batch transport dropped its connection on GitHub Actions runners. Ghost Watcher™ now submits Batches API requests over native <code>fetch</code>, which completes the request reliably where the SDK failed.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>Batch transport switched from the Anthropic SDK to native <code>fetch</code>.</strong> The SDK fetch implementation dropped the connection on GitHub Actions runners; native <code>fetch</code> completes the request reliably.</span></li>
+      <li><span class="marker">~</span><span><strong>Debug connectivity test step removed</strong> from the Ghost Watcher™ workflow once the transport fix was confirmed.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.2.1                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.2.1</span>
+      <span class="release-date">June 25, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Batch submission resilience for CI networks.</h2>
+    <p class="release-lede">Two reliability fixes for the Batches API path on ephemeral CI runners: retry with backoff on transient submission failures, and a preflight reachability check so unreachable endpoints fail fast with a clear message.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Retry with exponential backoff added to <code>submitBatch</code>.</strong> Transient network failures on CI runners no longer abort the run.</span></li>
+      <li><span class="marker">+</span><span><strong>Preflight reachability check added</strong> before batch submission. An unreachable endpoint fails fast with a clear message instead of hanging.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.2.0                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.2.0</span>
+      <span class="release-date">June 25, 2026</span>
+      <span class="release-badge kind-blue">MINOR</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher™ Batches API -- async processing with auto-resume.</h2>
+    <p class="release-lede">Ghost Watcher™ now submits scans through the Anthropic Batches API. Runs process asynchronously, an interrupted run resumes from where it stopped, and Ghost Portal shows a pending state until results land. Batch behavior is tunable from <code>ghost-watcher.yaml</code>.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Batches API processing.</strong> Ghost Watcher™ submits Watch scans asynchronously through the Anthropic Batches API instead of inline message calls.</span></li>
+      <li><span class="marker">+</span><span><strong>Auto-resume.</strong> An interrupted Watch run resumes from where it stopped instead of restarting from scratch.</span></li>
+      <li><span class="marker">+</span><span><strong>Incomplete run emails.</strong> Receive an email when a batch run does not complete, with next steps to resume.</span></li>
+      <li><span class="marker">+</span><span><strong>Pending Portal state.</strong> Ghost Portal shows a pending state for in-flight batch runs until results land.</span></li>
+      <li><span class="marker">+</span><span><strong>Configurable batch settings.</strong> Batch behavior is tunable via <code>ghost-watcher.yaml</code>.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.1.0                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.1.0</span>
+      <span class="release-date">June 25, 2026</span>
+      <span class="release-badge kind-green">DOGFOOD</span>
+    </div>
+    <h2 class="release-headline">Ghost scanned its own codebase. Found 7 issues. Fixed all 7. Zero findings on the next push.</h2>
+    <p class="release-lede">Ghost Architect™ ran Ghost Brief™ against its own codebase in dogfood pass 10. One critical security vulnerability and six high severity issues were found and fixed using Ghost Brief™ prompts executed in Claude Code. Ghost Watcher™ confirmed zero findings after the push. The tool used itself to fix itself.</p>
+    <ul class="change-list">
+      <li><span class="marker">~</span><span><strong>Critical: Prompt injection defense hardened</strong> -- Unicode NFC normalization added to consultant profile sanitization. Zero-width characters, bidirectional override marks, and Unicode control characters now rejected outright. Legitimate consultant vocabulary unaffected.</span></li>
+      <li><span class="marker">~</span><span><strong>High: Temp directory leak fixed</strong> -- Commit Forecast now cleans up temp directories on all exit paths via try-finally. No more accumulated disk waste in CI environments.</span></li>
+      <li><span class="marker">~</span><span><strong>High: API error masking fixed</strong> -- Agent loop now sets <code>ok: false</code> on the result when the loop exits due to an API error. Error message included in top-level result. Test coverage added.</span></li>
+      <li><span class="marker">~</span><span><strong>High: LLM plan validation tightened</strong> -- Findings can no longer be silently dropped from reports. Planner must now account for every finding -- either assign it to a category or list it in skipped_findings with a reason. Disclosure note injected into report when findings are skipped.</span></li>
+      <li><span class="marker">~</span><span><strong>High: Manifest concurrent write race fixed</strong> -- Post-write verification now checks content, not just presence. Retry cycle includes exponential backoff.</span></li>
+      <li><span class="marker">~</span><span><strong>High: Audit log failure threshold lowered</strong> -- Warns on first failure (was third). Failure timestamp included in warning. On-disk marker file persists signal across CLI invocations.</span></li>
+      <li><span class="marker">~</span><span><strong>High: File prioritizer error handling</strong> -- Already fixed in dogfood pass 9. Confirmed present and passing.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v9.0.8                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v9.0.8</span>
+      <span class="release-date">June 23, 2026</span>
+      <span class="release-badge kind-purple">MAJOR</span>
+    </div>
+    <h2 class="release-headline">Ghost Watcher™ -- Automatic commit monitoring for every push.</h2>
+    <p class="release-lede">Ghost Watcher™ is a headless CI pipeline that runs inside GitHub Actions. Every commit your team pushes triggers a full Ghost Architect™ scan automatically -- Blast Radius, Conflict Detection, and Ghost Brief™ -- with results delivered to Ghost Portal and a PR comment posted before the reviewer opens the tab.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Ghost Watcher™</strong> -- headless CI pipeline triggered by every commit push via GitHub Actions. Available on Ghost Team and Enterprise memberships.</span></li>
+      <li><span class="marker">+</span><span><strong>Enable Watch wizard</strong> -- interactive setup from the Ghost CLI menu. Pushes <code>ghost-watcher.yaml</code> and the GitHub Actions workflow to your repo automatically, with version pinning and custom branch support.</span></li>
+      <li><span class="marker">+</span><span><strong>Ghost Portal Watch tab</strong> -- Commits, Findings, and Prompts tabs. Click any commit to expand findings inline. Copy Ghost Brief™ prompts to clipboard with one click.</span></li>
+      <li><span class="marker">+</span><span><strong>PR comment</strong> -- Ghost Watcher™ posts a findings summary directly on the pull request with Phase 1 / Phase 2 remediation breakdown and a link to Ghost Portal.</span></li>
+      <li><span class="marker">+</span><span><strong>Email notifications</strong> -- receive a findings summary email after each Watch run.</span></li>
+      <li><span class="marker">+</span><span><strong>Iteration limit</strong> -- configurable max runs per PR to control API costs via <code>ghost-watcher.yaml</code>.</span></li>
+      <li><span class="marker">+</span><span><strong>ghost-skip tag</strong> -- add <code>[ghost-skip]</code> to any commit message to bypass Ghost Watcher™ for that commit.</span></li>
+      <li><span class="marker">+</span><span><strong>BYOK</strong> -- Ghost Watcher™ uses your own Anthropic API key. Ghost does not charge for API usage.</span></li>
+      <li><span class="marker">~</span><span><strong>Team tier context cap</strong> -- Ghost Watcher™ correctly applies the 150,000 token context cap for Team and Enterprise tiers in CI environments.</span></li>
+      <li><span class="marker">~</span><span><strong>CI license validation</strong> -- license fingerprint check bypassed on ephemeral GitHub Actions runners.</span></li>
+      <li><span class="marker">~</span><span><strong>Custom branch injection</strong> -- branches added in the Enable Watch wizard are correctly injected into the GitHub Actions workflow trigger.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.2.5                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.2.7</span>
+      <span class="release-date">June 22, 2026</span>
+      <span class="release-badge kind-blue">MINOR</span>
+    </div>
+    <h2 class="release-headline">Ghost Partner Profile accessible from the top-level menu.</h2>
+    <p class="release-lede">Profile management is now available before selecting a codebase. Open-tier users see an upgrade prompt with a pricing link. Pro and higher get the full sub-menu with immediate session activation.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Top-level menu entry</strong> -- Ghost Partner Profile now appears in the source selection menu, no codebase required.</span></li>
+      <li><span class="marker">+</span><span><strong>All tiers</strong> -- Open tier sees a clear upgrade prompt pointing to ghostarchitect.dev/pricing; Pro or higher gets full access.</span></li>
+      <li><span class="marker">+</span><span><strong>Sub-menu</strong> -- Create, Select and use this session, List, Set default, Clear default.</span></li>
+      <li><span class="marker">+</span><span><strong>Immediate activation</strong> -- selecting a profile activates it in the current session; the next scan uses partner branding without a restart.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.2.2                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.2.2</span>
+      <span class="release-date">June 20, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">White label branding across all seven report types.</h2>
+    <p class="release-lede">Every report Ghost Architect™ produces now fully respects an active Ghost Partner™ profile. When a profile is loaded, your firm's name, footer, and confidentiality text replace Ghost defaults across all output formats.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Executive Brief PDF</strong> -- <code>companyName</code>, <code>footerText</code>, and <code>confidentialityText</code> sourced from profile branding block.</span></li>
+      <li><span class="marker">+</span><span><strong>Ghost Brief HTML</strong> -- logo initial, header brand name, and footer link replaced with profile values when a partner profile is active.</span></li>
+      <li><span class="marker">+</span><span><strong>Inheritance Audit</strong> -- methodology section now uses <code>companyName</code> in both attribution lines when a profile is active.</span></li>
+      <li><span class="marker">+</span><span><strong>POI, Blast, Conflict, Recon</strong> -- already white-labeled via <code>reports.js</code> and <code>pdf-generator.js</code>; no changes needed.</span></li>
+      <li><span class="marker">+</span><span><strong>All seven report types</strong> now fully respect Ghost Partner™ profile branding end to end.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.2.1                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.2.1</span>
+      <span class="release-date">June 20, 2026</span>
+      <span class="release-badge kind-blue">MINOR</span>
+    </div>
+    <h2 class="release-headline">Executive Brief™ -- one-page business intelligence report for non-technical stakeholders.</h2>
+    <p class="release-lede">After any scan, Ghost generates a one-page Executive Brief: health score, plain-language risk summary, and a cost comparison table showing what remediation costs manually versus with AI. 24 hours and $4,800 becomes 3 hours and $3.60. Built for the person who signs the check.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Executive Brief™ mode added.</strong> Available on Pro Max, Team Max, and Enterprise Max.</span></li>
+      <li><span class="marker">+</span><span><strong>Health score algorithm:</strong> weighted 0–100 with five-band label (Healthy to Critical Risk).</span></li>
+      <li><span class="marker">+</span><span><strong>Single AI call generates plain-language executive narrative</strong> in consultant voice -- no jargon, no code, three paragraphs.</span></li>
+      <li><span class="marker">+</span><span><strong>Manual vs AI-assisted cost comparison table:</strong> 24 hrs/$4,800 manual vs ~3 hrs/~$3.60 in API costs.</span></li>
+      <li><span class="marker">+</span><span><strong>Phase 1/2/3 recommended sequence</strong> with finding counts per phase.</span></li>
+      <li><span class="marker">+</span><span><strong>PDF output</strong> to <code>~/Ghost Architect Reports/</code> alongside existing scan reports.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.1.9                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.1.9</span>
+      <span class="release-date">June 18, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Brief™ HTML report output path and effort estimate context.</h2>
+    <p class="release-lede">HTML report now writes to <code>~/Ghost Architect Reports/</code> alongside PDF and MD. Effort estimates now include context explaining manual vs AI-assisted execution rates.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Ghost Brief™ HTML report output path moved to <code>~/Ghost Architect Reports/</code></strong> for consistency with PDF and Markdown reports. No more hunting for the file in cwd.</span></li>
+      <li><span class="marker">+</span><span><strong>Effort estimate context note added</strong> below summary cards explaining that estimates reflect manual remediation rates at senior architect billable time.</span></li>
+      <li><span class="marker">+</span><span><strong>AI-assisted execution note added:</strong> Claude Code, Cursor, or approved coding agents reduce actual execution time by 80–90%.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.1.8                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.1.8</span>
+      <span class="release-date">June 18, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Brief™ HTML report -- self-contained, no server, opens in any browser.</h2>
+    <p class="release-lede">Ghost Brief™ now auto-generates a <code>ghost-brief.html</code> alongside <code>ghost-brief.json</code>. Full dark-theme interactive report with expandable prompt cards, copy buttons, and blast-radius execution sequence. No login, no dependencies.</p>
+    <ul class="change-list">
+      <li><span class="marker">+</span><span><strong>Ghost Brief™ auto-generates <code>ghost-brief.html</code></strong> alongside <code>ghost-brief.json</code> on every <code>ghost --brief</code> run.</span></li>
+      <li><span class="marker">+</span><span><strong>Self-contained HTML report.</strong> No server, no login, no external libraries. Opens in any browser directly from disk.</span></li>
+      <li><span class="marker">+</span><span><strong>Sticky header</strong> with Ghost logo, codebase path, tier badge, version, and total prompt count.</span></li>
+      <li><span class="marker">+</span><span><strong>5 summary stat cards:</strong> total prompts, critical count, high count, estimated agent hours, and blast radius breakdown.</span></li>
+      <li><span class="marker">+</span><span><strong>Recommended execution sequence</strong> with numbered chips in blast_score order -- smallest blast radius first.</span></li>
+      <li><span class="marker">+</span><span><strong>Expandable prompt cards</strong> sorted by blast radius. Each card shows severity badge, blast badge, effort estimate, context, full prompt in monospace, and validation hints with green checkmarks.</span></li>
+      <li><span class="marker">+</span><span><strong>Copy button</strong> on every prompt card -- clipboard write with 2-second visual feedback, no external libraries required.</span></li>
+      <li><span class="marker">+</span><span><strong>First card open by default.</strong> Remaining cards collapsed.</span></li>
+      <li><span class="marker">+</span><span><strong>Ghost dark theme throughout</strong> -- matches the Ghost Architect™ design system exactly.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.1.7                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.1.7</span>
+      <span class="release-date">June 18, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">File prioritizer hardening, audit threshold, and manifest race fixes.</h2>
+    <p class="release-lede">Six targeted fixes from Ghost Brief™ dogfood pass 5 final review. Scan resilience, compliance visibility, and portal write reliability.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>File prioritizer hardened against malformed filenames and null content.</strong> A single bad file no longer aborts the entire scan -- it is skipped with a warning and the scan continues.</span></li>
+      <li><span class="marker">+</span><span><strong>Audit log warning threshold lowered from 3 to 1</strong> for immediate compliance visibility.</span></li>
+      <li><span class="marker">+</span><span><strong><code>lastAuditFailureUtc</code> timestamp added</strong> to audit failure warnings for easier incident correlation.</span></li>
+      <li><span class="marker">+</span><span><strong>Portal manifest post-write verification added</strong> to detect race supersession -- write is confirmed readable after commit.</span></li>
+      <li><span class="marker">+</span><span><strong>Exponential backoff added to manifest retry loop.</strong> 150ms base, doubles per attempt, preventing thundering herd on concurrent publish.</span></li>
+      <li><span class="marker">+</span><span><strong>Manifest concurrent write race window documented</strong> in code comments for future distributed-lock work.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.1.6                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.1.6</span>
+      <span class="release-date">June 18, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Clock ratchet write fix, network time backoff, and trial watermark hardening.</h2>
+    <p class="release-lede">Three targeted fixes to the license validation layer surfaced during Ghost Brief™ dogfood pass 5.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>Silent clock ratchet write failure fixed.</strong> <code>updateLastSeenUtc</code> now returns a boolean; caller treats <code>false</code> as a validation failure instead of silently proceeding.</span></li>
+      <li><span class="marker">+</span><span><strong>Network time fetch exponential backoff added.</strong> Retries at 1s, 2s, 4s with jitter, capped at 15s. Grace counter only increments on full retry exhaustion, not on individual transient failures.</span></li>
+      <li><span class="marker">+</span><span><strong>Trial watermark rendering hardened.</strong> <code>trialExpires</code> validated as a non-empty string before <code>.slice</code>; falls back to "Expires: (unknown)" instead of throwing.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.1.5                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.1.5</span>
+      <span class="release-date">June 18, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Security hardening, silent failure fixes, and Ghost Brief™ dogfood completion.</h2>
+    <p class="release-lede">Ten targeted fixes from Ghost Brief™ dogfood passes 4 and 5. License bypass, race conditions, and silent failure modes that Ghost Brief™ surfaced against its own codebase -- all closed.</p>
+    <ul class="change-list">
+      <li><span class="marker">!</span><span><strong>License timestamp validation bypass fixed.</strong> ISO-8601 regex guard now protects the monotonic clock ratchet against replay attacks.</span></li>
+      <li><span class="marker">!</span><span><strong>Seat registration race condition fixed.</strong> AND logic now required on both SHA and nonce checks before seat is granted.</span></li>
+      <li><span class="marker">!</span><span><strong>Admin authorization TOCTOU race fixed.</strong> <code>saveOrgConfig</code> now gates on admin check as first line before any mutation.</span></li>
+      <li><span class="marker">+</span><span><strong>Clock validation fail-open telemetry added.</strong> Grace counter, streak tracking, and 10-run limit before hard block.</span></li>
+      <li><span class="marker">+</span><span><strong>Silent team-sync, mobile-publish, and portal-publish failures now surface yellow warnings</strong> with next steps instead of swallowing errors.</span></li>
+      <li><span class="marker">+</span><span><strong>GitHub API response shape validated</strong> before nested property access. Rate limit, auth failure, and repo-not-found all surface clear messages.</span></li>
+      <li><span class="marker">+</span><span><strong>Enterprise audit logging catch blocks</strong> emit debug warnings and consecutive-failure streak counter.</span></li>
+      <li><span class="marker">+</span><span><strong>Redaction failure now explains</strong> which rule failed and on which file.</span></li>
+      <li><span class="marker">+</span><span><strong>Debug log sanitization:</strong> tokens, JWTs, credentials, and username paths redacted before disk write.</span></li>
+      <li><span class="marker">+</span><span><strong>Test suite grown to 12 smoke test files and 60+ assertions.</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.0.2                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.0.2</span>
+      <span class="release-date">June 16, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">Ghost Brief™ interactive menu + critical npm fix.</h2>
+    <p class="release-lede">Ghost Brief™ is now accessible from the post-scan menu -- no CLI flags required. Also fixes a critical packaging bug: <code>lib/ghostBrief.js</code> and <code>lib/ghostBriefAdapter.js</code> were missing from the published npm package in v8.0.0 and v8.0.1, causing Ghost Brief™ to fail on any fresh install.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Brief™ in the interactive menu.</strong> After any scan, select Ghost Brief™ from the mode list. Ghost auto-detects the most recent findings file (sorted by modification time, not filename) and confirms before generating.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>File picker on decline.</strong> If you decline the auto-detected file, Ghost shows a list of your 10 most recent findings files to choose from instead of returning to the menu.</span>
+      </li>
+      <li>
+        <span class="marker">!</span>
+        <span><strong>Critical npm fix: lib/ added to package files array.</strong> <code>ghostBrief.js</code> and <code>ghostBriefAdapter.js</code> were not included in the published package. Any install of 8.0.0 or 8.0.1 would fail when Ghost Brief™ was invoked. Fixed -- both files are now bundled correctly.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Brief™ added to <code>--help</code> output.</strong> <code>--brief</code>, <code>--input</code>, and <code>--output</code> flags are now documented with tier gate note (Pro Max and above).</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>README updated.</strong> Interactive menu option documented alongside the CLI command.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.0.1                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.0.1</span>
+      <span class="release-date">June 16, 2026</span>
+      <span class="release-badge kind-blue">PATCH</span>
+    </div>
+    <h2 class="release-headline">README and documentation update.</h2>
+    <p class="release-lede">Documentation pass for the v8.0.0 Ghost Brief™ launch. Seven-tier comparison table, What's New section, and updated npm package metadata.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>README updated with Ghost Brief™ documentation.</strong> CLI command, interactive menu note, and Ghost Portal™ push behavior documented.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Seven-tier comparison table added to README.</strong> Open, Pro, Pro Max, Team, Team Max, Enterprise, Enterprise Max -- with Ghost Brief™ availability column.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>What's New in v8.0.0 section added.</strong> Ghost Brief™ overview, run command, and tier gate note bundled with every install.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v8.0.0                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v8.0.0</span>
+      <span class="release-date">June 16, 2026</span>
+      <span class="release-badge kind-orange">MAJOR</span>
+    </div>
+    <h2 class="release-headline">Ghost Brief™ -- the governed AI remediation pipeline.</h2>
+    <p class="release-lede">Ghost Brief™ converts any Ghost scan into a validated, blast-radius-aware Claude Code prompt pack. Feed <code>ghost-brief.json</code> into Claude Code, Cursor, or Copilot. Ghost briefs the AI. The AI fixes the code. You ship.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Brief™ CLI mode (<code>--brief</code>).</strong> Converts any Ghost scan findings JSON into a structured prompt pack. Each prompt includes what to fix, which files to touch, which files to never touch, and validation hints to confirm the fix landed correctly.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Blast-radius-aware prompt ordering.</strong> Prompts are sorted ascending by blast score -- surgical fixes first, broad changes last. Your AI agent always works in the safest order possible.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Portal™ Brief tab.</strong> Every Brief you generate is pushed to your Portal automatically. View, download, and browse full Brief history from the Portal dashboard. Orange accent differentiates Brief from scan mode tiles.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Three new tiers: Pro Max, Team Max, Enterprise Max.</strong> Ghost Pro Max ($199/mo) adds Individual Brief generation. Ghost Team Max ($799/mo) adds Unified Brief across all seats -- one master prompt pack that understands how every fix affects every other area. Ghost Enterprise Max ($2,500/mo) adds Unlimited Brief and dedicated Ghost Partner co-engagement with EJ Wisner directly.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Brief™ feature page.</strong> <a href="ghost-brief.html">ghostarchitect.dev/ghost-brief.html</a> -- hero, How It Works, anatomy of a Brief, tier table, and FAQ.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Brief™ added to site navigation.</strong> Modes dropdown in the global nav includes Ghost Brief™ with an orange NEW badge.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Pricing page updated.</strong> All seven tiers displayed in a 3-column grid (base tiers row 1, Max tiers row 2). Stripe payment links for all three new Max tiers.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>39-assertion test suite.</strong> Covers Ghost Brief™ schema validation, blast radius labeling, adapter normalization (Fix Forecast, POI, Conflict), and tier policy for all seven tiers.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Worker path fix.</strong> The <code>signup.ghostarchitect.dev/portal-report</code> Worker now serves <code>briefs/</code> paths alongside <code>reports/</code> paths. Required for the Portal Brief tab to load Brief data.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v7.2.2                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v7.2.2</span>
+      <span class="release-date">June 5, 2026</span>
+    </div>
+    <h2 class="release-headline">Dynamic version and Portal README.</h2>
+    <p class="release-lede">A pair of housekeeping improvements: version is no longer hardcoded in the CLI binary, and Ghost Portal™ activation instructions are now bundled with every install.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>VERSION reads dynamically from package.json.</strong> No more manual sync on every publish -- <code>npm version patch</code> bumps both the package and the CLI banner automatically.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Portal™ README section.</strong> New section in the README covers Portal activation, what gets pushed, and how to share a Portal URL with clients. Bundled with every npm install.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v7.2.1                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v7.2.1</span>
+      <span class="release-date">June 4, 2026</span>
+    </div>
+    <h2 class="release-headline">Ghost Portal self-serve onboarding.</h2>
+    <p class="release-lede">Connect your GitHub account, get your Portal URL in under 60 seconds. No manual repo setup, no config files -- one OAuth flow and you're live.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Portal™ self-serve onboarding.</strong> Visit <a href="../portal-setup.html">ghostarchitect.dev/portal-setup</a>, click Connect GitHub, and your private <code>ghost-reports</code> repo and Portal dashboard are provisioned automatically.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>LAUNCH50 promo disabled.</strong> Startup and paywall screens are clean. No promo copy.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v7.2                                                            -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v7.2</span>
+      <span class="release-date">June 1, 2026</span>
+    </div>
+    <h2 class="release-headline">Fix Forecast: multi-select, combined reports, real costs.</h2>
+    <p class="release-lede">Fix Forecast is no longer a single-finding operation. Pick N findings at once, review the estimated cost before Ghost spends a token, and get a combined client-ready PDF when you're done. Blast Radius now shows real API token costs instead of character-count estimates. The conflict scanner was rebuilt around structured JSON output.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Multi-select Fix Forecast.</strong> Pick N findings from the checkbox list. Ghost shows the estimated cost for the batch and asks for confirmation before running. Findings with no surgical patch are filtered out automatically.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Standalone Fix Forecast from saved scans.</strong> Load any previous conflict scan from the menu and forecast fixes on it without re-scanning the codebase. Useful for async workflows where the scan and the fix review happen at different times.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Combined Fix Forecast report.</strong> Every multi-finding Fix Forecast produces a single combined PDF alongside the per-finding artifacts. All N forecasts in one document, client-ready.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Real token costs on Blast Radius.</strong> Standalone Blast Radius now uses a real <code>SessionCostTracker</code> instead of character-count estimates. The cost breakdown after a blast scan shows actual API usage, including a labeled estimate for narrator tokens.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Conflict scanner rebuilt on structured JSON.</strong> The LLM now returns findings as a JSON code fence instead of markdown. The parser is simpler, more reliable, and produces cleaner output. Lower API cost per scan.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Fix Forecast card in Ghost Portal™.</strong> Combined Fix Forecast reports push to Portal automatically and appear in their own dashboard card.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Portal Dashboard activity sort.</strong> Projects with the most scans and highest resolution percentage rise to the top. Single-scan zero-progress projects fall to the bottom.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v7.1                                                            -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v7.1</span>
+      <span class="release-date">May 26, 2026</span>
+    </div>
+    <h2 class="release-headline">Public launch and Stripe live mode.</h2>
+    <p class="release-lede">v7.1 shipped on launch day alongside v7.0.0 -- site overhaul live, Stripe payments enabled, Ghost Open freemium gate active.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>ghostarchitect.dev site overhaul.</strong> Full redesign live. New pricing page, changelog, blog, and Portal pages.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Stripe live mode enabled.</strong> Ghost Pro ($99/mo), Team ($399/mo), and Enterprise ($1,200/mo) payment links active.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Open freemium gate.</strong> 4 free deep scans across POI, Blast, Conflict, and Prompt Triage. No signup required. Quota resets are not available on Ghost Open.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v7.0.0                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v7.0.0</span>
+      <span class="release-date">May 26, 2026</span>
+    </div>
+    <h2 class="release-headline">Ghost Open is the trial.</h2>
+    <p class="release-lede">The headline change is structural. There is no separate trial flow anymore. Install Ghost Architect&trade; via npm, point it at any codebase, run real work. By the time you hit the paywall, you have already gotten real value, on your own machine, on your own code.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Open is the trial.</strong> Unlimited Question mode, unlimited Recon mode, and four free deep reports across Points of Interest, Blast Radius, Conflict Detection, and Prompt Triage. No signup. No timer. No friction.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Cost transparency in Question mode.</strong> Estimate before the call, actual cost after. The same cost preflight that already runs on every paid scan now runs on the free one too.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Profile feature properly gated.</strong> <code>--profile</code>, <code>--create-profile</code>, and <code>--list-profiles</code> flags now correctly restricted to Pro, Team, and Enterprise. Open tier sees a clear upgrade message instead of a broken flag.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Worker-driven launch promo.</strong> Promo copy is now served dynamically from a Cloudflare Worker at startup. Promo messaging can change without forcing every user to upgrade the CLI.</span>
+        <!-- LAUNCH50-PROMO BULLET START. Commented out 2026-05-27; swap with the bullet above to re-enable. -->
+        <!-- <span><strong>Worker-driven launch promo.</strong> Promo copy is now served dynamically from a Cloudflare Worker at startup. Promo messaging can change without forcing every user to upgrade the CLI. <code>LAUNCH50</code> is live for the first 100 new or upgrading subscribers: 50% off the first month on Pro, Team, and Enterprise.</span> -->
+        <!-- LAUNCH50-PROMO BULLET END -->
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Model defaults updated.</strong> Default model lineup is now Claude Sonnet 4.6 and Claude Opus 4.7. Significantly lower per-scan API cost in practice. The cost preflight reflects the new pricing automatically.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>README rewritten end-to-end.</strong> Clearer, more accurate, better structured. If the v6 install instructions confused you, read them again in v7.</span>
+      </li>
+    </ul>
+
+    <div class="release-footer">
+      Deep dive: <a href="blog/ghost-v7-launch.html">Ghost Architect&trade; v7.0.0: Ghost Open is the trial</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v6.0.0                                                          -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v6.0.0</span>
+      <span class="release-date">May 20, 2026</span>
+    </div>
+    <h2 class="release-headline">License Worker and parser hardening.</h2>
+    <p class="release-lede">v6.0.0 wired the License Worker to the full Stripe subscription lifecycle and shipped a defensive fix for a findings-parser edge case that had been silently skipping output.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>License Worker v6.0.0.</strong> Stripe subscription lifecycle integration: renewal extends the license, cancellation revokes, plan changes propagate.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Defensive parser fix for findings.json.</strong> Edge case where a malformed heading could cause a finding to be silently skipped is now caught with a peek-ahead and a clear error.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Regression test harness.</strong> New test suite at <code>tests/parser-fixtures.test.js</code> covers the parser edge cases so the same bug class cannot regress.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- v5 highlights                                                   -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">v5 highlights</span>
+      <span class="release-date">April 2026</span>
+    </div>
+    <h2 class="release-headline">Context controls, Partner profiles, structured findings.</h2>
+    <p class="release-lede">The v5 series rolled out per-scan context controls, tier-aware context budgets, the Ghost Partner&trade; profile system for agencies, and a machine-readable findings output for downstream tooling.</p>
+
+    <ul class="change-list">
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Per-scan context flags.</strong> <code>--max-context N</code> for raising or lowering the context budget on a single run. <code>--exclude "glob"</code> for path or pattern exclusion. <code>--exclude-presets</code> for curated exclusion bundles (test data, generated files, vendor caches).</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Tier-gated context caps.</strong> Ghost Open 50K tokens, Pro 100K, Team 150K, Enterprise 200K. The cap is enforced at the loader, not the prompt, so the math is the same on every run.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Ghost Partner&trade; profile system.</strong> Agencies and consultants can save scan configurations as named profiles. <code>--profile name</code>, <code>--create-profile</code>, and <code>--list-profiles</code> flags. Profiles are stored locally per-machine.</span>
+      </li>
+      <li>
+        <span class="marker">+</span>
+        <span><strong>Structured Findings JSON.</strong> Every scan now emits a machine-readable <code>findings.json</code> alongside the human-readable TXT, MD, and PDF outputs. Downstream tooling, dashboards, and the Ghost Portal report sync all consume this format.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+</div><!-- /log-hosted -->
+
+<div class="log-col log-local" id="local">
+  <div class="log-head">
+    <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.10, September 24, 2026. <a href="download.html">Request the download.</a></p>
+  </div>
+
+<section class="section">
+  <div class="release-card current">
+    <div class="release-meta">
+      <span class="release-version">7.4.10</span>
+      <span class="release-date">September 24, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Cleaner reports, a fleet that hands work on sooner, and Unlimited for Enterprise</h2>
+    <p class="release-lede">7.4.10 -- Finding headings now carry the finding's own title, never the template's words or labels like (Batch 2), and a finding the findings file lists once is printed once. A finding now points at the file it is about: code before a README or CHANGELOG, and a file the finding names before one it only lists. A cited path with the wrong directory shows the file Ghost actually read. A finding that calls a function unused, when the code calls it, is set aside with the lines that call it. In a fleet, a peer whose relayed call has just come back is offered the next call at once, instead of looking full until its next health reading. The Scan Queue no longer says a peer is holding nothing while one of this hub's calls is running on it. On a CPU-only machine each call's speed is now compared with what that machine did before at a similar prompt size, so a normal speed for a larger prompt is no longer called slow. The warning says what it was compared with. An Enterprise licence now says Unlimited on the license banner, System Status and the Users page, instead of 10000.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.9</span>
+      <span class="release-date">September 24, 2026</span>
+    </div>
+    <h2 class="release-headline">A long code name is no longer mistaken for an AWS secret</h2>
+    <p class="release-lede">7.4.9 -- Ghost hides anything shaped like an AWS secret key before the model reads your code. Some code names have exactly that shape, and Ghost was hiding them too, so the model reported a hardcoded AWS secret that was not there. Ghost now recognises a name made of words, such as Documentation/UndocumentedBooleanMethods or a long test name, and leaves it as written. A real key is still hidden, whether it stands alone or is assigned to a variable.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.8</span>
+      <span class="release-date">September 24, 2026</span>
+    </div>
+    <h2 class="release-headline">Severity you can trust, and a backup that pauses the scans</h2>
+    <p class="release-lede">7.4.8 -- Ghost was hiding values like "dummy" and "YOUR_API_KEY" as if they were secrets, then reading the hidden value as proof of a real secret. Those findings came out CRITICAL. Ghost now leaves a placeholder as it is written and still hides anything that could be real. A finding whose every cited file is test or example code is now MEDIUM at most, because that code does not run in production. The finding says what it was first rated and why it was lowered. The severity rubric now says that CRITICAL and HIGH need a production path, that a placeholder is not a secret, and that code which logs an error and returns an error response is reporting it, not swallowing it. The first scan of each project after this update analyses every file again; later scans reuse that work as before. The daily backup now pauses the scans instead of waiting for a quiet machine that may never come. Each scan pauses after the pass it is on, the backup runs, and the scans restart on their own. Every queue screen says "pausing for backup" while it happens. The daily usage report lists each project once, with its findings scan by scan and a count of the attempts that ended early.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.7</span>
+      <span class="release-date">September 24, 2026</span>
+    </div>
+    <h2 class="release-headline">A report entry that runs on is stopped in seconds, not minutes</h2>
+    <p class="release-lede">7.4.7 -- When Ghost writes the report, the model writes one entry per finding. On a scan this week it wrote one entry as a single line of more than 52,000 characters of repeated words and kept going for over 11 minutes. Ghost already throws away an entry like that, so the time was wasted. Ghost now stops the model as soon as a line in an entry passes the length it would throw away, writes that entry again on its own, and does the same for any entries the runaway left unwritten. If the rewrite runs on too, the entry is built from the finding's own details instead.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.6</span>
+      <span class="release-date">September 23, 2026</span>
+    </div>
+    <h2 class="release-headline">An update no longer throws away the work the model is doing</h2>
+    <p class="release-lede">7.4.6 -- Before an update, Ghost stops the scans on the machine and starts them again afterwards. It now waits for the scan the model is actually working on, whether that is a pass or a merge step, until its answer is saved, and stops the scans that are only waiting in line straight away. On the Scan Queue, Recently ended shows these scans as "stood down" instead of "killed", because they carry on by themselves after the update. The same code is now split into the same passes every time. Files that ranked equally were kept in the order the disk listed them, which changes from run to run, so most saved pass answers went unused on a repeat scan. Equal files are now ordered by their path, and a repeat scan keeps its saved pass size when only the machine's speed setting has changed. The first scan of each project after this update splits its files once more under the new order. When a scan is stopped, the email counts only the saved passes a restart will reuse. And when LLM Status says a model call read less of its prompt than it was sent, it names the scan, the step and the time of that call, and when it stops counting.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.5</span>
+      <span class="release-date">September 23, 2026</span>
+    </div>
+    <h2 class="release-headline">A merge or report line that never ends is cleaned up</h2>
+    <p class="release-lede">7.4.5 -- The model writing a merge step or the final report sometimes starts a line and never finishes it, drifting into an endless run of loosely related words. Ghost now keeps such a line only up to its last complete sentence and keeps everything else in the answer. When a line runs past 40,000 characters, Ghost also stops the model there instead of letting it write to the end. On one scan this week that line reached 116,860 characters and took 22 minutes; stopped at 40,000, the same step takes about 9. A line that runs on for a while and then ends is left to finish, because the model often goes back to writing real findings after it.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.4</span>
+      <span class="release-date">September 23, 2026</span>
+    </div>
+    <h2 class="release-headline">Reports name the machines that did the work, and a step that repeats itself is stopped</h2>
+    <p class="release-lede">7.4.4 -- When a hub shares a scan's model calls with peer hubs, the report now names every machine that answered and how many calls each took, and the Reports page shows the same under each report that was load balanced. When the model ended a code example with its closing marker at the end of a line, or never closed it, every finding after it was read as code and left out of the report. Ghost now closes such a block where the code evidently ends and counts each repair. On one real report this week, the same model answer now gives 45 findings where it gave 8. Now and then the model writing a merge step or the final report begins writing the same lines over again until it runs out of room, which on a local model can take twenty minutes or more. Ghost now watches those two steps as they are written, stops the model when it has been repeating itself with no new finding, and keeps everything written before the repetition began.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.3</span>
+      <span class="release-date">September 23, 2026</span>
+    </div>
+    <h2 class="release-headline">Scans keep their work through an update, and a quiet peer is reported</h2>
+    <p class="release-lede">7.4.3 -- A long scan reads your code in passes and then merges what the passes found, step by step. Finished passes were already saved as they went; the merge steps now are too, so a scan that is stopped and started again reuses the merges it had finished. An administrator can now stand every background scan down for an update with one command. Each scan is written down with the exact request it was started with, including how many passes it asked for, and a scan in the middle of a pass can be given time to save it first. When the portal starts again, the scans carry on in the order they held, reusing their saved passes and merges. A scan somebody paused stays paused, and nobody is emailed that a scan was killed, because it was not. When a peer hub has not answered a health check for 15 minutes, the hub emails its administrators, and it emails again when the peer answers, saying how long it was quiet. A machine that is down and one too busy to answer look the same from the hub, and neither is working for the fleet, so both are reported.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.2</span>
+      <span class="release-date">September 23, 2026</span>
+    </div>
+    <h2 class="release-headline">A hub can cap the size of the work it sends each peer</h2>
+    <p class="release-lede">7.4.2 -- When a hub is busy, it hands model calls to its peer hubs, and until now the only size check was whether a peer's model could hold the call. A machine can hold a large call and still be the wrong place for it. A smaller machine given a long call puts every core into it and stops answering, so the hub that sent the work cannot see its progress or reach it for the length of the call. The Fleet page's Load balancing table now has a "Largest prompt sent" setting for each peer. A call whose prompt is larger than that stays on this hub; a smaller one is still sent when the hub is busy. The decision is written to the scan log with both numbers, and the Fleet page says why a call stayed home. Only an administrator can change the setting, and each change is recorded with who made it and what it was before. A peer with no limit set is sent exactly what it was sent before.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.1</span>
+      <span class="release-date">September 23, 2026</span>
+    </div>
+    <h2 class="release-headline">A report written from all of its findings</h2>
+    <p class="release-lede">7.4.1 -- When a scan handed its final report off to be written in the background, which is the usual way a hub finishes a scan, the step that fits the findings into the model's context window was never told how large that window is. On a large codebase the report prompt could then be bigger than the model can read, and the model read only part of it: in the case that found this, about a third. The report was written from what it read. That step is now told the window size and fits the findings to it. When a single merged set of findings is still too large, it is shortened only as far as the window needs, with a note at the cut, and the report says so. It is no longer sent back to the model to be merged with nothing, which cost model calls and did not make it smaller.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.0</span>
+      <span class="release-date">September 22, 2026</span>
+    </div>
+    <h2 class="release-headline">A merge that repeated itself, and a hub that trusted a fast re-read</h2>
+    <p class="release-lede">7.4.0 -- On a large codebase, Ghost Architect&trade; Local merges the findings from its passes in steps so each step fits the model's context window. When two merged groups were each too big to go into one prompt together, every step after that sent each group back on its own, got the same group back, and tried again. Nothing was combined, and the scan kept going until someone stopped it: four and a half hours on one scan before this was found. Now a step that cannot combine anything puts every group into one final prompt. A small group goes in whole, and a large one is shortened only as far as the window needs, with a note at the cut. The report says when this happened. A hub that takes work from other hubs estimates how long a call will take before accepting it, from how fast it has recently read prompts. When it was sent the same prompt more than once, the model server answered the repeats almost instantly, because it still held the prompt it had just read. Those repeats counted as fast readings and pulled the estimate down, so the hub accepted a much larger call it then could not finish before its deadline. Each call now records a short fingerprint of its prompt (a digest, not the text), and only the first reading of any prompt counts toward the estimate.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.3.9</span>
+      <span class="release-date">September 22, 2026</span>
+    </div>
+    <h2 class="release-headline">A perfect score for a scan that looked at nothing</h2>
+    <p class="release-lede">7.3.9 -- A scan whose target resolved to zero files, a path that pointed at nothing or a profile that excluded everything, came back as "100/100, Production ready". Nothing had been looked at. A score of 100 says a codebase was measured and found clean, and this one was not measured at all. Such a scan now carries no score, and its report says plainly that no files were provided to analyze and that the path or profile should be checked. The Project Dashboard says the same thing instead of ranking that project at 100, including for scans that ran on another hub and were sent to this one. A scan that was given files and found nothing wrong still scores 100, because that one is a measurement. When a scan has no score (it confirmed none of the findings it raised, it was cut off before it finished, or it was given no files), the report prepared for a client read "Health Score: null/100" followed by "Critical risk, do not proceed without remediation", above a finding count of zero. That is the opposite of what happened. The client report now reads "Health Score: not rated" with one sentence giving the reason, and leaves out the verdict, the trend and the scoring note, since each of those describes a number that is not there. Scored reports are unchanged. Before a finding reaches a report, Ghost Architect&trade; Local checks the names it cites against the source it cites. That check only recognised a name written as a method call on an object or class, or quoted as code. A plain mention of a function, such as "errors from hash_file() are suppressed", was never checked, so a finding that named the wrong function in plain words went out as though it had been verified. Those names are now checked like any other: a name that is not in the cited code marks the finding unverified. Ordinary words that happen to sit next to a bracket, such as "entries (values ...)" or "file(s)", are not mistaken for function names. 7.3.9 carries everything in 7.3.0, 7.3.1 and 7.3.2 as well.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.3.2</span>
+      <span class="release-date">September 21, 2026</span>
+    </div>
+    <h2 class="release-headline">The Scan Queue named the wrong machine</h2>
+    <p class="release-lede">7.3.2 -- The Scan Queue's "Running on" column is supposed to name the machine whose model is working on a scan right now, and to name a peer hub while a call is out on it. For a POI scan's write-up stage it never did. That stage is registered under its own name so the page can tell it apart from the analysis stage, but every event recorded for the same call, including the line saying which peer it was sent to, is written under the scan's original mode. The lookup asked for the wrong name, found nothing, and the column fell back to naming this hub, even when the line one row up in the same log said the call had gone to the peer. The work really was on the peer; the page reported the silence as "here" instead of "unknown". The lookup now asks for the call's real mode, the one the log was always written under.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.3.1</span>
+      <span class="release-date">September 20, 2026</span>
+    </div>
+    <h2 class="release-headline">The trial notice a paying customer could not get rid of</h2>
+    <p class="release-lede">7.3.1 -- Every portal page carries an evaluation notice, and it decided whether to draw itself by asking whether a trial had ever been started on the install rather than whether the machine is an evaluation now. Installing a licence does not remove that record and nothing else clears it, so from the moment a customer converted, the notice went on telling them at the top of every screen that their evaluation had ended and that a licence would turn everything back on -- on a machine that had one. It fired for every customer who converted, at the moment they started paying, and no restart or upgrade would have cleared it. The notice now asks whether the machine holds a licence before it draws, and any licence silences it, because an expired or unreadable licence is still not an evaluation. It asks by looking for the file rather than by validating it, so that a notice drawn on every request, every poll and every refresh still writes nothing to disk.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.3.0</span>
+      <span class="release-date">September 20, 2026</span>
+    </div>
+    <h2 class="release-headline">A promise we emailed, and the path their CI runs on</h2>
+    <p class="release-lede">7.3.0 -- The trial email promises Recon-only mode when an evaluation lapses, and the product refused every mode including that one; three separate doors carried the same blanket refusal, and a lapsed evaluator read the truth at a terminal and "you never had access" in their CI log. All three ask the entitlement table now. Recon, which counts nothing by design, was reporting "0 findings" on six surfaces, among them one email that also said nothing was counted and a pull request comment claiming no critical or high findings on a branch nothing had examined for defects. Findings from modes with no verifier were filed under the word for doubt: 245 of them across two machines read as doubted inside files whose own set-aside count read zero, and there is a third word now, unchecked. A blast target that resolved to nothing was accepted, queued and scanned for 120 passes, when the product had already written down that it matched no file. The stop button signalled a process this product never started. And two hundred stopped scans left one kill entry between them, because five paths stop a scan and not one of them passed a principal.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.2.8</span>
+      <span class="release-date">September 18, 2026</span>
+    </div>
+    <h2 class="release-headline">A scope that examined nothing, and a note that did arithmetic on the wrong set</h2>
+    <p class="release-lede">7.2.8 -- A scope named by its full path matched nothing and scanned nothing, which produces a clean report that reads exactly like good news; scope entries resolve against the codebase root and against the pinned copy being read now, and the absolute and relative forms select the same files. The first fix for it was not enough, and the entry says so. A conflict scan's coverage note read seventy-seven related out of sixty-one never examined, a subset larger than the set it was drawn from, because one word attached a true count to the wrong population. And a single slow reading used to shrink every scan on the machine and keep it shrunk: the pass-size monitor declines to reach a verdict below three samples now, and too little evidence neither reduces pass size nor clears a reduction already in force.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.2.7</span>
+      <span class="release-date">September 13, 2026</span>
+    </div>
+    <h2 class="release-headline">An accent in your company name, and a green light over a switch that was off</h2>
+    <p class="release-lede">7.2.7 -- An installer answers file carrying an accented company name had never been recorded correctly. The queue API told you where half your queue stood and stayed silent about the rest. And a peer hub showed a green "work is sent" three lines under the sentence saying balancing was switched off.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.2.6</span>
+      <span class="release-date">September 12, 2026</span>
+    </div>
+    <h2 class="release-headline">Names, clocks, and a test that expired while we watched it</h2>
+    <p class="release-lede">7.2.6 -- A log archive was being deleted up to five hours early, every evening. The first log archive an upgraded install writes was invisible to the LLM Status page. The Last Backup panel showed two different days for one file. And the Windows installer no longer hangs when its input is a pipe.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.2.5</span>
+      <span class="release-date">September 12, 2026</span>
+    </div>
+    <h2 class="release-headline">The crash on Q, and the day a log file is named for</h2>
+    <p class="release-lede">7.2.5 -- Pressing Q to leave the Scan Queue no longer kills a Windows console window, and a rotated log file is named for the day it holds, on your clock.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.2.4</span>
+      <span class="release-date">September 12, 2026</span>
+    </div>
+    <h2 class="release-headline">The machine you are sitting at gets to keep working</h2>
+    <p class="release-lede">7.2.4 -- The smallest model on the installer menu was the one that thinks before it answers. A calibration is sized for the machine it measures. The Scan Queue screen speaks ASCII on a Windows console, and its footer says what Q does. And the log viewer no longer runs what it reads.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.2.3</span>
+      <span class="release-date">September 11, 2026</span>
+    </div>
+    <h2 class="release-headline">Everyone signs in, and every line says who did it and where</h2>
+    <p class="release-lede">7.2.3 -- Typing ghost asks who you are. Where the policy requires an authenticator you set one up at sign-in, and a forgotten password is reset by the computer's own administrator. A paid seat is a machine, not a head. And an administrator runs the people from one page.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.2.2</span>
+      <span class="release-date">September 11, 2026</span>
+    </div>
+    <h2 class="release-headline">An upgrade cannot break the install it is replacing</h2>
+    <p class="release-lede">7.2.2 -- A Windows upgrade stops its own services and moves the old copy aside. A slot count the model server may not serve is said out loud. And a built version is not built again.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.2.1</span>
+      <span class="release-date">September 11, 2026</span>
+    </div>
+    <h2 class="release-headline">What the second machine taught the fleet</h2>
+    <p class="release-lede">7.2.1 -- One at a time means one at a time. A call is sized by answers of its own kind, and a peer that has measured itself is not calibrated. Windows services stop cleanly, and a stall cannot empty the stores that let you in. A relay that dies says what killed it, and a peer that is not ready says why. The installers say what happened, and a reinstall keeps what was there.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.2.0</span>
+      <span class="release-date">September 10, 2026</span>
+    </div>
+    <h2 class="release-headline">The fleet counts what it is actually doing</h2>
+    <p class="release-lede">7.2.0 -- A call stays on a free machine. Load balancing has a threshold, and a peer can be benched. A relay is counted, and one that died is said. The stall judge reads the relay's deadline. And a receiver judges a call by the answers it writes.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.1.9</span>
+      <span class="release-date">September 10, 2026</span>
+    </div>
+    <h2 class="release-headline">The deadline that belonged to the wrong machine</h2>
+    <p class="release-lede">7.1.9 -- A peer says how much it can hold, and the sender listens. The deadline follows the machine that will run the call, and a receiver that cannot make that deadline says so in a second. A machine in a fleet can see the fleet's work, and the queue page says where a call went.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.1.8</span>
+      <span class="release-date">September 10, 2026</span>
+    </div>
+    <h2 class="release-headline">The feature that was registered everywhere and worked nowhere</h2>
+    <p class="release-lede">7.1.8 -- Multi-hub load balancing had never sent a single call anywhere, and when it did send one it was handing off work rather than balancing it. A peer that answered in 79 milliseconds and refused the credential was reported as unreachable. Re-pairing two hubs silently did nothing and reported success. And there is a way to remove a peer hub at last.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.1.7</span>
+      <span class="release-date">September 9, 2026</span>
+    </div>
+    <h2 class="release-headline">What a screen would not tell you</h2>
+    <p class="release-lede">7.1.7 -- A Windows hub was never reachable by anything it exists to serve. A stalled scan said so in one place and not the other. The Fleet page could not tell you which machine it meant. A peer hub was the only machine class in the fleet with no speed. And a Scan Queue said the whole fleet was idle while a peer ran at full tilt.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.1.6</span>
+      <span class="release-date">September 8, 2026</span>
+    </div>
+    <h2 class="release-headline">Windows</h2>
+    <p class="release-lede">7.1.6 -- An upgrade no longer deletes your data folder, and the admin device token goes with it. It refuses to take over what is not its own. Unattended installs. And the installer decides its own exit status.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.1.5</span>
+      <span class="release-date">September 8, 2026</span>
+    </div>
+    <h2 class="release-headline">The Linux installer</h2>
+    <p class="release-lede">7.1.5 -- The opt-out that turns off Node installation appears in the installer's own help at last. It had worked since 7.1.3 and was documented in the release notes, but the usage text listed only two of the three flags it accepts, which is the one place an operator would look for it. 7.1.3 and 7.1.4 were built and gated and never published; their entries are kept rather than folded into this one, because a changelog that quietly renumbers its own history is worth less than one with two extra headings in it.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.1.4</span>
+      <span class="release-date">September 8, 2026</span>
+    </div>
+    <h2 class="release-headline">Conflict detection</h2>
+    <p class="release-lede">7.1.4 -- File pairs too large to fit in one context together are examined as the regions that relate them. The codebase index records which function calls which, so a pass can carry the function on each side of a call between two large files instead of carrying neither. Measured on a 348-file codebase: 108 related pairs were out of reach at any number of passes and 32 are now, with the other 76 examined for eight extra passes out of 109. What is still out of reach is named with its reason, per pair.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.1.3</span>
+      <span class="release-date">September 8, 2026</span>
+    </div>
+    <h2 class="release-headline">The Linux installer</h2>
+    <p class="release-lede">7.1.3 -- The installer installs Node.js when the machine has none it can use, ending three cases the same way instead of in three different dead ends. It fetches the pinned version from nodejs.org, verifies it against the published SHASUMS256.txt, and copies into /usr/local: no package manager is run, no repository is added, and no remote script is piped into a shell. If the download cannot be verified, nothing is unpacked and the refusal says so.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.1.2</span>
+      <span class="release-date">September 7, 2026</span>
+    </div>
+    <h2 class="release-headline">The Linux installer</h2>
+    <p class="release-lede">7.1.2 -- The installer proves the service account can run what the systemd units name, and refuses before it writes a unit if it cannot. It resolves the two paths that will go into ExecStart, then executes the interpreter and reads the script as the service account, because a permission bit is not the thing being guarded and executing is what systemd does. This closes a dead end for any machine whose only Node is installed under a home directory, which is every plain nvm install.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.1.1</span>
+      <span class="release-date">September 7, 2026</span>
+    </div>
+    <h2 class="release-headline">The portal</h2>
+    <p class="release-lede">7.1.1 -- The Project Dashboard has a search box and paging, all of it plain links and a form, so the page still works with JavaScript turned off. A search always starts at page one. A page number past the end of the list shows the last page rather than an empty one. And the dashboard tells apart "no projects have been scanned yet", "no project matches what you typed" and "none are assigned to you", which used to be one message.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.1.0</span>
+      <span class="release-date">September 7, 2026</span>
+    </div>
+    <h2 class="release-headline">The product reads the model's own answer</h2>
+    <p class="release-lede">7.1.0 -- A file citation written with a qualifier beside it is kept, path and all. The rule that rejected any token carrying a space or a parenthesis was written to keep a bare version string out of a file list, and it discarded the qualifier and the path together: measured on a real scan, nine findings reached the verifier with no file, so it opened nothing, judged nothing, and set all nine aside. And a finding whose fields arrive on one pipe-joined line keeps them, whichever field the line leads with, where every matcher used to be anchored to the start of the line and lost the file, the severity and the effort at once.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.0.4</span>
+      <span class="release-date">September 3, 2026</span>
+      <span class="release-badge local">Out of beta</span>
+    </div>
+    <h2 class="release-headline">Out of beta: the estate tells the truth about itself</h2>
+    <p class="release-lede">7.0.4 -- The first release after beta. The Fleet page gains an LLM Status tab: the model each machine runs, memory held and available, the context window, decode and prompt-reading speed today against the prior six days, and the model server's live log. The balancer's memory veto reads real records again and each machine's available memory is printed. Time estimates are measured from this machine's own passes and say which basis they used. Every event of a pass names the same total. A compliance row names its scan and tells the project label from the directory. Which scan endings send email is a setting. The archive has a search before its page. Full gate: 537 of 537 smoke tests, 12 of 12 simulation flows, Linux root install green.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.0.3</span>
+      <span class="release-date">August 29, 2026</span>
+      <span class="release-badge local">Beta</span>
+    </div>
+    <h2 class="release-headline">Trust the portal's certificate, and reports that say what they could not do</h2>
+    <p class="release-lede">7.0.3 -- The portal tells you how to trust its certificate: a guide, a warning before the first browser opens, and Admin Console prints the fingerprint and the trust commands for your platform. A finding the report writer could not expand stays in the report as the analysis recorded it, and the writer runs on a measured budget instead of a fixed thirty seconds. The usage report no longer prints a token total it never measured. Underneath: the verifier no longer deletes a true finding because its own remediation pattern is present, a report the parser cannot read no longer reports a healthy codebase, a redaction marker corroborates a hardcoded-secret finding instead of refuting it, findings are written to the debug record as they enter verification so a scan can be replayed, and a retry that changes nothing is not retried. 438 of 438 smoke tests, 12 of 12 flows.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.0.2</span>
+      <span class="release-date">August 28, 2026</span>
+      <span class="release-badge local">Beta</span>
+    </div>
+    <h2 class="release-headline">Zero egress refuses, and a spoke records who ran the scan</h2>
+    <p class="release-lede">7.0.2 -- Zero-egress mode now refuses a model endpoint that would send source code off the machine, at all three moments it can be reached. A spoke records who ran a scan, which it never did before; the hub records what it serves from an identity it verified itself, and that identity is signed, so editing the cached copy breaks it rather than silently succeeding. 422 of 422 tests, 12 of 12 flows.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.0.1</span>
+      <span class="release-date">August 23, 2026</span>
+      <span class="release-badge local">First delivery</span>
+    </div>
+    <h2 class="release-headline">The first tarball: a Linux hub install with a service account and two services</h2>
+    <p class="release-lede">7.0.1 -- The first build delivered through the private delivery repository, as a tarball with a published SHA-256 to check before unpacking. The Linux installer provisions a dedicated service account, the data root and two systemd units, portal and scheduler, with the portal on port 3443. Also in this build: a screen-leak fix and a bracketed-paste fix in the interactive shell.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.0.0</span>
+      <span class="release-date">August 7, 2026</span>
+      <span class="release-badge local">Beta</span>
+    </div>
+    <h2 class="release-headline">Version 7: the Local line gets its own number</h2>
+    <p class="release-lede">7.0.0 -- Ghost Architect&trade; Local takes the 7.0 line, and the version the product displays derives from one place, so a release cannot show two numbers.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">1.0.0</span>
+      <span class="release-date">July 2026</span>
+      <span class="release-badge local">First build</span>
+    </div>
+    <h2 class="release-headline">The first Local build: your model, your hardware, Ed25519 licences</h2>
+    <p class="release-lede">1.0.0 -- The full architecture build. A model-provider abstraction so the product runs on Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. Ed25519 is the only licence signature scheme the product signs or verifies, and the key the product trusts is the public half of the key the activation service signs with. Recon reports carry an honest sizing notice instead of a fabricated 100/100 health score; a recon no longer writes a perfect score into a project's trend history or generates a client report for a scan that assessed nothing.</p>
+  </div>
+</section>
+
+</div><!-- /log-local -->
+</div><!-- /two-logs -->
+
+<!-- ─────────────────────────────────────────────────────────────── -->
+<!-- Closing band                                                    -->
+<!-- ─────────────────────────────────────────────────────────────── -->
+<div class="closing-band">
+  <div class="closing-inner">
+    <div class="closing-text">
+      <strong>Already running an older version?</strong> Run <code>npm update -g ghost-architect-open</code> to pull the current release. Your config, scan history, and license persist. Nothing breaks. Ghost Architect&trade; Local upgrades by re-running its installer on the new tarball.
+    </div>
+    <a href="pricing.html" class="closing-btn">See pricing &rarr;</a>
+  </div>
+</div>
+</main>
+
+<footer>
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; US Copyright Reg. #1-15123488721 &middot; <a href="support.html">Support</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="msa.html">Terms of Service</a></span>
+</footer>
+
+<script src="../assets/ga-nav.js?v=20260920b" defer></script>
+<script src="next-nav.js" defer></script>
+<script src="scene.js" defer></script>
+</body>
+</html>
