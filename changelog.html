@@ -2404,15 +2404,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.10, September 24, 2026. <a href="/download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.11, September 25, 2026. <a href="/download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">7.4.11</span>
+      <span class="release-date">September 25, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Ghost reads Rust, and a scan that confirmed nothing has no score</h2>
+    <p class="release-lede">7.4.11 -- Rust source files are now read, anchored and checked like any other language. Before this release a Rust project was scanned without its Rust. Cargo's build output and Cargo.lock are still skipped, and benches/ counts as test code alongside tests/ and examples/. On the Scan Queue, a wait that cannot be estimated now says est. unknown on its row, and the reason is said once under the table instead of on every row. A finding that says a file never uses something, when that file does use it, is now set aside with the lines that use it, and so is one titled "Unused X class" when X is used. Code in a demo folder counts as example code. When verification removes every finding, the closing risk section says so instead of describing what was removed. Times in the scan log no longer read 60 seconds past a minute, and a call another machine answered is counted once, under the model that answered it. A scripted CLI scan that waits in the queue now says where it is in line, and the backup emails name the scans they paused and resumed. A scan whose findings were all removed, or one cut off before it finished, no longer shows 100/100 on any surface. Test fixture keys are no longer mistaken for secrets, a finding in a named function points inside it, and scripted-scan flags without --no-interactive say so. A password in a development-only settings file, such as appsettings.Development.json or .env.development, is now rated like one in test code instead of CRITICAL. A finding that calls a catch block silent is set aside when the catch rethrows or logs the exception, or is the catch of a test that expects the exception; one that says a method is never invoked is set aside when the code calls it. The usage report says "none confirmed" rather than "none found" when a scan raised findings it could not confirm, names how many were set aside or removed, and says which period it covers.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">7.4.10</span>
       <span class="release-date">September 24, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">Cleaner reports, a fleet that hands work on sooner, and Unlimited for Enterprise</h2>
     <p class="release-lede">7.4.10 -- Finding headings now carry the finding's own title, never the template's words or labels like (Batch 2), and a finding the findings file lists once is printed once. A finding now points at the file it is about: code before a README or CHANGELOG, and a file the finding names before one it only lists. A cited path with the wrong directory shows the file Ghost actually read. A finding that calls a function unused, when the code calls it, is set aside with the lines that call it. In a fleet, a peer whose relayed call has just come back is offered the next call at once, instead of looking full until its next health reading. The Scan Queue no longer says a peer is holding nothing while one of this hub's calls is running on it. On a CPU-only machine each call's speed is now compared with what that machine did before at a similar prompt size, so a normal speed for a larger prompt is no longer called slow. The warning says what it was compared with. An Enterprise licence now says Unlimited on the license banner, System Status and the Users page, instead of 10000.</p>
