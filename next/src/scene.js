@@ -360,7 +360,7 @@ function start() {
   const orbitR = 9.5, a0 = -0.32, a1 = 0.32;
   const KEY = [
     ambient
-      ? { p: V(6, 14, 44), l: V(0, -6, -6) }                                     // 0 content pages: wide and quiet, the world low in the frame
+      ? { p: V(3, 10, 33), l: V(0, -3.5, -5) }                                   // 0 content pages: a step back from the hero, the world low in the frame
       : isLocal
       ? { p: V(4, 12, 40), l: V(0, -3.5, -5) }                                   // 0 hero (Local): a step further back, so the walls of the building are in frame
       : { p: V(0, 9, 26),  l: V(0, -4.4, -5) },                                  // 0 hero: at rest, seen a little from above, the world below the headline
@@ -450,7 +450,7 @@ function start() {
     boxMat.opacity = 0.03 * bo;
     boxEdges.material.opacity = 0.7 * bo;
     // the camera is far away for the building shot: let the world stay visible out there
-    const farDist = lerp(ambient ? 96 : isLocal ? 80 : 68, 130, far3);
+    const farDist = lerp(ambient ? 84 : isLocal ? 80 : 68, 130, far3);
     pmat.uniforms.uFar.value = farDist;
     scene.fog.far = farDist;
     scene.fog.near = lerp(10, 30, far3);
@@ -486,7 +486,7 @@ function start() {
     lastU4 = u4;
 
     // colours
-    const restGain = ambient ? 0.62 : 1;
+    const restGain = ambient ? 0.85 : 1;
     for (let i = 0; i < N; i++) {
       const j = i * 3;
       const x = p0[j];
@@ -565,6 +565,16 @@ function start() {
       camPos.x += Math.sin(t * 0.05) * 0.5 * hero;
       camPos.z += Math.sin(t * 0.08) * 0.6 * hero;
       camPos.y += Math.sin(t * 0.065) * 0.2;
+      if (ambient) {
+        // content pages have no chapters, so the world keeps moving on its own: a slow lateral glide,
+        // and a gentle parallax against the page as the reader scrolls
+        camPos.x += Math.sin(t * 0.035) * 2.2;
+        camPos.z += Math.cos(t * 0.03) * 1.4;
+        const sy = Math.min(window.scrollY || 0, 3000) * 0.0015;
+        camPos.y -= sy;
+        camLook.y -= sy * 0.6;
+        camLook.x += Math.sin(t * 0.035) * 0.8;
+      }
       smx += (mx - smx) * (1 - Math.exp(-dt * 3));
       smy += (my - smy) * (1 - Math.exp(-dt * 3));
       right.subVectors(camLook, camPos).normalize().cross(up).normalize();
