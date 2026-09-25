@@ -2404,15 +2404,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.11, September 25, 2026. <a href="/download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.12, September 25, 2026. <a href="/download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.11</span>
+      <span class="release-version">7.4.12</span>
       <span class="release-date">September 25, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Ghost reads Dart, and a secret is found without Ghost's own marks being called secrets</h2>
+    <p class="release-lede">7.4.12 -- Dart source files and Magento templates are now read, anchored and checked like any other language. Code a build tool wrote is still skipped. On the Scan Queue, running scans carry no number and are listed first; the waiting scans are numbered 1, 2, 3 in the order they will start. The Fleet Scan Queue shows each scan's main languages under its project name, and the usage report names the main language of each scan. A peer that has missed its health checks is reported as not answering rather than busy, the recovery email says how long it was quiet, and the completion email links to the scan's own report. Ghost now records whether each value it masks is a vendor key, a generated-looking secret or a short, simple one. Vendor keys and generated-looking secrets are still reported in any file, test files included. A finding whose only evidence is a simple value masked in test or development code is set aside instead of counted as an exposed secret. A finding about test code that names no failure is now listed as INFO: it stays in the report with its evidence and no longer lowers the score. A disabled test, a test that can never fail, a hidden exception or a secret in a test keeps its rating. Xcode test targets count as test code, a linked file is read once, and a scan that was stopped and resumed says so. A finding that calls a catch block empty is set aside when every catch in its file is an expected-exception test, a rethrow or a logged failure, and a finding that quotes a call now points at the line where the call opens.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.11</span>
+      <span class="release-date">September 25, 2026</span>
     </div>
     <h2 class="release-headline">Ghost reads Rust, and a scan that confirmed nothing has no score</h2>
     <p class="release-lede">7.4.11 -- Rust source files are now read, anchored and checked like any other language. Before this release a Rust project was scanned without its Rust. Cargo's build output and Cargo.lock are still skipped, and benches/ counts as test code alongside tests/ and examples/. On the Scan Queue, a wait that cannot be estimated now says est. unknown on its row, and the reason is said once under the table instead of on every row. A finding that says a file never uses something, when that file does use it, is now set aside with the lines that use it, and so is one titled "Unused X class" when X is used. Code in a demo folder counts as example code. When verification removes every finding, the closing risk section says so instead of describing what was removed. Times in the scan log no longer read 60 seconds past a minute, and a call another machine answered is counted once, under the model that answered it. A scripted CLI scan that waits in the queue now says where it is in line, and the backup emails name the scans they paused and resumed. A scan whose findings were all removed, or one cut off before it finished, no longer shows 100/100 on any surface. Test fixture keys are no longer mistaken for secrets, a finding in a named function points inside it, and scripted-scan flags without --no-interactive say so. A password in a development-only settings file, such as appsettings.Development.json or .env.development, is now rated like one in test code instead of CRITICAL. A finding that calls a catch block silent is set aside when the catch rethrows or logs the exception, or is the catch of a test that expects the exception; one that says a method is never invoked is set aside when the code calls it. The usage report says "none confirmed" rather than "none found" when a scan raised findings it could not confirm, names how many were set aside or removed, and says which period it covers.</p>

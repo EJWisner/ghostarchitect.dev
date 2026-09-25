@@ -184,13 +184,13 @@
 
     <h3>How do I get the download?</h3>
     <p>Local is delivered directly by us, not through a public package registry. Fill in the form on the <a href="/download.html?platform=local">download page</a> and EJ replies with the link, or with access to the delivery repository, usually the same day. If you already have repository access:</p>
-    <pre><code>gh release download v7.4.11 --repo EJWisner/ghost-local-delivery</code></pre>
+    <pre><code>gh release download v7.4.12 --repo EJWisner/ghost-local-delivery</code></pre>
 
     <h3>How do I verify the tarball before I install it?</h3>
     <p>The file is about to become a global command on your machine, so check it first:</p>
-    <pre><code>shasum -a 256 ghost-architect-local-7.4.11.tgz</code></pre>
-    <p>On Windows PowerShell: <code>Get-FileHash -Algorithm SHA256 ghost-architect-local-7.4.11.tgz</code></p>
-    <p>Expected for 7.4.11: <code>642858d0c4c94acb35dd45f81732b246632619869b96292c8ad0decf074b3770</code></p>
+    <pre><code>shasum -a 256 ghost-architect-local-7.4.12.tgz</code></pre>
+    <p>On Windows PowerShell: <code>Get-FileHash -Algorithm SHA256 ghost-architect-local-7.4.12.tgz</code></p>
+    <p>Expected for 7.4.12: <code>fc211bd646e2c601291be16affafc6bd714c82bffbd32239ea1d73f18c576655</code></p>
     <p>If the hash does not match, stop. Do not install it. Email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with what you got.</p>
 
     <h2>// requirements</h2>
@@ -205,7 +205,7 @@
 
     <h2>// installing</h2>
     <p>Everything happens inside the directory you unpack. Keep that directory: the global <code>ghost</code> command links into it rather than copying it.</p>
-    <pre><code>tar -xzf ghost-architect-local-7.4.11.tgz
+    <pre><code>tar -xzf ghost-architect-local-7.4.12.tgz
 cd package
 bash install/setup.sh              # macOS
 sudo bash install/setup-linux.sh   # Linux
