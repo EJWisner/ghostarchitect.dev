@@ -2404,15 +2404,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.14, September 26, 2026. <a href="/download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.15, September 26, 2026. <a href="/download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.14</span>
+      <span class="release-version">7.4.15</span>
       <span class="release-date">September 26, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A finding that says nothing is wrong no longer counts, and C, C++ and C# findings are checked against the code</h2>
+    <p class="release-lede">7.4.15 -- A finding whose own text says there is no risk and nothing to do is now listed as INFO, and a C, C++ or C# finding about an allocation the named function never makes is no longer verified. The check that a named function really contains what a finding describes now reads C, C++ and C# definitions and knows memory allocation. A function that allocates, directly or through a wrapper, is confirmed as before. The queue API now says how each scan it lists as completed today ended: completed, cancelled, killed or failed. And the fix-order number the analysis assigns no longer appears inside a finding's text.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.14</span>
+      <span class="release-date">September 26, 2026</span>
     </div>
     <h2 class="release-headline">Secrets are judged where they are, and connection-string passwords are masked</h2>
     <p class="release-lede">7.4.14 -- A finding about a hardcoded secret is now rated by the files that actually hold the value it quotes, and a password inside a database connection string is masked before any model reads the file. When every file holding the quoted secret is test, example or development-only configuration, the finding is MEDIUM at most, even if it cites production files for another point. A password in production configuration keeps its rating. A finding whose evidence is only inside a comment or a documentation example is now listed as INFO: it stays in the report and no longer lowers the score. A real secret left in a comment keeps its rating.</p>
