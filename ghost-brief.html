@@ -1,11 +1,13 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
-  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
-  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <meta name="robots" content="index, follow" />
   <title>Ghost Brief™: AI Remediation Prompt Pack | Ghost Architect™</title>
+  <!-- The live page has no meta description; this repeats its og:description verbatim. -->
+  <meta name="description" content="Ghost Brief™ converts any Ghost scan into a validated, blast-radius-aware Claude Code prompt pack. Ghost briefs the AI. The AI fixes the code." />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -22,336 +24,113 @@
   <meta name="twitter:description" content="Ghost Brief™ converts any Ghost scan into a validated, blast-radius-aware Claude Code prompt pack. Ghost briefs the AI. The AI fixes the code." />
   <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
 
-  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-  <meta name="robots" content="index, follow" />
+  <link rel="sitemap" type="application/xml" href="../sitemap.xml" />
   <link rel="canonical" href="https://ghostarchitect.dev/ghost-brief" />
-
-  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260920b" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <!-- Paths are relative to /next/ so the page also opens straight from the folder (file://).
+       When this replaces the live page, change ../ to / on these references. -->
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css" />
+  <!-- Page-specific CSS: only what site.css cannot express (the Brief field ledger, JSON syntax tints, the amber Brief accent). -->
   <style>
-    :root {
-      --bg: #0a0a0f;
-      --surface: #111118;
-      --surface2: #16161f;
-      --border: #2a2a3a;
-      --accent: #4a9eff;
-      --accent-dim: rgba(74,158,255,0.12);
-      --accent-glow: rgba(74,158,255,0.25);
-      --brief: #e07340;
-      --brief-dim: rgba(224,115,64,0.12);
-      --brief-glow: rgba(224,115,64,0.25);
-      --text: #e8e8f0;
-      --text-muted: #888899;
-      --green: #22c55e;
-      --green-dim: rgba(34,197,94,0.1);
-      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.6; min-height: 100vh; }
-
-    /* HERO */
-    .hero {
-      max-width: 860px; margin: 0 auto;
-      padding: 5rem 2rem 4rem;
-      text-align: center;
-      position: relative;
-    }
-    .hero::before {
-      content: '';
-      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 400px;
-      background: radial-gradient(ellipse at center, rgba(224,115,64,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 0.8rem; letter-spacing: 0.18em;
-      color: var(--brief);
-      text-transform: uppercase; margin-bottom: 1.25rem;
-    }
-    .hero h1 {
-      font-size: 3rem; font-weight: 800; line-height: 1.1;
-      letter-spacing: -0.03em; margin-bottom: 1.5rem;
-      color: var(--text);
-    }
-    .hero h1 em { font-style: normal; color: var(--brief); }
-    .hero p {
-      font-size: 1.1rem; color: var(--text-muted);
-      max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.7;
-    }
-    .hero-cta {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--brief); color: #fff;
-      padding: 0.85rem 2rem; border-radius: 8px;
-      font-size: 0.95rem; font-weight: 600; text-decoration: none;
-      transition: all 0.2s;
-      box-shadow: 0 4px 20px var(--brief-glow);
-    }
-    .hero-cta:hover {
-      background: #f08050; transform: translateY(-1px);
-      box-shadow: 0 6px 28px var(--brief-glow);
-    }
-
-    /* SECTION COMMON */
-    .section {
-      max-width: 1000px; margin: 0 auto; padding: 4rem 2rem;
-      border-top: 1px solid var(--border);
-    }
-    .section-eyebrow {
-      font-family: var(--font-mono); font-size: 0.72rem;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--brief); margin-bottom: 0.75rem;
-    }
-    .section-title {
-      font-size: 1.9rem; font-weight: 700;
-      letter-spacing: -0.02em; margin-bottom: 1rem;
-      color: var(--text);
-    }
-    .section-sub {
-      font-size: 1rem; color: var(--text-muted); max-width: 640px;
-      margin-bottom: 3rem; line-height: 1.65;
-    }
-
-    /* HOW IT WORKS — 3 steps */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-    }
-    .step {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.75rem 1.5rem;
-      position: relative;
-    }
-    .step-num {
-      font-family: var(--font-mono); font-size: 0.7rem;
-      letter-spacing: 0.14em; color: var(--brief);
-      text-transform: uppercase; margin-bottom: 0.75rem;
-    }
-    .step h3 {
-      font-size: 1rem; font-weight: 700; color: var(--text);
-      margin-bottom: 0.6rem;
-    }
-    .step p {
-      font-size: 0.875rem; color: var(--text-muted); line-height: 1.6;
-    }
-    .step code {
-      font-family: var(--font-mono); font-size: 0.82rem;
-      background: rgba(224,115,64,0.1); color: var(--brief);
-      padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(224,115,64,0.25);
-    }
-    .step-connector {
-      display: none;
-    }
-
-    /* WHAT'S IN A BRIEF */
-    .brief-anatomy {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
+    .band[id] { scroll-margin-top: calc(var(--nav-h) + 1rem); }
+    .band > .lede { max-width: 68ch; }
+    .band .hero-cta { justify-content: flex-start; }
+    .eyebrow.amber { color: var(--warning); }
+    .lede code, .items code, .faq code { font-family: var(--font-mono); font-size: 0.86em; color: var(--text); background: rgba(255,255,255,0.06); padding: 0.08rem 0.4rem; border-radius: 4px; white-space: nowrap; }
+    .fields { gap: 0; }
+    .fields li { grid-template-columns: 11rem 1fr; gap: 0.8rem; padding: 0.8rem 0; border-top: 1px solid var(--border); }
+    .fields li:last-child { border-bottom: 1px solid var(--border); }
+    .fields .n { color: var(--warning); font-size: 0.78rem; }
+    .fields .t { font-size: 0.9rem; margin: 0; }
+    .fields strong { font-weight: 600; }
+    .fields .ok { color: var(--accent2); }
+    .fields .warn { color: var(--warning); }
+    .fields .bad { color: var(--danger); }
+    pre.json { margin: 0; border-left: 3px solid var(--warning); font-size: 0.76rem; line-height: 1.7; }
+    pre.json .k { color: var(--accent); }
+    pre.json .s { color: var(--text-muted); }
+    pre.json .n { color: var(--warning); }
+    pre.json .b { color: var(--accent2); }
+    pre.json .c { color: var(--text-dim); font-style: italic; }
+    #plans table.cmp { min-width: 0; }
+    table.cmp td.yes { color: var(--warning); font-weight: 600; }
+    table.cmp td.no { color: var(--text-dim); }
+    table.cmp tr.brief td { background: color-mix(in srgb, var(--warning) 5%, transparent); }
+    .band .faq { padding: 0; }
+    .band .faq .wrap { max-width: 820px; margin: 0; }
     @media (max-width: 720px) {
-      .brief-anatomy { grid-template-columns: 1fr; }
-    }
-    .brief-fields { list-style: none; }
-    .brief-fields li {
-      padding: 0.85rem 0;
-      border-bottom: 1px solid var(--border);
-      display: flex; gap: 12px; align-items: flex-start;
-    }
-    .brief-fields li:last-child { border-bottom: none; }
-    .field-name {
-      font-family: var(--font-mono); font-size: 0.78rem;
-      color: var(--brief); flex-shrink: 0; width: 140px;
-      padding-top: 2px;
-    }
-    .field-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; }
-
-    .code-block {
-      background: rgba(0,0,0,0.45);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--brief);
-      border-radius: 10px;
-      padding: 1.5rem;
-      overflow-x: auto;
-    }
-    .code-block pre {
-      font-family: var(--font-mono); font-size: 0.75rem;
-      color: #c8d0e0; line-height: 1.7;
-      white-space: pre; margin: 0;
-    }
-    .code-block .k  { color: #79b8ff; }  /* key */
-    .code-block .s  { color: #9ecbff; }  /* string */
-    .code-block .n  { color: #f08d49; }  /* number */
-    .code-block .b  { color: #56d364; }  /* boolean / label */
-    .code-block .c  { color: #8b949e; font-style: italic; } /* comment */
-
-    /* TIER TABLE */
-    .tier-table-wrap {
-      overflow-x: auto; margin-bottom: 2rem;
-    }
-    .tier-table {
-      width: 100%; border-collapse: collapse;
-      font-size: 0.88rem;
-    }
-    .tier-table th {
-      font-family: var(--font-mono); font-size: 0.7rem;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--text-muted); padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--border); text-align: left;
-    }
-    .tier-table td {
-      padding: 0.85rem 1rem; border-bottom: 1px solid var(--border);
-      color: var(--text-muted);
-    }
-    .tier-table tr:last-child td { border-bottom: none; }
-    .tier-table .tier-name { color: var(--text); font-weight: 500; }
-    .tier-table .has-brief { color: var(--brief); font-weight: 600; }
-    .tier-table .no-brief { color: #444455; }
-    .tier-table tr.brief-tier { background: rgba(224,115,64,0.05); }
-    .tier-table tr.brief-tier td { border-bottom-color: rgba(224,115,64,0.15); }
-
-    .tier-cta-row {
-      display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;
-      margin-top: 1.75rem;
-    }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--brief); color: #fff;
-      padding: 0.8rem 1.75rem; border-radius: 8px;
-      font-size: 0.9rem; font-weight: 600; text-decoration: none;
-      transition: all 0.2s; box-shadow: 0 4px 16px var(--brief-glow);
-    }
-    .btn-primary:hover { background: #f08050; transform: translateY(-1px); }
-    .btn-secondary {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: transparent; color: var(--text-muted);
-      border: 1px solid var(--border);
-      padding: 0.8rem 1.75rem; border-radius: 8px;
-      font-size: 0.9rem; text-decoration: none;
-      transition: all 0.2s;
-    }
-    .btn-secondary:hover { border-color: var(--brief); color: var(--brief); }
-
-    /* FAQ */
-    .faq-title {
-      font-family: var(--font-mono); font-size: 0.75rem;
-      color: var(--text-muted); letter-spacing: 0.12em;
-      text-transform: uppercase; margin-bottom: 1.5rem;
-    }
-    .faq-item { border-top: 1px solid var(--border); padding: 1.25rem 0; }
-    .faq-item:last-child { border-bottom: 1px solid var(--border); }
-    .faq-q { font-weight: 600; font-size: 0.9rem; color: var(--text); margin-bottom: 0.5rem; }
-    .faq-a { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; }
-    .faq-a code {
-      font-family: var(--font-mono); font-size: 0.8rem;
-      background: rgba(224,115,64,0.1); color: var(--brief);
-      padding: 1px 6px; border-radius: 3px;
-    }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem; text-align: center;
-      color: var(--text-muted); font-size: 0.82rem;
-    }
-    footer a { color: var(--text-muted); text-decoration: none; }
-    footer a:hover { color: var(--accent); }
-
-    @media (max-width: 640px) {
-      .hero h1 { font-size: 2rem; }
-      .steps { grid-template-columns: 1fr; }
-      .section { padding: 3rem 1.25rem; }
+      .fields li { grid-template-columns: 1fr; gap: 0.3rem; }
     }
   </style>
 </head>
-<body>
+<body data-product="cloud">
+
+<canvas id="lattice" aria-hidden="true" data-ambient></canvas>
 
 <div id="ga-nav-mount"></div>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-eyebrow">// ghost brief™</div>
-  <h1>Ghost briefs the AI.<br><em>The AI fixes the code.</em></h1>
-  <p>After every scan, Ghost Brief™ converts your findings into a validated, blast-radius-aware prompt pack your AI coding agent can execute immediately. No more translating findings into instructions. No more guessing what the AI might break.</p>
-  <a href="/pricing.html" class="hero-cta">See Plans →</a>
-</div>
+<main class="page">
 
-<!-- HOW IT WORKS -->
-<div class="section" id="how-it-works">
-  <div class="section-eyebrow">// how it works</div>
-  <div class="section-title">Three steps. One governed pipeline.</div>
-  <div class="section-sub">Ghost Brief™ fits into your existing scan workflow. Run a scan. Run <code style="font-family:var(--font-mono);font-size:0.85rem;background:rgba(224,115,64,0.1);color:var(--brief);padding:1px 7px;border-radius:4px;">ghost --brief</code>. Hand the JSON to your AI agent.</div>
-
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">// step 01</div>
-      <h3>Run any Ghost scan</h3>
-      <p>Ghost POI, Fix Forecast, Conflict, or any other mode scans your codebase and produces structured findings -- severity-rated, file-attributed, blast-scored.</p>
+  <!-- HERO -->
+  <header class="page-hero">
+    <p class="eyebrow amber">// ghost brief™</p>
+    <h1>Ghost briefs the AI.<br><em>The AI fixes the code.</em></h1>
+    <p class="lede">After every scan, Ghost Brief™ converts your findings into a validated, blast-radius-aware prompt pack your AI coding agent can execute immediately. No more translating findings into instructions. No more guessing what the AI might break.</p>
+    <div class="hero-cta">
+      <a href="pricing.html" class="btn btn-cloud">See Plans →</a>
     </div>
-    <div class="step">
-      <div class="step-num">// step 02</div>
-      <h3>Run <code>ghost --brief</code></h3>
-      <p>Ghost Brief™ reads your findings and converts them into a validated, blast-radius-aware prompt pack -- <code>ghost-brief.json</code>. Each prompt is surgical. Each prompt knows what not to touch.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">// step 03</div>
-      <h3>Feed it to your AI agent</h3>
-      <p>Drop <code>ghost-brief.json</code> into Claude Code, Cursor, or Copilot. Your AI agent executes the prompts in blast-radius order -- smallest blast first. Ghost Portal™ tracks every Brief you generate.</p>
-    </div>
-  </div>
-</div>
+  </header>
 
-<!-- WHAT'S IN A BRIEF -->
-<div class="section" id="anatomy">
-  <div class="section-eyebrow">// ghost-brief.json</div>
-  <div class="section-title">What's in a Brief?</div>
-  <div class="section-sub">Every Brief is a structured JSON file your AI agent can read directly. Ghost sorts prompts by blast radius so your agent always starts with the safest, most surgical fixes.</div>
+  <!-- HOW IT WORKS -->
+  <section class="band" id="how-it-works">
+    <p class="eyebrow amber">// how it works</p>
+    <h2>Three steps. One governed pipeline.</h2>
+    <p class="lede">Ghost Brief™ fits into your existing scan workflow. Run a scan. Run <code>ghost --brief</code>. Hand the JSON to your AI agent.</p>
 
-  <div class="brief-anatomy">
-    <div>
-      <ul class="brief-fields">
-        <li>
-          <span class="field-name">prompts[]</span>
-          <span class="field-desc">Sorted ascending by blast score -- surgical fixes first, broad changes last. Your agent works in the safest order possible.</span>
-        </li>
-        <li>
-          <span class="field-name">blast_radius</span>
-          <span class="field-desc"><strong style="color:#56d364;">surgical</strong> / <strong style="color:#ffc266;">moderate</strong> / <strong style="color:#ff7a7a;">broad</strong> -- how many parts of the codebase this change could affect.</span>
-        </li>
-        <li>
-          <span class="field-name">files.primary</span>
-          <span class="field-desc">The exact files to modify. Your agent reads this list and stays inside it.</span>
-        </li>
-        <li>
-          <span class="field-name">files.do_not_touch</span>
-          <span class="field-desc">Globs your agent must never modify -- vendor code, core framework files, third-party modules.</span>
-        </li>
-        <li>
-          <span class="field-name">validation_hints</span>
-          <span class="field-desc">Checklist items your agent can verify after applying the fix -- no existing tests break, change is scoped to listed files.</span>
-        </li>
-        <li>
-          <span class="field-name">severity</span>
-          <span class="field-desc">critical / high / medium / low -- inherited from the original scan finding.</span>
-        </li>
-        <li>
-          <span class="field-name">source_mode</span>
-          <span class="field-desc">Which Ghost scan produced this finding -- poi, conflict, fix-forecast, and more.</span>
-        </li>
-        <li>
-          <span class="field-name">estimated_agent_hours</span>
-          <span class="field-desc">Summary-level estimate across the full Brief. 1 prompt ≈ 15 minutes of AI agent time.</span>
-        </li>
+    <div class="cards">
+      <div class="card">
+        <div class="k amber">// step 01</div>
+        <h3>Run any Ghost scan</h3>
+        <p>Ghost POI, Fix Forecast, Conflict, or any other mode scans your codebase and produces structured findings -- severity-rated, file-attributed, blast-scored.</p>
+      </div>
+      <div class="card">
+        <div class="k amber">// step 02</div>
+        <h3>Run <code>ghost --brief</code></h3>
+        <p>Ghost Brief™ reads your findings and converts them into a validated, blast-radius-aware prompt pack -- <code>ghost-brief.json</code>. Each prompt is surgical. Each prompt knows what not to touch.</p>
+      </div>
+      <div class="card">
+        <div class="k amber">// step 03</div>
+        <h3>Feed it to your AI agent</h3>
+        <p>Drop <code>ghost-brief.json</code> into Claude Code, Cursor, or Copilot. Your AI agent executes the prompts in blast-radius order -- smallest blast first. Ghost Portal™ tracks every Brief you generate.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S IN A BRIEF -->
+  <section class="band" id="anatomy">
+    <p class="eyebrow amber">// ghost-brief.json</p>
+    <h2>What's in a Brief?</h2>
+    <p class="lede">Every Brief is a structured JSON file your AI agent can read directly. Ghost sorts prompts by blast radius so your agent always starts with the safest, most surgical fixes.</p>
+
+    <div class="two-col">
+      <ul class="items fields">
+        <li><span class="n">prompts[]</span><div><p class="t">Sorted ascending by blast score -- surgical fixes first, broad changes last. Your agent works in the safest order possible.</p></div></li>
+        <li><span class="n">blast_radius</span><div><p class="t"><strong class="ok">surgical</strong> / <strong class="warn">moderate</strong> / <strong class="bad">broad</strong> -- how many parts of the codebase this change could affect.</p></div></li>
+        <li><span class="n">files.primary</span><div><p class="t">The exact files to modify. Your agent reads this list and stays inside it.</p></div></li>
+        <li><span class="n">files.do_not_touch</span><div><p class="t">Globs your agent must never modify -- vendor code, core framework files, third-party modules.</p></div></li>
+        <li><span class="n">validation_hints</span><div><p class="t">Checklist items your agent can verify after applying the fix -- no existing tests break, change is scoped to listed files.</p></div></li>
+        <li><span class="n">severity</span><div><p class="t">critical / high / medium / low -- inherited from the original scan finding.</p></div></li>
+        <li><span class="n">source_mode</span><div><p class="t">Which Ghost scan produced this finding -- poi, conflict, fix-forecast, and more.</p></div></li>
+        <li><span class="n">estimated_agent_hours</span><div><p class="t">Summary-level estimate across the full Brief. 1 prompt ≈ 15 minutes of AI agent time.</p></div></li>
       </ul>
-    </div>
 
-    <div class="code-block">
-      <pre><span class="c">// ghost-brief.json — single prompt entry</span>
+      <pre class="code json"><span class="c">// ghost-brief.json — single prompt entry</span>
 {
   <span class="k">"id"</span>: <span class="s">"GB-001"</span>,
   <span class="k">"title"</span>: <span class="s">"Missing Dependency Version Constraints"</span>,
@@ -380,100 +159,108 @@
   <span class="k">"tags"</span>: []
 }</pre>
     </div>
-  </div>
-</div>
+  </section>
 
-<!-- TIER TABLE -->
-<div class="section" id="plans">
-  <div class="section-eyebrow">// pricing</div>
-  <div class="section-title">Ghost Brief™ is included in Pro Max and above.</div>
-  <div class="section-sub">Upgrade once. Every scan you run automatically generates a Brief. Ghost Portal™ stores your Brief history.</div>
+  <!-- TIER TABLE -->
+  <section class="band" id="plans">
+    <p class="eyebrow amber">// pricing</p>
+    <h2>Ghost Brief™ is included in Pro Max and above.</h2>
+    <p class="lede">Upgrade once. Every scan you run automatically generates a Brief. Ghost Portal™ stores your Brief history.</p>
 
-  <div class="tier-table-wrap">
-    <table class="tier-table">
-      <thead>
-        <tr>
-          <th>Tier</th>
-          <th>Price</th>
-          <th>Ghost Brief™</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="tier-name">Ghost Open</td>
-          <td>Free</td>
-          <td class="no-brief"> -- </td>
-        </tr>
-        <tr>
-          <td class="tier-name">Ghost Pro</td>
-          <td>$99/mo</td>
-          <td class="no-brief"> -- </td>
-        </tr>
-        <tr class="brief-tier">
-          <td class="tier-name">Ghost Pro Max</td>
-          <td>$199/mo</td>
-          <td class="has-brief">✅ Individual Brief</td>
-        </tr>
-        <tr class="brief-tier">
-          <td class="tier-name">Ghost Team</td>
-          <td>$399/mo</td>
-          <td class="has-brief">✅ Brief per seat</td>
-        </tr>
-        <tr class="brief-tier">
-          <td class="tier-name">Ghost Team Max</td>
-          <td>$799/mo</td>
-          <td class="has-brief">✅ Unified Brief</td>
-        </tr>
-        <tr class="brief-tier">
-          <td class="tier-name">Ghost Enterprise</td>
-          <td>$1,200/mo</td>
-          <td class="has-brief">✅ Unlimited</td>
-        </tr>
-        <tr class="brief-tier">
-          <td class="tier-name">Ghost Enterprise Max</td>
-          <td>$2,500/mo</td>
-          <td class="has-brief">✅ + Ghost Partner</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th>Tier</th>
+            <th>Price</th>
+            <th>Ghost Brief™</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="l">Ghost Open</td>
+            <td>Free</td>
+            <td class="no"> -- </td>
+          </tr>
+          <tr>
+            <td class="l">Ghost Pro</td>
+            <td>$99/mo</td>
+            <td class="no"> -- </td>
+          </tr>
+          <tr class="brief">
+            <td class="l">Ghost Pro Max</td>
+            <td>$199/mo</td>
+            <td class="yes">Individual Brief</td>
+          </tr>
+          <tr class="brief">
+            <td class="l">Ghost Team</td>
+            <td>$399/mo</td>
+            <td class="yes">Brief per seat</td>
+          </tr>
+          <tr class="brief">
+            <td class="l">Ghost Team Max</td>
+            <td>$799/mo</td>
+            <td class="yes">Unified Brief</td>
+          </tr>
+          <tr class="brief">
+            <td class="l">Ghost Enterprise</td>
+            <td>$1,200/mo</td>
+            <td class="yes">Unlimited</td>
+          </tr>
+          <tr class="brief">
+            <td class="l">Ghost Enterprise Max</td>
+            <td>$2,500/mo</td>
+            <td class="yes">+ Ghost Partner</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div class="tier-cta-row">
-    <a href="https://buy.stripe.com/8x2bJ1gPRezacvFh1rbEA08" class="btn-primary">Start with Ghost Pro Max →</a>
-    <a href="/pricing.html" class="btn-secondary">Compare all plans</a>
-  </div>
-</div>
+    <div class="hero-cta">
+      <a href="https://buy.stripe.com/8x2bJ1gPRezacvFh1rbEA08" class="btn btn-cloud">Start with Ghost Pro Max →</a>
+      <a href="pricing.html" class="btn btn-ghost">Compare all plans</a>
+    </div>
+  </section>
 
-<!-- FAQ -->
-<div class="section" id="faq">
-  <div class="faq-title">// frequently asked</div>
+  <!-- FAQ -->
+  <section class="band" id="faq">
+    <p class="eyebrow">// frequently asked</p>
+    <div class="faq"><div class="wrap">
+      <details>
+        <summary>Does Ghost Brief™ write code?</summary>
+        <p>No. Ghost Brief™ produces a prompt pack. Your AI coding agent executes the prompts. Ghost never touches your code -- your source files stay on your machine, and the Brief is a plain JSON file you control completely.</p>
+      </details>
+      <details>
+        <summary>Which AI agents does Ghost Brief™ work with?</summary>
+        <p>Any AI coding agent that accepts a prompt -- Claude Code, Cursor, GitHub Copilot, or any other. <code>ghost-brief.json</code> is a plain JSON file. Read it, pass the prompts to your agent, verify the hints. No proprietary integration required.</p>
+      </details>
+      <details>
+        <summary>What is blast radius and why does it matter?</summary>
+        <p>Blast radius measures how many parts of your codebase a change could affect. Ghost Brief™ sorts prompts by blast radius -- surgical fixes first, broad changes last -- so your AI agent works in the safest order possible. A surgical fix touches one file and poses almost no risk. A broad change ripples across the system and demands more care. Ghost handles the ordering so you don't have to think about it.</p>
+      </details>
+    </div></div>
+  </section>
 
-  <div class="faq-item">
-    <div class="faq-q">Does Ghost Brief™ write code?</div>
-    <div class="faq-a">No. Ghost Brief™ produces a prompt pack. Your AI coding agent executes the prompts. Ghost never touches your code -- your source files stay on your machine, and the Brief is a plain JSON file you control completely.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">Which AI agents does Ghost Brief™ work with?</div>
-    <div class="faq-a">Any AI coding agent that accepts a prompt -- Claude Code, Cursor, GitHub Copilot, or any other. <code>ghost-brief.json</code> is a plain JSON file. Read it, pass the prompts to your agent, verify the hints. No proprietary integration required.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">What is blast radius and why does it matter?</div>
-    <div class="faq-a">Blast radius measures how many parts of your codebase a change could affect. Ghost Brief™ sorts prompts by blast radius -- surgical fixes first, broad changes last -- so your AI agent works in the safest order possible. A surgical fix touches one file and poses almost no risk. A broad change ripples across the system and demands more care. Ghost handles the ordering so you don't have to think about it.</div>
-  </div>
-</div>
+</main>
 
 <footer>
-  © 2026 EJ Wisner · Ghost Architect™ · All rights reserved. · US Copyright Reg. #1-15123488721 ·
-  <a href="/">Home</a> ·
-  <a href="/pricing.html">Pricing</a> ·
-  <a href="/support.html">Support</a> ·
-  <a href="/msa.html">MSA</a> ·
-  <a href="/privacy.html">Privacy Policy</a> ·
-  <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a>
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; US Copyright Reg. #1-15123488721 &middot; <a href="support.html">Support</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="msa.html">Terms of Service</a></span>
 </footer>
 
-<script src="/assets/ga-nav.js?v=20260920b" defer></script>
+<script src="../assets/ga-nav.js?v=20260920b" defer></script>
+<script>
+  // Quiet text reveals. Falls back to visible if IntersectionObserver is missing.
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+<script src="next-nav.js" defer></script>
+<script src="scene.js" defer></script>
 </body>
 </html>

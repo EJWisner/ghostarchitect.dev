@@ -3,1584 +3,239 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="color-scheme" content="dark" />
-  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
-  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <meta name="robots" content="index, follow" />
   <title>Ghost Architect™: Pre-Engagement Codebase Triage, in the cloud or on your own hardware</title>
   <meta name="description" content="Ghost Architect™ -- AI-powered codebase triage and AI remediation. Pre-engagement scanning, Ghost Brief™ prompt packs for Claude Code, and governed AI remediation pipelines. Any codebase, any platform." />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://ghostarchitect.dev" />
-  <meta property="og:title" content="Ghost Architect™ -- Pre-Engagement Codebase Triage" />
-  <meta property="og:description" content="Ghost Architect™ -- AI-powered codebase triage and AI remediation. Pre-engagement scanning, Ghost Brief™ prompt packs for Claude Code, and governed AI remediation pipelines. Any codebase, any platform." />
-  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
-  <meta property="og:site_name" content="Ghost Architect™" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://ghostarchitect.dev" />
-  <meta name="twitter:title" content="Ghost Architect™ -- Pre-Engagement Codebase Triage" />
-  <meta name="twitter:description" content="Ghost Architect™ -- AI-powered codebase triage and AI remediation. Pre-engagement scanning, Ghost Brief™ prompt packs for Claude Code, and governed AI remediation pipelines. Any codebase, any platform." />
-  <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
-  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Ghost Architect",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "macOS, Windows, Linux",
-    "url": "https://ghostarchitect.dev",
-    "description": "AI-powered codebase intelligence tool that triages codebases, categorizes risk, prioritizes findings, and generates structured reports for any platform or language.",
-    "softwareVersion": "11.0.3",
-    "offers": [
-      {
-        "@type": "Offer",
-        "name": "Ghost Open",
-        "price": "0",
-        "priceCurrency": "USD",
-        "description": "Free tier (BYOK). Unlimited Question and Recon modes. Four free deep reports across Points of Interest, Blast Radius, Conflict Detection, and Prompt Triage. Inheritance Audit available on Ghost Pro and above."
-      },
-      {
-        "@type": "Offer",
-        "name": "Ghost Pro",
-        "price": "99",
-        "priceCurrency": "USD",
-        "description": "Full-featured codebase intelligence with PDF reports and multi-pass analysis"
-      },
-      {
-        "@type": "Offer",
-        "name": "Ghost Team",
-        "price": "399",
-        "priceCurrency": "USD",
-        "description": "Up to 5 seats for agency teams running multi-client engagements"
-      },
-      {
-        "@type": "Offer",
-        "name": "Ghost Enterprise",
-        "price": "1200",
-        "priceCurrency": "USD",
-        "description": "Starting at $1,200/mo. Custom seats, MSA included, white-label PDF, audit log, and admin controls.",
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "price": "1200",
-          "priceCurrency": "USD",
-          "minPrice": "1200",
-          "description": "Starting price. Custom seats and MSA terms available."
-        }
-      },
-      {
-        "@type": "Offer",
-        "name": "Ghost Pro Max",
-        "price": "199.00",
-        "priceCurrency": "USD",
-        "description": "Ghost Brief™ governed AI remediation pipeline"
-      },
-      {
-        "@type": "Offer",
-        "name": "Ghost Team Max",
-        "price": "799.00",
-        "priceCurrency": "USD",
-        "description": "Unified Brief across all seats"
-      },
-      {
-        "@type": "Offer",
-        "name": "Ghost Enterprise Max",
-        "price": "2500.00",
-        "priceCurrency": "USD",
-        "description": "Unlimited Brief + Ghost Partner co-engagement"
-      }
-    ],
-    "author": {
-      "@type": "Person",
-      "name": "Ernst J. Wisner"
-    },
-    "publisher": {
-      "@type": "Person",
-      "name": "Ernst J. Wisner"
-    }
-  }
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is Ghost Brief™?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Ghost Brief™ is the governed AI remediation pipeline built into Ghost Architect™. After any scan, Ghost converts your findings into a validated, blast-radius-aware prompt pack. Each prompt tells your AI coding agent exactly what to fix, which files to touch, which files to leave alone, and how to verify the fix landed. Ghost finds it. Ghost tells the AI exactly what to do. The AI does it."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Which tiers include Ghost Brief™?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Ghost Brief™ is included in Ghost Pro Max ($199/mo), Ghost Team Max ($799/mo), and Ghost Enterprise Max ($2,500/mo). Ghost Pro Max generates an individual Brief after every scan. Ghost Team Max adds the Unified Brief. Ghost Enterprise Max adds unlimited Briefs, formal MSA, and dedicated Ghost Partner co-engagement."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Which AI coding agents work with Ghost Brief™?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Any of them. ghost-brief.json is a plain JSON file. Feed it to Claude Code, Cursor, GitHub Copilot, or any other AI coding agent. Ghost does not lock you into a platform. Claude Code is the primary target and was used for all internal testing."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does Ghost Brief™ write or modify code?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Ghost Brief™ produces a prompt pack. Your AI coding agent executes the prompts. Ghost never touches your code. Ghost scans, Ghost briefs, the AI fixes."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is blast radius and why does it matter for AI agents?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Blast radius measures how many parts of your codebase a change could affect. Ghost Brief™ sorts every prompt by blast radius, surgical fixes first and broad changes last, so your AI agent works in the safest possible order."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is Ghost Architect?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Ghost Architect is an AI-powered codebase intelligence tool that triages codebases, categorizes risk by severity, prioritizes findings, and generates structured PDF, TXT, and MD reports. Your code never touches our servers. We don't have any. Every scan runs on your own infrastructure."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does Ghost Architect upload my code?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Your scan runs on your infrastructure using your own API key and GitHub Actions runner. Ghost has no servers. Your code never leaves your control. Analysis calls go directly from your machine to Anthropic's API using your own API key."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What programming languages does Ghost Architect support?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Ghost Architect works on any codebase, any language, any platform. It is not limited to Adobe Commerce or Magento."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How much does Ghost Architect cost?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Ghost Open is free and open-source under the MIT license. Ghost Pro is $25/month. Ghost Pro Max is $99/month and includes Ghost Brief™. Ghost Team is $399/month for up to 5 seats. Ghost Team Max is $799/month and includes the Unified Brief. Ghost Enterprise starts at $1,200/month. Ghost Enterprise Max starts at $2,500/month with unlimited Briefs, formal MSA, and dedicated Ghost Partner co-engagement."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Ghost Architect different from AI code review tools like CodeRabbit or Kodus?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "AI code review tools like CodeRabbit and Kodus comment on pull requests inside your team's Git workflow. They run continuously, after the engagement has started and the team is already in the codebase. Ghost Architect runs before that, during due diligence, scoping, or pre-engagement audit, when you need to understand a codebase you do not own yet. Different moment, different buyer, different deliverable. We produce a report; they produce PR comments. Teams often use both."
-        }
-      }
-    ]
-  }
-  </script>
-
-  <!-- Canonical -->
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://ghostarchitect.dev" />
-  <style>
-    :root {
-      --bg: #0a0a0f;
-      --surface: #111118;
-      --surface2: #1a1a24;
-      --border: #2a2a3a;
-      --accent: #4a9eff;
-      --accent2: #00d4aa;
-      --danger: #ff4a6b;
-      --warning: #ffaa00;
-      --text: #e8e8f0;
-      --text-muted: #b0b0c0;
-      --text-dim: #777788;
-      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-sans);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-/* HERO LOGO */
-    .hero-logo-wrap {
-      display: flex;
-      justify-content: center;
-      padding-top: 4rem;
-      padding-bottom: 0;
-      position: relative;
-      z-index: 1;
-    }
-    .hero-logo-wrap img {
-      height: 240px;
-      width: auto;
-      border-radius: 24px;
-      display: block;
-    }
-
-    /* HERO */
-    .hero {
-      min-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem 2rem 4rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(74,158,255,0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0,212,170,0.05) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .version-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(74,158,255,0.1);
-      border: 1px solid rgba(74,158,255,0.3);
-      border-radius: 20px;
-      padding: 4px 14px;
-      font-size: 0.75rem;
-      font-family: var(--font-mono);
-      color: var(--accent);
-      margin-bottom: 2rem;
-      letter-spacing: 0.05em;
-    }
-
-    .version-badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: var(--accent2);
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-
-    .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.04em;
-      margin-bottom: 1.5rem;
-      max-width: 900px;
-    }
-
-    .hero h1 em {
-      font-style: normal;
-      color: var(--accent);
-    }
-
-    .hero-sub {
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      max-width: 520px;
-      margin-bottom: 2.5rem;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 4rem;
-    }
-
-    .btn-trial-hero {
-      display: inline-block;
-      background: var(--good, #00e5a8);
-      color: #04101f;
-      font-family: var(--font-mono, monospace);
-      font-size: 0.95rem;
-      font-weight: 700;
-      padding: 0.8rem 1.8rem;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: opacity 0.15s ease;
-      margin-bottom: 1rem;
-    }
-    .btn-trial-hero:hover { opacity: 0.88; }
-    .btn-trial-hero.btn-trial-local { background: linear-gradient(135deg, #00e5ff, #00bfd8); color: #06131a; box-shadow: 0 0 16px rgba(0,229,255,0.35); margin-left: 0.6rem; }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #000;
-      font-weight: 700;
-      font-size: 0.9rem;
-      padding: 12px 28px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: all 0.2s;
-      letter-spacing: -0.01em;
-    }
-
-    .btn-primary:hover {
-      background: #6bb3ff;
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      padding: 12px 28px;
-      border-radius: 8px;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      transition: all 0.2s;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      max-width: 700px;
-      width: 100%;
-    }
-
-    .stat {
-      background: var(--surface);
-      padding: 1.25rem 1.5rem;
-      text-align: center;
-    }
-
-    .stat-value {
-      font-size: 1.6rem;
-      font-weight: 800;
-      font-family: var(--font-mono);
-      color: var(--accent);
-      letter-spacing: -0.03em;
-    }
-
-    .stat-label {
-      font-size: 0.7rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-top: 2px;
-    }
-
-    /* SECTIONS */
-    section {
-      padding: 5rem 2rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-      margin-bottom: 1rem;
-    }
-
-    section h2 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.15;
-      margin-bottom: 1.5rem;
-    }
-
-    section p {
-      color: var(--text-muted);
-      font-size: 1rem;
-      max-width: 680px;
-      margin-bottom: 3rem;
-    }
-
-    /* CAPABILITIES */
-    .capabilities-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-    }
-
-    .capability-card {
-      background: var(--surface);
-      padding: 2rem;
-      transition: background 0.2s;
-    }
-
-    .capability-card:hover { background: var(--surface2); }
-    .capability-card.wide { grid-column: span 2; }
-    @media (max-width: 1100px) { .capabilities-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) { .capabilities-grid { grid-template-columns: 1fr; } .capability-card.wide { grid-column: 1 / -1; } }
-
-    .capability-icon {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-
-    .capability-card h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.02em;
-    }
-
-    .capability-card p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin: 0;
-    }
-
-    /* SECURITY */
-    .security-section {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 3rem;
-      margin: 0 2rem;
-      max-width: 1100px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .security-quote {
-      font-size: 1.4rem;
-      font-weight: 700;
-      font-style: italic;
-      color: var(--accent2);
-      margin-bottom: 1rem;
-      letter-spacing: -0.02em;
-    }
-
-    .security-sub {
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-      max-width: 600px;
-    }
-
-    .security-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .security-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .security-item-icon {
-      font-size: 1.4rem;
-    }
-
-    .security-item h4 {
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .security-item p {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin: 0;
-    }
-
-    /* AGENCY SECTION */
-    .agency-section {
-      background: linear-gradient(135deg, rgba(74,158,255,0.05) 0%, rgba(0,212,170,0.05) 100%);
-      border: 1px solid rgba(74,158,255,0.2);
-      border-radius: 20px;
-      padding: 3rem;
-      margin: 0 2rem;
-      max-width: 1100px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .agency-section .section-label {
-      color: var(--accent);
-    }
-
-    .agency-section h2 {
-      margin-bottom: 1rem;
-    }
-
-    .agency-intro {
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-      max-width: 680px;
-    }
-
-    .agency-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .agency-card {
-      background: rgba(10,10,15,0.6);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: border-color 0.2s;
-    }
-
-    .agency-card:hover {
-      border-color: rgba(74,158,255,0.4);
-    }
-
-    .agency-card-icon {
-      font-size: 1.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .agency-card h4 {
-      font-size: 0.9rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.01em;
-    }
-
-    .agency-card p {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin: 0;
-    }
-
-    .agency-tier-note {
-      background: rgba(74,158,255,0.08);
-      border: 1px solid rgba(74,158,255,0.2);
-      border-radius: 10px;
-      padding: 1.25rem 1.5rem;
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    .agency-tier-note strong {
-      color: var(--accent);
-    }
-
-    /* PROOF */
-    .proof-section {
-      text-align: center;
-    }
-
-    .proof-stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 2rem;
-    }
-
-    .proof-stat {
-      background: var(--surface);
-      padding: 1.5rem;
-    }
-
-    .proof-stat-value {
-      font-size: 2rem;
-      font-weight: 800;
-      font-family: var(--font-mono);
-      color: var(--accent2);
-      letter-spacing: -0.04em;
-    }
-
-    .proof-stat-label {
-      font-size: 0.7rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-top: 4px;
-    }
-
-    .proof-download {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 20px;
-      text-decoration: none;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      font-family: var(--font-mono);
-      transition: all 0.2s;
-    }
-
-    .proof-download:hover {
-      border-color: var(--accent2);
-      color: var(--accent2);
-    }
-
-    /* EARLY ADOPTERS */
-    .adopters-section {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 3rem;
-      margin: 0 2rem;
-      max-width: 1100px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .how-it-works {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin-bottom: 2.5rem;
-      max-width: 500px;
-    }
-
-    .step {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    .step-num {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(74,158,255,0.15);
-      border: 1px solid rgba(74,158,255,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-family: var(--font-mono);
-      color: var(--accent);
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .step p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .adopters-cols {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .adopters-col h3 {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-      margin-bottom: 1rem;
-    }
-
-    .adopters-col ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .adopters-col li {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    .adopters-col li::before {
-      content: '→';
-      color: var(--accent);
-      font-family: var(--font-mono);
-      flex-shrink: 0;
-    }
-
-    .adopters-cta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.75rem;
-    }
-
-    .adopters-note {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      font-family: var(--font-mono);
-    }
-
-    /* APPLY / TYPEFORM */
-    .apply-section {
-      text-align: center;
-      padding: 5rem 2rem;
-    }
-
-    .apply-section h2 {
-      margin-bottom: 1rem;
-    }
-
-    .typeform-container {
-      margin-top: 2rem;
-    }
-
-    /* FOOTER */
-    footer { padding-bottom: 5rem;
-      border-top: 1px solid var(--border);
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
-
-    .footer-logo img {
-      width: 20px;
-      height: 20px;
-      border-radius: 4px;
-      object-fit: cover;
-    }
-
-    .footer-copy {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .hero-stats { grid-template-columns: repeat(2, 1fr); }
-      .proof-stats { grid-template-columns: repeat(2, 1fr); }
-      .adopters-cols { grid-template-columns: 1fr; }
-      .security-section, .agency-section, .adopters-section { margin: 0 1rem; padding: 2rem; }
-      footer { padding-bottom: 5rem; flex-direction: column; gap: 1rem; text-align: center; }
-      .hero-logo-wrap img { height: 160px; }
-    }
-
-    /* PRICING SECTION */
-    .pricing-section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-      text-align: center;
-    }
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-    .pricing-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-    .pricing-card.featured {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px var(--accent), 0 8px 32px rgba(74,158,255,0.15);
-    }
-    .pricing-badge {
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, #4a9eff, #00d4aa);
-      color: #fff;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      padding: 0.25rem 0.75rem;
-      border-radius: 50px;
-      white-space: nowrap;
-      font-family: 'Inter', sans-serif;
-    }
-    .pricing-tier {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .pricing-price {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1;
-      font-family: 'Inter', sans-serif;
-    }
-    .pricing-price span {
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--text-muted);
-    }
-    .pricing-desc {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin: 1rem 0 1.5rem;
-      line-height: 1.6;
-      flex-grow: 1;
-    }
-    .pricing-features {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 2rem;
-      text-align: left;
-    }
-    .pricing-features li {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      padding: 0.4rem 0;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .pricing-features li:last-child { border-bottom: none; }
-    .pricing-features li::before {
-      content: "✓";
-      color: var(--accent);
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-    .btn-pricing-primary {
-      display: inline-block;
-      background: linear-gradient(135deg, #4a9eff, #00d4aa);
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      padding: 0.85rem 1.5rem;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: opacity 0.2s;
-      margin-top: auto;
-    }
-    .btn-pricing-primary:hover { opacity: 0.85; }
-    .btn-pricing-secondary {
-      display: inline-block;
-      background: transparent;
-      color: var(--accent);
-      font-family: 'Inter', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      padding: 0.85rem 1.5rem;
-      border-radius: 8px;
-      text-decoration: none;
-      border: 1px solid var(--accent);
-      transition: background 0.2s;
-      margin-top: auto;
-    }
-    .btn-pricing-secondary:hover { background: rgba(74,158,255,0.08); }
-    .pricing-note {
-      margin-top: 2.5rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-    @media (max-width: 768px) {
-      .pricing-grid { grid-template-columns: 1fr; }
-    }
-
-    .enterprise-card {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      margin-top: 2rem;
-      background: linear-gradient(135deg, rgba(74,158,255,0.08), rgba(0,212,170,0.06));
-      border: 1px solid var(--accent);
-      border-radius: 16px;
-      padding: 2.5rem 3rem;
-      text-align: left;
-      box-shadow: 0 0 0 1px rgba(74,158,255,0.15), 0 8px 40px rgba(74,158,255,0.1);
-    }
-    .enterprise-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .enterprise-right {
-      border-left: 1px solid var(--border);
-      padding-left: 3rem;
-    }
-    .enterprise-features-title {
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .enterprise-features-list {
-      margin: 0;
-    }
-    @media (max-width: 768px) {
-      .enterprise-card { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem; }
-      .enterprise-right { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 1.5rem; }
-    }
-    .hero-accent {
-      color: #e07340;
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-top: 0.5rem;
-      letter-spacing: 0.01em;
-    }
-  </style>
-  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260920b" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <!-- Paths are relative to /next/ so the page also opens straight from the folder (file://).
+       When this replaces /index.html, change ../ to / on these four references and on the footer logo. -->
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css" />
 </head>
-<body>
+<body data-product="cloud">
 
-<!-- NAV -->
-
+<canvas id="lattice" aria-hidden="true"></canvas>
 
 <div id="ga-nav-mount"></div>
 
-<!-- PAGE LOGO -->
-<div class="hero-logo-wrap">
-  <img src="GHOSTLOGO.JPG" alt="Ghost Architect™" />
-</div>
+<main>
 
-<!-- TWO DOORS: hosted and Local, side by side, before either product's pitch -->
-<section class="doors" style="padding: 3.5rem 2rem 0.5rem; max-width: 1180px; margin: 0 auto;">
-  <div style="text-align:center; margin-bottom: 1.4rem;">
-    <div style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim);">// two ways to run Ghost Architect&trade;</div>
-    <h2 style="font-size: clamp(1.6rem, 3.5vw, 2.4rem); letter-spacing: -0.02em; margin-top: 0.5rem;">Same scans. Same reports. <span style="color: var(--accent2);">Your choice of where the model lives.</span></h2>
-  </div>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem;">
-    <a href="#hosted" style="text-decoration: none; color: inherit; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.6rem 1.6rem 1.4rem; display: block; transition: border-color .15s ease, transform .15s ease;" onmouseover="this.style.borderColor='#4a9eff';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
-      <div style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem;">Ghost Architect&trade; Cloud</div>
-      <div style="font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem;">Start in a minute. Frontier model. Pay per seat.</div>
-      <div style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Install from npm, bring your own API key, and get the sharpest judgment a model can give. Your code goes to the model provider you chose and nowhere else; we have no servers. Free tier, 7-day Pro Max trial, monthly plans from $25.</div>
-      <div style="margin-top: 1rem; color: var(--accent); font-weight: 700;">See Ghost Architect&trade; Cloud &darr;</div>
-    </a>
-    <a href="/local.html" style="text-decoration: none; color: inherit; background: var(--surface); border: 1px solid rgba(0,191,216,0.5); border-radius: 14px; padding: 1.6rem 1.6rem 1.4rem; display: block; position: relative; transition: border-color .15s ease, transform .15s ease;" onmouseover="this.style.borderColor='#00bfd8';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(0,191,216,0.5)';this.style.transform='none'">
-      <span style="position: absolute; top: 1rem; right: 1rem; background: #00bfd8; color: #06131a; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; padding: 0.2rem 0.55rem; border-radius: 4px; font-weight: 700;">NEW</span>
-      <div style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #00bfd8; margin-bottom: 0.6rem;">Ghost Architect&trade; Local &middot; your model, your hardware</div>
-      <div style="font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem;">Your code never leaves the building. Your cost never surprises you.</div>
-      <div style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Runs on your machines, on a model you own, inside your network. macOS, Linux and Windows. Air-gapped if that is how you work. A hub and spokes for the whole team, one annual licence, no per-token bill, and reports that tell you what they did not examine.</div>
-      <div style="margin-top: 1rem; color: #00bfd8; font-weight: 700;">Ghost Architect&trade; Local &rarr;</div>
-    </a>
-  </div>
-</section>
+  <!-- 0 · HERO · the lattice at rest -->
+  <section class="hero" id="hosted" data-phase="0">
+    <div class="hero-inner">
+      <div class="version-badge"><b>v11.0.3</b> &nbsp;·&nbsp; Your code never touches our servers. We don't have any.</div>
+      <h1>Pre-engagement triage.<br><em>Any codebase, any language, any platform.</em></h1>
+      <p class="hero-sub">Ghost Architect&trade; reads the whole codebase and tells you what is in it: the risks, the conflicts, the files that break if you touch them. Before you sign. Before you inherit it.</p>
+      <p class="hero-accent">One finding pays for a year of Ghost.</p>
+      <div class="hero-cta">
+        <a href="trial.html" class="btn btn-cloud">Start free trial &middot; 7 days Pro Max</a>
+        <a href="download.html" class="btn btn-local">Ghost Architect&trade; Local &middot; your hardware</a>
+        <a href="pricing.html" class="btn btn-ghost">See plans &rarr;</a>
+      </div>
+      <div class="npm">
+        <span class="dollar">$</span>
+        <span id="npm-cmd">npm install -g ghost-architect-open</span>
+        <button type="button" id="copy-btn" onclick="navigator.clipboard.writeText('npm install -g ghost-architect-open').then(function(){ var b=document.getElementById('copy-btn'); b.textContent='Copied'; setTimeout(function(){ b.textContent='Copy'; },2000); })">Copy</button>
+      </div>
+      <div class="hero-proof">
+        <div><b>$0.23</b>cost per scan</div>
+        <div><b>18</b>findings surfaced</div>
+        <div><b>&lt;10</b>minutes</div>
+        <div><b>100%</b>local execution</div>
+      </div>
+    </div>
+    <div class="scroll-hint">scroll</div>
+  </section>
 
-<!-- HERO -->
-<section class="hero" id="hosted" style="scroll-margin-top: 80px;">
-  <div class="version-badge">v11.0.3 · Your code never touches our servers. We don't have any. · LIVE NOW</div>
-  <h1>Pre-engagement triage.<br><em>Any codebase, any language, any platform.</em></h1>
-  <p class="hero-sub">Your code never touches our servers. We don't have any.</p>
-  <p class="hero-accent">One finding pays for a year of Ghost.</p>
-  <div class="hero-cta">
-    <a href="/trial.html" class="btn-trial-hero">Start Free Trial -- 7 Days Pro Max</a>
-    <a href="/download.html" class="btn-trial-hero btn-trial-local">Evaluation Trial -- Ghost Architect&trade; Local, Your Hardware</a>
-    <a href="/pricing.html" class="btn-primary">See Plans →</a>
-    <a href="https://www.npmjs.com/package/ghost-architect-open" class="btn-secondary" target="_blank" rel="noopener noreferrer">Install Ghost Open Free →</a>
-  </div>
-  <div>
-    <a href="https://github.com/ejwisner/ghost-architect-open" target="_blank" rel="noopener noreferrer" style="margin: 2rem 0 0; background: #111118; border: 1px solid #00d4aa; border-radius: 10px; padding: 1rem 2rem; display: inline-flex; align-items: center; gap: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; box-shadow: 0 0 24px rgba(0,212,170,0.15); position: relative; text-decoration: none; cursor: pointer;">
-      <svg width="18" height="18" viewBox="0 0 16 16" fill="#00d4aa" style="flex-shrink: 0;" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-      <span style="color: #ffffff; font-weight: 600; letter-spacing: 0.01em;">View the source code before you install</span>
-      <span style="color: #00d4aa; font-size: 1.1rem;">→</span>
-    </a>
-  </div>
-  <div style="margin: 2rem 0; background: #111118; border: 1px solid #00d4aa; border-radius: 10px; padding: 1rem 2rem; display: inline-flex; align-items: center; gap: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; box-shadow: 0 0 24px rgba(0,212,170,0.15); position: relative;">
-    <span style="color: #00d4aa; font-size: 1rem;">$</span>
-    <span style="color: #ffffff; font-weight: 600; letter-spacing: 0.01em;" id="npm-cmd">npm install -g ghost-architect-open</span>
-    <span style="color: #00d4aa; font-size: 0.8rem; border: 1px solid #00d4aa; border-radius: 4px; padding: 0.15rem 0.5rem; white-space: nowrap;">FREE</span>
-    <button onclick="navigator.clipboard.writeText('npm install -g ghost-architect-open').then(function(){ var b = document.getElementById('copy-btn'); b.textContent = 'Copied!'; setTimeout(function(){ b.textContent = 'Copy'; }, 2000); })" id="copy-btn" style="background: rgba(0,212,170,0.15); border: 1px solid #00d4aa; color: #00d4aa; border-radius: 4px; padding: 0.2rem 0.6rem; font-size: 0.75rem; cursor: pointer; font-family: 'JetBrains Mono', monospace; white-space: nowrap;">Copy</button>
-  </div>
-  <div class="hero-stats">
-    <div class="stat">
-      <div class="stat-value">$0.23</div>
-      <div class="stat-label">Cost Per Scan</div>
+  <!-- TWO DOORS -->
+  <section class="doors">
+    <div class="doors-head reveal">
+      <p class="label">// two ways to run Ghost Architect&trade;</p>
+      <h2>Same scans. Same reports. <span>Your choice of where the model lives.</span></h2>
     </div>
-    <div class="stat">
-      <div class="stat-value">18</div>
-      <div class="stat-label">Findings Surfaced</div>
+    <div class="door-grid">
+      <a href="#hosted" class="door cloud reveal">
+        <p class="label blue">Ghost Architect&trade; Cloud</p>
+        <div class="door-title">Start in a minute. Frontier model. Pay per seat.</div>
+        <p>Install from npm, bring your own API key, and get the sharpest judgment a model can give. Your code goes to the model provider you chose and nowhere else; we have no servers. Free tier, 7-day Pro Max trial, monthly plans from $25.</p>
+        <div class="go">See Ghost Architect&trade; Cloud &darr;</div>
+      </a>
+      <a href="local.html" class="door local reveal">
+        <span class="tag">NEW</span>
+        <p class="label" style="color: var(--local);">Ghost Architect&trade; Local &middot; your model, your hardware</p>
+        <div class="door-title">Your code never leaves the building. Your cost never surprises you.</div>
+        <p>Runs on your machines, on a model you own, inside your network. macOS, Linux and Windows. Air-gapped if that is how you work. A hub and spokes for the whole team, one annual licence, no per-token bill, and reports that tell you what they did not examine.</p>
+        <div class="go">Ghost Architect&trade; Local &rarr;</div>
+      </a>
     </div>
-    <div class="stat">
-      <div class="stat-value">&lt;10</div>
-      <div class="stat-label">Minutes</div>
+  </section>
+
+  <!-- 1 · THE SWEEP · what the scan finds -->
+  <section class="chapter phase" id="what-it-does" data-phase="1">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label blue">// the scan</p>
+        <h2>Everything hiding in the codebase before you sign the contract.</h2>
+        <p>Ghost Architect&trade; analyzes the entire codebase and surfaces architectural risks, conflicts, and vulnerabilities before they become production incidents. One pass. Every file it touched, every file it did not.</p>
+        <ul class="items">
+          <li><span class="n">01</span><div><h3>Points of Interest Scan</h3><p class="t">Auto-map red flags, dead zones, fault lines, and landmarks across the entire codebase. Know what matters before you touch it.</p></div></li>
+          <li><span class="n">02</span><div><h3>Recon, engagement sizing</h3><p class="t">Walk into the scoping call with data. Recon counts files, gauges complexity, projects scan cost, and proposes a multi-pass plan before you spend a cent on analysis.</p></div></li>
+          <li class="amber"><span class="n">03</span><div><h3>Inheritance Audit<span class="pill">PRO+</span></h3><p class="t">Four analyzers, one deal-grade PDF in about 60 seconds for about $0.02. Stack reality, key-person risk, hidden deps, and a 90-day modernization roadmap. <a href="inheritance-audit.html">See the audit &rarr;</a></p></div></li>
+        </ul>
+      </div>
     </div>
-    <div class="stat">
-      <div class="stat-value">100%</div>
-      <div class="stat-label">Local Execution</div>
+  </section>
+
+  <!-- 2 · BLAST RADIUS · Ghost Triple Crown -->
+  <section class="chapter phase right" id="ghost-triple-crown" data-phase="2">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label red">// one finding, and every file it can break</p>
+        <h2>Ghost Triple Crown&trade;<br><span style="color: var(--text-muted); font-weight: 500;">Three passes. One complete picture.</span></h2>
+        <ul class="items">
+          <li class="red"><span class="n">01</span><div><h3>Blast Radius&trade;</h3><p class="t">Maps every file that breaks if you change something. Know the impact before you touch the code.</p></div></li>
+          <li class="amber"><span class="n">02</span><div><h3>Conflict Detection&trade;</h3><p class="t">Finds where two sides of the codebase expect different things. Catches contract mismatches before they hit production.</p></div></li>
+          <li><span class="n">03</span><div><h3>Ghost Brief&trade;</h3><p class="t">Generates a developer-ready remediation prompt for every finding. Paste directly into Claude Code, Cursor, or Copilot. Surgical fixes first. Broad changes last.</p></div></li>
+        </ul>
+        <p class="foot"><b>Ghost Watcher&trade;</b> runs the Ghost Triple Crown&trade; automatically on every commit. No configuration. No manual scans. Every push, every time.</p>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- 3 · THE BUILDING · security / Local -->
+  <section class="chapter phase center" id="security" data-phase="3">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label teal">// security</p>
+        <div class="quote">"Your client's code <span>stays yours."</span></div>
+        <p>Your code never touches our servers. We don't have any. Every scan runs on your infrastructure: your API key, your GitHub Actions runner, your GitHub repo. Nothing is stored, logged, or retained outside your own filesystem. Ghost is the only codebase intelligence tool with nothing to breach.</p>
+        <p>Need the model inside the building too? <a href="local.html">Ghost Architect&trade; Local</a> runs on your machines, on a model you own, inside your network. Air-gapped if that is how you work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · THE REPORT · proof -->
+  <section class="chapter phase right" id="proof" data-phase="4">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label">// proof of concept</p>
+        <h2>Real analysis. Real findings.</h2>
+        <p>Ghost Architect&trade; analyzed 658 files in a real eCommerce extension and surfaced 18 architectural findings, conflict mismatches, security risks, and integration vulnerabilities, in under 10 minutes.</p>
+        <div class="stats">
+          <div><b>658</b>files</div>
+          <div><b>18</b>findings</div>
+          <div><b>&lt;10</b>minutes</div>
+          <div><b>7</b>PDF pages</div>
+        </div>
+        <div class="finding">
+          <div class="k">// finding #1 · critical</div>
+          <div class="h">Client-Side Credential Exposure</div>
+          <div>OAuth access tokens exposed client-side in a global config object. Full third-party account takeover possible. Est. fix: 8 to 12 hrs.</div>
+        </div>
+        <p class="foot"><a href="../ghost-poi-meta-for-magento2.pdf">Download the full report &darr;</a> &nbsp;<b>PDF · 7 pages · real eCommerce codebase · 18 findings</b></p>
+        <p style="margin-top: 1.2rem;">After every scan, <b style="color: var(--text);">Executive Brief&trade;</b> turns the findings into one page for the person who signs the check: a health score, a plain-language risk summary, and what remediation costs by hand versus with AI. 24 hours at $4,800 becomes 3 hours and $3.60. That table closes deals.</p>
+      </div>
+    </div>
+  </section>
 
   <!-- WHO IT'S FOR -->
-  <div style="margin-top: 2.5rem; display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; font-size: 0.8rem; font-family: var(--font-mono);">
-    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--accent2);"><span>✓</span> Senior architects on inherited codebases</div>
-    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--accent2);"><span>✓</span> Agencies managing 3+ client projects</div>
-    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--accent2);"><span>✓</span> CTOs doing pre-acquisition due diligence</div>
-    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--accent2);"><span>✓</span> Fractional CTOs evaluating new engagements</div>
-    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-dim);"><span>✕</span> Greenfield projects on modern stacks</div>
-  </div>
-
-  <!-- LIVE FINDING CALLOUT -->
-  <div style="margin-top: 1.75rem; background: rgba(255,74,107,0.08); border: 1px solid rgba(255,74,107,0.35); border-left: 4px solid var(--danger); border-radius: 10px; padding: 1.25rem 1.75rem; font-family: var(--font-mono); max-width: 720px; width: 90%; text-align: left; box-sizing: border-box;">
-    <div style="font-size: 0.72rem; color: var(--danger); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.6rem;">// last scan caught</div>
-    <div style="font-size: 1rem; color: var(--text); font-weight: 600; line-height: 1.5; margin-bottom: 0.5rem; word-break: break-word;">OAuth access tokens exposed in <code style="color: var(--accent); background: rgba(74,158,255,0.1); padding: 0.1rem 0.4rem; border-radius: 4px; word-break: break-all;">window.facebookBusinessExtensionConfig</code></div>
-    <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Readable via DevTools by any attacker. Est. impact: <strong style="color: var(--danger);">full Facebook Business account takeover.</strong></div>
-  </div>
-</section>
-
-<!-- GHOST TRIPLE CROWN -->
-<div id="ghost-triple-crown" style="padding: 5rem 2rem; background: linear-gradient(180deg, var(--bg) 0%, #08141a 50%, var(--bg) 100%);">
-  <div style="max-width: 1100px; margin: 0 auto; background: var(--surface); border: 2px solid var(--accent2); border-radius: 20px; padding: 3.5rem 3rem; box-shadow: 0 0 60px rgba(0,212,170,0.18), inset 0 0 0 1px rgba(0,212,170,0.08);">
-    <h2 style="text-align: center; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.15em; line-height: 1.1; margin-bottom: 1rem; text-shadow: 0 0 30px rgba(0,212,170,0.35);">Ghost Triple Crown&trade;</h2>
-    <p style="text-align: center; font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 400; color: var(--text); line-height: 1.3; margin-bottom: 3.5rem;">Three passes. One complete picture.</p>
-
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;" class="triple-crown-grid">
-      <div style="text-align: center; padding: 0 1rem;">
-        <div style="font-family: var(--font-mono); font-size: 4rem; font-weight: 800; color: var(--accent2); line-height: 1; letter-spacing: -0.05em; margin-bottom: 1.25rem; text-shadow: 0 0 30px rgba(0,212,170,0.35);">01</div>
-        <h3 style="font-size: 1.5rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; margin-bottom: 1rem;">Blast Radius&trade;</h3>
-        <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; margin: 0;">Maps every file that breaks if you change something. Know the impact before you touch the code.</p>
-      </div>
-      <div style="text-align: center; padding: 0 1rem; border-left: 1px solid var(--border); border-right: 1px solid var(--border);" class="triple-crown-col-mid">
-        <div style="font-family: var(--font-mono); font-size: 4rem; font-weight: 800; color: var(--accent2); line-height: 1; letter-spacing: -0.05em; margin-bottom: 1.25rem; text-shadow: 0 0 30px rgba(0,212,170,0.35);">02</div>
-        <h3 style="font-size: 1.5rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; margin-bottom: 1rem;">Conflict Detection&trade;</h3>
-        <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; margin: 0;">Finds where two sides of the codebase expect different things. Catches contract mismatches before they hit production.</p>
-      </div>
-      <div style="text-align: center; padding: 0 1rem;">
-        <div style="font-family: var(--font-mono); font-size: 4rem; font-weight: 800; color: var(--accent2); line-height: 1; letter-spacing: -0.05em; margin-bottom: 1.25rem; text-shadow: 0 0 30px rgba(0,212,170,0.35);">03</div>
-        <h3 style="font-size: 1.5rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; margin-bottom: 1rem;">Ghost Brief&trade;</h3>
-        <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; margin: 0;">Generates a developer-ready remediation prompt for every finding. Paste directly into Claude Code, Cursor, or Copilot.</p>
-      </div>
+  <section class="solid strip">
+    <div class="row reveal">
+      <div>&#10003; Senior architects on inherited codebases</div>
+      <div>&#10003; Agencies managing 3+ client projects</div>
+      <div>&#10003; CTOs doing pre-acquisition due diligence</div>
+      <div>&#10003; Fractional CTOs evaluating new engagements</div>
+      <div class="no">&#10005; Greenfield projects on modern stacks</div>
     </div>
+  </section>
 
-    <p style="text-align: center; font-size: 1.05rem; color: var(--text); line-height: 1.7; max-width: 760px; margin: 3.5rem auto 0; padding-top: 2.5rem; border-top: 1px solid var(--border);">Ghost Watcher&trade; runs the Ghost Triple Crown&trade; automatically on every commit. No configuration. No manual scans. Every push, every time.</p>
-  </div>
-</div>
-
-<style>
-  @media (max-width: 768px) {
-    .triple-crown-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
-    .triple-crown-col-mid { border-left: none !important; border-right: none !important; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
-  }
-</style>
-
-<!-- INHERITANCE AUDIT FEATURE SPOTLIGHT -->
-<section id="inheritance-audit-spotlight" style="padding: 4rem 2rem 2rem; max-width: 1100px; margin: 0 auto;">
-  <div style="background: linear-gradient(135deg, rgba(74,158,255,0.08) 0%, rgba(0,212,170,0.05) 100%); border: 1px solid rgba(74,158,255,0.35); border-radius: 20px; padding: 3rem; position: relative; overflow: hidden;">
-    <div style="position: absolute; top: 1.25rem; right: 1.5rem; background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #000; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; padding: 0.3rem 0.7rem; border-radius: 4px;">PRO · TEAM · ENTERPRISE</div>
-
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;" class="ia-spotlight-grid">
-      <div>
-        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem;">// feature spotlight · inheritance audit</div>
-        <h2 style="font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.25rem; color: var(--text);">Know what's in the codebase<br><span style="color: var(--accent);">before you sign.</span></h2>
-        <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem;">The independent codebase audit trusted before the LOI, the SOW, and the board meeting. Four analyzers, one deal-grade PDF. Run it in roughly 60 seconds for roughly <strong style="color: var(--text);">$0.02 in API charges.</strong></p>
-        <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem;">Built for the people writing the check. <strong style="color: var(--text);">Agency founders</strong> pricing the SOW, <strong style="color: var(--text);">PE diligence teams</strong> pre-LOI, and <strong style="color: var(--text);">fractional CTOs</strong> walking into engagements cold.</p>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <a href="/inheritance-audit.html" style="display: inline-block; background: var(--accent); color: #000; font-weight: 700; font-size: 0.9rem; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: all 0.2s;">See the audit →</a>
-          <a href="/pricing.html" style="display: inline-block; background: transparent; color: var(--text-muted); border: 1px solid var(--border); font-size: 0.9rem; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: all 0.2s;">Unlock on Ghost Pro →</a>
-        </div>
-        <div style="margin-top: 1rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);">Premium feature · Ghost Pro, Team, Enterprise</div>
-      </div>
-
-      <div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(74,158,255,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
-            <div style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: var(--accent); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">~$0.02</div>
-            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">API Charges</div>
-          </div>
-          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(74,158,255,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
-            <div style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: var(--accent); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">~60s</div>
-            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">Runtime</div>
-          </div>
-          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(74,158,255,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
-            <div style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: var(--accent); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">4</div>
-            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">Analyzers</div>
-          </div>
-          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(74,158,255,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
-            <div style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: var(--accent); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">5-page</div>
-            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">Deal-Grade PDF</div>
-          </div>
-        </div>
-
-        <div style="background: rgba(10,10,15,0.7); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; margin-top: 0.75rem;">
-          <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.6rem;">// four analyzers · one report</div>
-          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-            <div style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text-muted);"><span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); flex-shrink: 0;">01</span><span><strong style="color: var(--text);">Stack Reality.</strong> Frameworks, runtimes, EOL flags.</span></div>
-            <div style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text-muted);"><span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); flex-shrink: 0;">02</span><span><strong style="color: var(--text);">Key-Person Risk.</strong> Bus factor, departed contributors.</span></div>
-            <div style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text-muted);"><span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); flex-shrink: 0;">03</span><span><strong style="color: var(--text);">Hidden Deps.</strong> License risk, EOL exposure.</span></div>
-            <div style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text-muted);"><span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); flex-shrink: 0;">04</span><span><strong style="color: var(--text);">Modernization Roadmap.</strong> Stabilize or rebuild, 90-day plan.</span></div>
-          </div>
-        </div>
-      </div>
+  <!-- GHOST PARTNER (the nav's "Ghost Partner™" entry lands here; copy from the live homepage, verbatim) -->
+  <section class="solid pad" id="ghost-partner">
+    <div class="section-head reveal">
+      <p class="label">// pro · team · enterprise</p>
+      <h2>Ghost Architect Partner&trade;<br><span style="color: var(--accent); font-weight: 500;">your methodology, your branding, your rates.</span></h2>
+      <p class="lede">Ghost Partner&trade; is the consultant edition of Ghost Architect. Load a profile YAML that injects your audit methodology, billing rates, and branding into every scan. The findings are still Ghost's. The framing, the priorities, and the dollar estimates are yours.</p>
     </div>
-  </div>
-</section>
+    <div class="cards">
+      <div class="card reveal"><div class="k blue">Profile loading</div><h3>Drop a partner profile YAML at scan time.</h3><p>Ghost picks up your firm's methodology, severity weighting, and remediation framework automatically.</p></div>
+      <div class="card reveal"><div class="k blue">Per-profile billing rates</div><h3>Override the default tiered billing ($85 / $125 / $200) with your own rates.</h3><p>Junior, mid, and senior dollar estimates reflect what you actually charge clients.</p></div>
+      <div class="card reveal"><div class="k blue">Branded PDF output</div><h3>Your firm's logo on the PDF header. Your brand colors.</h3><p>Your methodology signature in the executive summary. Hand it to the client without re-skinning anything.</p></div>
+      <div class="card reveal"><div class="k blue">Methodology injection</div><h3>OWASP, SANS Top 25, your own internal checklist.</h3><p>If your firm runs every audit through a specific framework, the partner profile makes it part of every scan output.</p></div>
+    </div>
+    <p class="fine reveal"><strong style="color: var(--text);">Available on Ghost Pro and above.</strong> Ghost Partner profile loading and per-profile billing rates ship with Pro ($99/mo). White-label PDF output ships with Enterprise (from $1,200/mo). <a href="pricing.html">See pricing &rarr;</a></p>
+  </section>
 
-<style>
-  @media (max-width: 768px) {
-    .ia-spotlight-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
-  }
-</style>
+  <!-- FAQ -->
+  <section class="solid faq" id="faq">
+    <div class="wrap">
+      <p class="label reveal">// common questions</p>
+      <h2 class="reveal" style="margin-bottom: 2rem;">Common questions.</h2>
+      <details class="reveal">
+        <summary>What exactly does Ghost Architect&trade; do?</summary>
+        <p>Ghost Architect&trade; scans your codebase and produces a structured triage report, categorizing every finding by severity (Critical, High, Medium, Low), flagging architectural risks, security vulnerabilities, and conflict mismatches. It gives your team a prioritized map of where to start, not a raw dump of everything that could conceivably be wrong.</p>
+      </details>
+      <details class="reveal">
+        <summary>Does Ghost Architect&trade; upload my code anywhere?</summary>
+        <p>No. Ghost Architect&trade; runs on your own infrastructure. Your API key, your GitHub Actions runner, your GitHub repo. Ghost has no servers. Analysis calls go directly from your machine to the model provider you chose using your own API key. With Ghost Architect&trade; Local, the model runs inside your network as well, and nothing leaves the building.</p>
+      </details>
+      <details class="reveal">
+        <summary>What is Ghost Brief&trade;?</summary>
+        <p>Ghost Brief&trade; is the governed AI remediation pipeline built into Ghost Architect&trade;. After any scan, Ghost converts your findings into a validated, blast-radius-aware prompt pack. Each prompt tells your AI coding agent exactly what to fix, which files to touch, and which files to leave alone. Ghost never writes or modifies code. Ghost scans, Ghost briefs, the AI fixes.</p>
+      </details>
+      <details class="reveal">
+        <summary>What languages and platforms does it support?</summary>
+        <p>Any codebase, any language, any platform. PHP, JavaScript, TypeScript, Python, Ruby, Java, it doesn't matter. Ghost is framework-aware and analyzes code structure, dependency relationships, configuration files, and integration patterns regardless of what stack you're running.</p>
+      </details>
+      <details class="reveal">
+        <summary>How is this different from a linter or static analysis?</summary>
+        <p>Linters catch syntax errors and style violations. Static analysis tools find known vulnerability patterns. Ghost Architect&trade; reasons about your codebase architecturally: how components relate to each other, where integrations are fragile, what the blast radius of a change is, and what a senior architect would flag on day one.</p>
+      </details>
+      <details class="reveal">
+        <summary>Can I use it on a client's private repository?</summary>
+        <p>Yes. Ghost Architect&trade; supports private GitHub, GitLab, and Bitbucket repositories. You authenticate with a personal access token, Ghost clones the repo locally, runs the scan, and removes the local clone when done. Your client's code never touches any third-party infrastructure beyond your own.</p>
+      </details>
+    </div>
+  </section>
 
-<!-- PROMPT TRIAGE FEATURE SPOTLIGHT -->
-<section id="prompt-triage-spotlight" style="padding: 4rem 2rem; max-width: 1100px; margin: 0 auto;">
-  <div style="background: linear-gradient(135deg, rgba(0,212,170,0.06) 0%, rgba(74,158,255,0.04) 100%); border: 1px solid rgba(0,212,170,0.30); border-radius: 20px; padding: 3rem; position: relative; overflow: hidden;">
-    <div style="position: absolute; top: 1.25rem; right: 1.5rem; background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #000; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; padding: 0.3rem 0.7rem; border-radius: 4px;">FREE ON GHOST OPEN</div>
-
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;" class="pt-spotlight-grid">
-      <div>
-        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent2); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem;">// feature spotlight · prompt triage</div>
-        <h2 style="font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.25rem; color: var(--text);">Your prompts are <span style="color: var(--accent2);">production code.</span><br>Find the bugs.</h2>
-        <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem;">If you ship AI features, your prompts are running in production. Most teams have <strong style="color: var(--text);">zero review process</strong> for them. Ghost Architect™ reads a folder of LLM prompts and surfaces 16 categories of defects: ambiguous instructions, conflicting directives, prompt injection patterns, token overflows, undefined output formats, and more.</p>
-        <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem;">Cleaner prompts behave more predictably in production. They also <strong style="color: var(--text);">burn fewer tokens and cut your API bill.</strong></p>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <a href="/prompt-triage.html" style="display: inline-block; background: var(--accent2); color: #000; font-weight: 700; font-size: 0.9rem; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: all 0.2s;">See the 16 detectors →</a>
-          <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer" style="display: inline-block; background: transparent; color: var(--text-muted); border: 1px solid var(--border); font-size: 0.9rem; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: all 0.2s;">Install on npm →</a>
-        </div>
-      </div>
-
-      <div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(0,212,170,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
-            <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--accent2); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">16</div>
-            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">Defect Categories</div>
-          </div>
-          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(0,212,170,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
-            <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--accent2); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">$0.41</div>
-            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">Live Test Cost</div>
-          </div>
-          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(0,212,170,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
-            <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--accent2); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">116</div>
-            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">Findings, One Run</div>
-          </div>
-          <div style="background: rgba(10,10,15,0.7); border: 1px solid rgba(0,212,170,0.25); border-radius: 10px; padding: 1.25rem; text-align: center;">
-            <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--accent2); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;">100%</div>
-            <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;">Local Execution</div>
-          </div>
-        </div>
-
-        <div style="background: rgba(10,10,15,0.7); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; margin-top: 0.75rem;">
-          <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;">// caught in 16 categories</div>
-          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Ambiguity</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Conflicts</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Token Overflow</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Injection Patterns</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Undefined Output</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Unbounded Output</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Role Bleed</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); background: rgba(74,158,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.5rem;">Integration Mismatch</span>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent2); background: rgba(0,212,170,0.10); border: 1px solid rgba(0,212,170,0.30); border-radius: 4px; padding: 0.2rem 0.5rem;">+8 more</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<style>
-  @media (max-width: 768px) {
-    .pt-spotlight-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
-  }
-</style>
-
-<!-- CAPABILITIES -->
-<section id="what-it-does">
-  <div class="section-label">// capabilities</div>
-  <h2>Everything hiding in the codebase<br>before you sign the contract.</h2>
-  <p>Ghost Architect™ analyzes the entire codebase and surfaces architectural risks, conflicts, and vulnerabilities before they become production incidents.</p>
-  <div class="capabilities-grid">
-    <div style="grid-column:1 / -1;background:var(--surface);border-left:3px solid var(--accent2);padding:1.5rem 2rem;">
-      <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.35rem;">Ghost Triple Crown™</div>
-      <div style="font-size:0.95rem;color:var(--text-muted);">The three-pass analysis that runs automatically on every Ghost Watcher™ commit.</div>
-    </div>
-    <div class="capability-card" style="border-left:3px solid var(--accent2);position:relative;">
-      <div style="position:absolute;top:0.75rem;right:0.85rem;background:var(--accent2);color:#000;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">👑 Triple Crown</div>
-      <div class="capability-icon">💥</div>
-      <h3>Blast Radius Analysis</h3>
-      <p>Before you make a change, understand the full impact. Every dependency, every affected flow, with a rollback plan included.</p>
-    </div>
-    <div class="capability-card" style="border-left:3px solid var(--accent2);position:relative;">
-      <div style="position:absolute;top:0.75rem;right:0.85rem;background:var(--accent2);color:#000;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">👑 Triple Crown</div>
-      <div class="capability-icon">⚡</div>
-      <h3>Conflict Detection</h3>
-      <p>Find contract mismatches, schema conflicts, config errors, and constant disagreements across any language or platform.</p>
-    </div>
-    <div class="capability-card wide" style="border-left:3px solid var(--accent2);position:relative;">
-      <div style="position:absolute;top:0.75rem;right:0.85rem;display:flex;gap:0.35rem;">
-        <span style="background:var(--accent2);color:#000;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">👑 Triple Crown</span>
-        <span style="background:#e07340;color:#fff;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">NEW</span>
-      </div>
-      <div class="capability-icon">📋</div>
-      <h3>Ghost Brief™</h3>
-      <p style="font-size:1.05rem;font-weight:600;color:#e07340;margin-bottom:0.75rem;">Ghost finds it. Ghost tells the AI exactly what to do. The AI does it.</p>
-      <p>This is not vibe coding. This is governed AI remediation. One scan, one Brief, one prompt pack your AI agent executes in the right order. Surgical fixes first. Broad changes last. You control what moves and when.</p>
-      <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;margin-top:0.75rem;">We held ourselves to this standard before we asked you to buy it. We pointed Ghost at our own 42,729-line production codebase. 7 passes. 53 fixes. Zero regressions. Less than 24 hours. $3.75 in total scan cost. <a href="https://www.linkedin.com/pulse/we-pointed-our-own-tool-code-here-what-happened-ernst-wisner-vovwc/" target="_blank" rel="noopener noreferrer" style="color:#e07340;font-weight:600;">Full story →</a></p>
-      <p style="margin-top:1rem;"><a href="/ghost-brief.html" style="color:#e07340;font-weight:600;">See Ghost Brief™ &rarr;</a></p>
-    </div>
-    <div class="capability-card">
-      <div class="capability-icon">🗺</div>
-      <h3>Points of Interest Scan</h3>
-      <p>Auto-map red flags, dead zones, fault lines, and landmarks across your entire codebase. Know what matters before you touch it.</p>
-    </div>
-    <div class="capability-card">
-      <div class="capability-icon">🔍</div>
-      <h3>Recon -- Engagement Sizing</h3>
-      <p>Walk into the scoping call with data. Recon counts files, gauges complexity, projects scan cost, and proposes a multi-pass plan before you spend a cent on analysis.</p>
-    </div>
-    <div class="capability-card" style="border-left:3px solid var(--accent);position:relative;">
-      <div style="position:absolute;top:0.75rem;right:0.85rem;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#000;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">PRO+</div>
-      <div class="capability-icon">📋</div>
-      <h3>Inheritance Audit</h3>
-      <p>Four analyzers, one deal-grade PDF in ~60s for ~$0.02. Stack reality, key-person risk, hidden deps, and a 90-day modernization roadmap. Built for agencies, PE diligence, and fractional CTOs. <a href="/inheritance-audit.html" style="color:var(--accent);font-weight:600;">See the audit &rarr;</a></p>
-    </div>
-    <div class="capability-card" style="border-left:3px solid var(--accent2);position:relative;">
-      <div style="position:absolute;top:0.75rem;right:0.85rem;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#000;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">OPEN+</div>
-      <div class="capability-icon">🧪</div>
-      <h3>Prompt Triage</h3>
-      <p>If you ship AI features, your prompts are production code. Ghost audits a folder of LLM prompts and surfaces 16 categories of defects backed by the Tian et al. 2025 academic taxonomy. <a href="/prompt-triage.html" style="color:var(--accent2);font-weight:600;">Learn more &rarr;</a></p>
-    </div>
-    <div class="capability-card wide" style="border-left:3px solid #e07340;position:relative;">
-      <div style="position:absolute;top:0.75rem;right:0.85rem;background:#e07340;color:#fff;font-family:var(--font-mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;border-radius:3px;">NEW</div>
-      <div class="capability-icon">📊</div>
-      <h3>Executive Brief™</h3>
-      <p style="font-size:1.05rem;font-weight:600;color:#e07340;margin-bottom:0.75rem;">One page. Plain language. Built for the person who signs the check.</p>
-      <p>After every scan, Ghost generates an Executive Brief: a one-page business intelligence report with a health score, plain-language risk summary, and a cost comparison showing what remediation costs manually versus with AI. No jargon. No code. Just the business case.</p>
-      <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;margin-top:0.75rem;">24 hours of manual remediation at $4,800 becomes 3 hours and $3.60 in API costs. That table closes deals. Available on Pro Max, Team Max, and Enterprise Max.</p>
-    </div>
-    <div class="capability-card wide" style="border-left:3px solid #e07340;position:relative;">
-      <div class="capability-icon">👤</div>
-      <h3>Ghost Partner™ Profiles</h3>
-      <p style="font-size:1.05rem;font-weight:600;color:#e07340;margin-bottom:0.75rem;">Your name. Your branding. Your methodology. White-labeled across every report.</p>
-      <p>A Ghost Partner Profile injects your firm name, accent color, logo, billing rates, and audit methodology into every report Ghost generates. All seven report types. One profile file. The client sees your deliverable -- not Ghost Architect’s.</p>
-      <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;margin-top:0.75rem;">Create a profile in two minutes with the built-in wizard. Load it from the top-level menu, set it as your default, or point Ghost at your existing methodology document. Available on Ghost Pro and higher.</p>
-    </div>
-  </div>
-</section>
-
-<!-- SECURITY -->
-<div id="security">
-  <section class="security-section" style="max-width:1100px;padding:3rem;">
-    <div class="section-label">// security</div>
-    <div class="security-quote">"Your client's code stays yours."</div>
-    <p class="security-sub">Your code never touches our servers. We don't have any. Every scan runs on your infrastructure -- your API key, your GitHub Actions runner, your GitHub repo. Ghost is the only codebase intelligence tool with nothing to breach.</p>
-    <div class="security-grid">
-      <div class="security-item">
-        <div class="security-item-icon">🖥</div>
-        <h3>Your Infrastructure</h3>
-        <p>Your scan runs on your infrastructure. Your API key. Your GitHub Actions runner. Your code never touches Ghost servers.</p>
-      </div>
-      <div class="security-item">
-        <div class="security-item-icon">🔑</div>
-        <h3>Your API Key, Your Agreement</h3>
-        <p>You bring your own Anthropic API key. Ghost Architect™ is never in the middle.</p>
-      </div>
-      <div class="security-item">
-        <div class="security-item-icon">🚫</div>
-        <h3>No Persistence</h3>
-        <p>Nothing is stored, logged, or retained outside your own filesystem. Ever.</p>
-      </div>
-      <div class="security-item">
-        <div class="security-item-icon">✅</div>
-        <h3>Zero Vulnerabilities</h3>
-        <p>Ghost Architect™ has been audited with <code>npm audit</code> and contains zero known vulnerabilities across all dependencies. Verifiable by anyone.</p>
-      </div>
-      <div class="security-item">
-        <div class="security-item-icon">🌐</div>
-        <h3>Any Repo, Any Platform</h3>
-        <p>GitHub, GitLab, Bitbucket -- public or private. Authenticate with a personal access token and scan. No ZIP download required. Any language. Any framework.</p>
+  <!-- FINAL CTA -->
+  <section class="solid final">
+    <div class="reveal">
+      <p class="label teal">// start</p>
+      <h2>Know what's in the codebase<br>before you sign.</h2>
+      <div class="hero-cta">
+        <a href="trial.html" class="btn btn-cloud">Start free trial &middot; 7 days Pro Max</a>
+        <a href="download.html" class="btn btn-local">Ghost Architect&trade; Local &middot; evaluation trial</a>
+        <a href="https://www.npmjs.com/package/ghost-architect-open" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">Install Ghost Open free &rarr;</a>
       </div>
     </div>
   </section>
-</div>
 
-<!-- FOR AGENCY OWNERS (NEW -- written for check-signers) -->
-<div id="for-agency-owners" style="padding: 5rem 0; background: linear-gradient(180deg, var(--bg) 0%, #0a1420 50%, var(--bg) 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-  <div style="max-width: 1100px; margin: 0 auto; padding: 0 2rem;">
-    <div class="section-label" style="color: var(--accent2);">// for agency owners</div>
-    <h2>You signed the contract.<br>Now find out <span style="background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent;">what's actually in there.</span></h2>
-    <p style="font-size: 1.1rem; color: var(--text); max-width: 760px; margin-bottom: 2rem;">Most agency engagements lose money in the first two weeks. It is almost never the team's fault. The team executes. The problem is upstream: somebody scoped a contract on a codebase nobody had ever read. Ghost Architect™ closes that gap. The audit you would have paid a senior engineer two weeks to do, in an afternoon, for under five dollars.</p>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-      <div style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--danger); border-radius: 10px; padding: 1.5rem;">
-        <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--danger); line-height: 1; margin-bottom: 0.5rem;">42%</div>
-        <div style="font-size: 0.85rem; color: var(--text-muted);">Of agency engagements run over on sprint one. Margin disappears before kickoff.</div>
-      </div>
-      <div style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--danger); border-radius: 10px; padding: 1.5rem;">
-        <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--danger); line-height: 1; margin-bottom: 0.5rem;">$18K</div>
-        <div style="font-size: 0.85rem; color: var(--text-muted);">Typical write-off per misscoped engagement. Comes out of your margin, not the client.</div>
-      </div>
-      <div style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent2); border-radius: 10px; padding: 1.5rem;">
-        <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: var(--accent2); line-height: 1; margin-bottom: 0.5rem;">$0.45</div>
-        <div style="font-size: 0.85rem; color: var(--text-muted);">What a full Ghost scan costs in Anthropic API usage. Ghost Pro is $99/mo on top.</div>
-      </div>
-    </div>
-    <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 1.5rem;">One avoided misscope pays for Ghost Pro for fifteen years. Read the full case for agency owners, including the eight questions every owner should be able to answer before signing, ROI math on a real $120K Adobe Commerce engagement, and tier comparison.</p>
-    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-      <a href="/for-agency-owners.html" style="display: inline-block; background: var(--accent2); color: #000; padding: 0.9rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.95rem;">Read the case for agency owners &rarr;</a>
-      <a href="/pricing.html" style="display: inline-block; border: 1px solid var(--border); color: var(--text-muted); padding: 0.9rem 2rem; border-radius: 8px; text-decoration: none; font-size: 0.95rem;">See plans</a>
-    </div>
-  </div>
-</div>
+</main>
 
-<!-- FOR AGENCY TEAMS (renamed from FOR AGENCIES -- written for engineers/practice leads) -->
-<div id="for-agency-teams" style="padding: 5rem 0;">
-  <div class="agency-section">
-    <div class="section-label">// for agency teams</div>
-    <h2>Built for how agency teams<br>actually work.</h2>
-    <p class="agency-intro">Your developers aren't pulling client codebases to their laptops. They're working from repos. Ghost Architect™ works the same way. Point Ghost at any GitHub, GitLab, or Bitbucket repository -- public or private -- authenticate with a personal access token, and run your scan. The entire analysis happens on your local machine. No code is uploaded. No third party ever sees your client's codebase.</p>
-    <div class="agency-grid">
-      <div class="agency-card">
-        <div class="agency-card-icon">🔗</div>
-        <h4>Private Repo Support</h4>
-        <p>Authenticate with a personal access token. Ghost clones the repo locally, scans it, and removes the clone when done. Your client's code never touches our infrastructure -- because there is no our infrastructure.</p>
-      </div>
-      <div class="agency-card">
-        <div class="agency-card-icon">📁</div>
-        <h4>Selective Path Scanning</h4>
-        <p>Point Ghost at a specific directory within a large repo. Scan the module you're working on, not the entire monorepo.</p>
-      </div>
-      <div class="agency-card">
-        <div class="agency-card-icon">📑</div>
-        <h4>Same-Day Client Deliverables</h4>
-        <p>Every scan produces a branded PDF for stakeholders, a TXT for developers, and a MD for your team to commit. Hand it to the client the same day.</p>
-      </div>
-      <div class="agency-card">
-        <div class="agency-card-icon">💰</div>
-        <h4>Per-Seat Cost Visibility</h4>
-        <p>Each developer runs Ghost with their own Anthropic API key -- giving your agency complete visibility into usage and cost at the individual seat level. No black box billing.</p>
-      </div>
-    </div>
-    <div class="agency-tier-note">
-      <strong>Agency-tier plans available.</strong> Ghost Architect™ offers plans designed for multi-client portfolios, team access, and enterprise delivery workflows. <a href="/pricing.html" style="color: var(--accent);">See pricing →</a>
-    </div>
-    <p style="margin-top:1.5rem;font-size:0.95rem;color:var(--text);font-weight:600;">Solo developer or independent architect? Ghost Architect™ works just as well for individuals. Start with Ghost Open free, upgrade when you need more.</p>
-  </div>
-</div>
-
-<!-- GHOST PARTNER -->
-<div id="ghost-partner" style="padding: 5rem 0;">
-  <section style="max-width:1100px;margin:0 auto;padding:0 2rem;">
-    <div class="section-label">// pro · team · enterprise</div>
-    <h2>Ghost Architect Partner™<br><span style="color: var(--accent);">your methodology, your branding, your rates.</span></h2>
-    <p style="max-width:680px;">Ghost Partner™ is the consultant edition of Ghost Architect. Load a profile YAML that injects your audit methodology, billing rates, and branding into every scan. The findings are still Ghost's. The framing, the priorities, and the dollar estimates are yours.</p>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:2rem;">
-      <div class="capability-card">
-        <div class="capability-icon">📜</div>
-        <h3>Profile Loading</h3>
-        <p>Drop a partner profile YAML at scan time. Ghost picks up your firm's methodology, severity weighting, and remediation framework automatically.</p>
-      </div>
-      <div class="capability-card">
-        <div class="capability-icon">💰</div>
-        <h3>Per-Profile Billing Rates</h3>
-        <p>Override the default tiered billing ($85 / $125 / $200) with your own rates. Junior, mid, and senior dollar estimates reflect what you actually charge clients.</p>
-      </div>
-      <div class="capability-card">
-        <div class="capability-icon">🎨</div>
-        <h3>Branded PDF Output</h3>
-        <p>Your firm's logo on the PDF header. Your brand colors. Your methodology signature in the executive summary. Hand it to the client without re-skinning anything.</p>
-      </div>
-      <div class="capability-card">
-        <div class="capability-icon">🎯</div>
-        <h3>Methodology Injection</h3>
-        <p>If your firm runs every audit through a specific framework -- OWASP, SANS Top 25, your own internal checklist -- the partner profile makes it part of every scan output.</p>
-      </div>
-    </div>
-
-    <div style="background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.2);border-radius:10px;padding:1.25rem 1.5rem;font-size:0.875rem;color:var(--text-muted);line-height:1.6;">
-      <strong style="color:var(--accent);">Available on Ghost Pro and above.</strong> Ghost Partner profile loading and per-profile billing rates ship with Pro ($99/mo). White-label PDF output ships with Enterprise (from $1,200/mo). <a href="/pricing.html" style="color:var(--accent);">See pricing →</a>
-    </div>
-  </section>
-</div>
-
-<!-- PROOF OF CONCEPT -->
-<section id="proof" class="proof-section">
-  <div class="section-label">// proof of concept</div>
-  <h2>Real analysis. Real findings.</h2>
-  <p style="margin-left:auto;margin-right:auto;text-align:center;">Ghost Architect™ analyzed 658 files in a real eCommerce extension and surfaced 18 architectural findings -- conflict mismatches, security risks, and integration vulnerabilities -- in under 10 minutes.</p>
-  <div class="proof-stats">
-    <div class="proof-stat">
-      <div class="proof-stat-value">658</div>
-      <div class="proof-stat-label">Files</div>
-    </div>
-    <div class="proof-stat">
-      <div class="proof-stat-value">18</div>
-      <div class="proof-stat-label">Findings</div>
-    </div>
-    <div class="proof-stat">
-      <div class="proof-stat-value">&lt;10</div>
-      <div class="proof-stat-label">Minutes</div>
-    </div>
-    <div class="proof-stat">
-      <div class="proof-stat-value">7</div>
-      <div class="proof-stat-label">PDF Pages</div>
-    </div>
-  </div>
-  <a href="ghost-poi-meta-for-magento2.pdf" class="proof-download" style="margin-top:1rem; background: rgba(0,212,170,0.08); border: 1px solid var(--accent2); color: var(--accent2); font-size: 1rem; padding: 1rem 2rem; border-radius: 10px; font-weight: 600; letter-spacing: 0.02em; box-shadow: 0 0 24px rgba(0,212,170,0.1);">Download the Full Report ↓ &nbsp;<span style="color:var(--text-dim); font-weight:400;">// PDF · 7 pages · real eCommerce codebase · 18 findings</span></a>
-
-  <!-- FINDINGS CALLOUT -->
-  <div style="margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; text-align: left;">
-
-    <div style="background: var(--surface); border: 1px solid #3a1a1a; border-left: 3px solid var(--danger); border-radius: 12px; padding: 1.75rem;">
-      <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--danger); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem;">// Finding #1 · Critical</div>
-      <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.02em;">Client-Side Credential Exposure</h3>
-      <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin: 0 0 1rem;">OAuth access tokens exposed client-side in a global config object. Full third-party account takeover possible.</p>
-      <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);">Est. fix: 8–12 hrs · Complexity: HIGH</div>
-    </div>
-
-    <div style="background: var(--surface); border: 1px solid #3a1a1a; border-left: 3px solid var(--danger); border-radius: 12px; padding: 1.75rem;">
-      <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--danger); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem;">// Finding #9 · Critical</div>
-      <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.02em;">Ad Spend Inflation Race Condition</h3>
-      <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin: 0 0 1rem;">Event deduplication race condition producing 10-20% duplicate API events. Inflates ad spend and corrupts conversion data.</p>
-      <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);">Est. fix: 10–14 hrs · Complexity: CRITICAL</div>
-    </div>
-
-    <div style="background: var(--surface); border: 1px solid #3a1a1a; border-left: 3px solid var(--warning); border-radius: 12px; padding: 1.75rem;">
-      <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--warning); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem;">// Finding #3 · High</div>
-      <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.02em;">Mass Assignment Config Vulnerability</h3>
-      <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin: 0 0 1rem;">Arbitrary POST parameters saved directly to the core configuration store with no validation or allowlist. Combined with missing CSRF protection -- any system configuration value is writable by an attacker.</p>
-      <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);">Est. fix: 6–8 hrs · Complexity: HIGH</div>
-    </div>
-
-  </div>
-  <p style="margin-top: 2rem; font-size: 0.95rem; color: var(--text-muted); text-align: center;">These are 3 of 18 findings from a real eCommerce extension. <a href="ghost-poi-meta-for-magento2.pdf" style="color: var(--accent2); text-decoration: none; font-weight: 600;">Download the full report ↓</a></p>
-</section>
-
-<!-- FAQ -->
-<section id="faq" style="max-width: 860px; margin: 0 auto; padding: 2rem 2rem 5rem;">
-  <div class="section-label">// frequently asked</div>
-  <h2>Common questions.</h2>
-
-  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
-    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">What is Ghost Brief™?</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Ghost Brief™ is the governed AI remediation pipeline built into Ghost Architect™. After any scan, Ghost converts your findings into a validated, blast-radius-aware prompt pack. Each prompt tells your AI coding agent exactly what to fix, which files to touch, which files to leave alone, and how to verify the fix landed. Ghost finds it. Ghost tells the AI exactly what to do. The AI does it.</p>
-  </div>
-
-  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
-    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Which tiers include Ghost Brief™?</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Ghost Brief™ is included in Ghost Pro Max ($199/mo), Ghost Team Max ($799/mo), and Ghost Enterprise Max ($2,500/mo). Ghost Pro Max generates an individual Brief after every scan. Ghost Team Max adds the Unified Brief, which consolidates every architect's findings into one master prompt pack for the whole codebase. Ghost Enterprise Max adds unlimited Briefs, formal MSA, and dedicated Ghost Partner co-engagement.</p>
-  </div>
-
-  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
-    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Which AI coding agents work with Ghost Brief™?</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Any of them. ghost-brief.json is a plain JSON file. Feed it to Claude Code, Cursor, GitHub Copilot, or any other AI coding agent. Ghost does not lock you into a platform. Claude Code is the primary target and was used for all internal testing.</p>
-  </div>
-
-  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
-    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Does Ghost Brief™ write or modify code?</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">No. Ghost Brief™ produces a prompt pack. Your AI coding agent executes the prompts. Ghost never touches your code. Ghost scans, Ghost briefs, the AI fixes.</p>
-  </div>
-
-  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
-    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">What is blast radius and why does it matter for AI agents?</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Blast radius measures how many parts of your codebase a change could affect. Ghost Brief™ sorts every prompt by blast radius, surgical fixes first and broad changes last, so your AI agent works in the safest possible order. Most AI agents are eager. They will fix what you point them at and break things you did not know were connected. Ghost Brief™ governs the sequence.</p>
-  </div>
-
-  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
-    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">What exactly does Ghost Architect do?</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Ghost Architect scans your codebase and produces a structured triage report -- categorizing every finding by severity (Critical, High, Medium, Low), flagging architectural risks, security vulnerabilities, and conflict mismatches. It gives your team a prioritized map of where to start, not a raw list of every issue. Output is a branded PDF for stakeholders, a TXT for developers, and a Markdown file your team can commit.</p>
-  </div>
-
-  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
-    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Does Ghost Architect upload my code anywhere?</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">No. Ghost Architect runs on your own infrastructure. Your API key, your GitHub Actions runner, your GitHub repo. Ghost has no servers. Your code never touches us. Analysis calls go directly from your machine to Anthropic's API using your own API key. Anthropic deletes API inputs and outputs within 7 days per their data retention policy.</p>
-  </div>
-
-  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
-    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">What languages and platforms does it support?</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Ghost Architect works on any codebase, any language, any platform. PHP, JavaScript, TypeScript, Python, Ruby, Java -- it doesn't matter. It's framework-aware and analyzes code structure, dependency relationships, configuration files, and integration patterns regardless of what stack you're running. Adobe Commerce and Magento are common use cases, but they're not requirements.</p>
-  </div>
-
-  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
-    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">How much does an Anthropic API key cost to run?</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">A typical Ghost Architect scan costs $0.23 in Anthropic API usage. Most Pro users run 10–20 scans per month, putting their total API cost at $2–5/month on top of the membership. You can verify this yourself -- Ghost prints the exact cost of every scan in the terminal output. There are no hidden fees or usage caps imposed by Ghost Architect.</p>
-  </div>
-
-  <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
-    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">How is Ghost Architect different from running a linter or static analysis tool?</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Linters catch syntax errors and style violations. Static analysis tools find known vulnerability patterns. Ghost Architect does something different -- it reasons about your codebase architecturally. It identifies how components relate to each other, where integrations are fragile, what the blast radius of a change would be, and which findings represent real business risk versus noise. It's triage intelligence, not a rule-based scanner.</p>
-  </div>
-
-  <div style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem 0;">
-    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Can I use Ghost Architect on a client's private repository?</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Yes. Ghost Architect supports private GitHub, GitLab, and Bitbucket repositories. You authenticate with a personal access token, Ghost clones the repo locally, runs the scan, and removes the local clone when done. Your client's code never touches any third-party infrastructure beyond your own Anthropic API key. This makes it safe to use under NDA with enterprise clients.</p>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
-  <a href="/" class="footer-logo">
-    <img src="GHOSTLOGO.JPG" alt="Ghost Architect" width="20" height="20" loading="lazy" />
-    Ghost Architect™
-  </a>
-  <span class="footer-copy">© 2026 EJ Wisner · Ghost Architect™ · All rights reserved. · US Copyright Reg. #1-15123488721 · <a href="/support.html" style="color:var(--text-muted);text-decoration:none;">Support</a> · <a href="/privacy.html" style="color:var(--text-muted);text-decoration:none;">Privacy Policy</a> · <a href="/msa.html" style="color:var(--text-muted);text-decoration:none;">Terms of Service</a></span>
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; US Copyright Reg. #1-15123488721 &middot; <a href="support.html">Support</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="msa.html">Terms of Service</a></span>
 </footer>
 
-<!-- STICKY CTA -->
-<div id="sticky-cta" style="position:fixed;bottom:2rem;right:2rem;z-index:999;">
-  <a href="/pricing.html" style="display:inline-block;background:linear-gradient(135deg,#4a9eff,#00d4aa);color:#fff;font-family:Inter,sans-serif;font-weight:700;font-size:0.95rem;padding:0.85rem 1.5rem;border-radius:50px;text-decoration:none;box-shadow:0 4px 24px rgba(74,158,255,0.4);white-space:nowrap;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">👻 See Plans →</a>
-</div>
-<script src="/assets/ga-nav.js?v=20260920b" defer></script>
+<script src="../assets/ga-nav.js?v=20260920b" defer></script>
+<script>
+  // Quiet text reveals. Falls back to visible if IntersectionObserver is missing.
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+
+</script>
+<script src="next-nav.js" defer></script>
+<script src="scene.js" defer></script>
 </body>
 </html>

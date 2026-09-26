@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
-  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
-  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <meta name="robots" content="index, follow" />
   <title>Pricing: Ghost Architect™</title>
+  <meta name="description" content="Ghost Architect™ pricing -- seven tiers from free to enterprise. Ghost Brief™ governed AI remediation pipeline starts at $99/mo." />
+  <meta name="theme-color" content="#0a0a0f" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -22,7 +23,7 @@
   <meta name="twitter:title" content="Ghost Architect™ Pricing -- Start Free. Upgrade When You Need More." />
   <meta name="twitter:description" content="Ghost Architect™ pricing -- seven tiers from free to enterprise. Ghost Brief™ governed AI remediation pipeline starts at $99/mo." />
   <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
-  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <link rel="sitemap" type="application/xml" href="../sitemap.xml" />
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -101,1018 +102,530 @@
   </script>
 
   <!-- Canonical -->
-  <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://ghostarchitect.dev/pricing" />
+
+  <!-- Paths are relative to /next/ so the page also opens straight from the folder (file://).
+       When this replaces /pricing.html, change ../ to / on these references. -->
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css" />
+  <!-- pricing.html only: site.css has no in-list section labels, stacked full-width card buttons, a 4-up plan grid
+       or a Local-accented featured card. Everything else is site.css. -->
   <style>
-    :root {
-      --bg: #0a0a0f;
-      --surface: #111118;
-      --surface2: #16161f;
-      --border: #2a2a3a;
-      --accent: #4a9eff;
-      --accent-dim: rgba(74,158,255,0.12);
-      --accent-glow: rgba(74,158,255,0.25);
-      --text: #e8e8f0;
-      --text-muted: #888899;
-      --green: #22c55e;
-      --green-dim: rgba(34,197,94,0.1);
-      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.6; min-height: 100vh; }
-
-    /* NAV */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(10,10,15,0.92); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px;
-    }
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem; }
-    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; }
-    .nav-links { display: flex; gap: 1.5rem; }
-    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--text); }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; transition: all 0.2s; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display: none; position: fixed; top: 56px; left: 0; right: 0; background: rgba(10,10,15,0.98); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem 1.5rem; z-index: 99; flex-direction: column; gap: 0; backdrop-filter: blur(12px); }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-family: var(--font-mono); padding: 0.85rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
-    .mobile-menu a:last-child { border-bottom: none; }
-    .mobile-menu a:hover { color: var(--accent); }
-    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } }
-
-    /* HERO LOGO */
-    .hero-logo-wrap {
-      display: flex;
-      justify-content: center;
-      padding-top: 3.5rem;
-      padding-bottom: 0;
-    }
-    .hero-logo-wrap img {
-      height: 220px;
-      width: auto;
-      border-radius: 24px;
-      display: block;
-    }
-
-    /* HERO */
-    .hero {
-      text-align: center;
-      padding: 2rem 2rem 3rem;
-      position: relative;
-      /* The 600px glow below is wider than a phone; without this the whole
-         page scrolled sideways on an iPhone (measured at 390px: 495px wide). */
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 300px;
-      background: radial-gradient(ellipse at center, rgba(74,158,255,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-    }
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 1rem;
-      letter-spacing: -0.02em;
-    }
-    .hero p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      max-width: 520px;
-      margin: 0 auto 2rem;
-    }
-
-    /* EOL BANNER */
-    .eol-banner {
-      background: rgba(0,191,216,0.08);
-      border: 1px solid rgba(0,191,216,0.35);
-      border-radius: 8px;
-      padding: 0.75rem 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      max-width: 680px;
-      margin: 0 auto 3rem;
-      font-size: 0.875rem;
-    }
-    .eol-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: #00bfd8;
-      flex-shrink: 0;
-      animation: pulse 1.5s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-    .eol-banner strong { color: #00bfd8; }
-    .eol-banner span { color: var(--text-muted); }
-
-    /* CARDS */
-    .plans {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem 4rem;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem;
-      position: relative;
-      transition: border-color 0.2s, transform 0.2s;
-      display: flex;
-      flex-direction: column;
-    }
-    .card:hover {
-      border-color: rgba(74,158,255,0.3);
-      transform: translateY(-2px);
-    }
-    .card.featured {
-      border-color: var(--accent);
-      background: linear-gradient(135deg, #111118 0%, #0f1520 100%);
-    }
-    .card.featured::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, var(--accent), transparent 60%);
-      z-index: -1;
-      opacity: 0.3;
-    }
-
-    .plan-badge {
-      position: absolute;
-      top: -12px; left: 50%; transform: translateX(-50%);
-      background: var(--accent);
-      color: #000;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.9rem;
-      border-radius: 20px;
-      white-space: nowrap;
-    }
-
-    .plan-name {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-    .plan-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    .plan-desc {
-      color: var(--text-muted);
-      font-size: 0.875rem;
-      margin-bottom: 1.75rem;
-      line-height: 1.5;
-    }
-
-    .plan-price {
-      display: flex;
-      align-items: baseline;
-      gap: 0.25rem;
-      margin-bottom: 0.5rem;
-    }
-    .price-amount {
-      font-size: 2.75rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1;
-    }
-    .price-currency {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      align-self: flex-start;
-      margin-top: 0.4rem;
-    }
-    .price-period {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-    }
-    .price-note {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      margin-bottom: 1.75rem;
-    }
-
-    .features {
-      list-style: none;
-      margin-bottom: 2rem;
-      flex: 1;
-    }
-    .features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      font-size: 0.875rem;
-      color: var(--text);
-      padding: 0.45rem 0;
-      line-height: 1.4;
-    }
-    .features li .icon {
-      flex-shrink: 0;
-      width: 16px; height: 16px;
-      margin-top: 1px;
-      color: var(--green);
-    }
-    .features li.section-label {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding-top: 0.75rem;
-      padding-bottom: 0;
-    }
-    .features li.section-label .icon { display: none; }
-
-    /* BUTTONS */
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 0.875rem 1.5rem;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-align: center;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s;
-      font-family: var(--font-sans);
-    }
-    .btn-primary {
-      background: var(--accent);
-      color: #000;
-    }
-    .btn-primary:hover {
-      background: #6db3ff;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(74,158,255,0.35);
-    }
-    .btn-secondary {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* OPEN TIER */
-    .open-tier {
-      max-width: 1100px;
-      margin: 0 auto 2rem;
-      padding: 0 2rem;
-    }
-    .open-card {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-    .open-card-left { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; min-width: 0; flex: 1 1 auto; }
-    .open-tag {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--green);
-      background: var(--green-dim);
-      border: 1px solid rgba(34,197,94,0.2);
-      border-radius: 4px;
-      padding: 0.2rem 0.5rem;
-      letter-spacing: 0.08em;
-      flex-shrink: 0;
-    }
-    .open-text { min-width: 0; flex: 1 1 0; }
-    .open-text strong { display: block; font-size: 0.95rem; margin-bottom: 0.2rem; }
-    .open-actions { display: flex; gap: 0.75rem; align-items: center; flex-shrink: 0; }
-    .open-actions a {
-      font-size: 0.82rem;
-      color: var(--accent);
-      text-decoration: none;
-      font-family: var(--font-mono);
-    }
-    .open-actions a:hover { text-decoration: underline; }
-
-    /* TRUST */
-    .trust {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 2rem 2rem 6rem;
-    }
-    .trust-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 4rem;
-    }
-    .trust-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.25rem 1.5rem;
-    }
-    .trust-item h4 {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-    .trust-item p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .faq-title {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
-    /* TWO PRODUCTS BELOW THE COLUMNS TOO: the trust cards and the FAQ are
-       grouped and labelled per product, so a phone reader who scrolled past
-       the Local column does not land in hosted-only copy. */
-    .trust-eyebrow { font-family: var(--font-mono); font-size: 1rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 1rem; line-height: 1.3; }
-    .trust-eyebrow.hosted { color: #8cc6ff; text-shadow: 0 0 14px rgba(74,158,255,0.45); }
-    .trust-eyebrow.local { color: #4df2ff; text-shadow: 0 0 14px rgba(0,229,255,0.45); }
-    .trust-block.local .trust-item { border-color: rgba(0,191,216,0.45); }
-    .trust-block.local .trust-item h4 { color: #4df2ff; }
-    .trust-grid.local-grid { margin-bottom: 4rem; }
-    .faq-title.local { color: #4df2ff; }
-    .faq-block + .faq-block .faq-title { margin-top: 3rem; }
-    .faq-block.local .faq-item:first-of-type { border-top: 1px solid rgba(0,191,216,0.45); }
-    .faq-item { border-top: 1px solid var(--border); padding: 1.25rem 0; }
-    .faq-item:last-child { border-bottom: 1px solid var(--border); }
-    .faq-q { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; }
-    .faq-a { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; }
-    .faq-a a { color: var(--accent); text-decoration: none; }
-    .faq-a a:hover { text-decoration: underline; }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.82rem;
-    }
-    footer a { color: var(--text-muted); text-decoration: none; }
-    footer a:hover { color: var(--accent); }
-
-    #eol-days { color: #ef4444; font-weight: 700; }
-
-    @media (max-width: 960px) {
-      .plans { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 640px) {
-      .plans { grid-template-columns: 1fr; }
-      .open-tier { padding: 0 1rem; }
-      .open-card { flex-direction: column; align-items: flex-start; padding: 1.25rem 1.25rem; gap: 1rem; }
-      .open-card-left { flex-direction: column; align-items: flex-start; gap: 0.75rem; width: 100%; }
-      .open-text { width: 100%; }
-      .hero h1 { font-size: 1.8rem; }
-      .hero-logo-wrap img { height: 160px; }
-    }
+    .page-hero .logo { margin: 0 0 1.8rem; }
+    .page-hero .logo img { height: 160px; width: auto; border-radius: 20px; border: 0; }
+    .callout.local a { color: var(--local); }
+    .band .hero-cta { justify-content: flex-start; margin: 0; }
+    .trial-note { color: var(--text-dim); font-size: 0.8rem; margin: 0.6rem 0 2rem; }
+    .cards.four { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+    .cards.local .card { border-color: rgba(0, 191, 216, 0.35); }
+    .card.hi-local { border-color: rgba(0, 191, 216, 0.6); box-shadow: 0 0 32px var(--local-dim); }
+    .plan-cards .card { display: flex; flex-direction: column; }
+    .plan-cards .card ul { flex: 1 1 auto; }
+    .card .badges { margin-bottom: 0.6rem; }
+    .card .k.dim { color: var(--text-dim); margin: 0.8rem 0 0; }
+    .card .pnote { font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-dim); margin: 0.3rem 0 0; }
+    .card li.sl { list-style: none; margin: 0.9rem 0 0.2rem -1.1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); }
+    .card li.sl.local { color: var(--local); }
+    .card li.note { list-style: none; color: var(--text-dim); font-size: 0.85em; }
+    .card .btn { width: 100%; justify-content: center; }
+    .card .btn + .btn { margin-top: 0.6rem; }
+    .open-tier .npm { margin: 0.4rem 0.6rem 0 0; font-size: 0.84rem; padding: 0.45rem 0.8rem; }
+    .open-tier .meta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); }
+    #local, #plans, #enterprise { scroll-margin-top: 80px; }
   </style>
-  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260920b" />
-<style>
-  /* TWO PRODUCTS, TWO COLUMNS */
-  .two-products { display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 1400px; margin: 0 auto; padding: 0 1.5rem 4rem; align-items: start; }
-  .product-col { border: 1px solid var(--border); border-radius: 20px; background: rgba(255,255,255,0.015); padding: 0 0 0.5rem; scroll-margin-top: 80px; min-width: 0; }
-  .product-hosted { border-top: 4px solid #4a9eff; }
-  .product-local { border-top: 4px solid #00bfd8; }
-  .product-head { padding: 1.75rem 1.75rem 1.4rem; border-bottom: 1px solid var(--border); }
-  .product-eyebrow { font-family: var(--font-mono); font-size: 1.55rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; line-height: 1.2; }
-  .product-hosted .product-eyebrow { color: #8cc6ff; text-shadow: 0 0 18px rgba(74,158,255,0.55); }
-  .product-local .product-eyebrow { color: #4df2ff; text-shadow: 0 0 18px rgba(0,229,255,0.55); }
-  .product-new { background: #00bfd8; color: #06131a; font-size: 0.7rem; letter-spacing: 0.1em; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 700; }
-  .product-head h2 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 0.6rem; }
-  .product-head p { color: var(--text-muted); line-height: 1.55; margin: 0 0 1.1rem; font-size: 0.95rem; }
-  .product-head p a { color: #00bfd8; }
-  .product-trial { display: inline-block; font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; padding: 0.75rem 1.4rem; border-radius: 6px; text-decoration: none; }
-  .product-trial.hosted { background: #00e5a8; color: #04101f; }
-  .product-trial.local { background: linear-gradient(135deg, #00e5ff, #00bfd8); color: #06131a; box-shadow: 0 0 16px rgba(0,229,255,0.35); }
-  .product-trial-note { color: var(--text-muted); font-size: 0.78rem; margin-top: 0.6rem; }
-  .product-col .plans { grid-template-columns: repeat(2, 1fr); gap: 1.1rem; max-width: none; margin: 0; padding: 1.5rem 1.25rem 1rem; }
-  .product-col .card { padding: 1.6rem 1.4rem; }
-  .product-col .open-tier { max-width: none; margin: 0; padding: 1.25rem 1.25rem 0; }
-  .product-col .open-card { padding: 1.1rem 1.25rem; gap: 1rem; }
-  @media (max-width: 1100px) { .two-products { grid-template-columns: 1fr; } }
-  @media (max-width: 640px) { .product-col .plans { grid-template-columns: 1fr; padding: 1.1rem 0.8rem 0.8rem; } .product-head { padding: 1.25rem 1.1rem 1rem; } }
-  /* Stacked, each product has the full width: Local's four cards in a row, Cloud's six in two rows of three. */
-  .product-local .plans { grid-template-columns: repeat(4, 1fr); }
-  .product-hosted .plans { grid-template-columns: repeat(3, 1fr); }
-  @media (max-width: 1100px) { .product-local .plans, .product-hosted .plans { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 640px) { .product-local .plans, .product-hosted .plans { grid-template-columns: 1fr; } }
-  .btn-subscribe-local { background: linear-gradient(135deg, #00e5ff, #00bfd8); color: #06131a; margin-bottom: 0.6rem; }
-  .btn-subscribe-local:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,229,255,0.35); }
-</style>
 </head>
-<body>
+<body data-product="cloud">
 
-
+<canvas id="lattice" aria-hidden="true" data-ambient></canvas>
 
 <div id="ga-nav-mount"></div>
 
+<main class="page">
 
-
-<!-- PAGE LOGO -->
-<div class="hero-logo-wrap">
-  <img src="GHOSTLOGO.JPG" alt="Ghost Architect™" />
-</div>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-eyebrow">// pricing</div>
-  <h1>Pre-engagement triage.<br>Before the migration, SOW, or audit.</h1>
-  <p>Ghost Architect triages any codebase, categorizes risk, prioritizes findings, and gives your team a map of where to start. Any codebase. Any language. Any platform.</p>
-
-  <div class="eol-banner">
-    <div class="eol-dot"></div>
-    <div>
-      <strong>Ghost Architect&trade; Local 7.4.17 is the current release.</strong>
-      <span> Your model, your hardware, zero egress. One annual licence, no per-token bill. <a href="/local.html" style="color:#00bfd8;text-decoration:underline;">See Ghost Architect&trade; Local &rarr;</a></span>
+  <header class="page-hero">
+    <figure class="figure logo"><img src="../GHOSTLOGO.JPG" alt="Ghost Architect™" width="220" height="220" /></figure>
+    <p class="eyebrow">// pricing</p>
+    <h1>Pre-engagement triage.<br><em>Before the migration, SOW, or audit.</em></h1>
+    <p class="lede">Ghost Architect triages any codebase, categorizes risk, prioritizes findings, and gives your team a map of where to start. Any codebase. Any language. Any platform.</p>
+    <div class="callout local">
+      <p><strong>Ghost Architect&trade; Local 7.4.17 is the current release.</strong> Your model, your hardware, zero egress. One annual licence, no per-token bill. <a href="local.html">See Ghost Architect&trade; Local &rarr;</a></p>
     </div>
-  </div>
-</div>
+  </header>
 
-<!-- TWO PRODUCTS, STACKED: Local first, then Cloud (EJ, 2026-09-24: "move the ghost local pricing blocks cards to the top and ghost cloud to the bottom"). -->
-<div class="two-products" id="choose">
+  <!-- TWO PRODUCTS, STACKED: Local first, then Cloud (EJ, 2026-09-24: "move the ghost local pricing blocks cards to the top and ghost cloud to the bottom"). -->
+  <div id="choose">
 
-<section class="product-col product-local" id="local">
-  <div class="product-head">
-    <div class="product-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="product-new">NEW</span></div>
+  <section class="band" id="local">
+    <p class="eyebrow local">Ghost Architect&trade; Local &middot; your hardware <span class="pill local">NEW</span></p>
     <h2>Annual licence.<br>Your model, your network, no per-token bill.</h2>
-    <p>From $999 a year for one seat to $24,999 for the enterprise, installed on machines you own. A bad answer costs a re-run, not an invoice. Convert during the trial and the first year is half price. <a href="/local.html">What Local is.</a></p>
-    <a href="/download.html" class="product-trial local">Evaluation Trial &middot; Ghost Architect&trade; Local</a>
-    <div class="product-trial-note">No card, no account; the trial starts inside the product on your own machine.</div>
-  </div>
-<div class="plans plans-local">
-  <div class="card" style="border-color: rgba(0,191,216,0.45);">
-    
-    <div class="plan-name" style="color:#00bfd8;">// local solo</div>
-    <div class="plan-title">Solo Developer</div>
-    <div class="plan-desc">One architect, one machine or a hub and a laptop. Everything the product does, on hardware you already own.</div>
-    <div class="plan-price">
-      <span class="price-currency">$</span>
-      <span class="price-amount">999</span>
-      <span class="price-period">/yr</span>
+    <p class="lede">From $999 a year for one seat to $24,999 for the enterprise, installed on machines you own. A bad answer costs a re-run, not an invoice. Convert during the trial and the first year is half price. <a href="local.html">What Local is.</a></p>
+    <div class="hero-cta">
+      <a href="download.html" class="btn btn-local-solid">Evaluation Trial &middot; Ghost Architect&trade; Local</a>
     </div>
-    <div class="price-note">1 seat &middot; Annual licence &middot; No per-token bill</div>
-    <ul class="features">
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Every scan mode: Points of Interest, Blast Radius, Conflict Detection, Pre-Sprint, Recon, Executive Brief</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Brief&trade; prompt packs written from your code</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Triple Crown&trade; on every commit from a hook</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Runs on your model server: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Zero egress at the code level, with the inventory that proves it</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Hub and spokes: one fleet page, one queue, LLM Status</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Compliance ledger and signed exports for your auditor</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF, Markdown and JSON reports, kept on your disk</li>
-    </ul>
-    <a href="https://buy.stripe.com/eVq9AT579aiU53d3aBbEA0c" class="btn btn-subscribe-local" data-tier="solo">Subscribe &rarr;</a>
-    <a href="/download.html" class="btn btn-secondary" style="border-color:#00bfd8;color:#00bfd8;">Evaluation trial &rarr;</a>
-  </div>
-  <div class="card featured" style="border-color: rgba(0,191,216,0.45);">
-    <div class="plan-badge" style="background:#00bfd8;color:#06131a;">Most Popular</div>
-    <div class="plan-name" style="color:#00bfd8;">// local small team</div>
-    <div class="plan-title">Small Team</div>
-    <div class="plan-desc">Five seats across a team. A hub in the office, spokes on the engineers' machines, one queue for all of it.</div>
-    <div class="plan-price">
-      <span class="price-currency">$</span>
-      <span class="price-amount">4,999</span>
-      <span class="price-period">/yr</span>
-    </div>
-    <div class="price-note">5 seats &middot; Annual licence &middot; No per-token bill</div>
-    <ul class="features">
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Every scan mode: Points of Interest, Blast Radius, Conflict Detection, Pre-Sprint, Recon, Executive Brief</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Brief&trade; prompt packs written from your code</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Triple Crown&trade; on every commit from a hook</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Runs on your model server: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Zero egress at the code level, with the inventory that proves it</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Hub and spokes: one fleet page, one queue, LLM Status</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Compliance ledger and signed exports for your auditor</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF, Markdown and JSON reports, kept on your disk</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Departments and roles in Admin Console</li>
-    </ul>
-    <a href="https://buy.stripe.com/6oU14n2Z14YAbrBfXnbEA0b" class="btn btn-subscribe-local" data-tier="small_team">Subscribe &rarr;</a>
-    <a href="/download.html" class="btn btn-secondary" style="border-color:#00bfd8;color:#00bfd8;">Evaluation trial &rarr;</a>
-  </div>
-  <div class="card" style="border-color: rgba(0,191,216,0.45);">
-    
-    <div class="plan-name" style="color:#00bfd8;">// local agency</div>
-    <div class="plan-title">Agency</div>
-    <div class="plan-desc">Fifteen seats for a consultancy running engagements under NDA, where client source may not leave infrastructure the client controls.</div>
-    <div class="plan-price">
-      <span class="price-currency">$</span>
-      <span class="price-amount">12,499</span>
-      <span class="price-period">/yr</span>
-    </div>
-    <div class="price-note">15 seats &middot; Annual licence &middot; No per-token bill</div>
-    <ul class="features">
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Every scan mode: Points of Interest, Blast Radius, Conflict Detection, Pre-Sprint, Recon, Executive Brief</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Brief&trade; prompt packs written from your code</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Triple Crown&trade; on every commit from a hook</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Runs on your model server: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Zero egress at the code level, with the inventory that proves it</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Hub and spokes: one fleet page, one queue, LLM Status</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Compliance ledger and signed exports for your auditor</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF, Markdown and JSON reports, kept on your disk</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Departments and roles in Admin Console</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Client health reports under your own name (Ghost Partner&trade; profiles)</li>
-    </ul>
-    <a href="https://buy.stripe.com/7sY5kDfLNbmY3Z95iJbEA0a" class="btn btn-subscribe-local" data-tier="agency">Subscribe &rarr;</a>
-    <a href="/download.html" class="btn btn-secondary" style="border-color:#00bfd8;color:#00bfd8;">Evaluation trial &rarr;</a>
-  </div>
-  <div class="card" style="border-color: rgba(0,191,216,0.45);">
-    
-    <div class="plan-name" style="color:#00bfd8;">// local enterprise</div>
-    <div class="plan-title">Enterprise</div>
-    <div class="plan-desc">Unlimited seats and departments, a formal MSA, and EJ on the line for the rollout.</div>
-    <div class="plan-price">
-      <span class="price-currency">$</span>
-      <span class="price-amount">24,999</span>
-      <span class="price-period">/yr</span>
-    </div>
-    <div class="price-note">Unlimited seats &middot; Annual licence &middot; No per-token bill</div>
-    <ul class="features">
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Every scan mode: Points of Interest, Blast Radius, Conflict Detection, Pre-Sprint, Recon, Executive Brief</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Brief&trade; prompt packs written from your code</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Triple Crown&trade; on every commit from a hook</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Runs on your model server: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Zero egress at the code level, with the inventory that proves it</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Hub and spokes: one fleet page, one queue, LLM Status</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Compliance ledger and signed exports for your auditor</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF, Markdown and JSON reports, kept on your disk</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Departments and roles in Admin Console</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Client health reports under your own name</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Formal MSA and a named contact</li>
-    </ul>
-    <a href="https://buy.stripe.com/eVq4gz8jl62EanxfXnbEA09" class="btn btn-subscribe-local" data-tier="enterprise">Subscribe &rarr;</a>
-    <a href="/download.html" class="btn btn-secondary" style="border-color:#00bfd8;color:#00bfd8;">Evaluation trial &rarr;</a>
-  </div>
-</div>
-<p style="text-align:center; color: var(--text-dim); font-size: 0.85rem; max-width: 820px; margin: 1.2rem auto 0; padding: 0 1.5rem;">Prices in USD. Subscriptions renew yearly. Evaluating? Your first year is half price: choose Convert Now inside Ghost Architect&trade; Local, or enter the code from your evaluation emails at checkout, before your evaluation ends.</p>
+    <p class="trial-note">No card, no account; the trial starts inside the product on your own machine.</p>
 
-</section><!-- /product-local -->
-
-<section class="product-col product-hosted" id="plans">
-  <div class="product-head">
-    <div class="product-eyebrow">Ghost Architect&trade; Cloud</div>
-    <h2>Monthly, per seat.<br>Frontier model, your API key.</h2>
-    <p>Free tier on npm, plans from $25 a seat a month, Ghost Brief&trade; tiers from $99, cancel anytime. Start in a minute.</p>
-    <a href="/trial.html" class="product-trial hosted">Start Free Trial &middot; 7 Days Pro Max</a>
-    <div class="product-trial-note">No credit card.</div>
-  </div>
-
-<!-- GHOST OPEN FREE TIER -->
-<div class="open-tier">
-  <div class="open-card">
-    <div class="open-card-left">
-      <span class="open-tag">FREE / OPEN SOURCE</span>
-      <div class="open-text">
-        <strong>Ghost Open v7.0.0. Question and Recon free forever, 4 free deep reports.</strong>
-        <span style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;"><span style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 6px; padding: 0.25rem 0.5rem 0.25rem 0.65rem; white-space: nowrap;"><span id="npm-cmd-pricing" style="color: var(--text);">npm i -g ghost-architect-open</span><button onclick="navigator.clipboard.writeText('npm i -g ghost-architect-open').then(function(){ var b = document.getElementById('copy-btn-pricing'); b.textContent = 'Copied!'; setTimeout(function(){ b.textContent = 'Copy'; }, 2000); })" id="copy-btn-pricing" style="background: rgba(0,212,170,0.15); border: 1px solid #00d4aa; color: #00d4aa; border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.72rem; cursor: pointer; font-family: var(--font-mono); white-space: nowrap;">Copy</button></span><span style="opacity: 0.7;">&middot; MIT license &middot; 3,933+ npm downloads &middot; free forever, no signup required</span></span>
+    <div class="cards plan-cards local four">
+      <div class="card">
+        <div class="k">// local solo</div>
+        <h3>Solo Developer</h3>
+        <p>One architect, one machine or a hub and a laptop. Everything the product does, on hardware you already own.</p>
+        <div class="price"><span class="cur">$</span>999<small>/yr</small></div>
+        <p class="pnote">1 seat &middot; Annual licence &middot; No per-token bill</p>
+        <ul>
+          <li>Every scan mode: Points of Interest, Blast Radius, Conflict Detection, Pre-Sprint, Recon, Executive Brief</li>
+          <li>Ghost Brief&trade; prompt packs written from your code</li>
+          <li>Ghost Triple Crown&trade; on every commit from a hook</li>
+          <li>Runs on your model server: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint</li>
+          <li>Zero egress at the code level, with the inventory that proves it</li>
+          <li>Hub and spokes: one fleet page, one queue, LLM Status</li>
+          <li>Compliance ledger and signed exports for your auditor</li>
+          <li>PDF, Markdown and JSON reports, kept on your disk</li>
+        </ul>
+        <a href="https://buy.stripe.com/eVq9AT579aiU53d3aBbEA0c" class="btn btn-local-solid" data-tier="solo">Subscribe &rarr;</a>
+        <a href="download.html" class="btn btn-local">Evaluation trial &rarr;</a>
+      </div>
+      <div class="card hi-local">
+        <div class="badges"><span class="pill local">Most Popular</span></div>
+        <div class="k">// local small team</div>
+        <h3>Small Team</h3>
+        <p>Five seats across a team. A hub in the office, spokes on the engineers' machines, one queue for all of it.</p>
+        <div class="price"><span class="cur">$</span>4,999<small>/yr</small></div>
+        <p class="pnote">5 seats &middot; Annual licence &middot; No per-token bill</p>
+        <ul>
+          <li>Every scan mode: Points of Interest, Blast Radius, Conflict Detection, Pre-Sprint, Recon, Executive Brief</li>
+          <li>Ghost Brief&trade; prompt packs written from your code</li>
+          <li>Ghost Triple Crown&trade; on every commit from a hook</li>
+          <li>Runs on your model server: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint</li>
+          <li>Zero egress at the code level, with the inventory that proves it</li>
+          <li>Hub and spokes: one fleet page, one queue, LLM Status</li>
+          <li>Compliance ledger and signed exports for your auditor</li>
+          <li>PDF, Markdown and JSON reports, kept on your disk</li>
+          <li>Departments and roles in Admin Console</li>
+        </ul>
+        <a href="https://buy.stripe.com/6oU14n2Z14YAbrBfXnbEA0b" class="btn btn-local-solid" data-tier="small_team">Subscribe &rarr;</a>
+        <a href="download.html" class="btn btn-local">Evaluation trial &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="k">// local agency</div>
+        <h3>Agency</h3>
+        <p>Fifteen seats for a consultancy running engagements under NDA, where client source may not leave infrastructure the client controls.</p>
+        <div class="price"><span class="cur">$</span>12,499<small>/yr</small></div>
+        <p class="pnote">15 seats &middot; Annual licence &middot; No per-token bill</p>
+        <ul>
+          <li>Every scan mode: Points of Interest, Blast Radius, Conflict Detection, Pre-Sprint, Recon, Executive Brief</li>
+          <li>Ghost Brief&trade; prompt packs written from your code</li>
+          <li>Ghost Triple Crown&trade; on every commit from a hook</li>
+          <li>Runs on your model server: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint</li>
+          <li>Zero egress at the code level, with the inventory that proves it</li>
+          <li>Hub and spokes: one fleet page, one queue, LLM Status</li>
+          <li>Compliance ledger and signed exports for your auditor</li>
+          <li>PDF, Markdown and JSON reports, kept on your disk</li>
+          <li>Departments and roles in Admin Console</li>
+          <li>Client health reports under your own name (Ghost Partner&trade; profiles)</li>
+        </ul>
+        <a href="https://buy.stripe.com/7sY5kDfLNbmY3Z95iJbEA0a" class="btn btn-local-solid" data-tier="agency">Subscribe &rarr;</a>
+        <a href="download.html" class="btn btn-local">Evaluation trial &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="k">// local enterprise</div>
+        <h3>Enterprise</h3>
+        <p>Unlimited seats and departments, a formal MSA, and EJ on the line for the rollout.</p>
+        <div class="price"><span class="cur">$</span>24,999<small>/yr</small></div>
+        <p class="pnote">Unlimited seats &middot; Annual licence &middot; No per-token bill</p>
+        <ul>
+          <li>Every scan mode: Points of Interest, Blast Radius, Conflict Detection, Pre-Sprint, Recon, Executive Brief</li>
+          <li>Ghost Brief&trade; prompt packs written from your code</li>
+          <li>Ghost Triple Crown&trade; on every commit from a hook</li>
+          <li>Runs on your model server: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint</li>
+          <li>Zero egress at the code level, with the inventory that proves it</li>
+          <li>Hub and spokes: one fleet page, one queue, LLM Status</li>
+          <li>Compliance ledger and signed exports for your auditor</li>
+          <li>PDF, Markdown and JSON reports, kept on your disk</li>
+          <li>Departments and roles in Admin Console</li>
+          <li>Client health reports under your own name</li>
+          <li>Formal MSA and a named contact</li>
+        </ul>
+        <a href="https://buy.stripe.com/eVq4gz8jl62EanxfXnbEA09" class="btn btn-local-solid" data-tier="enterprise">Subscribe &rarr;</a>
+        <a href="download.html" class="btn btn-local">Evaluation trial &rarr;</a>
       </div>
     </div>
-    <div class="open-actions">
-      <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer">npm →</a>
+    <p class="fine">Prices in USD. Subscriptions renew yearly. Evaluating? Your first year is half price: choose Convert Now inside Ghost Architect&trade; Local, or enter the code from your evaluation emails at checkout, before your evaluation ends.</p>
+  </section><!-- /local -->
+
+  <section class="band" id="plans">
+    <p class="eyebrow">Ghost Architect&trade; Cloud</p>
+    <h2>Monthly, per seat.<br>Frontier model, your API key.</h2>
+    <p class="lede">Free tier on npm, plans from $25 a seat a month, Ghost Brief&trade; tiers from $99, cancel anytime. Start in a minute.</p>
+    <div class="hero-cta">
+      <a href="trial.html" class="btn btn-cloud">Start Free Trial &middot; 7 Days Pro Max</a>
     </div>
-  </div>
-</div>
+    <p class="trial-note">No credit card.</p>
 
-<!-- LAUNCH50-PROMO START. Commented out 2026-05-27; uncomment to re-enable. -->
-<!--
-<div style="max-width: 1100px; margin: 2rem auto 0; padding: 0 2rem;">
-  <div style="background: linear-gradient(135deg, rgba(0,212,170,0.08) 0%, rgba(74,158,255,0.05) 100%); border: 1px solid rgba(0,212,170,0.35); border-left: 4px solid var(--accent2); border-radius: 12px; padding: 1.5rem 1.75rem; position: relative; overflow: hidden;">
-    <span style="position: absolute; top: 0.6rem; left: 0.7rem; color: var(--accent2); font-family: var(--font-mono); font-size: 0.85rem; opacity: 0.5;">+</span>
-    <span style="position: absolute; top: 0.6rem; right: 0.7rem; color: var(--accent2); font-family: var(--font-mono); font-size: 0.85rem; opacity: 0.5;">+</span>
-    <span style="position: absolute; bottom: 0.6rem; left: 0.7rem; color: var(--accent2); font-family: var(--font-mono); font-size: 0.85rem; opacity: 0.5;">+</span>
-    <span style="position: absolute; bottom: 0.6rem; right: 0.7rem; color: var(--accent2); font-family: var(--font-mono); font-size: 0.85rem; opacity: 0.5;">+</span>
-    <div style="text-align: center;">
-      <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent2); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.5rem;">// v7.0.0 launch special</div>
-      <div style="display: inline-block; width: 32px; height: 2px; background: #ff6b35; margin-bottom: 0.75rem;"></div>
-      <div style="font-size: 1.05rem; color: var(--text); font-weight: 600; line-height: 1.45; margin-bottom: 0.4rem;">50% off your first month with code <code style="background: rgba(0,212,170,0.15); color: var(--accent2); padding: 0.15rem 0.55rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.95rem;">LAUNCH50</code></div>
-      <div style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-mono);">First 100 redemptions. While supplies last. Applies to Pro, Team, and Enterprise.</div>
+    <!-- GHOST OPEN FREE TIER -->
+    <div class="callout teal open-tier">
+      <div class="k">FREE / OPEN SOURCE</div>
+      <p><strong>Ghost Open v7.0.0. Question and Recon free forever, 4 free deep reports.</strong></p>
+      <p><span class="npm"><span id="npm-cmd-pricing">npm i -g ghost-architect-open</span><button type="button" onclick="navigator.clipboard.writeText('npm i -g ghost-architect-open').then(function(){ var b = document.getElementById('copy-btn-pricing'); b.textContent = 'Copied!'; setTimeout(function(){ b.textContent = 'Copy'; }, 2000); })" id="copy-btn-pricing">Copy</button></span><span class="meta">&middot; MIT license &middot; 3,933+ npm downloads &middot; free forever, no signup required</span></p>
+      <p><a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer">npm →</a></p>
     </div>
-  </div>
-</div>
--->
-<!-- LAUNCH50-PROMO END -->
 
-<!-- PAID PLANS -->
-<div class="plans">
-
-  <!-- PRO -->
-  <div class="card">
-    <div class="plan-name">// ghost pro</div>
-    <div class="plan-title">Solo Architect</div>
-    <div class="plan-desc">For independent architects and consultants tracking audit progress across multiple client engagements. Ghost Partner™ profile support included.</div>
-    <div class="plan-price">
-      <span class="price-currency">$</span>
-      <span class="price-amount">25</span>
-      <span class="price-period">/mo</span>
+    <!-- LAUNCH50-PROMO START. Commented out 2026-05-27; uncomment to re-enable. -->
+    <!--
+    <div class="callout teal">
+      <div class="k">// v7.0.0 launch special</div>
+      <p><strong>50% off your first month with code <code>LAUNCH50</code></strong></p>
+      <p class="pnote">First 100 redemptions. While supplies last. Applies to Pro, Team, and Enterprise.</p>
     </div>
-    <div class="price-note">Billed monthly · Cancel anytime</div>
-    <ul class="features">
-      <li class="section-label">scan engine</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>All 8 scan modes (POI, Blast, Conflict, Recon, Audit, Chat, Compare, Dashboard)</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Prompt Triage with 16 detectors</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF, Markdown, and TXT reports</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Structured findings.json output</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>100K context cap per scan</li>
-      <li class="section-label">project tracking</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Project labels with baseline comparison</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Project Intelligence Dashboard with PDF export</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Compare Reports (before/after diff)</li>
-      <li class="section-label">consultant features</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Partner™ profile loading</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom billing rate overrides per profile</li>
-      <li class="section-label">support &amp; privacy</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority email support</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Code stays local. BYOK Anthropic API</li>
-    </ul>
-    <a href="https://buy.stripe.com/cNi00j0QT76I67h7qRbEA07" class="btn btn-secondary">Get Ghost Pro →</a>
-  </div>
+    -->
+    <!-- LAUNCH50-PROMO END -->
 
-  <!-- TEAM -- FEATURED -->
-  <div class="card featured">
-    <div class="plan-badge">Most Popular</div>
-    <div class="plan-name">// ghost team</div>
-    <div class="plan-title">Agency Team</div>
-    <div class="plan-desc">For agencies running audits across multiple client engagements on any stack.</div>
-    <div class="plan-price">
-      <span class="price-currency">$</span>
-      <span class="price-amount">399</span>
-      <span class="price-period">/mo</span>
+    <!-- PAID PLANS -->
+    <div class="cards plan-cards">
+
+      <!-- PRO -->
+      <div class="card">
+        <div class="k blue">// ghost pro</div>
+        <h3>Solo Architect</h3>
+        <p>For independent architects and consultants tracking audit progress across multiple client engagements. Ghost Partner™ profile support included.</p>
+        <div class="price"><span class="cur">$</span>25<small>/mo</small></div>
+        <p class="pnote">Billed monthly · Cancel anytime</p>
+        <ul>
+          <li class="sl">scan engine</li>
+          <li>All 8 scan modes (POI, Blast, Conflict, Recon, Audit, Chat, Compare, Dashboard)</li>
+          <li>Prompt Triage with 16 detectors</li>
+          <li>PDF, Markdown, and TXT reports</li>
+          <li>Structured findings.json output</li>
+          <li>100K context cap per scan</li>
+          <li class="sl">project tracking</li>
+          <li>Project labels with baseline comparison</li>
+          <li>Project Intelligence Dashboard with PDF export</li>
+          <li>Compare Reports (before/after diff)</li>
+          <li class="sl">consultant features</li>
+          <li>Ghost Partner™ profile loading</li>
+          <li>Custom billing rate overrides per profile</li>
+          <li class="sl">support &amp; privacy</li>
+          <li>Priority email support</li>
+          <li>Code stays local. BYOK Anthropic API</li>
+        </ul>
+        <a href="https://buy.stripe.com/cNi00j0QT76I67h7qRbEA07" class="btn btn-ghost">Get Ghost Pro →</a>
+      </div>
+
+      <!-- TEAM -- FEATURED -->
+      <div class="card hi">
+        <div class="badges"><span class="pill blue">Most Popular</span></div>
+        <div class="k blue">// ghost team</div>
+        <h3>Agency Team</h3>
+        <p>For agencies running audits across multiple client engagements on any stack.</p>
+        <div class="price"><span class="cur">$</span>399<small>/mo</small></div>
+        <p class="pnote">Up to 5 seats · $80/seat · Cancel anytime</p>
+        <ul>
+          <li class="sl">scan engine</li>
+          <li>All 8 scan modes (POI, Blast, Conflict, Recon, Audit, Chat, Compare, Dashboard)</li>
+          <li>Prompt Triage with 16 detectors</li>
+          <li>PDF, Markdown, TXT, JSON reports</li>
+          <li>150K context cap per scan</li>
+          <li class="sl">team collaboration</li>
+          <li>5 architect seats on one membership</li>
+          <li>Parallel client scans across seats</li>
+          <li>Shared project history across the team</li>
+          <li>Customer portal (web view of every scan)</li>
+          <li class="sl">project tracking &amp; partner</li>
+          <li>Project Intelligence Dashboard with trends</li>
+          <li>Compare Reports (before/after diff)</li>
+          <li>Ghost Partner™ profiles + custom billing rates</li>
+          <li>White-label PDF with your firm's branding</li>
+          <li class="sl">ghost watcher™</li>
+          <li>Ghost Watcher™ -- automatic commit monitoring via GitHub Actions</li>
+          <li class="note">Uses your Anthropic API key. Typical cost: $1-2 per commit scan.</li>
+          <li class="sl local">Ghost Watcher™</li>
+          <li>Blast Radius + Conflict Detection on every push</li>
+          <li>Ghost Portal Watch tab -- Commits, Findings, Prompts</li>
+          <li>PR comment with findings summary on every pull request</li>
+          <li class="sl">onboarding &amp; support</li>
+          <li>Dedicated onboarding session</li>
+          <li>Slack / Teams support channel</li>
+          <li>Code stays local. BYOK Anthropic API</li>
+        </ul>
+        <a href="https://buy.stripe.com/5kQfZhdDFeza7blbH7bEA01" class="btn btn-cloud">Get Ghost Team →</a>
+      </div>
+
+      <!-- ENTERPRISE -->
+      <div class="card" id="enterprise">
+        <div class="k blue">// ghost enterprise</div>
+        <h3>Enterprise</h3>
+        <p>For enterprise teams and large agencies with complex multi-project environments.</p>
+        <div class="k dim">starts at</div>
+        <div class="price"><span class="cur">$</span>1,200<small>/mo</small></div>
+        <p class="pnote">Custom seats · MSA included · Invoiced billing available</p>
+        <ul>
+          <li class="sl">scan engine</li>
+          <li>All 8 scan modes (POI, Blast, Conflict, Recon, Audit, Chat, Compare, Dashboard)</li>
+          <li>Prompt Triage with 16 detectors</li>
+          <li>PDF, Markdown, TXT, JSON reports</li>
+          <li>200K context cap per scan</li>
+          <li class="sl">team &amp; portfolio</li>
+          <li>Unlimited seats across your organization</li>
+          <li>Parallel client scans across seats</li>
+          <li>Shared project history across the org</li>
+          <li>Customer portal (web view of every scan)</li>
+          <li>Multi-brand portfolio support</li>
+          <li class="sl">consultant &amp; partner</li>
+          <li>Project Intelligence Dashboard with trends</li>
+          <li>Compare Reports (before/after diff)</li>
+          <li>Ghost Partner™ profiles + custom billing rates</li>
+          <li>White-label PDF with your firm's branding</li>
+          <li class="sl">ghost watcher™</li>
+          <li>Ghost Watcher™ -- automatic commit monitoring via GitHub Actions</li>
+          <li class="note">Uses your Anthropic API key. Typical cost: $1-2 per commit scan.</li>
+          <li class="sl local">Ghost Watcher™</li>
+          <li>Blast Radius + Conflict Detection on every push</li>
+          <li>Ghost Portal Watch tab -- Commits, Findings, Prompts</li>
+          <li>PR comment with findings summary on every pull request</li>
+          <li class="sl">contracts &amp; billing</li>
+          <li>Custom MSA and NDA execution</li>
+          <li>Invoice / NET-30 billing on request</li>
+          <li class="sl">direct access</li>
+          <li>Dedicated architect sessions with EJ Wisner</li>
+          <li>Priority roadmap input</li>
+          <li>Code stays local. BYOK Anthropic API</li>
+        </ul>
+        <a href="https://buy.stripe.com/4gM3cvartaiU2V5fXnbEA02" class="btn btn-ghost">Get Ghost Enterprise →</a>
+      </div>
+
+      <!-- PRO MAX -->
+      <div class="card">
+        <div class="badges"><span class="pill blue">NEW</span></div>
+        <div class="k blue">// ghost pro max</div>
+        <h3>Solo Architect + Brief</h3>
+        <p>Full Ghost Architect™ diagnostic power plus Ghost Brief™ -- the governed AI remediation pipeline. After every scan, Ghost converts your findings into a validated, blast-radius-aware prompt pack your AI coding agent can execute immediately. You stop translating findings into instructions. You stop worrying about what the AI might break. Ghost briefs the AI. The AI fixes the code. You ship.</p>
+        <div class="price"><span class="cur">$</span>99<small>/mo</small></div>
+        <p class="pnote">Billed monthly · Cancel anytime</p>
+        <ul>
+          <li class="sl">everything in ghost pro™</li>
+          <li>Everything in Ghost Pro™</li>
+          <li class="sl">ghost brief™</li>
+          <li>Ghost Brief™ generation after every scan</li>
+          <li>Blast-radius-aware Claude Code prompt pack</li>
+          <li>Download ghost-brief.json for any AI coding agent</li>
+          <li>Ghost Portal™ Brief tab -- view, download, history</li>
+          <li>Validated prompt output -- no hallucinated fix paths</li>
+          <li class="sl">executive brief™</li>
+          <li>Executive Brief™ after every scan</li>
+          <li>Health score 0-100 with plain-language risk label</li>
+          <li>AI-generated executive narrative in consultant voice</li>
+          <li>Manual vs AI-assisted cost comparison table</li>
+          <li>Client-ready PDF to Ghost Architect Reports</li>
+        </ul>
+        <a href="https://buy.stripe.com/8x2bJ1gPRezacvFh1rbEA08" class="btn btn-ghost">Get Ghost Pro Max →</a>
+      </div>
+
+      <!-- TEAM MAX -->
+      <div class="card">
+        <div class="badges"><span class="pill blue">NEW</span></div>
+        <div class="k blue">// ghost team max</div>
+        <h3>Agency Team + Brief</h3>
+        <p>Everything your team needs to run governed AI remediation across a shared codebase. Every seat generates their own Ghost Brief™. But the real value is the Unified Brief -- Ghost consolidates every architect's findings into one master prompt pack that understands how each fix affects every other area. No more one engineer's fix breaking another engineer's work. The whole team moves together, with one source of truth telling the AI exactly what to do and in what order.</p>
+        <div class="price"><span class="cur">$</span>799<small>/mo</small></div>
+        <p class="pnote">Up to 5 seats · Billed monthly · Cancel anytime</p>
+        <ul>
+          <li class="sl">everything in ghost team™</li>
+          <li>Everything in Ghost Team™</li>
+          <li class="sl">ghost brief™</li>
+          <li>Ghost Brief™ per seat</li>
+          <li>Unified Brief across all seats</li>
+          <li>Blast radius cross-referenced across architects</li>
+          <li>One master prompt pack for the whole codebase</li>
+          <li>Ghost Portal™ Brief tab with full team history</li>
+          <li class="sl">ghost watcher™ · ghost triple crown™</li>
+          <li>Ghost Watcher™ -- automatic commit monitoring via GitHub Actions</li>
+          <li class="note">Uses your Anthropic API key. Typical cost: $1-2 per commit scan.</li>
+          <li class="sl local">Ghost Triple Crown™</li>
+          <li>Blast Radius + Conflict Detection + Ghost Brief™ on every push</li>
+          <li>Ghost Portal Watch tab -- Commits, Findings, Prompts</li>
+          <li>PR comment with findings summary on every pull request</li>
+          <li class="sl">executive brief™</li>
+          <li>Executive Brief™ per seat</li>
+          <li>Health score and risk narrative per engagement</li>
+          <li>Cost comparison table ready for client delivery</li>
+          <li>Shareable PDF for stakeholder review</li>
+        </ul>
+        <a href="https://buy.stripe.com/28E9AT7fhdv6brBeTjbEA05" class="btn btn-ghost">Get Ghost Team Max →</a>
+      </div>
+
+      <!-- ENTERPRISE MAX -->
+      <div class="card">
+        <div class="badges"><span class="pill blue">NEW</span></div>
+        <div class="k blue">// ghost enterprise max</div>
+        <h3>Enterprise + Brief</h3>
+        <p>The complete Ghost Platform™ at full enterprise scale -- unlimited scans, unlimited Briefs, unlimited seats, formal MSA, and dedicated Ghost Partner co-engagement with EJ Wisner directly. You don't just get the tool. You get the architect who built it, embedded in your remediation workflow, making sure your AI coding pipeline is governed, validated, and producing results your stakeholders can see. This is what enterprise AI-assisted remediation looks like when it's done right.</p>
+        <div class="k dim">starts at</div>
+        <div class="price"><span class="cur">$</span>2,500<small>/mo</small></div>
+        <p class="pnote">Custom seats · MSA included · Invoiced billing available</p>
+        <ul>
+          <li class="sl">everything in ghost enterprise™</li>
+          <li>Everything in Ghost Enterprise™</li>
+          <li class="sl">ghost brief™</li>
+          <li>Unlimited Ghost Brief™ generations</li>
+          <li>Unified Brief at enterprise scale</li>
+          <li>Dedicated Ghost Partner co-engagement (EJ Wisner)</li>
+          <li>SLA response commitment</li>
+          <li>Formal MSA included</li>
+          <li>Priority roadmap input</li>
+          <li class="sl">ghost watcher™ · ghost triple crown™</li>
+          <li>Ghost Watcher™ -- automatic commit monitoring via GitHub Actions</li>
+          <li class="note">Uses your Anthropic API key. Typical cost: $1-2 per commit scan.</li>
+          <li class="sl local">Ghost Triple Crown™</li>
+          <li>Blast Radius + Conflict Detection + Ghost Brief™ on every push</li>
+          <li>Ghost Portal Watch tab -- Commits, Findings, Prompts</li>
+          <li>PR comment with findings summary on every pull request</li>
+          <li class="sl">executive brief™</li>
+          <li>Unlimited Executive Brief™ generations</li>
+          <li>Board and PE-ready one-page brief format</li>
+          <li>Custom branding via Ghost Partner™ profile</li>
+          <li>Integrated with deal-grade Inheritance Audit</li>
+        </ul>
+        <a href="https://buy.stripe.com/cNi14nbvxezadzJfXnbEA06" class="btn btn-ghost">Get Ghost Enterprise Max →</a>
+      </div>
+
     </div>
-    <div class="price-note">Up to 5 seats · $80/seat · Cancel anytime</div>
-    <ul class="features">
-      <li class="section-label">scan engine</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>All 8 scan modes (POI, Blast, Conflict, Recon, Audit, Chat, Compare, Dashboard)</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Prompt Triage with 16 detectors</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF, Markdown, TXT, JSON reports</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>150K context cap per scan</li>
-      <li class="section-label">team collaboration</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>5 architect seats on one membership</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Parallel client scans across seats</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Shared project history across the team</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Customer portal (web view of every scan)</li>
-      <li class="section-label">project tracking &amp; partner</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Project Intelligence Dashboard with trends</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Compare Reports (before/after diff)</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Partner™ profiles + custom billing rates</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>White-label PDF with your firm's branding</li>
-      <li class="section-label">ghost watcher™</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Watcher™ -- automatic commit monitoring via GitHub Actions</li>
-      <li style="color:var(--text-muted);font-size:0.85em;padding-left:1.5em;">Uses your Anthropic API key. Typical cost: $1-2 per commit scan.</li>
-      <li class="section-label" style="color:#00bfd8;font-size:10px;letter-spacing:0.12em;">Ghost Watcher™</li>
-      <li>👑 Blast Radius + Conflict Detection on every push</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Portal Watch tab -- Commits, Findings, Prompts</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PR comment with findings summary on every pull request</li>
-      <li class="section-label">onboarding &amp; support</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Dedicated onboarding session</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Slack / Teams support channel</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Code stays local. BYOK Anthropic API</li>
-    </ul>
-    <a href="https://buy.stripe.com/5kQfZhdDFeza7blbH7bEA01" class="btn btn-primary">Get Ghost Team →</a>
-  </div>
+  </section><!-- /plans -->
 
-  <!-- ENTERPRISE -->
-  <div class="card" id="enterprise" style="scroll-margin-top: 90px;">
-    <div class="plan-name">// ghost enterprise</div>
-    <div class="plan-title">Enterprise</div>
-    <div class="plan-desc">For enterprise teams and large agencies with complex multi-project environments.</div>
-    <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.35rem;">starts at</div>
-    <div class="plan-price">
-      <span class="price-currency">$</span>
-      <span class="price-amount">1,200</span>
-      <span class="price-period">/mo</span>
+  </div><!-- /choose -->
+
+  <!-- TRUST: grouped and labelled per product, so a phone reader who scrolled past the Local cards does not land in hosted-only copy. -->
+  <section class="band" id="local-trust">
+    <p class="eyebrow local">Ghost Architect&trade; Local &middot; your hardware</p>
+    <div class="cards">
+      <div class="card">
+        <div class="k">// your code never leaves your network</div>
+        <p>Ghost Architect&trade; Local runs on hardware you own against your own model server. No API key, no cloud call. From the Agency tier up, zero-egress mode refuses any endpoint that would send source code off the machine, at the code level, with the inventory that proves it.</p>
+      </div>
+      <div class="card">
+        <div class="k">// no third party sees your code</div>
+        <p>There is no Anthropic call to make. The model is yours: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. There is no third-party retention policy to take on trust, because there is no third party.</p>
+      </div>
+      <div class="card">
+        <div class="k">// evaluation trial, then an annual licence</div>
+        <p>Start with the evaluation trial; it starts inside the product on first use and the product tells you the day it ends. Convert during it and your first year is half price. Annual licence, no per-token bill. Enterprise includes a formal MSA.</p>
+      </div>
+      <div class="card">
+        <div class="k">// delivered to you directly</div>
+        <p>Buy a licence and your key and download link arrive by email the moment you pay. For the evaluation trial, <a href="download.html#request">request the download</a> and EJ replies with the tarball, or with access to the delivery repository on GitHub, usually the same day. Every release has a published SHA-256 to check before you unpack it.</p>
+      </div>
     </div>
-    <div class="price-note">Custom seats · MSA included · Invoiced billing available</div>
-    <ul class="features">
-      <li class="section-label">scan engine</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>All 8 scan modes (POI, Blast, Conflict, Recon, Audit, Chat, Compare, Dashboard)</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Prompt Triage with 16 detectors</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF, Markdown, TXT, JSON reports</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>200K context cap per scan</li>
-      <li class="section-label">team &amp; portfolio</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited seats across your organization</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Parallel client scans across seats</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Shared project history across the org</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Customer portal (web view of every scan)</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Multi-brand portfolio support</li>
-      <li class="section-label">consultant &amp; partner</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Project Intelligence Dashboard with trends</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Compare Reports (before/after diff)</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Partner™ profiles + custom billing rates</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>White-label PDF with your firm's branding</li>
-      <li class="section-label">ghost watcher™</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Watcher™ -- automatic commit monitoring via GitHub Actions</li>
-      <li style="color:var(--text-muted);font-size:0.85em;padding-left:1.5em;">Uses your Anthropic API key. Typical cost: $1-2 per commit scan.</li>
-      <li class="section-label" style="color:#00bfd8;font-size:10px;letter-spacing:0.12em;">Ghost Watcher™</li>
-      <li>👑 Blast Radius + Conflict Detection on every push</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Portal Watch tab -- Commits, Findings, Prompts</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PR comment with findings summary on every pull request</li>
-      <li class="section-label">contracts &amp; billing</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom MSA and NDA execution</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Invoice / NET-30 billing on request</li>
-      <li class="section-label">direct access</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Dedicated architect sessions with EJ Wisner</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority roadmap input</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Code stays local. BYOK Anthropic API</li>
-    </ul>
-    <a href="https://buy.stripe.com/4gM3cvartaiU2V5fXnbEA02" class="btn btn-secondary">Get Ghost Enterprise →</a>
-  </div>
+  </section>
 
-  <!-- PRO MAX -->
-  <div class="card">
-    <div class="plan-badge">NEW</div>
-    <div class="plan-name">// ghost pro max</div>
-    <div class="plan-title">Solo Architect + Brief</div>
-    <div class="plan-desc">Full Ghost Architect™ diagnostic power plus Ghost Brief™ -- the governed AI remediation pipeline. After every scan, Ghost converts your findings into a validated, blast-radius-aware prompt pack your AI coding agent can execute immediately. You stop translating findings into instructions. You stop worrying about what the AI might break. Ghost briefs the AI. The AI fixes the code. You ship.</div>
-    <div class="plan-price">
-      <span class="price-currency">$</span>
-      <span class="price-amount">99</span>
-      <span class="price-period">/mo</span>
+  <section class="band">
+    <p class="eyebrow">Ghost Architect&trade; Cloud</p>
+    <div class="cards">
+      <div class="card">
+        <div class="k blue">// your code stays yours</div>
+        <p>Ghost Architect&trade; runs on your machine. Your source code goes from your machine to Anthropic's API with your own key and is never uploaded to our servers. BYOK -- your Anthropic API key, your pipeline.</p>
+      </div>
+      <div class="card">
+        <div class="k blue">// api data deleted in 7 days</div>
+        <p>Anthropic deletes API inputs and outputs within 7 days per their data retention policy. We have no access to that data.</p>
+      </div>
+      <div class="card">
+        <div class="k blue">// cancel anytime</div>
+        <p>No contracts on Pro or Team. Cancel before your next billing date and you're done. Enterprise includes a formal MSA.</p>
+      </div>
+      <div class="card">
+        <div class="k blue">// instant license delivery</div>
+        <p>Your license key is auto-generated at Stripe checkout and emailed instantly. Activate with one command: <code>ghost --activate &lt;KEY&gt;</code>. No GitHub setup, no waiting.</p>
+      </div>
     </div>
-    <div class="price-note">Billed monthly · Cancel anytime</div>
-    <ul class="features">
-      <li class="section-label">everything in ghost pro™</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Ghost Pro™</li>
-      <li class="section-label">ghost brief™</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Brief™ generation after every scan</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Blast-radius-aware Claude Code prompt pack</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Download ghost-brief.json for any AI coding agent</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Portal™ Brief tab -- view, download, history</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Validated prompt output -- no hallucinated fix paths</li>
-      <li class="section-label">executive brief™</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Executive Brief™ after every scan</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Health score 0-100 with plain-language risk label</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>AI-generated executive narrative in consultant voice</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Manual vs AI-assisted cost comparison table</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Client-ready PDF to Ghost Architect Reports</li>
-    </ul>
-    <a href="https://buy.stripe.com/8x2bJ1gPRezacvFh1rbEA08" class="btn btn-secondary">Get Ghost Pro Max →</a>
-  </div>
+  </section>
 
-  <!-- TEAM MAX -->
-  <div class="card">
-    <div class="plan-badge">NEW</div>
-    <div class="plan-name">// ghost team max</div>
-    <div class="plan-title">Agency Team + Brief</div>
-    <div class="plan-desc">Everything your team needs to run governed AI remediation across a shared codebase. Every seat generates their own Ghost Brief™. But the real value is the Unified Brief -- Ghost consolidates every architect's findings into one master prompt pack that understands how each fix affects every other area. No more one engineer's fix breaking another engineer's work. The whole team moves together, with one source of truth telling the AI exactly what to do and in what order.</div>
-    <div class="plan-price">
-      <span class="price-currency">$</span>
-      <span class="price-amount">799</span>
-      <span class="price-period">/mo</span>
-    </div>
-    <div class="price-note">Up to 5 seats · Billed monthly · Cancel anytime</div>
-    <ul class="features">
-      <li class="section-label">everything in ghost team™</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Ghost Team™</li>
-      <li class="section-label">ghost brief™</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Brief™ per seat</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Unified Brief across all seats</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Blast radius cross-referenced across architects</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>One master prompt pack for the whole codebase</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Portal™ Brief tab with full team history</li>
-      <li class="section-label">ghost watcher™ · ghost triple crown™</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Watcher™ -- automatic commit monitoring via GitHub Actions</li>
-      <li style="color:var(--text-muted);font-size:0.85em;padding-left:1.5em;">Uses your Anthropic API key. Typical cost: $1-2 per commit scan.</li>
-      <li class="section-label" style="color:#00bfd8;font-size:10px;letter-spacing:0.12em;">Ghost Triple Crown™</li>
-      <li>👑 Blast Radius + Conflict Detection + Ghost Brief™ on every push</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Portal Watch tab -- Commits, Findings, Prompts</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PR comment with findings summary on every pull request</li>
-      <li class="section-label">executive brief™</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Executive Brief™ per seat</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Health score and risk narrative per engagement</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Cost comparison table ready for client delivery</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Shareable PDF for stakeholder review</li>
-    </ul>
-    <a href="https://buy.stripe.com/28E9AT7fhdv6brBeTjbEA05" class="btn btn-secondary">Get Ghost Team Max →</a>
-  </div>
+  <!-- FAQ, per product -->
+  <section class="band" id="local-faq">
+    <p class="eyebrow local">// frequently asked &middot; Ghost Architect&trade; Local</p>
+    <div class="faq" style="padding: 0;"><div class="wrap" style="max-width: 820px; margin: 0;">
+      <details>
+        <summary>What is Ghost Architect&trade; Local, and how is it different from Ghost Architect&trade; Cloud?</summary>
+        <p>The same scans and the same reports, running entirely on hardware you own against a model server you run. Ghost Architect&trade; Cloud sends your code to Anthropic's API with your own key and bills a monthly membership; Local sends nothing anywhere, needs no API key, and is an annual licence per seat band. Choose Local when the code cannot leave the building, or when a per-token bill is the wrong shape for your team.</p>
+      </details>
+      <details>
+        <summary>Do I need an Anthropic API key for Ghost Architect&trade; Local?</summary>
+        <p>No. Local runs against your own model server: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. The model, the weights and every prompt stay on your network.</p>
+      </details>
+      <details>
+        <summary>How does the evaluation trial work?</summary>
+        <p><a href="download.html#request">Request the download</a>, install it, and the trial starts inside the product on first use, registered against that install; the product tells you the day it ends. No card. Convert during the trial and your first year is half price.</p>
+      </details>
+      <details>
+        <summary>Which Local tiers include zero egress?</summary>
+        <p>Agency ($12,499 a year, 15 seats) and Enterprise ($24,999 a year, unlimited seats). Zero-egress mode refuses, at the code level, any model endpoint that would send source code off the machine, and ships with the egress inventory that proves what the product can and cannot reach. Solo and Small Team run against your own model server too; they do not carry the enforced refusal.</p>
+      </details>
+      <details>
+        <summary>How is Local delivered, and how do I upgrade?</summary>
+        <p>Directly from us, not through a package registry. Buy a licence and your key and a download link arrive by email the moment you pay; for the evaluation trial, EJ sends the tarball or gives your GitHub account access to the delivery repository. Every tarball has a published SHA-256 to check before you unpack it. On Linux the installer provisions a service account and two systemd units (the portal and the scheduler). You upgrade by re-running the installer on the new tarball; your configuration, scan history and licence persist. The <a href="../changelog.html#local">changelog</a> lists every release.</p>
+      </details>
+      <details>
+        <summary>What hardware do I need?</summary>
+        <p>Whatever runs your model server. Ghost Architect&trade; Local measures its own pass times on your machine and estimates from them, so every time estimate you see is yours and not a benchmark from ours. Larger models read code more carefully and take longer per pass; the product's LLM Status page shows your machine's speed, memory and context window so you can see the trade-off before a long scan.</p>
+      </details>
+    </div></div>
+  </section>
 
-  <!-- ENTERPRISE MAX -->
-  <div class="card">
-    <div class="plan-badge">NEW</div>
-    <div class="plan-name">// ghost enterprise max</div>
-    <div class="plan-title">Enterprise + Brief</div>
-    <div class="plan-desc">The complete Ghost Platform™ at full enterprise scale -- unlimited scans, unlimited Briefs, unlimited seats, formal MSA, and dedicated Ghost Partner co-engagement with EJ Wisner directly. You don't just get the tool. You get the architect who built it, embedded in your remediation workflow, making sure your AI coding pipeline is governed, validated, and producing results your stakeholders can see. This is what enterprise AI-assisted remediation looks like when it's done right.</div>
-    <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.35rem;">starts at</div>
-    <div class="plan-price">
-      <span class="price-currency">$</span>
-      <span class="price-amount">2,500</span>
-      <span class="price-period">/mo</span>
-    </div>
-    <div class="price-note">Custom seats · MSA included · Invoiced billing available</div>
-    <ul class="features">
-      <li class="section-label">everything in ghost enterprise™</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Ghost Enterprise™</li>
-      <li class="section-label">ghost brief™</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited Ghost Brief™ generations</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Unified Brief at enterprise scale</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Dedicated Ghost Partner co-engagement (EJ Wisner)</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>SLA response commitment</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Formal MSA included</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority roadmap input</li>
-      <li class="section-label">ghost watcher™ · ghost triple crown™</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Watcher™ -- automatic commit monitoring via GitHub Actions</li>
-      <li style="color:var(--text-muted);font-size:0.85em;padding-left:1.5em;">Uses your Anthropic API key. Typical cost: $1-2 per commit scan.</li>
-      <li class="section-label" style="color:#00bfd8;font-size:10px;letter-spacing:0.12em;">Ghost Triple Crown™</li>
-      <li>👑 Blast Radius + Conflict Detection + Ghost Brief™ on every push</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ghost Portal Watch tab -- Commits, Findings, Prompts</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PR comment with findings summary on every pull request</li>
-      <li class="section-label">executive brief™</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited Executive Brief™ generations</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Board and PE-ready one-page brief format</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom branding via Ghost Partner™ profile</li>
-      <li><svg class="icon" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Integrated with deal-grade Inheritance Audit</li>
-    </ul>
-    <a href="https://buy.stripe.com/cNi14nbvxezadzJfXnbEA06" class="btn btn-secondary">Get Ghost Enterprise Max →</a>
-  </div>
+  <section class="band">
+    <p class="eyebrow">// frequently asked &middot; Ghost Architect&trade; Cloud</p>
+    <div class="faq" style="padding: 0;"><div class="wrap" style="max-width: 820px; margin: 0;">
+      <details>
+        <summary>What is Ghost Brief™ and which tiers include it?</summary>
+        <p>Ghost Brief™ is the governed AI remediation pipeline built into Ghost Architect™. After any scan, Ghost converts your findings into a validated, blast-radius-aware prompt pack -- a ghost-brief.json file your AI coding agent (Claude Code, Cursor, Copilot) can execute immediately. Ghost Brief™ is included in Ghost Pro Max ($99/mo), Ghost Team Max ($799/mo), and Ghost Enterprise Max ($2,500/mo). All three tiers gate the feature at the license level -- no manual configuration required.</p>
+      </details>
+      <details>
+        <summary>What's the difference between Ghost Open and Ghost Pro?</summary>
+        <p>Ghost Open is free forever and requires no signup -- install and run immediately with your own Anthropic API key. For a guided Pro Max experience with Ghost Watcher, Ghost Brief, and the Ghost Portal running on your real repo, start a 7-day free trial at ghostarchitect.dev/trial. Ask a Question and Recon are free forever, unlimited. You also get four free deep reports across Points of Interest, Blast Radius, Conflict Detection, and Prompt Triage. Inheritance Audit is Pro and above. When you upgrade, Ghost Pro removes the report cap and adds project intelligence: project label tracking, baseline comparison, remediation velocity, the Project Dashboard, Compare Reports, and Ghost Partner&trade; profile support with per-profile billing rate overrides. <!-- LAUNCH50-PROMO START. Commented out 2026-05-27; uncomment to re-enable. --><!-- <strong>Launch promo: code LAUNCH50 takes 50% off your first month on any paid tier. First 100 redemptions, while supplies last.</strong> --><!-- LAUNCH50-PROMO END --></p>
+      </details>
+      <details>
+        <summary>Do I need my own Anthropic API key?</summary>
+        <p>Yes. Ghost Architect is BYOK (Bring Your Own Key). This is by design: your code goes directly from your machine to Anthropic's API. We never see it. A typical scan costs <strong>$0.23 in Anthropic API usage</strong>. Most Pro users run 10 to 20 scans per month, which is $2 to $5 in API costs on top of the membership. You can verify this yourself: the cost of every scan is printed in the output.</p>
+      </details>
+      <details>
+        <summary>How do I get access after subscribing?</summary>
+        <p>After subscribing through Stripe, your license key is generated automatically and emailed to you within seconds. Install Ghost Open from npm if you haven't already, then run <code>ghost --activate &lt;KEY&gt;</code> to unlock Pro features. The key remains valid as long as your membership is current. If you cancel or your membership lapses, the key deactivates.</p>
+      </details>
+      <details>
+        <summary>Can I get a demo before subscribing?</summary>
+        <p>Yes. Email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> or connect on <a href="https://linkedin.com/in/ernst-wisner-9357b2186" target="_blank" rel="noopener noreferrer">LinkedIn</a> and we'll schedule a 15-minute Teams call with a live scan of a sample codebase.</p>
+      </details>
+      <details>
+        <summary>What languages and platforms does Ghost Architect support?</summary>
+        <p>Ghost Architect works on any codebase, any language, any platform, including PHP, JavaScript, TypeScript, Python, Ruby, Java, and more. It's framework-aware and analyzes code structure, dependency relationships, configuration files, and integration patterns regardless of what stack you're running.</p>
+      </details>
+      <details>
+        <summary>Can I use Ghost Architect on a client's private repository?</summary>
+        <p>Yes. Ghost Architect supports private GitHub, GitLab, and Bitbucket repositories. Authenticate with a personal access token, Ghost clones the repo locally, runs the scan, and removes the local clone when done. Your client's code never touches any third-party infrastructure beyond your own Anthropic API key.</p>
+      </details>
+    </div></div>
+  </section>
 
-</div>
-
-</section><!-- /product-hosted -->
-</div><!-- /two-products -->
-
-<!-- TRUST SECTION -->
-<div class="trust">
-  <div class="trust-block local" id="local-trust">
-  <div class="trust-eyebrow local">Ghost Architect&trade; Local &middot; your hardware</div>
-  <div class="trust-grid local-grid">
-    <div class="trust-item">
-      <h4>// your code never leaves your network</h4>
-      <p>Ghost Architect&trade; Local runs on hardware you own against your own model server. No API key, no cloud call. From the Agency tier up, zero-egress mode refuses any endpoint that would send source code off the machine, at the code level, with the inventory that proves it.</p>
-    </div>
-    <div class="trust-item">
-      <h4>// no third party sees your code</h4>
-      <p>There is no Anthropic call to make. The model is yours: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. There is no third-party retention policy to take on trust, because there is no third party.</p>
-    </div>
-    <div class="trust-item">
-      <h4>// evaluation trial, then an annual licence</h4>
-      <p>Start with the evaluation trial; it starts inside the product on first use and the product tells you the day it ends. Convert during it and your first year is half price. Annual licence, no per-token bill. Enterprise includes a formal MSA.</p>
-    </div>
-    <div class="trust-item">
-      <h4>// delivered to you directly</h4>
-      <p>Buy a licence and your key and download link arrive by email the moment you pay. For the evaluation trial, <a href="/download.html#request">request the download</a> and EJ replies with the tarball, or with access to the delivery repository on GitHub, usually the same day. Every release has a published SHA-256 to check before you unpack it.</p>
-    </div>
-  </div>
-  </div><!-- /trust-block local -->
-
-  <div class="trust-block hosted">
-  <div class="trust-eyebrow hosted">Ghost Architect&trade; Cloud</div>
-  <div class="trust-grid">
-    <div class="trust-item">
-      <h4>// your code stays yours</h4>
-      <p>Ghost Architect&trade; runs on your machine. Your source code goes from your machine to Anthropic's API with your own key and is never uploaded to our servers. BYOK -- your Anthropic API key, your pipeline.</p>
-    </div>
-    <div class="trust-item">
-      <h4>// api data deleted in 7 days</h4>
-      <p>Anthropic deletes API inputs and outputs within 7 days per their data retention policy. We have no access to that data.</p>
-    </div>
-    <div class="trust-item">
-      <h4>// cancel anytime</h4>
-      <p>No contracts on Pro or Team. Cancel before your next billing date and you're done. Enterprise includes a formal MSA.</p>
-    </div>
-    <div class="trust-item">
-      <h4>// instant license delivery</h4>
-      <p>Your license key is auto-generated at Stripe checkout and emailed instantly. Activate with one command: <code>ghost --activate &lt;KEY&gt;</code>. No GitHub setup, no waiting.</p>
-    </div>
-  </div>
-  </div><!-- /trust-block hosted -->
-
-  <div class="faq-block local" id="local-faq">
-  <div class="faq-title local">// frequently asked &middot; Ghost Architect&trade; Local</div>
-
-  <div class="faq-item">
-    <div class="faq-q">What is Ghost Architect&trade; Local, and how is it different from Ghost Architect&trade; Cloud?</div>
-    <div class="faq-a">The same scans and the same reports, running entirely on hardware you own against a model server you run. Ghost Architect&trade; Cloud sends your code to Anthropic's API with your own key and bills a monthly membership; Local sends nothing anywhere, needs no API key, and is an annual licence per seat band. Choose Local when the code cannot leave the building, or when a per-token bill is the wrong shape for your team.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">Do I need an Anthropic API key for Ghost Architect&trade; Local?</div>
-    <div class="faq-a">No. Local runs against your own model server: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. The model, the weights and every prompt stay on your network.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">How does the evaluation trial work?</div>
-    <div class="faq-a"><a href="/download.html#request">Request the download</a>, install it, and the trial starts inside the product on first use, registered against that install; the product tells you the day it ends. No card. Convert during the trial and your first year is half price.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">Which Local tiers include zero egress?</div>
-    <div class="faq-a">Agency ($12,499 a year, 15 seats) and Enterprise ($24,999 a year, unlimited seats). Zero-egress mode refuses, at the code level, any model endpoint that would send source code off the machine, and ships with the egress inventory that proves what the product can and cannot reach. Solo and Small Team run against your own model server too; they do not carry the enforced refusal.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">How is Local delivered, and how do I upgrade?</div>
-    <div class="faq-a">Directly from us, not through a package registry. Buy a licence and your key and a download link arrive by email the moment you pay; for the evaluation trial, EJ sends the tarball or gives your GitHub account access to the delivery repository. Every tarball has a published SHA-256 to check before you unpack it. On Linux the installer provisions a service account and two systemd units (the portal and the scheduler). You upgrade by re-running the installer on the new tarball; your configuration, scan history and licence persist. The <a href="/changelog.html#local">changelog</a> lists every release.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">What hardware do I need?</div>
-    <div class="faq-a">Whatever runs your model server. Ghost Architect&trade; Local measures its own pass times on your machine and estimates from them, so every time estimate you see is yours and not a benchmark from ours. Larger models read code more carefully and take longer per pass; the product's LLM Status page shows your machine's speed, memory and context window so you can see the trade-off before a long scan.</div>
-  </div>
-  </div><!-- /faq-block local -->
-
-  <div class="faq-block hosted">
-  <div class="faq-title">// frequently asked &middot; Ghost Architect&trade; Cloud</div>
-
-  <div class="faq-item">
-    <div class="faq-q">What is Ghost Brief™ and which tiers include it?</div>
-    <div class="faq-a">Ghost Brief™ is the governed AI remediation pipeline built into Ghost Architect™. After any scan, Ghost converts your findings into a validated, blast-radius-aware prompt pack -- a ghost-brief.json file your AI coding agent (Claude Code, Cursor, Copilot) can execute immediately. Ghost Brief™ is included in Ghost Pro Max ($99/mo), Ghost Team Max ($799/mo), and Ghost Enterprise Max ($2,500/mo). All three tiers gate the feature at the license level -- no manual configuration required.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">What's the difference between Ghost Open and Ghost Pro?</div>
-    <div class="faq-a">Ghost Open is free forever and requires no signup -- install and run immediately with your own Anthropic API key. For a guided Pro Max experience with Ghost Watcher, Ghost Brief, and the Ghost Portal running on your real repo, start a 7-day free trial at ghostarchitect.dev/trial. Ask a Question and Recon are free forever, unlimited. You also get four free deep reports across Points of Interest, Blast Radius, Conflict Detection, and Prompt Triage. Inheritance Audit is Pro and above. When you upgrade, Ghost Pro removes the report cap and adds project intelligence: project label tracking, baseline comparison, remediation velocity, the Project Dashboard, Compare Reports, and Ghost Partner&trade; profile support with per-profile billing rate overrides. <!-- LAUNCH50-PROMO START. Commented out 2026-05-27; uncomment to re-enable. --><!-- <strong>Launch promo: code LAUNCH50 takes 50% off your first month on any paid tier. First 100 redemptions, while supplies last.</strong> --><!-- LAUNCH50-PROMO END --></div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">Do I need my own Anthropic API key?</div>
-    <div class="faq-a">Yes. Ghost Architect is BYOK (Bring Your Own Key). This is by design: your code goes directly from your machine to Anthropic's API. We never see it. A typical scan costs <strong>$0.23 in Anthropic API usage</strong>. Most Pro users run 10 to 20 scans per month, which is $2 to $5 in API costs on top of the membership. You can verify this yourself: the cost of every scan is printed in the output.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">How do I get access after subscribing?</div>
-    <div class="faq-a">After subscribing through Stripe, your license key is generated automatically and emailed to you within seconds. Install Ghost Open from npm if you haven't already, then run <code>ghost --activate &lt;KEY&gt;</code> to unlock Pro features. The key remains valid as long as your membership is current. If you cancel or your membership lapses, the key deactivates.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">Can I get a demo before subscribing?</div>
-    <div class="faq-a">Yes. Email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> or connect on <a href="https://linkedin.com/in/ernst-wisner-9357b2186" target="_blank" rel="noopener noreferrer">LinkedIn</a> and we'll schedule a 15-minute Teams call with a live scan of a sample codebase.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">What languages and platforms does Ghost Architect support?</div>
-    <div class="faq-a">Ghost Architect works on any codebase, any language, any platform, including PHP, JavaScript, TypeScript, Python, Ruby, Java, and more. It's framework-aware and analyzes code structure, dependency relationships, configuration files, and integration patterns regardless of what stack you're running.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">Can I use Ghost Architect on a client's private repository?</div>
-    <div class="faq-a">Yes. Ghost Architect supports private GitHub, GitLab, and Bitbucket repositories. Authenticate with a personal access token, Ghost clones the repo locally, runs the scan, and removes the local clone when done. Your client's code never touches any third-party infrastructure beyond your own Anthropic API key.</div>
-  </div>
-  </div><!-- /faq-block hosted -->
-</div>
+</main>
 
 <footer>
-  © 2026 EJ Wisner · Ghost Architect™ · All rights reserved. · US Copyright Reg. #1-15123488721 ·
-  <a href="/">Home</a> ·
-  <a href="/support.html">Support</a> ·
-  <a href="/msa.html">MSA</a> ·
-  <a href="/privacy.html">Privacy Policy</a> ·
-  <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a>
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; US Copyright Reg. #1-15123488721 &middot; <a href="support.html">Support</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="msa.html">Terms of Service</a></span>
 </footer>
 
-
-<script src="/assets/ga-nav.js?v=20260920b" defer></script>
-
+<script src="../assets/ga-nav.js?v=20260920b" defer></script>
+<script>
+  // Quiet text reveals. Falls back to visible if IntersectionObserver is missing.
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
 <script>
 (function(){
   // Both products are always on the page. ?platform=local (the Local pages link that way) lands on the Local column.
@@ -1121,5 +634,7 @@
   }
 })();
 </script>
+<script src="next-nav.js" defer></script>
+<script src="scene.js" defer></script>
 </body>
 </html>

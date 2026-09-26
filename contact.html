@@ -3,257 +3,191 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
   <title>Contact &amp; Support: Ghost Architect™</title>
   <meta name="description" content="Contact Ghost Architect™ support -- questions, issues, and help for the CLI codebase triage tool and companion mobile app." />
   <link rel="canonical" href="https://ghostarchitect.dev/contact" />
-  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
-  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <!-- Paths are relative to /next/ so the page also opens straight from the folder (file://).
+       When this replaces /contact.html, change ../ to / on these references. -->
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css" />
+  <!-- contact.html only: label + control as siblings (the page's own script rewrites the Tier label's innerHTML,
+       so the control cannot live inside it), the honeypot field, the <button>, and the success / error message
+       states the script toggles. site.css has none of these. -->
   <style>
-    :root {
-      --bg: #0a0a0f;
-      --surface: #111118;
-      --border: #2a2a3a;
-      --accent: #4a9eff;
-      --text: #e8e8f0;
-      --text-muted: #888899;
-      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.8; }
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(10,10,15,0.92); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem; display: flex; align-items: center; height: 56px;
-    }
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1rem; }
-    .nav-logo img { width: 28px; height: 28px; border-radius: 6px; }
-    .content { max-width: 760px; margin: 0 auto; padding: 4rem 2rem; }
-    h1 { font-size: 2rem; margin-bottom: 0.5rem; color: var(--text); }
-    .tagline { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 3rem; font-family: var(--font-mono); }
-    h2 { font-size: 1.2rem; color: var(--accent); margin: 2.5rem 0 1rem; font-family: var(--font-mono); }
-    p { margin-bottom: 1rem; color: var(--text); }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    code { font-family: var(--font-mono); background: var(--surface); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; border: 1px solid var(--border); }
-
-    /* form */
-    .contact-form {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 2rem;
-      margin: 2rem 0;
-    }
-    .field { margin-bottom: 1.5rem; }
-    .field:last-child { margin-bottom: 0; }
-    label {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-    }
-    label .req { color: var(--accent); }
-    input[type="text"],
-    input[type="email"],
-    select,
-    textarea {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text);
-      font-family: var(--font-sans);
-      font-size: 0.95rem;
-      padding: 0.7rem 0.85rem;
-      line-height: 1.5;
-    }
-    select { font-family: var(--font-mono); cursor: pointer; }
-    textarea { resize: vertical; min-height: 8rem; }
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(74,158,255,0.18);
-    }
-    /* honeypot — visually removed without display:none */
-    .hp-field {
-      position: absolute;
-      left: -9999px;
-      top: -9999px;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-    }
-    button.submit {
-      background: var(--accent);
-      color: #04101f;
-      border: none;
-      border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.95rem;
-      font-weight: 700;
-      padding: 0.8rem 1.6rem;
-      cursor: pointer;
-      transition: opacity 0.15s ease;
-    }
-    button.submit:hover { opacity: 0.88; }
-    button.submit:disabled { opacity: 0.5; cursor: not-allowed; }
-    .form-msg {
-      display: none;
-      margin-top: 1.25rem;
-      padding: 0.9rem 1.1rem;
-      border-radius: 6px;
-      font-size: 0.92rem;
-      line-height: 1.6;
-    }
-    .form-msg.success {
-      display: block;
-      background: rgba(74,158,255,0.08);
-      border: 1px solid var(--accent);
-      color: var(--text);
-    }
-    .form-msg.error {
-      display: block;
-      background: rgba(255,90,90,0.08);
-      border: 1px solid #c4504f;
-      color: var(--text);
-    }
-    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 4rem; }
+    .form-card { max-width: 620px; margin-bottom: 1.8rem; }
+    .form .field label { display: block; margin-bottom: 0.4rem; }
+    .form .req { color: var(--accent); }
+    .form select { font-family: var(--font-mono); cursor: pointer; }
+    .form button.btn { cursor: pointer; font-family: inherit; }
+    .form button.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    /* honeypot: visually removed without display:none */
+    .hp-field { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .form-msg { display: none; margin-top: 1.25rem; padding: 0.9rem 1.1rem; border-radius: 8px; font-size: 0.92rem; line-height: 1.6; }
+    .form-msg.success { display: block; background: rgba(74, 158, 255, 0.08); border: 1px solid var(--accent); color: var(--text); }
+    .form-msg.error { display: block; background: rgba(255, 74, 107, 0.08); border: 1px solid var(--danger); color: var(--text); }
   </style>
-  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260920b" />
 </head>
-<body>
+<body data-product="cloud">
 
+<canvas id="lattice" aria-hidden="true" data-ambient></canvas>
 
 <div id="ga-nav-mount"></div>
 
+<main class="page">
 
-<div class="content">
-  <h1>Contact &amp; Support</h1>
-  <p class="tagline">Have a question or issue? We're here to help.</p>
+  <header class="page-hero">
+    <p class="eyebrow">// contact &amp; support</p>
+    <h1>Contact &amp; Support</h1>
+    <p class="lede">Have a question or issue? We're here to help.</p>
+  </header>
 
-  <div class="contact-form">
-    <div class="field">
-      <label for="cf-name">Name <span class="req">*</span></label>
-      <input type="text" id="cf-name" name="name" required autocomplete="name" />
+  <section class="band">
+    <div class="card form-card">
+      <div class="form">
+        <div class="field">
+          <label for="cf-name">Name <span class="req">*</span></label>
+          <input type="text" id="cf-name" name="name" required autocomplete="name" />
+        </div>
+
+        <div class="field">
+          <label for="cf-email">Email <span class="req">*</span></label>
+          <input type="email" id="cf-email" name="email" required autocomplete="email" />
+        </div>
+
+        <div class="field">
+          <label for="cf-product">Which product <span class="req">*</span></label>
+          <select id="cf-product" name="product" required>
+            <option value="hosted">Ghost Architect&trade; Cloud (API key, subscription)</option>
+            <option value="local">Ghost Architect&trade; Local (your hardware, annual licence)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="cf-type">Type of inquiry <span class="req">*</span></label>
+          <select id="cf-type" name="type" required>
+            <option value="" disabled selected>Select a type</option>
+            <option value="Pre-sales Question">Pre-sales Question</option>
+            <option value="Technical Support">Technical Support</option>
+            <option value="Billing">Billing</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="cf-subject">Subject <span class="req">*</span></label>
+          <input type="text" id="cf-subject" name="subject" required />
+        </div>
+
+        <!-- Version and Tier start hidden; the page script below shows them for Technical Support only (it drives style.display). -->
+        <div class="field" id="cf-version-field" style="display:none;">
+          <label for="cf-version">Version <span class="req">*</span></label>
+          <select id="cf-version" name="version">
+            <option value="" disabled selected>Select a version</option>
+            <option value="11.0.3">11.0.3</option>
+            <option value="11.0.2">11.0.2</option>
+            <option value="11.0.1">11.0.1</option>
+            <option value="11.0.0">11.0.0</option>
+            <option value="10.0.17">10.0.17</option>
+            <option value="10.0.16">10.0.16</option>
+            <option value="10.0.15">10.0.15</option>
+            <option value="10.0.14">10.0.14</option>
+            <option value="10.0.13">10.0.13</option>
+            <option value="10.0.12">10.0.12</option>
+            <option value="10.0.11">10.0.11</option>
+            <option value="10.0.10">10.0.10</option>
+            <option value="10.0.9">10.0.9</option>
+            <option value="10.0.8">10.0.8</option>
+            <option value="10.0.7">10.0.7</option>
+            <option value="10.0.6">10.0.6</option>
+            <option value="10.0.5">10.0.5</option>
+            <option value="10.0.4">10.0.4</option>
+            <option value="10.0.3">10.0.3</option>
+            <option value="10.0.2">10.0.2</option>
+            <option value="10.0.1">10.0.1</option>
+            <option value="10.0.0">10.0.0</option>
+            <option value="9.3.5">9.3.5</option>
+            <option value="9.3.4">9.3.4</option>
+            <option value="9.3.3">9.3.3</option>
+            <option value="9.3.2">9.3.2</option>
+            <option value="9.3.1">9.3.1</option>
+            <option value="9.3.0">9.3.0</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field" id="cf-tier-field" style="display:none;">
+          <label for="cf-tier">Tier <span class="req">*</span></label>
+          <select id="cf-tier" name="tier">
+            <option value="" disabled selected>Select a tier</option>
+            <option value="Open">Open</option>
+            <option value="Pro">Pro</option>
+            <option value="Pro Max">Pro Max</option>
+            <option value="Team">Team</option>
+            <option value="Team Max">Team Max</option>
+            <option value="Enterprise">Enterprise</option>
+            <option value="Enterprise Max">Enterprise Max</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="cf-message">Message <span class="req">*</span></label>
+          <textarea id="cf-message" name="message" rows="6" required></textarea>
+        </div>
+
+        <!-- honeypot: hidden from humans, bots will fill it -->
+        <div class="hp-field" aria-hidden="true">
+          <label for="cf-website">Website</label>
+          <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="field">
+          <button type="button" class="btn btn-cloud" id="cf-submit">Send message</button>
+        </div>
+
+        <div class="form-msg" id="cf-msg" role="status" aria-live="polite"></div>
+      </div>
     </div>
 
-    <div class="field">
-      <label for="cf-email">Email <span class="req">*</span></label>
-      <input type="email" id="cf-email" name="email" required autocomplete="email" />
+    <div class="prose">
+      <p>
+        Want an answer now? <a id="cf-chat-link" href="../support-chat.html">Start a live chat</a>
+        and it will answer for the product selected above.
+        Or browse the <a id="cf-faq-link" href="support.html">support FAQ</a>.
+      </p>
+
+      <p>
+        Prefer email? Reach us directly at
+        <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a>.
+      </p>
     </div>
+  </section>
 
-    <div class="field">
-      <label for="cf-product">Which product <span class="req">*</span></label>
-      <select id="cf-product" name="product" required>
-        <option value="hosted">Ghost Architect&trade; Cloud (API key, subscription)</option>
-        <option value="local">Ghost Architect&trade; Local (your hardware, annual licence)</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label for="cf-type">Type of inquiry <span class="req">*</span></label>
-      <select id="cf-type" name="type" required>
-        <option value="" disabled selected>Select a type</option>
-        <option value="Pre-sales Question">Pre-sales Question</option>
-        <option value="Technical Support">Technical Support</option>
-        <option value="Billing">Billing</option>
-        <option value="Other">Other</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label for="cf-subject">Subject <span class="req">*</span></label>
-      <input type="text" id="cf-subject" name="subject" required />
-    </div>
-
-    <div class="field" id="cf-version-field" style="display:none;">
-      <label for="cf-version">Version <span class="req">*</span></label>
-      <select id="cf-version" name="version">
-        <option value="" disabled selected>Select a version</option>
-        <option value="11.0.3">11.0.3</option>
-        <option value="11.0.2">11.0.2</option>
-        <option value="11.0.1">11.0.1</option>
-        <option value="11.0.0">11.0.0</option>
-        <option value="10.0.17">10.0.17</option>
-        <option value="10.0.16">10.0.16</option>
-        <option value="10.0.15">10.0.15</option>
-        <option value="10.0.14">10.0.14</option>
-        <option value="10.0.13">10.0.13</option>
-        <option value="10.0.12">10.0.12</option>
-        <option value="10.0.11">10.0.11</option>
-        <option value="10.0.10">10.0.10</option>
-        <option value="10.0.9">10.0.9</option>
-        <option value="10.0.8">10.0.8</option>
-        <option value="10.0.7">10.0.7</option>
-        <option value="10.0.6">10.0.6</option>
-        <option value="10.0.5">10.0.5</option>
-        <option value="10.0.4">10.0.4</option>
-        <option value="10.0.3">10.0.3</option>
-        <option value="10.0.2">10.0.2</option>
-        <option value="10.0.1">10.0.1</option>
-        <option value="10.0.0">10.0.0</option>
-        <option value="9.3.5">9.3.5</option>
-        <option value="9.3.4">9.3.4</option>
-        <option value="9.3.3">9.3.3</option>
-        <option value="9.3.2">9.3.2</option>
-        <option value="9.3.1">9.3.1</option>
-        <option value="9.3.0">9.3.0</option>
-        <option value="Other">Other</option>
-      </select>
-    </div>
-
-    <div class="field" id="cf-tier-field" style="display:none;">
-      <label for="cf-tier">Tier <span class="req">*</span></label>
-      <select id="cf-tier" name="tier">
-        <option value="" disabled selected>Select a tier</option>
-        <option value="Open">Open</option>
-        <option value="Pro">Pro</option>
-        <option value="Pro Max">Pro Max</option>
-        <option value="Team">Team</option>
-        <option value="Team Max">Team Max</option>
-        <option value="Enterprise">Enterprise</option>
-        <option value="Enterprise Max">Enterprise Max</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label for="cf-message">Message <span class="req">*</span></label>
-      <textarea id="cf-message" name="message" rows="6" required></textarea>
-    </div>
-
-    <!-- honeypot: hidden from humans, bots will fill it -->
-    <div class="hp-field" aria-hidden="true">
-      <label for="cf-website">Website</label>
-      <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off" />
-    </div>
-
-    <div class="field">
-      <button type="button" class="submit" id="cf-submit">Send message</button>
-    </div>
-
-    <div class="form-msg" id="cf-msg" role="status" aria-live="polite"></div>
-  </div>
-
-  <p style="color: var(--text-muted); font-size: 0.9rem;">
-    Want an answer now? <a id="cf-chat-link" href="/support-chat.html">Start a live chat</a>
-    and it will answer for the product selected above.
-    Or browse the <a id="cf-faq-link" href="/support.html">support FAQ</a>.
-  </p>
-
-  <p style="color: var(--text-muted); font-size: 0.9rem;">
-    Prefer email? Reach us directly at
-    <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a>.
-  </p>
-</div>
+</main>
 
 <footer>
-  © 2026 Ghost Architect™. All rights reserved. · <a href="/">Home</a> · <a href="/privacy.html">Privacy</a> · <a href="/pricing.html">Pricing</a>
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; US Copyright Reg. #1-15123488721 &middot; <a href="support.html">Support</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="msa.html">Terms of Service</a></span>
 </footer>
 
-<script src="/assets/ga-nav.js?v=20260920b" defer></script>
+<script src="../assets/ga-nav.js?v=20260920b" defer></script>
+<script>
+  // Quiet text reveals. Falls back to visible if IntersectionObserver is missing.
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
 <script>
   (function () {
     var btn = document.getElementById('cf-submit');
@@ -339,8 +273,9 @@
           '<span class="req">*</span>';
       }
       var q = '?platform=' + (isLocal ? 'local' : 'hosted');
-      if (chatLink) chatLink.href = '/support-chat.html' + q;
-      if (faqLink) faqLink.href = '/support.html' + q;
+      // Paths relative to /next/ (live page used /support-chat.html and /support.html); support.html has a /next/ version.
+      if (chatLink) chatLink.href = '../support-chat.html' + q;
+      if (faqLink) faqLink.href = 'support.html' + q;
     }
 
     productEl.addEventListener('change', syncProduct);
@@ -439,5 +374,7 @@
     });
   })();
 </script>
+<script src="next-nav.js" defer></script>
+<script src="scene.js" defer></script>
 </body>
 </html>

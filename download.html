@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
-  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
+  <meta name="robots" content="index, follow" />
   <title>Download and install Ghost Architect™ Local</title>
   <meta name="description" content="Get Ghost Architect™ Local 7.4.17: request the tarball, verify its SHA-256, run the installer, start the evaluation trial. macOS 13+, Linux and Windows 10+." />
   <link rel="canonical" href="https://ghostarchitect.dev/download.html" />
@@ -13,141 +13,158 @@
   <meta property="og:title" content="Download Ghost Architect™ Local" />
   <meta property="og:description" content="The tarball, its SHA-256, and the installer, step by step. Evaluation trial, no card." />
   <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
-  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260920b" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <!-- Paths are relative to /next/ so the page also opens straight from the folder (file://).
+       When this replaces /download.html, change ../ to / on these references. -->
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css" />
+  <!-- Page-specific CSS: the request form's two-column rows, the radio fieldset and the
+       status message states the form script sets (.f-msg.error / .f-msg.success). -->
   <style>
-    :root { --bg:#0a0a0f; --surface:#111118; --surface2:#1a1a24; --border:#2a2a3a; --local:#00bfd8; --accent2:#00d4aa; --warning:#ffaa00; --text:#e8e8f0; --text-muted:#b0b0c0; --text-dim:#777788; --font-mono:'JetBrains Mono','Fira Code','Courier New',monospace; --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    body { background:var(--bg); color:var(--text); font-family:var(--font-sans); line-height:1.6; }
-    a { color:var(--local); }
-    .wrap { max-width:900px; margin:0 auto; padding:0 1.5rem; }
-    .hero { padding:5rem 0 2.5rem; text-align:center; }
-    .eyebrow { display:inline-block; font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--local); border:1px solid rgba(0,191,216,.4); background:rgba(0,191,216,.08); border-radius:999px; padding:.35rem .9rem; }
-    h1 { font-size:clamp(2rem,4.5vw,3rem); margin:1rem 0 .6rem; letter-spacing:-.02em; }
-    .sub { color:var(--text-muted); font-size:1.15rem; max-width:720px; margin:0 auto; }
-    .btn { display:inline-block; padding:.85rem 1.5rem; border-radius:10px; font-weight:600; text-decoration:none; border:1px solid var(--border); color:var(--text); background:var(--surface); }
-    .btn.primary { background:linear-gradient(135deg,#00bfd8,#00d4aa); color:#06131a; border:none; }
-    section { padding:2.5rem 0; border-top:1px solid var(--border); }
-    h2 { font-size:1.5rem; margin-bottom:.6rem; }
-    p { color:var(--text-muted); }
-    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.4rem; margin-top:1rem; }
-    .card h3 { color:var(--text); font-size:1.05rem; margin-bottom:.4rem; }
-    pre { font-family:var(--font-mono); font-size:.85rem; background:#07070c; border:1px solid var(--border); border-radius:10px; padding:1rem 1.1rem; overflow-x:auto; color:var(--text); margin:.7rem 0; }
-    code { font-family:var(--font-mono); font-size:.9em; color:var(--text); background:var(--surface2); padding:.1rem .4rem; border-radius:5px; overflow-wrap:anywhere; }
-    pre code { background:none; padding:0; }
-    .hash { word-break:break-all; font-family:var(--font-mono); font-size:.85rem; color:var(--accent2); }
-    ol { padding-left:1.3rem; color:var(--text-muted); } ol li { margin:.5rem 0; }
-    .warn { border-left:4px solid var(--warning); background:rgba(255,170,0,.07); border-radius:0 10px 10px 0; padding:1rem 1.2rem; color:var(--text); margin-top:1rem; }
-    .row { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; margin-top:1rem; }
-    footer { padding:2rem 1.5rem; border-top:1px solid var(--border); text-align:center; color:var(--text-dim); font-size:.85rem; }
-    footer a { color:var(--text-muted); text-decoration:none; }
-    .trial-form { margin-top:1rem; display:grid; gap:.8rem; position:relative; color-scheme:dark; }
-    .trial-form label[hidden] { display:none; }
-    .f-row { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; }
-    .trial-form label { display:flex; flex-direction:column; gap:.3rem; font-size:.85rem; color:var(--text-muted); }
-    .trial-form input[type=text], .trial-form input[type=email], .trial-form select { background:#07070c; border:1px solid var(--border); border-radius:8px; padding:.6rem .7rem; color:var(--text); font:inherit; font-size:.95rem; width:100%; }
-    .trial-form input:focus, .trial-form select:focus { outline:none; border-color:var(--local); }
-    .trial-form button { border:none; cursor:pointer; font:inherit; font-weight:700; justify-self:start; }
-    .trial-form button[disabled] { opacity:.6; cursor:default; }
-    .f-radio { border:1px solid var(--border); border-radius:8px; padding:.6rem .9rem .7rem; display:flex; gap:1.4rem; flex-wrap:wrap; color:var(--text-muted); font-size:.85rem; }
-    .f-radio legend { padding:0 .3rem; }
-    .f-radio label { flex-direction:row; align-items:center; gap:.4rem; color:var(--text); }
-    .f-msg { font-size:.9rem; min-height:1.2em; color:var(--text-muted); }
-    .f-msg.error { color:#ff6b6b; }
-    .f-msg.success { color:var(--accent2); font-size:1rem; }
-    @media (max-width:600px) { .f-row { grid-template-columns:1fr; } }
+    #trial-form { position: relative; }
+    .form label[hidden] { display: none; }
+    .form button { justify-self: start; cursor: pointer; font-family: inherit; }
+    .form button[disabled] { opacity: 0.6; cursor: default; }
+    .form input:focus, .form select:focus { border-color: var(--local); box-shadow: 0 0 0 3px rgba(0, 191, 216, 0.18); }
+    .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .f-radio { border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.9rem 0.7rem; margin: 0; display: flex; gap: 1.4rem; flex-wrap: wrap; color: var(--text-muted); font-size: 0.9rem; }
+    .f-radio legend { padding: 0 0.3rem; }
+    .f-radio label { grid-auto-flow: column; justify-content: start; align-items: center; color: var(--text); }
+    .f-radio input { width: auto; padding: 0; margin: 0; accent-color: var(--local); }
+    .f-msg { font-size: 0.9rem; min-height: 1.2em; color: var(--text-muted); }
+    .f-msg.error { color: var(--danger); }
+    .f-msg.success { color: var(--accent2); font-size: 1rem; }
+    .cards.one { grid-template-columns: 1fr; }
+    .cards > .card { min-width: 0; }   /* lets the <pre> blocks inside a card scroll instead of widening the card past a phone screen */
+    .sha p { margin: 0; }
+    @media (max-width: 600px) { .f-row { grid-template-columns: 1fr; } }
   </style>
 </head>
-<body>
+<body data-product="local">
+
+<canvas id="lattice" aria-hidden="true" data-variant="local" data-ambient></canvas>
+
 <div id="ga-nav-mount"></div>
 
-<div class="hero"><div class="wrap">
-  <span class="eyebrow">Ghost Architect&trade; Local &middot; version 7.4.17</span>
-  <h1>Download and install</h1>
-  <p class="sub">Ghost Architect&trade; Local is delivered directly by us, not through a public package registry. You receive one tarball, you check it against the SHA-256 published here, and the installer does the rest. The evaluation trial starts inside the product; no card, no account.</p>
-</div></div>
+<main class="page">
 
-<section><div class="wrap">
-  <h2>1. Get the tarball</h2>
-  <div class="card" id="request" style="scroll-margin-top: 90px;">
-    <h3>Request the download</h3>
-    <p>Fill this in and EJ replies with the download link, or with access to the delivery repository on GitHub, usually the same day. The GitHub username is for that access. The model question is so the trial is set up for the hardware you have.</p>
-    <form id="trial-form" class="trial-form" novalidate>
-      <div class="f-row">
-        <label>Name <input name="name" type="text" required autocomplete="name" maxlength="120"></label>
-        <label>Work email <input name="email" type="email" required autocomplete="email" maxlength="200"></label>
+  <header class="page-hero">
+    <div class="version-badge"><b>Ghost Architect&trade; Local &middot; version 7.4.17</b></div>
+    <h1>Download and install</h1>
+    <p class="lede">Ghost Architect&trade; Local is delivered directly by us, not through a public package registry. You receive one tarball, you check it against the SHA-256 published here, and the installer does the rest. The evaluation trial starts inside the product; no card, no account.</p>
+  </header>
+
+  <section class="band">
+    <h2>1. Get the tarball</h2>
+    <div class="cards one">
+      <div class="card" id="request">
+        <h3>Request the download</h3>
+        <p>Fill this in and EJ replies with the download link, or with access to the delivery repository on GitHub, usually the same day. The GitHub username is for that access. The model question is so the trial is set up for the hardware you have.</p>
+        <form id="trial-form" class="form" novalidate>
+          <div class="f-row">
+            <label>Name <input name="name" type="text" required autocomplete="name" maxlength="120"></label>
+            <label>Work email <input name="email" type="email" required autocomplete="email" maxlength="200"></label>
+          </div>
+          <div class="f-row">
+            <label>GitHub username <input name="github" type="text" required autocomplete="username" maxlength="80" placeholder="octocat"></label>
+            <label>Operating system <select name="os"><option value="">Choose one</option><option>macOS</option><option>Linux</option><option>Windows</option></select></label>
+          </div>
+          <fieldset class="f-radio">
+            <legend>Do you run your own model today?</legend>
+            <label><input type="radio" name="ownModel" value="yes" required> Yes</label>
+            <label><input type="radio" name="ownModel" value="no"> Not yet</label>
+          </fieldset>
+          <label id="model-wrap" hidden>Which model, and on what server? <input name="model" type="text" maxlength="200" placeholder="qwen3:14b on Ollama"></label>
+          <label>How many people will use it? <select name="teamSize"><option value="">Choose one</option><option>1</option><option>2 to 5</option><option>6 to 15</option><option>16 or more</option></select></label>
+          <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+          <button type="submit" class="btn btn-local-solid">Request Ghost Architect&trade; Local 7.4.17</button>
+          <div class="f-msg" id="tf-msg" role="status" aria-live="polite"></div>
+        </form>
+        <p>Already a customer with access to the delivery repository? <code>gh release download v7.4.17 --repo EJWisner/ghost-local-delivery</code></p>
       </div>
-      <div class="f-row">
-        <label>GitHub username <input name="github" type="text" required autocomplete="username" maxlength="80" placeholder="octocat"></label>
-        <label>Operating system <select name="os"><option value="">Choose one</option><option>macOS</option><option>Linux</option><option>Windows</option></select></label>
+      <div class="card">
+        <h3>Verify it before you unpack it</h3>
+        <p>The file is about to become a global command on your machine. Check it first.</p>
+        <pre class="code"><code>shasum -a 256 ghost-architect-local-7.4.17.tgz</code></pre>
+        <p>On Windows PowerShell:</p>
+        <pre class="code"><code>Get-FileHash -Algorithm SHA256 ghost-architect-local-7.4.17.tgz</code></pre>
+        <p>Expected for 7.4.17:</p>
+        <div class="sha"><p class="hash">ebea40228461b4761bcc1aa7b817b31b0b308a33a2b8e6bcc97877da3e9e2a58</p></div>
+        <div class="callout amber"><p>If the hash does not match, stop. Do not install it. Email support@ghostarchitect.dev with what you got.</p></div>
       </div>
-      <fieldset class="f-radio">
-        <legend>Do you run your own model today?</legend>
-        <label><input type="radio" name="ownModel" value="yes" required> Yes</label>
-        <label><input type="radio" name="ownModel" value="no"> Not yet</label>
-      </fieldset>
-      <label id="model-wrap" hidden>Which model, and on what server? <input name="model" type="text" maxlength="200" placeholder="qwen3:14b on Ollama"></label>
-      <label>How many people will use it? <select name="teamSize"><option value="">Choose one</option><option>1</option><option>2 to 5</option><option>6 to 15</option><option>16 or more</option></select></label>
-      <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-      <button type="submit" class="btn primary">Request Ghost Architect&trade; Local 7.4.17</button>
-      <div class="f-msg" id="tf-msg" role="status" aria-live="polite"></div>
-    </form>
-    <p style="margin-top:.9rem;font-size:.9rem">Already a customer with access to the delivery repository? <code>gh release download v7.4.17 --repo EJWisner/ghost-local-delivery</code></p>
-  </div>
-  <div class="card">
-    <h3>Verify it before you unpack it</h3>
-    <p>The file is about to become a global command on your machine. Check it first.</p>
-    <pre><code>shasum -a 256 ghost-architect-local-7.4.17.tgz</code></pre>
-    <p>On Windows PowerShell:</p>
-    <pre><code>Get-FileHash -Algorithm SHA256 ghost-architect-local-7.4.17.tgz</code></pre>
-    <p>Expected for 7.4.17:</p>
-    <p class="hash">ebea40228461b4761bcc1aa7b817b31b0b308a33a2b8e6bcc97877da3e9e2a58</p>
-    <div class="warn">If the hash does not match, stop. Do not install it. Email support@ghostarchitect.dev with what you got.</div>
-  </div>
-</div></section>
+    </div>
+  </section>
 
-<section><div class="wrap">
-  <h2>2. What you need</h2>
-  <div class="row">
-    <div class="card"><h3>macOS 13 or later, Linux, or Windows 10 or later</h3><p>The installer checks the OS floor and stops below it. Linux installs run as a service account with a data root the installer creates, and the Linux path is verified on a fresh machine for every release. Windows uses a PowerShell installer from an elevated prompt and registers Windows Services. Ghost Architect&trade; Local runs on real Windows hardware here, as two Windows Services, and the full test suite runs on that same machine on every push. What we have not done is watch a customer install from scratch on a machine that is not ours, so send us the console output either way.</p></div>
-    <div class="card"><h3>Node.js 24 or later</h3><p>The installer checks it and does not install it. Get it from nodejs.org or your version manager first.</p></div>
-    <div class="card"><h3>A model server with a model pulled</h3><p>Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint on your network. Our estate runs qwen3:14b on Ollama. The installer asks which and checks it answers.</p></div>
-    <div class="card"><h3>A second machine, when you want the estate</h3><p>Any of the three can be a spoke. Enrol it from Admin Console on the hub and it runs scans and reports them back; the model calls go to the hub's model server over your LAN.</p></div>
-  </div>
-</div></section>
+  <section class="band">
+    <h2>2. What you need</h2>
+    <div class="cards">
+      <div class="card"><h3>macOS 13 or later, Linux, or Windows 10 or later</h3><p>The installer checks the OS floor and stops below it. Linux installs run as a service account with a data root the installer creates, and the Linux path is verified on a fresh machine for every release. Windows uses a PowerShell installer from an elevated prompt and registers Windows Services. Ghost Architect&trade; Local runs on real Windows hardware here, as two Windows Services, and the full test suite runs on that same machine on every push. What we have not done is watch a customer install from scratch on a machine that is not ours, so send us the console output either way.</p></div>
+      <div class="card"><h3>Node.js 24 or later</h3><p>The installer checks it and does not install it. Get it from nodejs.org or your version manager first.</p></div>
+      <div class="card"><h3>A model server with a model pulled</h3><p>Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint on your network. Our estate runs qwen3:14b on Ollama. The installer asks which and checks it answers.</p></div>
+      <div class="card"><h3>A second machine, when you want the estate</h3><p>Any of the three can be a spoke. Enrol it from Admin Console on the hub and it runs scans and reports them back; the model calls go to the hub's model server over your LAN.</p></div>
+    </div>
+  </section>
 
-<section><div class="wrap">
-  <h2>3. Install</h2>
-  <p>Everything happens inside the directory you unpack. Keep that directory; the global <code>ghost</code> command links into it rather than copying it.</p>
-  <pre><code>tar -xzf ghost-architect-local-7.4.17.tgz
+  <section class="band">
+    <h2>3. Install</h2>
+    <div class="prose">
+      <p>Everything happens inside the directory you unpack. Keep that directory; the global <code>ghost</code> command links into it rather than copying it.</p>
+      <pre><code>tar -xzf ghost-architect-local-7.4.17.tgz
 cd package
 bash install/setup.sh              # macOS
 sudo bash install/setup-linux.sh   # Linux
 .\install\setup.ps1                 # Windows, elevated PowerShell</code></pre>
-  <p>The installer changes four things on your machine, and INSTALL.md, in the directory you just unpacked, is the authoritative list of them. Re-running the installer is the supported upgrade path: your service account, data root and signing key are left alone.</p>
-</div></section>
+      <p>The installer changes four things on your machine, and INSTALL.md, in the directory you just unpacked, is the authoritative list of them. Re-running the installer is the supported upgrade path: your service account, data root and signing key are left alone.</p>
+    </div>
+  </section>
 
-<section><div class="wrap">
-  <h2>4. First run and the trial</h2>
-  <ol>
-    <li>Run <code>ghost</code>. The evaluation trial starts on first use, registered against this install, and the product tells you the day it ends.</li>
-    <li>Point it at a codebase. Start with Recon: one planner call that sizes the codebase and tells you what a full scan would read, how many passes, and how long, with the basis of that estimate printed beside it.</li>
-    <li>Open the portal it prints (https://localhost:3443 by default): the Fleet page, the queue, LLM Status, the reports. Trust its certificate the way the page tells you to.</li>
-    <li>Enrol a second machine from Admin Console when you want the estate view. Every machine reports back to the hub.</li>
-    <li>To keep it, convert from inside the product during the trial. The first year is half price and the licence arrives by email, signed, and activates against this install.</li>
-  </ol>
-  <div class="card"><h3>Zero egress, if that is how you work</h3><p>Activation is the one call home (the licence key and an install id, nothing from your code). After it, turn on zero-egress mode and the product refuses every outbound destination at the code level and prints the inventory that proves it. <a href="/security.html#local">Details on the security page.</a></p></div>
-</div></section>
+  <section class="band">
+    <h2>4. First run and the trial</h2>
+    <div class="prose">
+      <ol>
+        <li>Run <code>ghost</code>. The evaluation trial starts on first use, registered against this install, and the product tells you the day it ends.</li>
+        <li>Point it at a codebase. Start with Recon: one planner call that sizes the codebase and tells you what a full scan would read, how many passes, and how long, with the basis of that estimate printed beside it.</li>
+        <li>Open the portal it prints (https://localhost:3443 by default): the Fleet page, the queue, LLM Status, the reports. Trust its certificate the way the page tells you to.</li>
+        <li>Enrol a second machine from Admin Console when you want the estate view. Every machine reports back to the hub.</li>
+        <li>To keep it, convert from inside the product during the trial. The first year is half price and the licence arrives by email, signed, and activates against this install.</li>
+      </ol>
+    </div>
+    <div class="cards one">
+      <div class="card"><h3>Zero egress, if that is how you work</h3><p>Activation is the one call home (the licence key and an install id, nothing from your code). After it, turn on zero-egress mode and the product refuses every outbound destination at the code level and prints the inventory that proves it. <a href="security.html#local">Details on the security page.</a></p></div>
+    </div>
+  </section>
 
-<section><div class="wrap">
-  <h2>Questions before you install?</h2>
-  <p>support@ghostarchitect.dev answers Local questions, or use the <a href="/support-chat.html?platform=local">support chat</a> with the platform set to Local. The <a href="/local-walkthrough.html">walkthrough</a> shows every page before you commit a machine to it.</p>
-</div></section>
+  <section class="band">
+    <h2>Questions before you install?</h2>
+    <div class="prose">
+      <p>support@ghostarchitect.dev answers Local questions, or use the <a href="../support-chat.html?platform=local">support chat</a> with the platform set to Local. The <a href="local-walkthrough.html">walkthrough</a> shows every page before you commit a machine to it.</p>
+    </div>
+  </section>
+
+</main>
 
 <footer>
-  <a href="/">Ghost Architect&trade;</a> &middot; <a href="/local.html">Local</a> &middot; <a href="/pricing.html#local">Pricing</a> &middot; <a href="/security.html#local">Security</a> &middot; <a href="/support.html?platform=local">Support</a><br>
-  <span style="display:inline-block;margin-top:.5rem">&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved.</span>
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; US Copyright Reg. #1-15123488721 &middot; <a href="support.html?platform=local">Support</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="msa.html">Terms of Service</a></span>
 </footer>
-<script src="/assets/ga-nav.js?v=20260920b" defer></script>
+
+<script src="../assets/ga-nav.js?v=20260920b" defer></script>
+<script>
+  // Quiet text reveals. Falls back to visible if IntersectionObserver is missing.
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
 <script>
 (function(){
   var form = document.getElementById('trial-form'); if (!form) return;
@@ -182,5 +199,7 @@ sudo bash install/setup-linux.sh   # Linux
   });
 })();
 </script>
+<script src="next-nav.js" defer></script>
+<script src="scene.js" defer></script>
 </body>
 </html>

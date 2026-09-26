@@ -77,3 +77,6 @@
   .release-card { padding: 1.1rem 1rem 1rem; }
   .install-card { flex-direction: column; align-items: flex-start; }
 }
+
+/* 2026-09-26: at 390px the changelog ran 8px wider than the screen (no single element sticks out; a decoration does). Clip, which keeps sticky positioning working. */
+html, body { overflow-x: clip; }

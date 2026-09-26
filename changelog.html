@@ -3,385 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="color-scheme" content="dark" />
-  <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
-  <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
+  <meta name="robots" content="index, follow" />
   <title>Changelog &middot; Ghost Architect&trade;</title>
   <meta name="description" content="Ghost Architect™ release notes. v8.1.5 ships 10 security and reliability fixes. v8.0.0 introduces Ghost Brief™ -- the governed AI remediation pipeline. Plus v7 highlights." />
-  <!-- LAUNCH50-PROMO META START. Commented out 2026-05-27; swap with the live meta above to re-enable. -->
-  <!-- <meta name="description" content="Ghost Architect™ release notes. v7.0.0 ships the unified Open tier as the trial, cost transparency in Question mode, and the LAUNCH50 promo. Plus what landed in v6 and the v5 highlights." /> -->
-  <!-- LAUNCH50-PROMO META END -->
+  <meta name="description" content="Ghost Architect™ release notes. v7.0.0 ships the unified Open tier as the trial, cost transparency in Question mode, and the LAUNCH50 promo. Plus what landed in v6 and the v5 highlights." />
   <link rel="canonical" href="https://ghostarchitect.dev/changelog" />
-  <meta name="robots" content="index, follow" />
-
-  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ghostarchitect.dev/changelog.html" />
   <meta property="og:title" content="Changelog &middot; Ghost Architect&trade;" />
   <meta property="og:description" content="Ghost Architect™ release notes. v8.1.5 ships 10 security and reliability fixes. v8.0.0 introduces the governed AI remediation pipeline." />
   <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
   <meta property="og:site_name" content="Ghost Architect&trade;" />
-
-  <style>
-    :root {
-      --bg-page: #050a14;
-      --bg-card: #0a1528;
-      --bg-card-top: #122440;
-      --border: rgba(0, 191, 216, 0.28);
-      --border-strong: rgba(0, 191, 216, 0.55);
-      --border-dim: #2a2a3a;
-      --cyan: #00bfd8;
-      --cyan-bright: #00e5ff;
-      --cyan-dim: #4d8a99;
-      --accent: #4a9eff;
-      --text-primary: #f5f9ff;
-      --text-secondary: #b8c5d6;
-      --text-tertiary: #8a9aaf;
-      --text-muted: #888899;
-      --good: #00e5a8;
-      --warn: #ffc266;
-      --danger: #ff6b6b;
-      --grid: rgba(0, 191, 216, 0.05);
-      --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      width: 100%;
-      background: var(--bg-page);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-      color: var(--text-primary);
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.5;
-    }
-    body {
-      background-image:
-        linear-gradient(var(--grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-      background-size: 24px 24px;
-    }
-    a { color: var(--cyan-bright); text-decoration: none; }
-    a:hover { color: var(--cyan); }
-
-    /* ── Hero ───────────────────────────────────────────────────── */
-    .hero {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 56px 24px 24px;
-    }
-    .hero-eyebrow {
-      color: var(--cyan);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      font-family: var(--font-mono);
-    }
-    .hero-headline {
-      font-size: clamp(32px, 4.5vw, 48px);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-      margin-bottom: 18px;
-    }
-    .hero-headline em {
-      color: var(--cyan-bright);
-      font-style: normal;
-    }
-    .hero-subhead {
-      font-size: clamp(16px, 1.4vw, 19px);
-      color: var(--text-secondary);
-      max-width: 820px;
-      line-height: 1.55;
-    }
-
-    /* ── Install card (current release pointer) ─────────────────── */
-    .install {
-      max-width: 1100px;
-      margin: 24px auto 0;
-      padding: 0 24px;
-    }
-    .install-card {
-      background: linear-gradient(180deg, var(--bg-card-top), var(--bg-card));
-      border: 1px solid var(--border-strong);
-      border-radius: 10px;
-      padding: 24px 28px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 18px 28px;
-      justify-content: space-between;
-    }
-    .install-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .install-label {
-      color: var(--cyan);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      font-family: var(--font-mono);
-    }
-    .install-version {
-      color: var(--text-primary);
-      font-size: 18px;
-      font-weight: 700;
-      font-family: var(--font-mono);
-      letter-spacing: 0.01em;
-    }
-    .install-version .version-date {
-      color: var(--text-tertiary);
-      font-weight: 500;
-      font-size: 14px;
-      margin-left: 10px;
-    }
-    .install-cmd {
-      background: var(--bg-page);
-      border: 1px solid var(--border-dim);
-      border-radius: 6px;
-      padding: 12px 16px;
-      font-family: var(--font-mono);
-      font-size: 14px;
-      color: var(--cyan-bright);
-      letter-spacing: 0.01em;
-    }
-    .install-cmd .prompt { color: var(--good); margin-right: 8px; }
-
-    /* ── Manifesto banner ───────────────────────────────────────── */
-    .manifesto {
-      max-width: 1100px;
-      margin: 24px auto 0;
-      padding: 0 24px;
-    }
-    .manifesto-card {
-      background: linear-gradient(180deg, var(--bg-card-top), var(--bg-card));
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--cyan);
-      border-radius: 10px;
-      padding: 28px 32px;
-    }
-    .manifesto-headline {
-      color: var(--text-primary);
-      font-size: clamp(18px, 2.2vw, 24px);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-      margin: 0 0 12px;
-    }
-    .manifesto-body {
-      color: var(--text-secondary);
-      font-size: 15px;
-      line-height: 1.7;
-      margin: 0;
-      max-width: 860px;
-    }
-    .manifesto-body strong { color: var(--text-primary); }
-
-    /* ── Release sections ───────────────────────────────────────── */
-    .section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 40px 24px;
-    }
-    .release-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 32px 32px 28px;
-    }
-    .release-card.current {
-      border-color: var(--border-strong);
-      background: linear-gradient(180deg, var(--bg-card-top), var(--bg-card));
-    }
-    .release-meta {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-    .release-version {
-      color: var(--cyan-bright);
-      font-family: var(--font-mono);
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-    }
-    .release-date {
-      color: var(--text-tertiary);
-      font-family: var(--font-mono);
-      font-size: 13px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-    .release-badge {
-      display: inline-block;
-      background: rgba(0, 229, 168, 0.12);
-      color: var(--good);
-      border: 1px solid rgba(0, 229, 168, 0.4);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 4px;
-    }
-    .release-headline {
-      font-size: clamp(22px, 2.6vw, 28px);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-      margin-bottom: 18px;
-    }
-    .release-lede {
-      color: var(--text-secondary);
-      font-size: 16px;
-      line-height: 1.65;
-      margin-bottom: 20px;
-      max-width: 820px;
-    }
-    .release-lede strong { color: var(--text-primary); }
-    .change-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .change-list li {
-      display: grid;
-      grid-template-columns: 20px 1fr;
-      gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border-dim);
-      color: var(--text-secondary);
-      font-size: 15.5px;
-      line-height: 1.6;
-    }
-    .change-list li:last-child { border-bottom: none; }
-    .change-list .marker {
-      color: var(--cyan);
-      font-family: var(--font-mono);
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 1.6;
-    }
-    .change-list strong { color: var(--text-primary); }
-    .change-list code {
-      background: var(--bg-page);
-      border: 1px solid var(--border-dim);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: var(--font-mono);
-      font-size: 0.9em;
-      color: var(--cyan-bright);
-    }
-    .release-footer {
-      margin-top: 20px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border-dim);
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--text-tertiary);
-    }
-    .release-footer a {
-      color: var(--cyan);
-      border-bottom: 1px dotted var(--cyan-dim);
-      padding-bottom: 1px;
-    }
-    .release-footer a:hover { color: var(--cyan-bright); border-bottom-color: var(--cyan-bright); }
-
-    /* ── Closing CTA band ───────────────────────────────────────── */
-    .closing-band {
-      background: linear-gradient(180deg, var(--bg-card-top), var(--bg-card));
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      margin: 24px 0 0;
-    }
-    .closing-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 36px 24px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-    .closing-text {
-      color: var(--text-secondary);
-      font-size: 15.5px;
-      line-height: 1.6;
-      max-width: 720px;
-    }
-    .closing-text strong { color: var(--text-primary); }
-    .closing-btn {
-      display: inline-block;
-      background: var(--cyan);
-      color: var(--bg-page);
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: 0.04em;
-      padding: 12px 22px;
-      border-radius: 6px;
-      font-family: var(--font-mono);
-      transition: background 0.12s ease;
-      white-space: nowrap;
-    }
-    .closing-btn:hover { background: var(--cyan-bright); color: var(--bg-page); }
-
-    /* ── Footer ─────────────────────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border-dim);
-      padding: 28px 24px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      font-family: var(--font-mono);
-    }
-    footer a { color: var(--text-tertiary); margin: 0 8px; }
-    footer a:hover { color: var(--cyan); }
-
-    /* TWO PRODUCTS, TWO COLUMNS */
-    .two-logs { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 1640px; margin: 24px auto 0; padding: 0 1.5rem 2rem; align-items: start; }
-    .log-col { border: 1px solid var(--border); border-radius: 16px; min-width: 0; padding-bottom: 0.5rem; scroll-margin-top: 80px; background: rgba(255,255,255,0.012); }
-    .log-hosted { border-top: 4px solid #4a9eff; }
-    .log-local { border-top: 4px solid #00bfd8; }
-    .log-head { padding: 1.5rem 1.5rem 1.2rem; border-bottom: 1px solid var(--border); }
-    .log-eyebrow { font-family: var(--font-mono); font-size: 1.45rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; display: flex; gap: 0.7rem; align-items: center; flex-wrap: wrap; line-height: 1.2; }
-    .log-hosted .log-eyebrow { color: #8cc6ff; text-shadow: 0 0 18px rgba(74,158,255,0.55); }
-    .log-local .log-eyebrow { color: #4df2ff; text-shadow: 0 0 18px rgba(0,229,255,0.55); }
-    .log-new { background: #00bfd8; color: #06131a; font-size: 0.7rem; letter-spacing: 0.1em; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 700; text-shadow: none; }
-    .log-head p { color: var(--text-secondary); margin: 0.6rem 0 0; font-size: 0.95rem; line-height: 1.55; }
-    .log-head p a { color: var(--cyan-bright); }
-    .log-col .install { max-width: none; margin: 0; padding: 18px 18px 0; }
-    .log-col .section { max-width: none; padding: 14px 18px; }
-    .log-col .release-card { padding: 24px 24px 22px; }
-    .log-local .release-card { border-color: rgba(0,191,216,0.45); }
-    .log-local .release-version { color: #4df2ff; }
-    .release-badge.local { background: rgba(0,191,216,0.14); color: #4df2ff; border-color: rgba(0,191,216,0.45); }
-    @media (max-width: 1100px) { .two-logs { grid-template-columns: 1fr; } }
-    @media (max-width: 720px) {
-      .install-card { flex-direction: column; align-items: flex-start; }
-      .log-col .section { padding: 10px 10px; }
-      .log-col .release-card { padding: 18px 16px; }
-      .change-list li { grid-template-columns: 16px 1fr; gap: 10px; font-size: 15px; }
-      .closing-inner { flex-direction: column; align-items: flex-start; }
-    }
-  </style>
-
-  <link rel="stylesheet" href="/assets/ga-nav.css?v=20260920b" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css" />
+  <link rel="stylesheet" href="changelog.css" />
 </head>
-<body>
+<body data-product="cloud">
+
+<canvas id="lattice" aria-hidden="true" data-ambient></canvas>
 
 <div id="ga-nav-mount"></div>
 
+<main class="page changelog">
 <section class="hero">
   <div class="hero-eyebrow">// changelog</div>
   <h1 class="hero-headline">Release notes.<br><em>What shipped, and when.</em></h1>
-  <p class="hero-subhead">Ghost Architect&trade; ships fast. This page is the official record of what landed in each release, in plain language, with the user-facing change first. For deeper context on individual releases, see the corresponding posts on the <a href="/blog.html">blog</a>.</p>
+  <p class="hero-subhead">Ghost Architect&trade; ships fast. This page is the official record of what landed in each release, in plain language, with the user-facing change first. For deeper context on individual releases, see the corresponding posts on the <a href="blog.html">blog</a>.</p>
 </section>
 
 <section class="manifesto">
@@ -417,7 +70,7 @@
       <span class="release-version">v11.0.3</span>
       <span class="release-date">July 11, 2026</span>
       <span class="release-badge">Latest</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Renewal Recovery, Forecast Completeness, and Revocation Routing</h2>
     <p class="release-lede">v11.0.3 -- Renewal and recovery screens now include the activation step, Commit Forecast saves the complete findings sidecar, revocation checks are license-aware on machines running more than one license, and the new --list-sessions flag shows every resumable scan session.</p>
@@ -432,7 +85,7 @@
     <div class="release-meta">
       <span class="release-version">v11.0.2</span>
       <span class="release-date">July 10, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Recon Disclosure, Resume Honesty, and Renewal Copy</h2>
     <p class="release-lede">v11.0.2 -- Recon's fallback-to-heuristics disclosure is live and its cost stamp is now accurate, expired customers using profile management commands see renewal guidance instead of a generic activation prompt, a scan that only partially resumes now honestly reports incomplete instead of complete, and session listing includes scans saved to the fallback directory.</p>
@@ -447,7 +100,7 @@
     <div class="release-meta">
       <span class="release-version">v11.0.1</span>
       <span class="release-date">July 10, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Model Compatibility, CI Token Integrity, and Watcher Fixes</h2>
     <p class="release-lede">v11.0.1 -- Claude Sonnet 5, Opus 4.8, and Fable 5 now work across every scan mode instead of failing outright, ghost --export-ci-token validates the exact token it exports instead of a different one, a malformed Ghost Watcher config value no longer blocks a commit, and a resumed prompts batch can no longer report a failed scan as complete.</p>
@@ -462,7 +115,7 @@
     <div class="release-meta">
       <span class="release-version">v11.0.0</span>
       <span class="release-date">July 10, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Checkpoint Salvage, License Session Refresh, and CI Token Export</h2>
     <p class="release-lede">v11.0.0 -- A checkpoint-salvage bug that corrupted recovered findings after a crash is fixed, license changes like activation and renewal now take effect immediately instead of requiring a restart, the new ghost --export-ci-token command makes CI secret setup reliable, and the Ghost Watcher paywall no longer pitches a free trial to accounts it cannot actually help.</p>
@@ -477,7 +130,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.16</span>
       <span class="release-date">July 9, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher Trust and Display</h2>
     <p class="release-lede">v10.0.16 -- Ghost Watcher now separates blast radius observations from action-required findings.</p>
@@ -492,7 +145,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.15</span>
       <span class="release-date">July 9, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Chat Response Calibration</h2>
     <p class="release-lede">v10.0.15 -- Chat and question mode now scales response depth to question complexity.</p>
@@ -507,7 +160,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.14</span>
       <span class="release-date">July 9, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Report Polish, Verifier Trust, and Copy Accuracy</h2>
     <p class="release-lede">v10.0.14 -- Report polish, verifier trust fixes, AWS SHA redactor fix, Windows menu restored, clock-skew license panel fixed.</p>
@@ -522,7 +175,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.13</span>
       <span class="release-date">July 9, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Scan Quality and Audit Pricing</h2>
     <p class="release-lede">v10.0.13 -- assets/ directory and common binary asset extensions excluded from scans, audit paywall pricing corrected.</p>
@@ -537,7 +190,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.12</span>
       <span class="release-date">July 9, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Session Recovery, Publish Reliability, License Copy, and Email Polish</h2>
     <p class="release-lede">v10.0.12 -- Session resume fixed, concurrent publish locking, clock state hardened, GitHub PAT env var support, email em dashes removed.</p>
@@ -552,7 +205,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.11</span>
       <span class="release-date">July 9, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Clock Tolerance, Session Safety, and Publish Recovery</h2>
     <p class="release-lede">v10.0.11 -- Clock ratchet window widened to 5 minutes, session salvage filters by project, interrupted publish recovery loop fixed, audit and multipass error handling hardened.</p>
@@ -567,7 +220,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.10</span>
       <span class="release-date">July 8, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">License Ratchet, Quota Safety, and Verifier Quality</h2>
     <p class="release-lede">v10.0.10 -- Clock ratchet rejects past timestamps, quota counters fail-closed, verifier drops disputed findings, narrator cap raised to 30 with transparency, reliability hardening.</p>
@@ -582,7 +235,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.9</span>
       <span class="release-date">July 8, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Reliability, Data Integrity, and Credential Safety</h2>
     <p class="release-lede">v10.0.9 -- Manifest parser crash-proofed, credential safety enforced, mobile publish atomicity added, batch store locking, rate limit handling.</p>
@@ -597,7 +250,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.8</span>
       <span class="release-date">July 8, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Reconfigure Menu Repo URL, Session Recovery, and Verifier</h2>
     <p class="release-lede">v10.0.8 -- Reconfigure menu repo URL fixed, session recovery visible, verifier regeneration improved, profile model validation added.</p>
@@ -612,7 +265,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.7</span>
       <span class="release-date">July 8, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">HOTFIX</span>
+      <span class="release-badge kind-blue">HOTFIX</span>
     </div>
     <h2 class="release-headline">Reconfigure Menu Crash and SCAN_QUOTA Single Source of Truth</h2>
     <p class="release-lede">v10.0.7 -- Reconfigure menu no longer crashes with a ReferenceError, and FREE_QUOTA is removed entirely so the free-scan quota has one source of truth.</p>
@@ -627,7 +280,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.6</span>
       <span class="release-date">July 8, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Cost Reporting, Selective Reconfigure, and Security Hardening</h2>
     <p class="release-lede">v10.0.6 -- Cost reporting fixed, selective reconfigure menu, GitHub token secured in OS keychain, prompt injection hardened.</p>
@@ -642,7 +295,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.5</span>
       <span class="release-date">July 8, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Executive Brief Empty State, Ghost Brief Output Flag, and Install</h2>
     <p class="release-lede">v10.0.5 -- Executive Brief renders a graceful empty state, Ghost Brief --output flag wired through, README install command updated to --location=global.</p>
@@ -657,7 +310,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.4</span>
       <span class="release-date">July 7, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Prompt Triage Redaction, Wizard Loop, and Paywall Copy Patch</h2>
     <p class="release-lede">v10.0.4 -- Prompt Triage now redacts before API calls, keyless wizard loop fixed, paywall copy corrected, pricing constants completed.</p>
@@ -672,7 +325,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.3</span>
       <span class="release-date">July 7, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Privacy, LICENSE, Trial Funnel, and License Detection Patch</h2>
     <p class="release-lede">v10.0.3 -- Privacy copy corrected, LICENSE fixed, Ghost Watcher false-clean fixed, trial funnel improved, profile creation fixed, license detection live, 549 em dashes removed from site.</p>
@@ -687,7 +340,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.2</span>
       <span class="release-date">July 6, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">License Key, Watch Setup, and Cost Estimator Patch</h2>
     <p class="release-lede">License key generation fixed, Ghost Watcher Windows setup fixed, cost estimates corrected for audit and prompt-triage.</p>
@@ -702,7 +355,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.1</span>
       <span class="release-date">July 6, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Trial Funnel and Paywall Patch</h2>
     <p class="release-lede">Trial funnel fixed, Ghost Brief working, Watcher regex patched, 9 conversion and trust improvements.</p>
@@ -717,7 +370,7 @@
     <div class="release-meta">
       <span class="release-version">v10.0.0</span>
       <span class="release-date">July 6, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">MAJOR</span>
+      <span class="release-badge kind-blue">MAJOR</span>
     </div>
     <h2 class="release-headline">Full 32-Finding Audit Remediation</h2>
     <p class="release-lede">Full 32-finding audit remediation. Pricing fixed, trial CTA live, portal link fixed, 32 trust and conversion improvements.</p>
@@ -732,7 +385,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.40</span>
       <span class="release-date">July 5, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Multipass Crash Fix</h2>
     <p class="release-lede">Patched a ReferenceError in the multi-pass scanner: two constants (IS_WINDOWS and SYM) were trapped inside a JSDoc comment instead of live code, so pass-complete, batch-merge, and coverage output could crash. Both declarations moved to live code. Caught by Ghost Watcher automated conflict detection.</p>
@@ -747,7 +400,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.39</span>
       <span class="release-date">July 5, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Guided Analysis Prompt + First-Run License Flow</h2>
     <p class="release-lede">After processing your files, Ghost now opens with "Ready to analyze N files. What would you like Ghost to do?" instead of dropping straight into the menu. First-run onboarding asks whether you have a license key before setup: enter one to activate immediately, or head to the free 7-day trial or Ghost Open. A bad key warns and continues rather than killing the session. Plus a README note on running Ghost from any directory and entering the full path when prompted.</p>
@@ -762,7 +415,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.38</span>
       <span class="release-date">July 5, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Cross-Platform Config Hardening + Git Hook Intelligence</h2>
     <p class="release-lede">Linux sudo ghost --activate no longer silently drops to Open tier on relaunch: the license store now resolves to the invoking user's real home, with automatic ownership reconciliation and five Configstore instances consolidated into one. Ghost also recognizes extensionless Git hook files (pre-commit, post-checkout, commit-msg, and 13 others) across the directory, ZIP, and GitHub loaders, so a .git/hooks folder is fully analyzed. Test suite now 30 tests.</p>
@@ -777,7 +430,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.37</span>
       <span class="release-date">July 3, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Regression Guard Added</h2>
     <p class="release-lede">Locked in the v9.4.36 forecast context-cap fix with a dedicated regression fixture -- it asserts resolveContextCap() returns an object and that .effective extraction is required, so the bug can't silently return. Also reconciled the v9.4.35 self-audit count to 14 findings. Test suite now 29 tests.</p>
@@ -792,7 +445,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.36</span>
       <span class="release-date">July 2, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher Caught One</h2>
     <p class="release-lede">Ghost Watcher flagged a real bug on the v9.4.35 release commit. forecast-overlay.js was using the resolveContextCap() return object as a number instead of extracting .effective -- silently bypassing the tier context cap on large change sets. Ghost Watcher caught it automatically. Fixed same session.</p>
@@ -807,7 +460,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.35</span>
       <span class="release-date">July 2, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">POI Self-Audit -- 14 Findings Resolved</h2>
     <p class="release-lede">Ghost scanned Ghost. POI self-audit identified and resolved 14 latent findings across error handling, concurrency, and silent failure paths -- none affecting the happy path, all affecting edge-case reliability. Includes 3 new regression fixtures and a 28-test suite.</p>
@@ -822,7 +475,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.34</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Self-refuting findings get a second line of defense.</h2>
     <p class="release-lede">Conflict Detection already suppresses findings that talk themselves out of being conflicts at generation time. This release adds a post-generation safety net that catches two more self-refuting phrasings, so anything that slips past the prompt still gets filtered before it reaches your report. A verified annotation also documents the token counter's intentional cache isolation.</p>
@@ -841,7 +494,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.33</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Tighter Conflict Detection and cleaner token caching.</h2>
     <p class="release-lede">Conflict Detection now suppresses findings that talk themselves out of being conflicts: if a finding's own description says there is no runtime failure or that it is correct behavior, it never reaches your report. Under the hood, the token counter's fast and exact caches are now fully isolated, and a dead import was removed.</p>
@@ -861,7 +514,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.32</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Verification annotation for the prompt-triage cost imports.</h2>
     <p class="release-lede">A flagged import in the prompt-triage mode was reviewed and confirmed as a false positive. The four cost helpers it uses are correctly exported and imported directly from the core estimator, so the annotation records that verification in place. No behavior change.</p>
@@ -879,7 +532,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.31</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher™ now tracks what you fixed.</h2>
     <p class="release-lede">Every Watcher run now compares against the last one. Findings that disappear after a fix move to a Resolved section in your portal, tagged with the commit that closed them, and brand-new findings are marked as first seen on this commit. It is branch-aware, so parallel work does not muddy the picture.</p>
@@ -900,7 +553,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.30</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Sharper conflict findings, sturdier parsing.</h2>
     <p class="release-lede">A quality pass on Conflict Detection. The scanner now suppresses speculative and hypothetical findings at the source, so what surfaces is grounded in a code path that runs today rather than a what-if. Under the hood, the findings parser gained two more recovery tiers for imperfect model output, and CI moved to Node.js 24.</p>
@@ -921,7 +574,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.29</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Docs match the config.</h2>
     <p class="release-lede">A documentation fix. The Ghost Watcher config example in the README now shows the structured blast-radius block, so copying it preserves the release-commit skip behavior added last release instead of silently reverting to the older on/off form.</p>
@@ -939,7 +592,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.28</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Quieter Ghost Watcher on release commits.</h2>
     <p class="release-lede">A small workflow refinement. Ghost Watcher now skips the Blast Radius pass on version-tagged release commits, which produced impact-analysis noise rather than actionable findings. Conflict Detection and Ghost Brief still run on every commit.</p>
@@ -958,7 +611,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.27</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Batch synthesis fails loudly, not silently.</h2>
     <p class="release-lede">A follow-up hardening release. The multi-pass Blast Radius synthesis introduced last release now surfaces batch failures as an explicit error instead of returning a blank report, so a failed synthesis never gets saved as an empty file.</p>
@@ -976,7 +629,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.26</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">More reliable Ghost Watcher runs on CI.</h2>
     <p class="release-lede">A reliability release. Ghost Watcher's Blast Radius narration and multi-pass synthesis no longer depend on long-lived streaming connections, which occasionally dropped on CI runners and produced degraded results. Those paths now use blocking and batch requests instead, so large-codebase runs complete cleanly.</p>
@@ -995,7 +648,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.25</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Quieter Conflict Detection, fewer self-cancelling findings.</h2>
     <p class="release-lede">A precision release. Conflict Detection sometimes surfaced findings that its own explanation admitted were not real conflicts. The noise filter now recognizes more of those self-cancelling phrasings and drops them before they reach you.</p>
@@ -1013,7 +666,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.24</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">More reliable auto-patches and accurate telemetry.</h2>
     <p class="release-lede">A small correctness release. The automated patch generator no longer drops switch-case lines from a fix, cancelled Ghost Watcher runs now report the right version, and an internal detector-ranking path was made consistent.</p>
@@ -1033,7 +686,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.23</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Cleaner Prompt Triage dedup, no duplicate signal.</h2>
     <p class="release-lede">A small correctness release. Two Prompt Triage detectors were reclassified back to their documented roles as broad fallbacks, so overlapping findings no longer surface twice. One internal publish path was annotated as reviewed to keep future self-scans quiet.</p>
@@ -1052,7 +705,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.22</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Accurate mobile dashboards and verified diff output.</h2>
     <p class="release-lede">A maintenance release closing out the precision work from this cycle. Scan records now persist every field the Ghost Mobile portfolio dashboard reads, so finding and severity counts render correctly instead of showing zero. The unified-diff renderer was verified correct on multi-hunk output, and the bundled conflict-prompt snapshots were refreshed to match the tightened v0.4 wording.</p>
@@ -1072,7 +725,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.21</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Sharper Conflict Detection and fewer false positives.</h2>
     <p class="release-lede">A maintenance release focused on precision. Conflict Detection now requires concrete runtime impact before flagging an issue, cutting speculative noise. Recurring intentional-design findings are marked reviewed so they stop resurfacing, the mobile portfolio dashboard reports findings correctly, and the Ghost Portal degraded-run banner now names the exact commit affected.</p>
@@ -1096,7 +749,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.20</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Clearer Watch notifications, more resilient parsing, and an instant live dashboard.</h2>
     <p class="release-lede">A maintenance release. When a Blast Radius analysis is interrupted, Ghost Watcher&trade; now emails a clear rerun notice instead of raw, unnarrated findings, and the narrator has twice as long to finish before timing out. Conflict scans recover more partial results, the Ghost Portal gains a per-commit filter, and the live usage dashboard reflects new activity immediately.</p>
@@ -1119,7 +772,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.19</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Cleaner duplicate handling and more resilient large-scan parsing.</h2>
     <p class="release-lede">A maintenance release refining Ghost Architect&trade;'s internals. Two prompt detectors now deduplicate correctly, conflict scans on very large codebases recover gracefully when a response is cut short, and the automated patch generator no longer mishandles method-shaped edits. All surfaced by Ghost scanning its own code.</p>
@@ -1140,7 +793,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.18</span>
       <span class="release-date">July 1, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Watch defaults corrected: new repos run unlimited iterations unless you say otherwise.</h2>
     <p class="release-lede">A small maintenance release. Enabling Ghost Watcher&trade; on a new repository no longer bakes a hidden five-iteration cap into the generated config: the iteration limit is now opt-in, matching the documented behavior that no configuration means no limit. Plus an internal documentation correction.</p>
@@ -1159,7 +812,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.17</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Sharper self-review: correct duplicate suppression, model-accurate cost, and cleaner telemetry.</h2>
     <p class="release-lede">A maintenance release resolving issues Ghost Architect&trade; found while scanning its own codebase. Duplicate findings are now suppressed correctly, batch cost estimates reflect whichever Claude model you have configured, and a redundant telemetry file that stored raw commit and repository identifiers on disk has been removed.</p>
@@ -1181,7 +834,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.16</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Internal tidy-up: one shared temperature guard, accurate mobile cost estimates, and sharper code-vs-prose detection.</h2>
     <p class="release-lede">A maintenance release that consolidates duplicated logic and sharpens a few internal heuristics. The model temperature guard now lives in one shared place instead of three copies, the mobile dashboard reads cost and effort estimates correctly, and the report verifier no longer mistakes cost or effort ranges for source line numbers.</p>
@@ -1203,7 +856,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.15</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Follow-up correctness pass: Enterprise URL parsing everywhere, clearer cap warnings, and aligned docs.</h2>
     <p class="release-lede">A small maintenance release tidying up the last loose ends from the v9.4.14 correctness work. The final naive repository-URL parser now handles GitHub Enterprise Server hosts, a context-limit warning no longer names a flag you never typed, and several in-code docs and bundled prompt snapshots were brought back in line with the actual behavior.</p>
@@ -1224,7 +877,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.14</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Correctness pass: GitHub Enterprise publishing, accurate audit confidence, and safer model handling.</h2>
     <p class="release-lede">A maintenance release of 18 internal consistency fixes surfaced by Ghost Architect&trade; scanning its own codebase. Portal publishing now parses GitHub Enterprise Server repositories correctly, audit confidence scores render on the right scale, file publishing uses one consistent encoding path across every destination, and model sampling parameters are selected from an explicit allowlist so the newest Claude models are handled cleanly.</p>
@@ -1246,7 +899,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.13</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Enterprise reliability: cleaner cancels, GitHub Enterprise support, and a sharper Watch tab.</h2>
     <p class="release-lede">A maintenance release focused on Ghost Watcher&trade; reliability for larger and enterprise teams. Cancelled CI runs now resolve cleanly instead of showing a stuck Analyzing state, GitHub Enterprise Server repositories parse correctly, conflict scans on big codebases submit in right-sized pieces, and the dashboard's open-issue export is accurate. Plus forward-looking support for the newest Claude models.</p>
@@ -1269,7 +922,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.12</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Conflict Detection scales to large codebases without dropping its connection.</h2>
     <p class="release-lede">On big repositories, Ghost Watcher&trade; used to send the entire codebase as one oversized request that constrained CI networks could drop mid-upload. It now splits the work into right-sized batches automatically, then merges every batch's findings back together. No conflicts lost, no hung scans.</p>
@@ -1289,7 +942,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.11</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher&trade; keeps going when the network blinks, and tells you when it did.</h2>
     <p class="release-lede">A dropped connection mid-scan no longer means a degraded report in silence. Ghost Watcher&trade; now retries narration automatically, and if results still come through unnarrated, the Watch tab flags the affected commits so you know to rerun. The conflict filter also got sharper at telling real conflicts from ones the analysis talked itself out of.</p>
@@ -1310,7 +963,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.10</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Sharper findings: junk file references and self-cancelling conflicts filtered out.</h2>
     <p class="release-lede">Ghost Watcher&trade; now drops noise before it reaches your report. Stray version strings and malformed file references are kept out of findings, routine release-safety report sections are no longer mistaken for issues, and conflict findings that contradict themselves are removed before they surface.</p>
@@ -1331,7 +984,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.9</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Documentation files no longer trigger false @ghost-verified findings.</h2>
     <p class="release-lede">The @ghost-verified annotation is now restricted to source files. Documentation files that merely contain the marker as text (changelogs, READMEs, configs) are no longer eligible, closing the last doc-text false-positive in Ghost Watcher&trade;.</p>
@@ -1349,7 +1002,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.8</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Internal documentation improvements.</h2>
     <p class="release-lede">Ghost Watcher&trade; configuration comments clarified. No change to behavior.</p>
@@ -1367,7 +1020,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.7</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher reliability improvements.</h2>
     <p class="release-lede">Two fixes to Ghost Watcher&trade;. The codebase path is now correctly passed through to the Ghost Brief&trade; instead of falling back to the working directory, and the <strong>@ghost-verified</strong> annotation is now detected only in real code comments, so a file that merely mentions the marker is no longer mistaken for a reviewed one.</p>
@@ -1386,7 +1039,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.6</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher pricing cards now show API cost transparency.</h2>
     <p class="release-lede">Ghost Watcher&trade; runs on your own Anthropic API key. The Team, Team Max, Enterprise, and Enterprise Max pricing cards now state the typical per-commit cost up front, so there are no surprises when you connect your key.</p>
@@ -1404,7 +1057,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.5</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge" style="background:rgba(74,222,128,0.15);color:#4ade80;border-color:rgba(74,222,128,0.3);">FEATURE</span>
+      <span class="release-badge kind-green">FEATURE</span>
     </div>
     <h2 class="release-headline">Ghost Portal now shows a Reviewed &middot; Expected Behavior section for @ghost-verified findings.</h2>
     <p class="release-lede">Findings a developer marked <strong>@ghost-verified</strong> in source are already kept out of the active list, the PR comment, and Ghost Brief&trade;. The Ghost Portal Findings tab now surfaces them in their own collapsed <strong>Reviewed &middot; Expected Behavior</strong> section below the active findings, so reviewers can see what was deliberately accepted without it cluttering the work that still needs attention.</p>
@@ -1423,7 +1076,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.4</span>
       <span class="release-date">June 30, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Trial-tier context cap made explicit; conflict-report narration temperature aligned.</h2>
     <p class="release-lede">The trial tier now has an explicit 50K context cap (matching Open) instead of relying on a fallback, and the conflict-report narrator now generates prose at the same temperature as the rest of the report-narration family for consistent output.</p>
@@ -1442,7 +1095,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.3</span>
       <span class="release-date">June 29, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Findings you marked @ghost-verified no longer generate Ghost Brief&trade; prompts.</h2>
     <p class="release-lede">A finding marked <strong>@ghost-verified</strong> was already kept out of the PR comment and scan file, but Ghost Brief&trade; still generated a remediation prompt for it. Ghost Brief&trade; and its detailed-prompt step now build from the active finding set only, so verified findings are excluded end to end. Internal hardening also makes the Ghost Brief&trade; tier gate impossible to drift, and adds the agent-loop error contract to the CI test suite.</p>
@@ -1462,7 +1115,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.2</span>
       <span class="release-date">June 29, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher&trade; CI runs no longer cut off on large codebases.</h2>
     <p class="release-lede">The GitHub Actions job timeout was raised to 360 minutes (GitHub's maximum) in both the generated workflow and its template. The Actions job is intentionally no longer the limiting factor: batch poll timeouts and the store-and-resume logic own time management, so a long scan is stored and resumed on the next push instead of being killed at the finish line and firing an unnecessary incomplete-run email.</p>
@@ -1481,7 +1134,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.1</span>
       <span class="release-date">June 29, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Brief&trade; and Executive Brief gating corrected to Max-only everywhere.</h2>
     <p class="release-lede">The interactive menu and <strong>ghost --brief</strong> command wrongly let non-Max Team and Enterprise users generate a Ghost Brief&trade;, even though Ghost Watcher&trade; and the docs restrict it to the Max tiers. Both gates now use a single shared Max-tier constant, so Ghost Brief&trade; and Executive Brief are consistently available on Pro Max, Team Max, and Enterprise Max only.</p>
@@ -1501,7 +1154,7 @@
     <div class="release-meta">
       <span class="release-version">v9.4.0</span>
       <span class="release-date">June 29, 2026</span>
-      <span class="release-badge" style="background:rgba(74,222,128,0.15);color:#4ade80;border-color:rgba(74,222,128,0.3);">FEATURE</span>
+      <span class="release-badge kind-green">FEATURE</span>
     </div>
     <h2 class="release-headline">Mark false positives with @ghost-verified; Ghost Watcher&trade; keeps real findings clean.</h2>
     <p class="release-lede">Developers can mark a reviewed-and-accepted finding by dropping a <strong>@ghost-verified</strong> comment in the source file, with an optional reason. Ghost Watcher&trade; segregates those findings into a Reviewed &middot; Expected Behavior section of the PR comment and scan file, so real findings stay front and center and accepted ones stop nagging on every commit.</p>
@@ -1522,7 +1175,7 @@
     <div class="release-meta">
       <span class="release-version">v9.3.9</span>
       <span class="release-date">June 29, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Max-tier licenses now activate from the CLI.</h2>
     <p class="release-lede">Pro Max, Team Max, and Enterprise Max license keys now activate correctly via <strong>ghost --activate</strong>. The license parser and token validator previously did not recognize the Max-tier key codes, so activation failed before reaching the server.</p>
@@ -1541,7 +1194,7 @@
     <div class="release-meta">
       <span class="release-version">v9.3.8</span>
       <span class="release-date">June 29, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Brief™ is now Max-tier only; Ghost Watcher™ gains opt-in conflict verification.</h2>
     <p class="release-lede">Ghost Brief™ is enforced as a Max-tier feature (Pro Max, Team Max, Enterprise Max). Ghost Watcher™ can optionally verify conflict findings before reporting them, dropping false positives. Plus internal refactors to the redactor and batch cost calculation.</p>
@@ -1563,7 +1216,7 @@
     <div class="release-meta">
       <span class="release-version">v9.3.7</span>
       <span class="release-date">June 29, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Max-tier context caps fixed; Ghost Watcher™ iteration limit is now opt-in.</h2>
     <p class="release-lede">Pro Max, Team Max, and Enterprise Max now correctly receive 100K, 150K, and 200K token context caps. The Ghost Watcher™ iteration limit is opt-in: no config means no limit. Internal cleanup removes a duplicated quota constant.</p>
@@ -1584,7 +1237,7 @@
     <div class="release-meta">
       <span class="release-version">v9.3.6</span>
       <span class="release-date">June 29, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Token and cost telemetry added to the Ghost Watcher™ writer.</h2>
     <p class="release-lede">All batch paths (blast, conflict, prompts, resume) now record inputTokens, outputTokens, and estimatedCostUsd at Anthropic batch API rates ($1.50/$7.50 per 1M tokens). Unit tests added for buildTokenUsage and sumBatchUsage.</p>
@@ -1605,7 +1258,7 @@
     <div class="release-meta">
       <span class="release-version">v9.3.5</span>
       <span class="release-date">June 28, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher™ PR comments are now fully markdown-escaped.</h2>
     <p class="release-lede">Finding titles, severity labels, and branch names are now safely escaped before being written to GitHub PR comments. Prevents markdown injection from LLM-authored finding titles or attacker-controlled fork branch names.</p>
@@ -1626,7 +1279,7 @@
     <div class="release-meta">
       <span class="release-version">v9.3.4</span>
       <span class="release-date">June 27, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher™ email notifications are now fully HTML-escaped.</h2>
     <p class="release-lede">Finding titles, detail text, file paths, and repo names are now safely escaped in all six Ghost Watcher™ email templates. Prevents HTML and content injection from LLM-authored findings or crafted codebase content.</p>
@@ -1649,7 +1302,7 @@
     <div class="release-meta">
       <span class="release-version">v9.3.3</span>
       <span class="release-date">June 27, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher™ now generates detailed remediation prompts for every finding.</h2>
     <p class="release-lede">Every Ghost Watcher™ scan now produces LLM-authored, developer-ready remediation prompts. Paste directly into Claude Code, Cursor, Copilot, or any AI coding tool. No preamble. No boilerplate. Just the prompt.</p>
@@ -1671,7 +1324,7 @@
     <div class="release-meta">
       <span class="release-version">v9.3.2</span>
       <span class="release-date">June 27, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Blast Radius findings now carry file data in Ghost Watcher™.</h2>
     <p class="release-lede">Ghost Watcher™ blast scans now populate file arrays correctly. Ghost Brief™ generates after every scan -- not just conflict scans. Every finding has files. Every finding gets a prompt.</p>
@@ -1694,7 +1347,7 @@
     <div class="release-meta">
       <span class="release-version">v9.3.1</span>
       <span class="release-date">June 26, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Watcher™ now sends email notifications.</h2>
     <p class="release-lede">Findings email delivers per-finding detail and severity summary when issues are detected. Clean scan email confirms when a commit scans clean. Both fire-and-forget and never block the CI pipeline.</p>
@@ -1713,7 +1366,7 @@
     <div class="release-meta">
       <span class="release-version">v9.3.0</span>
       <span class="release-date">June 26, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">MINOR</span>
+      <span class="release-badge kind-blue">MINOR</span>
     </div>
     <h2 class="release-headline">Stream or batch. Your scan, your budget.</h2>
     <p class="release-lede">Every scan now opens with a cost estimate and a choice -- stream for real-time results or submit as a batch and save 50% on API charges. Same analysis, same report, you decide.</p>
@@ -1738,7 +1391,7 @@
     <div class="release-meta">
       <span class="release-version">v9.2.3</span>
       <span class="release-date">June 25, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Brief™ generates correctly after a batch scan.</h2>
     <p class="release-lede">Closes the final gap in the Batches API path. Raw blast batch output is now narrated before <code>extractFindings</code> runs, so Ghost Brief™ receives findings with fully populated <code>files</code> arrays. The end-to-end batch flow -- scan to Brief -- is validated.</p>
@@ -1757,7 +1410,7 @@
     <div class="release-meta">
       <span class="release-version">v9.2.2</span>
       <span class="release-date">June 25, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Native fetch batch transport for GitHub Actions reliability.</h2>
     <p class="release-lede">The Anthropic SDK's batch transport dropped its connection on GitHub Actions runners. Ghost Watcher™ now submits Batches API requests over native <code>fetch</code>, which completes the request reliably where the SDK failed.</p>
@@ -1776,7 +1429,7 @@
     <div class="release-meta">
       <span class="release-version">v9.2.1</span>
       <span class="release-date">June 25, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Batch submission resilience for CI networks.</h2>
     <p class="release-lede">Two reliability fixes for the Batches API path on ephemeral CI runners: retry with backoff on transient submission failures, and a preflight reachability check so unreachable endpoints fail fast with a clear message.</p>
@@ -1795,7 +1448,7 @@
     <div class="release-meta">
       <span class="release-version">v9.2.0</span>
       <span class="release-date">June 25, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">MINOR</span>
+      <span class="release-badge kind-blue">MINOR</span>
     </div>
     <h2 class="release-headline">Ghost Watcher™ Batches API -- async processing with auto-resume.</h2>
     <p class="release-lede">Ghost Watcher™ now submits scans through the Anthropic Batches API. Runs process asynchronously, an interrupted run resumes from where it stopped, and Ghost Portal shows a pending state until results land. Batch behavior is tunable from <code>ghost-watcher.yaml</code>.</p>
@@ -1817,7 +1470,7 @@
     <div class="release-meta">
       <span class="release-version">v9.1.0</span>
       <span class="release-date">June 25, 2026</span>
-      <span class="release-badge" style="background:rgba(34,197,94,0.15);color:#22c55e;border-color:rgba(34,197,94,0.3);">DOGFOOD</span>
+      <span class="release-badge kind-green">DOGFOOD</span>
     </div>
     <h2 class="release-headline">Ghost scanned its own codebase. Found 7 issues. Fixed all 7. Zero findings on the next push.</h2>
     <p class="release-lede">Ghost Architect™ ran Ghost Brief™ against its own codebase in dogfood pass 10. One critical security vulnerability and six high severity issues were found and fixed using Ghost Brief™ prompts executed in Claude Code. Ghost Watcher™ confirmed zero findings after the push. The tool used itself to fix itself.</p>
@@ -1841,7 +1494,7 @@
     <div class="release-meta">
       <span class="release-version">v9.0.8</span>
       <span class="release-date">June 23, 2026</span>
-      <span class="release-badge" style="background:rgba(124,58,237,0.15);color:#a78bfa;border-color:rgba(124,58,237,0.3);">MAJOR</span>
+      <span class="release-badge kind-purple">MAJOR</span>
     </div>
     <h2 class="release-headline">Ghost Watcher™ -- Automatic commit monitoring for every push.</h2>
     <p class="release-lede">Ghost Watcher™ is a headless CI pipeline that runs inside GitHub Actions. Every commit your team pushes triggers a full Ghost Architect™ scan automatically -- Blast Radius, Conflict Detection, and Ghost Brief™ -- with results delivered to Ghost Portal and a PR comment posted before the reviewer opens the tab.</p>
@@ -1869,7 +1522,7 @@
     <div class="release-meta">
       <span class="release-version">v8.2.7</span>
       <span class="release-date">June 22, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">MINOR</span>
+      <span class="release-badge kind-blue">MINOR</span>
     </div>
     <h2 class="release-headline">Ghost Partner Profile accessible from the top-level menu.</h2>
     <p class="release-lede">Profile management is now available before selecting a codebase. Open-tier users see an upgrade prompt with a pricing link. Pro and higher get the full sub-menu with immediate session activation.</p>
@@ -1890,7 +1543,7 @@
     <div class="release-meta">
       <span class="release-version">v8.2.2</span>
       <span class="release-date">June 20, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">White label branding across all seven report types.</h2>
     <p class="release-lede">Every report Ghost Architect™ produces now fully respects an active Ghost Partner™ profile. When a profile is loaded, your firm's name, footer, and confidentiality text replace Ghost defaults across all output formats.</p>
@@ -1912,7 +1565,7 @@
     <div class="release-meta">
       <span class="release-version">v8.2.1</span>
       <span class="release-date">June 20, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">MINOR</span>
+      <span class="release-badge kind-blue">MINOR</span>
     </div>
     <h2 class="release-headline">Executive Brief™ -- one-page business intelligence report for non-technical stakeholders.</h2>
     <p class="release-lede">After any scan, Ghost generates a one-page Executive Brief: health score, plain-language risk summary, and a cost comparison table showing what remediation costs manually versus with AI. 24 hours and $4,800 becomes 3 hours and $3.60. Built for the person who signs the check.</p>
@@ -1935,7 +1588,7 @@
     <div class="release-meta">
       <span class="release-version">v8.1.9</span>
       <span class="release-date">June 18, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Brief™ HTML report output path and effort estimate context.</h2>
     <p class="release-lede">HTML report now writes to <code>~/Ghost Architect Reports/</code> alongside PDF and MD. Effort estimates now include context explaining manual vs AI-assisted execution rates.</p>
@@ -1955,7 +1608,7 @@
     <div class="release-meta">
       <span class="release-version">v8.1.8</span>
       <span class="release-date">June 18, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Brief™ HTML report -- self-contained, no server, opens in any browser.</h2>
     <p class="release-lede">Ghost Brief™ now auto-generates a <code>ghost-brief.html</code> alongside <code>ghost-brief.json</code>. Full dark-theme interactive report with expandable prompt cards, copy buttons, and blast-radius execution sequence. No login, no dependencies.</p>
@@ -1981,7 +1634,7 @@
     <div class="release-meta">
       <span class="release-version">v8.1.7</span>
       <span class="release-date">June 18, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">File prioritizer hardening, audit threshold, and manifest race fixes.</h2>
     <p class="release-lede">Six targeted fixes from Ghost Brief™ dogfood pass 5 final review. Scan resilience, compliance visibility, and portal write reliability.</p>
@@ -2004,7 +1657,7 @@
     <div class="release-meta">
       <span class="release-version">v8.1.6</span>
       <span class="release-date">June 18, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Clock ratchet write fix, network time backoff, and trial watermark hardening.</h2>
     <p class="release-lede">Three targeted fixes to the license validation layer surfaced during Ghost Brief™ dogfood pass 5.</p>
@@ -2024,7 +1677,7 @@
     <div class="release-meta">
       <span class="release-version">v8.1.5</span>
       <span class="release-date">June 18, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Security hardening, silent failure fixes, and Ghost Brief™ dogfood completion.</h2>
     <p class="release-lede">Ten targeted fixes from Ghost Brief™ dogfood passes 4 and 5. License bypass, race conditions, and silent failure modes that Ghost Brief™ surfaced against its own codebase -- all closed.</p>
@@ -2051,7 +1704,7 @@
     <div class="release-meta">
       <span class="release-version">v8.0.2</span>
       <span class="release-date">June 16, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">Ghost Brief™ interactive menu + critical npm fix.</h2>
     <p class="release-lede">Ghost Brief™ is now accessible from the post-scan menu -- no CLI flags required. Also fixes a critical packaging bug: <code>lib/ghostBrief.js</code> and <code>lib/ghostBriefAdapter.js</code> were missing from the published npm package in v8.0.0 and v8.0.1, causing Ghost Brief™ to fail on any fresh install.</p>
@@ -2089,7 +1742,7 @@
     <div class="release-meta">
       <span class="release-version">v8.0.1</span>
       <span class="release-date">June 16, 2026</span>
-      <span class="release-badge" style="background:rgba(74,158,255,0.15);color:#4a9eff;border-color:rgba(74,158,255,0.3);">PATCH</span>
+      <span class="release-badge kind-blue">PATCH</span>
     </div>
     <h2 class="release-headline">README and documentation update.</h2>
     <p class="release-lede">Documentation pass for the v8.0.0 Ghost Brief™ launch. Seven-tier comparison table, What's New section, and updated npm package metadata.</p>
@@ -2119,7 +1772,7 @@
     <div class="release-meta">
       <span class="release-version">v8.0.0</span>
       <span class="release-date">June 16, 2026</span>
-      <span class="release-badge" style="background:rgba(224,115,64,0.15);color:#e07340;border-color:rgba(224,115,64,0.3);">MAJOR</span>
+      <span class="release-badge kind-orange">MAJOR</span>
     </div>
     <h2 class="release-headline">Ghost Brief™ -- the governed AI remediation pipeline.</h2>
     <p class="release-lede">Ghost Brief™ converts any Ghost scan into a validated, blast-radius-aware Claude Code prompt pack. Feed <code>ghost-brief.json</code> into Claude Code, Cursor, or Copilot. Ghost briefs the AI. The AI fixes the code. You ship.</p>
@@ -2143,7 +1796,7 @@
       </li>
       <li>
         <span class="marker">+</span>
-        <span><strong>Ghost Brief™ feature page.</strong> <a href="/ghost-brief.html">ghostarchitect.dev/ghost-brief.html</a> -- hero, How It Works, anatomy of a Brief, tier table, and FAQ.</span>
+        <span><strong>Ghost Brief™ feature page.</strong> <a href="ghost-brief.html">ghostarchitect.dev/ghost-brief.html</a> -- hero, How It Works, anatomy of a Brief, tier table, and FAQ.</span>
       </li>
       <li>
         <span class="marker">+</span>
@@ -2205,7 +1858,7 @@
     <ul class="change-list">
       <li>
         <span class="marker">+</span>
-        <span><strong>Ghost Portal™ self-serve onboarding.</strong> Visit <a href="/portal-setup.html">ghostarchitect.dev/portal-setup</a>, click Connect GitHub, and your private <code>ghost-reports</code> repo and Portal dashboard are provisioned automatically.</span>
+        <span><strong>Ghost Portal™ self-serve onboarding.</strong> Visit <a href="../portal-setup.html">ghostarchitect.dev/portal-setup</a>, click Connect GitHub, and your private <code>ghost-reports</code> repo and Portal dashboard are provisioned automatically.</span>
       </li>
       <li>
         <span class="marker">+</span>
@@ -2332,7 +1985,7 @@
     </ul>
 
     <div class="release-footer">
-      Deep dive: <a href="/blog/ghost-v7-launch.html">Ghost Architect&trade; v7.0.0: Ghost Open is the trial</a>
+      Deep dive: <a href="blog/ghost-v7-launch.html">Ghost Architect&trade; v7.0.0: Ghost Open is the trial</a>
     </div>
   </div>
 </section>
@@ -2404,7 +2057,7 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.17, September 26, 2026. <a href="/download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.17, September 26, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
@@ -2940,19 +2593,20 @@
 <div class="closing-band">
   <div class="closing-inner">
     <div class="closing-text">
-      <strong>Already running an older version?</strong> Run <code style="background: var(--bg-page); border: 1px solid var(--border-dim); padding: 2px 7px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.92em; color: var(--cyan-bright);">npm update -g ghost-architect-open</code> to pull the current release. Your config, scan history, and license persist. Nothing breaks. Ghost Architect&trade; Local upgrades by re-running its installer on the new tarball.
+      <strong>Already running an older version?</strong> Run <code>npm update -g ghost-architect-open</code> to pull the current release. Your config, scan history, and license persist. Nothing breaks. Ghost Architect&trade; Local upgrades by re-running its installer on the new tarball.
     </div>
-    <a href="/pricing.html" class="closing-btn">See pricing &rarr;</a>
+    <a href="pricing.html" class="closing-btn">See pricing &rarr;</a>
   </div>
 </div>
+</main>
 
 <footer>
-  <a href="/privacy.html">Privacy</a> &middot; <a href="/msa.html">Terms</a> &middot; <a href="/security.html">Security</a> &middot; <a href="/support.html">Support</a> &middot; <a href="/changelog.html">Changelog</a>
-  <br><br>
-  &copy; 2026 Ghost Architect&trade;. All rights reserved.
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; US Copyright Reg. #1-15123488721 &middot; <a href="support.html">Support</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="msa.html">Terms of Service</a></span>
 </footer>
 
-<script src="/assets/ga-nav.js?v=20260920b" defer></script>
-
+<script src="../assets/ga-nav.js?v=20260920b" defer></script>
+<script src="next-nav.js" defer></script>
+<script src="scene.js" defer></script>
 </body>
 </html>
