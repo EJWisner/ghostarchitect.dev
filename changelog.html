@@ -2404,15 +2404,37 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.15, September 26, 2026. <a href="/download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.17, September 26, 2026. <a href="/download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.15</span>
+      <span class="release-version">7.4.17</span>
       <span class="release-date">September 26, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Paused scans are not counted as cancelled, duplicate findings are merged, and copied-in code is left out</h2>
+    <p class="release-lede">7.4.17 -- Scans paused for an update no longer count as cancelled, one finding written two ways is listed once, and code copied in from another project is left out and named. The daily report counts only scans that ended, and says separately how many were paused for an update and carried on. A scan someone actually cancels still reads cancelled. Two findings that cite the same files and say the same thing in slightly different words are now one finding. Findings that differ by a name stay separate. A folder that is another project, such as a test framework copied into a tests folder, is left out when the repository says whose it is, and the report's coverage line names it and why.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.16</span>
+      <span class="release-date">September 26, 2026</span>
+    </div>
+    <h2 class="release-headline">Findings keep the severity they were given, and each machine is judged by its own speed</h2>
+    <p class="release-lede">7.4.16 -- A severity written as Low, Medium or INFO is now read as written, and a hub that shares work with another machine no longer reports itself slow because of that machine's speed. Before, a severity line written in ordinary case could be missed: it appeared at the start of the finding's text and the finding took its section's severity instead. Any sentence on that line is kept. The inference health check and the pass size it sets now read only the calls a machine answered itself. A machine that really is slow is still reported.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.15</span>
+      <span class="release-date">September 26, 2026</span>
     </div>
     <h2 class="release-headline">A finding that says nothing is wrong no longer counts, and C, C++ and C# findings are checked against the code</h2>
     <p class="release-lede">7.4.15 -- A finding whose own text says there is no risk and nothing to do is now listed as INFO, and a C, C++ or C# finding about an allocation the named function never makes is no longer verified. The check that a named function really contains what a finding describes now reads C, C++ and C# definitions and knows memory allocation. A function that allocates, directly or through a wrapper, is confirmed as before. The queue API now says how each scan it lists as completed today ended: completed, cancelled, killed or failed. And the fix-order number the analysis assigns no longer appears inside a finding's text.</p>

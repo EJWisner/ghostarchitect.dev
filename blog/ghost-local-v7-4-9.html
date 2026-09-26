@@ -7,13 +7,13 @@
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
   <title>A long code name is no longer mistaken for an AWS secret &middot; Ghost Architect&trade; Local</title>
-  <meta name="description" content="Ghost hides anything shaped like an AWS secret key before the model reads your code. Some code names have exactly that shape, and Ghost was hiding them too, so the model reported a hardcoded"dummy" and "YOUR_API_KEY" as if they were secrets, then reading the hidden value as proof of a real secret. Those findings came out CRITICAL. Ghost now leaves a" />
+  <meta name="description" content="Ghost hides anything shaped like an AWS secret key before the model reads your code. Some code names have exactly that shape, and Ghost was hiding them too, so the model reported a hardcoded" />
   <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-local-v7-4-9" />
   <meta name="robots" content="index, follow" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-local-v7-4-9" />
   <meta property="og:title" content="A long code name is no longer mistaken for an AWS secret" />
-  <meta property="og:description" content="Ghost hides anything shaped like an AWS secret key before the model reads your code. Some code names have exactly that shape, and Ghost was hiding them too, so the model reported a hardcoded"dummy" and "YOUR_API_KEY" as if they were secrets, then reading the hidden value as proof of a real secret. Those findings came out CRITICAL. Ghost now leaves a" />
+  <meta property="og:description" content="Ghost hides anything shaped like an AWS secret key before the model reads your code. Some code names have exactly that shape, and Ghost was hiding them too, so the model reported a hardcoded" />
   <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
   <meta property="og:site_name" content="Ghost Architect&trade;" />
   <script type="application/ld+json">
@@ -21,8 +21,8 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "A long code name is no longer mistaken for an AWS secret",
-    "datePublished": "2026-09-23",
-    "dateModified": "2026-09-23",
+    "datePublished": "2026-09-24",
+    "dateModified": "2026-09-24",
     "author": { "@type": "Person", "name": "Ernst J. Wisner" },
     "publisher": { "@type": "Person", "name": "Ernst J. Wisner" },
     "url": "https://ghostarchitect.dev/blog/ghost-local-v7-4-9",
@@ -100,14 +100,14 @@
   <div class="article-meta">
     <span class="article-tag launch">Ghost Architect&trade; Local</span>
     <span class="article-tag">7.4.9</span>
-    <span>September 23, 2026</span>
+    <span>September 24, 2026</span>
     <span>2 min read</span>
     <span>By Ernst J. Wisner</span>
   </div>
 
   <h1>A long code name is no longer mistaken for an AWS secret</h1>
 
-  <p class="lede">Ghost hides anything shaped like an AWS secret key before the model reads your code. Some code names have exactly that shape, and Ghost was hiding them too, so the model reported a hardcoded"dummy" and "YOUR_API_KEY" as if they were secrets, then reading the hidden value as proof of a real secret. Those findings came out CRITICAL. Ghost now leaves aluation now.</p>
+  <p class="lede">Ghost hides anything shaped like an AWS secret key before the model reads your code. Some code names have exactly that shape, and Ghost was hiding them too, so the model reported a hardcoded AWS secret that was not there.</p>
 
   <div class="article-body">
     <p>Ghost now recognises a name made of words, such as Documentation/UndocumentedBooleanMethods or a long test name, and leaves it as written. A real key is still hidden, whether it stands alone or is assigned to a variable.</p>

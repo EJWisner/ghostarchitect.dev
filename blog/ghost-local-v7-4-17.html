@@ -6,26 +6,26 @@
   <meta name="color-scheme" content="dark" />
   <link rel="icon" type="image/jpeg" href="/GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="/GHOSTLOGO.JPG" />
-  <title>Ghost reads Dart, and a secret is found without Ghost's own marks being called secrets &middot; Ghost Architect&trade; Local</title>
-  <meta name="description" content="Dart source files and Magento templates are now read, anchored and checked like any other language. Code a build tool wrote is still skipped." />
-  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-local-v7-4-12" />
+  <title>Paused scans are not counted as cancelled, duplicate findings are merged, and copied-in code is left out &middot; Ghost Architect&trade; Local</title>
+  <meta name="description" content="Scans paused for an update no longer count as cancelled, one finding written two ways is listed once, and code copied in from another project is left out and named." />
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-local-v7-4-17" />
   <meta name="robots" content="index, follow" />
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-local-v7-4-12" />
-  <meta property="og:title" content="Ghost reads Dart, and a secret is found without Ghost's own marks being called secrets" />
-  <meta property="og:description" content="Dart source files and Magento templates are now read, anchored and checked like any other language. Code a build tool wrote is still skipped." />
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-local-v7-4-17" />
+  <meta property="og:title" content="Paused scans are not counted as cancelled, duplicate findings are merged, and copied-in code is left out" />
+  <meta property="og:description" content="Scans paused for an update no longer count as cancelled, one finding written two ways is listed once, and code copied in from another project is left out and named." />
   <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
   <meta property="og:site_name" content="Ghost Architect&trade;" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "Ghost reads Dart, and a secret is found without Ghost's own marks being called secrets",
-    "datePublished": "2026-09-25",
-    "dateModified": "2026-09-25",
+    "headline": "Paused scans are not counted as cancelled, duplicate findings are merged, and copied-in code is left out",
+    "datePublished": "2026-09-26",
+    "dateModified": "2026-09-26",
     "author": { "@type": "Person", "name": "Ernst J. Wisner" },
     "publisher": { "@type": "Person", "name": "Ernst J. Wisner" },
-    "url": "https://ghostarchitect.dev/blog/ghost-local-v7-4-12",
+    "url": "https://ghostarchitect.dev/blog/ghost-local-v7-4-17",
     "image": "https://ghostarchitect.dev/assets/local/og-local.png"
   }
   </script>
@@ -99,26 +99,22 @@
 
   <div class="article-meta">
     <span class="article-tag launch">Ghost Architect&trade; Local</span>
-    <span class="article-tag">7.4.12</span>
-    <span>September 25, 2026</span>
+    <span class="article-tag">7.4.17</span>
+    <span>September 26, 2026</span>
     <span>2 min read</span>
     <span>By Ernst J. Wisner</span>
   </div>
 
-  <h1>Ghost reads Dart, and a secret is found without Ghost's own marks being called secrets</h1>
+  <h1>Paused scans are not counted as cancelled, duplicate findings are merged, and copied-in code is left out</h1>
 
-  <p class="lede">Dart source files and Magento templates are now read, anchored and checked like any other language. Code a build tool wrote is still skipped.</p>
+  <p class="lede">Scans paused for an update no longer count as cancelled, one finding written two ways is listed once, and code copied in from another project is left out and named.</p>
 
   <div class="article-body">
-    <p>On the Scan Queue, running scans carry no number and are listed first; the waiting scans are numbered 1, 2, 3 in the order they will start.</p>
-    <p>The Fleet Scan Queue shows each scan's main languages under its project name, and the usage report names the main language of each scan.</p>
-    <p>A peer that has missed its health checks is reported as not answering rather than busy, the recovery email says how long it was quiet, and the completion email links to the scan's own report.</p>
-    <p>Ghost now records whether each value it masks is a vendor key, a generated-looking secret or a short, simple one. Vendor keys and generated-looking secrets are still reported in any file, test files included. A finding whose only evidence is a simple value masked in test or development code is set aside instead of counted as an exposed secret.</p>
-    <p>A finding about test code that names no failure is now listed as INFO: it stays in the report with its evidence and no longer lowers the score. A disabled test, a test that can never fail, a hidden exception or a secret in a test keeps its rating.</p>
-    <p>Xcode test targets count as test code, a linked file is read once, and a scan that was stopped and resumed says so.</p>
-    <p>A finding that calls a catch block empty is set aside when every catch in its file is an expected-exception test, a rethrow or a logged failure, and a finding that quotes a call now points at the line where the call opens.</p>
+    <p>The daily report counts only scans that ended, and says separately how many were paused for an update and carried on. A scan someone actually cancels still reads cancelled.</p>
+    <p>Two findings that cite the same files and say the same thing in slightly different words are now one finding. Findings that differ by a name stay separate.</p>
+    <p>A folder that is another project, such as a test framework copied into a tests folder, is left out when the repository says whose it is, and the report's coverage line names it and why.</p>
     <div class="callout">
-      <p>Full technical release notes for 7.4.12 are on the <a href="/changelog.html#local">changelog</a>, alongside every other Ghost Architect&trade; Local release.</p>
+      <p>Full technical release notes for 7.4.17 are on the <a href="/changelog.html#local">changelog</a>, alongside every other Ghost Architect&trade; Local release.</p>
     </div>
 
     <div class="cta-band">
