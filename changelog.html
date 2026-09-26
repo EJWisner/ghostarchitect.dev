@@ -2404,15 +2404,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.13, September 26, 2026. <a href="/download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.14, September 26, 2026. <a href="/download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.13</span>
+      <span class="release-version">7.4.14</span>
       <span class="release-date">September 26, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Secrets are judged where they are, and connection-string passwords are masked</h2>
+    <p class="release-lede">7.4.14 -- A finding about a hardcoded secret is now rated by the files that actually hold the value it quotes, and a password inside a database connection string is masked before any model reads the file. When every file holding the quoted secret is test, example or development-only configuration, the finding is MEDIUM at most, even if it cites production files for another point. A password in production configuration keeps its rating. A finding whose evidence is only inside a comment or a documentation example is now listed as INFO: it stays in the report and no longer lowers the score. A real secret left in a comment keeps its rating.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.13</span>
+      <span class="release-date">September 26, 2026</span>
     </div>
     <h2 class="release-headline">Every scan says what it is made of, from the first pass to the finished report</h2>
     <p class="release-lede">7.4.13 -- The Scan Queue shows each scan's main languages under its project name, and now keeps showing them while the scan writes its report. A scan that had finished its passes lost its languages line when it moved on to writing its report, because the report is written under a new queue entry. That entry now carries the languages of the scan it continues. Scans started from the command line, scheduled scans, the dashboard's project scan and the commit watchers now record their languages too, and a row for another machine's scan carries them. When Ghost cannot be sure which scan a set of files belongs to, it records nothing rather than guess.</p>
