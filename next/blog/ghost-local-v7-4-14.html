@@ -5,25 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- PREVIEW BUILD: keep noindex until this replaces the live page -->
   <meta name="robots" content="noindex, nofollow" />
-  <title>Cleaner reports, a fleet that hands work on sooner, and Unlimited for Enterprise &middot; Ghost Architect&trade; Local</title>
-  <meta name="description" content="Finding headings now carry the finding&#x27;s own title, never the template&#x27;s words or labels like (Batch 2), and a finding the findings file lists once is printed once." />
-  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-local-v7-4-10" />
+  <title>Secrets are judged where they are, and connection-string passwords are masked &middot; Ghost Architect&trade; Local</title>
+  <meta name="description" content="A finding about a hardcoded secret is now rated by the files that actually hold the value it quotes, and a password inside a database connection string is masked before any model reads the f" />
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-local-v7-4-14" />
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-local-v7-4-10" />
-  <meta property="og:title" content="Cleaner reports, a fleet that hands work on sooner, and Unlimited for Enterprise" />
-  <meta property="og:description" content="Finding headings now carry the finding&#x27;s own title, never the template&#x27;s words or labels like (Batch 2), and a finding the findings file lists once is printed once." />
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-local-v7-4-14" />
+  <meta property="og:title" content="Secrets are judged where they are, and connection-string passwords are masked" />
+  <meta property="og:description" content="A finding about a hardcoded secret is now rated by the files that actually hold the value it quotes, and a password inside a database connection string is masked before any model reads the f" />
   <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
   <meta property="og:site_name" content="Ghost Architect&trade;" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "Cleaner reports, a fleet that hands work on sooner, and Unlimited for Enterprise",
-    "datePublished": "2026-09-24",
-    "dateModified": "2026-09-24",
+    "headline": "Secrets are judged where they are, and connection-string passwords are masked",
+    "datePublished": "2026-09-26",
+    "dateModified": "2026-09-26",
     "author": { "@type": "Person", "name": "Ernst J. Wisner" },
     "publisher": { "@type": "Person", "name": "Ernst J. Wisner" },
-    "url": "https://ghostarchitect.dev/blog/ghost-local-v7-4-10",
+    "url": "https://ghostarchitect.dev/blog/ghost-local-v7-4-14",
     "image": "https://ghostarchitect.dev/assets/local/og-local.png"
   }
   </script>
@@ -52,23 +52,21 @@
 
   <div class="article-meta">
     <span class="article-tag launch">Ghost Architect&trade; Local</span>
-    <span class="article-tag">7.4.10</span>
-    <span>September 24, 2026</span>
+    <span class="article-tag">7.4.14</span>
+    <span>September 26, 2026</span>
     <span>2 min read</span>
     <span>By Ernst J. Wisner</span>
   </div>
 
-  <h1>Cleaner reports, a fleet that hands work on sooner, and Unlimited for Enterprise</h1>
+  <h1>Secrets are judged where they are, and connection-string passwords are masked</h1>
 
-  <p class="lede">Finding headings now carry the finding's own title, never the template's words or labels like (Batch 2), and a finding the findings file lists once is printed once.</p>
+  <p class="lede">A finding about a hardcoded secret is now rated by the files that actually hold the value it quotes, and a password inside a database connection string is masked before any model reads the file.</p>
 
   <div class="article-body">
-    <p>A finding now points at the file it is about: code before a README or CHANGELOG, and a file the finding names before one it only lists. A cited path with the wrong directory shows the file Ghost actually read. A finding that calls a function unused, when the code calls it, is set aside with the lines that call it.</p>
-    <p>In a fleet, a peer whose relayed call has just come back is offered the next call at once, instead of looking full until its next health reading. The Scan Queue no longer says a peer is holding nothing while one of this hub's calls is running on it.</p>
-    <p>On a CPU-only machine each call's speed is now compared with what that machine did before at a similar prompt size, so a normal speed for a larger prompt is no longer called slow. The warning says what it was compared with.</p>
-    <p>An Enterprise licence now says Unlimited on the license banner, System Status and the Users page, instead of 10000.</p>
+    <p>When every file holding the quoted secret is test, example or development-only configuration, the finding is MEDIUM at most, even if it cites production files for another point. A password in production configuration keeps its rating.</p>
+    <p>A finding whose evidence is only inside a comment or a documentation example is now listed as INFO: it stays in the report and no longer lowers the score. A real secret left in a comment keeps its rating.</p>
     <div class="callout">
-      <p>Full technical release notes for 7.4.10 are on the <a href="../../changelog.html#local">changelog</a>, alongside every other Ghost Architect&trade; Local release.</p>
+      <p>Full technical release notes for 7.4.14 are on the <a href="../../changelog.html#local">changelog</a>, alongside every other Ghost Architect&trade; Local release.</p>
     </div>
 
     <div class="cta-band">

@@ -5,25 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- PREVIEW BUILD: keep noindex until this replaces the live page -->
   <meta name="robots" content="noindex, nofollow" />
-  <title>Cleaner reports, a fleet that hands work on sooner, and Unlimited for Enterprise &middot; Ghost Architect&trade; Local</title>
-  <meta name="description" content="Finding headings now carry the finding&#x27;s own title, never the template&#x27;s words or labels like (Batch 2), and a finding the findings file lists once is printed once." />
-  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-local-v7-4-10" />
+  <title>Ghost reads Dart, and a secret is found without Ghost's own marks being called secrets &middot; Ghost Architect&trade; Local</title>
+  <meta name="description" content="Dart source files and Magento templates are now read, anchored and checked like any other language. Code a build tool wrote is still skipped." />
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-local-v7-4-12" />
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-local-v7-4-10" />
-  <meta property="og:title" content="Cleaner reports, a fleet that hands work on sooner, and Unlimited for Enterprise" />
-  <meta property="og:description" content="Finding headings now carry the finding&#x27;s own title, never the template&#x27;s words or labels like (Batch 2), and a finding the findings file lists once is printed once." />
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-local-v7-4-12" />
+  <meta property="og:title" content="Ghost reads Dart, and a secret is found without Ghost's own marks being called secrets" />
+  <meta property="og:description" content="Dart source files and Magento templates are now read, anchored and checked like any other language. Code a build tool wrote is still skipped." />
   <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
   <meta property="og:site_name" content="Ghost Architect&trade;" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "Cleaner reports, a fleet that hands work on sooner, and Unlimited for Enterprise",
-    "datePublished": "2026-09-24",
-    "dateModified": "2026-09-24",
+    "headline": "Ghost reads Dart, and a secret is found without Ghost's own marks being called secrets",
+    "datePublished": "2026-09-25",
+    "dateModified": "2026-09-25",
     "author": { "@type": "Person", "name": "Ernst J. Wisner" },
     "publisher": { "@type": "Person", "name": "Ernst J. Wisner" },
-    "url": "https://ghostarchitect.dev/blog/ghost-local-v7-4-10",
+    "url": "https://ghostarchitect.dev/blog/ghost-local-v7-4-12",
     "image": "https://ghostarchitect.dev/assets/local/og-local.png"
   }
   </script>
@@ -52,23 +52,26 @@
 
   <div class="article-meta">
     <span class="article-tag launch">Ghost Architect&trade; Local</span>
-    <span class="article-tag">7.4.10</span>
-    <span>September 24, 2026</span>
+    <span class="article-tag">7.4.12</span>
+    <span>September 25, 2026</span>
     <span>2 min read</span>
     <span>By Ernst J. Wisner</span>
   </div>
 
-  <h1>Cleaner reports, a fleet that hands work on sooner, and Unlimited for Enterprise</h1>
+  <h1>Ghost reads Dart, and a secret is found without Ghost's own marks being called secrets</h1>
 
-  <p class="lede">Finding headings now carry the finding's own title, never the template's words or labels like (Batch 2), and a finding the findings file lists once is printed once.</p>
+  <p class="lede">Dart source files and Magento templates are now read, anchored and checked like any other language. Code a build tool wrote is still skipped.</p>
 
   <div class="article-body">
-    <p>A finding now points at the file it is about: code before a README or CHANGELOG, and a file the finding names before one it only lists. A cited path with the wrong directory shows the file Ghost actually read. A finding that calls a function unused, when the code calls it, is set aside with the lines that call it.</p>
-    <p>In a fleet, a peer whose relayed call has just come back is offered the next call at once, instead of looking full until its next health reading. The Scan Queue no longer says a peer is holding nothing while one of this hub's calls is running on it.</p>
-    <p>On a CPU-only machine each call's speed is now compared with what that machine did before at a similar prompt size, so a normal speed for a larger prompt is no longer called slow. The warning says what it was compared with.</p>
-    <p>An Enterprise licence now says Unlimited on the license banner, System Status and the Users page, instead of 10000.</p>
+    <p>On the Scan Queue, running scans carry no number and are listed first; the waiting scans are numbered 1, 2, 3 in the order they will start.</p>
+    <p>The Fleet Scan Queue shows each scan's main languages under its project name, and the usage report names the main language of each scan.</p>
+    <p>A peer that has missed its health checks is reported as not answering rather than busy, the recovery email says how long it was quiet, and the completion email links to the scan's own report.</p>
+    <p>Ghost now records whether each value it masks is a vendor key, a generated-looking secret or a short, simple one. Vendor keys and generated-looking secrets are still reported in any file, test files included. A finding whose only evidence is a simple value masked in test or development code is set aside instead of counted as an exposed secret.</p>
+    <p>A finding about test code that names no failure is now listed as INFO: it stays in the report with its evidence and no longer lowers the score. A disabled test, a test that can never fail, a hidden exception or a secret in a test keeps its rating.</p>
+    <p>Xcode test targets count as test code, a linked file is read once, and a scan that was stopped and resumed says so.</p>
+    <p>A finding that calls a catch block empty is set aside when every catch in its file is an expected-exception test, a rethrow or a logged failure, and a finding that quotes a call now points at the line where the call opens.</p>
     <div class="callout">
-      <p>Full technical release notes for 7.4.10 are on the <a href="../../changelog.html#local">changelog</a>, alongside every other Ghost Architect&trade; Local release.</p>
+      <p>Full technical release notes for 7.4.12 are on the <a href="../../changelog.html#local">changelog</a>, alongside every other Ghost Architect&trade; Local release.</p>
     </div>
 
     <div class="cta-band">
