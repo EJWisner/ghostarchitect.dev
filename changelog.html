@@ -2057,15 +2057,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.17, September 26, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.18, September 26, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.17</span>
+      <span class="release-version">7.4.18</span>
       <span class="release-date">September 26, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Unused and silent-error claims are checked against the code in more languages</h2>
+    <p class="release-lede">7.4.18 -- A finding that calls a qualified name like IncludeMode::Off unused, or a Rust unwrap silent, is now answered by the code it points at. A name written the way Rust, C++ and C# write members is now counted, as plain names already were. A finding the code contradicts is set aside with the lines that answer it. A line ending in unwrap or expect stops the program with the error, so a finding that calls it silent is set aside with that line. Code that does quiet an error is left alone.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.17</span>
+      <span class="release-date">September 26, 2026</span>
     </div>
     <h2 class="release-headline">Paused scans are not counted as cancelled, duplicate findings are merged, and copied-in code is left out</h2>
     <p class="release-lede">7.4.17 -- Scans paused for an update no longer count as cancelled, one finding written two ways is listed once, and code copied in from another project is left out and named. The daily report counts only scans that ended, and says separately how many were paused for an update and carried on. A scan someone actually cancels still reads cancelled. Two findings that cite the same files and say the same thing in slightly different words are now one finding. Findings that differ by a name stay separate. A folder that is another project, such as a test framework copied into a tests folder, is left out when the repository says whose it is, and the report's coverage line names it and why.</p>

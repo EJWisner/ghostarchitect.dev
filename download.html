@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="dark" />
   <meta name="robots" content="index, follow" />
   <title>Download and install Ghost Architect™ Local</title>
-  <meta name="description" content="Get Ghost Architect™ Local 7.4.17: request the tarball, verify its SHA-256, run the installer, start the evaluation trial. macOS 13+, Linux and Windows 10+." />
+  <meta name="description" content="Get Ghost Architect™ Local 7.4.18: request the tarball, verify its SHA-256, run the installer, start the evaluation trial. macOS 13+, Linux and Windows 10+." />
   <link rel="canonical" href="https://ghostarchitect.dev/download.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ghostarchitect.dev/download.html" />
@@ -54,7 +54,7 @@
 <main class="page">
 
   <header class="page-hero">
-    <div class="version-badge"><b>Ghost Architect&trade; Local &middot; version 7.4.17</b></div>
+    <div class="version-badge"><b>Ghost Architect&trade; Local &middot; version 7.4.18</b></div>
     <h1>Download and install</h1>
     <p class="lede">Ghost Architect&trade; Local is delivered directly by us, not through a public package registry. You receive one tarball, you check it against the SHA-256 published here, and the installer does the rest. The evaluation trial starts inside the product; no card, no account.</p>
   </header>
@@ -82,19 +82,19 @@
           <label id="model-wrap" hidden>Which model, and on what server? <input name="model" type="text" maxlength="200" placeholder="qwen3:14b on Ollama"></label>
           <label>How many people will use it? <select name="teamSize"><option value="">Choose one</option><option>1</option><option>2 to 5</option><option>6 to 15</option><option>16 or more</option></select></label>
           <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-          <button type="submit" class="btn btn-local-solid">Request Ghost Architect&trade; Local 7.4.17</button>
+          <button type="submit" class="btn btn-local-solid">Request Ghost Architect&trade; Local 7.4.18</button>
           <div class="f-msg" id="tf-msg" role="status" aria-live="polite"></div>
         </form>
-        <p>Already a customer with access to the delivery repository? <code>gh release download v7.4.17 --repo EJWisner/ghost-local-delivery</code></p>
+        <p>Already a customer with access to the delivery repository? <code>gh release download v7.4.18 --repo EJWisner/ghost-local-delivery</code></p>
       </div>
       <div class="card">
         <h3>Verify it before you unpack it</h3>
         <p>The file is about to become a global command on your machine. Check it first.</p>
-        <pre class="code"><code>shasum -a 256 ghost-architect-local-7.4.17.tgz</code></pre>
+        <pre class="code"><code>shasum -a 256 ghost-architect-local-7.4.18.tgz</code></pre>
         <p>On Windows PowerShell:</p>
-        <pre class="code"><code>Get-FileHash -Algorithm SHA256 ghost-architect-local-7.4.17.tgz</code></pre>
-        <p>Expected for 7.4.17:</p>
-        <div class="sha"><p class="hash">ebea40228461b4761bcc1aa7b817b31b0b308a33a2b8e6bcc97877da3e9e2a58</p></div>
+        <pre class="code"><code>Get-FileHash -Algorithm SHA256 ghost-architect-local-7.4.18.tgz</code></pre>
+        <p>Expected for 7.4.18:</p>
+        <div class="sha"><p class="hash">394ef020aaffcabeb28e2824beb7ad9c480a7ca94321e63a480c0d0ca1d40b96</p></div>
         <div class="callout amber"><p>If the hash does not match, stop. Do not install it. Email support@ghostarchitect.dev with what you got.</p></div>
       </div>
     </div>
@@ -114,7 +114,7 @@
     <h2>3. Install</h2>
     <div class="prose">
       <p>Everything happens inside the directory you unpack. Keep that directory; the global <code>ghost</code> command links into it rather than copying it.</p>
-      <pre><code>tar -xzf ghost-architect-local-7.4.17.tgz
+      <pre><code>tar -xzf ghost-architect-local-7.4.18.tgz
 cd package
 bash install/setup.sh              # macOS
 sudo bash install/setup-linux.sh   # Linux
