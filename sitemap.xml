@@ -145,6 +145,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://ghostarchitect.dev/blog/four-fixes-from-one-unsolicited-scan.html</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://ghostarchitect.dev/blog/ghost-local-one-scan-every-machine.html</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
