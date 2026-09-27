@@ -2057,15 +2057,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.19, September 26, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.20, September 26, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.19</span>
+      <span class="release-version">7.4.20</span>
       <span class="release-date">September 26, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A lost merge is caught, and a scan that confirmed nothing has no score</h2>
+    <p class="release-lede">7.4.20 -- A merge step that lost every finding is set aside so the passes' findings reach the report, and a scan whose findings were all removed no longer shows a score. On a large scan, a merge step combines the findings of each pass. When its answer has none of the findings it was given, or repeats its own instructions, that answer is set aside and the passes' findings go to the report as they are. A scan whose findings were all removed by source verification now reports no Codebase Health Score on every path, including multi-pass scans started from the queue or the API.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.19</span>
+      <span class="release-date">September 26, 2026</span>
     </div>
     <h2 class="release-headline">Busy machines read as busy, Bats tests are read, and three more wrong claims are checked</h2>
     <p class="release-lede">7.4.19 -- The Scan Queue says when a machine is busy with a call. Bash test suites are read, and wrong claims about error handling, unused code and caches are set aside. A machine in the fleet that is too busy running a call to answer a status check now reads as busy with that call, and for how long, rather than as gone. Bats test files are read and counted. A file the model made up is dropped from a finding's list. Findings that call Rust error handling silent, a built-by-name function unused, or a cleared cache never cleared are set aside with the lines that answer them.</p>
