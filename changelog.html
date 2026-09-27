@@ -2057,15 +2057,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.22, September 27, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.23, September 27, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.22</span>
+      <span class="release-version">7.4.23</span>
       <span class="release-date">September 27, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A folder named 3rdparty is someone else's code</h2>
+    <p class="release-lede">7.4.23 -- Folders named 3rdparty, 3rd_party or 3rd-party are now treated as copied-in code, like third_party, and their findings stay out of the score. A scan of magic_enum scored a finding against the doctest framework it copies into test/3rdparty. That code belongs to other authors, so it no longer counts against the project.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.22</span>
+      <span class="release-date">September 27, 2026</span>
     </div>
     <h2 class="release-headline">A CRITICAL names something an attacker can use</h2>
     <p class="release-lede">7.4.22 -- A finding stays CRITICAL only when it names an exposed secret, injection, an access-control bypass or exposed personal data. Anything else is HIGH at most. The analysis model sometimes rated swallowed errors, missing timeouts and even a colour table CRITICAL. Those findings are now HIGH at most, and each says why and what the model rated it. Across 48 confirmed CRITICALs in recent open-source scans, the 28 about exposed secrets keep their rating and the other 20 become HIGH.</p>
