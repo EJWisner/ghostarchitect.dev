@@ -2057,15 +2057,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.20, September 26, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.21, September 26, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.20</span>
+      <span class="release-version">7.4.21</span>
       <span class="release-date">September 26, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A fix never makes a security control fail open</h2>
+    <p class="release-lede">7.4.21 -- A fix step that would return or log the original value when a sanitiser or security check fails is now marked in the report as one not to follow. When a finding about a sanitiser, validator or authentication check recommends returning or logging the original value on failure, the report says, under that step, to fail closed instead. The finding keeps its rating. A finding that calls a variable or property dead, quoting it inside its own declaration, is now checked against the code, and set aside with the lines that use it.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.20</span>
+      <span class="release-date">September 26, 2026</span>
     </div>
     <h2 class="release-headline">A lost merge is caught, and a scan that confirmed nothing has no score</h2>
     <p class="release-lede">7.4.20 -- A merge step that lost every finding is set aside so the passes' findings reach the report, and a scan whose findings were all removed no longer shows a score. On a large scan, a merge step combines the findings of each pass. When its answer has none of the findings it was given, or repeats its own instructions, that answer is set aside and the passes' findings go to the report as they are. A scan whose findings were all removed by source verification now reports no Codebase Health Score on every path, including multi-pass scans started from the queue or the API.</p>
