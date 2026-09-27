@@ -2057,15 +2057,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.25, September 27, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.26, September 27, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.25</span>
+      <span class="release-version">7.4.26</span>
       <span class="release-date">September 27, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Monthly licenses that renew themselves</h2>
+    <p class="release-lede">7.4.26 -- Ghost Architect&trade; Local is now priced by the month, a renewed license installs itself, and ghost --activate does what the license email says. Solo is $80 a month, Small Team $400, Agency $1,000 and Enterprise $2,000, with half off the first month after an evaluation. In the last three days before a monthly license expires, a connected install asks for its renewed license and installs it. Nothing is sent in zero-egress mode. Air-gapped installs get the signed license file with every purchase and renewal email, and install it with ghost --install-license. A lapsed license now has 7 days of grace.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.25</span>
+      <span class="release-date">September 27, 2026</span>
     </div>
     <h2 class="release-headline">Findings are read more carefully against the code</h2>
     <p class="release-lede">7.4.25 -- A missing check that is already there is set aside, a finding that says it is not a bug is INFO, and a loose quote of a real line is kept for review, not removed. Each of these came from a recent open-source scan: a parser flagged for checks it already makes, a limitation described as a bug, and a real shell injection removed over a misquoted line. A scan asked for a set number of passes now runs that many in total, even when it is paused for an update partway through. A finding that only touches release or CI tooling, which runs on maintainers' machines rather than users', is now rated MEDIUM at most.</p>
