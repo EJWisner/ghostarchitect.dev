@@ -313,6 +313,29 @@ table.cmp td { color: var(--text-muted); }
   border-bottom: 2px solid currentColor;
 }
 
+/* EJ, 2026-09-28 (round two): "a fraction of the size" of the headline
+   right under it was still the complaint at the first size -- on a real
+   phone, next to the page's biggest text, 1.15rem read as a kicker no
+   matter how bold. .hero is only for the two banners that sit directly
+   above the Local and Cloud pricing h2 (id=local, id=plans): near-headline
+   scale, matching h2's own clamp(1.75rem, 3.2vw, 2.7rem) almost exactly,
+   so the label reads as the same weight class as the words it introduces
+   instead of a caption underneath them. Letter-spacing comes down from
+   product-banner's 0.16em because that much tracking at 3 lines of this
+   size stops being readable -- it stretches into the next line. The trust
+   and FAQ product-banners (local-trust, local-faq, and their Cloud
+   counterparts) keep the smaller size on purpose: they sit above an h3,
+   not an h2, and this scale next to that would be the opposite mistake. */
+.eyebrow.product-banner.hero {
+  font-size: clamp(2rem, 5.5vw, 3.1rem);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+  padding-bottom: 1.1rem;
+  margin-bottom: 1.3rem;
+  border-bottom-width: 3px;
+}
+
 .band { padding: 3.5rem 0; border-top: 1px solid var(--border); }
 .band > h2 { margin-bottom: 0.6rem; text-wrap: balance; }
 .band > .lede { margin-bottom: 1.8rem; }
