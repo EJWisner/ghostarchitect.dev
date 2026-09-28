@@ -316,7 +316,7 @@ table.cmp td { color: var(--text-muted); }
 /* EJ, 2026-09-28 (round two): "a fraction of the size" of the headline
    right under it was still the complaint at the first size -- on a real
    phone, next to the page's biggest text, 1.15rem read as a kicker no
-   matter how bold. .hero is only for the two banners that sit directly
+   matter how bold. .mega is only for the two banners that sit directly
    above the Local and Cloud pricing h2 (id=local, id=plans): near-headline
    scale, matching h2's own clamp(1.75rem, 3.2vw, 2.7rem) almost exactly,
    so the label reads as the same weight class as the words it introduces
@@ -325,8 +325,18 @@ table.cmp td { color: var(--text-muted); }
    size stops being readable -- it stretches into the next line. The trust
    and FAQ product-banners (local-trust, local-faq, and their Cloud
    counterparts) keep the smaller size on purpose: they sit above an h3,
-   not an h2, and this scale next to that would be the opposite mistake. */
-.eyebrow.product-banner.hero {
+   not an h2, and this scale next to that would be the opposite mistake.
+
+   NOT called .hero: the site already has a .hero class (full-viewport,
+   flex-centered, text-align:center, 5rem top padding) used for page-level
+   hero sections elsewhere. The first version of this rule was named .hero
+   and silently inherited every one of those properties from that
+   unrelated class -- centered instead of left, and a forced ~740px-tall
+   box from the 100svh min-height and flex centering, which is what put
+   the banner text alone in a sea of empty space on a wide screen instead
+   of sitting directly above the h2. Renaming it is the actual fix; sizing
+   was never the remaining problem. */
+.eyebrow.product-banner.mega {
   font-size: clamp(2rem, 5.5vw, 3.1rem);
   font-weight: 800;
   letter-spacing: 0.03em;
