@@ -294,6 +294,25 @@ table.cmp td { color: var(--text-muted); }
 .eyebrow.local { color: var(--local); }
 .eyebrow.teal { color: var(--accent2); }
 
+/* EJ, 2026-09-28: on the pricing page, "no one stops to read anything that
+   small" -- a visitor scrolling from the Local pricing into the Cloud
+   pricing (or the trust or FAQ sections under each) had nothing telling them
+   which product's numbers they were looking at except this 0.72rem kicker.
+   product-banner is additive to .eyebrow (never edits the base rule other
+   pages' plain kickers still use): bigger, bolder, and a full-width rule
+   in the label's own colour, so the row reads as a section banner rather
+   than a line of text easy to scroll past. */
+.eyebrow.product-banner {
+  display: block;
+  width: 100%;
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  padding-bottom: 0.85rem;
+  margin-bottom: 1.6rem;
+  border-bottom: 2px solid currentColor;
+}
+
 .band { padding: 3.5rem 0; border-top: 1px solid var(--border); }
 .band > h2 { margin-bottom: 0.6rem; text-wrap: balance; }
 .band > .lede { margin-bottom: 1.8rem; }
