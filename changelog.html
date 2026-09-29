@@ -2057,15 +2057,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.29, September 28, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.30, September 28, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.29</span>
+      <span class="release-version">7.4.30</span>
       <span class="release-date">September 28, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Reports that say exactly what the code says</h2>
+    <p class="release-lede">7.4.30 -- A finding keeps the severity the analysis gave it, a quote written with dots is matched as written, and the check that confirms a finding now sees the lines it is about. We checked a report on a public Swift library against the repository line by line. Its one real issue about the library was set aside, because the finding quoted a line with dots standing for four paths and the confirming check was shown the wrong part of the file. Both are fixed, and the issue now stands. A finding handed to the report as informational came out rated medium, because the model that writes the explanation could change the severity. The severity is now the analysis's own. Findings in test code are described as test-suite issues, and the summary no longer mentions findings that are not there. The Scan Queue's Recently ended list now counts every scan in its window, and a scan paused for an update is counted as carried on instead of listed as ended.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.29</span>
+      <span class="release-date">September 28, 2026</span>
     </div>
     <h2 class="release-headline">Ghost Architect&trade; Local scanned itself, and we fixed what it found</h2>
     <p class="release-lede">7.4.29 -- The model now yields to the rest of a Windows machine, a busy model no longer reads as a dead one, and findings contradicted by the code they name are set aside with the line that answers them. On a Windows machine running its model on the processor, Ollama's model runner took every core for each call and nothing else got a turn: the health check, the portal, email, a remote login. Ghost Local now runs the runner below normal priority. Logins that could not connect in 100 seconds connect in two, and calls are no slower. Our own scan of Ghost Architect Local reported HIGHs that the code it named contradicts: timeouts said to be missing from functions that supply one, empty answers said to pass as success beside code that throws on them. Those are now read against the named code and set aside with the line. Every set-aside finding appears in the appendix, the counts agree everywhere a report states them, and the real issues our scan found in our own code are fixed in this release.</p>
