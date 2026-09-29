@@ -2057,15 +2057,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.30, September 28, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.31, September 29, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">7.4.31</span>
+      <span class="release-date">September 29, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Findings are judged by the code they read</h2>
+    <p class="release-lede">7.4.31 -- A finding built from a project's tests instead of its code is listed rather than scored, and the check that confirms a finding now sees the code under test. We checked a report on a public Ruby library line by line. Its three high-severity findings described behaviour the library's own tests assert on purpose, and the analysis had named the functions instead of reading the files that define them. Findings like that are now listed as informational, with a sentence saying what they did not read. When a finding cites only test files, the check that confirms it is shown the file that defines the method it names, and an error handler that explains itself is recognised even when the finding gives no line number. The Scan Queue now shows what a waiting scheduled scan is made of, and a scan paused by an update while writing its report is counted as carried on.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">7.4.30</span>
       <span class="release-date">September 28, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">Reports that say exactly what the code says</h2>
     <p class="release-lede">7.4.30 -- A finding keeps the severity the analysis gave it, a quote written with dots is matched as written, and the check that confirms a finding now sees the lines it is about. We checked a report on a public Swift library against the repository line by line. Its one real issue about the library was set aside, because the finding quoted a line with dots standing for four paths and the confirming check was shown the wrong part of the file. Both are fixed, and the issue now stands. A finding handed to the report as informational came out rated medium, because the model that writes the explanation could change the severity. The severity is now the analysis's own. Findings in test code are described as test-suite issues, and the summary no longer mentions findings that are not there. The Scan Queue's Recently ended list now counts every scan in its window, and a scan paused for an update is counted as carried on instead of listed as ended.</p>
