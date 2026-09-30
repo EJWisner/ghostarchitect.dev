@@ -2057,15 +2057,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.35, September 30, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.36, September 30, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">7.4.35</span>
+      <span class="release-version">7.4.36</span>
       <span class="release-date">September 30, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Fewer false findings, and seven advisories closed</h2>
+    <p class="release-lede">7.4.36 -- Three kinds of wrong finding are now caught before they reach a report, and an HTTP library Ghost Architect&trade; Local uses for certificate renewal moves past seven advisories published on September 30. A finding that describes a catch block the code does not have is now set aside with a line saying why. A finding that calls an error silent, when the catch it points to catches every error and logs it, is rated LOW at most and quotes the logging line. A value called a hardcoded secret that is plainly test data, a placeholder named for tests or a value found only in test code, is counted as INFO; a default password that ships in production keeps its rating. Each rule was checked against findings we had verified by hand against the source they came from: none of them sets aside a finding that was real, or rates one below the severity it deserves. axios, used only to renew a Let's Encrypt certificate when the portal is set to use one, moves to 1.20.0. The only server that code talks to is the Let's Encrypt certificate authority, so the exposure was low.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">7.4.35</span>
+      <span class="release-date">September 30, 2026</span>
     </div>
     <h2 class="release-headline">Three new advisories, closed</h2>
     <p class="release-lede">7.4.35 -- A library Ghost Architect&trade; Local uses to match file patterns moves past three advisories published on September 29. brace-expansion moves to 2.1.7. The three advisories, two high and one moderate, each describe a way for a crafted pattern to use up the processor or the stack. The patterns Ghost Architect&trade; Local expands come from its own exclusion presets and your --exclude flags, never from the code it scans, so the exposure was low. This release removes it, and nothing else changes.</p>
