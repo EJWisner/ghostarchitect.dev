@@ -72,8 +72,8 @@
       <li><strong>Open a Learning Request.</strong> Like a pull request for your team's judgement, it turns verdicts into rules. Each rule starts narrow, one kind of finding in one file, and is widened only on purpose, say to every file under <code>tests/</code>.</li>
       <li><strong>See the impact first.</strong> Before anyone approves it, the request lists every finding in the project's recent reports whose outcome would change, before and after.</li>
       <li><strong>A second person approves it.</strong> The author never approves their own request, and revising it resets its approvals.</li>
-      <li><strong>Deploy it as the next version.</strong> The project's rule set becomes v2, v3, v4. Every scan that starts afterwards uses it. A scan already running keeps the rules it started with, and every report records the rule set that judged it.</li>
-      <li><strong>Roll back when you need to.</strong> Deploying an earlier version, with a reason, is a rollback, recorded and announced like everything else.</li>
+      <li><strong>Deploy it as the next version.</strong> The project's rule set becomes v2, v3, v4. Every scan that starts afterwards uses it. A scan already running keeps the rules it started with, and every report names the rule set that judged it.</li>
+      <li><strong>Roll back when you need to,</strong> or retire a single rule. Deploying an earlier version, with a reason, is a rollback. Retiring one rule is a small request of its own, approved like any other. Both are recorded and announced like everything else.</li>
     </ol>
 
     <h2>What a rule can do, and what it never does</h2>
@@ -88,7 +88,7 @@
       <li><strong>Every client gets its own rules.</strong> A false positive you tuned out of one client's codebase never hides a finding in the next client's code.</li>
       <li><strong>A new client starts clean,</strong> judged by the analysis alone until your team has looked at its code.</li>
       <li><strong>Your people stay on their own clients.</strong> Developers and viewers see the verdicts, requests and rules of the projects they are assigned to, and nothing else.</li>
-      <li><strong>Reports that show their work.</strong> Each report records the rule set that judged it, and every finding your team set aside is still in it, naming the rule and the reason. A client can see exactly what you decided and why.</li>
+      <li><strong>Reports that show their work.</strong> Each report names the rule set that judged it, and every finding your team set aside is still in it, naming the rule and the reason. A client can see exactly what you decided and why.</li>
       <li><strong>Freeze a client's rules during their audit.</strong> An administrator locks the project's rule set, and nothing deploys for it until it is unlocked.</li>
     </ul>
 
