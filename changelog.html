@@ -2057,15 +2057,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.37, September 30, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.38, October 1, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">7.4.38</span>
+      <span class="release-date">October 1, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Editing a profile keeps its private patterns</h2>
+    <p class="release-lede">7.4.38 -- Changing a Ghost Partner&trade; profile through the menu's Edit existing profile removed the private patterns it held. They now stay. The profile wizard does not ask about private patterns, and saving an edit wrote a new file from its answers alone, so the patterns that keep a client's names and host names away from the model were removed, along with the profile's version, free text and fields of your own. An edit now keeps everything the wizard does not ask about. If you edited a profile with private patterns in an earlier version, open it and check them, or restore the .yaml.bak saved beside it.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">7.4.37</span>
       <span class="release-date">September 30, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">A real finding keeps its rating, and a paused scan carries on</h2>
     <p class="release-lede">7.4.37 -- Two of Ghost Architect&trade; Local's checks set aside a finding that was real, and a scan paused by the scheduled backup could stay paused after an update. All three are fixed. A finding that calls a catch silent or empty, where the catch logs the error, now stays in the report rated LOW at most (MEDIUM at most when the catch handles only a narrower kind of error), with the logging line named. A finding about a missing timeout is now checked in the file where the connection is made, not only the file that calls it. Both changes were checked against findings we had verified by hand against the source they came from: no check now sets aside a finding that was real, or rates one below the severity it deserves. A scan the scheduled backup had paused, when an update stood the machine's scans down at the same time, now carries on once the backup is done. A scan a person paused still waits for a person.</p>
