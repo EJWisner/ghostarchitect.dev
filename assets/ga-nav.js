@@ -24,7 +24,7 @@
   // Which dropdown group is currently active?
   var activeGroup = null;
   // Ghost Architect(tm) Local pages: /local, /download, /local-walkthrough, the Local blog
-  if (path.indexOf('/local') === 0 || path.indexOf('/download') === 0) activeGroup = 'local';
+  if (path.indexOf('/local') === 0 || path.indexOf('/download') === 0 || path.indexOf('/beta') === 0) activeGroup = 'local';
   if (activeGroup) {}
   else if (path.indexOf('for-agency-owners') !== -1 || path.indexOf('for-agency-teams') !== -1) activeGroup = 'solutions';
   else if (path.indexOf('inheritance-audit') !== -1 || path.indexOf('prompt-triage') !== -1 || path.indexOf('audit') !== -1 || path.indexOf('ghost-partner') !== -1 || path.indexOf('ghost-brief') !== -1 || path.indexOf('ghost-watcher') !== -1 || path.indexOf('ghost-triple-crown') !== -1 || path.indexOf('triple-crown-process') !== -1) activeGroup = 'modes';
@@ -140,6 +140,11 @@
     + '        <a href="/download.html" class="ga-dropdown-item' + (isActive('/download.html') ? ' active' : '') + '">'
     + '          <div class="title">Download &amp; install</div>'
     + '          <div class="desc">The tarball, its SHA-256, and the installer, step by step.</div>'
+    + '        </a>'
+    // CC-Local-832 (EJ, 2026-10-01): the version 8 beta form is navigable from the site.
+    + '        <a href="/beta.html" class="ga-dropdown-item' + (isActive('/beta.html') ? ' active' : '') + '">'
+    + '          <div class="title">Version 8 beta</div>'
+    + '          <div class="desc">Early access: Learning Requests, Ask about Ghost, and the manual in the box.</div>'
     + '        </a>'
     + '        <a href="/support.html?platform=local" class="ga-dropdown-item">'
     + '          <div class="title">Local support</div>'
@@ -278,6 +283,7 @@
     + '      <a href="/local-walkthrough.html"' + (isActive('/local-walkthrough.html') ? ' class="active"' : '') + '>See it running</a>'
     + '      <a href="/pricing.html#local">Local pricing</a>'
     + '      <a href="/download.html"' + (isActive('/download.html') ? ' class="active"' : '') + '>Download &amp; install</a>'
+    + '      <a href="/beta.html"' + (isActive('/beta.html') ? ' class="active"' : '') + '>Version 8 beta</a>'
     + '      <a href="/security.html#local">Zero egress, proven</a>'
     + '      <a href="/blog.html?platform=local">Local blog</a>'
     + '    </div>'

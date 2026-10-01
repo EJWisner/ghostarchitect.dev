@@ -26,6 +26,7 @@
 
   var PAGES = [
     'audit.html',
+    'beta.html',
     'blog.html',
     'changelog.html',
     'contact.html',

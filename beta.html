@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
   <meta name="robots" content="index, follow" />
-  <title>Download and install Ghost Architect™ Local</title>
-  <meta name="description" content="Get Ghost Architect™ Local 7.4.38: request the tarball, verify its SHA-256, run the installer, start the evaluation trial. macOS 13+, Linux and Windows 10+." />
-  <link rel="canonical" href="https://ghostarchitect.dev/download.html" />
+  <title>Ghost Architect™ Local 8: early access beta</title>
+  <meta name="description" content="Ghost Architect™ Local 8.0.5, the early access beta: Learning Requests, Ask about Ghost and the user's manual in the box. Your download link arrives by email in a minute." />
+  <link rel="canonical" href="https://ghostarchitect.dev/beta.html" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://ghostarchitect.dev/download.html" />
-  <meta property="og:title" content="Download Ghost Architect™ Local" />
-  <meta property="og:description" content="The tarball, its SHA-256, and the installer, step by step. Evaluation trial, no card." />
+  <meta property="og:url" content="https://ghostarchitect.dev/beta.html" />
+  <meta property="og:title" content="Ghost Architect™ Local 8: early access beta" />
+  <meta property="og:description" content="Learning Requests, Ask about Ghost and the manual in the box. Evaluation trial, no card." />
   <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
   <meta name="theme-color" content="#0a0a0f" />
   <!-- Paths are relative to /next/ so the page also opens straight from the folder (file://).
@@ -54,17 +54,26 @@
 <main class="page">
 
   <header class="page-hero">
-    <div class="version-badge"><b>Ghost Architect&trade; Local &middot; version 7.4.38</b></div>
-    <h1>Download and install</h1>
-    <p class="lede">Ghost Architect&trade; Local is delivered directly by us, not through a public package registry. You receive one tarball, you check it against the SHA-256 published here, and the installer does the rest. The evaluation trial starts inside the product; no card, no account.</p>
+    <div class="version-badge"><b>Ghost Architect&trade; Local &middot; version 8.0.5 &middot; early access beta</b></div>
+    <h1>Version 8, early access</h1>
+    <p class="lede">Version 8 is a beta, and we would value your feedback on it. Fill in the form and your download link arrives by email in about a minute. The user's manual is inside the download. The evaluation trial starts inside the product; no card, no account. For production work today, we recommend the current 7.x release on the <a href="download.html">download page</a>.</p>
   </header>
+
+  <section class="band">
+    <h2>What version 8 adds</h2>
+    <div class="cards">
+      <div class="card"><h3>Learning Requests</h3><p>Ghost Architect&trade; learns your team's judgment. A reviewer records a verdict on a finding (a false positive, an accepted risk or the wrong severity) with a written reason and opens a Learning Request, much like a pull request for how findings are judged. A second person approves it and a third deploys it, and only then does anything change. Every step is logged and signed, any change rolls back, and older reports can be re-read under the new rules without the originals ever being altered.</p></div>
+      <div class="card"><h3>Ask about Ghost</h3><p>Ask a question in plain words, or paste an error message, and Ghost answers from the manual and the error catalog that ship with your version, through your own model. When the manual does not cover the question, it says so instead of guessing.</p></div>
+      <div class="card"><h3>The manual in the box</h3><p>The full user's manual comes with the download, as a PDF and as Markdown, in <code>docs/manual</code>: getting started, scans and reports, the portal, the API, profiles, learning, and an appendix for every error message.</p></div>
+    </div>
+  </section>
 
   <section class="band">
     <h2>1. Get the tarball</h2>
     <div class="cards one">
       <div class="card" id="request">
-        <h3>Request the download</h3>
-        <p>Fill this in and EJ replies with the download link, or with access to the delivery repository on GitHub, usually the same day. The GitHub username is for that access. The model question is so the trial is set up for the hardware you have.</p>
+        <h3>Get the beta</h3>
+        <p>Fill this in and the download link is emailed to you straight away. It works once and expires after 72 hours; come back here for another if you need one. The GitHub username is in case you would rather have access to the delivery repository. The model question is so we know the hardware the beta is running on.</p>
         <form id="trial-form" class="form" novalidate>
           <div class="f-row">
             <label>Name <input name="name" type="text" required autocomplete="name" maxlength="120"></label>
@@ -82,19 +91,20 @@
           <label id="model-wrap" hidden>Which model, and on what server? <input name="model" type="text" maxlength="200" placeholder="qwen3:14b on Ollama"></label>
           <label>How many people will use it? <select name="teamSize"><option value="">Choose one</option><option>1</option><option>2 to 5</option><option>6 to 15</option><option>16 or more</option></select></label>
           <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-          <button type="submit" class="btn btn-local-solid">Request Ghost Architect&trade; Local 7.4.38</button>
+          <input type="hidden" name="version" value="8.0.5">
+          <button type="submit" class="btn btn-local-solid">Email me the 8.0.5 beta</button>
           <div class="f-msg" id="tf-msg" role="status" aria-live="polite"></div>
         </form>
-        <p>Already a customer with access to the delivery repository? <code>gh release download v7.4.38 --repo EJWisner/ghost-local-delivery</code></p>
+        <p>Already have access to the delivery repository? <code>gh release download v8.0.5 --repo EJWisner/ghost-local-delivery</code></p>
       </div>
       <div class="card">
         <h3>Verify it before you unpack it</h3>
         <p>The file is about to become a global command on your machine. Check it first.</p>
-        <pre class="code"><code>shasum -a 256 ghost-architect-local-7.4.38.tgz</code></pre>
+        <pre class="code"><code>shasum -a 256 ghost-architect-local-8.0.5.tgz</code></pre>
         <p>On Windows PowerShell:</p>
-        <pre class="code"><code>Get-FileHash -Algorithm SHA256 ghost-architect-local-7.4.38.tgz</code></pre>
-        <p>Expected for 7.4.38:</p>
-        <div class="sha"><p class="hash">e55751d50439075a849fd8213d7ff3341feeb991251d05cfa7d70fa0cc2d830f</p></div>
+        <pre class="code"><code>Get-FileHash -Algorithm SHA256 ghost-architect-local-8.0.5.tgz</code></pre>
+        <p>Expected for 8.0.5:</p>
+        <div class="sha"><p class="hash">1bd26c0b076595a030b3c09d5f4ad85c5795b5868c4ace5c2dc017c80788acd6</p></div>
         <div class="callout amber"><p>If the hash does not match, stop. Do not install it. Email support@ghostarchitect.dev with what you got.</p></div>
       </div>
     </div>
@@ -114,7 +124,7 @@
     <h2>3. Install</h2>
     <div class="prose">
       <p>Everything happens inside the directory you unpack. Keep that directory; the global <code>ghost</code> command links into it rather than copying it.</p>
-      <pre><code>tar -xzf ghost-architect-local-7.4.38.tgz
+      <pre><code>tar -xzf ghost-architect-local-8.0.5.tgz
 cd package
 bash install/setup.sh              # macOS
 sudo bash install/setup-linux.sh   # Linux
@@ -180,13 +190,12 @@ sudo bash install/setup-linux.sh   # Linux
       msg.className = 'f-msg error'; msg.textContent = 'Name, email, GitHub username and the model question are needed.'; return;
     }
     var btn = form.querySelector('button'); btn.disabled = true; msg.className = 'f-msg'; msg.textContent = 'Sending...';
-    fetch('https://signup.ghostarchitect.dev/local-trial-request', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
+    fetch('https://signup.ghostarchitect.dev/local-beta-request', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
       .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, j: j }; }); })
       .then(function(res){
         if (res.ok && res.j && res.j.status === 'ok') {
           form.innerHTML = '<div class="f-msg success" role="status"><strong>Request received.</strong> '
-            + (res.j.emailed ? 'A confirmation is on its way to your inbox, and ' : '')
-            + 'EJ will reply with the download link or GitHub access, usually the same day.'
+            + (res.j.emailed ? 'Your download link is on its way to your inbox. It works once, within 72 hours.' : 'We could not email you just now; EJ has your request and will send the link himself.')
             + (res.j.id ? ' Request id ' + res.j.id + '.' : '') + '</div>';
         } else {
           throw new Error((res.j && res.j.message) || 'request failed');
