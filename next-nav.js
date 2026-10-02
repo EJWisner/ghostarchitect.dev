@@ -13,7 +13,8 @@
         which is the live site when served and the repo copy when opened from
         the folder;
      3. repoints the nav logo to ../GHOSTLOGO.JPG;
-     4. lights the Cloud / Local switch from <body data-product="cloud|local">.
+     4. lights the Open / Local switch from <body data-product="open|local">
+        ("cloud", the old name for the Open side, still lights Open).
 
    When /next/ becomes the site root, ../ resolves to / and PAGES resolve to
    their root paths, so nothing here has to change on cutover; it just stops
@@ -39,14 +40,12 @@
     'local-walkthrough.html',
     'local.html',
     'msa.html',
-    'plans.html',
     'pricing.html',
     'privacy.html',
     'prompt-triage.html',
     'security.html',
     'support.html',
     'thank-you.html',
-    'trial.html',
     'triple-crown-process.html',
     'blog/codebase-triage-walkthrough.html',
     'blog/cost-of-ai-codebase-analysis.html',
@@ -93,12 +92,9 @@
     'blog/ghost-local-v7-4-8.html',
     'blog/ghost-local-v7-4-9.html',
     'blog/ghost-open-v5-launch.html',
-    'blog/ghost-partner-profiles-v825.html',
     'blog/ghost-prompt-triage-launch.html',
     'blog/ghost-prompt-triage-v53-clarity.html',
     'blog/ghost-triple-crown.html',
-    'blog/ghost-v7-launch.html',
-    'blog/ghost-watcher-v908.html',
     'blog/ghost-watcher-v931-stream-batch.html',
     'blog/inheritance-audit-mode-launch.html',
     'blog/introducing-ghost-partner.html',
@@ -113,7 +109,8 @@
   // Refer & Earn programme, partner.html, is no longer offered).
   var RETIRED = ['partner.html'];
 
-  var here = (document.body && document.body.getAttribute('data-product')) || 'cloud';
+  var here = (document.body && document.body.getAttribute('data-product')) || 'open';
+  if (here === 'cloud') here = 'open';
   // The /next/ root is wherever this script lives, so pages in subfolders (next/blog/...) resolve correctly too.
   var self = document.currentScript && document.currentScript.src;
   var base = self ? new URL('.', self).pathname : location.pathname.replace(/[^/]*$/, '');
@@ -148,7 +145,7 @@
       var to = rewrite(img.getAttribute('src'));
       if (to) img.setAttribute('src', to);
     });
-    document.querySelectorAll('a.ga-product.hosted').forEach(function (a) { a.classList.toggle('on', here === 'cloud'); });
+    document.querySelectorAll('a.ga-product.hosted').forEach(function (a) { a.classList.toggle('on', here === 'open'); });
     document.querySelectorAll('a.ga-product.local').forEach(function (a) { a.classList.toggle('on', here === 'local'); });
   })();
 })();

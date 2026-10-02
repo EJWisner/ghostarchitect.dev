@@ -33,7 +33,9 @@
   // THE PRODUCT SWITCH (EJ, 2026-09-03: the choice of product must stand up on
   // every page). Which side is lit comes from the page: the Local pages, a
   // ?platform=local query, or a #local anchor light Local; everything else is
-  // hosted. It is a pair of links, not a toggle that hides anything.
+  // Ghost Open(tm). It is a pair of links, not a toggle that hides anything.
+  // 2026-10-05: Cloud | Local became Open | Local. The old "hosted" names
+  // (?platform=hosted, /#hosted, #plans) stay working as aliases on the pages.
   var isLocalPage = activeGroup === 'local'
     || /[?&]platform=local\b/.test(window.location.search)
     || window.location.hash === '#local'
@@ -49,14 +51,15 @@
   // for a version and a tier that differ per product, so it needs the side the
   // reader is on just as much as the FAQ does.
   var contactHref = '/contact.html' + (isLocalPage ? '?platform=local' : '');
-  // The changelog page renders both product logs on one page (#hosted, #local)
-  // rather than being two pages, so the nav's Cloud/Local switch has to reach it as
-  // an anchor. EJ, from his phone: tapped the switch to Local, opened Changelog from
-  // Resources, and landed back on Cloud's section because this was a bare href.
-  var changelogHref = '/changelog.html' + (isLocalPage ? '#local' : '#hosted');
+  // The changelog page renders both product logs on one page (#open, #local;
+  // #hosted is kept as an alias) rather than being two pages, so the nav's
+  // Open/Local switch has to reach it as an anchor. EJ, from his phone: tapped the
+  // switch to Local, opened Changelog from Resources, and landed back on the other
+  // product's section because this was a bare href.
+  var changelogHref = '/changelog.html' + (isLocalPage ? '#local' : '#open');
   var switchHtml = ''
     + '<div class="ga-product-switch" role="navigation" aria-label="Choose a product">'
-    + '  <a href="/#hosted" class="ga-product hosted' + (isLocalPage ? '' : ' on') + '" title="Ghost Architect Cloud: frontier model, pay per seat"><span class="dot"></span>Cloud</a>'
+    + '  <a href="/#open" class="ga-product hosted' + (isLocalPage ? '' : ' on') + '" title="Ghost Open&trade;: free for one person"><span class="dot"></span>Open</a>'
     + '  <a href="/local.html" class="ga-product local' + (isLocalPage ? ' on' : '') + '" title="Ghost Architect Local: your hardware, your model, your network"><span class="dot"></span>Local</a>'
     + '</div>';
 
@@ -78,8 +81,8 @@
     + '      <div class="ga-dropdown">'
     + '        <div class="ga-dropdown-section-label">Scan Modes</div>'
     + '        <a href="/ghost-watcher.html" class="ga-dropdown-item' + (isActive('/ghost-watcher.html') ? ' active' : '') + '">'
-    + '          <div class="title">Ghost Watcher&trade; <span class="pill" style="background:rgba(0,191,216,0.2);color:#00bfd8;border:1px solid rgba(0,191,216,0.4);">TEAM</span></div>'
-    + '          <div class="desc">Automatic commit monitoring. Findings on every push. PR comments included.</div>'
+    + '          <div class="title">Ghost Watcher&trade; <span class="pill" style="background:rgba(0,191,216,0.2);color:#00bfd8;border:1px solid rgba(0,191,216,0.4);">LOCAL</span></div>'
+    + '          <div class="desc">Every commit checked in Ghost Architect&trade; Local: pre-push hook, webhook from your git server, or your own CI.</div>'
     + '        </a>'
     + '        <a href="/blog/ghost-triple-crown.html" class="ga-dropdown-item' + (isActive('/blog/ghost-triple-crown.html') ? ' active' : '') + '">'
     + '          <div class="title">👑 Ghost Triple Crown&trade; <span class="pill" style="background:rgba(0,191,216,0.15);color:#00bfd8;border:1px solid rgba(0,191,216,0.4);">NEW</span></div>'
@@ -94,8 +97,8 @@
     + '          <div class="desc">Audit AI prompts as production code. 16 detectors, academic taxonomy.</div>'
     + '        </a>'
     + '        <a href="/#what-it-does" class="ga-dropdown-item">'
-    + '          <div class="title">All 8 Scan Modes</div>'
-    + '          <div class="desc">POI, Blast Radius, Conflict, Recon, Chat, Compare, Dashboard, Audit.</div>'
+    + '          <div class="title">Every Scan Mode</div>'
+    + '          <div class="desc">Question, Chat, Recon, POI, Blast Radius&trade;, Conflict Detection&trade; and more. Free in Ghost Open&trade;.</div>'
     + '        </a>'
     + '        <a href="/triple-crown-process.html" class="ga-dropdown-item' + (isActive('/triple-crown-process.html') ? ' active' : '') + '">'
     + '          <div class="title">📋 Triple Crown Process</div>'
@@ -111,8 +114,8 @@
     + '          <div class="desc">Have EJ run the audit for you. Deal-grade PDF in 48 hours.</div>'
     + '        </a>'
     + '        <a href="/#ghost-partner" class="ga-dropdown-item">'
-    + '          <div class="title">Ghost Partner&trade;</div>'
-    + '          <div class="desc">Your methodology, your branding, your rates. White-label profiles.</div>'
+    + '          <div class="title">Ghost Partner&trade; <span class="pill local">LOCAL</span></div>'
+    + '          <div class="desc">Your methodology, your branding, your rates. White-label profiles in Ghost Architect&trade; Local.</div>'
     + '        </a>'
     + '      </div>'
     + '    </li>'
@@ -135,7 +138,7 @@
     + '        </a>'
     + '        <a href="/pricing.html#local" class="ga-dropdown-item">'
     + '          <div class="title">Local pricing</div>'
-    + '          <div class="desc">Annual licence. No per-token bill. Evaluation trial, half price when you convert.</div>'
+    + '          <div class="desc">Monthly licence. No per-token bill. Evaluation trial, half price when you convert.</div>'
     + '        </a>'
     + '        <a href="/download.html" class="ga-dropdown-item' + (isActive('/download.html') ? ' active' : '') + '">'
     + '          <div class="title">Download &amp; install</div>'
@@ -192,7 +195,7 @@
 
     // ── PRICING (flat) ──
     + '    <li class="ga-nav-item">'
-    + '      <a href="/pricing.html" class="ga-nav-link' + (isActive('/pricing') || isActive('/pricing.html') || isActive('/plans.html') ? ' active' : '') + '">Pricing</a>'
+    + '      <a href="/pricing.html" class="ga-nav-link' + (isActive('/pricing') || isActive('/pricing.html') ? ' active' : '') + '">Pricing</a>'
     + '    </li>'
 
     // ── CONTACT (flat) ──
@@ -207,10 +210,6 @@
     + '        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>'
     + '      </button>'
     + '      <div class="ga-dropdown align-right" style="min-width: 240px;">'
-    + '        <a href="/partner.html" class="ga-dropdown-item' + (isActive('/partner.html') || isActive('/partner') ? ' active' : '') + '">'
-    + '          <div class="title">Refer &amp; Earn</div>'
-    + '          <div class="desc">Earn commission for every customer you send our way.</div>'
-    + '        </a>'
     + '        <a href="/security.html" class="ga-dropdown-item' + (isActive('/security.html') || isActive('/security') ? ' active' : '') + '">'
     + '          <div class="title">Security &amp; Trust</div>'
     + '          <div class="desc">How we handle your code, keys, and data.</div>'
@@ -236,7 +235,7 @@
 
     // ── CTA button ──
     + '    <li class="ga-nav-item">'
-    + '      <a href="' + (isLocalPage ? '/pricing.html#local' : '/pricing.html#plans') + '" class="ga-nav-cta">'
+    + '      <a href="' + (isLocalPage ? '/pricing.html#local' : '/pricing.html#open') + '" class="ga-nav-cta">'
     + '        \uD83D\uDC7B See Plans'
     + '      </a>'
     + '    </li>'
@@ -247,9 +246,9 @@
     + '  </button>'
     + '</nav>'
 
-    // ── THE TRIAL BAND (EJ, 2026-09-03): the green hosted trial and its Local twin, on every page ──
+    // ── THE TRIAL BAND (EJ, 2026-09-03): Ghost Open(tm), free, and the Local evaluation trial, on every page ──
     + '<div class="ga-trial-band">'
-    + '  <a href="/trial.html" class="ga-trial hosted">Start Free Trial &middot; 7 Days Pro Max</a>'
+    + '  <a href="/pricing.html#open" class="ga-trial hosted">Ghost Open&trade; &middot; Free &middot; npm install</a>'
     + '  <a href="/download.html" class="ga-trial local">Evaluation Trial &middot; Ghost Architect&trade; Local</a>'
     + '</div>'
 
@@ -262,15 +261,15 @@
     + '      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>'
     + '    </button>'
     + '    <div class="ga-mobile-group-items">'
-    + '      <a href="/ghost-watcher.html"' + (isActive('/ghost-watcher.html') ? ' class="active"' : '') + '>Ghost Watcher&trade; <span class="pill" style="background:rgba(0,191,216,0.2);color:#00bfd8;border:1px solid rgba(0,191,216,0.4);">TEAM</span></a>'
+    + '      <a href="/ghost-watcher.html"' + (isActive('/ghost-watcher.html') ? ' class="active"' : '') + '>Ghost Watcher&trade; <span class="pill" style="background:rgba(0,191,216,0.2);color:#00bfd8;border:1px solid rgba(0,191,216,0.4);">LOCAL</span></a>'
     + '      <a href="/blog/ghost-triple-crown.html"' + (isActive('/blog/ghost-triple-crown.html') ? ' class="active"' : '') + '>👑 Ghost Triple Crown&trade; <span class="pill" style="background:rgba(0,191,216,0.2);color:#00bfd8;border:1px solid rgba(0,191,216,0.4);">NEW</span></a>'
     + '      <a href="/inheritance-audit.html"' + (isActive('/inheritance-audit.html') ? ' class="active"' : '') + '>Inheritance Audit <span class="pill">FLAGSHIP</span></a>'
     + '      <a href="/prompt-triage.html"' + (isActive('/prompt-triage.html') ? ' class="active"' : '') + '>Prompt Triage</a>'
-    + '      <a href="/#what-it-does">All 8 Scan Modes</a>'
+    + '      <a href="/#what-it-does">Every Scan Mode</a>'
     + '      <a href="/triple-crown-process.html"' + (isActive('/triple-crown-process.html') ? ' class="active"' : '') + '>📋 Triple Crown Process</a>'
     + '      <a href="/ghost-brief.html"' + (isActive('/ghost-brief.html') ? ' class="active"' : '') + '>Ghost Brief&trade; <span class="pill brief">NEW</span></a>'
     + '      <a href="/audit.html"' + (isActive('/audit.html') ? ' class="active"' : '') + '>Done-For-You Audit</a>'
-    + '      <a href="/#ghost-partner">Ghost Partner&trade;</a>'
+    + '      <a href="/#ghost-partner">Ghost Partner&trade; <span class="pill local">LOCAL</span></a>'
     + '    </div>'
     + '  </div>'
     + '  <div class="ga-mobile-group' + (activeGroup === 'local' ? ' open' : '') + '" data-mobile-group>'
@@ -308,7 +307,6 @@
     + '      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>'
     + '    </button>'
     + '    <div class="ga-mobile-group-items">'
-    + '      <a href="/partner.html"' + (isActive('/partner.html') || isActive('/partner') ? ' class="active"' : '') + '>Refer &amp; Earn</a>'
     + '      <a href="/security.html"' + (isActive('/security.html') || isActive('/security') ? ' class="active"' : '') + '>Security &amp; Trust</a>'
     + '      <a href="/blog.html"' + (isActive('/blog.html') ? ' class="active"' : '') + '>Blog</a>'
     + '      <a href="' + changelogHref + '"' + (isActive('/changelog.html') || isActive('/changelog') ? ' class="active"' : '') + '>Changelog</a>'
@@ -318,7 +316,7 @@
     + '  </div>'
     // EJ, from his phone, 23:03: with Local lit in the switch, See Plans must land on
     // the Local column, as the desktop button already does.
-    + '  <a href="' + (isLocalPage ? '/pricing.html#local' : '/pricing.html#plans') + '" class="ga-mobile-cta">\uD83D\uDC7B See Plans</a>'
+    + '  <a href="' + (isLocalPage ? '/pricing.html#local' : '/pricing.html#open') + '" class="ga-mobile-cta">\uD83D\uDC7B See Plans</a>'
     + '</div>';
 
   // Mount: prefer #ga-nav-mount, else insert at top of <body>
