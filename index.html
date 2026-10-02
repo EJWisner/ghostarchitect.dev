@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <title>Ghost Architect™: Pre-Engagement Codebase Triage, in the cloud or on your own hardware</title>
+  <title>Ghost Architect™: Pre-Engagement Codebase Triage, free for one person or on your own hardware</title>
   <meta name="description" content="Ghost Architect™ -- AI-powered codebase triage and AI remediation. Pre-engagement scanning, Ghost Brief™ prompt packs for Claude Code, and governed AI remediation pipelines. Any codebase, any platform." />
   <meta name="theme-color" content="#0a0a0f" />
   <!-- Paths are relative to /next/ so the page also opens straight from the folder (file://).
@@ -26,16 +26,17 @@
 <main>
 
   <!-- 0 · HERO · the lattice at rest -->
-  <section class="hero" id="hosted" data-phase="0">
+  <section class="hero" id="open" data-phase="0">
+    <span id="hosted"></span>
     <div class="hero-inner">
       <!-- CC-Local-832 (EJ, 2026-10-01): one quiet line to the version 8 beta, not a fourth button. -->
       <a href="beta.html" style="display:inline-flex;align-items:center;gap:0.7rem;margin:0 0 1.2rem;padding:0.7rem 1.4rem;border:1.5px solid #00bfd8;border-radius:999px;background:linear-gradient(90deg,rgba(0,191,216,0.22),rgba(167,139,250,0.18));box-shadow:0 0 28px rgba(0,191,216,0.35);color:#e9fbff;font-family:Inter,system-ui,sans-serif;font-size:1.05rem;font-weight:600;text-decoration:none"><span style="background:#00bfd8;color:#04121a;border-radius:999px;padding:0.15rem 0.6rem;font-size:0.75rem;font-weight:800;letter-spacing:0.08em">NEW</span>Ghost Architect&trade; Local 8: early access beta now available &rarr;</a><br>
-      <div class="version-badge"><b>v11.0.3</b> &nbsp;·&nbsp; Your code never touches our servers. We don't have any.</div>
+      <div class="version-badge"><b>Ghost Open&trade; v12.0.0</b> &nbsp;·&nbsp; Your code never touches our servers. We don't have any.</div>
       <h1>Pre-engagement triage.<br><em>Any codebase, any language, any platform.</em></h1>
       <p class="hero-sub">Ghost Architect&trade; reads the whole codebase and tells you what is in it: the risks, the conflicts, the files that break if you touch them. Before you sign. Before you inherit it.</p>
       <p class="hero-accent">One finding pays for a year of Ghost.</p>
       <div class="hero-cta">
-        <a href="trial.html" class="btn btn-cloud">Start free trial &middot; 7 days Pro Max</a>
+        <a href="pricing.html#open" class="btn btn-cloud">Install Ghost Open&trade; free</a>
         <a href="download.html" class="btn btn-local">Ghost Architect&trade; Local &middot; your hardware</a>
         <a href="pricing.html" class="btn btn-ghost">See plans &rarr;</a>
       </div>
@@ -58,20 +59,20 @@
   <section class="doors">
     <div class="doors-head reveal">
       <p class="label">// two ways to run Ghost Architect&trade;</p>
-      <h2>Same scans. Same reports. <span>Your choice of where the model lives.</span></h2>
+      <h2>Free for one person. <span>Ghost Architect&trade; Local for your team and your own model.</span></h2>
     </div>
     <div class="door-grid">
-      <a href="#hosted" class="door cloud reveal">
-        <p class="label blue">Ghost Architect&trade; Cloud</p>
-        <div class="door-title">Start in a minute. Frontier model. Pay per seat.</div>
-        <p>Install from npm, bring your own API key, and get the sharpest judgment a model can give. Your code goes to the model provider you chose and nowhere else; we have no servers. Free tier, 7-day Pro Max trial, monthly plans from $25.</p>
-        <div class="go">See Ghost Architect&trade; Cloud &darr;</div>
+      <a href="pricing.html#open" class="door cloud reveal">
+        <p class="label blue">Ghost Open&trade; &middot; free for one person</p>
+        <div class="door-title">Start in a minute. Every mode. Your own Anthropic key.</div>
+        <p>Install from npm, bring your own Anthropic API key, and run every Ghost Open&trade; mode with no limits: no license key, no trial clock, no quotas. Your code goes to Anthropic on your key and nowhere else; we have no servers.</p>
+        <div class="go">Install Ghost Open&trade; free &rarr;</div>
       </a>
       <a href="local.html" class="door local reveal">
         <span class="tag">NEW</span>
         <p class="label" style="color: var(--local);">Ghost Architect&trade; Local &middot; your model, your hardware</p>
         <div class="door-title">Your code never leaves the building. Your cost never surprises you.</div>
-        <p>Runs on your machines, on a model you own, inside your network. macOS, Linux and Windows. Air-gapped if that is how you work. A hub and spokes for the whole team, one annual licence, no per-token bill, and reports that tell you what they did not examine.</p>
+        <p>Runs on your machines, on a model you own, inside your network. macOS, Linux and Windows. Air-gapped if that is how you work. A hub and spokes for the whole team, one monthly licence, no per-token bill, and reports that tell you what they did not examine.</p>
         <div class="go">Ghost Architect&trade; Local &rarr;</div>
       </a>
     </div>
@@ -87,7 +88,7 @@
         <ul class="items">
           <li><span class="n">01</span><div><h3>Points of Interest Scan</h3><p class="t">Auto-map red flags, dead zones, fault lines, and landmarks across the entire codebase. Know what matters before you touch it.</p></div></li>
           <li><span class="n">02</span><div><h3>Recon, engagement sizing</h3><p class="t">Walk into the scoping call with data. Recon counts files, gauges complexity, projects scan cost, and proposes a multi-pass plan before you spend a cent on analysis.</p></div></li>
-          <li class="amber"><span class="n">03</span><div><h3>Inheritance Audit<span class="pill">PRO+</span></h3><p class="t">Four analyzers, one deal-grade PDF in about 60 seconds for about $0.02. Stack reality, key-person risk, hidden deps, and a 90-day modernization roadmap. <a href="inheritance-audit.html">See the audit &rarr;</a></p></div></li>
+          <li class="amber"><span class="n">03</span><div><h3>Inheritance Audit</h3><p class="t">Four analyzers, one deal-grade PDF in about 60 seconds for about $0.02. Stack reality, key-person risk, hidden deps, and a 90-day modernization roadmap. <a href="inheritance-audit.html">See the audit &rarr;</a></p></div></li>
         </ul>
       </div>
     </div>
@@ -104,7 +105,7 @@
           <li class="amber"><span class="n">02</span><div><h3>Conflict Detection&trade;</h3><p class="t">Finds where two sides of the codebase expect different things. Catches contract mismatches before they hit production.</p></div></li>
           <li><span class="n">03</span><div><h3>Ghost Brief&trade;</h3><p class="t">Generates a developer-ready remediation prompt for every finding. Paste directly into Claude Code, Cursor, or Copilot. Surgical fixes first. Broad changes last.</p></div></li>
         </ul>
-        <p class="foot"><b>Ghost Watcher&trade;</b> runs the Ghost Triple Crown&trade; automatically on every commit. No configuration. No manual scans. Every push, every time.</p>
+        <p class="foot">In <b>Ghost Architect&trade; Local</b>, the Ghost Triple Crown&trade; checks every commit: a pre-push hook on the developer's machine, Ghost Watcher&trade; Local on a webhook from your own git server, or your own CI runner. <a href="ghost-watcher.html">How it runs &rarr;</a></p>
       </div>
     </div>
   </section>
@@ -115,7 +116,7 @@
       <div class="block reveal">
         <p class="label teal">// security</p>
         <div class="quote">"Your client's code <span>stays yours."</span></div>
-        <p>Your code never touches our servers. We don't have any. Every scan runs on your infrastructure: your API key, your GitHub Actions runner, your GitHub repo. Nothing is stored, logged, or retained outside your own filesystem. Ghost is the only codebase intelligence tool with nothing to breach.</p>
+        <p>Your code never touches our servers. We don't have any. Every scan runs on your machine, with your own API key. Nothing is stored, logged, or retained outside your own filesystem. Ghost is the only codebase intelligence tool with nothing to breach.</p>
         <p>Need the model inside the building too? <a href="local.html">Ghost Architect&trade; Local</a> runs on your machines, on a model you own, inside your network. Air-gapped if that is how you work.</p>
       </div>
     </div>
@@ -159,9 +160,9 @@
   <!-- GHOST PARTNER (the nav's "Ghost Partner™" entry lands here; copy from the live homepage, verbatim) -->
   <section class="solid pad" id="ghost-partner">
     <div class="section-head reveal">
-      <p class="label">// pro · team · enterprise</p>
-      <h2>Ghost Architect Partner&trade;<br><span style="color: var(--accent); font-weight: 500;">your methodology, your branding, your rates.</span></h2>
-      <p class="lede">Ghost Partner&trade; is the consultant edition of Ghost Architect. Load a profile YAML that injects your audit methodology, billing rates, and branding into every scan. The findings are still Ghost's. The framing, the priorities, and the dollar estimates are yours.</p>
+      <p class="label">// ghost architect&trade; local</p>
+      <h2>Ghost Partner&trade;<br><span style="color: var(--accent); font-weight: 500;">your methodology, your branding, your rates.</span></h2>
+      <p class="lede">Ghost Partner&trade; profiles are the consultant side of Ghost Architect&trade; Local. Load a profile that injects your audit methodology, billing rates, and branding into every scan. The findings are still Ghost's. The framing, the priorities, and the dollar estimates are yours.</p>
     </div>
     <div class="cards">
       <div class="card reveal"><div class="k blue">Profile loading</div><h3>Drop a partner profile YAML at scan time.</h3><p>Ghost picks up your firm's methodology, severity weighting, and remediation framework automatically.</p></div>
@@ -169,7 +170,7 @@
       <div class="card reveal"><div class="k blue">Branded PDF output</div><h3>Your firm's logo on the PDF header. Your brand colors.</h3><p>Your methodology signature in the executive summary. Hand it to the client without re-skinning anything.</p></div>
       <div class="card reveal"><div class="k blue">Methodology injection</div><h3>OWASP, SANS Top 25, your own internal checklist.</h3><p>If your firm runs every audit through a specific framework, the partner profile makes it part of every scan output.</p></div>
     </div>
-    <p class="fine reveal"><strong style="color: var(--text);">Available on Ghost Pro and above.</strong> Ghost Partner profile loading and per-profile billing rates ship with Pro ($99/mo). White-label PDF output ships with Enterprise (from $1,200/mo). <a href="pricing.html">See pricing &rarr;</a></p>
+    <p class="fine reveal"><strong style="color: var(--text);">Part of Ghost Architect&trade; Local.</strong> Ghost Partner&trade; profiles and white-label reports come with Ghost Architect&trade; Local. Ghost Open&trade; reports always carry Ghost Architect&trade; branding. <a href="pricing.html#local">See Local pricing &rarr;</a></p>
   </section>
 
   <!-- FAQ -->
@@ -183,7 +184,7 @@
       </details>
       <details class="reveal">
         <summary>Does Ghost Architect&trade; upload my code anywhere?</summary>
-        <p>No. Ghost Architect&trade; runs on your own infrastructure. Your API key, your GitHub Actions runner, your GitHub repo. Ghost has no servers. Analysis calls go directly from your machine to the model provider you chose using your own API key. With Ghost Architect&trade; Local, the model runs inside your network as well, and nothing leaves the building.</p>
+        <p>No. Ghost Open&trade; runs on your own machine, with your own API key. Ghost has no servers. Analysis calls go directly from your machine to the model provider you chose using your own API key. With Ghost Architect&trade; Local, the model runs inside your network as well, and nothing leaves the building.</p>
       </details>
       <details class="reveal">
         <summary>What is Ghost Brief&trade;?</summary>
@@ -210,9 +211,9 @@
       <p class="label teal">// start</p>
       <h2>Know what's in the codebase<br>before you sign.</h2>
       <div class="hero-cta">
-        <a href="trial.html" class="btn btn-cloud">Start free trial &middot; 7 days Pro Max</a>
+        <a href="pricing.html#open" class="btn btn-cloud">Install Ghost Open&trade; free</a>
         <a href="download.html" class="btn btn-local">Ghost Architect&trade; Local &middot; evaluation trial</a>
-        <a href="https://www.npmjs.com/package/ghost-architect-open" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">Install Ghost Open free &rarr;</a>
+        <a href="https://www.npmjs.com/package/ghost-architect-open" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">Ghost Open&trade; on npm &rarr;</a>
       </div>
     </div>
   </section>

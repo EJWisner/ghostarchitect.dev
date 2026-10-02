@@ -6,14 +6,14 @@
   <meta name="color-scheme" content="dark" />
   <meta name="robots" content="index, follow" />
   <title>Pricing: Ghost Architect™</title>
-  <meta name="description" content="Ghost Architect™ pricing -- seven tiers from free to enterprise. Ghost Brief™ governed AI remediation pipeline starts at $99/mo." />
+  <meta name="description" content="Ghost Architect™ pricing: Ghost Open™ is free for one person; Ghost Architect™ Local runs on your own hardware from $80/mo." />
   <meta name="theme-color" content="#0a0a0f" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ghostarchitect.dev/pricing" />
   <meta property="og:title" content="Ghost Architect™ Pricing -- Start Free. Upgrade When You Need More." />
-  <meta property="og:description" content="Ghost Architect™ pricing -- seven tiers from free to enterprise. Ghost Brief™ governed AI remediation pipeline starts at $99/mo." />
+  <meta property="og:description" content="Ghost Architect™ pricing: Ghost Open™ is free for one person; Ghost Architect™ Local runs on your own hardware from $80/mo." />
   <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
   <meta property="og:site_name" content="Ghost Architect™" />
 
@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://ghostarchitect.dev/pricing" />
   <meta name="twitter:title" content="Ghost Architect™ Pricing -- Start Free. Upgrade When You Need More." />
-  <meta name="twitter:description" content="Ghost Architect™ pricing -- seven tiers from free to enterprise. Ghost Brief™ governed AI remediation pipeline starts at $99/mo." />
+  <meta name="twitter:description" content="Ghost Architect™ pricing: Ghost Open™ is free for one person; Ghost Architect™ Local runs on your own hardware from $80/mo." />
   <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
   <link rel="sitemap" type="application/xml" href="../sitemap.xml" />
 
@@ -35,63 +35,41 @@
     "operatingSystem": "macOS, Windows, Linux",
     "url": "https://ghostarchitect.dev",
     "description": "AI-powered codebase intelligence tool that triages codebases, categorizes risk, prioritizes findings, and generates structured reports for any platform or language.",
-    "softwareVersion": "11.0.3",
     "offers": [
       {
         "@type": "Offer",
-        "name": "Ghost Open",
+        "name": "Ghost Open™",
+        "description": "Free for one person. Every mode, unlimited, on your own Anthropic API key.",
         "price": "0",
         "priceCurrency": "USD"
       },
       {
         "@type": "Offer",
-        "name": "Ghost Pro",
-        "price": "99",
+        "name": "Ghost Architect™ Local Solo Developer",
+        "description": "1 seat. Monthly licence.",
+        "price": "80",
         "priceCurrency": "USD"
       },
       {
         "@type": "Offer",
-        "name": "Ghost Team",
-        "price": "399",
+        "name": "Ghost Architect™ Local Small Team",
+        "description": "5 seats. Monthly licence.",
+        "price": "400",
         "priceCurrency": "USD"
       },
       {
         "@type": "Offer",
-        "name": "Ghost Enterprise",
-        "price": "1200",
-        "priceCurrency": "USD",
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "price": "1200",
-          "priceCurrency": "USD",
-          "minPrice": "1200",
-          "description": "Starting price. Custom seats and MSA terms available."
-        }
-      },
-      {
-        "@type": "Offer",
-        "name": "Ghost Pro Max",
-        "price": "199",
+        "name": "Ghost Architect™ Local Agency",
+        "description": "15 seats. Monthly licence.",
+        "price": "1000",
         "priceCurrency": "USD"
       },
       {
         "@type": "Offer",
-        "name": "Ghost Team Max",
-        "price": "799",
+        "name": "Ghost Architect™ Local Enterprise",
+        "description": "Unlimited seats. Monthly licence.",
+        "price": "2000",
         "priceCurrency": "USD"
-      },
-      {
-        "@type": "Offer",
-        "name": "Ghost Enterprise Max",
-        "price": "2500",
-        "priceCurrency": "USD",
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "price": "2500",
-          "priceCurrency": "USD",
-          "minPrice": "2500",
-          "description": "Starting price. Custom seats and MSA terms available."
-        }
       }
     ],
     "author": {
@@ -136,7 +114,9 @@
     .card .btn + .btn { margin-top: 0.6rem; }
     .open-tier .npm { margin: 0.4rem 0.6rem 0 0; font-size: 0.84rem; padding: 0.45rem 0.8rem; }
     .open-tier .meta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); }
-    #local, #plans, #enterprise { scroll-margin-top: 80px; }
+    #local, #open, #plans, #enterprise { scroll-margin-top: 80px; }
+    .cards.one { grid-template-columns: 1fr; max-width: 760px; margin: 0; }
+    .open-tier .card .npm { margin: 1rem 0 0.4rem; }
   </style>
 </head>
 <body data-product="open">
@@ -154,10 +134,11 @@
     <p class="lede">Ghost Architect triages any codebase, categorizes risk, prioritizes findings, and gives your team a map of where to start. Any codebase. Any language. Any platform.</p>
     <div class="callout local">
       <p><strong>Ghost Architect&trade; Local 7.4.41 is the current release.</strong> Your model, your hardware, zero egress. One monthly licence, no per-token bill. <a href="local.html">See Ghost Architect&trade; Local &rarr;</a></p>
+      <p>Version 8 is in early access beta: <a href="beta.html">ask for the Ghost Architect&trade; Local 8 beta &rarr;</a></p>
     </div>
   </header>
 
-  <!-- TWO PRODUCTS, STACKED: Local first, then Cloud (EJ, 2026-09-24: "move the ghost local pricing blocks cards to the top and ghost cloud to the bottom"). -->
+  <!-- TWO PRODUCTS, STACKED: Local first, then Ghost Open (EJ, 2026-09-24: "move the ghost local pricing blocks cards to the top and ghost cloud to the bottom"; 2026-10-05: the Cloud tiers became one free Ghost Open card). -->
   <div id="choose">
 
   <section class="band" id="local">
@@ -231,7 +212,7 @@
         <a href="https://buy.stripe.com/cNi4gz2Z11Mo8fpfXnbEA0e" class="btn btn-local-solid" data-tier="agency">Subscribe &rarr;</a>
         <a href="download.html" class="btn btn-local">Evaluation trial &rarr;</a>
       </div>
-      <div class="card">
+      <div class="card" id="enterprise">
         <div class="k">// local enterprise</div>
         <h3>Enterprise</h3>
         <p>Unlimited seats and departments, a formal MSA, and EJ on the line for the rollout.</p>
@@ -257,243 +238,34 @@
     <p class="fine">Prices in USD. Subscriptions renew monthly. Evaluating? Your first month is half price: choose Convert Now inside Ghost Architect&trade; Local, or enter the code from your evaluation emails at checkout, before your evaluation ends.</p>
   </section><!-- /local -->
 
-  <section class="band" id="plans">
-    <p class="eyebrow product-banner mega">Ghost Architect&trade; Cloud</p>
-    <h2>Monthly, per seat.<br>Frontier model, your API key.</h2>
-    <p class="lede">Free tier on npm, plans from $25 a seat a month, Ghost Brief&trade; tiers from $99, cancel anytime. Start in a minute.</p>
-    <div class="hero-cta">
-      <a href="trial.html" class="btn btn-cloud">Start Free Trial &middot; 7 Days Pro Max</a>
-    </div>
-    <p class="trial-note">No credit card.</p>
+  <section class="band" id="open">
+    <span id="plans"></span>
+    <p class="eyebrow product-banner mega">Ghost Open&trade; &middot; free for one person</p>
+    <h2>Free for one person.<br>Every mode, your own Anthropic key.</h2>
+    <p class="lede">Ghost Open&trade; is the free single-user CLI on npm. Every mode runs unlimited on your own Anthropic API key, so the only cost is the model usage you already control. No license key, no trial clock, no quotas.</p>
 
-    <!-- GHOST OPEN FREE TIER -->
-    <div class="callout teal open-tier">
-      <div class="k">FREE / OPEN SOURCE</div>
-      <p><strong>Ghost Open v7.0.0. Question and Recon free forever, 4 free deep reports.</strong></p>
-      <p><span class="npm"><span id="npm-cmd-pricing">npm i -g ghost-architect-open</span><button type="button" onclick="navigator.clipboard.writeText('npm i -g ghost-architect-open').then(function(){ var b = document.getElementById('copy-btn-pricing'); b.textContent = 'Copied!'; setTimeout(function(){ b.textContent = 'Copy'; }, 2000); })" id="copy-btn-pricing">Copy</button></span><span class="meta">&middot; MIT license &middot; 3,933+ npm downloads &middot; free forever, no signup required</span></p>
-      <p><a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer">npm →</a></p>
-    </div>
-
-    <!-- LAUNCH50-PROMO START. Commented out 2026-05-27; uncomment to re-enable. -->
-    <!--
-    <div class="callout teal">
-      <div class="k">// v7.0.0 launch special</div>
-      <p><strong>50% off your first month with code <code>LAUNCH50</code></strong></p>
-      <p class="pnote">First 100 redemptions. While supplies last. Applies to Pro, Team, and Enterprise.</p>
-    </div>
-    -->
-    <!-- LAUNCH50-PROMO END -->
-
-    <!-- PAID PLANS -->
-    <div class="cards plan-cards">
-
-      <!-- PRO -->
+    <div class="cards plan-cards one open-tier">
       <div class="card">
-        <div class="k blue">// ghost pro</div>
-        <h3>Solo Architect</h3>
-        <p>For independent architects and consultants tracking audit progress across multiple client engagements. Ghost Partner™ profile support included.</p>
-        <div class="price"><span class="cur">$</span>25<small>/mo</small></div>
-        <p class="pnote">Billed monthly · Cancel anytime</p>
+        <div class="k blue">// ghost open&trade;</div>
+        <h3>Ghost Open&trade;</h3>
+        <p>One person, one install, every single-user mode. Install it, add your Anthropic API key, and scan.</p>
+        <div class="price">Free</div>
+        <p class="pnote">1 person &middot; No license key, no trial clock, no quotas</p>
         <ul>
-          <li class="sl">scan engine</li>
-          <li>All 8 scan modes (POI, Blast, Conflict, Recon, Audit, Chat, Compare, Dashboard)</li>
-          <li>Prompt Triage with 16 detectors</li>
-          <li>PDF, Markdown, and TXT reports</li>
-          <li>Structured findings.json output</li>
-          <li>100K context cap per scan</li>
-          <li class="sl">project tracking</li>
-          <li>Project labels with baseline comparison</li>
-          <li>Project Intelligence Dashboard with PDF export</li>
-          <li>Compare Reports (before/after diff)</li>
-          <li class="sl">consultant features</li>
-          <li>Ghost Partner™ profile loading</li>
-          <li>Custom billing rate overrides per profile</li>
-          <li class="sl">support &amp; privacy</li>
-          <li>Priority email support</li>
-          <li>Code stays local. BYOK Anthropic API</li>
+          <li class="sl">every mode, unlimited</li>
+          <li>Question, Chat, Recon, Points of Interest, Blast Radius&trade;, Conflict Detection&trade;, Prompt Triage&trade;, Inheritance Audit, Ghost Brief&trade;, Executive Brief, Commit Forecast&trade;, Fix Forecast. Unlimited, on your own Anthropic API key.</li>
+          <li>The full 200K-token context cap on every scan</li>
+          <li class="sl">your code, your key</li>
+          <li>Your code goes from your machine to Anthropic's API with your own key, and nowhere else</li>
+          <li>Reports are saved on your machine only</li>
+          <li>Free production use by one person under the Business Source License 1.1 Additional Use Grant</li>
         </ul>
-        <a href="https://buy.stripe.com/cNi00j0QT76I67h7qRbEA07" class="btn btn-ghost">Get Ghost Pro →</a>
+        <span class="npm"><span class="dollar">$</span><span id="npm-cmd-pricing">npm install -g ghost-architect-open</span><button type="button" onclick="navigator.clipboard.writeText('npm install -g ghost-architect-open').then(function(){ var b = document.getElementById('copy-btn-pricing'); b.textContent = 'Copied!'; setTimeout(function(){ b.textContent = 'Copy'; }, 2000); })" id="copy-btn-pricing">Copy</button></span>
+        <a href="https://www.npmjs.com/package/ghost-architect-open" class="btn btn-cloud" target="_blank" rel="noopener noreferrer">Ghost Open&trade; on npm &rarr;</a>
+        <p class="pnote">Ghost Open&trade; is free for one person. For deeper scans, teams and your own AI model on your own hardware: <a href="beta.html">Ghost Architect&trade; Local 8 (early access beta)</a>.</p>
       </div>
-
-      <!-- TEAM -- FEATURED -->
-      <div class="card hi">
-        <div class="badges"><span class="pill blue">Most Popular</span></div>
-        <div class="k blue">// ghost team</div>
-        <h3>Agency Team</h3>
-        <p>For agencies running audits across multiple client engagements on any stack.</p>
-        <div class="price"><span class="cur">$</span>399<small>/mo</small></div>
-        <p class="pnote">Up to 5 seats · $80/seat · Cancel anytime</p>
-        <ul>
-          <li class="sl">scan engine</li>
-          <li>All 8 scan modes (POI, Blast, Conflict, Recon, Audit, Chat, Compare, Dashboard)</li>
-          <li>Prompt Triage with 16 detectors</li>
-          <li>PDF, Markdown, TXT, JSON reports</li>
-          <li>150K context cap per scan</li>
-          <li class="sl">team collaboration</li>
-          <li>5 architect seats on one membership</li>
-          <li>Parallel client scans across seats</li>
-          <li>Shared project history across the team</li>
-          <li>Customer portal (web view of every scan)</li>
-          <li class="sl">project tracking &amp; partner</li>
-          <li>Project Intelligence Dashboard with trends</li>
-          <li>Compare Reports (before/after diff)</li>
-          <li>Ghost Partner™ profiles + custom billing rates</li>
-          <li>White-label PDF with your firm's branding</li>
-          <li class="sl">ghost watcher™</li>
-          <li>Ghost Watcher™ -- automatic commit monitoring via GitHub Actions</li>
-          <li class="note">Uses your Anthropic API key. Typical cost: $1-2 per commit scan.</li>
-          <li class="sl local">Ghost Watcher™</li>
-          <li>Blast Radius + Conflict Detection on every push</li>
-          <li>Ghost Portal Watch tab -- Commits, Findings, Prompts</li>
-          <li>PR comment with findings summary on every pull request</li>
-          <li class="sl">onboarding &amp; support</li>
-          <li>Dedicated onboarding session</li>
-          <li>Slack / Teams support channel</li>
-          <li>Code stays local. BYOK Anthropic API</li>
-        </ul>
-        <a href="https://buy.stripe.com/5kQfZhdDFeza7blbH7bEA01" class="btn btn-cloud">Get Ghost Team →</a>
-      </div>
-
-      <!-- ENTERPRISE -->
-      <div class="card" id="enterprise">
-        <div class="k blue">// ghost enterprise</div>
-        <h3>Enterprise</h3>
-        <p>For enterprise teams and large agencies with complex multi-project environments.</p>
-        <div class="k dim">starts at</div>
-        <div class="price"><span class="cur">$</span>1,200<small>/mo</small></div>
-        <p class="pnote">Custom seats · MSA included · Invoiced billing available</p>
-        <ul>
-          <li class="sl">scan engine</li>
-          <li>All 8 scan modes (POI, Blast, Conflict, Recon, Audit, Chat, Compare, Dashboard)</li>
-          <li>Prompt Triage with 16 detectors</li>
-          <li>PDF, Markdown, TXT, JSON reports</li>
-          <li>200K context cap per scan</li>
-          <li class="sl">team &amp; portfolio</li>
-          <li>Unlimited seats across your organization</li>
-          <li>Parallel client scans across seats</li>
-          <li>Shared project history across the org</li>
-          <li>Customer portal (web view of every scan)</li>
-          <li>Multi-brand portfolio support</li>
-          <li class="sl">consultant &amp; partner</li>
-          <li>Project Intelligence Dashboard with trends</li>
-          <li>Compare Reports (before/after diff)</li>
-          <li>Ghost Partner™ profiles + custom billing rates</li>
-          <li>White-label PDF with your firm's branding</li>
-          <li class="sl">ghost watcher™</li>
-          <li>Ghost Watcher™ -- automatic commit monitoring via GitHub Actions</li>
-          <li class="note">Uses your Anthropic API key. Typical cost: $1-2 per commit scan.</li>
-          <li class="sl local">Ghost Watcher™</li>
-          <li>Blast Radius + Conflict Detection on every push</li>
-          <li>Ghost Portal Watch tab -- Commits, Findings, Prompts</li>
-          <li>PR comment with findings summary on every pull request</li>
-          <li class="sl">contracts &amp; billing</li>
-          <li>Custom MSA and NDA execution</li>
-          <li>Invoice / NET-30 billing on request</li>
-          <li class="sl">direct access</li>
-          <li>Dedicated architect sessions with EJ Wisner</li>
-          <li>Priority roadmap input</li>
-          <li>Code stays local. BYOK Anthropic API</li>
-        </ul>
-        <a href="https://buy.stripe.com/4gM3cvartaiU2V5fXnbEA02" class="btn btn-ghost">Get Ghost Enterprise →</a>
-      </div>
-
-      <!-- PRO MAX -->
-      <div class="card">
-        <div class="badges"><span class="pill blue">NEW</span></div>
-        <div class="k blue">// ghost pro max</div>
-        <h3>Solo Architect + Brief</h3>
-        <p>Full Ghost Architect™ diagnostic power plus Ghost Brief™ -- the governed AI remediation pipeline. After every scan, Ghost converts your findings into a validated, blast-radius-aware prompt pack your AI coding agent can execute immediately. You stop translating findings into instructions. You stop worrying about what the AI might break. Ghost briefs the AI. The AI fixes the code. You ship.</p>
-        <div class="price"><span class="cur">$</span>99<small>/mo</small></div>
-        <p class="pnote">Billed monthly · Cancel anytime</p>
-        <ul>
-          <li class="sl">everything in ghost pro™</li>
-          <li>Everything in Ghost Pro™</li>
-          <li class="sl">ghost brief™</li>
-          <li>Ghost Brief™ generation after every scan</li>
-          <li>Blast-radius-aware Claude Code prompt pack</li>
-          <li>Download ghost-brief.json for any AI coding agent</li>
-          <li>Ghost Portal™ Brief tab -- view, download, history</li>
-          <li>Validated prompt output -- no hallucinated fix paths</li>
-          <li class="sl">executive brief™</li>
-          <li>Executive Brief™ after every scan</li>
-          <li>Health score 0-100 with plain-language risk label</li>
-          <li>AI-generated executive narrative in consultant voice</li>
-          <li>Manual vs AI-assisted cost comparison table</li>
-          <li>Client-ready PDF to Ghost Architect Reports</li>
-        </ul>
-        <a href="https://buy.stripe.com/8x2bJ1gPRezacvFh1rbEA08" class="btn btn-ghost">Get Ghost Pro Max →</a>
-      </div>
-
-      <!-- TEAM MAX -->
-      <div class="card">
-        <div class="badges"><span class="pill blue">NEW</span></div>
-        <div class="k blue">// ghost team max</div>
-        <h3>Agency Team + Brief</h3>
-        <p>Everything your team needs to run governed AI remediation across a shared codebase. Every seat generates their own Ghost Brief™. But the real value is the Unified Brief -- Ghost consolidates every architect's findings into one master prompt pack that understands how each fix affects every other area. No more one engineer's fix breaking another engineer's work. The whole team moves together, with one source of truth telling the AI exactly what to do and in what order.</p>
-        <div class="price"><span class="cur">$</span>799<small>/mo</small></div>
-        <p class="pnote">Up to 5 seats · Billed monthly · Cancel anytime</p>
-        <ul>
-          <li class="sl">everything in ghost team™</li>
-          <li>Everything in Ghost Team™</li>
-          <li class="sl">ghost brief™</li>
-          <li>Ghost Brief™ per seat</li>
-          <li>Unified Brief across all seats</li>
-          <li>Blast radius cross-referenced across architects</li>
-          <li>One master prompt pack for the whole codebase</li>
-          <li>Ghost Portal™ Brief tab with full team history</li>
-          <li class="sl">ghost watcher™ · ghost triple crown™</li>
-          <li>Ghost Watcher™ -- automatic commit monitoring via GitHub Actions</li>
-          <li class="note">Uses your Anthropic API key. Typical cost: $1-2 per commit scan.</li>
-          <li class="sl local">Ghost Triple Crown™</li>
-          <li>Blast Radius + Conflict Detection + Ghost Brief™ on every push</li>
-          <li>Ghost Portal Watch tab -- Commits, Findings, Prompts</li>
-          <li>PR comment with findings summary on every pull request</li>
-          <li class="sl">executive brief™</li>
-          <li>Executive Brief™ per seat</li>
-          <li>Health score and risk narrative per engagement</li>
-          <li>Cost comparison table ready for client delivery</li>
-          <li>Shareable PDF for stakeholder review</li>
-        </ul>
-        <a href="https://buy.stripe.com/28E9AT7fhdv6brBeTjbEA05" class="btn btn-ghost">Get Ghost Team Max →</a>
-      </div>
-
-      <!-- ENTERPRISE MAX -->
-      <div class="card">
-        <div class="badges"><span class="pill blue">NEW</span></div>
-        <div class="k blue">// ghost enterprise max</div>
-        <h3>Enterprise + Brief</h3>
-        <p>The complete Ghost Platform™ at full enterprise scale -- unlimited scans, unlimited Briefs, unlimited seats, formal MSA, and dedicated Ghost Partner co-engagement with EJ Wisner directly. You don't just get the tool. You get the architect who built it, embedded in your remediation workflow, making sure your AI coding pipeline is governed, validated, and producing results your stakeholders can see. This is what enterprise AI-assisted remediation looks like when it's done right.</p>
-        <div class="k dim">starts at</div>
-        <div class="price"><span class="cur">$</span>2,500<small>/mo</small></div>
-        <p class="pnote">Custom seats · MSA included · Invoiced billing available</p>
-        <ul>
-          <li class="sl">everything in ghost enterprise™</li>
-          <li>Everything in Ghost Enterprise™</li>
-          <li class="sl">ghost brief™</li>
-          <li>Unlimited Ghost Brief™ generations</li>
-          <li>Unified Brief at enterprise scale</li>
-          <li>Dedicated Ghost Partner co-engagement (EJ Wisner)</li>
-          <li>SLA response commitment</li>
-          <li>Formal MSA included</li>
-          <li>Priority roadmap input</li>
-          <li class="sl">ghost watcher™ · ghost triple crown™</li>
-          <li>Ghost Watcher™ -- automatic commit monitoring via GitHub Actions</li>
-          <li class="note">Uses your Anthropic API key. Typical cost: $1-2 per commit scan.</li>
-          <li class="sl local">Ghost Triple Crown™</li>
-          <li>Blast Radius + Conflict Detection + Ghost Brief™ on every push</li>
-          <li>Ghost Portal Watch tab -- Commits, Findings, Prompts</li>
-          <li>PR comment with findings summary on every pull request</li>
-          <li class="sl">executive brief™</li>
-          <li>Unlimited Executive Brief™ generations</li>
-          <li>Board and PE-ready one-page brief format</li>
-          <li>Custom branding via Ghost Partner™ profile</li>
-          <li>Integrated with deal-grade Inheritance Audit</li>
-        </ul>
-        <a href="https://buy.stripe.com/cNi14nbvxezadzJfXnbEA06" class="btn btn-ghost">Get Ghost Enterprise Max →</a>
-      </div>
-
     </div>
-  </section><!-- /plans -->
+  </section><!-- /open -->
 
   </div><!-- /choose -->
 
@@ -520,24 +292,20 @@
     </div>
   </section>
 
-  <section class="band">
-    <p class="eyebrow product-banner">Ghost Architect&trade; Cloud</p>
+  <section class="band" id="open-trust">
+    <p class="eyebrow product-banner">Ghost Open&trade; &middot; free for one person</p>
     <div class="cards">
       <div class="card">
         <div class="k blue">// your code stays yours</div>
-        <p>Ghost Architect&trade; runs on your machine. Your source code goes from your machine to Anthropic's API with your own key and is never uploaded to our servers. BYOK -- your Anthropic API key, your pipeline.</p>
+        <p>Ghost Open&trade; runs on your machine. Your source code goes from your machine to Anthropic's API with your own key and is never uploaded to our servers. BYOK: your Anthropic API key, your pipeline.</p>
       </div>
       <div class="card">
         <div class="k blue">// api data deleted in 7 days</div>
         <p>Anthropic deletes API inputs and outputs within 7 days per their data retention policy. We have no access to that data.</p>
       </div>
       <div class="card">
-        <div class="k blue">// cancel anytime</div>
-        <p>No contracts on Pro or Team. Cancel before your next billing date and you're done. Enterprise includes a formal MSA.</p>
-      </div>
-      <div class="card">
-        <div class="k blue">// instant license delivery</div>
-        <p>Your license key is auto-generated at Stripe checkout and emailed instantly. Activate with one command: <code>ghost --activate &lt;KEY&gt;</code>. No GitHub setup, no waiting.</p>
+        <div class="k blue">// free for one person, in writing</div>
+        <p>Ghost Open&trade; is source-available under the Business Source License 1.1. Its Additional Use Grant lets one person use it in production free of charge, for their own work or their employer's or clients' work. No account, no license key, no activation.</p>
       </div>
     </div>
   </section>
@@ -547,8 +315,8 @@
     <p class="eyebrow local product-banner">// frequently asked &middot; Ghost Architect&trade; Local</p>
     <div class="faq" style="padding: 0;"><div class="wrap" style="max-width: 820px; margin: 0;">
       <details>
-        <summary>What is Ghost Architect&trade; Local, and how is it different from Ghost Architect&trade; Cloud?</summary>
-        <p>The same scans and the same reports, running entirely on hardware you own against a model server you run. Ghost Architect&trade; Cloud sends your code to Anthropic's API with your own key and bills a monthly membership; Local sends nothing anywhere, needs no API key, and is a monthly licence per seat band. Choose Local when the code cannot leave the building, or when a per-token bill is the wrong shape for your team.</p>
+        <summary>What is Ghost Architect&trade; Local, and how is it different from Ghost Open&trade;?</summary>
+        <p>Every Ghost Open&trade; mode plus teams, projects, Ghost Partner&trade; profiles and automatic checks on every commit, running entirely on hardware you own against a model server you run. Ghost Open&trade; is free for one person and sends your code to Anthropic's API with your own key; Local sends nothing anywhere, needs no API key, and is a monthly licence per seat band. Choose Local when the code cannot leave the building, or when a per-token bill is the wrong shape for your team.</p>
       </details>
       <details>
         <summary>Do I need an Anthropic API key for Ghost Architect&trade; Local?</summary>
@@ -573,27 +341,23 @@
     </div></div>
   </section>
 
-  <section class="band">
-    <p class="eyebrow product-banner">// frequently asked &middot; Ghost Architect&trade; Cloud</p>
+  <section class="band" id="open-faq">
+    <p class="eyebrow product-banner">// frequently asked &middot; Ghost Open&trade;</p>
     <div class="faq" style="padding: 0;"><div class="wrap" style="max-width: 820px; margin: 0;">
       <details>
-        <summary>What is Ghost Brief™ and which tiers include it?</summary>
-        <p>Ghost Brief™ is the governed AI remediation pipeline built into Ghost Architect™. After any scan, Ghost converts your findings into a validated, blast-radius-aware prompt pack -- a ghost-brief.json file your AI coding agent (Claude Code, Cursor, Copilot) can execute immediately. Ghost Brief™ is included in Ghost Pro Max ($99/mo), Ghost Team Max ($799/mo), and Ghost Enterprise Max ($2,500/mo). All three tiers gate the feature at the license level -- no manual configuration required.</p>
-      </details>
-      <details>
-        <summary>What's the difference between Ghost Open and Ghost Pro?</summary>
-        <p>Ghost Open is free forever and requires no signup -- install and run immediately with your own Anthropic API key. For a guided Pro Max experience with Ghost Watcher, Ghost Brief, and the Ghost Portal running on your real repo, start a 7-day free trial at ghostarchitect.dev/trial. Ask a Question and Recon are free forever, unlimited. You also get four free deep reports across Points of Interest, Blast Radius, Conflict Detection, and Prompt Triage. Inheritance Audit is Pro and above. When you upgrade, Ghost Pro removes the report cap and adds project intelligence: project label tracking, baseline comparison, remediation velocity, the Project Dashboard, Compare Reports, and Ghost Partner&trade; profile support with per-profile billing rate overrides. <!-- LAUNCH50-PROMO START. Commented out 2026-05-27; uncomment to re-enable. --><!-- <strong>Launch promo: code LAUNCH50 takes 50% off your first month on any paid tier. First 100 redemptions, while supplies last.</strong> --><!-- LAUNCH50-PROMO END --></p>
+        <summary>What does "free for one person" mean?</summary>
+        <p>Ghost Open&trade; is source-available under the Business Source License 1.1. Its Additional Use Grant lets one person use it in production free of charge, on their own machines, for their own work or their employer's or clients' work. Every single-user mode is on, with no quotas, no trial clock and no license key. An organization using it through a shared, multi-user or hosted deployment needs a commercial license; for teams, that is <a href="#local">Ghost Architect&trade; Local</a>.</p>
       </details>
       <details>
         <summary>Do I need my own Anthropic API key?</summary>
-        <p>Yes. Ghost Architect is BYOK (Bring Your Own Key). This is by design: your code goes directly from your machine to Anthropic's API. We never see it. A typical scan costs <strong>$0.23 in Anthropic API usage</strong>. Most Pro users run 10 to 20 scans per month, which is $2 to $5 in API costs on top of the membership. You can verify this yourself: the cost of every scan is printed in the output.</p>
+        <p>Yes. Ghost Open&trade; is BYOK (Bring Your Own Key). This is by design: your code goes directly from your machine to Anthropic's API. We never see it. A typical scan costs <strong>$0.23 in Anthropic API usage</strong>. You can verify this yourself: the cost of every scan is printed in the output.</p>
       </details>
       <details>
-        <summary>How do I get access after subscribing?</summary>
-        <p>After subscribing through Stripe, your license key is generated automatically and emailed to you within seconds. Install Ghost Open from npm if you haven't already, then run <code>ghost --activate &lt;KEY&gt;</code> to unlock Pro features. The key remains valid as long as your membership is current. If you cancel or your membership lapses, the key deactivates.</p>
+        <summary>What is not in Ghost Open&trade;?</summary>
+        <p>Anything that needs more than one person or a server: teams, projects and project tracking, the Project Dashboard, Ghost Partner&trade; profiles and white-label reports, and automatic checks on every commit. Those are in <a href="#local">Ghost Architect&trade; Local</a>, along with your own model on your own hardware.</p>
       </details>
       <details>
-        <summary>Can I get a demo before subscribing?</summary>
+        <summary>Can I get a demo?</summary>
         <p>Yes. Email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> or connect on <a href="https://linkedin.com/in/ernst-wisner-9357b2186" target="_blank" rel="noopener noreferrer">LinkedIn</a> and we'll schedule a 15-minute Teams call with a live scan of a sample codebase.</p>
       </details>
       <details>

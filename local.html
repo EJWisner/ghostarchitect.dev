@@ -91,7 +91,7 @@
     <div class="copy">
       <div class="block reveal">
         <p class="label local">// the scan, on your machines</p>
-        <h2>The same scan modes as Ghost Architect&trade; Cloud. On hardware you own.</h2>
+        <h2>Every Ghost Open&trade; mode, plus Pre-Sprint, Pre-Epic and teams. On hardware you own.</h2>
         <p>A multi-pass read of the whole tree. Findings are verified against the source before they reach the page, the health score shows the denominator it was computed from, and the trend runs scan over scan.</p>
         <ul class="items">
           <li class="local"><span class="n">01</span><div><h3>Points of Interest</h3><p class="t">The health of the codebase, with its evidence beside each finding. Red flags, dead zones, fault lines, landmarks.</p></div></li>
@@ -113,7 +113,7 @@
           <li class="amber"><span class="n">02</span><div><h3>Conflict Detection&trade;</h3><p class="t">Contracts, schemas and the seams between components, read for the places two parts of the system assume different things.</p></div></li>
           <li><span class="n">03</span><div><h3>Ghost Brief&trade;</h3><p class="t">Remediation instructions grounded in your real files, dependencies and findings, for whatever coding assistant you already use. Ghost finds it, you decide, your tooling executes.</p></div></li>
         </ul>
-        <p class="foot">A post-commit hook runs the three-pass review and reports the commit risk to the fleet page. <b>Pull request comments to a git server on your LAN when you turn them on.</b></p>
+        <p class="foot">A pre-push hook runs the three-pass review on the developer's machine and asks before a risky push goes out. <b>Pull request comments to a git server on your LAN when you turn them on.</b></p>
       </div>
     </div>
   </section>
@@ -156,7 +156,7 @@
     </div>
     <div class="cards">
       <div class="card reveal"><div class="k">Source that may not leave</div><h3>Three clients forbid their code from leaving infrastructure they control</h3><p>The model runs on your hardware, so there is nothing on the other side to send the code to. Zero-egress mode refuses every outbound destination at the code level and prints the inventory that proves it.</p></div>
-      <div class="card reveal"><div class="k">Spend you cannot forecast</div><h3>The AI line on the invoice moves every month</h3><p>One monthly licence, sized to the team. No meter, no per-token bill. A bad answer costs a re-run on machines you already own, not another line on an invoice, and the trial converts at half price for the first year.</p></div>
+      <div class="card reveal"><div class="k">Spend you cannot forecast</div><h3>The AI line on the invoice moves every month</h3><p>One monthly licence, sized to the team. No meter, no per-token bill. A bad answer costs a re-run on machines you already own, not another line on an invoice, and the trial converts at half price for the first month.</p></div>
       <div class="card reveal"><div class="k">Confident tools you cannot trust</div><h3>Every scanner reports with the same confidence whether it read the whole tree or a tenth of it</h3><p>Ghost prints its coverage in files and passes, says nobody counted rather than zero when a scan died early, and tells you when a verdict hangs on one severity word.</p></div>
       <div class="card reveal"><div class="k">Status by chasing people</div><h3>"Where are we on that?" costs a meeting</h3><p>Every scan is kept, with its health score and trend, so the state of a codebase is on a page rather than in someone's head. Run it on a commit, on a push, or five minutes before the question.</p></div>
       <div class="card reveal"><div class="k">Inherited codebases</div><h3>A new engagement starts with a system nobody documented</h3><p>Recon sizes it in one call and says what a full scan would read; Points of Interest reads it and grades it with the evidence beside each finding; Ghost Brief&trade; turns the findings into a prompt written from the real files.</p></div>
@@ -179,21 +179,21 @@
     </div>
   </section>
 
-  <!-- LOCAL OR CLOUD -->
+  <!-- LOCAL OR OPEN (the id stays local-or-cloud for old links) -->
   <section class="solid pad" id="local-or-cloud">
     <div class="section-head reveal">
       <p class="label">// two deals</p>
-      <h2>Local or Cloud?</h2>
-      <p class="lede">Same modes, same reports, two different deals. If your clients forbid source from leaving infrastructure they control, Local is the one built for you. If you want a frontier model's judgment and a subscription you can start in a minute, <a href="index.html">Ghost Architect&trade; Cloud</a> is right there.</p>
+      <h2>Local or Open?</h2>
+      <p class="lede">Two products, two different deals. If your clients forbid source from leaving infrastructure they control, or more than one person needs it, Local is the one built for you. If you work alone and want to start in a minute on your own Anthropic key, <a href="pricing.html#open">Ghost Open&trade;</a> is free for one person.</p>
     </div>
     <div class="cmp-wrap reveal">
       <table class="cmp">
-        <tr><th></th><th>Ghost Architect&trade; Local</th><th>Ghost Architect&trade; Cloud</th></tr>
-        <tr><td>Where the model runs</td><td class="l">Your machines, your model server</td><td>A frontier model, through your API key</td></tr>
-        <tr><td>Where your code goes</td><td class="l">Nowhere. Zero egress at the code level</td><td>To the model provider you chose, per request</td></tr>
-        <tr><td>How you pay</td><td class="l">One monthly licence per team size</td><td>Monthly per seat, plus your model usage</td></tr>
-        <tr><td>What a bad answer costs</td><td class="l">A re-run on hardware you already own</td><td>Another line on the invoice</td></tr>
-        <tr><td>Multiple machines</td><td class="l">Hub and spokes, one fleet page</td><td>Per machine</td></tr>
+        <tr><th></th><th>Ghost Architect&trade; Local</th><th>Ghost Open&trade;</th></tr>
+        <tr><td>Who it is for</td><td class="l">Teams, from one seat to unlimited</td><td>One person</td></tr>
+        <tr><td>Where the model runs</td><td class="l">Your machines, your model server</td><td>Anthropic's API, through your own key</td></tr>
+        <tr><td>Where your code goes</td><td class="l">Nowhere. Zero egress at the code level</td><td>To Anthropic, per request, on your key</td></tr>
+        <tr><td>How you pay</td><td class="l">One monthly licence per team size</td><td>Free. You pay Anthropic for model usage</td></tr>
+        <tr><td>Multiple machines</td><td class="l">Hub and spokes, one fleet page</td><td>One person's own machines</td></tr>
         <tr><td>Air-gapped</td><td class="l">Yes, after activation</td><td>No</td></tr>
       </table>
     </div>
@@ -229,8 +229,8 @@
         <p>Whatever your model server serves: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. Our estate runs qwen3:14b. The LLM Status page shows the model, quantization, context window, memory and measured speed, so you can see what a model change did.</p>
       </details>
       <details class="reveal">
-        <summary>Is it the same as Ghost Architect&trade; Open?</summary>
-        <p>No. Open is the free tier of Ghost Architect&trade; Cloud on npm. Local is a separate product delivered directly by us as a tarball, installed with its own installer, licensed per team, and it does not use a hosted model at all.</p>
+        <summary>Is it the same as Ghost Open&trade;?</summary>
+        <p>No. Ghost Open&trade; is the free single-user CLI on npm. Local is a separate product delivered directly by us as a tarball, installed with its own installer, licensed per team, and it does not use a hosted model at all.</p>
       </details>
       <details class="reveal">
         <summary>How long does a scan take?</summary>
@@ -238,7 +238,7 @@
       </details>
       <details class="reveal">
         <summary>Can I run it in CI or on a commit hook?</summary>
-        <p>Yes. The CLI has a non-interactive mode, the CLI registers a post-commit hook that runs the Ghost Triple Crown&trade;, and the REST API on the hub is documented at /api/v1/docs on your own install.</p>
+        <p>Yes. The CLI has a non-interactive mode, the CLI registers a pre-push hook that runs the Ghost Triple Crown&trade;, and the REST API on the hub is documented at /api/v1/docs on your own install.</p>
       </details>
       <details class="reveal">
         <summary>Do I get the source?</summary>
