@@ -65,15 +65,15 @@
   <header class="page-hero">
     <p class="eyebrow">// security &amp; trust</p>
     <h1>Your code never leaves your machine.<br><em>That is the architecture, not a promise.</em></h1>
-    <p class="lede">Ghost Architect&trade; is a command-line tool that runs entirely on your laptop, your server, or your CI runner. No Ghost Architect&trade; server ever sees your source. There is no central server holding your scans. The product is designed so that even if Ghost Architect&trade; were compromised tomorrow, your codebase would not be affected. That holds for both products: with Ghost Architect&trade; Cloud the cloud is the model provider&rsquo;s, reached with your own API key, and never ours; with <a href="#local" class="local-link">Ghost Architect&trade; Local</a> the model runs on your hardware too, and nothing leaves your network.</p>
+    <p class="lede">Ghost Architect&trade; is a command-line tool that runs entirely on your laptop, your server, or your CI runner. No Ghost Architect&trade; server ever sees your source. There is no central server holding your scans. The product is designed so that even if Ghost Architect&trade; were compromised tomorrow, your codebase would not be affected. That holds for both products: with Ghost Open&trade; the model is Anthropic&rsquo;s, reached with your own API key, and never ours; with <a href="#local" class="local-link">Ghost Architect&trade; Local</a> the model runs on your hardware too, and nothing leaves your network.</p>
   </header>
 
   <!-- TWO PRODUCTS, TWO TRUST MODELS -->
   <section class="band">
     <div class="door-grid">
       <a class="door cloud" href="#dataflow">
-        <p class="label blue">Ghost Architect&trade; Cloud</p>
-        <div class="door-title">Your code goes to the model provider you chose, and nowhere else.</div>
+        <p class="label blue">Ghost Open&trade; &middot; free for one person</p>
+        <div class="door-title">Your code goes to Anthropic, under your own key, and nowhere else.</div>
         <p>The scanner runs on your machine. The only outbound traffic is the request to Anthropic, under your own API key. We operate no server that sees your source.</p>
         <div class="go">How the data flows &darr;</div>
       </a>
@@ -91,10 +91,10 @@
         <li><span class="n">&check;</span><div><h3>Local execution</h3><p class="t">The scanner runs on your machine. No code is uploaded to Ghost Architect&trade;.</p></div></li>
         <li><span class="n">&check;</span><div><h3>BYOK Anthropic API</h3><p class="t">You bring your own Anthropic API key. We never see it.</p></div></li>
         <li><span class="n">&check;</span><div><h3>No central storage</h3><p class="t">We operate no servers that hold customer source code.</p></div></li>
-        <li><span class="n">&check;</span><div><h3>Reports stay yours</h3><p class="t">Findings live in your own private GitHub repository.</p></div></li>
+        <li><span class="n">&check;</span><div><h3>Reports stay yours</h3><p class="t">Reports are written to your own machine only.</p></div></li>
         <li><span class="n">&check;</span><div><h3>Telemetry is opt-out</h3><p class="t">Set <code>GHOST_NO_PING=1</code> to disable all outbound calls.</p></div></li>
         <li><span class="n">&check;</span><div><h3 class="local">Ghost Architect&trade; Local</h3><p class="t">The model runs on your hardware too. Zero egress, refused at the code level, with the inventory that proves it. <a href="#local" class="local-link">Details &darr;</a></p></div></li>
-        <li><span class="n">&check;</span><div><h3>MIT-licensed CLI</h3><p class="t">Ghost Open ships free on <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer">npm</a> under the MIT license. Repository on <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener noreferrer">GitHub</a>.</p></div></li>
+        <li><span class="n">&check;</span><div><h3>Source-available CLI</h3><p class="t">Ghost Open&trade; ships on <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer">npm</a>, free for one person under the Business Source License 1.1 Additional Use Grant. Repository on <a href="https://github.com/EJWisner/ghost-architect-open" target="_blank" rel="noopener noreferrer">GitHub</a>.</p></div></li>
       </ul>
     </div>
   </section>
@@ -109,7 +109,7 @@
       <li><span class="n">Step 1</span><div><p class="t">Ghost Architect&trade; reads your local files. <strong>Nothing is uploaded yet.</strong> File reading happens entirely on your machine.</p></div></li>
       <li><span class="n">Step 2</span><div><p class="t">Relevant code chunks are sent <strong>directly to Anthropic's API</strong> using <strong>your own API key</strong>. The traffic goes from your machine to Anthropic. Ghost Architect&trade; is not a relay, proxy, or middle hop. Anthropic's enterprise data retention policies apply (zero data retention by default on paid plans). See <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropic's privacy policy</a>.</p></div></li>
       <li><span class="n">Step 3</span><div><p class="t">Anthropic's API returns analysis. The response comes back to your machine.</p></div></li>
-      <li><span class="n">Step 4</span><div><p class="t">Ghost Architect&trade; writes the findings report locally as PDF, Markdown, or text. On Team and Enterprise tiers, the report is committed to a private GitHub repository <strong>that you own and control</strong>. We do not host these repositories.</p></div></li>
+      <li><span class="n">Step 4</span><div><p class="t">Ghost Open&trade; writes the findings report locally as PDF, Markdown, or text, on your machine only. Nothing is published anywhere.</p></div></li>
       <li><span class="n">Step 5</span><div><p class="t">A small heartbeat ping containing the CLI version, an anonymized install ID, and the event type (for example <code>cli-firstrun-docker</code>) may be sent to our telemetry endpoint. <strong>This ping contains no source code, no file paths, no findings, no API keys, and no personally identifiable information.</strong> You can disable it entirely by setting the environment variable <code>GHOST_NO_PING=1</code>.</p></div></li>
     </ul>
   </section>
@@ -122,7 +122,6 @@
     <ul class="items qa">
       <li><span class="n">We operate</span><div><p class="t">A static marketing website (this one), a Cloudflare Worker that receives anonymous heartbeat pings for install analytics, an Airtable base that stores those anonymous pings, and the Ghost Open package on the public npm registry.</p></div></li>
       <li><span class="n">We do not operate</span><div><p class="t">Any server that stores, processes, or transmits customer source code. Any database of customer findings reports. Any AI inference infrastructure that sees your code. Any analytics service that profiles your team or users.</p></div></li>
-      <li><span class="n">Source control</span><div><p class="t">For Team and Enterprise tiers, findings reports are synced to a private GitHub repository <strong>provisioned in your own GitHub organization</strong>. Ghost Architect&trade; does not host these repositories. Access control, retention, and deletion are managed entirely by you under GitHub's terms.</p></div></li>
       <li><span class="n">Authentication</span><div><p class="t">Your Anthropic API key is stored locally on your machine in a configuration file you control. It is never transmitted to Ghost Architect&trade;. You can rotate or revoke it at any time without involving us.</p></div></li>
     </ul>
   </section>
@@ -142,7 +141,7 @@
   <section class="band" id="local">
     <p class="eyebrow local">// ghost architect local</p>
     <h2>Zero egress, at the code level, with the inventory that proves it</h2>
-    <p class="lede">Everything above describes Ghost Architect&trade; Cloud, where the model is a frontier model reached through your own API key. <strong>Ghost Architect&trade; Local is a different deal: the model runs on your hardware too.</strong> Your source never leaves your network, because there is nothing on the other side to send it to.</p>
+    <p class="lede">Everything above describes Ghost Open&trade;, where the model is Anthropic's, reached through your own API key. <strong>Ghost Architect&trade; Local is a different deal: the model runs on your hardware too.</strong> Your source never leaves your network, because there is nothing on the other side to send it to.</p>
     <div class="prose">
       <ul>
         <li><strong>One call home, once.</strong> Licence activation sends the licence key and an install id to ghostarchitect.dev and receives a signed licence. Nothing from the codebase is in the request. The licence is verified on the machine with Ed25519; there is no phone-home to keep running.</li>
@@ -165,7 +164,7 @@
     <p class="lede">Everything described on this page is independently verifiable.</p>
     <div class="prose">
       <ul>
-        <li><strong>Inspect the source.</strong> Ghost Open is installable from npm as <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener"><code>ghost-architect-open</code></a> under the MIT license. Read the package contents before you run it.</li>
+        <li><strong>Inspect the source.</strong> Ghost Open&trade; is installable from npm as <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener"><code>ghost-architect-open</code></a>, free for one person and source-available under the Business Source License 1.1. Read the package contents before you run it.</li>
         <li><strong>Watch the network.</strong> Run Ghost Architect&trade; behind a packet inspector. You will see two endpoints: the Anthropic API and our telemetry endpoint. Nothing else.</li>
         <li><strong>Disable telemetry.</strong> Set <code>GHOST_NO_PING=1</code> in your environment. All outbound calls from Ghost Architect&trade; itself stop. Only Anthropic calls remain, and those use your key.</li>
         <li><strong>Run it air-gapped.</strong> Ghost Architect&trade; will run on an isolated machine with only Anthropic API access. No connection to Ghost Architect&trade; infrastructure is required for scanning to function.</li>
@@ -180,7 +179,7 @@
     <div class="hero-cta">
       <a href="mailto:support@ghostarchitect.dev?subject=Security%20review" class="btn btn-cloud">support@ghostarchitect.dev</a>
     </div>
-    <p class="fine">Last updated: May 15, 2026</p>
+    <p class="fine">Last updated: October 5, 2026</p>
   </section>
 
 </main>
