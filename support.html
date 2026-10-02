@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
   <title>Support: Ghost Architect™</title>
-  <meta name="description" content="Support and help for Ghost Architect™ Cloud, the Ghost Architect Mobile app, and Ghost Architect™ Local." />
+  <meta name="description" content="Support and help for Ghost Open™, the Ghost Architect Mobile app, and Ghost Architect™ Local." />
   <link rel="canonical" href="https://ghostarchitect.dev/support" />
   <meta name="theme-color" content="#0a0a0f" />
   <!-- Paths are relative to /next/ so the page also opens straight from the folder (file://).
@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
   <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
   <link rel="stylesheet" href="site.css?v=20260928a" />
-  <!-- Page-specific CSS: the Cloud / Local switch state and the product-specific blocks it toggles
+  <!-- Page-specific CSS: the Open / Local switch state and the product-specific blocks it toggles
        (body[data-platform] is set by this page's own script from ?platform=local). -->
   <style>
     h2.eyebrow { font-weight: 400; }
@@ -48,7 +48,7 @@
     <h1>Support</h1>
     <p class="lede" id="page-tagline">Help for Ghost Architect™.</p>
     <nav class="product-switch hero-cta" aria-label="Which product do you need help with?">
-      <a href="support.html?platform=hosted" class="btn btn-ghost hosted" id="switch-hosted"><span class="dot"></span>Cloud</a>
+      <a href="support.html?platform=open" class="btn btn-ghost hosted" id="switch-hosted"><span class="dot"></span>Open</a>
       <a href="support.html?platform=local" class="btn btn-ghost local" id="switch-local"><span class="dot"></span>Local</a>
     </nav>
   </header>
@@ -64,14 +64,14 @@
 
   <div class="for-hosted">
   <section class="band">
-    <h2 class="eyebrow">// ghost architect cli</h2>
+    <h2 class="eyebrow">// ghost open&trade; cli</h2>
     <div class="prose">
       <h3>What is Ghost Architect™?</h3>
       <p>Ghost Architect™ is an AI-powered codebase triage tool that runs locally in your terminal. It reads your codebase, categorizes findings by severity and business impact, estimates remediation cost, and generates reports you can share with clients or stakeholders. It works on any language, any platform, any codebase.</p>
       <h3>How do I install it?</h3>
-      <p>Ghost Open (free tier) is available on npm:</p>
+      <p>Ghost Open&trade; is free for one person, on npm:</p>
       <p><code>npm install -g ghost-architect-open</code></p>
-      <p>Ghost Pro, Team, and Enterprise are distributed via private npm with installation instructions delivered after purchase at <a href="pricing.html">ghostarchitect.dev/pricing</a>.</p>
+      <p>Every mode runs unlimited on your own Anthropic API key. There is no license key to activate. For teams, see <a href="pricing.html#local">Ghost Architect&trade; Local</a>.</p>
       <h3>What are the requirements?</h3>
       <ul>
         <li>Node.js 18 or later</li>
@@ -81,7 +81,7 @@
       <h3>Is my code sent to your servers?</h3>
       <p>No. Ghost Architect™ runs entirely on your machine. Your code is sent directly from your machine to the Anthropic API using your own API key -- Ghost Architect™ servers never see your code. See the <a href="privacy.html">Privacy Policy</a> for details.</p>
       <h3>My code cannot leave our infrastructure at all. What then?</h3>
-      <p>Then Ghost Architect™ Cloud is not the right one, and that is what <a href="local.html?platform=local">Ghost Architect™ Local</a> is for: it runs against a model you host, on your own hardware, with a zero-egress mode. Nothing goes to a model provider because there is no model provider.</p>
+      <p>Then Ghost Open&trade; is not the right one, and that is what <a href="local.html?platform=local">Ghost Architect™ Local</a> is for: it runs against a model you host, on your own hardware, with a zero-egress mode. Nothing goes to a model provider because there is no model provider.</p>
     </div>
   </section>
 
@@ -108,12 +108,14 @@
   </section>
 
   <section class="band">
-    <h2 class="eyebrow">// billing and memberships</h2>
+    <h2 class="eyebrow">// billing and licences</h2>
     <div class="prose">
-      <h3>How do I cancel my membership?</h3>
-      <p>Ghost Architect™ Pro, Team, and Enterprise memberships are managed through Stripe. You will receive a billing portal link in your purchase confirmation email. If you cannot locate the link, email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> and we will send you one.</p>
+      <h3>Is there anything to pay for or cancel?</h3>
+      <p>Not for Ghost Open&trade;: it is free for one person, with no subscription. You pay Anthropic directly for the model usage on your own API key.</p>
+      <h3>How do I cancel a Ghost Architect&trade; Local licence?</h3>
+      <p>Ghost Architect&trade; Local licences are managed through Stripe. You will receive a billing portal link in your purchase confirmation email. If you cannot locate the link, email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> and we will send you one.</p>
       <h3>Do you offer refunds?</h3>
-      <p>Refund requests are handled on a case-by-case basis. Contact <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with your membership details and we will work with you directly.</p>
+      <p>Refund requests are handled on a case-by-case basis. Contact <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with your licence details and we will work with you directly.</p>
     </div>
   </section>
 
@@ -125,7 +127,7 @@
     <div class="prose">
       <p>Ghost Architect™ Local is the LAN-deployed edition. Every scan runs against a model server you host yourself, on a machine you own. Your code is read from your disk, analysed by your model, and written to reports on your machines.</p>
       <div class="callout local">
-      <p><strong>It is a different product from Ghost Architect™ Cloud.</strong> Local is not on npm, does not use a frontier model, and does not need an Anthropic API key. If you installed something with <code>npm install -g ghost-architect-open</code>, that is Ghost Architect™ Cloud, not Local.</p>
+      <p><strong>It is a different product from Ghost Open&trade;.</strong> Local is not on npm, does not use a frontier model, and does not need an Anthropic API key. If you installed something with <code>npm install -g ghost-architect-open</code>, that is Ghost Open&trade;, not Local.</p>
       </div>
     </div>
   </section>
@@ -232,7 +234,7 @@ sudo bash install/setup-linux.sh   # Linux
       <h3>How do I install a purchased licence?</h3>
       <p>Two paths, both ending with a signed <code>license.json</code> in your data root, after which licence checks run fully offline. With outbound access: run <code>ghost</code>, open Admin Console, then License Management, and enter your key. Fully offline: we send you the signed file and you run <code>ghost --install-license</code>.</p>
       <h3>What does it cost?</h3>
-      <p>Local is an annual licence with no per-token bill. Current terms are on the <a href="pricing.html#local">pricing page</a>, and for anything that turns on team size, departments or seats, email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> and EJ will confirm it for your situation directly rather than have you work it out from a table.</p>
+      <p>Local is a monthly licence with no per-token bill. Current terms are on the <a href="pricing.html#local">pricing page</a>, and for anything that turns on team size, departments or seats, email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> and EJ will confirm it for your situation directly rather than have you work it out from a table.</p>
     </div>
   </section>
 
@@ -257,7 +259,7 @@ sudo bash install/setup-linux.sh   # Linux
       <p>Email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with:</p>
       <ul>
         <li>A clear description of the issue or requested feature</li>
-        <li>Which product you are on, Cloud or Local</li>
+        <li>Which product you are on, Ghost Open&trade; or Ghost Architect&trade; Local</li>
         <li>Your version (run <code>ghost --version</code>)</li>
         <li>Your operating system</li>
         <li>Any relevant error messages or screenshots</li>
@@ -282,7 +284,10 @@ sudo bash install/setup-linux.sh   # Linux
 <script>
   // Which product this page is answering about. Reads ?platform=local (what
   // the Local nav links here with, and what ga-nav.js already uses to keep the
-  // Local side of the top nav lit), or #local. Everything else is hosted.
+  // Local side of the top nav lit), or #local. Everything else is the Ghost
+  // Open(tm) side, which keeps its old internal name "hosted" (the CSS, the
+  // chat and the support worker use it); ?platform=open and ?platform=hosted
+  // both land there.
   (function () {
     var params = new URLSearchParams(window.location.search);
     var raw = (params.get('platform') || '').toLowerCase();
@@ -290,14 +295,14 @@ sudo bash install/setup-linux.sh   # Linux
     var platform = raw === 'local' ? 'local' : 'hosted';
 
     document.body.setAttribute('data-platform', platform);
-    // /next/ shell: light the matching side of the nav's Cloud / Local switch as well (next-nav.js reads data-product).
-    document.body.setAttribute('data-product', platform === 'local' ? 'local' : 'cloud');
+    // /next/ shell: light the matching side of the nav's Open / Local switch as well (next-nav.js reads data-product).
+    document.body.setAttribute('data-product', platform === 'local' ? 'local' : 'open');
 
     document.getElementById('switch-' + platform).classList.add('on');
 
     document.getElementById('page-tagline').textContent = platform === 'local'
       ? 'Help for Ghost Architect™ Local: your hardware, your model, your network.'
-      : 'Help for Ghost Architect™ CLI and the Ghost Architect Mobile app.';
+      : 'Help for Ghost Open™ and the Ghost Architect Mobile app.';
 
     // Hand the chat the product too, so the agent answers out of the right
     // knowledge base instead of guessing from the question.

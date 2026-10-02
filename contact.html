@@ -64,8 +64,8 @@
         <div class="field">
           <label for="cf-product">Which product <span class="req">*</span></label>
           <select id="cf-product" name="product" required>
-            <option value="hosted">Ghost Architect&trade; Cloud (API key, subscription)</option>
-            <option value="local">Ghost Architect&trade; Local (your hardware, annual licence)</option>
+            <option value="hosted">Ghost Open&trade; (free, npm)</option>
+            <option value="local">Ghost Architect&trade; Local (your hardware, monthly licence)</option>
           </select>
         </div>
 
@@ -85,39 +85,13 @@
           <input type="text" id="cf-subject" name="subject" required />
         </div>
 
-        <!-- Version and Tier start hidden; the page script below shows them for Technical Support only (it drives style.display). -->
+        <!-- Version and Tier start hidden; the page script below shows Version for Technical Support, and Tier only for Ghost Architect(tm) Local (Ghost Open has no tiers). -->
         <div class="field" id="cf-version-field" style="display:none;">
           <label for="cf-version">Version <span class="req">*</span></label>
           <select id="cf-version" name="version">
             <option value="" disabled selected>Select a version</option>
-            <option value="11.0.3">11.0.3</option>
-            <option value="11.0.2">11.0.2</option>
-            <option value="11.0.1">11.0.1</option>
-            <option value="11.0.0">11.0.0</option>
-            <option value="10.0.17">10.0.17</option>
-            <option value="10.0.16">10.0.16</option>
-            <option value="10.0.15">10.0.15</option>
-            <option value="10.0.14">10.0.14</option>
-            <option value="10.0.13">10.0.13</option>
-            <option value="10.0.12">10.0.12</option>
-            <option value="10.0.11">10.0.11</option>
-            <option value="10.0.10">10.0.10</option>
-            <option value="10.0.9">10.0.9</option>
-            <option value="10.0.8">10.0.8</option>
-            <option value="10.0.7">10.0.7</option>
-            <option value="10.0.6">10.0.6</option>
-            <option value="10.0.5">10.0.5</option>
-            <option value="10.0.4">10.0.4</option>
-            <option value="10.0.3">10.0.3</option>
-            <option value="10.0.2">10.0.2</option>
-            <option value="10.0.1">10.0.1</option>
-            <option value="10.0.0">10.0.0</option>
-            <option value="9.3.5">9.3.5</option>
-            <option value="9.3.4">9.3.4</option>
-            <option value="9.3.3">9.3.3</option>
-            <option value="9.3.2">9.3.2</option>
-            <option value="9.3.1">9.3.1</option>
-            <option value="9.3.0">9.3.0</option>
+            <option value="12.0.0">12.0.0</option>
+            <option value="Older">Older (11.x or earlier)</option>
             <option value="Other">Other</option>
           </select>
         </div>
@@ -126,13 +100,7 @@
           <label for="cf-tier">Tier <span class="req">*</span></label>
           <select id="cf-tier" name="tier">
             <option value="" disabled selected>Select a tier</option>
-            <option value="Open">Open</option>
-            <option value="Pro">Pro</option>
-            <option value="Pro Max">Pro Max</option>
-            <option value="Team">Team</option>
-            <option value="Team Max">Team Max</option>
-            <option value="Enterprise">Enterprise</option>
-            <option value="Enterprise Max">Enterprise Max</option>
+            <option value="Open">Ghost Open&trade; (free)</option>
           </select>
         </div>
 
@@ -204,15 +172,12 @@
     // Show and require them only for that type; hide and un-require otherwise.
     function syncConditionalFields() {
       var isTech = typeEl.value === 'Technical Support';
+      // Ghost Open(tm) has no tiers, so the Tier question only appears for Local.
+      var showTier = isTech && productEl && productEl.value === 'local';
       versionField.style.display = isTech ? '' : 'none';
-      tierField.style.display = isTech ? '' : 'none';
-      if (isTech) {
-        versionEl.setAttribute('required', '');
-        tierEl.setAttribute('required', '');
-      } else {
-        versionEl.removeAttribute('required');
-        tierEl.removeAttribute('required');
-      }
+      tierField.style.display = showTier ? '' : 'none';
+      if (isTech) { versionEl.setAttribute('required', ''); } else { versionEl.removeAttribute('required'); }
+      if (showTier) { tierEl.setAttribute('required', ''); } else { tierEl.removeAttribute('required'); }
     }
 
     typeEl.addEventListener('change', syncConditionalFields);
@@ -243,6 +208,7 @@
     // Ernst, so the form asks where they are in the process, not what they pay.
     var LOCAL_VERSIONS = [
       { value: '', text: 'Select a version', disabled: true },
+      { value: '8.0.17', text: '8.0.17 (early access beta)' },
       { value: '7.4.41', text: '7.4.41' },
       { value: 'Other', text: 'Other / not sure' }
     ];
@@ -272,10 +238,11 @@
         tierLabel.innerHTML = (isLocal ? 'Where are you with it ' : 'Tier ') +
           '<span class="req">*</span>';
       }
-      var q = '?platform=' + (isLocal ? 'local' : 'hosted');
+      var q = '?platform=' + (isLocal ? 'local' : 'open');
       // Paths relative to /next/ (live page used /support-chat.html and /support.html); support.html has a /next/ version.
       if (chatLink) chatLink.href = '../support-chat.html' + q;
       if (faqLink) faqLink.href = 'support.html' + q;
+      if (typeof syncConditionalFields === 'function') syncConditionalFields();
     }
 
     productEl.addEventListener('change', syncProduct);
@@ -313,10 +280,12 @@
       var honeypot = document.getElementById('cf-website');
 
       var techVisible = type.value === 'Technical Support';
+      var tierVisible = techVisible && productEl.value === 'local';
 
       // Always-required fields, plus Version + Tier only when visible.
       var fields = [name, email, type, subject];
-      if (techVisible) { fields.push(version, tier); }
+      if (techVisible) { fields.push(version); }
+      if (tierVisible) { fields.push(tier); }
       fields.push(message);
       for (var i = 0; i < fields.length; i++) {
         if (!fields[i].value || !fields[i].checkValidity()) {
@@ -333,7 +302,7 @@
         type: type.value,
         subject: subject.value.trim(),
         version: techVisible ? version.value : 'N/A',
-        tier: techVisible ? tier.value : 'N/A',
+        tier: tierVisible ? tier.value : (techVisible ? 'Open' : 'N/A'),
         message: message.value.trim(),
         honeypot: honeypot.value
       };
