@@ -131,7 +131,7 @@
     <h2>Ghost Watcher&trade; Local in four steps.</h2>
     <p class="lede">On the hub, in the Admin Console. Your git server sends a webhook; the hub does the rest.</p>
     <ul class="items setup">
-      <li><span class="n">1</span><div><h3>Enable the Watcher</h3><p class="t">On the hub, open <strong>Admin Console, Ghost Watcher Local</strong> and choose <strong>Enable Watcher</strong>. The screen shows the webhook URL.</p></div></li>
+      <li><span class="n">1</span><div><h3>Enable the Watcher</h3><p class="t">On the hub, open <strong>Admin Console, Ghost Watcher&trade; Local</strong> and choose <strong>Enable Watcher</strong>. The screen shows the webhook URL.</p></div></li>
       <li><span class="n">2</span><div><h3>Make a webhook secret</h3><p class="t">Choose <strong>Regenerate Webhook Secret</strong> and copy the secret it shows. It's shown once.</p></div></li>
       <li><span class="n">3</span><div><h3>Add the repository</h3><p class="t">Under <strong>Manage Watched Repositories</strong>, give the repository's name as your git server writes it and the folder on the hub where a checkout of it lives.</p></div></li>
       <li><span class="n">4</span><div><h3>Point your git server at the hub</h3><p class="t">On your git server, add a webhook for push events to that URL, with that secret. Each push is then scanned on the hub's own queue, and its report lands with every other.</p></div></li>
