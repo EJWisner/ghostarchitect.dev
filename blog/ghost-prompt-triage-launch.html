@@ -198,15 +198,13 @@
 
     <p>Locking some detectors behind Pro would break the value proposition for the one-shot user -- the same way locking Medium findings broke v4.7's free tier. So we did not do that. All 16 detectors are in Open. Cost pre-flight is in Open. PDF, Markdown, and TXT reports are in Open.</p>
 
-    <p>What Pro adds for Prompt Triage is the same thing Pro adds for code scans: project intelligence. Label a prompt-audit scan with a project name. Subsequent scans on that label produce a baseline comparison -- which defects were resolved since last scan, which remain, which are new. Velocity tracking shows how fast your team is fixing prompt defects across weeks and months. The Project Dashboard surfaces prompt folders alongside code projects, so you can track quality across both at once. If you are running Prompt Triage weekly or monthly to keep prompt drift in check, Pro is the upgrade. If you are running one-off audits, Open is enough.</p>
+    <p>What the paid product adds for Prompt Triage is the same thing it adds for code scans: project intelligence. Today that is Ghost Architect&trade; Local. Label a prompt-audit scan with a project name. Subsequent scans on that label produce a baseline comparison: which defects were resolved since last scan, which remain, which are new. The Project Dashboard keeps prompt folders alongside code projects, so you can track quality across both at once. If you are running Prompt Triage weekly or monthly to keep prompt drift in check across a team, Ghost Architect&trade; Local is the upgrade. If you are running one-off audits, Ghost Open&trade; is enough.</p>
 
-    <h3>// What's in each tier</h3>
+    <h3>// What's in each product (updated October 2026)</h3>
 
     <ul>
-      <li><strong>Ghost Open (free):</strong> All 16 detectors. Cost pre-flight. PDF, Markdown, TXT reports. One-shot audits. Bring your own Anthropic API key. Code never leaves your machine.</li>
-      <li><strong>Ghost Pro ($99/mo):</strong> Everything in Open, plus project tracking for Prompt Triage. Baseline comparison. Velocity tracking. Project Dashboard. Compare Reports across audits.</li>
-      <li><strong>Ghost Team ($399/mo):</strong> Everything in Pro, plus shared sync of prompt-audit projects across 5 seats.</li>
-      <li><strong>Ghost Enterprise (from $1,200/mo):</strong> Everything in Team, plus white-label PDF and admin controls.</li>
+      <li><strong>Ghost Open&trade; (free for one person):</strong> All 16 detectors. PDF, Markdown, TXT reports. Unlimited one-shot audits. Bring your own Anthropic API key.</li>
+      <li><strong>Ghost Architect&trade; Local:</strong> Project tracking for Prompt Triage, baseline comparison, the Project Dashboard, teams, and white-label reports, on your own model and hardware. <a href="../pricing.html#local">Local pricing</a>.</li>
     </ul>
 
     <h2>How to Run Your First Prompt Audit Tonight</h2>
@@ -243,7 +241,7 @@
 
     <h2>What's Next</h2>
 
-    <p>v5.2.1 is already shipped on the Pro and Team branches -- a small patch that tightens the tier gate on Project Intelligence so Open users skip the project-label prompt entirely. Open v5.2.0 is the public release; the patch only affects paid-tier UX.</p>
+    <p>v5.2.1 followed as a small patch to the project-label prompt. It did not change what Ghost Open&trade; users saw.</p>
 
     <p>The next pack of work is on the prompt-pack consolidation problem. The 7-prompt smoke test we ran for this launch produced 116 findings -- but about forty percent of those are the same root-cause defect surfaced under multiple detector angles. A prompt with one ambiguous instruction can simultaneously trigger Ambiguous Instruction, Underspecified Constraints, and Poor Organization. All three are technically correct, but presenting three separate findings makes the report noisier than it needs to be. v5.3 is going to add finding consolidation -- group findings by root cause, show one primary defect with the related detectors listed underneath. Same accuracy, much cleaner report.</p>
 

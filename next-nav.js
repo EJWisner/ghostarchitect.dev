@@ -91,6 +91,7 @@
     'blog/ghost-local-v7-4-7.html',
     'blog/ghost-local-v7-4-8.html',
     'blog/ghost-local-v7-4-9.html',
+    'blog/ghost-open-12-free-for-one.html',
     'blog/ghost-open-v5-launch.html',
     'blog/ghost-prompt-triage-launch.html',
     'blog/ghost-prompt-triage-v53-clarity.html',

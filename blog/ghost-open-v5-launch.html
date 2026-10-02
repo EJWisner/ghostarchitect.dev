@@ -50,7 +50,7 @@
 
   <div class="article-meta">
     <span class="article-tag featured">v5.0.0 Launch</span>
-    <span class="article-tag">Open Source</span>
+    <span class="article-tag">Ghost Open&trade;</span>
     <span>April 29, 2026</span>
     <span>By Ernst J. Wisner</span>
     <span>7 min read</span>
@@ -59,6 +59,10 @@
   <h1>Ghost Architect Open v5.0.0 -- Why We Made the Full Scan Engine Free</h1>
 
   <div class="article-body">
+
+    <div class="callout success">
+      <p><strong>Update, October 2026:</strong> Ghost Open&trade; 12 is free for one person, every mode, unlimited. Teams use Ghost Architect&trade; Local. <a href="ghost-open-12-free-for-one.html">Read the announcement.</a></p>
+    </div>
 
     <p>Ghost Architect Open v5.0.0 ships today. The headline change is simple: the free tier now includes the full scan engine. Every finding. Every severity. Full PDF, Markdown, and TXT for every scan. All five scan modes -- Chat, Points of Interest, Blast Radius, Conflict Detection, and Recon. No truncation. No upsell box where the bugs should be.</p>
 
@@ -110,28 +114,6 @@
 
     <p>The tradeoff: Compare Reports and the Project Dashboard moved from Open to Pro. They were the wrong things to ship in Open anyway -- they only matter once you have a baseline scan and want to track remediation across weeks or months. That's a Pro use case. Open is for one-shot triage.</p>
 
-    <h2>What Pro, Team, and Enterprise Are For Now</h2>
-
-    <p>Removing the truncation means the paid tiers had to earn their price differently. Here's how they shape up:</p>
-
-    <h3>// Pro ($99/mo)</h3>
-
-    <p>Pro is project intelligence. Once you've established a baseline scan on a codebase, every subsequent Pro scan compares against it -- resolved findings, remaining findings, new findings introduced by recent changes. Compare Reports diffs two saved reports. The Project Dashboard surfaces remediation velocity across all your active engagements. Pro also includes Ghost Partner™ profile loading and per-profile billing rate overrides -- dropped a YAML profile loads your firm's methodology and consulting rates into every scan. Pro's context cap is 100K tokens, double Open's 50K.</p>
-
-    <h3>// Team ($399/mo, 5 seats)</h3>
-
-    <p>Team adds shared project sync. Five seats push to one shared private GitHub repo as the data store. Run a scan on one machine, the project state syncs automatically -- every other seat sees the same findings, baseline, and remediation history. Multi-workspace support means you can keep separate sync repos per client. 150K context cap.</p>
-
-    <h3>// Enterprise ($1,200/mo, custom seats)</h3>
-
-    <p>Enterprise adds organizational controls -- seat management with admin and member roles, an audit log of who scanned what codebase and when, usage reporting aggregated by seat and project, an org-level Anthropic API key option, and white-label PDF output. Enterprise customers get a dedicated sync repo created and managed by Ghost Architect. 200K context cap.</p>
-
-    <h2>What This Means for Existing Pro and Team Customers</h2>
-
-    <p>If you're an existing Pro or Team subscriber, your subscription continues unchanged. Your tier still includes everything in Open plus the project intelligence and team features that were always the real Pro value. The price didn't change. What changed is that the entry point -- what people can do with the free tier -- is now substantially closer to what you've been getting.</p>
-
-    <p>If anything, this strengthens your subscription. Open users who decide they want project tracking will already be familiar with the tool when they upgrade. The conversion path got cleaner.</p>
-
     <h2>The Honest Reasoning</h2>
 
     <p>I want to be direct about why this change happened. It wasn't a marketing decision. It was a product reality check.</p>
@@ -146,7 +128,7 @@
 
     <p>v5.0.1 is already in the patch list -- about 20 small issues we found during the v5.0.0 validation week, mostly cosmetic plus one or two reliability improvements to the GitHub loader and narrator timeout handling. Nothing that affects what's in the report, just polish.</p>
 
-    <p>The bigger work after that is on Ghost Partner™ -- the consultant edition that ships with Pro and above. v5.0.0 includes the profile loading and billing rate override features. The next round adds methodology templates for common audit frameworks (OWASP, SANS, Magento Mage-OS standards) so consultants can pick up an existing template instead of writing a profile from scratch.</p>
+    <p>The bigger work after that is on Ghost Partner™, the consultant edition (today, Ghost Partner&trade; profiles are part of Ghost Architect&trade; Local). v5.0.0 includes the profile loading and billing rate override features. The next round adds methodology templates for common audit frameworks (OWASP, SANS, Magento Mage-OS standards) so consultants can pick up an existing template instead of writing a profile from scratch.</p>
 
     <p>Long-term, the roadmap is about building Ghost into the standard tool for the moment before an engagement starts. Not a PR review tool. Not a continuous static analysis tool. The thing you run before you sign anything.</p>
 
@@ -158,9 +140,9 @@
 
     <div class="cta-block">
       <h3>Run the full scan engine on your own codebase.</h3>
-      <p>Ghost Open v5.0.0 ships every finding, every severity. MIT licensed. BYOK. Cents per scan.</p>
-      <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer" class="btn-primary">Install Ghost Open Free →</a>
-      <a href="../pricing.html" class="btn-secondary">See Pro / Team / Enterprise →</a>
+      <p>Ghost Open&trade; 12 runs every mode, unlimited. Free for one person. BYOK. Cents per scan.</p>
+      <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer" class="btn-primary">Install Ghost Open&trade; Free &rarr;</a>
+      <a href="../pricing.html#local" class="btn-secondary">Ghost Architect&trade; Local for teams &rarr;</a>
     </div>
 
   </div>

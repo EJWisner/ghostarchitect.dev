@@ -140,10 +140,6 @@
       <p><strong>The point of a quality release.</strong> The defect was always there. The detector always caught it. What changed is that the report now puts the right finding in the right place at the right severity, and the reviewer sees it instead of scrolling past it.</p>
     </div>
 
-    <h2>What this means for paid tiers</h2>
-
-    <p>Pro, Team, and Enterprise get all of these improvements automatically. Same engine, same fixes. No CLI flag changes. No config migration. The report format for paid tiers picks up the cross-detector annotations and the recalibrated severity in the next branded PDF generated.</p>
-
     <h2>What did not change</h2>
 
     <p>Cost per scan stayed essentially flat: $0.41 in v5.2.0, $0.43 in v5.3.0 against the same corpus. The two-cent delta is from the extra verifier pass that catches detector overlap before it lands in the report. We tested skipping that pass to bring cost back to $0.41 exactly. The dedup quality dropped enough that the verifier earned its two cents.</p>

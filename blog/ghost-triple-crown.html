@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-  <meta name="description" content="Ghost Architect™ runs three passes on every commit automatically -- Blast Radius, Conflict Detection, and Ghost Brief. Together they are the Ghost Triple Crown™. Every finding. Every file. Every prompt.">
+  <meta name="description" content="Ghost Architect™ Local runs three passes on every commit, on your own hardware: Blast Radius, Conflict Detection, and Ghost Brief. Together they are the Ghost Triple Crown™. Every finding. Every file. Every prompt.">
   <meta property="og:title" content="Ghost Triple Crown™ -- Three Passes. One Complete Picture.">
-  <meta property="og:description" content="Ghost Architect™ runs three passes on every commit automatically -- Blast Radius, Conflict Detection, and Ghost Brief. Together they are the Ghost Triple Crown™. Every finding. Every file. Every prompt.">
+  <meta property="og:description" content="Ghost Architect™ Local runs three passes on every commit, on your own hardware: Blast Radius, Conflict Detection, and Ghost Brief. Together they are the Ghost Triple Crown™. Every finding. Every file. Every prompt.">
   <meta property="og:image" content="/og-image.png">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-triple-crown">
@@ -38,8 +38,8 @@
 
   <div class="article-meta">
     <span class="article-tag new">New</span>
-    <span class="article-tag watcher">Ghost Watcher™</span>
-    <span class="article-tag">v9.3.5</span>
+    <span class="article-tag watcher">Ghost Architect&trade; Local</span>
+    <span class="article-tag">Every commit</span>
     <span class="article-date">June 28, 2026</span>
     <span class="article-read">6 min read</span>
     <span class="article-author">By Ernst J. Wisner</span>
@@ -47,7 +47,7 @@
 
   <h1>Ghost Triple Crown™ -- Three Passes. One Complete Picture.</h1>
 
-  <p class="lede">Every Ghost Watcher™ commit triggers three passes automatically. Blast Radius maps what breaks. Conflict Detection finds where the codebase disagrees with itself. Ghost Brief generates the prompt that fixes it. Together they are the Ghost Triple Crown™ -- the most complete automated pre-commit analysis available for any codebase, any language, any platform.</p>
+  <p class="lede">In Ghost Architect&trade; Local, every commit can get three passes, on your own hardware. Blast Radius maps what breaks. Conflict Detection finds where the codebase disagrees with itself. Ghost Brief generates the prompt that fixes it. Together they are the Ghost Triple Crown™ -- the most complete automated pre-commit analysis available for any codebase, any language, any platform.</p>
 
   <div class="article-body">
 
@@ -61,7 +61,7 @@
 
     <h2>Leg 1 -- Blast Radius™</h2>
 
-    <p>Blast Radius maps the full impact of every changed file. When a developer pushes a commit, Ghost Watcher™ analyzes which files were touched and traces every dependency -- direct imports, indirect references, and cascade effects across the codebase.</p>
+    <p>Blast Radius maps the full impact of every changed file. When a developer pushes a commit, Ghost Architect&trade; Local analyzes which files were touched and traces every dependency -- direct imports, indirect references, and cascade effects across the codebase.</p>
 
     <p>The result is a finding for every file at risk. Not just the file that changed. Every file that depends on it, imports from it, or shares a contract with it.</p>
 
@@ -97,13 +97,13 @@
 
     <h2>The Ghost Triple Crown™ in Action</h2>
 
-    <p>Every time a developer pushes a commit to a Ghost Watcher™ monitored repository, all three legs run automatically. No configuration per commit. No manual trigger. No choosing which analysis to run.</p>
+    <p>In Ghost Architect&trade; Local, all three legs run on every commit, in one of three ways: a pre-push hook on the developer's machine, Ghost Watcher&trade; Local on a webhook from your own git server, or your own CI runner. <a href="../ghost-watcher.html">How each one is set up.</a></p>
 
     <div class="loop-step">
       <div class="loop-num">1</div>
       <div class="loop-content">
         <strong>Commit pushed</strong>
-        <p>Developer pushes to a watched branch. GitHub Actions triggers Ghost Watcher™.</p>
+        <p>The pre-push hook runs before the push leaves the developer's machine. Or your git server (GitHub Enterprise Server, GitLab self-managed, Bitbucket Server, Gitea or Forgejo) sends a webhook to Ghost Watcher&trade; Local on the hub. Or your own CI runner starts the scan.</p>
       </div>
     </div>
 
@@ -135,24 +135,24 @@
       <div class="loop-num">5</div>
       <div class="loop-content">
         <strong>Results delivered</strong>
-        <p>Findings and prompts pushed to Ghost Portal™. PR comment posted. Email sent to the team.</p>
+        <p>On the pre-push hook, CRITICAL or HIGH findings are listed and the developer chooses whether to push anyway. Hub scans land with every other report, and on GitHub Enterprise Server the hub can post the commit's risk score as a comment on the commit.</p>
       </div>
     </div>
 
-    <p>The whole pipeline runs in under 10 minutes on a typical codebase. The developer has a complete picture before they open the PR for review.</p>
+    <p>Everything runs on your hardware, against your own model. Nothing goes to a cloud-hosted runner.</p>
 
     <h2>One Finding Pays for a Year of Ghost</h2>
 
-    <p>Ghost Team is $399 per month. Ghost Triple Crown™ runs on every commit for every developer on the team.</p>
+    <p>Ghost Architect&trade; Local is one monthly licence per team size, with no per-token bill. The Ghost Triple Crown™ runs on every commit for every developer on the team.</p>
 
-    <p>One critical finding caught before a bad deploy protects 40 to 100 hours of unbillable rework at a blended agency rate of $150 to $200 per hour. That is $6,000 to $20,000 protected on a single incident. Ghost Team pays for itself on the first finding it catches.</p>
+    <p>One critical finding caught before a bad deploy protects 40 to 100 hours of unbillable rework at a blended agency rate of $150 to $200 per hour. That is $6,000 to $20,000 protected on a single incident. The licence pays for itself on the first finding it catches.</p>
 
     <p>The Ghost Triple Crown™ is not a safety net you deploy after something breaks. It is the analysis that runs before anything ships -- on every commit, automatically, without anyone having to remember to run it.</p>
 
     <div class="cta-block">
       <h3>Run the Ghost Triple Crown™ on your next commit.</h3>
-      <p>Ghost Open is free. Ghost Team starts at $399 per month. Ghost Watcher™ is included on Team and Enterprise.</p>
-      <a href="../pricing.html" class="cta-link">See plans →</a>
+      <p>Ghost Open&trade; is free for one person, and its Commit Forecast&trade; checks your changes before you push. For every commit, on your own hardware, use Ghost Architect&trade; Local.</p>
+      <a href="../local.html" class="cta-link">Ghost Architect&trade; Local &rarr;</a>
     </div>
 
   </div>

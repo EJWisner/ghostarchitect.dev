@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
   <title>Introducing Ghost Architect Partner™: Profile-Driven Codebase Audits for Consultants | Ghost Architect™</title>
-  <meta name="description" content="Ghost Partner™ is the consultant edition of Ghost Architect. Profile YAML injects your firm's methodology, billing rates, and branding into every scan. Available on Pro and above." />
+  <meta name="description" content="Ghost Partner™ is the consultant edition of Ghost Architect. Profile YAML injects your firm's methodology, billing rates, and branding into every scan. Now part of Ghost Architect™ Local." />
   <link rel="canonical" href="https://ghostarchitect.dev/blog/introducing-ghost-partner" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://ghostarchitect.dev/blog/introducing-ghost-partner" />
   <meta property="og:title" content="Introducing Ghost Architect Partner™ -- Profile-Driven Codebase Audits for Consultants" />
-  <meta property="og:description" content="Ghost Partner™ is the consultant edition of Ghost Architect. Profile YAML injects your firm's methodology, billing rates, and branding into every scan. Available on Pro and above." />
+  <meta property="og:description" content="Ghost Partner™ is the consultant edition of Ghost Architect. Profile YAML injects your firm's methodology, billing rates, and branding into every scan. Now part of Ghost Architect™ Local." />
   <meta property="og:image" content="https://ghostarchitect.dev/GHOSTLOGO.JPG" />
   <meta property="og:site_name" content="Ghost Architect™" />
   <script type="application/ld+json">
@@ -37,7 +37,7 @@
   <link rel="stylesheet" href="../site.css?v=20260928a" />
   <link rel="stylesheet" href="../blog.css" />
 </head>
-<body data-product="open">
+<body data-product="local">
 
 <canvas id="lattice" aria-hidden="true" data-ambient></canvas>
 
@@ -61,7 +61,11 @@
 
   <div class="article-body">
 
-    <p>Ghost Architect Partner™ ships in v5.0.0 as a Pro-tier feature. It's the consultant edition of Ghost -- a profile system that loads your firm's methodology, billing rates, and branding into every scan, so the report comes out looking and reading like work you actually did, not work a tool generated.</p>
+    <div class="callout success">
+      <p><strong>Update, October 2026:</strong> Ghost Partner&trade; profiles and white-label reports are part of <a href="../local.html">Ghost Architect&trade; Local</a>, where a profile can be a YAML, Markdown or plain text file. Ghost Open&trade; is free for one person and its reports always carry Ghost Architect&trade; branding. The post below describes the original release.</p>
+    </div>
+
+    <p>Ghost Architect Partner™ first shipped in v5.0.0; today it is part of Ghost Architect&trade; Local. It's the consultant edition of Ghost -- a profile system that loads your firm's methodology, billing rates, and branding into every scan, so the report comes out looking and reading like work you actually did, not work a tool generated.</p>
 
     <p>If you're an independent consultant or boutique agency running codebase audits for a living, this post is for you. If you're not, the rest of this is going to feel like inside baseball -- feel free to skip to the v5.0.0 launch post for the broader release news.</p>
 
@@ -101,7 +105,7 @@
 
     <h3>// Output styling</h3>
 
-    <p>Pro-tier Partner profiles control the methodology and billing. Enterprise-tier profiles add white-label PDF output -- your firm's logo on the PDF header, your color palette, your typography. The header that says "Ghost Architect" becomes "[Your Firm] Codebase Audit, powered by Ghost Architect." The "Ghost Architect" attribution is preserved in a discreet footer per the licensing terms, but the document reads as your firm's work product.</p>
+    <p>Profiles control the methodology and billing, and in Ghost Architect&trade; Local they also make the report white-label: your logo and color on the cover, your footer and notice on every page, in place of ours. The document reads as your firm's work product.</p>
 
     <h2>What a Profile Looks Like</h2>
 
@@ -169,17 +173,15 @@
 
     <p>Ghost Partner is not a managed service. There's no Ghost-side review of your profile, no certification process, no approved-partner program. You write a profile, you use it, the output is what it is. Anthropic's API generates the underlying findings, Ghost's verifier grounds them in your source code, and your profile shapes the framing. The findings are still produced by an AI system, with all the qualifications that implies.</p>
 
-    <p>Ghost Partner is also not an attribution-stripping tool. Even with white-label PDF output (Enterprise tier), the Ghost Architect attribution is preserved in a discrete footer. You can't ship a Partner-output PDF as if it were a fully manual audit done by your firm. The output is "your firm's audit, generated using Ghost Architect" -- not "your firm's audit, full stop."</p>
+    <p>Ghost Partner&trade; is also not a way to pass off a scan as a manual audit. The output is your firm's audit, generated with Ghost Architect&trade; Local, and your firm reviews it before it goes to a client.</p>
 
     <p>And Ghost Partner doesn't replace your judgment. The profile shapes the output. The output is still a starting point -- a sized engagement plan, a prioritized list, a costed remediation table -- that your firm reviews, validates against your direct experience with the codebase, and signs off on before delivering to the client. Ghost finds things faster than reading by hand. Your firm decides what to do about them.</p>
 
     <h2>Pricing and Availability</h2>
 
-    <p>Profile loading and per-profile billing rate overrides ship with Ghost Pro ($99/mo) and above. White-label PDF output is Enterprise-only ($1,200/mo, custom seats).</p>
+    <p>Ghost Partner&trade; profiles and white-label reports are part of Ghost Architect&trade; Local, on your own hardware and your own model. The <a href="../pricing.html#local">pricing page</a> shows which Local licences include them.</p>
 
-    <p>If you're already on Pro or Team, Ghost Partner is included in your subscription as of v5.0.0 -- no upgrade needed. Just write a profile and pass it on the command line.</p>
-
-    <p>If you're new to Ghost, the path is: try Open free first, run a few scans on codebases you know, and once you're confident the tool produces output you'd want to deliver to clients, upgrade to Pro and start writing your firm's profile.</p>
+    <p>If you're new to Ghost, the path is: try Ghost Open&trade; free first, run a few scans on codebases you know, and once you're confident the tool produces output you'd want to deliver to clients, move to Ghost Architect&trade; Local and start writing your firm's profile.</p>
 
     <h2>What's Coming Next</h2>
 
@@ -197,9 +199,9 @@
 
     <div class="cta-block">
       <h3>Make Ghost Architect output read like your firm's work.</h3>
-      <p>Ghost Pro includes Partner profile loading and billing rate overrides. $99/month. Cancel anytime.</p>
-      <a href="https://buy.stripe.com/00w00j8jl9eQdzJ9yZbEA00" class="btn-primary">Get Ghost Pro →</a>
-      <a href="../pricing.html" class="btn-secondary">Compare Plans →</a>
+      <p>Ghost Partner&trade; profiles and white-label reports come with Ghost Architect&trade; Local.</p>
+      <a href="../pricing.html#local" class="btn-primary">See Local pricing &rarr;</a>
+      <a href="../local.html" class="btn-secondary">Ghost Architect&trade; Local &rarr;</a>
     </div>
 
   </div>
