@@ -2057,15 +2057,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.40, October 2, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.41, October 3, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">7.4.41</span>
+      <span class="release-date">October 3, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">figlet moves to its patched release</h2>
+    <p class="release-lede">7.4.41 -- The library that draws the banner at the top of the interactive menu had a published denial-of-service advisory, and 7.4.41 moves to the release that fixes it. The flaw needs an option Ghost Architect&trade; Local never used, so no install was exposed. We moved anyway, because a known advisory against something we ship should not wait for a reason to matter. The banner looks exactly as before, and the manual inside the download is stamped 7.4.41.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">7.4.40</span>
       <span class="release-date">October 2, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">A wrong word stops nothing</h2>
     <p class="release-lede">7.4.40 -- The command that stands a machine's scans down before an update now refuses any word it does not know, instead of stopping every scan. Before, asking it for help or making a typo stopped the whole queue at once. Now it prints its usage, says nothing was stood down and changes nothing, and stopping scans is always asked for by name. ghost --help also names --install-hub-service, the command the user's manual tells a macOS hub's administrator to run, and the manual inside the download is stamped 7.4.40.</p>
