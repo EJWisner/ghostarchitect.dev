@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.41, October 3, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 7.4.42, October 5, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">7.4.42</span>
+      <span class="release-date">October 5, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A scan says what it did not read</h2>
+    <p class="release-lede">7.4.42 -- 7.4.42 leaves large data files out of the analysis, names the languages it cannot read, and refuses a model call that would not fit the model's window instead of answering from part of it. A 2 MB JSON fixture is data, not code, and reading it as code spent passes on nothing. Large data files are now left out and named in the report, while the configuration files that matter, such as Magento's di.xml and system.xml, are still read. A model server cuts a prompt that does not fit its window without saying so. Ghost Architect&trade; Local now refuses such a call with its reason, and builds smaller passes on small windows so none overflows. The manual inside the download is stamped 7.4.42.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">7.4.41</span>
       <span class="release-date">October 3, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">figlet moves to its patched release</h2>
     <p class="release-lede">7.4.41 -- The library that draws the banner at the top of the interactive menu had a published denial-of-service advisory, and 7.4.41 moves to the release that fixes it. The flaw needs an option Ghost Architect&trade; Local never used, so no install was exposed. We moved anyway, because a known advisory against something we ship should not wait for a reason to matter. The banner looks exactly as before, and the manual inside the download is stamped 7.4.41.</p>
