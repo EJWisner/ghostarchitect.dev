@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="dark" />
   <meta name="robots" content="index, follow" />
   <title>Ghost Architect™ Local 8: early access beta</title>
-  <meta name="description" content="Ghost Architect™ Local 8.0.27, the early access beta: Learning Requests, Ask about Ghost and the user's manual in the box. Your download link arrives by email in a minute." />
+  <meta name="description" content="Ghost Architect™ Local 8.0.28, the early access beta: Learning Requests, Ask about Ghost and the user's manual in the box. Your download link arrives by email in a minute." />
   <link rel="canonical" href="https://ghostarchitect.dev/beta.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ghostarchitect.dev/beta.html" />
@@ -54,7 +54,7 @@
 <main class="page">
 
   <header class="page-hero">
-    <div class="version-badge"><b>Ghost Architect&trade; Local &middot; version 8.0.27 &middot; early access beta</b></div>
+    <div class="version-badge"><b>Ghost Architect&trade; Local &middot; version 8.0.28 &middot; early access beta</b></div>
     <h1>Version 8, early access</h1>
     <p class="lede">Version 8 is a beta, and we would value your feedback on it. Fill in the form and your download link arrives by email in about a minute. The user's manual is inside the download. The evaluation trial starts inside the product; no card, no account.</p>
     <p class="lede"><strong>Only a few days remain to join the version 8 beta program.</strong></p>
@@ -97,20 +97,20 @@
           <label id="model-wrap" hidden>Which model, and on what server? <input name="model" type="text" maxlength="200" placeholder="qwen3:14b on Ollama"></label>
           <label>How many people will use it? <select name="teamSize"><option value="">Choose one</option><option>1</option><option>2 to 5</option><option>6 to 15</option><option>16 or more</option></select></label>
           <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-          <input type="hidden" name="version" value="8.0.27">
-          <button type="submit" class="btn btn-local-solid">Email me the 8.0.27 beta</button>
+          <input type="hidden" name="version" value="8.0.28">
+          <button type="submit" class="btn btn-local-solid">Email me the 8.0.28 beta</button>
           <div class="f-msg" id="tf-msg" role="status" aria-live="polite"></div>
         </form>
-        <p>Already have access to the delivery repository? <code>gh release download v8.0.27 --repo EJWisner/ghost-local-delivery</code></p>
+        <p>Already have access to the delivery repository? <code>gh release download v8.0.28 --repo EJWisner/ghost-local-delivery</code></p>
       </div>
       <div class="card">
         <h3>Verify it before you unpack it</h3>
         <p>The file is about to become a global command on your machine. Check it first.</p>
-        <pre class="code"><code>shasum -a 256 ghost-architect-local-8.0.27.tgz</code></pre>
+        <pre class="code"><code>shasum -a 256 ghost-architect-local-8.0.28.tgz</code></pre>
         <p>On Windows PowerShell:</p>
-        <pre class="code"><code>Get-FileHash -Algorithm SHA256 ghost-architect-local-8.0.27.tgz</code></pre>
-        <p>Expected for 8.0.27:</p>
-        <div class="sha"><p class="hash">828e5383ca9d2a179966076e9d1ca75818379115fb3dd70b83dcab5a75dc5e90</p></div>
+        <pre class="code"><code>Get-FileHash -Algorithm SHA256 ghost-architect-local-8.0.28.tgz</code></pre>
+        <p>Expected for 8.0.28:</p>
+        <div class="sha"><p class="hash">94f4ecac32895d8ff66d9c6dbfeb9e8f26d97b93f43e36231f184d3a22ad4dba</p></div>
         <div class="callout amber"><p>If the hash does not match, stop. Do not install it. Email support@ghostarchitect.dev with what you got.</p></div>
       </div>
     </div>
@@ -130,7 +130,7 @@
     <h2>3. Install</h2>
     <div class="prose">
       <p>Everything happens inside the directory you unpack. Keep that directory; the global <code>ghost</code> command links into it rather than copying it.</p>
-      <pre><code>tar -xzf ghost-architect-local-8.0.27.tgz
+      <pre><code>tar -xzf ghost-architect-local-8.0.28.tgz
 cd package
 bash install/setup.sh              # macOS
 sudo bash install/setup-linux.sh   # Linux
