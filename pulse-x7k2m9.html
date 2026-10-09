@@ -1020,7 +1020,7 @@
       <div style="border-top: 1px solid var(--border); margin-top: 4px; padding-top: 4px;">
         <div class="body" id="partner-body" style="padding-top: 14px;">
           <div class="section-header" style="margin-bottom: 14px;">
-            <div class="section-label">Ghost Partner · NOTELOFTPARTNER</div>
+            <div class="section-label">Ghost Partner™</div>
             <div class="section-note" id="partner-note">loading...</div>
           </div>
 
@@ -1028,7 +1028,7 @@
             <div class="metric">
               <div class="metric-label">Active Subscribers</div>
               <div class="metric-value" id="partner-active"> -- </div>
-              <div class="metric-sub" id="partner-active-sub">via NOTELOFTPARTNER</div>
+              <div class="metric-sub" id="partner-active-sub">via partner referrals</div>
             </div>
             <div class="metric">
               <div class="metric-label">Monthly Revenue</div>
@@ -1038,7 +1038,7 @@
             <div class="metric">
               <div class="metric-label">Payout Owed</div>
               <div class="metric-value" id="partner-payout" style="color: var(--good);"> -- </div>
-              <div class="metric-sub">10% · pay via Zelle</div>
+              <div class="metric-sub">each partner's share · pay via Zelle</div>
             </div>
             <div class="metric">
               <div class="metric-label">Canceled</div>
@@ -1083,12 +1083,20 @@
                        padding: 9px 12px; color: var(--text-primary); font-size: 12px; width: 100%;
                        outline: none; font-family: inherit; text-transform: uppercase;">
               <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="font-size: 10px; color: var(--text-tertiary); letter-spacing: 0.1em;">REVENUE SHARE</div>
+                <div style="font-size: 10px; color: var(--text-tertiary); letter-spacing: 0.1em; width: 130px;">PARTNER EARNS</div>
                 <input id="pa-share" type="number" value="10" min="1" max="50" step="1"
                   style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 6px;
                          padding: 9px 12px; color: var(--text-primary); font-size: 12px; width: 70px;
                          outline: none; font-family: inherit;">
-                <div style="font-size: 10px; color: var(--text-tertiary);">%</div>
+                <div style="font-size: 10px; color: var(--text-tertiary);">% of what the customer pays</div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="font-size: 10px; color: var(--text-tertiary); letter-spacing: 0.1em; width: 130px;">CUSTOMER DISCOUNT</div>
+                <input id="pa-discount" type="number" value="10" min="0" max="50" step="1"
+                  style="background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 6px;
+                         padding: 9px 12px; color: var(--text-primary); font-size: 12px; width: 70px;
+                         outline: none; font-family: inherit;">
+                <div style="font-size: 10px; color: var(--text-tertiary);">% off at checkout · 0 makes no checkout code</div>
               </div>
               <button id="pa-submit" onclick="addPartner()"
                 style="background: linear-gradient(135deg, var(--cyan), #0090a8); border: none;
@@ -2001,9 +2009,9 @@
       section.style.display = '';
       note.textContent = `${partners.length} registered`;
       const partnerRows = partners.map(p => `
-        <div class="bar-row" style="grid-template-columns: 1fr 110px 60px;">
+        <div class="bar-row" style="grid-template-columns: 1fr 170px 60px;">
           <div class="bar-label" style="color: var(--text-primary);">${escapeHtml(p.name)}</div>
-          <div class="bar-label" style="color: var(--text-tertiary); font-size: 9px; letter-spacing: 0.06em;">${escapeHtml(p.code)}</div>
+          <div class="bar-label" style="color: var(--text-tertiary); font-size: 9px; letter-spacing: 0.06em;">${escapeHtml(p.code)} · earns ${Math.round((p.revenueShare || 0) * 100)}% · ${p.discountPercent ? p.discountPercent + '% off' : 'no code'}</div>
           <div class="bar-count" style="color: ${p.activeCount > 0 ? 'var(--good)' : 'var(--text-tertiary)'};">${p.activeCount} active</div>
         </div>
       `).join('');
@@ -2032,11 +2040,18 @@
       const email = document.getElementById('pa-email').value.trim();
       const code = document.getElementById('pa-code').value.trim().toUpperCase();
       const share = parseFloat(document.getElementById('pa-share').value) / 100;
+      const discountRaw = document.getElementById('pa-discount').value.trim();
+      const discount = Number(discountRaw);
       const note = document.getElementById('partner-admin-note');
       const btn = document.getElementById('pa-submit');
 
       if (!token || !name || !email || !code) {
         note.textContent = 'fill in all required fields';
+        note.className = 'section-note down';
+        return;
+      }
+      if (discountRaw === '' || !Number.isInteger(discount) || discount < 0 || discount > 50) {
+        note.textContent = 'customer discount must be a whole number from 0 to 50';
         note.className = 'section-note down';
         return;
       }
@@ -2052,7 +2067,7 @@
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ code, name, company, email, revenueShare: share }),
+          body: JSON.stringify({ code, name, company, email, revenueShare: share, discountPercent: discount }),
         });
         const data = await res.json();
         if (!res.ok) {
@@ -2066,6 +2081,7 @@
           document.getElementById('pa-email').value = '';
           document.getElementById('pa-code').value = '';
           document.getElementById('pa-share').value = '10';
+          document.getElementById('pa-discount').value = '10';
           fetchPartnerStats();
         }
       } catch (err) {
