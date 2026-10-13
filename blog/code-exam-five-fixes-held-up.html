@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
   <title>A maintainer's own AI checked our report. All five fixes held. · Ghost Architect™ Local</title>
-  <meta name="description" content="Ghost Architect™ Local scanned CodeExam on our own machines with local models. Its author had his own Claude Code check the report against his current code: all five fixes in our Ghost Brief™ held up, and none was already known to the project." />
+  <meta name="description" content="Ghost Architect™ Local scanned CodeExam on our own machines with local models. Its author had his own Claude Code check the report against his current code: all five fixes in our Ghost Brief™ held up at his current code, and none was in the project’s history." />
   <link rel="canonical" href="https://ghostarchitect.dev/blog/code-exam-five-fixes-held-up" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://ghostarchitect.dev/blog/code-exam-five-fixes-held-up" />
   <meta property="og:title" content="A maintainer's own AI checked our report. All five fixes held." />
-  <meta property="og:description" content="Ghost Architect™ Local scanned CodeExam on our own machines with local models. Its author had his own Claude Code check the report against his current code: all five fixes in our Ghost Brief™ held up, and none was already known to the project." />
+  <meta property="og:description" content="Ghost Architect™ Local scanned CodeExam on our own machines with local models. Its author had his own Claude Code check the report against his current code: all five fixes in our Ghost Brief™ held up at his current code, and none was in the project’s history." />
   <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
   <meta property="og:site_name" content="Ghost Architect™" />
   <script type="application/ld+json">
@@ -57,7 +57,7 @@
 
   <h1>A maintainer&rsquo;s own AI checked our report. All five fixes held.</h1>
 
-  <p class="lede">We scanned CodeExam, Andrew Schulman&rsquo;s open-source tool for examining code, on our own machines with local models. Andrew had his own Claude Code check our report against his current code. Every fix in our Ghost Brief&trade; held up, and none of them was already known to the project.</p>
+  <p class="lede">We scanned <a href="https://codeexam.ai/">CodeExam</a>, <a href="https://www.softwarelitigationconsulting.com/">Andrew Schulman</a>&rsquo;s open-source tool for examining code, on our own machines with local models. Andrew had his own Claude Code check our report against his current code. Every fix in our Ghost Brief&trade; held up at his current code, and none of the five was in the project&rsquo;s history. One other point in our report was already known to the project in another form.</p>
 
   <div class="article-body">
     <h2>The scan</h2>
@@ -79,6 +79,8 @@
 
     <p>The Load Qualifying report held up too. The review found its cited facts accurate at the lines it cited, and named one change worth making: three outbound calls to cloud models with no timeout, a one-line fix each.</p>
 
+    <p>One substantive point in that report was already known to the project in another form. Two MEDIUM findings said that on an index too large to hold in memory, every search and callers lookup rereads the whole file with no cache. The review agreed that is a real cost on very large indexes, and the trade-off that path exists for, since the file does not fit in memory. Its visible effect, the GUI freezing while a long request runs, is already listed among the project&rsquo;s known limitations, with a non-blocking redesign as the direction.</p>
+
     <h2>The one thing it got wrong, fixed the next day</h2>
 
     <p>The review made a fair criticism. Load Qualifying gave CodeExam a health score of 34 out of 100, as if it were a web service for many users. CodeExam&rsquo;s server is a local interface on one person&rsquo;s own machine, and the report itself said so in every finding. The score was measuring the wrong thing.</p>
@@ -91,7 +93,7 @@
 
     <h2>Why this matters</h2>
 
-    <p>The strongest test of a report is the code owner checking it against code that has moved on since the scan, with his own tools. This one held up: five fixes, none already known, from small models running on hardware we own. Where the report was wrong, the criticism became a fix in the product a day later. That is how it is supposed to work.</p>
+    <p>The strongest test of a report is the code owner checking it against code that has moved on since the scan, with his own tools. This one held up: five fixes, none of them in the project&rsquo;s history, from small models running on hardware we own. Where the report was wrong, the criticism became a fix in the product a day later. That is how it is supposed to work.</p>
 
     <div class="cta-band">
       <h3>Ghost Architect&trade; Local runs on your own machines.</h3>
