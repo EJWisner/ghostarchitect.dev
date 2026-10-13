@@ -55,6 +55,40 @@
     <div class="scroll-hint">scroll</div>
   </section>
 
+  <!-- FIELD REPORT (EJ, 2026-10-13): the CodeExam result, linking to the field report page. -->
+  <style>
+    .field-report { background: rgba(10, 10, 15, 0.94); border-top: 1px solid rgba(0, 191, 216, 0.45); border-bottom: 1px solid rgba(0, 191, 216, 0.45); box-shadow: 0 0 48px rgba(0, 191, 216, 0.12) inset; padding: 2.6rem 1.5rem; position: relative; }
+    .field-report .fr-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; align-items: center; }
+    .field-report .fr-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #00bfd8; margin: 0 0 0.7rem; }
+    .field-report h2 { font-size: clamp(1.35rem, 2.6vw, 1.9rem); line-height: 1.25; margin: 0 0 0.8rem; color: #f2f6f8; }
+    .field-report p.fr-sub { color: #a9b4bd; margin: 0 0 1.1rem; line-height: 1.55; }
+    .field-report a.fr-go { color: #00bfd8; font-weight: 600; text-decoration: none; }
+    .field-report a.fr-go:hover { text-decoration: underline; }
+    .field-report .fr-nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
+    .field-report .fr-nums div { border: 1px solid rgba(0, 191, 216, 0.3); border-radius: 10px; padding: 0.9rem 0.7rem; text-align: center; color: #a9b4bd; font-size: 0.82rem; line-height: 1.35; }
+    .field-report .fr-nums b { display: block; font-size: 1.7rem; color: #e9fbff; margin-bottom: 0.25rem; }
+    @media (max-width: 760px) {
+      .field-report { padding: 2rem 1rem; }
+      .field-report .fr-inner { grid-template-columns: 1fr; gap: 1.4rem; }
+      .field-report .fr-nums b { font-size: 1.4rem; }
+    }
+  </style>
+  <section class="field-report" id="field-report">
+    <div class="fr-inner">
+      <div>
+        <p class="fr-label">// field report &middot; October 2026</p>
+        <h2>A maintainer's own AI checked our report. All five fixes held.</h2>
+        <p class="fr-sub">Ghost Architect&trade; Local scanned CodeExam on our own hardware with local models. Its author had his own Claude Code check our Ghost Brief&trade; against his current code.</p>
+        <a class="fr-go" href="blog/code-exam-five-fixes-held-up.html">Read the field report &rarr;</a>
+      </div>
+      <div class="fr-nums">
+        <div><b>5 of 5</b>fixes confirmed at HEAD</div>
+        <div><b>0</b>already known to the project</div>
+        <div><b>1 day</b>to fix the one thing we got wrong</div>
+      </div>
+    </div>
+  </section>
+
   <!-- TWO DOORS -->
   <section class="doors">
     <div class="doors-head reveal">
