@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
   <meta name="robots" content="index, follow" />
-  <title>Ghost Architect™ Local 8: early access beta</title>
-  <meta name="description" content="Ghost Architect™ Local 8.0.86, the early access beta: Learning Requests, Ask about Ghost and the user's manual in the box. Your download link arrives by email in a minute." />
+  <title>Ghost Architect™ Local 8: the beta has ended, version 8 is in production</title>
+  <meta name="description" content="The Ghost Architect™ Local 8 beta program has ended and version 8 is in production. Get 8.0.86: Learning Requests, Ask about Ghost and the user's manual in the box. Your download link arrives by email in a minute." />
   <link rel="canonical" href="https://ghostarchitect.dev/beta.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ghostarchitect.dev/beta.html" />
-  <meta property="og:title" content="Ghost Architect™ Local 8: early access beta" />
+  <meta property="og:title" content="Ghost Architect™ Local 8: the beta has ended, version 8 is in production" />
   <meta property="og:description" content="Learning Requests, Ask about Ghost and the manual in the box. Evaluation trial, no card." />
   <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
   <meta name="theme-color" content="#0a0a0f" />
@@ -54,14 +54,11 @@
 <main class="page">
 
   <header class="page-hero">
-    <div class="version-badge"><b>Ghost Architect&trade; Local &middot; version 8.0.86 &middot; early access beta</b></div>
-    <h1>Version 8, early access</h1>
-    <!-- BETA PAUSED (EJ 2026-10-22): to reopen, delete this notice, the hidden wrapper below and the "hidden" on section 1. -->
-    <div class="callout amber"><p><strong>The version 8 beta is paused for now.</strong> New requests are on hold while we finish the next round of work, and the beta will reopen soon. If you already have Ghost Architect&trade; Local, nothing changes for you: your install, your trial and your licence keep working. Questions: support@ghostarchitect.dev.</p></div>
-    <div hidden>
-    <p class="lede">Version 8 is a beta, and we would value your feedback on it. Fill in the form and your download link arrives by email in about a minute. The user's manual is inside the download. The evaluation trial starts inside the product; no card, no account.</p>
-    <p class="lede"><strong>Only a few days remain to join the version 8 beta program.</strong></p>
-      </div>
+    <div class="version-badge"><b>Ghost Architect&trade; Local &middot; version 8.0.86 &middot; production release</b></div>
+    <h1>Version 8 is in production</h1>
+    <!-- BETA ENDED (EJ 2026-10-23): Local 8 left beta with 8.0.86, a full release. This page stays up and its form delivers the newest 8.x. -->
+    <div class="callout local"><p><strong>The version 8 beta program has ended.</strong> Ghost Architect&trade; Local 8 is now in production, and 8.0.86 is the full release. Thank you to everyone who took part in the beta.</p></div>
+    <p class="lede">This page stays open. Fill in the form and your download link for version 8.0.86 arrives by email in about a minute. The user's manual is inside the download. The evaluation trial starts inside the product; no card, no account. If you already have Ghost Architect&trade; Local, your install, your trial and your licence keep working. Questions: support@ghostarchitect.dev.</p>
   </header>
 
   <section class="band">
@@ -78,12 +75,12 @@
     </div>
   </section>
 
-  <section class="band" hidden>
+  <section class="band">
     <h2>1. Get the tarball</h2>
     <div class="cards one">
       <div class="card" id="request">
-        <h3>Get the beta</h3>
-        <p>Fill this in and the download link is emailed to you straight away. It works once and expires after 72 hours; come back here for another if you need one. The GitHub username is in case you would rather have access to the delivery repository. The model question is so we know the hardware the beta is running on.</p>
+        <h3>Get version 8</h3>
+        <p>Fill this in and the download link is emailed to you straight away. It works once and expires after 72 hours; come back here for another if you need one. The GitHub username is in case you would rather have access to the delivery repository. The model question is so we know the hardware Ghost Architect&trade; Local will run on.</p>
         <form id="trial-form" class="form" novalidate>
           <div class="f-row">
             <label>Name <input name="name" type="text" required autocomplete="name" maxlength="120"></label>
@@ -102,7 +99,7 @@
           <label>How many people will use it? <select name="teamSize"><option value="">Choose one</option><option>1</option><option>2 to 5</option><option>6 to 15</option><option>16 or more</option></select></label>
           <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
           <input type="hidden" name="version" value="8.0.86">
-          <button type="submit" class="btn btn-local-solid">Email me the 8.0.86 beta</button>
+          <button type="submit" class="btn btn-local-solid">Email me 8.0.86</button>
           <div class="f-msg" id="tf-msg" role="status" aria-live="polite"></div>
         </form>
         <p>Already have access to the delivery repository? <code>gh release download v8.0.86 --repo EJWisner/ghost-local-delivery</code></p>
