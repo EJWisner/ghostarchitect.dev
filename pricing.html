@@ -241,7 +241,7 @@
         <a href="download.html" class="btn btn-local">Evaluation trial &rarr;</a>
       </div>
     </div>
-    <p class="fine">Prices in USD. Subscriptions renew monthly; update your card or cancel any time in the <a href="https://billing.stripe.com/p/login/00w00j8jl9eQdzJ9yZbEA00">billing portal</a>. Evaluating? Your first month is half price: choose Convert Now inside Ghost Architect&trade; Local, or enter the code from your evaluation emails at checkout, before your evaluation ends.</p>
+    <p class="fine">Prices in USD. Subscriptions renew monthly; update your card or cancel any time in the <a href="https://billing.stripe.com/p/login/00w00j8jl9eQdzJ9yZbEA00">billing portal</a>. <span data-launch-hide>Evaluating? Use the Launch offer button by Monday, October 26 at 5:00 pm Central Time.</span><span data-launch-show hidden>Evaluating? Your first month is half price: choose Convert Now inside Ghost Architect&trade; Local, or enter the code from your evaluation emails at checkout, before your evaluation ends.</span></p>
   </section><!-- /local -->
 
   <section class="band" id="open">
@@ -419,6 +419,7 @@
       a.removeAttribute('data-launch-after-href');
     });
     document.querySelectorAll('[data-launch-hide]').forEach(function(e){ e.hidden = true; e.style.display = 'none'; });
+    document.querySelectorAll('[data-launch-show]').forEach(function(e){ e.hidden = false; });
     return true;
   }
   if (!apply()) { var t = setInterval(function(){ if (apply()) clearInterval(t); }, 30000); }
