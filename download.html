@@ -64,7 +64,7 @@
     <div class="cards one">
       <div class="card" id="request">
         <h3>Request the download</h3>
-        <p>Fill this in and EJ replies with the download link, or with access to the delivery repository on GitHub, usually the same day. The GitHub username is for that access. The model question is so the trial is set up for the hardware you have.</p>
+        <p>Fill this in and the download link is emailed to you straight away. It works once and expires after 72 hours; come back here for another if you need one. The GitHub username is in case you would rather have access to the delivery repository. The model question is so the trial is set up for the hardware you have.</p>
         <form id="trial-form" class="form" novalidate>
           <div class="f-row">
             <label>Name <input name="name" type="text" required autocomplete="name" maxlength="120"></label>
@@ -185,8 +185,7 @@ sudo bash install/setup-linux.sh   # Linux
       .then(function(res){
         if (res.ok && res.j && res.j.status === 'ok') {
           form.innerHTML = '<div class="f-msg success" role="status"><strong>Request received.</strong> '
-            + (res.j.emailed ? 'A confirmation is on its way to your inbox, and ' : '')
-            + 'EJ will reply with the download link or GitHub access, usually the same day.'
+            + (res.j.emailed ? 'Your download link is on its way to your inbox. It works once, within 72 hours.' : 'We could not email you just now; EJ has your request and will send the link himself.')
             + (res.j.id ? ' Request id ' + res.j.id + '.' : '') + '</div>';
         } else {
           throw new Error((res.j && res.j.message) || 'request failed');
