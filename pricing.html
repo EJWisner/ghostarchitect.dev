@@ -132,11 +132,6 @@
     <p class="eyebrow">// pricing</p>
     <h1>Pre-engagement triage.<br><em>Before the migration, SOW, or audit.</em></h1>
     <p class="lede">Ghost Architect triages any codebase, categorizes risk, prioritizes findings, and gives your team a map of where to start. Any codebase. Any language. Any platform.</p>
-    <!-- LAUNCH OFFER (EJ 2026-10-23): ends Monday 2026-10-26 17:00 CDT; the link switches itself off at 17:01. Remove this callout then. -->
-    <div class="callout local" data-launch-hide>
-      <p><strong>Ghost Architect&trade; Local 8 launch offer: Enterprise for $2,000 a month, months 2 through 6 free.</strong> Pay $2,000 for your first month and the next five months are free: six months of Ghost Architect&trade; Local Enterprise, unlimited seats. From month seven it is $2,000 a month, and you can <a href="https://billing.stripe.com/p/login/00w00j8jl9eQdzJ9yZbEA00">cancel any time</a>. Evaluation users who convert qualify too. The launch promotion ends October 26 at 5:00 pm Central Time.</p>
-      <p><a class="btn btn-local-solid" href="https://buy.stripe.com/aFa9ATfLN3Uw7blh1rbEA0h">Get the launch offer &rarr;</a></p>
-    </div>
     <div class="callout local">
       <p><strong>Ghost Architect&trade; Local 8.0.96 is the current release.</strong> Your model, your hardware, zero egress. One monthly licence, no per-token bill. <a href="local.html">See Ghost Architect&trade; Local &rarr;</a></p>
       <p>Version 8 is out of beta and in production: <a href="download.html">get Ghost Architect&trade; Local 8 &rarr;</a></p>
@@ -236,12 +231,11 @@
           <li>Client health reports under your own name</li>
           <li>Formal MSA and a named contact</li>
         </ul>
-        <!-- LAUNCH OFFER until 2026-10-26 17:00 CDT: then put back https://buy.stripe.com/8x26oHfLNfDe8fpdPfbEA0g and "Subscribe &rarr;" -->
-        <a href="https://buy.stripe.com/aFa9ATfLN3Uw7blh1rbEA0h" class="btn btn-local-solid" data-launch-after-href="https://buy.stripe.com/8x26oHfLNfDe8fpdPfbEA0g" data-launch-after-text="Subscribe &amp;rarr;" data-tier="enterprise">Launch offer &rarr;</a>
+        <a href="https://buy.stripe.com/8x26oHfLNfDe8fpdPfbEA0g" class="btn btn-local-solid" data-tier="enterprise">Subscribe &rarr;</a>
         <a href="download.html" class="btn btn-local">Evaluation trial &rarr;</a>
       </div>
     </div>
-    <p class="fine">Prices in USD. Subscriptions renew monthly; update your card or cancel any time in the <a href="https://billing.stripe.com/p/login/00w00j8jl9eQdzJ9yZbEA00">billing portal</a>. <span data-launch-hide>Evaluating? Use the Launch offer button by Monday, October 26 at 5:00 pm Central Time.</span><span data-launch-show hidden>Evaluating? Your first month is half price: choose Convert Now inside Ghost Architect&trade; Local, or enter the code from your evaluation emails at checkout, before your evaluation ends.</span></p>
+    <p class="fine">Prices in USD. Subscriptions renew monthly; update your card or cancel any time in the <a href="https://billing.stripe.com/p/login/00w00j8jl9eQdzJ9yZbEA00">billing portal</a>. <span>Evaluating? Your first month is half price: choose Convert Now inside Ghost Architect&trade; Local, or enter the code from your evaluation emails at checkout, before your evaluation ends.</span></p>
   </section><!-- /local -->
 
   <section class="band" id="open">
@@ -406,24 +400,5 @@
 </script>
 <script src="next-nav.js" defer></script>
 <script src="scene.js" defer></script>
-<script>
-// LAUNCH OFFER (EJ 2026-10-23): at Monday 2026-10-26 17:00 CDT (22:00 UTC) every launch element switches by itself:
-// a button with data-launch-after-href goes back to the regular Enterprise link and its text; a callout
-// with data-launch-hide disappears. Checked on load and every 30 seconds, so an open page changes too.
-(function(){
-  var until = Date.parse('2026-10-26T22:00:00Z');
-  function apply(){
-    if (Date.now() < until) return false;
-    document.querySelectorAll('[data-launch-after-href]').forEach(function(a){
-      a.href = a.getAttribute('data-launch-after-href'); a.innerHTML = a.getAttribute('data-launch-after-text');
-      a.removeAttribute('data-launch-after-href');
-    });
-    document.querySelectorAll('[data-launch-hide]').forEach(function(e){ e.hidden = true; e.style.display = 'none'; });
-    document.querySelectorAll('[data-launch-show]').forEach(function(e){ e.hidden = false; });
-    return true;
-  }
-  if (!apply()) { var t = setInterval(function(){ if (apply()) clearInterval(t); }, 30000); }
-})();
-</script>
 </body>
 </html>
