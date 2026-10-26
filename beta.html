@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="dark" />
   <meta name="robots" content="index, follow" />
   <title>Ghost Architect™ Local 8: the beta has ended, version 8 is in production</title>
-  <meta name="description" content="The Ghost Architect™ Local 8 beta program has ended and version 8 is in production. Get 8.0.95: Learning Requests, Ask about Ghost and the user's manual in the box. Your download link arrives by email in a minute." />
+  <meta name="description" content="The Ghost Architect™ Local 8 beta program has ended and version 8 is in production. Get 8.0.96: Learning Requests, Ask about Ghost and the user's manual in the box. Your download link arrives by email in a minute." />
   <link rel="canonical" href="https://ghostarchitect.dev/beta.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ghostarchitect.dev/beta.html" />
@@ -54,11 +54,11 @@
 <main class="page">
 
   <header class="page-hero">
-    <div class="version-badge"><b>Ghost Architect&trade; Local &middot; version 8.0.95 &middot; production release</b></div>
+    <div class="version-badge"><b>Ghost Architect&trade; Local &middot; version 8.0.96 &middot; production release</b></div>
     <h1>Version 8 is in production</h1>
-    <!-- BETA ENDED (EJ 2026-10-23): Local 8 left beta with 8.0.95, a full release. This page stays up and its form delivers the newest 8.x. -->
-    <div class="callout local"><p><strong>The version 8 beta program has ended.</strong> Ghost Architect&trade; Local 8 is now in production, and 8.0.95 is the full release. Thank you to everyone who took part in the beta.</p></div>
-    <p class="lede">This page stays open. Fill in the form and your download link for version 8.0.95 arrives by email in about a minute. The user's manual is inside the download. The evaluation trial starts inside the product; no card, no account. If you already have Ghost Architect&trade; Local, your install, your trial and your licence keep working. Questions: support@ghostarchitect.dev.</p>
+    <!-- BETA ENDED (EJ 2026-10-23): Local 8 left beta with 8.0.96, a full release. This page stays up and its form delivers the newest 8.x. -->
+    <div class="callout local"><p><strong>The version 8 beta program has ended.</strong> Ghost Architect&trade; Local 8 is now in production, and 8.0.96 is the full release. Thank you to everyone who took part in the beta.</p></div>
+    <p class="lede">This page stays open. Fill in the form and your download link for version 8.0.96 arrives by email in about a minute. The user's manual is inside the download. The evaluation trial starts inside the product; no card, no account. If you already have Ghost Architect&trade; Local, your install, your trial and your licence keep working. Questions: support@ghostarchitect.dev.</p>
   </header>
 
   <section class="band">
@@ -98,20 +98,20 @@
           <label id="model-wrap" hidden>Which model, and on what server? <input name="model" type="text" maxlength="200" placeholder="qwen3:14b on Ollama"></label>
           <label>How many people will use it? <select name="teamSize"><option value="">Choose one</option><option>1</option><option>2 to 5</option><option>6 to 15</option><option>16 or more</option></select></label>
           <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-          <input type="hidden" name="version" value="8.0.95">
-          <button type="submit" class="btn btn-local-solid">Email me 8.0.95</button>
+          <input type="hidden" name="version" value="8.0.96">
+          <button type="submit" class="btn btn-local-solid">Email me 8.0.96</button>
           <div class="f-msg" id="tf-msg" role="status" aria-live="polite"></div>
         </form>
-        <p>Already have access to the delivery repository? <code>gh release download v8.0.95 --repo EJWisner/ghost-local-delivery</code></p>
+        <p>Already have access to the delivery repository? <code>gh release download v8.0.96 --repo EJWisner/ghost-local-delivery</code></p>
       </div>
       <div class="card">
         <h3>Verify it before you unpack it</h3>
         <p>The file is about to become a global command on your machine. Check it first.</p>
-        <pre class="code"><code>shasum -a 256 ghost-architect-local-8.0.95.tgz</code></pre>
+        <pre class="code"><code>shasum -a 256 ghost-architect-local-8.0.96.tgz</code></pre>
         <p>On Windows PowerShell:</p>
-        <pre class="code"><code>Get-FileHash -Algorithm SHA256 ghost-architect-local-8.0.95.tgz</code></pre>
-        <p>Expected for 8.0.95:</p>
-        <div class="sha"><p class="hash">1bd92e2a86a7cc83a604725a5ad4920d9f2d32106ff17bd12a19c37a847e5ad0</p></div>
+        <pre class="code"><code>Get-FileHash -Algorithm SHA256 ghost-architect-local-8.0.96.tgz</code></pre>
+        <p>Expected for 8.0.96:</p>
+        <div class="sha"><p class="hash">f30e12c2d3bbc841584be18701d10d362accacc982c4a0291e838c9259c35f40</p></div>
         <div class="callout amber"><p>If the hash does not match, stop. Do not install it. Email support@ghostarchitect.dev with what you got.</p></div>
       </div>
     </div>
@@ -131,7 +131,7 @@
     <h2>3. Install</h2>
     <div class="prose">
       <p>Everything happens inside the directory you unpack. Keep that directory; the global <code>ghost</code> command links into it rather than copying it.</p>
-      <pre><code>tar -xzf ghost-architect-local-8.0.95.tgz
+      <pre><code>tar -xzf ghost-architect-local-8.0.96.tgz
 cd package
 bash install/setup.sh              # macOS
 sudo bash install/setup-linux.sh   # Linux
