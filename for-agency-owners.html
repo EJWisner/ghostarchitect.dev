@@ -409,8 +409,7 @@
         <p class="sub">Unlimited seats, monthly licence</p>
         <p>Multi-brand portfolio, air-gapped if that is how you work. Convert during the evaluation trial and the first month is half price.</p>
         <div class="actions">
-          <!-- LAUNCH OFFER until 2026-10-26 17:00 CDT: then put back https://buy.stripe.com/8x26oHfLNfDe8fpdPfbEA0g and "Subscribe &rarr;" -->
-          <a href="https://buy.stripe.com/aFa9ATfLN3Uw7blh1rbEA0h" class="btn btn-local-solid" data-launch-after-href="https://buy.stripe.com/8x26oHfLNfDe8fpdPfbEA0g" data-launch-after-text="Subscribe &amp;rarr;">Launch offer &rarr;</a>
+          <a href="https://buy.stripe.com/8x26oHfLNfDe8fpdPfbEA0g" class="btn btn-local-solid">Subscribe &rarr;</a>
           <a href="pricing.html#local" class="btn btn-local">All Local tiers &rarr;</a>
         </div>
       </div>
@@ -452,23 +451,5 @@
 </script>
 <script src="next-nav.js" defer></script>
 <script src="scene.js" defer></script>
-<script>
-// LAUNCH OFFER (EJ 2026-10-23): at Monday 2026-10-26 17:00 CDT (22:00 UTC) every launch element switches by itself:
-// a button with data-launch-after-href goes back to the regular Enterprise link and its text; a callout
-// with data-launch-hide disappears. Checked on load and every 30 seconds, so an open page changes too.
-(function(){
-  var until = Date.parse('2026-10-26T22:00:00Z');
-  function apply(){
-    if (Date.now() < until) return false;
-    document.querySelectorAll('[data-launch-after-href]').forEach(function(a){
-      a.href = a.getAttribute('data-launch-after-href'); a.innerHTML = a.getAttribute('data-launch-after-text');
-      a.removeAttribute('data-launch-after-href');
-    });
-    document.querySelectorAll('[data-launch-hide]').forEach(function(e){ e.hidden = true; e.style.display = 'none'; });
-    return true;
-  }
-  if (!apply()) { var t = setInterval(function(){ if (apply()) clearInterval(t); }, 30000); }
-})();
-</script>
 </body>
 </html>
