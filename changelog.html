@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.0.99, October 27, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.0, October 28, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">8.1.0</span>
+      <span class="release-date">October 28, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">The usage report counts every scan once, under the right heading</h2>
+    <p class="release-lede">8.1.0 -- 8.1.0 counts every scan an API key started under that key, however the scan ended, and makes the daily usage report easy to read and plainly complete. A scan that was paused for an update, carried on, and ended before it finished counting used to land under a department called "unknown". It is now counted under its key. The language line says how many scans were not measured, a project scanned many times reads as one summary in the email with every scan's own result in the PDF, and an empty section says so instead of ending on a bare heading. Every report now ends with "End of report.", so you can tell it arrived whole. Scans recorded before 8.1.0 are reported as they were recorded. Scans read and write as in 8.0.99. The manual inside the download is stamped 8.1.0.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">8.0.99</span>
       <span class="release-date">October 27, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">Ghost reviewer reads what each error handler does</h2>
     <p class="release-lede">8.0.99 -- 8.0.99 tells Ghost reviewer, for a finding about error handling, what each handler in the cited code does, read from the code with its line. Every handler in the cited function is listed, the ones that do nothing too. One that acts only under a condition, in a debug build or in a lambda says so, one that logs a message without the error is counted apart, and where Ghost finds no handler it says nothing rather than that there is none. A reviewer benchmark pass from before 8.0.99 no longer counts: run the benchmark once after you upgrade. Scans read and write as in 8.0.98. The manual inside the download is stamped 8.0.99.</p>
