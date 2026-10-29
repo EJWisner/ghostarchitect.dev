@@ -107,7 +107,7 @@
     + '        <div class="ga-dropdown-section-label">Who it pays for</div>'
     + item('/for-agency-owners.html', 'For agency owners', 'Bid on what is in the code, not on a guess. Protect the margin on every fixed bid.', '/for-agency-owners.html')
     + item('/inheritance-audit.html', 'For deal advisors &amp; PE diligence', 'Know what you are buying before the LOI, even when the code cannot leave the target.', '/inheritance-audit.html')
-    + item('/for-ip-attorneys.html', 'For IP attorneys &amp; experts <span class="pill new">NEW</span>', 'Turn every software client into a monthly IP watch, under your firm&rsquo;s name.', '/for-ip-attorneys.html')
+    + item('/for-ip-attorneys.html', 'For intellectual property attorneys &amp; experts <span class="pill new">NEW</span>', 'Turn every software client into a monthly intellectual property watch, under your firm&rsquo;s name.', '/for-ip-attorneys.html')
     + item('/security.html', 'For CTOs &amp; security', 'Prove the code never left the building, with a printout instead of a promise.', '/security.html')
     + '        <div class="ga-dropdown-divider"></div>'
     + '        <div class="ga-dropdown-section-label">Done for you</div>'
@@ -194,7 +194,7 @@
     + '    <div class="ga-mobile-group-items">'
     + '      <a href="' + u('/for-agency-owners.html') + '"' + actAttr('/for-agency-owners.html') + '>For agency owners</a>'
     + '      <a href="' + u('/inheritance-audit.html') + '"' + actAttr('/inheritance-audit.html') + '>For deal advisors &amp; PE diligence</a>'
-    + '      <a href="' + u('/for-ip-attorneys.html') + '"' + actAttr('/for-ip-attorneys.html') + '>For IP attorneys &amp; experts <span class="pill new">NEW</span></a>'
+    + '      <a href="' + u('/for-ip-attorneys.html') + '"' + actAttr('/for-ip-attorneys.html') + '>For intellectual property attorneys &amp; experts <span class="pill new">NEW</span></a>'
     + '      <a href="' + u('/security.html') + '"' + actAttr('/security.html') + '>For CTOs &amp; security</a>'
     + '      <a href="' + u('/audit.html') + '"' + actAttr('/audit.html') + '>Ghost Inheritance Audit&trade; (done for you)</a>'
     + '      <a href="' + u('/#ghost-partner') + '">Ghost Partner&trade; ' + pillLocal + '</a>'
