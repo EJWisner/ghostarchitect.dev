@@ -83,8 +83,8 @@
       <p class="hero-accent" style="color: var(--local);">A watch service for software, the way your firm already watches trademarks.</p>
       <div class="hero-cta">
         <a href="contact.html" class="btn btn-local-solid">Ask for the sample IP evidence review</a>
-        <a href="download.html" class="btn btn-local">Start the evaluation trial</a>
-        <a href="pricing.html#local" class="btn btn-ghost">Agency pricing &rarr;</a>
+        <a href="#roi" class="btn btn-local">See what it earns your firm</a>
+        <a href="download.html" class="btn btn-ghost">Start the evaluation trial &rarr;</a>
       </div>
       <div class="hero-strip">
         <span>Every finding quotes its line</span>
@@ -94,6 +94,31 @@
       </div>
     </div>
     <div class="scroll-hint">scroll</div>
+  </section>
+
+  <!-- THE RETURN -->
+  <section class="solid pad" id="roi">
+    <div class="section-head reveal">
+      <p class="label local">// what it earns your firm</p>
+      <h2>A quarter hour of your time. A monthly fee for the service.</h2>
+      <p class="lede">Each client's review runs on schedule, unattended. When the report is ready, Ghost Architect&trade; Local emails you a link; you approve, schedule or reject it, and only then does it go to the client. Approving a routine report takes about a quarter of an hour. Your firm bills for the standing service. Put in your own numbers:</p>
+    </div>
+    <div class="roi reveal">
+      <form class="roi-in" id="roi-form" novalidate>
+        <label>Clients on a watch <input type="text" id="roi-clients" value="10" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Your monthly fee per client (US$) <input type="text" id="roi-fee" value="500" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Reviews per client per month <input type="text" id="roi-reviews" value="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Your minutes per review <input type="text" id="roi-minutes" value="15" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <button type="submit" class="btn btn-local-solid roi-go">Calculate</button>
+      </form>
+      <div class="roi-out" id="roi-out" aria-live="polite" tabindex="-1">
+        <div><span class="v" id="roi-revenue">$5,000</span><span class="k">billed each month</span></div>
+        <div><span class="v" id="roi-hours">10 hours</span><span class="k">of attorney time each month</span></div>
+        <div><span class="v" id="roi-net">$4,000</span><span class="k">after the $1,000 Agency license</span></div>
+        <div><span class="v" id="roi-rate">$400</span><span class="k">per hour of attorney time, after the license</span></div>
+      </div>
+    </div>
+    <p class="fine reveal">The numbers above are an example; put in your own. Your fee is yours to set. How many clients one machine can review depends on the size of their code and on your hardware: Ghost Architect&trade; Local measures its own speed on your machine and gives you the basis for every time estimate before you commit.</p>
   </section>
 
   <!-- THE STORY -->
@@ -181,31 +206,6 @@
       <div class="card reveal"><div class="k">Fits your systems</div><h3>An API in, and findings out</h3><p>Start a review from your own tools through the REST API, and send findings back out by webhook, wired however your firm wants.</p></div>
       <div class="card reveal"><div class="k">A fixed cost</div><h3>No per-token bill, no meter</h3><p>One monthly license, sized to the firm. A review you run again costs time on machines you already own, not another line on an invoice.</p></div>
     </div>
-  </section>
-
-  <!-- THE RETURN -->
-  <section class="solid pad" id="roi">
-    <div class="section-head reveal">
-      <p class="label local">// the return</p>
-      <h2>The review runs on its own. Your time goes into the approval.</h2>
-      <p class="lede">Each client's review runs on schedule, unattended. When the client's report is ready, Ghost Architect&trade; Local emails you a link; you approve it, schedule it or reject it, and only then does it go to the client. Every report sent is archived as it was sent. Reading and approving a routine report is about a quarter of an hour. Your firm bills for the standing service.</p>
-    </div>
-    <div class="roi reveal">
-      <form class="roi-in" id="roi-form" novalidate>
-        <label>Clients on a watch <input type="text" id="roi-clients" value="10" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
-        <label>Your monthly fee per client (US$) <input type="text" id="roi-fee" value="500" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
-        <label>Reviews per client per month <input type="text" id="roi-reviews" value="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
-        <label>Your minutes per review <input type="text" id="roi-minutes" value="15" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
-        <button type="submit" class="btn btn-local-solid roi-go">Calculate</button>
-      </form>
-      <div class="roi-out" id="roi-out" aria-live="polite" tabindex="-1">
-        <div><span class="v" id="roi-revenue">$5,000</span><span class="k">billed each month</span></div>
-        <div><span class="v" id="roi-hours">10 hours</span><span class="k">of attorney time each month</span></div>
-        <div><span class="v" id="roi-net">$4,000</span><span class="k">after the $1,000 Agency license</span></div>
-        <div><span class="v" id="roi-rate">$400</span><span class="k">per hour of attorney time, after the license</span></div>
-      </div>
-    </div>
-    <p class="fine reveal">The numbers above are an example; put in your own. Your fee is yours to set. How many clients one machine can review depends on the size of their code and on your hardware: Ghost Architect&trade; Local measures its own speed on your machine and gives you the basis for every time estimate before you commit.</p>
   </section>
 
   <!-- PRICING -->
