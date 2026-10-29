@@ -49,7 +49,9 @@
     .roi { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     .roi-in, .roi-out { border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1.4rem; background: rgba(255,255,255,0.02); }
     .roi-in label { display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-size: 0.95rem; color: var(--text-muted, #a1a1aa); padding: 0.55rem 0; }
-    .roi-in input { width: 7.5rem; padding: 0.5rem 0.6rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: #0d0d14; color: #fff; font: inherit; text-align: right; }
+    .roi-in input { width: 7.5rem; padding: 0.5rem 0.6rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: #0d0d14; color: #fff; font-family: inherit; font-size: 16px; text-align: right; }
+    .roi-go { width: 100%; margin-top: 0.9rem; justify-content: center; cursor: pointer; font-size: 1rem; }
+    .roi-out:focus { outline: none; }
     .roi-in input:focus { outline: 2px solid var(--local, #22d3ee); outline-offset: 1px; }
     .roi-out { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .roi-out div { display: flex; flex-direction: column; gap: 0.25rem; }
@@ -59,7 +61,7 @@
     @media (max-width: 760px) {
       .roi { grid-template-columns: 1fr; }
       .roi-in label { font-size: 0.9rem; }
-      .roi-in input { width: 6rem; }
+      .roi-in input { width: 6.5rem; }
       .roi-out .v { font-size: 1.35rem; }
     }
   </style>
@@ -189,13 +191,14 @@
       <p class="lede">Each client's review runs on schedule, unattended. When the client's report is ready, Ghost Architect&trade; Local emails you a link; you approve it, schedule it or reject it, and only then does it go to the client. Every report sent is archived as it was sent. Reading and approving a routine report is about a quarter of an hour. Your firm bills for the standing service.</p>
     </div>
     <div class="roi reveal">
-      <div class="roi-in">
-        <label>Clients on a watch <input type="number" id="roi-clients" min="1" max="500" value="10" inputmode="numeric" /></label>
-        <label>Your monthly fee per client (US$) <input type="number" id="roi-fee" min="0" max="100000" step="50" value="500" inputmode="numeric" /></label>
-        <label>Reviews per client per month <input type="number" id="roi-reviews" min="1" max="31" value="4" inputmode="numeric" /></label>
-        <label>Your minutes per review <input type="number" id="roi-minutes" min="1" max="240" value="15" inputmode="numeric" /></label>
-      </div>
-      <div class="roi-out" aria-live="polite">
+      <form class="roi-in" id="roi-form" novalidate>
+        <label>Clients on a watch <input type="text" id="roi-clients" value="10" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Your monthly fee per client (US$) <input type="text" id="roi-fee" value="500" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Reviews per client per month <input type="text" id="roi-reviews" value="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Your minutes per review <input type="text" id="roi-minutes" value="15" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <button type="submit" class="btn btn-local-solid roi-go">Calculate</button>
+      </form>
+      <div class="roi-out" id="roi-out" aria-live="polite" tabindex="-1">
         <div><span class="v" id="roi-revenue">$5,000</span><span class="k">billed each month</span></div>
         <div><span class="v" id="roi-hours">10 hours</span><span class="k">of attorney time each month</span></div>
         <div><span class="v" id="roi-net">$4,000</span><span class="k">after the $1,000 Agency license</span></div>
@@ -285,7 +288,7 @@
   // The return, worked out from the numbers the visitor types. Example defaults only.
   (function () {
     var LICENSE = 1000;
-    function num(id, lo, hi) { var v = parseFloat(document.getElementById(id).value); if (!isFinite(v)) v = 0; return Math.min(hi, Math.max(lo, v)); }
+    function num(id, lo, hi) { var v = parseFloat(String(document.getElementById(id).value).replace(/[^0-9.]/g, '')); if (!isFinite(v)) v = 0; return Math.min(hi, Math.max(lo, v)); }
     function money(v) { return (v < 0 ? '-$' : '$') + Math.round(Math.abs(v)).toLocaleString('en-US'); }
     function update() {
       var clients = num('roi-clients', 0, 500), fee = num('roi-fee', 0, 100000), reviews = num('roi-reviews', 0, 31), minutes = num('roi-minutes', 0, 240);
@@ -295,7 +298,26 @@
       document.getElementById('roi-net').textContent = money(net);
       document.getElementById('roi-rate').textContent = hours > 0 ? money(net / hours) : 'n/a';
     }
-    ['roi-clients', 'roi-fee', 'roi-reviews', 'roi-minutes'].forEach(function (id) { var el = document.getElementById(id); if (el) el.addEventListener('input', update); });
+    ['roi-clients', 'roi-fee', 'roi-reviews', 'roi-minutes'].forEach(function (id) {
+      var el = document.getElementById(id); if (!el) return;
+      el.addEventListener('input', update);
+      el.addEventListener('change', update);
+      // Typing replaces the example number instead of adding to it. Selected on
+      // focus and again on the tap that focused it, which a phone needs.
+      var fresh = false;
+      el.addEventListener('focus', function () { fresh = true; try { el.select(); } catch (e) {} });
+      el.addEventListener('click', function () { if (fresh) { fresh = false; try { el.select(); } catch (e) {} } });
+      el.addEventListener('blur', function () { fresh = false; });
+    });
+    var form = document.getElementById('roi-form');
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      update();
+      // Put the keyboard away and bring the results into view, which matters on a phone.
+      if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+      var out = document.getElementById('roi-out');
+      if (out) { out.scrollIntoView({ behavior: 'smooth', block: 'center' }); try { out.focus({ preventScroll: true }); } catch (err) {} }
+    });
     if (document.getElementById('roi-clients')) update();
   })();
 </script>
