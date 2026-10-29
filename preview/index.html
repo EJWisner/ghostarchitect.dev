@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- PREVIEW (2026-10-29, benefit-first rebuild): noindex until EJ approves it. Go-live steps are in CHANGES.md. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Ghost Architect&trade;: AI for your business, inside your walls, at a fixed price</title>
+  <meta name="description" content="Ghost Architect&trade; Local reads the codebase you are about to price, buy, inherit or defend, on your own machines, at a fixed monthly price. Your code never leaves the building. From $80 a month." />
+  <link rel="canonical" href="https://ghostarchitect.dev/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev/" />
+  <meta property="og:title" content="Ghost Architect&trade;: AI for your business. The way it should be. The way it has to be." />
+  <meta property="og:description" content="Inside your walls, on your machines, at a fixed price. Your code never leaves the building." />
+  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
+  <meta property="og:site_name" content="Ghost Architect&trade;" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ghost Architect&trade;: AI for your business. The way it should be. The way it has to be." />
+  <meta name="twitter:description" content="Inside your walls, on your machines, at a fixed price. Your code never leaves the building." />
+  <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css?v=20261029p" />
+  <style>
+    /* The field report band (kept from the live page). */
+    .field-report { background: rgba(10, 10, 15, 0.94); border-top: 1px solid rgba(0, 191, 216, 0.45); border-bottom: 1px solid rgba(0, 191, 216, 0.45); box-shadow: 0 0 48px rgba(0, 191, 216, 0.12) inset; padding: 2.6rem 1.5rem; position: relative; }
+    .field-report .fr-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; align-items: center; }
+    .field-report .fr-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #00bfd8; margin: 0 0 0.7rem; }
+    .field-report h2 { font-size: clamp(1.35rem, 2.6vw, 1.9rem); line-height: 1.25; margin: 0 0 0.8rem; color: #f2f6f8; }
+    .field-report p.fr-sub { color: #a9b4bd; margin: 0 0 1.1rem; line-height: 1.55; }
+    .field-report a.fr-go { color: #00bfd8; font-weight: 600; text-decoration: none; margin-right: 1.2rem; display: inline-block; }
+    .field-report a.fr-go:hover { text-decoration: underline; }
+    .field-report .fr-nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
+    .field-report .fr-nums div { border: 1px solid rgba(0, 191, 216, 0.3); border-radius: 10px; padding: 0.9rem 0.7rem; text-align: center; color: #a9b4bd; font-size: 0.82rem; line-height: 1.35; }
+    .field-report .fr-nums b { display: block; font-size: 1.7rem; color: #e9fbff; margin-bottom: 0.25rem; }
+    @media (max-width: 760px) {
+      .field-report { padding: 2rem 1rem; }
+      .field-report .fr-inner { grid-template-columns: 1fr; gap: 1.4rem; }
+      .field-report .fr-nums b { font-size: 1.4rem; }
+    }
+    .ways .card { display: flex; flex-direction: column; }
+    .ways .card p { flex: 1 1 auto; }
+    .ways .card .btn { align-self: flex-start; }
+    .ways .card.draft { border-style: dashed; border-color: rgba(255,170,0,0.55); }
+    .ways .card.draft .k { color: var(--warning); }
+    .ways .card.local-card { border-color: rgba(0, 191, 216, 0.55); box-shadow: 0 0 32px var(--local-dim); }
+    #open, #hosted, #outcomes { scroll-margin-top: 80px; }
+  </style>
+</head>
+<body data-product="local">
+
+<canvas id="lattice" aria-hidden="true"></canvas>
+
+<div id="ga-nav-mount"></div>
+
+<main>
+
+  <!-- 0 · HERO · the lattice at rest -->
+  <section class="hero" id="top" data-phase="0">
+    <div class="hero-inner">
+      <div class="version-badge"><b>Ghost Architect&trade; Local 8.1.1</b> &nbsp;&middot;&nbsp; commercially released</div>
+      <h1>AI for your business.<br><em>The way it should be. The way it has to be.</em></h1>
+      <p class="hero-sub">Inside your walls, on your machines, at a fixed price. Your code never leaves the building.</p>
+      <p class="hero-accent">Know what a codebase will cost you before you sign for it.</p>
+      <div class="hero-cta">
+        <a href="download.html" class="btn btn-local-solid">Start the Ghost Architect&trade; Local trial</a>
+        <a href="#outcomes" class="btn btn-local">What it earns you &darr;</a>
+        <a href="pricing.html" class="btn btn-ghost">Pricing from $80 a month &rarr;</a>
+      </div>
+      <div class="hero-proof">
+        <div><b>$80</b>a month, fixed, from one seat</div>
+        <div><b>50%</b>off your first month when you convert</div>
+        <div><b>5 of 5</b>fixes held, checked by the maintainer&rsquo;s own AI</div>
+        <div><b>3 of 3</b>runs, identical reports</div>
+      </div>
+    </div>
+    <div class="scroll-hint">scroll</div>
+  </section>
+
+  <!-- PROOF FROM OUTSIDE: the CodeExam field report and the playwright-php fixes -->
+  <section class="field-report" id="field-report">
+    <div class="fr-inner">
+      <div>
+        <p class="fr-label">// proof from outside &middot; October 2026</p>
+        <h2>A maintainer&rsquo;s own AI checked our report. All five fixes held.</h2>
+        <p class="fr-sub">Ghost Architect&trade; Local scanned CodeExam on our own hardware with local models, and no code left our network. Its author, Andrew Schulman, had his own Claude Code check our Ghost Brief&trade; against his current code. A month earlier, our scan of playwright-php led its maintainers to four fixes, each shipped with tests. Not every finding held up, and both reports say so.</p>
+        <a class="fr-go" href="/blog/code-exam-five-fixes-held-up.html">Read the CodeExam field report &rarr;</a>
+        <a class="fr-go" href="/blog/four-fixes-from-one-unsolicited-scan.html">Read the playwright-php report &rarr;</a>
+      </div>
+      <div class="fr-nums">
+        <div><b>5 of 5</b>fixes confirmed at HEAD</div>
+        <div><b>0</b>of the five already in the project&rsquo;s history</div>
+        <div><b>1 day</b>to fix the one thing we got wrong</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PICK YOUR OUTCOME -->
+  <section class="doors" id="outcomes">
+    <div class="doors-head reveal">
+      <p class="label">// pick your outcome</p>
+      <h2>Who are you buying for? <span>Start where the money is.</span></h2>
+    </div>
+    <div class="door-grid four">
+      <a href="for-agency-owners.html" class="door local reveal">
+        <p class="label" style="color: var(--local);">Agency owners</p>
+        <div class="door-title">Bid on what is in the code, not on a guess.</div>
+        <p>Read the whole codebase before you price it. Your seniors judge findings instead of reading files, and the flat price lets you run it on every prospect, including the ones you walk away from.</p>
+        <div class="go">Run your numbers &rarr;</div>
+      </a>
+      <a href="inheritance-audit.html" class="door cloud reveal">
+        <p class="label blue">Deal advisors &amp; PE diligence</p>
+        <div class="door-title">Know what you are buying before the LOI.</div>
+        <p>The stack as it really is, who the code depends on, and what licenses it carries. Run it inside the target&rsquo;s building when the repository cannot leave.</p>
+        <div class="go">See the diligence read &rarr;</div>
+      </a>
+      <a href="for-ip-attorneys.html" class="door local reveal">
+        <p class="label" style="color: var(--local);">IP attorneys &amp; experts</p>
+        <div class="door-title">Turn every software client into a monthly IP watch.</div>
+        <p>Scheduled IP evidence reviews, every finding quoting its file and line, under your firm&rsquo;s name. You approve each report before the client sees it.</p>
+        <div class="go">See what it earns your firm &rarr;</div>
+      </a>
+      <a href="security.html" class="door cloud reveal">
+        <p class="label blue">CTOs &amp; security</p>
+        <div class="door-title">Prove the code never left the building.</div>
+        <p>Answer the security review with a printout: every place the product could send data, each one switched off, and a signed record of every scan.</p>
+        <div class="go">Clear the security review &rarr;</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- 1 · THE SWEEP · what the scan finds -->
+  <section class="chapter phase" id="what-it-does" data-phase="1">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label blue">// the scan</p>
+        <h2>Know where the money will go before you sign.</h2>
+        <p>Ghost Architect&trade; reads the whole codebase and tells you what is in it: the risks, the conflicts and the files that break if you touch them. Every report says which files it read and which it did not, so you know exactly what you are standing on.</p>
+        <ul class="items">
+          <li><span class="n">01</span><div><h3>Points of Interest</h3><p class="t">Your seniors start on findings, not on a hunt. The whole codebase graded, with the evidence beside every red flag.</p></div></li>
+          <li><span class="n">02</span><div><h3>Recon</h3><p class="t">Decide whether to bid before you spend a senior hour. Recon sizes the codebase and tells you what a full scan will read and how long it will take on your machines, with the basis printed beside the estimate.</p></div></li>
+          <li class="amber"><span class="n">03</span><div><h3>Inheritance Audit</h3><p class="t">Walk into the deal knowing what you are buying: the real stack, who the code depends on, what licenses it carries, and a 90-day plan. <a href="inheritance-audit.html">See the audit &rarr;</a></p></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · BLAST RADIUS · Ghost Triple Crown -->
+  <section class="chapter phase right" id="ghost-triple-crown" data-phase="2">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label red">// one change, and every file it can break</p>
+        <h2>Stop paying for the fix that breaks three other things.<br><span style="color: var(--text-muted); font-weight: 500;">Ghost Triple Crown&trade;: three passes, one picture.</span></h2>
+        <ul class="items">
+          <li class="red"><span class="n">01</span><div><h3>Blast Radius&trade;</h3><p class="t">Every file a change will reach, before anyone writes a line. Your estimate includes the ripple.</p></div></li>
+          <li class="amber"><span class="n">02</span><div><h3>Conflict Detection&trade;</h3><p class="t">Catch the integration bug before your customer does: the places where two parts of the system expect different things.</p></div></li>
+          <li><span class="n">03</span><div><h3>Ghost Brief&trade;</h3><p class="t">Turn findings into shipped fixes. Your coding assistant gets a fix plan for every finding, safest changes first, with the files it must not touch.</p></div></li>
+        </ul>
+        <p class="foot">In <b>Ghost Architect&trade; Local</b> the Ghost Triple Crown&trade; checks every commit at no extra cost per commit: a pre-push hook, Ghost Watcher&trade; Local on your own git server, or your own CI runner. <a href="ghost-watcher.html">How it runs &rarr;</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · THE BUILDING · security / Local -->
+  <section class="chapter phase center" id="security" data-phase="3">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label teal">// IAI&trade;: internal AI</p>
+        <div class="quote">Say yes to the client <span>who bans AI on their code.</span></div>
+        <p>With Ghost Architect&trade; Local the model runs on your machines. While it analyzes the code, nothing about the code leaves the machine. Zero-egress mode comes with every license: it refuses every outbound destination at the code level and prints the inventory that proves it. The one call home is license activation, which sends the license key and an install id and nothing from your code.</p>
+        <p>Working alone, and allowed to send code to a cloud model? <a href="pricing.html#open">Ghost Open&trade;</a> runs on your own Anthropic key: your code goes to Anthropic and nowhere else, and we run no server that sees it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · THE REPORT · proof -->
+  <section class="chapter phase right" id="proof" data-phase="4">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label">// a report that admits what it did not read</p>
+        <h2>Real findings. Honest coverage.</h2>
+        <p>Our public sample report found 18 findings in a real 658-file eCommerce extension, and says on its first page that it read 86 of those files. A scanner that sounds just as sure after reading a tenth of the code is how surprises get past due diligence. Ours tells you.</p>
+        <div class="stats">
+          <div><b>18</b>findings</div>
+          <div><b>86 of 658</b>files read</div>
+          <div><b>$0.24</b>model cost</div>
+          <div><b>6</b>PDF pages</div>
+        </div>
+        <div class="finding">
+          <div class="k">// finding #1 &middot; critical</div>
+          <div class="h">Client-Side Credential Exposure</div>
+          <div>OAuth access tokens exposed client-side in a global config object. Full third-party account takeover possible. The report&rsquo;s own estimate: 8 to 12 hours to fix.</div>
+        </div>
+        <p class="foot"><a href="../ghost-poi-meta-for-magento2.pdf">Download the sample report &darr;</a> &nbsp;<b>PDF &middot; 6 pages &middot; made by an earlier version of Ghost Architect&trade; on Anthropic&rsquo;s API, the path Ghost Open&trade; uses today</b></p>
+        <p>Same code, same report: an IP evidence review of a 16-file open source library took 32 minutes 29 seconds on a MacBook Air (Apple M3, 24 GB) running qwen3.5:9b through Ollama, and three runs gave identical reports.</p>
+        <p>After every scan, Executive Brief&trade; gives the person who signs the check one page: a health score, the risk in plain words, and what the fix costs by hand and with AI, priced at our default rates or, with a Ghost Partner&trade; profile, at yours.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAYS TO BUY -->
+  <section class="solid pad ways" id="ways">
+    <div class="section-head reveal">
+      <p class="label">// ways to get it</p>
+      <h2>Run it yourself, let us run it, or start with a look.</h2>
+      <p class="lede">Two of these are drafts we are still pricing, and they are marked as drafts. The first one is ready for your hardware today.</p>
+    </div>
+    <div class="cards four">
+      <div class="card local-card reveal">
+        <div class="k">Run it yourself &middot; ready today</div>
+        <h3>Ghost Architect&trade; Local: from $80 a month</h3>
+        <p>One fixed price for the whole team, on your hardware and your model. No per-token bill, cancel any time. Convert during the trial and your first month is half price.</p>
+        <a href="download.html" class="btn btn-local-solid">Start the trial &rarr;</a>
+      </div>
+      <div class="card draft reveal">
+        <div class="k">We run it for you <span class="pill draft">Draft</span></div>
+        <h3>Ghost Architect&trade; On Demand (working title)</h3>
+        <p>No install. Point us at a read-only copy of the repository and we deliver the report under your brand. Need it again? Ask, and it runs again. Priced per run: <span class="ph">[PRICE]</span>.</p>
+        <a href="on-demand.html" class="btn btn-ghost">Read the draft &rarr;</a>
+      </div>
+      <div class="card draft reveal">
+        <div class="k">Start with a look <span class="pill draft">Draft &middot; planned</span></div>
+        <h3>Code Snapshot (working title)</h3>
+        <p>A low-cost first look: size, stack, key people, licenses, and what a full review would take and cost. <span class="ph">[PRICE]</span>, credited toward the full review. Planned, not built yet.</p>
+        <a href="snapshot.html" class="btn btn-ghost">Read the draft &rarr;</a>
+      </div>
+      <div class="card reveal" id="open">
+        <span id="hosted"></span>
+        <div class="k blue">One person &middot; your own Anthropic key</div>
+        <h3>Ghost Open&trade;: no license fee</h3>
+        <p>Every Ghost Open&trade; mode, unlimited, for one person. You pay Anthropic for the model calls on your own key, and your code goes to Anthropic. No teams, no white label, no local model.</p>
+        <a href="pricing.html#open" class="btn btn-ghost">Install Ghost Open&trade; &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR (the nav's old "For Agency Teams" link lands here) -->
+  <section class="solid strip" id="for-agency-teams">
+    <div class="row reveal">
+      <div>&#10003; Agencies pricing fixed bids on code they did not write</div>
+      <div>&#10003; Deal advisors screening a target before the LOI</div>
+      <div>&#10003; IP attorneys and experts who need evidence that holds up</div>
+      <div>&#10003; CTOs inheriting a codebase</div>
+      <div>&#10003; Security teams that must say where the code goes</div>
+      <div class="no">&#10005; Greenfield projects on modern stacks</div>
+    </div>
+  </section>
+
+  <!-- GHOST PARTNER -->
+  <section class="solid pad" id="ghost-partner">
+    <div class="section-head reveal">
+      <p class="label">// ghost architect&trade; local &middot; agency and enterprise</p>
+      <h2>Ghost Partner&trade;<br><span style="color: var(--accent); font-weight: 500;">Sell the audit under your own brand, at your own rates.</span></h2>
+      <p class="lede">Your logo on the report, your methodology in the summary, your billing rates in the cost estimates. The findings are Ghost Architect&trade;&rsquo;s; the framing, the priorities and the price are yours. And no client report goes out until you approve it.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><div class="k blue">Your brand</div><h3>Hand the client a report that looks like your firm&rsquo;s work, because the judgment is.</h3><p>Your firm&rsquo;s logo on the PDF header, your brand colors, and your methodology signature in the executive summary.</p></div>
+      <div class="card reveal"><div class="k blue">Your rates</div><h3>The cost to fix, priced at what you actually charge.</h3><p>Override the default tiered billing ($85 / $125 / $200 an hour) with your own junior, mid and senior rates.</p></div>
+      <div class="card reveal"><div class="k blue">Your method</div><h3>OWASP, SANS Top 25 or your own checklist, in every scan.</h3><p>If your firm runs every audit through a framework, the profile makes it part of every report.</p></div>
+      <div class="card reveal"><div class="k blue">Your approval</div><h3>Nothing reaches the client until you say so.</h3><p>The administrator gets an email link to approve, schedule or reject each client report, and every sent report is archived.</p></div>
+    </div>
+    <p class="fine reveal"><strong style="color: var(--text);">Part of Ghost Architect&trade; Local Agency ($1,000 a month, 15 seats) and Enterprise.</strong> Ghost Open&trade; reports always carry Ghost Architect&trade; branding. <a href="pricing.html#local">See Local pricing &rarr;</a></p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="solid faq" id="faq">
+    <div class="wrap">
+      <p class="label reveal">// straight answers</p>
+      <h2 class="reveal" style="margin-bottom: 2rem;">The questions buyers ask first.</h2>
+      <details class="reveal">
+        <summary>What does Ghost Architect&trade; do for my business?</summary>
+        <p>It reads a codebase and tells you what it will cost you: the risks, the conflicts, what a change will break and what fixing it takes, ranked by severity, with the evidence beside each finding. You price, buy, inherit or defend with the facts instead of a guess.</p>
+      </details>
+      <details class="reveal">
+        <summary>Does my code leave the building?</summary>
+        <p>Not with Ghost Architect&trade; Local. The model runs on your machines, and while it analyzes the code nothing about the code leaves the machine. Zero-egress mode, included with every license, refuses every outbound destination at the code level. One activation call sends the license key and an install id, nothing from the codebase. Local also has a Cloud API position, on your own key, for teams that want it: it is off by default, and a project set to Local only never uses it. Ghost Open&trade; is different: it sends code to Anthropic&rsquo;s API on your own key.</p>
+      </details>
+      <details class="reveal">
+        <summary>Is a local model as good as a frontier model?</summary>
+        <p>No, and we will not pretend it is. What we promise is that Ghost Architect&trade; does not let the model claim what it cannot back: findings are checked against the source before they reach the page, every report states how many files it read, and a verdict that hangs on one severity word says so. The CodeExam and playwright-php reports above show what that looks like when the code&rsquo;s own maintainers check it.</p>
+      </details>
+      <details class="reveal">
+        <summary>What does it cost?</summary>
+        <p>$80, $400, $1,000 or $2,000 a month for 1, 5, 15 or unlimited seats. No per-token bill, cancel any time, and the first month is half price when you convert during the trial. <a href="pricing.html">See what each tier includes.</a></p>
+      </details>
+      <details class="reveal">
+        <summary>What is Ghost Brief&trade;?</summary>
+        <p>The step that turns findings into fixes. After a scan, Ghost Brief&trade; gives your coding assistant (Claude Code, Cursor, Copilot or any other) a fix plan for each finding: what to change, which files to touch, which to leave alone, safest changes first. Ghost Architect&trade; never writes or changes your code. Your team reviews and ships.</p>
+      </details>
+      <details class="reveal">
+        <summary>What languages and platforms does it support?</summary>
+        <p>Any codebase, any language, any platform: PHP, JavaScript, TypeScript, Python, Ruby, Java and the rest. It reads code structure, dependency relationships, configuration files and integration patterns whatever stack you run.</p>
+      </details>
+      <details class="reveal">
+        <summary>How is this different from a linter or static analysis?</summary>
+        <p>Linters catch syntax and style. Static analysis tools find known vulnerability patterns. Ghost Architect&trade; answers the questions that decide money: how the parts of the system depend on each other, where integrations are fragile, what a change will reach, and what a senior architect would flag on day one. It is not a CVE scanner, so keep the one you have.</p>
+      </details>
+      <details class="reveal">
+        <summary>Can I use it on a client&rsquo;s private repository?</summary>
+        <p>Yes. Ghost Architect&trade; Local reviews a copy on your own machine, so the analysis never leaves it. Ghost Open&trade; clones private GitHub, GitLab and Bitbucket repositories with a personal access token and removes the clone when it is done; the code goes to Anthropic on your key.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="solid final">
+    <div class="reveal">
+      <p class="label teal">// start</p>
+      <h2>Know what the code will cost you<br>before you sign.</h2>
+      <div class="hero-cta">
+        <a href="download.html" class="btn btn-local-solid">Start the Ghost Architect&trade; Local trial</a>
+        <a href="pricing.html" class="btn btn-ghost">See pricing &rarr;</a>
+        <a href="pricing.html#open" class="btn btn-ghost">Ghost Open&trade; for one person &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; <a href="support.html">Support</a> &middot; <a href="/privacy.html">Privacy Policy</a> &middot; <a href="/msa.html">Terms of Service</a></span>
+</footer>
+
+<script src="ga-nav.js?v=20261029p" defer></script>
+<script>
+  // Quiet text reveals. Falls back to visible if IntersectionObserver is missing.
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+<script src="scene.js" defer></script>
+</body>
+</html>

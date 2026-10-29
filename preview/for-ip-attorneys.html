@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- PREVIEW (2026-10-29, benefit-first rebuild): noindex until EJ approves it. Go-live steps are in CHANGES.md
+       (this page also joins the menu and the sitemap at go-live). -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>An IP watch for your clients&rsquo; code: IP evidence reviews for IP attorneys | Ghost Architect&trade; Local</title>
+  <meta name="description" content="Turn every software client into a monthly IP watch. Ghost Architect&trade; Local runs scheduled IP evidence reviews of copyright holders, licenses, patent mentions and provenance, every finding quoting its line, under your firm&rsquo;s name, on your own hardware." />
+  <link rel="canonical" href="https://ghostarchitect.dev/for-ip-attorneys.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev/for-ip-attorneys.html" />
+  <meta property="og:title" content="An IP watch for your clients&rsquo; code | Ghost Architect&trade; Local for IP attorneys" />
+  <meta property="og:description" content="Find the IP problem in the code before it finds the courtroom. Scheduled IP evidence reviews, every finding quoting its line, under your firm&rsquo;s name." />
+  <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
+  <meta property="og:site_name" content="Ghost Architect&trade;" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="An IP watch for your clients&rsquo; code" />
+  <meta name="twitter:description" content="Scheduled IP evidence reviews for IP attorneys. Every finding quotes its line. Same code, same report. Your firm&rsquo;s name on every page." />
+  <meta name="twitter:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Is the analysis air-gapped if the code comes from my client's repository?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The analysis is. While Ghost Architect™ Local reads and reviews the code, nothing leaves the firm's machine and no AI company or cloud service is involved. Bringing the code from your client to your firm is the one step that crosses a network, over a read-only key your client controls." } },
+      { "@type": "Question", "name": "Does an AI model write the findings?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. The provenance inventory is read straight from the files with no model at all, and each finding is written by Ghost Architect™ Local from lines it has checked. No sentence in the report is the AI model's own wording." } },
+      { "@type": "Question", "name": "Will the same code give the same report?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The same codebase on the same build gives the same report every time, so when two reviews differ, the code changed. In our own test, three runs on the same build came back identical." } },
+      { "@type": "Question", "name": "Can the reports carry our firm's name?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. With a Ghost Partner™ profile the report carries your firm's name and your methodology instead of ours. We set up the IP review profile with you." } },
+      { "@type": "Question", "name": "Does it replace a full open source audit before an acquisition?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. It reads what the files declare. It does not compare the code against a database of open source projects, so it will not find code copied with its license notice removed. It is the review your firm runs every week, and it says plainly what it read." } }
+    ]
+  }
+  </script>
+  <meta name="theme-color" content="#0a0a0f" />
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <!-- The calculator styles (.roi, .roi-in, .roi-out) moved into the preview site.css so the agency and pricing calculators share them. -->
+  <link rel="stylesheet" href="site.css?v=20261029p" />
+  <style>
+    #roi .fine { max-width: 1100px; margin: 1rem auto 0; }
+  </style>
+</head>
+<body data-product="local">
+
+<canvas id="lattice" aria-hidden="true" data-variant="local"></canvas>
+
+<div id="ga-nav-mount"></div>
+
+<main>
+
+  <!-- 0 · HERO -->
+  <section class="hero" id="ip-attorneys" data-phase="0">
+    <div class="hero-inner">
+      <div class="version-badge"><b>Ghost Architect&trade; Local</b> &nbsp;&middot;&nbsp; for IP attorneys and the experts they retain</div>
+      <h1>Find the IP problem in the code before it finds the courtroom.<br><em>Under your firm&rsquo;s name.</em></h1>
+      <p class="hero-sub">Turn every software client into a standing monthly service. Ghost Architect&trade; Local reviews your clients&rsquo; code on the schedule you set and writes an IP evidence review: every copyright holder, every license, every patent mention, every place the code says it came from, and every place those do not line up. Each finding quotes the exact line. The analysis runs on your firm&rsquo;s own hardware, and no AI company ever sees the code.</p>
+      <p class="hero-accent" style="color: var(--local);">A watch service for software, the way your firm already watches trademarks.</p>
+      <div class="hero-cta">
+        <a href="contact.html?platform=local&amp;topic=ip-sample" class="btn btn-local-solid">Ask for the sample IP evidence review</a>
+        <a href="#roi" class="btn btn-local">See what it earns your firm</a>
+        <a href="download.html" class="btn btn-ghost">Start your firm&rsquo;s trial &rarr;</a>
+      </div>
+      <div class="hero-strip">
+        <span>Evidence that quotes its source line</span>
+        <span>Same code, same report: it holds up when challenged</span>
+        <span>Your firm&rsquo;s work product, under your name</span>
+        <span>Client code no AI company ever sees</span>
+      </div>
+    </div>
+    <div class="scroll-hint">scroll</div>
+  </section>
+
+  <!-- THE RETURN -->
+  <section class="solid pad" id="roi">
+    <div class="section-head reveal">
+      <p class="label local">// what it earns your firm</p>
+      <h2>Turn every software client into a monthly retainer.</h2>
+      <p class="lede">Each client&rsquo;s review runs on schedule, unattended. When the report is ready, Ghost Architect&trade; Local emails you a link; you approve, schedule or reject it, and only then does it go to the client. Approving a routine report takes about a quarter of an hour, by our estimate. Your firm bills for the standing service. Put in your own numbers:</p>
+    </div>
+    <div class="roi reveal">
+      <form class="roi-in" id="roi-form" novalidate>
+        <label>Clients on a watch <input type="text" id="roi-clients" value="10" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Your monthly fee per client (US$) <input type="text" id="roi-fee" value="500" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Reviews per client per month <input type="text" id="roi-reviews" value="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Your minutes per review <input type="text" id="roi-minutes" value="15" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <button type="submit" class="btn btn-local-solid roi-go">Calculate</button>
+      </form>
+      <div class="roi-out" id="roi-out" aria-live="polite" tabindex="-1">
+        <div><span class="v" id="roi-revenue">$5,000</span><span class="k">billed each month</span></div>
+        <div><span class="v" id="roi-hours">10 hours</span><span class="k">of attorney time each month</span></div>
+        <div><span class="v" id="roi-net">$4,000</span><span class="k">after the $1,000 Agency license</span></div>
+        <div><span class="v" id="roi-rate">$400</span><span class="k">per hour of attorney time, after the license</span></div>
+      </div>
+    </div>
+    <p class="fine reveal">The numbers above are an example; put in your own. The 15 minutes per review is our estimate, not a measurement. Your fee is yours to set. How many clients one machine can review depends on the size of their code and on your hardware: Ghost Architect&trade; Local measures its own speed on your machine and gives you the basis for every time estimate before you commit.</p>
+  </section>
+
+  <!-- THE STORY -->
+  <section class="story">
+    <div class="wrap reveal">
+      <p class="big">Most software IP disputes start years before anyone files. <em>In a file nobody read.</em></p>
+      <p>A copied library with someone else&rsquo;s copyright line. A license file that no longer matches the code that points to it. A patent mention in a comment. None of it is hidden; it is simply never read until it is evidence.</p>
+      <p>The problem is growing. Black Duck&rsquo;s 2026 Open Source Security and Risk Analysis <a href="https://www.blackduck.com/blog/open-source-trends-ossra-report.html" rel="noopener" target="_blank">found license conflicts in 68% of the 947 commercial codebases it audited</a>, up from 56% a year earlier, the largest one-year jump in the report&rsquo;s history, and points to AI coding assistants that reproduce open source code without its license.</p>
+      <p class="big" style="margin-top: 1.6rem;">Today you see the code when the dispute arrives. <em>Now you can see it every week.</em></p>
+    </div>
+  </section>
+
+  <!-- 1 · THE WATCH -->
+  <section class="chapter phase" id="ip-watch" data-phase="1">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label local">// an IP watch for client code</p>
+        <h2>An ongoing service for your clients, not only a day in court.</h2>
+        <p>Offer each software client a standing review of its own code. Ghost Architect&trade; Local does the reading; your firm does the counseling, and bills for it, before anything reaches a courtroom.</p>
+        <ul class="items">
+          <li class="local"><span class="n">01</span><div><h3>A retainer that runs itself</h3><p class="t">Set each client&rsquo;s review daily or weekly. It runs unattended on your firm&rsquo;s machine, and you see it only when it is ready for your approval.</p></div></li>
+          <li class="local"><span class="n">02</span><div><h3>Same code, same report</h3><p class="t">The review reads the files, not a model&rsquo;s opinion of them, so the same code on the same build gives the same report every time. When two reports differ, the code changed.</p></div></li>
+          <li class="local"><span class="n">03</span><div><h3>Facts your client can act on</h3><p class="t">No legal conclusions, no scores and no remediation costs. What the files say, line by line, with the conclusions left to you.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · THE REVIEW -->
+  <section class="chapter phase right" id="ip-evidence-review" data-phase="2">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label amber">// what the review reads</p>
+        <h2>The IP evidence review.</h2>
+        <ul class="items">
+          <li class="local"><span class="n">01</span><div><h3>Every copyright holder, license and patent mention, found before you open the report</h3><p class="t">The reading your associates would otherwise do by hand comes straight from the files, with no AI model involved: every copyright holder and the years each is named with, the license of every file, patent mentions, lines that say where code came from, and license files that do not line up with the code that points to them.</p></div></li>
+          <li class="amber"><span class="n">02</span><div><h3>Findings that quote their line</h3><p class="t">Each finding names the file and the line and quotes it. Ghost Architect&trade; Local writes every finding itself from lines it has checked. No sentence in the report is the AI model&rsquo;s own wording.</p></div></li>
+          <li><span class="n">03</span><div><h3>It does not cry wolf on code that discloses itself</h3><p class="t">Each finding carries a rating. When the code openly states the very thing a finding is about, the rating is capped at MEDIUM rather than raised as an alarm.</p></div></li>
+        </ul>
+        <p class="foot"><b>Repeatable, and measured.</b> An IP evidence review of a 16-file open source library took 32 minutes 29 seconds on a MacBook Air (Apple M3, 24 GB) running qwen3.5:9b through Ollama. Three runs on the same build came back identical, and we checked every line of every run.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · WHERE THE CODE GOES -->
+  <section class="chapter phase center" id="where-the-code-goes" data-phase="3">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label local">// where the code goes</p>
+        <div class="quote">To your firm. <span style="color: var(--local);">And no further.</span></div>
+        <p>Your IT keeps a read-only copy of each client&rsquo;s repository on the firm&rsquo;s machine. Ghost Architect&trade; Local reviews that copy with every outbound connection switched off at the code level, using a model that runs on hardware you own. No AI company, no cloud service and no other client ever sees the code.</p>
+        <p>Air-gapped here means the analysis: while Ghost Architect&trade; Local reads and reviews the code, nothing leaves the machine. Bringing the code from your client to your firm is the one step that crosses a network, over a read-only key your client controls and can revoke at any time.</p>
+        <p>For the client whose code may not leave its own building at all, the same review runs on the client&rsquo;s machine instead, and only the report comes to you. <a href="security.html#local">How zero egress works &rarr;</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · WHAT IT DOES NOT DO -->
+  <section class="chapter phase right" id="what-it-does-not-do" data-phase="4">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label">// what it checks, and what it does not</p>
+        <h2>We will always tell you what it can and cannot do.</h2>
+        <ul class="items">
+          <li class="local"><span class="n">01</span><div><h3>It reads what the files declare</h3><p class="t">Copyright lines, license texts and identifiers, notices, patent mentions, and the comments that say where code came from, across every file in the tree.</p></div></li>
+          <li class="red"><span class="n">02</span><div><h3>It does not match code against the world&rsquo;s open source</h3><p class="t">It does not compare your client&rsquo;s code against a database of open source projects, so it will not catch code copied with its license notice removed. Tools built on such a database can. It is also not a CVE scanner, and it does not analyze binaries or compare two codebases.</p></div></li>
+          <li><span class="n">03</span><div><h3>It does not draw legal conclusions</h3><p class="t">It records what the files say. Whether that is infringement, a license breach or nothing at all is your judgment, and the report leaves room for it.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR THE FIRM -->
+  <section class="solid pad" id="for-the-firm">
+    <div class="section-head reveal">
+      <p class="label local">// for the firm</p>
+      <h2>Built for the way a firm works.</h2>
+      <p class="lede">One installation at the firm, one project for each client, and reports that read as your work product.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><div class="k">Your name, not ours</div><h3>Every report carries your firm and your methodology</h3><p>With a Ghost Partner&trade; profile the report is branded as your firm&rsquo;s, with places for the firm name, the attorney or expert, and the case caption. We set up the IP review profile with you.</p></div>
+      <div class="card reveal"><div class="k">Many clients, kept apart</div><h3>One installation, a project for each client</h3><p>Each client&rsquo;s code is its own project with its own report profile, and each project can be held to Local only, so one client&rsquo;s work never mixes with another&rsquo;s.</p></div>
+      <div class="card reveal"><div class="k">Defensible</div><h3>The same code gives the same report</h3><p>Run it again next month on the same build and you get the same pages. A difference between two reviews is a change in the code, not in the tool, and a rerun on the same code and the same build gives the same answer.</p></div>
+      <div class="card reveal"><div class="k">The new AI clauses</div><h3>Built for orders that limit AI tools</h3><p>Since 2025, federal courts in Minnesota, Kansas, Colorado and Nebraska have written AI limits into protective orders (<a href="https://ktslaw.com/en/insights/alert/2026/5/protective%20orders%20in%20the%20age%20of%20generative%20ai%20best%20practices%20for%20safeguarding%20confidential%20information" target="_blank" rel="noopener">Kilpatrick Townsend</a>; <a href="https://hddlawfirm.com/news/2026/10/20/before-you-feed-the-other-sides-documents-to-ai-read-the-protective-order" target="_blank" rel="noopener">HDD Law</a>). The provenance inventory uses no AI model at all, and the rated findings come from a model on your own hardware, with no outside AI provider to receive, keep or train on anything. Whether a given order allows it is counsel&rsquo;s call.</p></div>
+      <div class="card reveal"><div class="k">Records</div><h3>Evidence of what was reviewed, and when</h3><p>A compliance ledger with a row for every review, who ran it and on what; signed CSV and PDF exports; and a hash-chained audit log the product verifies in front of you.</p></div>
+      <div class="card reveal"><div class="k">Fits your systems</div><h3>Plugs into your firm&rsquo;s own systems</h3><p>Start a review from your own tools through the REST API, and send findings by webhook wherever your firm tracks matters.</p></div>
+      <div class="card reveal"><div class="k">A fixed cost</div><h3>No per-token bill, no meter</h3><p>One monthly license, sized to the firm. A review you run again costs time on machines you already own, not another line on an invoice. License it for the month of a matter and stop when it closes, if that suits you better.</p></div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="solid pad" id="pricing">
+    <div class="section-head reveal">
+      <p class="label local">// pricing</p>
+      <h2>Agency is the tier made for firms.</h2>
+      <p class="lede">Ghost Partner&trade; profiles and white-labeled reports come with Agency and Enterprise. Start your firm&rsquo;s trial; convert during it and your first month of Agency is $500.</p>
+    </div>
+    <div class="tiers reveal">
+      <div class="tier hi"><div class="name">Agency</div><div class="price">$1,000</div><div class="unit">per month</div><div class="seats">15 seats &middot; Ghost Partner&trade; profiles</div></div>
+      <div class="tier"><div class="name">Enterprise</div><div class="price">$2,000</div><div class="unit">per month</div><div class="seats">Unlimited seats</div></div>
+    </div>
+    <p class="fine reveal">Prices in USD, monthly, cancel any time. <a href="pricing.html#local">Full pricing and what each tier includes.</a> Not ready to install? We are preparing a done-for-you version that runs IP evidence reviews first: <a href="on-demand.html">Ghost Architect&trade; On Demand</a> <span class="pill draft">Draft, not offered yet</span></p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="solid faq" id="faq">
+    <div class="wrap">
+      <p class="label reveal">// questions attorneys ask first</p>
+      <h2 class="reveal" style="margin-bottom: 2rem;">Questions attorneys ask first.</h2>
+      <details class="reveal">
+        <summary>Is the analysis air-gapped if the code comes from my client&rsquo;s repository?</summary>
+        <p>The analysis is. While Ghost Architect&trade; Local reads and reviews the code, nothing leaves the firm&rsquo;s machine, and no AI company or cloud service is involved. Bringing the code from your client to your firm is the one step that crosses a network, over a read-only key your client controls. For a client whose code may not leave its building at all, the review runs on the client&rsquo;s machine and only the report comes to you.</p>
+      </details>
+      <details class="reveal">
+        <summary>Does an AI model write the findings?</summary>
+        <p>No. The provenance inventory is read straight from the files with no model at all, and each finding is written by Ghost Architect&trade; Local from lines it has checked. No sentence in the report is the AI model&rsquo;s own wording.</p>
+      </details>
+      <details class="reveal">
+        <summary>Will the same code give the same report?</summary>
+        <p>Yes. The same codebase on the same build gives the same report every time. When two reviews differ, the code changed. In our own test, three runs on the same build came back identical.</p>
+      </details>
+      <details class="reveal">
+        <summary>Can the reports carry our firm&rsquo;s name?</summary>
+        <p>Yes. With a Ghost Partner&trade; profile the report carries your firm&rsquo;s name and your methodology instead of ours. We set up the IP review profile with you.</p>
+      </details>
+      <details class="reveal">
+        <summary>We retain forensic experts. Is this useful to them?</summary>
+        <p>As the orientation pass, yes: it shows where the copyright notices, licenses and &ldquo;ported from&rdquo; comments sit, and which files carry the risk, so an expert&rsquo;s hours (and any printing limit in a source code protocol) go to the right files. It does not compare two codebases, and installing it on a review computer needs whatever approval the protective order requires.</p>
+      </details>
+      <details class="reveal">
+        <summary>Does it replace a full open source audit before an acquisition?</summary>
+        <p>No. It reads what the files declare; it does not compare the code against a database of open source projects, so it will not find code copied with its license notice removed. Use it as the review your firm runs every week, alongside a database audit when a deal calls for one.</p>
+      </details>
+      <details class="reveal">
+        <summary>What does the firm need to run it?</summary>
+        <p>A machine running macOS, Linux or Windows with enough memory for a local model, and a model server on that machine or your network: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. The product measures its own speed on your hardware and states the basis of every time estimate it gives. We can walk through the install with you on a call.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="solid final">
+    <div class="reveal">
+      <p class="label local">// start</p>
+      <h2>See it on code you know.</h2>
+      <p class="lede" style="margin: 1rem auto 0;">Start your firm&rsquo;s trial. Convert during it and your first month of Agency is $500.</p>
+      <div class="hero-cta">
+        <a href="contact.html?platform=local&amp;topic=ip-sample" class="btn btn-local-solid">Ask for the sample IP evidence review</a>
+        <a href="download.html" class="btn btn-ghost">Start your firm&rsquo;s trial</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; <a href="local.html">Local</a> &middot; <a href="pricing.html#local">Pricing</a> &middot; <a href="download.html">Download</a> &middot; <a href="security.html#local">Security</a> &middot; <a href="support.html?platform=local">Support</a> &middot; <a href="/privacy.html">Privacy Policy</a> &middot; <a href="/msa.html">Terms of Service</a></span>
+</footer>
+
+<script src="ga-nav.js?v=20261029p" defer></script>
+<script>
+  // Quiet text reveals. Falls back to visible if IntersectionObserver is missing.
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+
+  // The return, worked out from the numbers the visitor types. Example defaults only.
+  (function () {
+    var LICENSE = 1000;
+    function num(id, lo, hi) { var v = parseFloat(String(document.getElementById(id).value).replace(/[^0-9.]/g, '')); if (!isFinite(v)) v = 0; return Math.min(hi, Math.max(lo, v)); }
+    function money(v) { return (v < 0 ? '-$' : '$') + Math.round(Math.abs(v)).toLocaleString('en-US'); }
+    function update() {
+      var clients = num('roi-clients', 0, 500), fee = num('roi-fee', 0, 100000), reviews = num('roi-reviews', 0, 31), minutes = num('roi-minutes', 0, 240);
+      var revenue = clients * fee, hours = clients * reviews * minutes / 60, net = revenue - LICENSE;
+      document.getElementById('roi-revenue').textContent = money(revenue);
+      document.getElementById('roi-hours').textContent = (Math.round(hours * 10) / 10).toLocaleString('en-US') + (hours === 1 ? ' hour' : ' hours');
+      document.getElementById('roi-net').textContent = money(net);
+      document.getElementById('roi-rate').textContent = hours > 0 ? money(net / hours) : 'n/a';
+    }
+    ['roi-clients', 'roi-fee', 'roi-reviews', 'roi-minutes'].forEach(function (id) {
+      var el = document.getElementById(id); if (!el) return;
+      el.addEventListener('input', update);
+      el.addEventListener('change', update);
+      // Typing replaces the example number instead of adding to it. Selected on
+      // focus and again on the tap that focused it, which a phone needs.
+      var fresh = false;
+      el.addEventListener('focus', function () { fresh = true; try { el.select(); } catch (e) {} });
+      el.addEventListener('click', function () { if (fresh) { fresh = false; try { el.select(); } catch (e) {} } });
+      el.addEventListener('blur', function () { fresh = false; });
+    });
+    var form = document.getElementById('roi-form');
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      update();
+      // Put the keyboard away and bring the results into view, which matters on a phone.
+      if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+      var out = document.getElementById('roi-out');
+      if (out) { out.scrollIntoView({ behavior: 'smooth', block: 'center' }); try { out.focus({ preventScroll: true }); } catch (err) {} }
+    });
+    if (document.getElementById('roi-clients')) update();
+  })();
+</script>
+<script src="scene.js" defer></script>
+</body>
+</html>

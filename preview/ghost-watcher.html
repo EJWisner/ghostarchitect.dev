@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- PREVIEW (2026-10-29, benefit-first rebuild): noindex until EJ approves it. Go-live steps are in CHANGES.md. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Ghost Watcher&trade;: catch the risky change before it merges | Ghost Architect&trade; Local</title>
+  <meta name="description" content="Every commit checked in Ghost Architect&trade; Local, with no per-commit bill: the Ghost Triple Crown&trade; on a pre-push hook, Ghost Watcher&trade; Local on a webhook from your own git server, or your own CI runner. It warns; it never holds your team hostage." />
+  <meta property="og:title" content="Ghost Watcher&trade;: catch the risky change before it merges" />
+  <meta property="og:description" content="Every commit checked, on your own hardware and model, with no per-commit bill." />
+  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev/ghost-watcher.html" />
+  <meta property="og:site_name" content="Ghost Architect&trade;" />
+  <link rel="canonical" href="https://ghostarchitect.dev/ghost-watcher.html" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css?v=20261029p" />
+  <style>
+    .band[id] { scroll-margin-top: calc(var(--nav-h) + 1rem); }
+    .band > .lede { max-width: 68ch; }
+    .band .hero-cta { justify-content: flex-start; }
+    .lede strong, .items strong, .callout strong, table.cmp strong, .card strong { color: var(--text); font-weight: 600; }
+    .items code, .fine code, .card code { font-family: var(--font-mono); font-size: 0.86em; color: var(--text); background: rgba(255,255,255,0.06); padding: 0.08rem 0.4rem; border-radius: 4px; white-space: nowrap; }
+    .page-hero .figure { max-width: 760px; margin: 2.4rem 0 0; }
+    .page-hero .figure figcaption { margin: 0 0 0.5rem; }
+    pre.term { margin: 0; font-size: 0.8rem; line-height: 1.8; }
+    pre.term .t-dim { color: var(--text-dim); }
+    pre.term .t-cyan { color: var(--accent2); }
+    pre.term .t-green { color: var(--accent2); }
+    pre.term .t-orange { color: var(--warning); }
+    pre.term .t-white { color: var(--text); }
+    pre.term .t-red { color: var(--danger); }
+    .crown { text-align: center; }
+    .crown > .lede { margin-left: auto; margin-right: auto; }
+    .crown .card .price { color: var(--accent2); font-family: var(--font-mono); font-size: 2.6rem; margin: 0; }
+    .crown .card h3 { font-size: 1.15rem; margin-top: 0.8rem; }
+    .crown .callout { text-align: left; }
+    .setup { max-width: 820px; }
+    .setup .n { font-size: 0.95rem; }
+    .final .lede { margin-left: auto; margin-right: auto; }
+    .final .hero-cta { justify-content: center; }
+    .final { text-align: center; }
+  </style>
+</head>
+<body data-product="local">
+
+<canvas id="lattice" aria-hidden="true" data-ambient></canvas>
+
+<div id="ga-nav-mount"></div>
+
+<main class="page">
+
+  <!-- HERO -->
+  <header class="page-hero">
+    <p class="eyebrow teal">// Ghost Watcher&trade; &middot; Ghost Architect&trade; Local</p>
+    <h1>Catch the risky change before it merges,<br><em>not after it ships.</em></h1>
+    <p class="lede">On every commit, the Ghost Triple Crown&trade; shows what the change reaches (Blast Radius&trade;), what it contradicts (Conflict Detection&trade;) and what to do about it (Ghost Brief&trade;), with a commit risk score your reviewers can sort by. It runs three ways, all inside your own network, on your own model, with no per-commit bill.</p>
+    <div class="hero-cta">
+      <a href="download.html" class="btn btn-local-solid">Start the trial: first month half price when you convert</a>
+      <a href="pricing.html#local" class="btn btn-ghost">Local pricing</a>
+    </div>
+    <figure class="figure">
+      <figcaption>git push &middot; the pre-push hook (illustration)</figcaption>
+      <pre class="code term"><span class="t-dim">$</span> <span class="t-white">git push</span>
+
+<span class="t-cyan">Ghost Triple Crown&trade; analyzing your changes...</span>
+<span class="t-dim">  Running Blast Radius&trade;...</span>
+<span class="t-dim">  Running Conflict Detection&trade;...</span>
+<span class="t-dim">  Synthesizing Ghost Brief&trade;...</span>
+
+<span class="t-green">Ghost Triple Crown&trade;: CLEAR</span>
+<span class="t-white">Blast Radius&trade;: 3 files affected, LOW</span>
+<span class="t-white">Conflict Detection&trade;: 0 conflicts</span>
+<span class="t-white">Ghost Brief&trade;: 1 recommendation</span>
+<span class="t-green">&#10004; Pushing...</span></pre>
+    </figure>
+  </header>
+
+  <!-- GHOST TRIPLE CROWN -->
+  <section class="band solid-band crown" id="ghost-triple-crown">
+    <h2>Ghost Triple Crown&trade;</h2>
+    <p class="lede">Three passes. One complete picture. On every commit.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="price">01</div>
+        <h3>Blast Radius&trade;</h3>
+        <p>Every file the change reaches, before it merges. Reviewers start with the map instead of building it.</p>
+      </div>
+      <div class="card">
+        <div class="price">02</div>
+        <h3>Conflict Detection&trade;</h3>
+        <p>Where two sides of the codebase now expect different things. Catch the contract mismatch before production does.</p>
+      </div>
+      <div class="card">
+        <div class="price">03</div>
+        <h3>Ghost Brief&trade;</h3>
+        <p>A fix plan for every finding, ready for Claude Code, Cursor, Copilot or the assistant you already use.</p>
+      </div>
+    </div>
+    <div class="callout teal">
+      <p><strong>It warns. It never holds your team hostage.</strong> When the hook finds something CRITICAL or HIGH, it lists the findings and asks whether to push anyway. It never blocks work for its own reasons: if the model is not answering or the analysis runs past ten minutes, it says so and lets the push through.</p>
+    </div>
+  </section>
+
+  <!-- THREE WAYS -->
+  <section class="band" id="three-ways">
+    <p class="eyebrow teal">// three ways to check every commit</p>
+    <h2>Before the push. After the push. From your CI.</h2>
+    <p class="lede">Pick one or use all three. Each runs on your hardware, against your model.</p>
+    <div class="cards">
+      <div class="card"><div class="k teal">01 &middot; BEFORE THE PUSH</div><h3>Stop the risky change at the developer&rsquo;s desk</h3><p>On a developer&rsquo;s machine, choose <strong>Ghost Triple Crown&trade; Pre-Push Analysis</strong>, then <strong>Enable for a Repository</strong>. From then on, every <code>git push</code> runs the Ghost Triple Crown&trade; on the changed files first, and asks before a high-risk change leaves the machine.</p></div>
+      <div class="card"><div class="k teal">02 &middot; AFTER THE PUSH</div><h3>Cover every repository without asking a developer to install anything</h3><p>Ghost Watcher&trade; Local scans on the hub every time someone pushes to a repository on your own git server. It works with GitHub Enterprise Server, GitLab (self-managed), Bitbucket Server, Gitea and Forgejo. Each push is checked against your git server&rsquo;s signature before anything in it is trusted, and on GitHub Enterprise Server the hub can post each commit&rsquo;s risk score back as a comment on the commit.</p></div>
+      <div class="card"><div class="k teal">03 &middot; FROM YOUR CI</div><h3>Wire it into the pipeline you already run</h3><p>A CI runner inside your network (Jenkins, GitLab Runner, a self-hosted GitHub Actions runner, anything that can run a command) starts scans with <code>ghost --no-interactive</code>, or through the hub&rsquo;s REST API with a scan-control key. The build gets a pass or fail and a findings file to act on.</p></div>
+    </div>
+    <div class="callout teal">
+      <p><strong>Why not a cloud-hosted runner?</strong> A runner hosted by GitHub, GitLab or another cloud service runs outside your network and cannot reach the model on your own hardware, so Ghost Architect&trade; Local does not use one. That is the point: the code and the model stay on your machines.</p>
+    </div>
+  </section>
+
+  <!-- SETUP -->
+  <section class="band">
+    <p class="eyebrow teal">// setup</p>
+    <h2>Ghost Watcher&trade; Local in four steps.</h2>
+    <p class="lede">On the hub, in the Admin Console. Your git server sends a webhook; the hub does the rest.</p>
+    <ul class="items setup">
+      <li><span class="n">1</span><div><h3>Enable the Watcher</h3><p class="t">On the hub, open <strong>Admin Console, Ghost Watcher&trade; Local</strong> and choose <strong>Enable Watcher</strong>. The screen shows the webhook URL.</p></div></li>
+      <li><span class="n">2</span><div><h3>Make a webhook secret</h3><p class="t">Choose <strong>Regenerate Webhook Secret</strong> and copy the secret it shows. It is shown once.</p></div></li>
+      <li><span class="n">3</span><div><h3>Add the repository</h3><p class="t">Under <strong>Manage Watched Repositories</strong>, give the repository&rsquo;s name as your git server writes it and the folder on the hub where a checkout of it lives.</p></div></li>
+      <li><span class="n">4</span><div><h3>Point your git server at the hub</h3><p class="t">On your git server, add a webhook for push events to that URL, with that secret. Each push is then scanned on the hub&rsquo;s own queue, and its report lands with every other.</p></div></li>
+    </ul>
+  </section>
+
+  <!-- COST -->
+  <section class="band">
+    <p class="eyebrow teal">// cost</p>
+    <h2>Check every commit. Pay the same either way.</h2>
+    <p class="lede">The checks run on your own model, on hardware you own, under one monthly Ghost Architect&trade; Local license, from $80 a month. Checking every commit costs you machine time, not tokens.</p>
+  </section>
+
+  <!-- GET STARTED -->
+  <section class="band final">
+    <p class="eyebrow teal">// get started</p>
+    <h2>Your next commit, checked.</h2>
+    <p class="lede">Ghost Watcher&trade; Local and the pre-push hook are part of Ghost Architect&trade; Local 8.1.1, commercially released. Convert during the trial and your first month is half price.</p>
+    <div class="hero-cta">
+      <a href="download.html" class="btn btn-local-solid">Start the trial &rarr;</a>
+      <a href="pricing.html#local" class="btn btn-ghost">See Local pricing</a>
+    </div>
+    <p class="fine" style="margin-left: auto; margin-right: auto;">Working alone? <a href="pricing.html#open">Ghost Open&trade;</a> has no license fee for one person, and its Commit Forecast&trade; checks your uncommitted changes before you push.</p>
+  </section>
+
+</main>
+
+<footer>
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; <a href="support.html?platform=local">Support</a> &middot; <a href="/privacy.html">Privacy Policy</a> &middot; <a href="/msa.html">Terms of Service</a></span>
+</footer>
+
+<script src="ga-nav.js?v=20261029p" defer></script>
+<script>
+  // Quiet text reveals. Falls back to visible if IntersectionObserver is missing.
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+<script src="scene.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <!-- PREVIEW (2026-10-29, benefit-first rebuild): noindex until EJ approves it. Go-live steps are in CHANGES.md. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>For agency owners: bid on what is in the code | Ghost Architect&trade;</title>
+  <meta name="description" content="Read the whole codebase before you price the bid. Ghost Architect&trade; Local runs on your machines at a fixed monthly price, so you can scope every prospect and sell the audit under your own brand. Find out on your next bid." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev/for-agency-owners.html" />
+  <meta property="og:title" content="For agency owners: bid on what is in the code, not on a guess" />
+  <meta property="og:description" content="Read the whole codebase before you price it. A fixed monthly price, so you can scope every prospect. Find out on your next bid." />
+  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
+  <meta property="og:site_name" content="Ghost Architect&trade;" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="For agency owners: bid on what is in the code, not on a guess" />
+  <meta name="twitter:description" content="Read the whole codebase before you price it. Find out on your next bid." />
+  <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
+  <link rel="canonical" href="https://ghostarchitect.dev/for-agency-owners.html" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css?v=20261029p" />
+  <style>
+    .band[id] { scroll-margin-top: calc(var(--nav-h) + 1rem); }
+    .band > h2 em, .final h2 em { font-style: normal; color: var(--accent); }
+    #local h2 em { color: var(--local); }
+    .band > .lede { max-width: 68ch; }
+    .band > h2 + .cards, .band > h2 + .prose, .band > .eyebrow + .cards { margin-top: 1.8rem; }
+    .cards + .prose, .cards + .callout, .cards + .cards, .cards + .hero-cta, .prose + .cards, .cards + .eyebrow { margin-top: 1.8rem; }
+    .band .hero-cta { justify-content: flex-start; }
+    .lede strong, .card strong, .callout strong { color: var(--text); font-weight: 600; }
+    .lede a.local-link { color: var(--local); }
+    .problem .price { color: var(--danger); }
+    .roi-line { margin-top: 0.9rem; border-left: 3px solid var(--accent2); padding: 0.5rem 0 0.5rem 0.9rem; font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent2); line-height: 1.5; }
+    .roi-line .num { font-weight: 700; }
+    .roi-line.amber { border-left-color: var(--warning); color: var(--warning); }
+    .calc-title { margin: 2.2rem 0 0; font-size: 1.2rem; }
+    .calc-title:first-of-type { margin-top: 1.6rem; }
+    .card .sub { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.1rem; }
+    .card .badges { margin-bottom: 0.7rem; }
+    .card .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+    .card .actions .btn { margin-top: 0; white-space: normal; }
+    .card.hi-local { border-color: rgba(0, 191, 216, 0.55); box-shadow: 0 0 32px var(--local-dim); }
+    .final .lede { margin-left: auto; margin-right: auto; }
+    .final .hero-cta { justify-content: center; }
+    .final { text-align: center; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "For Agency Owners: Ghost Architect™",
+    "description": "Read the whole codebase before you price the bid, on your own machines, at a fixed monthly price.",
+    "url": "https://ghostarchitect.dev/for-agency-owners.html",
+    "isPartOf": { "@type": "WebSite", "name": "Ghost Architect™", "url": "https://ghostarchitect.dev" }
+  }
+  </script>
+</head>
+<body data-product="local">
+
+<canvas id="lattice" aria-hidden="true" data-ambient></canvas>
+
+<div id="ga-nav-mount"></div>
+
+<main class="page">
+
+  <!-- HERO -->
+  <header class="page-hero">
+    <p class="eyebrow">// for agency owners</p>
+    <h1>Bid on what is in the code.<br><em>Not on a guess.</em></h1>
+    <p class="lede">Every fixed bid you sign on code nobody read is a bet against your own margin. Ghost Architect&trade; Local reads the whole codebase first, on your machines, and hands your seniors findings to judge instead of files to read. One flat monthly price with no per-scan bill, so you can run it on every prospect, including the ones you decide not to bid.</p>
+    <div class="hero-cta">
+      <a href="download.html" class="btn btn-local-solid">Run it on your next bid: start the trial</a>
+      <a href="#math" class="btn btn-local">Run your numbers &darr;</a>
+      <a href="#tiers" class="btn btn-ghost">See plans</a>
+    </div>
+  </header>
+
+  <!-- THE PROBLEM -->
+  <section class="band problem">
+    <p class="eyebrow">// the problem</p>
+    <h2>The margin is lost before the kickoff call.</h2>
+    <p class="lede">It is almost never the team&rsquo;s fault. The team executes. The problem is upstream: somebody priced a contract on a codebase nobody had read. By the time engineering opens the repo, the price is locked, the timeline is signed, and the only variable left is margin.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="price">93%</div>
+        <p>of the 947 commercial codebases Black Duck audited for its 2026 report contained components with no development activity in two years.</p>
+      </div>
+      <div class="card">
+        <div class="price">92%</div>
+        <p>contained components four or more years out of date.</p>
+      </div>
+      <div class="card">
+        <div class="price">68%</div>
+        <p>had open source license conflicts, up from 56% a year earlier.</p>
+      </div>
+    </div>
+    <p class="src">Source: <a href="https://www.blackduck.com/blog/open-source-trends-ossra-report.html" target="_blank" rel="noopener">Black Duck, 2026 Open Source Security and Risk Analysis</a>.</p>
+
+    <div class="prose">
+      <p>Inherited code is where all of that hides, and a fixed bid is where it gets paid for. The senior engineer who would have caught it is on three other engagements. The codebase is someone else&rsquo;s fifty thousand lines. The scoping call is Thursday and the proposal is due Friday. So the number goes out the door from the last engagement, rounded up.</p>
+      <p><strong>Ghost Architect&trade; closes that gap. Same scoping engineer, starting from a finished read of the code instead of a blank repo. Repeatable. Auditable. On a flat monthly license, cheap enough to run on every prospect.</strong></p>
+    </div>
+  </section>
+
+  <!-- EIGHT QUESTIONS -->
+  <section class="band">
+    <p class="eyebrow">// the eight questions</p>
+    <h2>Eight questions every agency owner<br>should be able to answer <em>before signing</em>.</h2>
+    <p class="lede">Most agencies can answer two of these on a good day. Ghost Architect&trade; answers all eight from the code itself, with the evidence beside every answer, before you sign.</p>
+
+    <div class="cards">
+      <div class="card"><div class="k teal">POINTS OF INTEREST</div><h3>What is actually wrong in here?</h3></div>
+      <div class="card"><div class="k teal">BLAST RADIUS&trade;</div><h3>What breaks if we change this?</h3></div>
+      <div class="card"><div class="k teal">CONFLICT DETECTION&trade;</div><h3>Where is the code arguing with itself?</h3></div>
+      <div class="card"><div class="k teal">RECON</div><h3>Should we even bid on this work?</h3></div>
+      <div class="card"><div class="k teal">INHERITANCE AUDIT</div><h3>What did we just inherit?</h3></div>
+      <div class="card"><div class="k teal">CHAT</div><h3>Can I just ask it questions?</h3></div>
+      <div class="card"><div class="k teal">COMPARE</div><h3>Did this get better or worse?</h3></div>
+      <div class="card"><div class="k teal">DASHBOARD</div><h3>Are we trending up or down?</h3></div>
+    </div>
+
+    <div class="callout amber">
+      <p><strong>If you cannot answer these before you bid, you are not bidding. You are gambling.</strong> Walk into the scoping call pointing at specific files, findings and risk levels. The other bids are estimates. Yours shows its work.</p>
+    </div>
+  </section>
+
+  <!-- THE MATH: the buyer's own numbers -->
+  <section class="band" id="math">
+    <p class="eyebrow">// your numbers, not ours</p>
+    <h2>What scoping costs you today,<br>and what one surprise costs you.</h2>
+    <p class="lede">Two calculators, worked out only from what you type. The defaults are examples; put in your own.</p>
+
+    <h3 class="calc-title">1. What reading code to price bids costs you</h3>
+    <div class="roi">
+      <form class="roi-in" id="ra-form" novalidate>
+        <label>Senior rate (US$ an hour) <input type="text" id="ra-rate" value="200" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Senior hours reading code, per bid <input type="text" id="ra-hours" value="10" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Bids priced a month <input type="text" id="ra-bids" value="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Tier
+          <select id="ra-tier">
+            <option value="80|Solo">Solo, $80</option>
+            <option value="400|Small Team">Small Team, $400</option>
+            <option value="1000|Agency" selected>Agency, $1,000</option>
+            <option value="2000|Enterprise">Enterprise, $2,000</option>
+          </select>
+        </label>
+        <button type="submit" class="btn btn-local-solid roi-go">Calculate</button>
+      </form>
+      <div class="roi-out" id="ra-out" aria-live="polite" tabindex="-1">
+        <div class="wide"><span class="say" id="ra-say"></span></div>
+        <div><span class="v" id="ra-cost">$8,000</span><span class="k">of senior time a month, reading code to price bids</span></div>
+        <div><span class="v" id="ra-be">5 hours</span><span class="k">saved a month pays for the license</span></div>
+        <div><span class="v" id="ra-share">13%</span><span class="k">of that reading time</span></div>
+        <div><span class="v" id="ra-first">$500</span><span class="k">your first month when you convert</span></div>
+      </div>
+    </div>
+
+    <h3 class="calc-title">2. What one missed finding does to a fixed bid</h3>
+    <div class="roi">
+      <form class="roi-in" id="rb-form" novalidate>
+        <label>Bid value (US$) <input type="text" id="rb-bid" value="120000" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Planned margin (%) <input type="text" id="rb-margin" value="35" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Cost of one surprise found after signing (US$) <input type="text" id="rb-hit" value="22000" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <button type="submit" class="btn btn-local-solid roi-go">Calculate</button>
+      </form>
+      <div class="roi-out" id="rb-out" aria-live="polite" tabindex="-1">
+        <div class="wide"><span class="say" id="rb-say"></span></div>
+        <div><span class="v" id="rb-planned">$42,000</span><span class="k">margin you planned</span></div>
+        <div><span class="v" id="rb-left">$20,000</span><span class="k">margin left after the surprise</span></div>
+        <div><span class="v" id="rb-lost">52%</span><span class="k">of the margin gone</span></div>
+        <div><span class="v" id="rb-months">22 months</span><span class="k">of Ghost Architect&trade; Local Agency it would have paid for</span></div>
+      </div>
+    </div>
+    <p class="fine">An illustration with hypothetical numbers; put in your own. We do not claim Ghost Architect&trade; finds every surprise. We claim it reads the whole codebase before you price it, and tells you which files it did not read.</p>
+  </section>
+
+  <!-- WHAT CHANGES -->
+  <section class="band" id="roi">
+    <p class="eyebrow">// what changes</p>
+    <h2>Where the money comes from.</h2>
+    <p class="lede">Ghost Architect&trade; Local is $80 a month for one seat, or $1,000 a month for fifteen. Find out on your next bid what one finding found before you sign is worth to you.</p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Bid with confidence, not hope.</h3>
+        <p>Recon sizes the codebase and tells you what a full scan will read and how long it will take, before you spend a senior hour. Points of Interest grades the whole codebase with the evidence beside every red flag, so your seniors review findings instead of hunting for them.</p>
+        <div class="roi-line"><span class="num">Your rate &times; the hours your seniors spend reading code for a bid</span> = what scoping costs you today. Work out yours above.</div>
+      </div>
+
+      <div class="card">
+        <h3>Protect the margin on every engagement.</h3>
+        <p>Surface the unknowns before the SOW is signed, while you can still adjust the price, the scope, or walk away. A finding found in scoping is a line item. The same finding found in sprint two is a write-off.</p>
+        <div class="roi-line"><span class="num">Take your last write-off and divide it by $80.</span> That is how many months of Ghost Architect&trade; Local Solo it would have bought.</div>
+      </div>
+
+      <div class="card">
+        <h3>Win the bids you bid on.</h3>
+        <p>Walking into the scoping call with a report changes the conversation. You are not estimating in the abstract; you are pointing at specific findings, specific files, specific risk levels. Your bid stops being one of three guesses.</p>
+        <div class="roi-line"><span class="num">Charge for the judgment,</span> not the reading.</div>
+      </div>
+
+      <div class="card">
+        <h3>Sell the audit as your own product.</h3>
+        <p>With Ghost Architect&trade; Local Agency and Ghost Partner&trade; profiles, the report carries your logo, your methodology and your billing rates, and the scan runs on your machines with no per-scan bill. Nothing goes to the client until you approve it.</p>
+        <div class="roi-line"><span class="num">Your price, your brand, a flat license cost.</span> You set the margin.</div>
+      </div>
+
+      <div class="card">
+        <h3>Put your logo on the inherited-risk report.</h3>
+        <p>When you take over a client&rsquo;s code, show them what is abandoned, what is out of date and what breaks if you touch it, in a branded report you price into the first invoice. Keep your security scanner; Ghost Architect&trade; is not a CVE scanner. It answers what the scanner cannot: who wrote this, under what license, and what a change will reach.</p>
+        <div class="roi-line"><span class="num">A line item on the first invoice,</span> and a retainer if you run it monthly.</div>
+      </div>
+
+      <div class="card">
+        <h3>Show clients what they bought.</h3>
+        <p>Run it before the engagement, at the midpoint and at the end. Compare Reports, and the Project Dashboard in Ghost Architect&trade; Local, show the client which findings closed, which got worse and which are new.</p>
+        <div class="roi-line"><span class="num">Renewal talks start from evidence,</span> not from adjectives.</div>
+      </div>
+
+      <div class="card">
+        <h3>Ghost Brief&trade;: bill for the fix, not for writing instructions.</h3>
+        <p>Every finding becomes a fix plan your coding assistant can run, safest changes first, with the files it must not touch. Your team reviews and ships.</p>
+        <div class="roi-line amber">Ghost Architect&trade; finds it. <span class="num">Your assistant fixes it.</span> You ship.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEEP IT IN-HOUSE: GHOST ARCHITECT LOCAL -->
+  <section class="band" id="local">
+    <p class="eyebrow local">// when the client code cannot leave the building</p>
+    <h2>Win the NDA clients who ban AI.<br>On hardware <em>you own</em>.</h2>
+    <p class="lede">Some engagements come with an NDA that forbids sending source to any third party, a security questionnaire that asks where the model runs, or a client who will not have their code in anyone&rsquo;s cloud. Say yes to all of them. <strong>Ghost Architect&trade; Local</strong> runs the model on your machines: a hub in the office, spokes on the engineers&rsquo; laptops, one queue for the whole firm, and nothing about the code leaving your network while it works. The current release is 8.1.1.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>Zero egress you can prove, with every license</h3>
+        <p>Turn zero-egress mode on and every outbound destination is refused at the code level. The product prints its own egress inventory, so the answer to &ldquo;where does our code go?&rdquo; is a printout, not a promise.</p>
+      </div>
+      <div class="card">
+        <h3>One monthly license, no meter</h3>
+        <p>Agency is $1,000 a month for 15 seats. No per-token bill, no per-scan cost, no surprise invoice after a big codebase. A bad answer costs you a re-run, not money.</p>
+      </div>
+      <div class="card">
+        <h3>Nothing reaches the client until you approve it</h3>
+        <p>Each client report waits for an administrator to approve, schedule or reject it from an email link, and every sent report is archived.</p>
+      </div>
+      <div class="card">
+        <h3>A ledger for the client report</h3>
+        <p>Every scan that ends is a row: who ran it, which project, when, and how it ended. Exports are CSV or PDF, signed. Hand the client the ledger with the findings.</p>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="download.html" class="btn btn-local-solid">Start the Ghost Architect&trade; Local trial &rarr;</a>
+      <a href="local.html" class="btn btn-ghost">What Local does</a>
+      <a href="/local-walkthrough.html" class="btn btn-ghost">See it running</a>
+    </div>
+  </section>
+
+  <!-- WHO IS THIS FOR -->
+  <section class="band">
+    <p class="eyebrow">// who this is for</p>
+    <h2>If any of these describe you,<br>it is built for your firm.</h2>
+
+    <div class="cards">
+      <div class="card">
+        <div class="k blue">AGENCY FOUNDER</div>
+        <h3>You sign the bids that go out the door.</h3>
+        <p>You know which engagements made money and which ones bled. You have signed contracts you wish you had not. Ghost Architect&trade; is the analyst you would hire if you could afford one, on every bid, at a flat price.</p>
+      </div>
+      <div class="card">
+        <div class="k blue">FRACTIONAL CTO</div>
+        <h3>You audit codebases for buyers, PE and acquirers.</h3>
+        <p>Your rate is high and your time is the bottleneck. Run the scan, review the findings, write the executive summary, deliver the engagement. Charge for the judgment, not the reading.</p>
+      </div>
+      <div class="card">
+        <div class="k blue">PRACTICE LEAD</div>
+        <h3>You run an Adobe Commerce, Magento or WordPress practice.</h3>
+        <p>Your senior engineers are the bottleneck on every scoping call. Ghost Architect&trade; runs the first pass so they weigh in only on the findings that matter. Proposals go out faster, and your seniors stop being a single point of failure on bids.</p>
+      </div>
+      <div class="card">
+        <div class="k blue">AGENCY CEO</div>
+        <h3>You have eight to fifty engineers shipping client work.</h3>
+        <p>Margin is the number you watch. Ghost Architect&trade; Local Small Team is five seats at $400 a month, and Local Agency is fifteen seats at $1,000, with one hub and one queue for the firm. Every scoping call gets a report. Every senior reviews findings instead of generating them.</p>
+      </div>
+      <div class="card">
+        <div class="k blue">INDEPENDENT CONSULTANT</div>
+        <h3>You sell expertise, not bodies.</h3>
+        <p>Your difference is judgment. A Ghost Partner&trade; profile in Ghost Architect&trade; Local loads your methodology into every scan, so your judgment arrives as a service, not an opinion. Clients hire you for the framing; the report comes with the engagement.</p>
+      </div>
+      <div class="card">
+        <div class="k blue">PE / M&amp;A ADVISOR</div>
+        <h3>You do technical due diligence on acquisitions.</h3>
+        <p>Inheritance Audit is built for you: stack reality, key-person risk, hidden dependencies and a 90-day roadmap, run inside the target&rsquo;s building if the code cannot leave. <a href="inheritance-audit.html">See the diligence read &rarr;</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJECTIONS -->
+  <section class="band">
+    <p class="eyebrow">// honest answers</p>
+    <h2>The questions you are actually thinking right now.</h2>
+
+    <div class="prose">
+      <h3>Does this replace my senior engineers?</h3>
+      <p>No. It makes them more valuable. Ghost Architect&trade; surfaces the findings; your senior engineers decide what matters. The judgment, the architecture and the remediation stay human. It takes over the part of the job that should never have been senior work: reading fifty thousand lines of someone else&rsquo;s code at one in the morning before a scoping call.</p>
+
+      <h3>Is my client&rsquo;s code uploaded to your servers?</h3>
+      <p><strong>No. We run no server that receives your client&rsquo;s code.</strong> With Ghost Architect&trade; Local the analysis runs on your machines and nothing about the code leaves them while it works; zero-egress mode, included with every license, proves it with a printout. With Ghost Open&trade;, the single-user CLI, code goes from your machine to Anthropic&rsquo;s API on your own key, under Anthropic&rsquo;s own data policy.</p>
+
+      <h3>How does this compare to CodeRabbit, Kodus or other AI PR review tools?</h3>
+      <p>Different moment, different buyer. <strong>AI PR review tools live inside your team&rsquo;s Git workflow</strong> and comment on pull requests after the engagement has started. <strong>Ghost Architect&trade; runs before that:</strong> during due diligence, during scoping, during the pre-engagement audit, when you need to understand a codebase you do not own yet. Use both: one to win the bid and scope the work, the other to keep the engagement healthy once it is underway.</p>
+
+      <h3>What does a scan cost to run?</h3>
+      <p>With Ghost Architect&trade; Local, nothing per scan: one monthly license from $80 to $2,000, and a re-run costs machine time on hardware you already own. With Ghost Open&trade;, you pay Anthropic for the tokens on your own key; the product prints the exact cost of every scan, and our public sample scan cost $0.2372.</p>
+
+      <h3>My team will not use a new tool. Adoption will fail.</h3>
+      <p>Most of the time the people who run it are <strong>you and one or two senior engineers</strong>, not the whole team, and that is fine. Point it at a folder, pick a scan, hand the report to whoever needs to read it. With Ghost Architect&trade; Local the firm shares one queue and one portal, and the Fleet page shows every scan, so nobody has to ask who ran what.</p>
+
+      <h3>What about white-labeling? My firm&rsquo;s brand matters.</h3>
+      <p>Ghost Architect&trade; Local Agency and Enterprise include <strong>Ghost Partner&trade;</strong> profiles: your logo on the cover, your brand colors, your methodology in the executive summary, your billing rates in the cost estimates. The deliverable looks like your firm&rsquo;s audit, because the judgment is yours. Ghost Open&trade; reports always carry Ghost Architect&trade; branding; white label is in <a href="pricing.html#local">Ghost Architect&trade; Local</a>.</p>
+
+      <h3>What if my engagement is not Magento?</h3>
+      <p>Ghost Architect&trade; works on any codebase, any language, any platform: PHP, JavaScript, TypeScript, Python, Ruby, Java, Go, Rust, C# and the rest. Adobe Commerce and Magento come up often because that is where the founder spent nine years, but they are not a requirement. A React app, a Django backend, a Laravel monolith, a Node service, a Spring Boot app: same scans, same deliverable.</p>
+
+      <h3>What is the catch?</h3>
+      <p>Two honest ones. A local model is not a frontier model, so Ghost Architect&trade; checks findings against the source and tells you what it did not read rather than pretending otherwise. And you need a machine to run the model on. The trial is how you find out whether yours is enough, on your own code, before you pay.</p>
+
+      <h3>Why hasn&rsquo;t an established player built this already?</h3>
+      <p>Because pre-engagement triage was not a software category until language models got good enough to read code. The large players are positioned on the other side of the engagement: their tools run after you already have the codebase. Ghost Architect&trade; runs before. We are founder-led and built for the moment the agency hits the scoping call.</p>
+    </div>
+  </section>
+
+  <!-- TIERS -->
+  <section class="band" id="tiers">
+    <p class="eyebrow">// pick the tier that fits</p>
+    <h2>Plans built for how agencies <em>actually buy</em>.</h2>
+    <p class="lede">One fixed monthly price, no per-token bill, cancel any time. Convert during the trial and your first month is half price.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="k">Local Small Team</div>
+        <div class="price">$400<small>/mo</small></div>
+        <p class="sub">5 seats &middot; $80 a seat &middot; monthly license</p>
+        <p>A hub in the office, spokes on five engineers&rsquo; machines, one queue. Client code stays inside your network.</p>
+        <div class="actions">
+          <a href="https://buy.stripe.com/28EcN5dDFfDefHRfXnbEA0f" class="btn btn-local-solid">Buy: $400 a month &rarr;</a>
+          <a href="download.html" class="btn btn-local">Try it first &rarr;</a>
+        </div>
+      </div>
+      <div class="card hi-local">
+        <div class="badges"><span class="pill local">BUILT FOR AGENCIES</span></div>
+        <div class="k">Local Agency</div>
+        <div class="price">$1,000<small>/mo</small></div>
+        <p class="sub">15 seats &middot; under $67 a seat &middot; your brand on every report</p>
+        <p>Every architect in the firm on one license. Zero-egress mode for the engagements that require it, Ghost Partner&trade; profiles for the reports you sell, and a signed ledger for the clients who ask.</p>
+        <div class="actions">
+          <a href="https://buy.stripe.com/cNi4gz2Z11Mo8fpfXnbEA0e" class="btn btn-local-solid">Buy: $1,000 a month &rarr;</a>
+          <a href="download.html" class="btn btn-local">Try it first &rarr;</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="k">Local Enterprise</div>
+        <div class="price">$2,000<small>/mo</small></div>
+        <p class="sub">Unlimited seats &middot; formal MSA</p>
+        <p>Every engineer you have and every one you hire, on one price. Multi-brand portfolios, air-gapped analysis if that is how you work.</p>
+        <div class="actions">
+          <a href="https://buy.stripe.com/8x26oHfLNfDe8fpdPfbEA0g" class="btn btn-local-solid">Buy: $2,000 a month &rarr;</a>
+          <a href="pricing.html#local" class="btn btn-local">All Local tiers &rarr;</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="k blue">Ghost Open&trade;</div>
+        <div class="price">$0<small> license</small></div>
+        <p class="sub">one person &middot; your own Anthropic key</p>
+        <p>A solo engineer or consultant whose clients allow code to go to Anthropic. Every mode, unlimited. No teams, no white label.</p>
+        <a href="https://www.npmjs.com/package/ghost-architect-open" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Install on npm &rarr;</a>
+      </div>
+    </div>
+
+    <p class="fine">Prices in USD. <a href="pricing.html">Full pricing and the break-even calculator &rarr;</a></p>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="band final">
+    <h2>Your next bid goes out this week.<br>It can be a <em>guess</em>, or it can be a <em>report</em>.</h2>
+    <p class="lede">Run Ghost Architect&trade; Local on your next bid. No card to start; convert during the trial and your first month of Agency is $500.</p>
+    <div class="hero-cta">
+      <a href="download.html" class="btn btn-local-solid">Run it on your next bid: start the trial &rarr;</a>
+      <a href="pricing.html" class="btn btn-ghost">See all plans</a>
+      <a href="contact.html?platform=local&amp;topic=install" class="btn btn-ghost">Install it with us on a call</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; <a href="support.html">Support</a> &middot; <a href="/privacy.html">Privacy Policy</a> &middot; <a href="/msa.html">Terms of Service</a></span>
+</footer>
+
+<script src="ga-nav.js?v=20261029p" defer></script>
+<script>
+  // Quiet text reveals. Falls back to visible if IntersectionObserver is missing.
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+
+  // Both calculators work only from the visitor's own numbers. Example defaults only.
+  (function () {
+    function num(id, lo, hi) { var v = parseFloat(String(document.getElementById(id).value).replace(/[^0-9.]/g, '')); if (!isFinite(v)) v = 0; return Math.min(hi, Math.max(lo, v)); }
+    function money(v) { return (v < 0 ? '-$' : '$') + Math.round(Math.abs(v)).toLocaleString('en-US'); }
+    function hrs(h) { var r = Math.round(h * 10) / 10; return r.toLocaleString('en-US') + (r === 1 ? ' hour' : ' hours'); }
+    function pct(p) { return Math.round(p * 100) + '%'; }
+
+    function updateA() {
+      var rate = num('ra-rate', 0, 100000), hours = num('ra-hours', 0, 1000), bids = num('ra-bids', 0, 1000);
+      var t = document.getElementById('ra-tier').value.split('|'), price = +t[0], name = t[1];
+      var total = hours * bids, cost = rate * total, be = rate > 0 ? price / rate : 0;
+      document.getElementById('ra-cost').textContent = money(cost);
+      document.getElementById('ra-be').textContent = rate > 0 ? hrs(be) : 'n/a';
+      document.getElementById('ra-share').textContent = total > 0 && rate > 0 ? pct(be / total) : 'n/a';
+      document.getElementById('ra-first').textContent = money(price / 2);
+      var say = document.getElementById('ra-say');
+      if (rate > 0 && total > 0) {
+        say.innerHTML = be <= total
+          ? 'If Ghost Architect&trade; Local ' + name + ' saves your seniors <b>' + hrs(be) + '</b> of those ' + hrs(total) + ' a month, it has paid for itself. Every hour after that is margin.'
+          : 'At these numbers, ' + name + ' needs to save <b>' + hrs(be) + '</b> a month to pay for itself, more than the ' + hrs(total) + ' you spend reading code. Try a smaller tier.';
+      } else {
+        say.textContent = 'Put in your rate, hours and bids to see your numbers.';
+      }
+    }
+
+    function updateB() {
+      var bid = num('rb-bid', 0, 1e9), margin = num('rb-margin', 0, 100), hit = num('rb-hit', 0, 1e9);
+      var planned = bid * margin / 100, left = planned - hit, lost = planned > 0 ? hit / planned : 0, months = hit / 1000;
+      document.getElementById('rb-planned').textContent = money(planned);
+      document.getElementById('rb-left').textContent = money(left);
+      document.getElementById('rb-lost').textContent = planned > 0 ? pct(lost) : 'n/a';
+      var m = Math.floor(months);
+      document.getElementById('rb-months').textContent = m.toLocaleString('en-US') + (m === 1 ? ' month' : ' months');
+      document.getElementById('rb-say').innerHTML = planned > 0
+        ? 'One ' + money(hit) + ' surprise takes <b>' + pct(lost) + '</b> of the margin on this bid. It would have paid for <b>' + m.toLocaleString('en-US') + (m === 1 ? ' month' : ' months') + '</b> of Ghost Architect&trade; Local Agency, or ' + Math.floor(hit / 80).toLocaleString('en-US') + ' months of Solo.'
+        : 'Put in your bid and margin to see your numbers.';
+    }
+
+    function wire(ids, fn, formId, outId) {
+      ids.forEach(function (id) {
+        var el = document.getElementById(id); if (!el) return;
+        el.addEventListener('input', fn); el.addEventListener('change', fn);
+        if (el.tagName === 'INPUT') {
+          var fresh = false;
+          el.addEventListener('focus', function () { fresh = true; try { el.select(); } catch (e) {} });
+          el.addEventListener('click', function () { if (fresh) { fresh = false; try { el.select(); } catch (e) {} } });
+          el.addEventListener('blur', function () { fresh = false; });
+        }
+      });
+      var form = document.getElementById(formId);
+      if (form) form.addEventListener('submit', function (e) {
+        e.preventDefault(); fn();
+        if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+        var out = document.getElementById(outId);
+        if (out) { out.scrollIntoView({ behavior: 'smooth', block: 'center' }); try { out.focus({ preventScroll: true }); } catch (err) {} }
+      });
+      fn();
+    }
+    wire(['ra-rate', 'ra-hours', 'ra-bids', 'ra-tier'], updateA, 'ra-form', 'ra-out');
+    wire(['rb-bid', 'rb-margin', 'rb-hit'], updateB, 'rb-form', 'rb-out');
+  })();
+</script>
+<script src="scene.js" defer></script>
+</body>
+</html>

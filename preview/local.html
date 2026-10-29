@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- PREVIEW (2026-10-29, benefit-first rebuild): noindex until EJ approves it. Go-live steps are in CHANGES.md. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Ghost Architect&trade; Local: win the work that bans AI, at a fixed monthly price</title>
+  <meta name="description" content="Ghost Architect&trade; Local runs on your machines, on a model you own, inside your network. Zero egress with every license, one fixed monthly price with no per-token bill, and reports that say what they did not read. From $80 a month." />
+  <link rel="canonical" href="https://ghostarchitect.dev/local.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev/local.html" />
+  <meta property="og:title" content="Ghost Architect&trade; Local: win the work that bans AI" />
+  <meta property="og:description" content="Your code never leaves the building. Your bill never moves. The report tells you what it did not read." />
+  <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
+  <meta property="og:site_name" content="Ghost Architect&trade;" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ghost Architect&trade; Local: win the work that bans AI" />
+  <meta name="twitter:description" content="Codebase intelligence on your own hardware, at a fixed monthly price. Air-gapped analysis if you need it." />
+  <meta name="twitter:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Ghost Architect™ Local",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "macOS, Linux, Windows",
+    "url": "https://ghostarchitect.dev/local.html",
+    "softwareVersion": "8.1.1",
+    "description": "Codebase intelligence that runs on the customer's own hardware and network, with a local model. Points of Interest, Blast Radius™, Conflict Detection™, Pre-Sprint Planning, Recon, Ghost Brief™ and commit checks, with a fleet view across machines, at a fixed monthly price.",
+    "offers": [
+      { "@type": "Offer", "name": "Solo", "price": "80", "priceCurrency": "USD", "description": "Monthly license, one seat" },
+      { "@type": "Offer", "name": "Small Team", "price": "400", "priceCurrency": "USD", "description": "Monthly license, five seats" },
+      { "@type": "Offer", "name": "Agency", "price": "1000", "priceCurrency": "USD", "description": "Monthly license, fifteen seats, Ghost Partner™ profiles and white-label reports" },
+      { "@type": "Offer", "name": "Enterprise", "price": "2000", "priceCurrency": "USD", "description": "Monthly license, unlimited seats" }
+    ]
+  }
+  </script>
+  <meta name="theme-color" content="#0a0a0f" />
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css?v=20261029p" />
+  <style>
+    .tier .per { margin-top: 0.35rem; color: var(--text-dim); font-size: 0.82rem; }
+    .tier .btn { margin-top: 1rem; width: 100%; justify-content: center; }
+  </style>
+</head>
+<body data-product="local">
+
+<canvas id="lattice" aria-hidden="true" data-variant="local"></canvas>
+
+<div id="ga-nav-mount"></div>
+
+<main>
+
+  <!-- 0 · HERO · the lattice at rest, already inside the building -->
+  <section class="hero" id="local" data-phase="0">
+    <div class="hero-inner">
+      <div class="version-badge"><b>Ghost Architect&trade; Local &middot; 8.1.1</b> &nbsp;&middot;&nbsp; commercially released</div>
+      <h1>Win the work that bans AI.<br><em>Your code never leaves the building. Your bill never moves.</em></h1>
+      <p class="hero-sub">Ghost Architect&trade; Local reads your codebase on your own machines, on a model you own, inside your network, and puts the answer on a page: health, risk, what a change will reach, and what to fix first. Air-gapped if that is how you work, and every report says what it did not read.</p>
+      <p class="hero-accent" style="color: var(--local);">IAI&trade;: internal AI. The model lives with you.</p>
+      <div class="hero-cta">
+        <a href="download.html" class="btn btn-local-solid">Start the trial on your hardware</a>
+        <a href="/local-walkthrough.html" class="btn btn-local" id="see-it-running">See it running</a>
+        <a href="pricing.html#local" class="btn btn-ghost">From $80 a month &rarr;</a>
+      </div>
+      <div class="hero-strip">
+        <span>Answers &ldquo;where does our code go?&rdquo; with a printout</span>
+        <span>The same bill every month, from $80</span>
+        <span>One queue and one status page for every machine</span>
+        <span>Runs on the Macs, Linux boxes and Windows PCs you already own</span>
+      </div>
+    </div>
+    <div class="scroll-hint">scroll</div>
+  </section>
+
+  <!-- THE STORY -->
+  <section class="story">
+    <div class="wrap reveal">
+      <p class="big">The most expensive question in software is still: <em>where are we on that?</em></p>
+      <p>Today the answer lives in a ticket. Find it, hope it is the right one, hope someone updated it, ask in the channel, wait. Every one of those minutes is billable time you never bill. Your codebase already knows where the project stands. Your ticketing system is a rumor about it.</p>
+      <p>Ghost Architect&trade; Local reads your codebase and puts the answer on a page: health, risk, what a change would reach, where the code disagrees with itself, and what to fix first. Run it on a commit, on a push, or five minutes before someone asks. Every scan is kept, so what changed and what it did to the health of the code is in front of you, not reconstructed in a meeting.</p>
+      <p class="big" style="margin-top: 1.6rem;">Watch your own AI work. Inside your own walls. <em>And never once wonder what that scan just cost you.</em></p>
+    </div>
+  </section>
+
+  <!-- 1 · THE SWEEP · the same scan, on your hardware -->
+  <section class="chapter phase" id="what-you-get" data-phase="1">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label local">// the scan, on your machines</p>
+        <h2>Plan the sprint from the code, not from a guess.</h2>
+        <p>Every Ghost Open&trade; mode, plus Pre-Sprint and Pre-Epic planning for the whole team, on hardware you own. Findings are checked against the source before they reach the page, the health score shows what it was computed from, and the trend tells you whether the code got better since last week.</p>
+        <ul class="items">
+          <li class="local"><span class="n">01</span><div><h3>Points of Interest</h3><p class="t">Findings you can defend in the meeting: the health of the codebase, with the evidence beside each finding.</p></div></li>
+          <li class="local"><span class="n">02</span><div><h3>Recon</h3><p class="t">Know what an answer costs before you ask for it. Recon tells you what a full scan will read and how long it will take on your machines, and shows where the estimate came from.</p></div></li>
+          <li class="local"><span class="n">03</span><div><h3>Pre-Sprint and Pre-Epic Planning</h3><p class="t">Start the sprint knowing what the planned work will touch, what is fragile there, and what to settle first. Pre-Epic does the same for a larger body of work before it is split into sprints.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · BLAST RADIUS · Ghost Triple Crown from a hook -->
+  <section class="chapter phase right" id="ghost-triple-crown" data-phase="2">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label red">// on every commit</p>
+        <h2>Stop the risky change at the developer&rsquo;s desk, not in the postmortem.<br><span style="color: var(--text-muted); font-weight: 500;">Ghost Triple Crown&trade;, on your LAN.</span></h2>
+        <ul class="items">
+          <li class="red"><span class="n">01</span><div><h3>Blast Radius&trade;</h3><p class="t">Point it at the files you are about to touch and see what they pull in and what pulls on them. The review starts with the map instead of building it.</p></div></li>
+          <li class="amber"><span class="n">02</span><div><h3>Conflict Detection&trade;</h3><p class="t">Catch the integration bug before your customer does: the places where two parts of the system expect different things.</p></div></li>
+          <li><span class="n">03</span><div><h3>Ghost Brief&trade;</h3><p class="t">Fix instructions grounded in your real files, for whatever coding assistant you already use. Ghost Architect&trade; finds it, you decide, your tooling executes.</p></div></li>
+        </ul>
+        <p class="foot">The pre-push hook runs the Ghost Triple Crown&trade; on every push and asks before a high-risk change leaves the machine. <b>Pull request comments to a git server on your LAN when you turn them on. No per-commit bill.</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · THE BUILDING · zero egress -->
+  <section class="chapter phase center" id="zero-egress" data-phase="3">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label local">// zero egress, with every license</p>
+        <div class="quote">Nothing leaves. <span style="color: var(--local);">Not a promise, an inventory.</span></div>
+        <p>The model runs on your hardware, so while Ghost Architect&trade; Local works there is nothing on the other side to send the code to. Zero-egress mode, included with every license, refuses every outbound destination at the code level and prints the inventory that proves it: every destination that could exist, what it would send, and the switch that turns it off. That is the page your security director signs off on.</p>
+        <p>One call, once: license activation sends the license key and an install id to ghostarchitect.dev and gets a signed license back. Nothing from the codebase is in it. Want a cloud model for one project? A Cloud API position on your own key is there, off by default, and any project can be held to Local only. <a href="security.html#local">Read the details &rarr;</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · THE REPORT · it tells you what it did not do -->
+  <section class="chapter phase right" id="coverage" data-phase="4">
+    <div class="copy">
+      <div class="block reveal">
+        <p class="label">// it tells you what it did not do</p>
+        <h2>A report that admits what it did not read.</h2>
+        <p>We will not tell you a local model is smarter than a frontier model. It is not, and you already know that. What we will tell you is that Ghost Architect&trade; does not let the model make claims it cannot back.</p>
+        <ul class="items">
+          <li class="local"><span class="n">01</span><div><h3>Nothing counted is not zero</h3><p class="t">A report says <code style="font-family: var(--font-mono); font-size: 0.85em; color: var(--text);">8 of 52 files analyzed</code> and claims nothing about the other 44. When a scan stops before it finishes counting, the record says nobody counted, never zero findings.</p></div></li>
+          <li class="local"><span class="n">02</span><div><h3>A verdict that hangs on one word says so</h3><p class="t">The report prints what the score would be if one finding were graded one band lower. When the verdict flips on that word, it tells you, instead of burying the fragility in an average.</p></div></li>
+          <li class="local"><span class="n">03</span><div><h3>Records for the audit, already collected</h3><p class="t">Walk into the SOC 2 renewal with records, not assurances: every scan, who ran it, on what and how it ended, in signed CSV and PDF exports, with a hash-chained audit log the product verifies in front of you.</p></div></li>
+        </ul>
+        <p class="foot"><b>Estimates name their basis.</b> For example: &ldquo;About 120 minutes, measured on this machine: 6 recent passes, median 10 min each.&rdquo; Not a constant dressed as a measurement.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR THE CTO -->
+  <section class="solid pad" id="for-the-cto">
+    <div class="section-head reveal">
+      <p class="label local">// for the CTO</p>
+      <h2>It solves your problems, not just your code&rsquo;s.</h2>
+      <p class="lede">The reasons a CTO looks at a local tool at all, and what happens to each of them.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><div class="k">Source that may not leave</div><h3>Three clients forbid their code from leaving infrastructure they control</h3><p>Say yes to all three. The model runs on your hardware, and zero-egress mode refuses every outbound destination at the code level and prints the inventory that proves it.</p></div>
+      <div class="card reveal"><div class="k">Spend you cannot forecast</div><h3>The AI line on the invoice moves every month</h3><p>Not this one. One monthly license, sized to the team, with no meter and no per-token bill. A bad answer costs a re-run on machines you already own, and the trial converts at half price for the first month.</p></div>
+      <div class="card reveal"><div class="k">Clients with different rules</div><h3>One client allows the cloud, the next one forbids it</h3><p>Set each project to Local only or Cloud allowed. A Local only project never reaches a cloud model, whatever the rest of the firm is doing.</p></div>
+      <div class="card reveal"><div class="k">Confident tools you cannot trust</div><h3>Every scanner sounds just as sure after reading a tenth of the tree</h3><p>Ghost Architect&trade; prints its coverage in files and passes, says nobody counted rather than zero when a scan stopped early, and tells you when a verdict hangs on one severity word.</p></div>
+      <div class="card reveal"><div class="k">Status by chasing people</div><h3>&ldquo;Where are we on that?&rdquo; costs a meeting</h3><p>Cancel the meeting. Every scan is kept with its health score and trend, so the state of a codebase is on a page rather than in someone&rsquo;s head.</p></div>
+      <div class="card reveal"><div class="k">Client reports</div><h3>Nothing reaches a client until someone approves it</h3><p>The administrator gets an email link to approve, schedule or reject each client report before it goes out, and every sent report is archived. On Agency and Enterprise, the report carries your brand.</p></div>
+      <div class="card reveal"><div class="k">Auditors and renewals</div><h3>SOC 2 renews in January and the auditor wants records, not assurances</h3><p>A compliance ledger with a row for every scan ending, who ran it and on what; signed CSV and PDF exports; a hash-chained audit log the product verifies in front of you. Evidence you can hand over.</p></div>
+      <div class="card reveal"><div class="k">Six teams, not one laptop</div><h3>A tool that serves one engineer does not survive six delivery teams</h3><p>A hub and spokes: one queue for the whole fleet in the order you set, one Fleet page that says what every machine is doing, and LLM Status that tells you whether the model under all of it is healthy today against last week.</p></div>
+      <div class="card reveal"><div class="k">Sizing the hardware</div><h3>What does forty engineers cost in machines?</h3><p>The product measures its own pass time and prints the basis of every estimate, and LLM Status shows memory held and available per machine, so the next machine you buy is a decision, not a guess.</p></div>
+    </div>
+  </section>
+
+  <!-- WHAT VERSION 8 ADDS (moved here from the retired beta page) -->
+  <section class="solid pad" id="version-8">
+    <div class="section-head reveal">
+      <p class="label local">// what version 8 adds</p>
+      <h2>Less noise, more answers, and a tool that learns your team&rsquo;s judgment.</h2>
+      <p class="lede">Version 8 left beta and is commercially released. 8.1.1 is the current release, and the user&rsquo;s manual comes in the download.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><div class="k">Load Qualifying</div><h3>Find what will fall over under load before your traffic finds it.</h3><p>Ghost Architect&trade; Local checks your code against 134 known causes of failure under load, across Magento 2 and Adobe Commerce, PHP, Laravel, Node.js, Python, Java and .NET, with the vendors&rsquo; own sources. It never runs your code and never claims to have measured it.</p></div>
+      <div class="card reveal"><div class="k">Learning Requests</div><h3>Teach it once. It stops raising what your team has already ruled on.</h3><p>A reviewer records a verdict with a written reason; a second person approves it before anything changes. Every change is signed, can be rolled back, and older reports can be re-read under the new rules without the originals ever being altered.</p></div>
+      <div class="card reveal"><div class="k">Fewer false findings</div><h3>Less noise for your senior people to wade through.</h3><p>Test, example, generated and documentation files are not reported as problems in your product, a finding must cite a file that is really in the code, and claims are checked against the code before they reach the report.</p></div>
+      <div class="card reveal"><div class="k">Corrected reports</div><h3>Hand the client the reviewed version without waiting on a re-scan.</h3><p>After your team reviews a scan, download the original and the corrected report as PDFs, without scanning again.</p></div>
+      <div class="card reveal"><div class="k">Ask about Ghost</div><h3>Answers at 2 a.m. without a support ticket.</h3><p>Ask in plain words or paste an error message, and it answers from the manual and the error catalog that ship with your version, through your own model. When the manual does not cover something, it says so instead of guessing.</p></div>
+      <div class="card reveal"><div class="k">The manual in the box</div><h3>Your team gets up to speed without a training contract.</h3><p>The full user&rsquo;s manual comes with the download, as PDF and Markdown: getting started, scans and reports, the portal, the API, profiles, learning, and an appendix for every error message.</p></div>
+    </div>
+  </section>
+
+  <!-- HOW IT RUNS -->
+  <section class="solid pad" id="how-it-runs">
+    <div class="section-head reveal">
+      <p class="label local">// hub and spokes</p>
+      <h2>How it runs, and what it runs on.</h2>
+      <p class="lede">A hub and as many spokes as you enroll. The hub holds the model server, the queue and the Fleet page; a spoke is any machine that runs scans and reports them back. Everything talks over your LAN.</p>
+    </div>
+    <div class="honest reveal">
+      <p><strong>Hardware, stated as measured, not as a brochure.</strong> Our own machines run <code>qwen3.5:9b</code>, and we are testing a 27B model. One measured run: an IP evidence review of a 16-file open source library took 32 minutes 29 seconds on a MacBook Air (Apple M3, 24 GB) running <code>qwen3.5:9b</code> through Ollama, and three runs gave identical reports. A real application codebase takes longer; a bigger machine is faster; a bigger model reads more carefully and takes longer per pass. The product measures its own pass time and prints the basis of every estimate it makes, so the second scan on your hardware is sized from the first.</p>
+      <p><strong>What you need:</strong> macOS 13 or later, Linux, or Windows 10 or later; Node.js 24 or later; a model server on your network with a model pulled: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint you point it at. The installer checks the OS and Node floors and refuses rather than guessing. The Linux installer is verified on a fresh machine for every release.</p>
+    </div>
+  </section>
+
+  <!-- LOCAL OR OPEN (the id stays local-or-cloud for old links) -->
+  <section class="solid pad" id="local-or-cloud">
+    <div class="section-head reveal">
+      <p class="label">// two deals</p>
+      <h2>Local or Open?</h2>
+      <p class="lede">If your clients forbid source from leaving infrastructure they control, or more than one person needs it, Local is the one built for you. If you work alone and are allowed to send code to Anthropic, <a href="pricing.html#open">Ghost Open&trade;</a> runs on your own Anthropic key with no license fee.</p>
+    </div>
+    <div class="cmp-wrap reveal">
+      <table class="cmp">
+        <tr><th></th><th>Ghost Architect&trade; Local</th><th>Ghost Open&trade;</th></tr>
+        <tr><td>Who it is for</td><td class="l">Teams, from one seat to unlimited</td><td>One person</td></tr>
+        <tr><td>Where the model runs</td><td class="l">Your machines, your model server</td><td>Anthropic&rsquo;s API, through your own key</td></tr>
+        <tr><td>Where your code goes</td><td class="l">Nowhere while it analyzes. Zero-egress mode with every license. A Cloud API position on your own key is off by default.</td><td>To Anthropic, per request, on your key</td></tr>
+        <tr><td>How you pay</td><td class="l">One fixed monthly license per team size</td><td>No license fee. You pay Anthropic for model usage</td></tr>
+        <tr><td>Multiple machines</td><td class="l">Hub and spokes, one Fleet page</td><td>One person&rsquo;s own machines</td></tr>
+        <tr><td>Air-gapped analysis</td><td class="l">Yes</td><td>No</td></tr>
+        <tr><td>Reports under your brand</td><td class="l">Agency and Enterprise, with Ghost Partner&trade; profiles</td><td>No</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="solid pad" id="pricing">
+    <div class="section-head reveal">
+      <p class="label local">// pricing that does not move</p>
+      <h2>The price in month twelve is the price in month one.</h2>
+      <p class="lede">No per-token bill, no meter, no surprise in month four. If your time bills at more than $80 an hour, Solo costs less than one hour a month. Convert during the trial and the first month is half price.</p>
+    </div>
+    <div class="tiers reveal">
+      <div class="tier"><div class="name">Solo</div><div class="price">$80</div><div class="unit">per month</div><div class="seats">1 seat</div><div class="per">First month $40 when you convert</div></div>
+      <div class="tier"><div class="name">Small Team</div><div class="price">$400</div><div class="unit">per month</div><div class="seats">5 seats</div><div class="per">$80 a seat</div></div>
+      <div class="tier"><div class="name">Agency</div><div class="price">$1,000</div><div class="unit">per month</div><div class="seats">15 seats &middot; your brand</div><div class="per">Under $67 a seat</div></div>
+      <div class="tier"><div class="name">Enterprise</div><div class="price">$2,000</div><div class="unit">per month</div><div class="seats">Unlimited seats</div><div class="per">Every engineer you have, and every one you hire</div></div>
+    </div>
+    <p class="fine reveal">Prices in USD. Monthly, cancel any time. <a href="pricing.html#local">Full pricing, what each tier includes, and a break-even calculator.</a></p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="solid faq" id="faq">
+    <div class="wrap">
+      <p class="label reveal">// questions people ask first</p>
+      <h2 class="reveal" style="margin-bottom: 2rem;">Questions people ask first.</h2>
+      <details class="reveal">
+        <summary>Does anything leave my network?</summary>
+        <p>One call, once: license activation sends the license key and an install id to ghostarchitect.dev and gets a signed license back. Nothing from the codebase is in it. While the product analyzes code, nothing about the code leaves the machine, and the egress inventory it prints lists every destination that could exist and shows each one switched off. The Cloud API position, on your own key, is off by default, and a project set to Local only never uses it.</p>
+      </details>
+      <details class="reveal">
+        <summary>Which models does it use?</summary>
+        <p>Whatever your model server serves: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. Our own machines run qwen3.5:9b, and we are testing a 27B model. The LLM Status page shows the model, quantization, context window, memory and measured speed, so you can see what a model change did.</p>
+      </details>
+      <details class="reveal">
+        <summary>Is it the same as Ghost Open&trade;?</summary>
+        <p>No. Ghost Open&trade; is the single-user CLI on npm, and it sends code to Anthropic&rsquo;s API on your own key. Local is a separate product delivered directly by us as a tarball, installed with its own installer, licensed per team, and it runs on your own model. Its Cloud API position is off unless you turn it on.</p>
+      </details>
+      <details class="reveal">
+        <summary>How long does a scan take?</summary>
+        <p>It depends on your hardware, your model and the codebase, and the product tells you before you commit: the estimate names its basis, and once you have run a few passes it is measured from your own machine. One measured example: an IP evidence review of a 16-file open source library took 32 minutes 29 seconds on a MacBook Air (Apple M3, 24 GB) with qwen3.5:9b. A full scan of a real application codebase takes longer, so start it in the background; the Fleet page and email tell you when it is done.</p>
+      </details>
+      <details class="reveal">
+        <summary>Can I run it in CI or on a commit hook?</summary>
+        <p>Yes. The CLI has a non-interactive mode, it registers a pre-push hook that runs the Ghost Triple Crown&trade;, and the REST API on the hub is documented at /api/v1/docs on your own install.</p>
+      </details>
+      <details class="reveal">
+        <summary>Do I get the source?</summary>
+        <p>The product ships as source in the tarball; that is what the installer installs. It is licensed, not open source, and the license is signed and verified on the machine.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="solid final">
+    <div class="reveal">
+      <p class="label local">// start</p>
+      <h2>Your code stays in the building.<br>Start there.</h2>
+      <div class="hero-cta">
+        <a href="download.html" class="btn btn-local-solid">Start the trial on your hardware today</a>
+        <a href="contact.html?platform=local&amp;topic=enterprise" class="btn btn-ghost">Talk to us about Enterprise</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; <a href="local.html">Local</a> &middot; <a href="pricing.html#local">Pricing</a> &middot; <a href="download.html">Download</a> &middot; <a href="security.html#local">Security</a> &middot; <a href="support.html?platform=local">Support</a> &middot; <a href="/privacy.html">Privacy Policy</a> &middot; <a href="/msa.html">Terms of Service</a></span>
+</footer>
+
+<script src="ga-nav.js?v=20261029p" defer></script>
+<script>
+  // Quiet text reveals. Falls back to visible if IntersectionObserver is missing.
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+<script src="scene.js" defer></script>
+</body>
+</html>

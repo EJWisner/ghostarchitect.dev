@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <!-- PREVIEW (2026-10-29, benefit-first rebuild): noindex until EJ approves it. Go-live steps are in CHANGES.md. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Inheritance Audit: know what you are buying before the LOI | Ghost Architect&trade;</title>
+  <meta name="description" content="For deal advisors, PE diligence teams and anyone inheriting code: the stack as it really is, who the code depends on, the licenses and end-of-life dependencies, and a 90-day plan. Run it inside the target&rsquo;s building with Ghost Architect&trade; Local when the code cannot leave." />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev/inheritance-audit.html" />
+  <meta property="og:title" content="Inheritance Audit: know what you are buying before the LOI | Ghost Architect&trade;" />
+  <meta property="og:description" content="The independent read of the code before the LOI, the SOW and the board meeting. Run it inside the target&rsquo;s building when the code cannot leave." />
+  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
+  <meta property="og:site_name" content="Ghost Architect&trade;" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Inheritance Audit: know what you are buying before the LOI" />
+  <meta name="twitter:description" content="Stack reality, key-person risk, licenses and a 90-day plan, before you sign." />
+  <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
+  <link rel="canonical" href="https://ghostarchitect.dev/inheritance-audit.html" />
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css?v=20261029p" />
+  <!-- Page-specific: the page-one illustration. site.css has no paper/report component. -->
+  <style>
+    .report { position: relative; max-width: 720px; background: rgba(17, 17, 24, 0.85); border: 1px solid var(--border); border-radius: 14px; padding: 2rem 2.2rem; margin-top: 1.6rem; }
+    .report .stamp { position: absolute; top: 1.2rem; right: 1.2rem; transform: rotate(-8deg); color: var(--accent2); border: 2px solid var(--accent2); border-radius: 8px; padding: 0.4rem 0.8rem; font-family: var(--font-mono); font-size: 0.64rem; font-weight: 600; letter-spacing: 0.1em; text-align: center; line-height: 1.2; }
+    .report .stamp b { display: block; font-size: 1.15rem; margin: 0.1rem 0; }
+    .report h3 { font-size: 1.5rem; margin: 0.2rem 0 1.2rem; }
+    .report .row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin: 0.6rem 0; }
+    .report .row .lab { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--text-dim); }
+    .report .row .v { font-weight: 700; color: var(--text); font-size: 1.05rem; }
+    .report .bar { display: inline-block; width: 160px; height: 10px; border-radius: 5px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+    .report hr { border: 0; border-top: 1px solid var(--border); margin: 1.4rem 0; }
+    .report .kf { font-weight: 600; color: var(--text); margin: 0 0 0.8rem; }
+    .report .f { display: grid; grid-template-columns: 4px 1fr; gap: 0.9rem; margin: 0.75rem 0; }
+    .report .f i { display: block; border-radius: 2px; background: var(--danger); min-height: 2.2rem; }
+    .report .f .ft { font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--danger); }
+    .report .f.amber i { background: var(--warning); } .report .f.amber .ft { color: var(--warning); }
+    .report .f.gold i { background: #ffd700; } .report .f.gold .ft { color: #ffd700; }
+    .report .f .d { color: var(--text-muted); font-size: 0.92rem; margin-top: 0.1rem; }
+    .report .foot { margin-top: 1.4rem; padding-top: 0.9rem; border-top: 1px solid var(--border); letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.68rem; }
+    .stats-note { font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-dim); margin: 0.8rem 0 0; max-width: 70ch; }
+    .card .price.small { font-size: 1.6rem; }
+    .deal .card .price { color: var(--accent2); }
+    @media (max-width: 600px) { .report { padding: 1.4rem 1.2rem; } .report .stamp { position: static; display: inline-block; transform: none; margin-bottom: 1rem; } }
+  </style>
+</head>
+<body data-product="local">
+
+<canvas id="lattice" aria-hidden="true" data-ambient></canvas>
+
+<div id="ga-nav-mount"></div>
+
+<main class="page">
+
+  <header class="page-hero">
+    <div class="version-badge"><b>INHERITANCE AUDIT</b> &middot; in Ghost Architect&trade; Local and Ghost Open&trade;</div>
+    <h1>Know what you are buying<br><em>before the LOI.</em></h1>
+    <p class="lede">The independent read of the code to have in hand before the LOI, the SOW and the board meeting: the stack as it really is, who the code depends on, what licenses it carries, and a 90-day plan. When the target will not hand over its repository, run it inside their building with Ghost Architect&trade; Local, and nothing reaches the deal team until you approve the report.</p>
+    <div class="stats">
+      <div><b>4</b>Analyzers</div>
+      <div><b>1</b>Report for the deal committee</div>
+      <div><b>~60s*</b>Runtime on Ghost Open&trade;</div>
+      <div><b>~$0.02*</b>Model cost on Ghost Open&trade;</div>
+    </div>
+    <p class="stats-note">* From our validation runs on Ghost Open&trade; (Anthropic&rsquo;s API, your key) at its <a href="/blog/inheritance-audit-mode-launch.html">launch</a>. On Ghost Architect&trade; Local the time depends on your hardware, and the product estimates it before it starts.</p>
+    <div class="hero-cta">
+      <a href="download.html" class="btn btn-local-solid">Run it on your next deal: start the trial</a>
+      <a href="#analyzers" class="btn btn-ghost">See the four analyzers</a>
+      <a href="audit.html" class="btn btn-ghost">Have us run it: $497 &rarr;</a>
+    </div>
+  </header>
+
+  <!-- PROBLEM -->
+  <section class="band" id="problem">
+    <h2>You are about to buy, or inherit, a codebase you did not write.</h2>
+    <div class="prose reveal">
+      <p>Maybe it is a PE deal. Maybe an agency engagement. Maybe a CTO seat someone just walked out of.</p>
+      <p><strong>The pitch deck says &ldquo;modern stack.&rdquo; The repository says something else.</strong></p>
+      <p>The README is out of date, the docs are older than the last two rewrites, and the person who understood the architecture left last year. So the start of every engagement goes to working out what is in there, before you can do anything useful, and on a deal that time is the exclusivity window.</p>
+      <div class="callout teal"><p><strong>Start day one already knowing what is in there.</strong></p></div>
+    </div>
+  </section>
+
+  <!-- THE DEAL CLOCK -->
+  <section class="band deal" id="deal">
+    <p class="eyebrow">// why it matters on a deal</p>
+    <h2>Diligence the code, even when the target will not hand it over.</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="price small">$25,000 to $40,000</div>
+        <p>is what lower-middle-market firms that publish pricing charge for a standard technology diligence engagement, which leaves many small deals with no dedicated code review at all. <strong>Screen the deals that are priced out today.</strong></p>
+        <p class="src">Source: <a href="https://middlemarketgrowth.org/pearlwizai-due-diligence-technology-deals/" target="_blank" rel="noopener">ACG Insights</a> (the author runs an AI diligence company).</p>
+      </div>
+      <div class="card">
+        <div class="price small">11%</div>
+        <p>of representations and warranties paid losses now come from intellectual property breaches, 15% in technology, media and communications. <strong>Find the copyleft license and the dead dependency before they become a price adjustment after close.</strong></p>
+        <p class="src">Source: <a href="https://www.aon.com/insights/reports/2026-transaction-solutions-global-claims-study" target="_blank" rel="noopener">Aon, 2026 Transaction Solutions Global Claims Study</a>.</p>
+      </div>
+      <div class="card">
+        <div class="price small">51%</div>
+        <p>of R&amp;W claim notifications arrive more than 12 months after closing. <strong>Keep a signed record of what was reviewed, and when,</strong> that you can still produce when the claim lands.</p>
+        <p class="src">Source: <a href="https://www.aon.com/insights/reports/2026-transaction-solutions-global-claims-study" target="_blank" rel="noopener">Aon, 2026 Transaction Solutions Global Claims Study</a>.</p>
+      </div>
+    </div>
+    <div class="callout local">
+      <p><strong>When the repository cannot leave the target.</strong> Some targets decline to hand over repositories before signing (<a href="https://safeguard.sh/resources/blog/scan-an-acquisition-targets-code-without-taking-a-copy" target="_blank" rel="noopener">Safeguard.sh</a>), while the incumbent open source audit has the code owner upload code to the auditor&rsquo;s servers (<a href="https://www.blackduck.com/blog/how-open-source-software-audit-works.html" target="_blank" rel="noopener">Black Duck</a>). Ghost Architect&trade; Local runs on a machine inside the target&rsquo;s building with egress switched off, and the report goes out only after you approve it. License it for the month of the deal and stop when the deal closes.</p>
+    </div>
+  </section>
+
+  <!-- ANALYZERS -->
+  <section class="band" id="analyzers">
+    <p class="eyebrow">// four analyzers &middot; one report</p>
+    <h2>What you get.</h2>
+    <p class="lede">Four analyzers run against the codebase and come together in one executive-summary report you can hand to a deal committee, a board or a client without an apology.</p>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="k blue">01 &middot; STACK REALITY</div>
+        <h3>What is really there.</h3>
+        <p>An independent inventory of every framework, runtime and dependency in the code, read from the repository itself, not from the seller&rsquo;s deck.</p>
+        <ul>
+          <li>Framework and runtime detection across any language</li>
+          <li>End-of-life flags with publication dates</li>
+          <li>Version drift across services</li>
+          <li>Checked against the repository&rsquo;s contents, not its docs</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <div class="k blue">02 &middot; KEY-PERSON RISK</div>
+        <h3>Who walks out the door with the know-how?</h3>
+        <p>Find out which people the codebase depends on, and which of them have already left, before you price the deal.</p>
+        <ul>
+          <li>Anonymized authorship concentration</li>
+          <li>Departed-contributor flags</li>
+          <li>Concentration per subsystem</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <div class="k blue">03 &middot; HIDDEN DEPENDENCIES</div>
+        <h3>What you owe.</h3>
+        <p>Find the copyleft license and the dead dependency before they become a price adjustment after close.</p>
+        <ul>
+          <li>License classification across the dependency tree</li>
+          <li>Copyleft exposure in commercial code</li>
+          <li>End-of-life dependency flags</li>
+          <li>Transitive dependency risk</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <div class="k blue">04 &middot; MODERNIZATION ROADMAP</div>
+        <h3>What to do.</h3>
+        <p>A confidence-rated 90-day plan with a stabilize-or-rebuild recommendation, prioritized by deal impact.</p>
+        <ul>
+          <li>Stabilize-or-rebuild recommendation</li>
+          <li>Confidence rating (LOW / MEDIUM / HIGH)</li>
+          <li>90-day plan with deal-tier priorities</li>
+          <li>Every finding traces to the source it came from</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout amber">
+      <p><strong>What it does not do, on page one where it belongs.</strong> It does not match code against an open source database, so it will not find copied code with the license stripped; when the R&amp;W policy calls for an open source audit, commission one. It is not a CVE scanner, does not analyze binaries and does not test runtime behavior. It does not replace a full security audit or operational due diligence. It tells you where to look, fast.</p>
+    </div>
+  </section>
+
+  <!-- PAGE ONE ILLUSTRATION -->
+  <section class="band" id="sample-report">
+    <p class="eyebrow">// an illustration of page one</p>
+    <div class="report reveal">
+      <div class="stamp">ILLUSTRATION<b>PAGE 1</b>NOT A REAL TARGET</div>
+      <p class="eyebrow" style="color: var(--text-dim);">Inheritance Audit Report</p>
+      <h3>Executive Summary</h3>
+      <div class="row">
+        <span class="pill blue">RECOMMENDATION:</span>
+        <span class="v">STABILIZE</span>
+      </div>
+      <div class="row">
+        <span class="lab">CONFIDENCE</span>
+        <span class="bar" aria-hidden="true"></span>
+        <span class="v">MEDIUM</span>
+      </div>
+      <hr />
+      <p class="kf">Key Findings</p>
+      <div class="f"><i aria-hidden="true"></i><div><div class="ft">DEAL-BLOCKER</div><div class="d">PHP 7.4 in production &middot; end of life since Nov 2022</div></div></div>
+      <div class="f amber"><i aria-hidden="true"></i><div><div class="ft">POST-CLOSE RISK</div><div class="d">Two people wrote most of the code &middot; 3 of the top 5 authors have left</div></div></div>
+      <div class="f amber"><i aria-hidden="true"></i><div><div class="ft">POST-CLOSE RISK</div><div class="d">7 copyleft dependencies in a commercial codebase</div></div></div>
+      <div class="f gold"><i aria-hidden="true"></i><div><div class="ft">DAY-91 CLEANUP</div><div class="d">28 frameworks detected &middot; 4 past end of life</div></div></div>
+      <p class="foot">Page 1 &middot; Ghost Architect&trade; &middot; Confidential</p>
+    </div>
+    <p class="fine" style="margin-left: 0;">A drawing of the layout, with made-up findings. For a real one, read the <a href="../assets/ghost-inheritance-audit-sample.pdf" target="_blank" rel="noopener">sample executive summary (PDF)</a> from our survey of five public Magento extensions.</p>
+  </section>
+
+  <!-- USE CASE QUOTE -->
+  <section class="band" id="use-case">
+    <p class="eyebrow teal">// the use case</p>
+    <div class="prose reveal">
+      <blockquote>Run it before the stakeholder call. Walk in with the freshest read on the codebase in the room.</blockquote>
+    </div>
+  </section>
+
+  <!-- PERSONAS -->
+  <section class="band" id="personas">
+    <p class="eyebrow">// built for the people writing the check</p>
+    <h2>Three buyers. One report.</h2>
+    <p class="lede">Built for the moments when the cost of being wrong is measured in commas, not cents.</p>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="k blue">DEAL ADVISORS &amp; PE DILIGENCE</div>
+        <h3>Independent intelligence before the LOI. Renegotiate, restructure or walk.</h3>
+        <p>Sellers tell their story; the codebase tells its own. Get an independent technical read before the term sheet, with end-of-life risk, key-person concentration and license exposure surfaced in time to negotiate or walk. White-label it with Ghost Partner&trade; profiles and it goes out under your firm&rsquo;s name.</p>
+      </div>
+      <div class="card reveal">
+        <div class="k blue">AGENCIES &amp; CONTRACTORS</div>
+        <h3>Price the SOW correctly. Spot the deal-breakers before the first sprint.</h3>
+        <p>You have been burned by an SOW that priced only the work you could see. Get the independent read you need to price with confidence, and a report you can attach to the proposal.</p>
+      </div>
+      <div class="card reveal">
+        <div class="k blue">FRACTIONAL CTOs</div>
+        <h3>Show up to the board meeting with a 90-day plan, not a hunch.</h3>
+        <p>The last CTO left, the team is two engineers thin, and the board wants a roadmap by Friday. Walk in with the report, and with a 90-day plan you can defend on slide 4.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GET IT (the id stays pricing-gate for old links) -->
+  <section class="band" id="pricing-gate">
+    <p class="eyebrow">// get it</p>
+    <h2>Run it on your next deal.</h2>
+    <p class="lede">Ghost Architect&trade; Local 8.1.1 is commercially released. Monthly, cancel any time, so you can license it for the month of a deal.</p>
+    <div class="cards">
+      <div class="card hi reveal">
+        <div class="k">Ghost Architect&trade; Local</div>
+        <div class="price">$80<small>/mo and up</small></div>
+        <p>For deal advisors, diligence teams and agencies. Run it on your hardware or inside the target&rsquo;s building, with white-label reports through Ghost Partner&trade; profiles on Agency and Enterprise.</p>
+        <a href="download.html" class="btn btn-local-solid">Start the trial &rarr;</a>
+        <a href="pricing.html#local" class="btn btn-ghost">See Local pricing</a>
+      </div>
+      <div class="card reveal">
+        <div class="k blue">Done for you</div>
+        <div class="price">$497<small> flat</small></div>
+        <p>Rather not run it yourself? We run the Ghost Inheritance Audit&trade; and deliver the report and a one-page summary within 48 hours of payment.</p>
+        <a href="audit.html" class="btn btn-ghost">Order the audit &rarr;</a>
+      </div>
+      <div class="card reveal">
+        <div class="k blue">Ghost Open&trade;</div>
+        <div class="price">$0<small> license, one person</small></div>
+        <p>If you work alone and the target allows its code to go to Anthropic: the full audit on your own Anthropic key.</p>
+        <div class="npm" style="margin: 0.8rem 0; font-size: 0.8rem; max-width: 100%; overflow-x: auto;"><span class="dollar">$</span><span>npm install -g ghost-architect-open</span></div>
+        <a href="https://www.npmjs.com/package/ghost-architect-open" class="btn btn-ghost" target="_blank" rel="noopener">Ghost Open&trade; on npm &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; <a href="support.html">Support</a> &middot; <a href="/privacy.html">Privacy Policy</a> &middot; <a href="/msa.html">Terms of Service</a></span>
+</footer>
+
+<script src="ga-nav.js?v=20261029p" defer></script>
+<script>
+  // Quiet text reveals. Falls back to visible if IntersectionObserver is missing.
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+<script src="scene.js" defer></script>
+</body>
+</html>

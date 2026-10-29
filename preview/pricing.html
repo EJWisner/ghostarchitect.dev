@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <!-- PREVIEW (2026-10-29, benefit-first rebuild): noindex until EJ approves it. Go-live steps are in CHANGES.md. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Pricing: Ghost Architect&trade; Local from $80 a month, fixed</title>
+  <meta name="description" content="Ghost Architect&trade; Local: $80, $400, $1,000 or $2,000 a month for 1, 5, 15 or unlimited seats. No per-token bill, cancel any time, first month half price when you convert during the trial. Ghost Open&trade; has no license fee for one person." />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev/pricing.html" />
+  <meta property="og:title" content="Ghost Architect&trade; pricing: fixed price, your hardware, no meter" />
+  <meta property="og:description" content="From $80 a month for one seat to $2,000 for every engineer you have. No per-token bill. First month half price when you convert during the trial." />
+  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
+  <meta property="og:site_name" content="Ghost Architect&trade;" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ghost Architect&trade; pricing: fixed price, your hardware, no meter" />
+  <meta name="twitter:description" content="From $80 a month for one seat to $2,000 for every engineer you have. No per-token bill." />
+  <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Ghost Architect™",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "macOS, Windows, Linux",
+    "url": "https://ghostarchitect.dev",
+    "description": "Codebase intelligence that tells you what a codebase will cost you before you price it, buy it or inherit it, on your own hardware at a fixed monthly price.",
+    "offers": [
+      { "@type": "Offer", "name": "Ghost Architect™ Local Solo", "description": "1 seat. Monthly license.", "price": "80", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Ghost Architect™ Local Small Team", "description": "5 seats. Monthly license.", "price": "400", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Ghost Architect™ Local Agency", "description": "15 seats, Ghost Partner™ profiles and white-label reports. Monthly license.", "price": "1000", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Ghost Architect™ Local Enterprise", "description": "Unlimited seats. Monthly license.", "price": "2000", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Ghost Open™", "description": "No license fee for one person. Every mode, unlimited, on your own Anthropic API key.", "price": "0", "priceCurrency": "USD" }
+    ]
+  }
+  </script>
+  <link rel="canonical" href="https://ghostarchitect.dev/pricing.html" />
+  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css?v=20261029p" />
+  <!-- pricing.html only: in-list section labels, stacked full-width card buttons and a Local-accented card. -->
+  <style>
+    .page-hero .logo { margin: 0 0 1.8rem; }
+    .page-hero .logo img { height: 160px; width: auto; border-radius: 20px; border: 0; }
+    .callout.local a { color: var(--local); }
+    .band .hero-cta { justify-content: flex-start; margin: 0; }
+    .trial-note { color: var(--text-dim); font-size: 0.8rem; margin: 0.6rem 0 2rem; }
+    .cards.local .card { border-color: rgba(0, 191, 216, 0.35); }
+    .card.hi-local { border-color: rgba(0, 191, 216, 0.6); box-shadow: 0 0 32px var(--local-dim); }
+    .plan-cards .card { display: flex; flex-direction: column; }
+    .plan-cards .card ul { flex: 1 1 auto; }
+    .card .badges { margin-bottom: 0.6rem; }
+    .card .pnote { font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-dim); margin: 0.3rem 0 0; }
+    .card li.sl { list-style: none; margin: 0.9rem 0 0.2rem -1.1rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); }
+    .card li.sl.local { color: var(--local); }
+    .card .btn { width: 100%; justify-content: center; white-space: normal; text-align: center; }
+    .card .btn + .btn { margin-top: 0.6rem; }
+    .open-tier .npm { margin: 0.4rem 0.6rem 0 0; font-size: 0.84rem; padding: 0.45rem 0.8rem; }
+    #local, #open, #plans, #enterprise, #breakeven, #done-for-you { scroll-margin-top: 80px; }
+    .cards.one { grid-template-columns: 1fr; max-width: 760px; margin: 0; }
+    .open-tier .card .npm { margin: 1rem 0 0.4rem; max-width: 100%; overflow-x: auto; }
+    .dfy .card { display: flex; flex-direction: column; }
+    .dfy .card p { flex: 1 1 auto; }
+    .dfy .card.draft { border-style: dashed; border-color: rgba(255,170,0,0.55); }
+    .dfy .card.draft .k { color: var(--warning); }
+  </style>
+</head>
+<body data-product="local">
+
+<canvas id="lattice" aria-hidden="true" data-ambient></canvas>
+
+<div id="ga-nav-mount"></div>
+
+<main class="page">
+
+  <header class="page-hero">
+    <figure class="figure logo"><img src="../GHOSTLOGO.JPG" alt="Ghost Architect&trade;" width="220" height="220" /></figure>
+    <p class="eyebrow">// pricing</p>
+    <h1>Fixed price. Your hardware.<br><em>No meter.</em></h1>
+    <p class="lede">From $80 a month for one seat to $2,000 for every engineer you have. Convert during the trial and your first month is half price. Cancel any time.</p>
+    <div class="callout local">
+      <p><strong>Ghost Architect&trade; Local 8.1.1 is commercially released.</strong> Your model, your hardware, zero egress with every license, one monthly license with no per-token bill. <a href="local.html">See what Ghost Architect&trade; Local does &rarr;</a></p>
+    </div>
+    <div class="hero-cta">
+      <a href="download.html" class="btn btn-local-solid">Try it on your hardware first &rarr;</a>
+      <a href="#breakeven" class="btn btn-local">Work out your break-even &darr;</a>
+    </div>
+  </header>
+
+  <!-- BREAK-EVEN, from the buyer's own numbers -->
+  <section class="band" id="breakeven">
+    <p class="eyebrow local">// break-even, from your numbers</p>
+    <h2>It pays for itself the month it saves you this many hours.</h2>
+    <p class="lede">Put in what an hour of your team&rsquo;s time is worth and pick a tier. The arithmetic is the price divided by your rate; there is no estimate of ours in it.</p>
+    <div class="roi">
+      <form class="roi-in" id="be-form" novalidate>
+        <label>Your hourly rate (US$) <input type="text" id="be-rate" value="200" inputmode="numeric" pattern="[0-9]*" autocomplete="off" /></label>
+        <label>Tier
+          <select id="be-tier">
+            <option value="80|1|Solo">Solo, $80</option>
+            <option value="400|5|Small Team">Small Team, $400</option>
+            <option value="1000|15|Agency" selected>Agency, $1,000</option>
+            <option value="2000|0|Enterprise">Enterprise, $2,000</option>
+          </select>
+        </label>
+        <button type="submit" class="btn btn-local-solid roi-go">Calculate</button>
+      </form>
+      <div class="roi-out" id="be-out" aria-live="polite" tabindex="-1">
+        <div class="wide"><span class="say" id="be-say">Ghost Architect&trade; Local Agency pays for itself the month it saves your team <b>5 hours</b>.</span></div>
+        <div><span class="v" id="be-hours">5 hours</span><span class="k">a month to break even</span></div>
+        <div><span class="v" id="be-seat">$66.67</span><span class="k">per seat, per month</span></div>
+        <div><span class="v" id="be-first">$500</span><span class="k">your first month when you convert</span></div>
+        <div><span class="v" id="be-year">$12,000</span><span class="k">a full year, the same every month</span></div>
+      </div>
+    </div>
+    <p class="fine">The numbers above are an example; put in your own. How many hours it saves depends on your codebases and your team, and we do not claim a number for you. The trial is how you find out.</p>
+  </section>
+
+  <div id="choose">
+
+  <section class="band" id="local">
+    <p class="eyebrow local product-banner mega">Ghost Architect&trade; Local &middot; your hardware</p>
+    <h2>The price in month twelve is the price in month one.<br>Your model, your network, no per-token bill.</h2>
+    <p class="lede">A re-run costs machine time, not money. Convert during the trial and your first month is half price: $40, $200, $500 or $1,000. <a href="local.html">What Local is.</a></p>
+    <div class="hero-cta">
+      <a href="download.html" class="btn btn-local-solid">Try it on your hardware first &rarr;</a>
+    </div>
+    <p class="trial-note">No card, no account; the trial starts inside the product on your own machine.</p>
+
+    <div class="cards plan-cards local four">
+      <div class="card">
+        <div class="k">// local solo</div>
+        <h3>Solo</h3>
+        <p>If your time bills at more than $80 an hour, this costs less than one hour a month. Everything Ghost Architect&trade; Local does, for one architect, on hardware you already own.</p>
+        <div class="price"><span class="cur">$</span>80<small>/mo</small></div>
+        <p class="pnote">1 seat &middot; monthly license &middot; first month $40 when you convert</p>
+        <ul>
+          <li>Every scan mode: Points of Interest, Blast Radius&trade;, Conflict Detection&trade;, Pre-Sprint, Recon, Executive Brief&trade;</li>
+          <li>Ghost Brief&trade; fix plans written from your code</li>
+          <li>Ghost Triple Crown&trade; on every commit from a hook</li>
+          <li>Runs on your model server: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint</li>
+          <li>Zero-egress mode, with the inventory that proves it</li>
+          <li>Model switch: air-gapped, local, or a cloud API on your own key (off by default), with each project held to Local only or Cloud allowed</li>
+          <li>Hub and spokes: every machine and every scan on one page</li>
+          <li>Signed records for your auditor: every scan, who ran it, how it ended</li>
+          <li>No client report goes out until an administrator approves it</li>
+          <li>PDF, Markdown and JSON reports, kept on your disk</li>
+        </ul>
+        <a href="https://buy.stripe.com/4gMfZh8jl0Ik7blbH7bEA0d" class="btn btn-local-solid" data-tier="solo">Buy Solo: $80 a month &rarr;</a>
+        <a href="download.html" class="btn btn-local">Try it on your hardware first &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="k">// local small team</div>
+        <h3>Small Team</h3>
+        <p>$80 a seat for five people. Every engineer&rsquo;s scans in one queue, every report in one place, and no AI line on the invoice that moves.</p>
+        <div class="price"><span class="cur">$</span>400<small>/mo</small></div>
+        <p class="pnote">5 seats &middot; monthly license &middot; first month $200 when you convert</p>
+        <ul>
+          <li class="sl local">everything in solo, plus</li>
+          <li>Five seats across the team</li>
+          <li>Departments and roles in Admin Console</li>
+          <li>One queue for the whole team, in the order you set</li>
+        </ul>
+        <a href="https://buy.stripe.com/28EcN5dDFfDefHRfXnbEA0f" class="btn btn-local-solid" data-tier="small_team">Buy Small Team: $400 a month &rarr;</a>
+        <a href="download.html" class="btn btn-local">Try it on your hardware first &rarr;</a>
+      </div>
+      <div class="card hi-local">
+        <div class="badges"><span class="pill local">Your brand on every report</span></div>
+        <div class="k">// local agency</div>
+        <h3>Agency</h3>
+        <p>Under $67 a seat for fifteen. Win the NDA clients who forbid AI on their code, and deliver client reports under your own brand with Ghost Partner&trade; profiles.</p>
+        <div class="price"><span class="cur">$</span>1,000<small>/mo</small></div>
+        <p class="pnote">15 seats &middot; monthly license &middot; first month $500 when you convert</p>
+        <ul>
+          <li class="sl local">everything in small team, plus</li>
+          <li>Fifteen seats</li>
+          <li>Ghost Partner&trade; profiles: your logo, your methodology, your billing rates</li>
+          <li>White-label client reports, approved by you before they go out</li>
+        </ul>
+        <a href="https://buy.stripe.com/cNi4gz2Z11Mo8fpfXnbEA0e" class="btn btn-local-solid" data-tier="agency">Buy Agency: $1,000 a month &rarr;</a>
+        <a href="download.html" class="btn btn-local">Try it on your hardware first &rarr;</a>
+      </div>
+      <div class="card" id="enterprise">
+        <div class="k">// local enterprise</div>
+        <h3>Enterprise</h3>
+        <p>One price for every engineer you have, and every one you hire. A formal MSA and a named contact for the rollout.</p>
+        <div class="price"><span class="cur">$</span>2,000<small>/mo</small></div>
+        <p class="pnote">Unlimited seats &middot; monthly license &middot; first month $1,000 when you convert</p>
+        <ul>
+          <li class="sl local">everything in agency, plus</li>
+          <li>Unlimited seats and departments</li>
+          <li>Formal MSA</li>
+          <li>A named contact for the rollout</li>
+        </ul>
+        <a href="https://buy.stripe.com/8x26oHfLNfDe8fpdPfbEA0g" class="btn btn-local-solid" data-tier="enterprise">Buy Enterprise: $2,000 a month &rarr;</a>
+        <a href="contact.html?platform=local&amp;topic=enterprise" class="btn btn-local">Talk to us first &rarr;</a>
+      </div>
+    </div>
+    <p class="fine">Prices in USD. Subscriptions renew monthly; update your card or cancel any time in the <a href="https://billing.stripe.com/p/login/00w00j8jl9eQdzJ9yZbEA00">billing portal</a>. Evaluating? Your first month is half price: choose Convert Now inside Ghost Architect&trade; Local, or enter the code from your evaluation emails at checkout, before your evaluation ends.</p>
+  </section><!-- /local -->
+
+  <!-- DONE FOR YOU: the $497 audit, and the two draft services -->
+  <section class="band dfy" id="done-for-you">
+    <p class="eyebrow">// no install: we run it for you</p>
+    <h2>Rather not install anything? We run it.</h2>
+    <p class="lede">One done-for-you service is on sale today. The two marked as drafts are services we are preparing; their prices are not set and they are not offered yet.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="k blue">// on sale</div>
+        <h3>Ghost Inheritance Audit&trade;</h3>
+        <div class="price">$497<small> flat</small></div>
+        <p>Know what you are inheriting before you sign the SOW. We run the audit and deliver the report and a one-page executive summary within 48 hours of payment.</p>
+        <a href="audit.html" class="btn btn-cloud">See the audit and order &rarr;</a>
+      </div>
+      <div class="card draft">
+        <div class="k">// draft, not offered yet <span class="pill draft">Draft</span></div>
+        <h3>Ghost Architect&trade; On Demand (working title)</h3>
+        <div class="price"><span class="ph">[PRICE]</span><small> per run</small></div>
+        <p>We run the review on a read-only copy of your repository and deliver it under your brand. Run it again whenever you need it: per run, per pack of runs <span class="ph">[PRICE]</span>, and a rush option <span class="ph">[PRICE]</span> that puts you first in the queue.</p>
+        <a href="on-demand.html" class="btn btn-ghost">Read the draft &rarr;</a>
+      </div>
+      <div class="card draft">
+        <div class="k">// draft, planned, not built <span class="pill draft">Draft</span></div>
+        <h3>Code Snapshot (working title)</h3>
+        <div class="price"><span class="ph">[PRICE]</span></div>
+        <p>A low-cost first look at a codebase: size, stack, key people, licenses, and what a full review would take and cost, credited toward the full review. Planned, not built yet.</p>
+        <a href="snapshot.html" class="btn btn-ghost">Read the draft &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="open">
+    <span id="plans"></span>
+    <p class="eyebrow product-banner mega">Ghost Open&trade; &middot; one person</p>
+    <h2>No license fee for one person.<br>Every mode, your own Anthropic key.</h2>
+    <p class="lede">Ghost Open&trade; is the single-user CLI on npm. Every mode runs unlimited on your own Anthropic API key, so the only cost is the model usage you already control. Your code goes to Anthropic on your key. No license key, no trial clock, no quotas.</p>
+
+    <div class="cards plan-cards one open-tier">
+      <div class="card">
+        <div class="k blue">// ghost open&trade;</div>
+        <h3>Ghost Open&trade;</h3>
+        <p>One person, one install, every single-user mode. Install it, add your Anthropic API key, and scan.</p>
+        <div class="price">$0<small> license fee</small></div>
+        <p class="pnote">1 person &middot; no license key, no trial clock, no quotas</p>
+        <ul>
+          <li class="sl">every mode, unlimited</li>
+          <li>Question, Chat, Recon, Points of Interest, Blast Radius&trade;, Conflict Detection&trade;, Prompt Triage&trade;, Inheritance Audit, Ghost Brief&trade;, Executive Brief&trade;, Commit Forecast&trade;, Fix Forecast: 12 modes, unlimited, on your own Anthropic API key</li>
+          <li>The full 200K-token context cap on every scan</li>
+          <li class="sl">your code, your key</li>
+          <li>Your code goes from your machine to Anthropic&rsquo;s API with your own key, and nowhere else</li>
+          <li>Reports are saved on your machine only</li>
+          <li>Free production use by one person under the Business Source License 1.1 Additional Use Grant</li>
+        </ul>
+        <span class="npm"><span class="dollar">$</span><span id="npm-cmd-pricing">npm install -g ghost-architect-open</span><button type="button" onclick="navigator.clipboard.writeText('npm install -g ghost-architect-open').then(function(){ var b = document.getElementById('copy-btn-pricing'); b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 2000); })" id="copy-btn-pricing">Copy</button></span>
+        <a href="https://www.npmjs.com/package/ghost-architect-open" class="btn btn-cloud" target="_blank" rel="noopener noreferrer">Ghost Open&trade; on npm &rarr;</a>
+        <p class="pnote">For teams, white-label reports and your own model on your own hardware: <a href="#local">Ghost Architect&trade; Local</a>.</p>
+      </div>
+    </div>
+  </section><!-- /open -->
+
+  </div><!-- /choose -->
+
+  <!-- TRUST, per product -->
+  <section class="band" id="local-trust">
+    <p class="eyebrow local product-banner">Ghost Architect&trade; Local &middot; your hardware</p>
+    <div class="cards">
+      <div class="card">
+        <div class="k">// your code never leaves your network</div>
+        <p>Ghost Architect&trade; Local runs on hardware you own against your own model server. Zero-egress mode comes with every license: it refuses any outbound destination at the code level and prints the inventory that proves it. The Cloud API position, on your own key, is off by default.</p>
+      </div>
+      <div class="card">
+        <div class="k">// no third party sees your code</div>
+        <p>In air-gapped and local mode there is no third-party model to call. The model is yours: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. There is no third-party retention policy to take on trust, because there is no third party.</p>
+      </div>
+      <div class="card">
+        <div class="k">// trial first, then a monthly license</div>
+        <p>Start with the evaluation trial; it starts inside the product on first use and the product tells you the day it ends. Convert during it and your first month is half price. Monthly license, no per-token bill, cancel any time. Enterprise includes a formal MSA.</p>
+      </div>
+      <div class="card">
+        <div class="k">// delivered to you directly</div>
+        <p>Buy a license and your key and download link arrive by email the moment you pay. For the trial, <a href="download.html#request">request the download</a> and the link is emailed to you straight away. Every release has a published SHA-256 to check before you unpack it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="open-trust">
+    <p class="eyebrow product-banner">Ghost Open&trade; &middot; one person</p>
+    <div class="cards">
+      <div class="card">
+        <div class="k blue">// your code goes to Anthropic, and nowhere else</div>
+        <p>Ghost Open&trade; runs on your machine. Your source code goes from your machine to Anthropic&rsquo;s API with your own key. It never reaches a server of ours; we run none that see it.</p>
+      </div>
+      <div class="card">
+        <div class="k blue">// anthropic&rsquo;s policy applies</div>
+        <p>What Anthropic keeps, and for how long, is set by Anthropic&rsquo;s own policy and your agreement with them. We have no access to that data. <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">Anthropic&rsquo;s privacy policy</a>.</p>
+      </div>
+      <div class="card">
+        <div class="k blue">// one person, in writing</div>
+        <p>Ghost Open&trade; is source-available under the Business Source License 1.1. Its Additional Use Grant lets one person use it in production free of charge, for their own work or their employer&rsquo;s or clients&rsquo; work. No account, no license key, no activation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ, per product -->
+  <section class="band" id="local-faq">
+    <p class="eyebrow local product-banner">// frequently asked &middot; Ghost Architect&trade; Local</p>
+    <div class="faq" style="padding: 0;"><div class="wrap" style="max-width: 820px; margin: 0;">
+      <details>
+        <summary>What is Ghost Architect&trade; Local, and how is it different from Ghost Open&trade;?</summary>
+        <p>Every Ghost Open&trade; mode plus teams, projects, Ghost Partner&trade; profiles and automatic checks on every commit, running on hardware you own against a model server you run. Ghost Open&trade; sends your code to Anthropic&rsquo;s API with your own key. Local runs on your own model, and unless you turn on its Cloud API position, nothing about your code leaves your machines. Choose Local when the code cannot leave the building, or when a per-token bill is the wrong shape for your team.</p>
+      </details>
+      <details>
+        <summary>Do I need an Anthropic API key for Ghost Architect&trade; Local?</summary>
+        <p>No. Local runs against your own model server: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. You need a cloud provider key only if you choose to turn on the Cloud API position, and then it is your own key.</p>
+      </details>
+      <details>
+        <summary>How does the evaluation trial work?</summary>
+        <p><a href="download.html#request">Request the download</a>, install it, and the trial starts inside the product on first use, registered against that install; the product tells you the day it ends. No card. Convert during the trial and your first month is half price.</p>
+      </details>
+      <details>
+        <summary>Which Local tiers include zero egress?</summary>
+        <p>All of them. Zero-egress mode comes with every license, Solo to Enterprise. It refuses every outbound destination at the code level and prints the egress inventory that proves what the product can and cannot reach.</p>
+      </details>
+      <details>
+        <summary>Can I license it just for the month of a deal or a matter?</summary>
+        <p>Yes. It is monthly and you can cancel any time, so a deal advisor or an expert can license it for the month of a deal or a matter and stop when it closes.</p>
+      </details>
+      <details>
+        <summary>Can you help us install it?</summary>
+        <p>Yes. We will walk through the install with you on a call: your hands on the keyboard, your code on your own machine. <a href="contact.html?platform=local&amp;topic=install">Ask for an install call.</a></p>
+      </details>
+      <details>
+        <summary>How is Local delivered, and how do I upgrade?</summary>
+        <p>Directly from us, not through a package registry. Buy a license and your key and a download link arrive by email the moment you pay; for the trial, the download link is emailed to you straight away, or we give your GitHub account access to the delivery repository. Every tarball has a published SHA-256 to check before you unpack it. On Linux the installer provisions a service account and two systemd units (the portal and the scheduler). You upgrade by re-running the installer on the new tarball; your configuration, scan history and license persist. The <a href="/changelog.html#local">changelog</a> lists every release.</p>
+      </details>
+      <details>
+        <summary>What hardware do I need?</summary>
+        <p>Whatever runs your model server. Ghost Architect&trade; Local measures its own pass times on your machine and estimates from them, so every time estimate you see is yours and not a benchmark from ours. One measured example: an IP evidence review of a 16-file open source library took 32 minutes 29 seconds on a MacBook Air (Apple M3, 24 GB) running qwen3.5:9b. Larger models read code more carefully and take longer per pass; the LLM Status page shows your machine&rsquo;s speed, memory and context window so you can see the trade-off before a long scan.</p>
+      </details>
+    </div></div>
+  </section>
+
+  <section class="band" id="open-faq">
+    <p class="eyebrow product-banner">// frequently asked &middot; Ghost Open&trade;</p>
+    <div class="faq" style="padding: 0;"><div class="wrap" style="max-width: 820px; margin: 0;">
+      <details>
+        <summary>What does &ldquo;no license fee for one person&rdquo; mean?</summary>
+        <p>Ghost Open&trade; is source-available under the Business Source License 1.1. Its Additional Use Grant lets one person use it in production free of charge, on their own machines, for their own work or their employer&rsquo;s or clients&rsquo; work. Every single-user mode is on, with no quotas, no trial clock and no license key. An organization using it through a shared, multi-user or hosted deployment needs a commercial license; for teams, that is <a href="#local">Ghost Architect&trade; Local</a>.</p>
+      </details>
+      <details>
+        <summary>Do I need my own Anthropic API key?</summary>
+        <p>Yes. Ghost Open&trade; is BYOK (Bring Your Own Key) by design: your code goes directly from your machine to Anthropic&rsquo;s API. Our public sample scan cost $0.2372 in Anthropic API usage, and the cost of every scan is printed in the output, so you see your own.</p>
+      </details>
+      <details>
+        <summary>What is not in Ghost Open&trade;?</summary>
+        <p>Anything that needs more than one person or a server: teams, projects and project tracking, the Project Dashboard, Ghost Partner&trade; profiles and white-label reports, and automatic checks on every commit. Those are in <a href="#local">Ghost Architect&trade; Local</a>, along with your own model on your own hardware.</p>
+      </details>
+      <details>
+        <summary>Can I get a demo?</summary>
+        <p>Yes. Email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> or connect on <a href="https://linkedin.com/in/ernst-wisner-9357b2186" target="_blank" rel="noopener noreferrer">LinkedIn</a> and we will schedule a 15-minute Teams call with a live scan of a sample codebase.</p>
+      </details>
+      <details>
+        <summary>What languages and platforms does Ghost Architect&trade; support?</summary>
+        <p>Any codebase, any language, any platform, including PHP, JavaScript, TypeScript, Python, Ruby, Java and more. It reads code structure, dependency relationships, configuration files and integration patterns whatever stack you run.</p>
+      </details>
+      <details>
+        <summary>Can I use Ghost Open&trade; on a client&rsquo;s private repository?</summary>
+        <p>Yes, if your client allows its code to go to Anthropic. Ghost Open&trade; supports private GitHub, GitLab and Bitbucket repositories: authenticate with a personal access token, it clones the repository locally, runs the scan and removes the clone when done. The code goes to Anthropic&rsquo;s API on your own key, which makes Anthropic a third party to it. If your client forbids that, use <a href="#local">Ghost Architect&trade; Local</a>.</p>
+      </details>
+    </div></div>
+  </section>
+
+  <section class="band final" style="text-align: center;">
+    <h2>Find out what it is worth on your own code.</h2>
+    <p class="lede" style="margin-left: auto; margin-right: auto;">No card, no account. Convert during the trial and your first month is half price.</p>
+    <div class="hero-cta" style="justify-content: center;">
+      <a href="download.html" class="btn btn-local-solid">Start the Ghost Architect&trade; Local trial</a>
+      <a href="contact.html?platform=local" class="btn btn-ghost">Ask us a question first</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; <a href="support.html">Support</a> &middot; <a href="/privacy.html">Privacy Policy</a> &middot; <a href="/msa.html">Terms of Service</a></span>
+</footer>
+
+<script src="ga-nav.js?v=20261029p" defer></script>
+<script>
+  // Quiet text reveals. Falls back to visible if IntersectionObserver is missing.
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+
+  // Break-even: price / rate, from the visitor's own numbers. Example defaults only.
+  (function () {
+    function money(v) { return '$' + Math.round(v).toLocaleString('en-US'); }
+    function update() {
+      var rate = parseFloat(String(document.getElementById('be-rate').value).replace(/[^0-9.]/g, ''));
+      if (!isFinite(rate) || rate < 0) rate = 0;
+      var parts = document.getElementById('be-tier').value.split('|');
+      var price = +parts[0], seats = +parts[1], name = parts[2];
+      var hours = rate > 0 ? price / rate : 0;
+      var hoursText = rate > 0 ? ((Math.round(hours * 10) / 10).toLocaleString('en-US') + (Math.round(hours * 10) / 10 === 1 ? ' hour' : ' hours')) : 'n/a';
+      document.getElementById('be-hours').textContent = hoursText;
+      var per = seats > 0 ? price / seats : 0;
+      document.getElementById('be-seat').textContent = seats > 0 ? (per % 1 === 0 ? money(per) : '$' + per.toFixed(2)) : 'Unlimited';
+      document.getElementById('be-first').textContent = money(price / 2);
+      document.getElementById('be-year').textContent = money(price * 12);
+      var say = document.getElementById('be-say');
+      say.innerHTML = rate > 0
+        ? 'Ghost Architect&trade; Local ' + name + ' pays for itself the month it saves your team <b>' + hoursText + '</b>.'
+        : 'Put in your hourly rate to see your break-even.';
+    }
+    ['be-rate', 'be-tier'].forEach(function (id) {
+      var el = document.getElementById(id); if (!el) return;
+      el.addEventListener('input', update);
+      el.addEventListener('change', update);
+    });
+    var rateEl = document.getElementById('be-rate');
+    if (rateEl) {
+      var fresh = false;
+      rateEl.addEventListener('focus', function () { fresh = true; try { rateEl.select(); } catch (e) {} });
+      rateEl.addEventListener('click', function () { if (fresh) { fresh = false; try { rateEl.select(); } catch (e) {} } });
+      rateEl.addEventListener('blur', function () { fresh = false; });
+    }
+    var form = document.getElementById('be-form');
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault(); update();
+      if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+      var out = document.getElementById('be-out');
+      if (out) { out.scrollIntoView({ behavior: 'smooth', block: 'center' }); try { out.focus({ preventScroll: true }); } catch (err) {} }
+    });
+    update();
+  })();
+</script>
+<script>
+(function(){
+  // ?platform=local (the Local pages link that way) lands on the Local plans.
+  if (/[?&]platform=local\b/.test(window.location.search) && !window.location.hash) {
+    var el = document.getElementById('local'); if (el) el.scrollIntoView({ block: 'start' });
+  }
+})();
+</script>
+<script src="scene.js" defer></script>
+</body>
+</html>
