@@ -45,6 +45,24 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
   <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
   <link rel="stylesheet" href="site.css?v=20260928a" />
+  <style>
+    .roi { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .roi-in, .roi-out { border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1.4rem; background: rgba(255,255,255,0.02); }
+    .roi-in label { display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-size: 0.95rem; color: var(--text-muted, #a1a1aa); padding: 0.55rem 0; }
+    .roi-in input { width: 7.5rem; padding: 0.5rem 0.6rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: #0d0d14; color: #fff; font: inherit; text-align: right; }
+    .roi-in input:focus { outline: 2px solid var(--local, #22d3ee); outline-offset: 1px; }
+    .roi-out { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .roi-out div { display: flex; flex-direction: column; gap: 0.25rem; }
+    .roi-out .v { font-size: 1.7rem; font-weight: 700; color: var(--local, #22d3ee); font-variant-numeric: tabular-nums; }
+    .roi-out .k { font-size: 0.85rem; color: var(--text-muted, #a1a1aa); }
+    #roi .fine { max-width: 1100px; margin: 1rem auto 0; }
+    @media (max-width: 760px) {
+      .roi { grid-template-columns: 1fr; }
+      .roi-in label { font-size: 0.9rem; }
+      .roi-in input { width: 6rem; }
+      .roi-out .v { font-size: 1.35rem; }
+    }
+  </style>
 </head>
 <body data-product="local">
 
@@ -163,6 +181,30 @@
     </div>
   </section>
 
+  <!-- THE RETURN -->
+  <section class="solid pad" id="roi">
+    <div class="section-head reveal">
+      <p class="label local">// the return</p>
+      <h2>The review runs on its own. Your time goes into the approval.</h2>
+      <p class="lede">Each client's review runs on schedule, unattended. When the client's report is ready, Ghost Architect&trade; Local emails you a link; you approve it, schedule it or reject it, and only then does it go to the client. Every report sent is archived as it was sent. Reading and approving a routine report is about a quarter of an hour. Your firm bills for the standing service.</p>
+    </div>
+    <div class="roi reveal">
+      <div class="roi-in">
+        <label>Clients on a watch <input type="number" id="roi-clients" min="1" max="500" value="10" inputmode="numeric" /></label>
+        <label>Your monthly fee per client (US$) <input type="number" id="roi-fee" min="0" max="100000" step="50" value="500" inputmode="numeric" /></label>
+        <label>Reviews per client per month <input type="number" id="roi-reviews" min="1" max="31" value="4" inputmode="numeric" /></label>
+        <label>Your minutes per review <input type="number" id="roi-minutes" min="1" max="240" value="15" inputmode="numeric" /></label>
+      </div>
+      <div class="roi-out" aria-live="polite">
+        <div><span class="v" id="roi-revenue">$5,000</span><span class="k">billed each month</span></div>
+        <div><span class="v" id="roi-hours">10 hours</span><span class="k">of attorney time each month</span></div>
+        <div><span class="v" id="roi-net">$4,000</span><span class="k">after the $1,000 Agency license</span></div>
+        <div><span class="v" id="roi-rate">$400</span><span class="k">per hour of attorney time, after the license</span></div>
+      </div>
+    </div>
+    <p class="fine reveal">The numbers above are an example; put in your own. Your fee is yours to set. How many clients one machine can review depends on the size of their code and on your hardware: Ghost Architect&trade; Local measures its own speed on your machine and gives you the basis for every time estimate before you commit.</p>
+  </section>
+
   <!-- PRICING -->
   <section class="solid pad" id="pricing">
     <div class="section-head reveal">
@@ -238,6 +280,23 @@
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
     els.forEach(function (e) { io.observe(e); });
+  })();
+
+  // The return, worked out from the numbers the visitor types. Example defaults only.
+  (function () {
+    var LICENSE = 1000;
+    function num(id, lo, hi) { var v = parseFloat(document.getElementById(id).value); if (!isFinite(v)) v = 0; return Math.min(hi, Math.max(lo, v)); }
+    function money(v) { return (v < 0 ? '-$' : '$') + Math.round(Math.abs(v)).toLocaleString('en-US'); }
+    function update() {
+      var clients = num('roi-clients', 0, 500), fee = num('roi-fee', 0, 100000), reviews = num('roi-reviews', 0, 31), minutes = num('roi-minutes', 0, 240);
+      var revenue = clients * fee, hours = clients * reviews * minutes / 60, net = revenue - LICENSE;
+      document.getElementById('roi-revenue').textContent = money(revenue);
+      document.getElementById('roi-hours').textContent = (Math.round(hours * 10) / 10).toLocaleString('en-US') + (hours === 1 ? ' hour' : ' hours');
+      document.getElementById('roi-net').textContent = money(net);
+      document.getElementById('roi-rate').textContent = hours > 0 ? money(net / hours) : 'n/a';
+    }
+    ['roi-clients', 'roi-fee', 'roi-reviews', 'roi-minutes'].forEach(function (id) { var el = document.getElementById(id); if (el) el.addEventListener('input', update); });
+    if (document.getElementById('roi-clients')) update();
   })();
 </script>
 <script src="next-nav.js" defer></script>
