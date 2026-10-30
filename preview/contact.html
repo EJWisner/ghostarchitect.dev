@@ -258,7 +258,7 @@
       'ip-sample': { subject: 'Sample intellectual property evidence review', note: 'Tell us which kind of code your clients have, and we will send the sample intellectual property evidence review.' },
       'install': { subject: 'Install call for Ghost Architect™ Local', note: 'Tell us your operating system and whether you already run a model server. We will set up a call and install it with you: your hands, your code, your machine.' },
       'enterprise': { subject: 'Ghost Architect™ Local Enterprise', note: 'Tell us roughly how many engineers and machines, and whether you need the formal MSA first.' },
-      'on-demand': { subject: 'Ghost Architect™ On Demand quote', note: 'Tell us what codebase you want reviewed, about how many files it has, and when you need the report. We reply with the price, the delivery time and a payment link.' },
+      'on-demand': { subject: 'Ghost Architect™ On Demand quote', note: 'Tell us what codebase you want reviewed, about how many files it has, and when you need the report. We reply with the price, the delivery time and a payment link.', link: { href: 'on-demand-terms.html', text: 'Read the one-page agreement.' } },
       'snapshot': { subject: 'Code Snapshot (planned service)', note: 'Code Snapshot is planned, not built. Tell us which codebase you would point it at first, and we will let you know when it is ready.' }
     };
 
@@ -274,6 +274,13 @@
           typeEl.value = 'Pre-sales Question';
           document.getElementById('cf-subject').value = t.subject;
           document.getElementById('topic-text').textContent = t.note;
+          if (t.link) {
+            var tl = document.createElement('a');
+            tl.href = t.link.href;
+            tl.textContent = t.link.text;
+            document.getElementById('topic-text').appendChild(document.createTextNode(' '));
+            document.getElementById('topic-text').appendChild(tl);
+          }
           document.getElementById('topic-note').classList.add('on');
         }
       } catch (e) {}
