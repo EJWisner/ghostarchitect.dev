@@ -4,11 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
-  <!-- DRAFT FOR EJ (2026-10-29): a service that is not offered yet. Working title. Prices approved by EJ 2026-10-29 21:50 CDT.
-       Keep noindex and keep the draft banner until EJ names it, prices it and decides to offer it. -->
+  <!-- ON SALE (EJ decided 2026-10-30): Ghost Architect(TM) On Demand, by hand. Prices approved by EJ 2026-10-29 21:50 CDT.
+       Single runs and rush runs are sold by quote (contact form, topic on-demand); only the packs of 5 and 10 have
+       direct Stripe buy buttons. Keep noindex until go-live. -->
   <meta name="robots" content="noindex, nofollow" />
-  <title>Ghost Architect&trade; On Demand (draft): we run the review, you deliver the report</title>
-  <meta name="description" content="Draft, not offered yet. Ghost Architect&trade; On Demand: we run the review on a read-only copy of your repository and deliver the report under your brand. Run it again whenever you need it. Priced per run, with a rush option." />
+  <title>Ghost Architect&trade; On Demand: we run it, you deliver the report</title>
+  <meta name="description" content="No install. We review a read-only copy of your repository on our own machines, with no cloud AI, and deliver the report under your brand. From $495 a run." />
   <link rel="canonical" href="https://ghostarchitect.dev/on-demand.html" />
   <meta name="theme-color" content="#0a0a0f" />
   <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
@@ -29,6 +30,10 @@
     .tier li::marker { color: var(--local); }
     .tier.rush { border-color: rgba(255,170,0,0.55); }
     .tier.rush .seats { color: var(--warning); }
+    .tier { display: flex; flex-direction: column; }
+    .tier .buy { margin-top: auto; padding-top: 1.1rem; }
+    .tier .buy .btn { width: 100%; justify-content: center; text-align: center; white-space: normal; }
+    .pack-note { margin: 1.2rem 0 0; max-width: 68ch; }
     .promise { font-size: clamp(1.3rem, 2.6vw, 2rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; max-width: 40ch; margin: 0.4rem 0 0; text-wrap: balance; }
     .promise em { font-style: normal; color: var(--local); }
     .final { text-align: center; }
@@ -42,17 +47,15 @@
 
 <div id="ga-nav-mount"></div>
 
-<div class="draft-banner" role="note"><strong>Draft for review: not offered yet.</strong> Working title. These are the launch prices, but nothing on this page can be bought yet.</div>
-
 <main class="page">
 
   <header class="page-hero">
-    <p class="eyebrow local">// ghost architect&trade; on demand &middot; working title</p>
+    <p class="eyebrow local">// ghost architect&trade; on demand &middot; no install</p>
     <h1>We run the review.<br><em>You deliver the report, under your brand.</em></h1>
     <p class="lede">No install, no hardware, no subscription. Give us read-only access to a repository, and we run Ghost Architect&trade; on our own machines and deliver the finished report under your firm&rsquo;s name. Need it again after the next merge, the next release or the next round of the deal? Say &ldquo;run it again&rdquo; and it runs. You pay per run.</p>
     <div class="hero-cta">
-      <a href="contact.html?platform=local&amp;topic=on-demand" class="btn btn-local-solid">Ask about a first run</a>
-      <a href="#pricing" class="btn btn-local">How pricing would work &darr;</a>
+      <a href="contact.html?platform=local&amp;topic=on-demand" class="btn btn-local-solid">Get a quote</a>
+      <a href="#pricing" class="btn btn-local">See the prices &darr;</a>
     </div>
     <div class="hero-strip">
       <span>No install, no hardware</span>
@@ -69,19 +72,19 @@
     <div class="cards">
       <div class="card"><div class="k">Intellectual property attorneys and experts</div><h3>An intellectual property evidence review before the call, without standing up a machine.</h3><p>Every copyright holder, license and patent mention in the client&rsquo;s code, each finding quoting its file and line, under your firm&rsquo;s name.</p></div>
       <div class="card"><div class="k">Deal advisors</div><h3>A read of the target&rsquo;s code inside the exclusivity window.</h3><p>Delivered under your firm&rsquo;s name, with what it can and cannot do stated on the first page.</p></div>
-      <div class="card"><div class="k">Agencies taking over code</div><h3>An inherited-risk report on the next codebase you take over.</h3><p>Price it into the first invoice, and order it again when the client asks how things changed.</p></div>
+      <div class="card"><div class="k">Agencies taking over code</div><h3>An inherited-risk report on the next codebase you take over.</h3><p>Price it into the first invoice, and order it again when the client asks how things changed. Need one report in 48 hours at a flat price instead? See the <a href="audit.html">Ghost Inheritance Audit&trade;</a>.</p></div>
       <div class="card"><div class="k">Teams waiting on an approval</div><h3>Your security team has not approved an install yet.</h3><p>Get the report now, and decide on <a href="local.html">Ghost Architect&trade; Local</a> later, when you know what it finds.</p></div>
     </div>
   </section>
 
   <!-- HOW A RUN WORKS -->
   <section class="band">
-    <p class="eyebrow local">// how a run would work</p>
-    <h2>Six steps, and only the first two need you.</h2>
+    <p class="eyebrow local">// how a run works</p>
+    <h2>Six steps. You sign, give access and approve the quote. We do the rest.</h2>
     <ol class="steps">
       <li><div><h3>Sign one page</h3><p>A one-page agreement: what we review, who receives the report, liability capped at the fee you paid, and your code deleted when we deliver.</p></div></li>
       <li><div><h3>Give us read-only access</h3><p>A read-only key or collaborator invite on the repository. You control it and can revoke it at any time.</p></div></li>
-      <li><div><h3>We size it and quote the delivery time</h3><p>Before anything runs, we size the codebase and tell you when the report will arrive. You decide whether to go ahead.</p></div></li>
+      <li><div><h3>We size it and quote the price and the time</h3><p>Before anything runs, we size the codebase and reply with the price, the delivery time and a payment link. You decide whether to go ahead.</p></div></li>
       <li><div><h3>We run the review on our machines</h3><p>Ghost Architect&trade; runs on our own hardware with no cloud AI. Every report passes our approval step before it leaves us.</p></div></li>
       <li><div><h3>You get the report, under your brand</h3><p>Delivered only to the people you named, with your firm&rsquo;s name and methodology on it.</p></div></li>
       <li><div><h3>Run it again when you need it</h3><p>No fixed schedule. When the code changes or the deal moves, ask for the same project again and it runs again end to end. For intellectual property evidence reviews, the same code gives the same report, so a change in the report is a change in the code.</p></div></li>
@@ -90,11 +93,11 @@
 
   <!-- IP EVIDENCE REVIEWS FIRST -->
   <section class="band solid-band">
-    <p class="eyebrow local">// the first review we would offer</p>
+    <p class="eyebrow local">// the review we lead with</p>
     <h2>Intellectual property evidence reviews first.</h2>
     <div class="prose">
       <p>A provenance inventory read with no AI model: copyright holders and the years each is named with, the license of every file, patent mentions, comments that say where code came from, and license files that do not match the code that points to them. Then rated findings that quote the file and line. No legal conclusions; those stay with you.</p>
-      <p><strong>Measured on our own hardware:</strong> an intellectual property evidence review of a 16-file open source library took 32 minutes 29 seconds on a MacBook Air (Apple M3, 24 GB) running qwen3.5:9b through Ollama, and three runs gave identical reports. Larger codebases take longer, which is why we would quote the delivery time before you pay. <a href="for-ip-attorneys.html">What the intellectual property evidence review reads &rarr;</a></p>
+      <p><strong>Measured on our own hardware:</strong> an intellectual property evidence review of a 16-file open source library took 32 minutes 29 seconds on a MacBook Air (Apple M3, 24 GB) running qwen3.5:9b through Ollama, and three runs gave identical reports. Larger codebases take longer, which is why we quote the delivery time before you pay. <a href="for-ip-attorneys.html">What the intellectual property evidence review reads &rarr;</a></p>
     </div>
   </section>
 
@@ -102,32 +105,43 @@
   <section class="band" id="pricing">
     <p class="eyebrow local">// launch pricing</p>
     <h2>Pay per run. Pay more to go first.</h2>
-    <p class="lede">No subscription. You pay for the runs you order. Each run is sized from your code before you pay, so the price and the delivery time are known up front.</p>
+    <p class="lede">No subscription. You pay for the runs you order, and every run is sized from your code before it starts, so the price and the delivery time are known up front.</p>
     <div class="tiers">
       <div class="tier">
         <div class="name">Per run</div>
         <div class="price">$495</div>
         <div class="seats">Up to about 1,000 files</div>
         <p>$995 up to about 5,000 files. Larger codebases are quoted from their size before you pay. One review, one report, delivered under your brand to the people you name.</p>
+        <div class="buy"><a href="contact.html?platform=local&amp;topic=on-demand" class="btn btn-local-solid">Get a quote</a></div>
       </div>
       <div class="tier">
         <div class="name">Pack of 5 runs</div>
         <div class="price">$1,995</div>
         <div class="seats">$399 a run, paid up front, use within 12 months</div>
-        <p>Or 10 runs for $3,495, $349 a run. For a client you review every month, or a deal with several rounds. Each pack run covers a codebase of up to about 1,000 files.</p>
+        <p>For a client you review every month, or a deal with several rounds. Each pack run covers a codebase of up to about 1,000 files.</p>
+        <div class="buy"><a href="https://buy.stripe.com/cNibJ1art8aMcvFfXnbEA0l" class="btn btn-local-solid">Buy the pack of 5</a></div>
+      </div>
+      <div class="tier">
+        <div class="name">Pack of 10 runs</div>
+        <div class="price">$3,495</div>
+        <div class="seats">$349.50 a run, paid up front, use within 12 months</div>
+        <p>Our lowest price per run, for the reviewer who orders often. Each pack run covers a codebase of up to about 1,000 files.</p>
+        <div class="buy"><a href="https://buy.stripe.com/fZubJ11UX0IkanxbH7bEA0m" class="btn btn-local-solid">Buy the pack of 10</a></div>
       </div>
       <div class="tier rush">
         <div class="name">Rush</div>
         <div class="price">Double</div>
-        <div class="seats">The run price, twice: $990 for a standard run</div>
+        <div class="seats">The run price, twice: $990 up to about 1,000 files, $1,990 up to about 5,000</div>
         <ul>
           <li>Your run goes first in the queue.</li>
           <li>We quote the delivery time before you pay, from the size of your code.</li>
           <li>Miss the time we quoted, and the rush fee comes back to you.</li>
           <li>One rush slot at a time. If it is taken, we tell you when the next one opens.</li>
         </ul>
+        <div class="buy"><a href="contact.html?platform=local&amp;topic=on-demand" class="btn btn-local">Ask for a rush quote</a></div>
       </div>
     </div>
+    <p class="fine pack-note">Single runs and rush runs start with a quote: we size your code, then reply with the price, the delivery time and a payment link. The packs are bought here. Each pack run covers a codebase of up to about 1,000 files, and we still confirm the size before each run.</p>
     <div class="callout amber">
       <p><strong>No same-day promise.</strong> On our larger model, a single run can take most of a day just to analyze, so we never promise same-day delivery. We quote the time from your code, before you pay, and the rush fee is refunded if we miss it.</p>
     </div>
@@ -159,7 +173,7 @@
     <div class="faq" style="padding: 0;"><div class="wrap" style="max-width: 820px; margin: 0;">
       <details>
         <summary>Can I buy it today?</summary>
-        <p>Not yet. This page is a draft and the service is not offered. Tell us you want it and we will tell you when it opens.</p>
+        <p>Yes. Ask for a quote: we size your code, then reply with the price, the delivery time and a payment link. The packs of 5 and 10 runs can be bought on this page, and we still confirm the size of each codebase before each run.</p>
       </details>
       <details>
         <summary>What do you need from us?</summary>
@@ -183,9 +197,9 @@
   <!-- FINAL CTA -->
   <section class="band final">
     <h2>Tell us about the first codebase.</h2>
-    <p class="lede">What is it, how big is it, and when do you need the report? We will tell you whether this fits and what it would take.</p>
+    <p class="lede">What is it, about how many files does it have, and when do you need the report? We reply with the price, the delivery time and a payment link.</p>
     <div class="hero-cta">
-      <a href="contact.html?platform=local&amp;topic=on-demand" class="btn btn-local-solid">Ask about a first run</a>
+      <a href="contact.html?platform=local&amp;topic=on-demand" class="btn btn-local-solid">Get a quote</a>
       <a href="download.html" class="btn btn-ghost">Or run it yourself: start the Local trial</a>
     </div>
   </section>
