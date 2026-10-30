@@ -112,6 +112,7 @@
     + '        <div class="ga-dropdown-divider"></div>'
     + '        <div class="ga-dropdown-section-label">Done for you</div>'
     + item('/audit.html', 'Ghost Inheritance Audit&trade;', 'We run the audit for you. Report in 48 hours, $497 flat.', '/audit.html')
+    + item('/on-demand.html', 'Ghost Architect&trade; On Demand', 'No install. We run the review on our machines and deliver it under your brand. From $495 a run.', '/on-demand.html')
     + item('/#ghost-partner', 'Ghost Partner&trade; ' + pillLocal, 'Sell the audit under your own brand, at your own rates.', null)
     + '      </div>'
     + '    </li>'
@@ -197,6 +198,7 @@
     + '      <a href="' + u('/for-ip-attorneys.html') + '"' + actAttr('/for-ip-attorneys.html') + '>For intellectual property attorneys &amp; experts <span class="pill new">NEW</span></a>'
     + '      <a href="' + u('/security.html') + '"' + actAttr('/security.html') + '>For CTOs &amp; security</a>'
     + '      <a href="' + u('/audit.html') + '"' + actAttr('/audit.html') + '>Ghost Inheritance Audit&trade; (done for you)</a>'
+    + '      <a href="' + u('/on-demand.html') + '"' + actAttr('/on-demand.html') + '>Ghost Architect&trade; On Demand (done for you)</a>'
     + '      <a href="' + u('/#ghost-partner') + '">Ghost Partner&trade; ' + pillLocal + '</a>'
     + '    </div>'
     + '  </div>'
