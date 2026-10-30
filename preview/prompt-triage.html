@@ -25,15 +25,88 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Ghost Architect™ Prompt Triage™",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "macOS, Windows, Linux",
-    "url": "https://ghostarchitect.dev/prompt-triage.html",
-    "description": "Rule-based and model-assisted analysis of LLM prompts across 16 defect categories from published research. Rule-based checks run on your machine; model-assisted checks use your own Anthropic API key. In Ghost Open™.",
-    "softwareVersion": "12.0.0",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "author": { "@type": "Person", "name": "Ernst J. Wisner" }
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Prompt Triage™",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "macOS, Windows, Linux",
+        "url": "https://ghostarchitect.dev/prompt-triage.html",
+        "description": "Prompt Triage™ finds the 16 kinds of prompt defects that cause retries, runaway output and broken parsers, before they cost you on every call in production.",
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://ghostarchitect.dev/#organization",
+          "name": "Ghost Platform",
+          "url": "https://ghostarchitect.dev/"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How accurate are the detectors?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The seven no-model checks are rule-based and deterministic, so they are as accurate as the rule. The model-judged checks depend on the target model you pick: a larger model judges more carefully and costs more per prompt. Our live test used Claude Haiku 4.5."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does a scan cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "If you do not pick a target model, only the seven no-model checks run, and they cost nothing. With a target model, our live test of 7 prompts on Claude Haiku 4.5 came to $0.41 in total, about six cents a prompt. Ghost Open™ shows the cost band before any model call fires and reports the actual spend after the scan."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What file formats does it support?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Markdown (.md,.markdown), plain text (.txt), YAML (.yaml,.yml) and JSON (.json) files with prompt content. It filters out non-prompt files automatically (package.json, tsconfig, lockfiles and so on), so you can point it at a project root."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Prompt Triage™ send my prompts anywhere?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The seven no-model checks run entirely on your machine. The model-judged checks send prompt text to Anthropic’s API on your own key, under your own agreement with Anthropic. We run no server that receives your prompts."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I run Prompt Triage™ in CI?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Pass --non-interactive on the CLI to skip prompts. The cost check is auto-confirmed when a budget cap is set, and the exit code reflects whether any Critical findings came up, so CI can fail a build on a regression."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between Ghost Open™ and Ghost Architect™ Local for Prompt Triage™?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ghost Open™ runs Prompt Triage™ as a one-shot audit for one person: every scan stands alone, every report is full. Ghost Architect™ Local adds project tracking: label a scan with a project name, and later scans on that label show which findings were resolved, which remain and which are new, with the project’s scans together on the Project Dashboard, across a team, on your own model. If you track prompt quality week to week across a team, Local is the upgrade. For one-off audits, Ghost Open™ is enough."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is this different from a linter?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Linters catch syntax issues. Prompt Triage™ also catches semantic defects (ambiguity, conflicting instructions, undefined contracts, integration mismatches) that do not show up in syntax. The seven no-model checks are linter-style; the nine model-judged and hybrid checks find problems a rule cannot see."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
   <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />

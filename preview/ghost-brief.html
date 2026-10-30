@@ -19,6 +19,42 @@
   <meta name="twitter:description" content="Every finding becomes a ready-to-run fix plan, safest fixes first." />
   <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
   <link rel="canonical" href="https://ghostarchitect.dev/ghost-brief.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does Ghost Brief™ write code?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Ghost Brief™ writes the fix plans; your coding assistant makes the changes and your team reviews them. Ghost Architect™ never touches your code, and the Brief is a plain JSON file you control completely."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which coding assistants does it work with?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Any assistant that accepts a prompt: Claude Code, Cursor, GitHub Copilot or any other. ghost-brief.json is a plain JSON file. Read it, pass the prompts to your assistant, check the hints. No proprietary integration required."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is Blast Radius™ and why does it matter?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Blast Radius™ is how far a change reaches: how many parts of your codebase it could affect. Ghost Brief™ orders the plans by it, surgical fixes first and broad changes last, so your assistant works in the safest order. A surgical fix stays inside one file: the smallest change you can make. A broad change ripples across the system and needs more care. The ordering is done for you."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <meta name="theme-color" content="#0a0a0f" />
   <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />

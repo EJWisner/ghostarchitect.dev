@@ -8,6 +8,98 @@
   <title>Ghost Architect&trade;: know what code will cost before you sign</title>
   <meta name="description" content="Ghost Architect&trade; Local reads the codebase you are about to price, buy, inherit or defend, on your own machines. Your code never leaves. From $80 a month." />
   <link rel="canonical" href="https://ghostarchitect.dev/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://ghostarchitect.dev/#organization",
+        "name": "Ghost Platform",
+        "url": "https://ghostarchitect.dev/",
+        "logo": "https://ghostarchitect.dev/GHOSTLOGO.JPG"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://ghostarchitect.dev/#website",
+        "name": "Ghost Architect™",
+        "url": "https://ghostarchitect.dev/",
+        "publisher": {
+          "@id": "https://ghostarchitect.dev/#organization"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What does Ghost Architect™ do for my business?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It reads a codebase and tells you what it will cost you: the risks, the conflicts, what a change will break and what fixing it takes, ranked by severity, with the evidence beside each finding. You price, buy, inherit or defend with the facts instead of a guess."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does my code leave the building?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not with Ghost Architect™ Local. The model runs on your machines, and while it analyzes the code nothing about the code leaves the machine. Zero-egress mode, included with every license, refuses every outbound destination at the code level. One activation call sends the license key and an install id, nothing from the codebase. Local also has a Cloud API position, on your own key, for teams that want it: it is off by default, and a project set to Local only never uses it. Ghost Open™ is different: it sends code to Anthropic’s API on your own key."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is a local model as good as a frontier model?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No, and we will not pretend it is. What we promise is that Ghost Architect™ does not let the model claim what it cannot back: findings are checked against the source before they reach the page, every report states how many files it read, and a verdict that hangs on one severity word says so. The CodeExam and playwright-php reports above show what that looks like when the code’s own maintainers check it."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does it cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "$80, $400, $1,000 or $2,000 a month for 1, 5, 15 or unlimited seats. No per-token bill, cancel any time, and the first month is half price when you convert during the trial. See what each tier includes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is Ghost Brief™?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The step that turns findings into fixes. After a scan, Ghost Brief™ gives your coding assistant (Claude Code, Cursor, Copilot or any other) a fix plan for each finding: what to change, which files to touch, which to leave alone, safest changes first. Ghost Architect™ never writes or changes your code. Your team reviews and ships."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What languages and platforms does it support?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Any codebase, any language, any platform: PHP, JavaScript, TypeScript, Python, Ruby, Java and the rest. It reads code structure, dependency relationships, configuration files and integration patterns whatever stack you run."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is this different from a linter or static analysis?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Linters catch syntax and style. Static analysis tools find known vulnerability patterns. Ghost Architect™ answers the questions that decide money: how the parts of the system depend on each other, where integrations are fragile, what a change will reach, and what a senior architect would flag on day one. It is not a CVE scanner, so keep the one you have."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use it on a client’s private repository?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Ghost Architect™ Local reviews a copy on your own machine, so the analysis never leaves it. Ghost Open™ clones private GitHub, GitLab and Bitbucket repositories with a personal access token and removes the clone when it is done; the code goes to Anthropic on your key."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ghostarchitect.dev/" />
   <meta property="og:title" content="Ghost Architect&trade;: AI for your business. The way it should be. The way it has to be." />

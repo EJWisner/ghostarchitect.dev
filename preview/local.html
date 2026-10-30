@@ -8,6 +8,139 @@
   <title>Ghost Architect&trade; Local: win the work that bans AI</title>
   <meta name="description" content="Your machines, your model, zero egress with every license. One fixed monthly price, no per-token bill. Win the clients who ban AI. From $80 a month." />
   <link rel="canonical" href="https://ghostarchitect.dev/local.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Ghost Architect™ Local",
+        "applicationCategory": "DeveloperApplication",
+        "softwareVersion": "8.1.1",
+        "url": "https://ghostarchitect.dev/local.html",
+        "description": "Ghost Architect™ Local reads your codebase on your own machines, on a model you own, inside your network, and puts the answer on a page: health, risk, what a change will reach, and what to fix first.",
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://ghostarchitect.dev/#organization",
+          "name": "Ghost Platform",
+          "url": "https://ghostarchitect.dev/"
+        },
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Ghost Architect™ Local Solo, 1 seat",
+            "price": "80",
+            "priceCurrency": "USD",
+            "url": "https://ghostarchitect.dev/pricing.html#local",
+            "availability": "https://schema.org/InStock",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "80",
+              "priceCurrency": "USD",
+              "unitText": "MONTH"
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Ghost Architect™ Local Small Team, 5 seats",
+            "price": "400",
+            "priceCurrency": "USD",
+            "url": "https://ghostarchitect.dev/pricing.html#local",
+            "availability": "https://schema.org/InStock",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "400",
+              "priceCurrency": "USD",
+              "unitText": "MONTH"
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Ghost Architect™ Local Agency, 15 seats",
+            "price": "1000",
+            "priceCurrency": "USD",
+            "url": "https://ghostarchitect.dev/pricing.html#local",
+            "availability": "https://schema.org/InStock",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "1000",
+              "priceCurrency": "USD",
+              "unitText": "MONTH"
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Ghost Architect™ Local Enterprise, unlimited seats",
+            "price": "2000",
+            "priceCurrency": "USD",
+            "url": "https://ghostarchitect.dev/pricing.html#local",
+            "availability": "https://schema.org/InStock",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "2000",
+              "priceCurrency": "USD",
+              "unitText": "MONTH"
+            }
+          }
+        ],
+        "operatingSystem": "macOS, Linux, Windows"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does anything leave my network?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "One call, once: license activation sends the license key and an install id to ghostarchitect.dev and gets a signed license back. Nothing from the codebase is in it. While the product analyzes code, nothing about the code leaves the machine, and the egress inventory it prints lists every destination that could exist and shows each one switched off. The Cloud API position, on your own key, is off by default, and a project set to Local only never uses it."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which models does it use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Whatever your model server serves: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. Our own machines run qwen3.5:9b, and we are testing a 27B model. The LLM Status page shows the model, quantization, context window, memory and measured speed, so you can see what a model change did."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it the same as Ghost Open™?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Ghost Open™ is the single-user CLI on npm, and it sends code to Anthropic’s API on your own key. Local is a separate product delivered directly by us as a tarball, installed with its own installer, licensed per team, and it runs on your own model. Its Cloud API position is off unless you turn it on."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does a scan take?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It depends on your hardware, your model and the codebase, and the product tells you before you commit: the estimate names its basis, and once you have run a few passes it is measured from your own machine. One measured example: an intellectual property evidence review of a 16-file open source library took 32 minutes 29 seconds on a MacBook Air (Apple M3, 24 GB) with qwen3.5:9b. A full scan of a real application codebase takes longer, so start it in the background; the Fleet page and email tell you when it is done."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I run it in CI or on a commit hook?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The CLI has a non-interactive mode, it registers a pre-push hook that runs the Ghost Triple Crown™, and the REST API on the hub is documented at /api/v1/docs on your own install."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I get the source?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The product ships as source in the tarball; that is what the installer installs. It is licensed, not open source, and the license is signed and verified on the machine."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ghostarchitect.dev/local.html" />
   <meta property="og:title" content="Ghost Architect&trade; Local: win the work that bans AI" />
@@ -18,24 +151,6 @@
   <meta name="twitter:title" content="Ghost Architect&trade; Local: win the work that bans AI" />
   <meta name="twitter:description" content="Codebase intelligence on your own hardware, at a fixed monthly price. Air-gapped analysis if you need it." />
   <meta name="twitter:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Ghost Architect™ Local",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "macOS, Linux, Windows",
-    "url": "https://ghostarchitect.dev/local.html",
-    "softwareVersion": "8.1.1",
-    "description": "Codebase intelligence that runs on the customer's own hardware and network, with a local model. Points of Interest, Blast Radius™, Conflict Detection™, Pre-Sprint Planning, Recon, Ghost Brief™ and commit checks, with a fleet view across machines, at a fixed monthly price.",
-    "offers": [
-      { "@type": "Offer", "name": "Solo", "price": "80", "priceCurrency": "USD", "description": "Monthly license, one seat" },
-      { "@type": "Offer", "name": "Small Team", "price": "400", "priceCurrency": "USD", "description": "Monthly license, five seats" },
-      { "@type": "Offer", "name": "Agency", "price": "1000", "priceCurrency": "USD", "description": "Monthly license, fifteen seats, Ghost Partner™ profiles and white-label reports" },
-      { "@type": "Offer", "name": "Enterprise", "price": "2000", "priceCurrency": "USD", "description": "Monthly license, unlimited seats" }
-    ]
-  }
-  </script>
   <meta name="theme-color" content="#0a0a0f" />
   <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />

@@ -9,6 +9,74 @@
   <title>Ghost Architect&trade; Local: an IP watch on your clients&rsquo; code</title>
   <meta name="description" content="For intellectual property attorneys: scheduled evidence reviews of client code, every finding quoting its line, under your firm&rsquo;s name, on your hardware." />
   <link rel="canonical" href="https://ghostarchitect.dev/for-ip-attorneys.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is the analysis air-gapped if the code comes from my client’s repository?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The analysis is. While Ghost Architect™ Local reads and reviews the code, nothing leaves the firm’s machine, and no AI company or cloud service is involved. Bringing the code from your client to your firm is the one step that crosses a network, over a read-only key your client controls. For a client whose code may not leave its building at all, the review runs on the client’s machine and only the report comes to you."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does an AI model write the findings?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The provenance inventory is read straight from the files with no model at all, and each finding is written by Ghost Architect™ Local from lines it has checked. No sentence in the report is the AI model’s own wording."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will the same code give the same report?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The same codebase on the same build gives the same report every time. When two reviews differ, the code changed. In our own test, three runs on the same build came back identical."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can the reports carry our firm’s name?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. With a Ghost Partner™ profile the report carries your firm’s name and your methodology instead of ours. We set up the IP review profile with you."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "We retain forensic experts. Is this useful to them?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "As the orientation pass, yes: it shows where the copyright notices, licenses and “ported from” comments sit, and which files carry the risk, so an expert’s hours (and any printing limit in a source code protocol) go to the right files. It does not compare two codebases, and installing it on a review computer needs whatever approval the protective order requires."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it replace a full open source audit before an acquisition?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. It reads what the files declare; it does not compare the code against a database of open source projects, so it will not find code copied with its license notice removed. Use it as the review your firm runs every week, alongside a database audit when a deal calls for one."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does the firm need to run it?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A machine running macOS, Linux or Windows with enough memory for a local model, and a model server on that machine or your network: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. The product measures its own speed on your hardware and states the basis of every time estimate it gives. We can walk through the install with you on a call."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ghostarchitect.dev/for-ip-attorneys.html" />
   <meta property="og:title" content="An IP watch for your clients&rsquo; code | Ghost Architect&trade; Local for IP attorneys" />
@@ -19,24 +87,6 @@
   <meta name="twitter:title" content="An IP watch for your clients&rsquo; code" />
   <meta name="twitter:description" content="Scheduled IP evidence reviews for IP attorneys. Every finding quotes its line. Same code, same report. Your firm&rsquo;s name on every page." />
   <meta name="twitter:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "Is the analysis air-gapped if the code comes from my client's repository?",
-        "acceptedAnswer": { "@type": "Answer", "text": "The analysis is. While Ghost Architect™ Local reads and reviews the code, nothing leaves the firm's machine and no AI company or cloud service is involved. Bringing the code from your client to your firm is the one step that crosses a network, over a read-only key your client controls." } },
-      { "@type": "Question", "name": "Does an AI model write the findings?",
-        "acceptedAnswer": { "@type": "Answer", "text": "No. The provenance inventory is read straight from the files with no model at all, and each finding is written by Ghost Architect™ Local from lines it has checked. No sentence in the report is the AI model's own wording." } },
-      { "@type": "Question", "name": "Will the same code give the same report?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The same codebase on the same build gives the same report every time, so when two reviews differ, the code changed. In our own test, three runs on the same build came back identical." } },
-      { "@type": "Question", "name": "Can the reports carry our firm's name?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. With a Ghost Partner™ profile the report carries your firm's name and your methodology instead of ours. We set up the IP review profile with you." } },
-      { "@type": "Question", "name": "Does it replace a full open source audit before an acquisition?",
-        "acceptedAnswer": { "@type": "Answer", "text": "No. It reads what the files declare. It does not compare the code against a database of open source projects, so it will not find code copied with its license notice removed. It is the review your firm runs every week, and it says plainly what it read." } }
-    ]
-  }
-  </script>
   <meta name="theme-color" content="#0a0a0f" />
   <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />

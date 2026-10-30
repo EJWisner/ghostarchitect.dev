@@ -18,6 +18,210 @@
   <meta name="twitter:description" content="Support for Ghost Architect&trade; Local, Ghost Open&trade; and the Ghost Architect&trade; Mobile app. A person answers, typically within one business day." />
   <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
   <link rel="canonical" href="https://ghostarchitect.dev/support.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What does Ghost Architect™ do?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It tells you what is in a codebase before you commit money or people to it: the risks, the conflicts, what each fix will reach, and what it will cost to fix. It reads your codebase, ranks findings by severity and business impact, estimates remediation cost, and writes reports you can share with clients or stakeholders, on any language and any platform."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I install Ghost Open™?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ghost Open™ has no license fee for one person and installs from npm: npm install -g ghost-architect-open Every mode runs unlimited on your own Anthropic API key. There is no license key to activate. For teams, see Ghost Architect™ Local."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the requirements?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Node.js 18 or later. An Anthropic API key (BYOK: Bring Your Own Key). macOS, Windows or Linux."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is my code sent to your servers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Ghost Open™ runs on your machine, and your code goes directly from your machine to Anthropic’s API using your own API key. It never reaches a server of ours. See the Privacy Policy for details."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "My code cannot leave our infrastructure at all. What then?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Then Ghost Open™ is not the right one, and Ghost Architect™ Local is: it runs against a model you host, on your own hardware, with zero-egress mode included in every license. While it analyzes, nothing about the code leaves your machines."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does the app do?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It reads reports from a private GitHub repository and displays them as an interactive portfolio. You can see overall remediation progress across your projects, drill into any project’s findings, and present results to stakeholders in a client-ready Present Mode."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which setups publish reports to the app?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ghost Open™ does not publish reports to the mobile app. If you are not sure whether your setup does, email support@ghostarchitect.dev and we will tell you directly."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I connect my own data?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The app uses a GitHub Personal Access Token (PAT) to read reports from a private repository you control. Tap Settings in the app, enter your GitHub PAT and repository URL, and your reports will sync. Your PAT is stored only on your device and is never transmitted to us."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is Demo Mode?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "When you first install the app, you see a seeded demo portfolio with a single example project ( meta-for-magento2) showing what the reports look like. Demo data stays until you connect your own GitHub repository in Settings, and you can revisit Demo Mode at any time from Settings."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why is my report not showing up?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Confirm your GitHub PAT has repo scope for the repository. Confirm the repository contains Ghost Architect™ report files at the expected path. Confirm the reports come from a setup that publishes to the app (reports from Ghost Open™ do not). Pull down on the portfolio screen to force a refresh."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there anything to pay for or cancel?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not for Ghost Open™: it has no license fee for one person and no subscription. You pay Anthropic directly for the model usage on your own API key."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I cancel a Ghost Architect™ Local license?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ghost Architect™ Local licenses are managed through Stripe. Sign in to the billing portal with the email address you bought with: you can update your card, see your invoices, or cancel. A canceled subscription runs to the end of the period you paid for. The link is in your purchase email too. If it does not work for you, email support@ghostarchitect.dev."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you offer refunds?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Refund requests are handled case by case. Contact support@ghostarchitect.dev with your license details and we will work with you directly."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I get the download?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Local is delivered directly by us, not through a public package registry. Fill in the form on the download page and the download link is emailed to you straight away, or ask for access to the delivery repository. If you already have repository access: gh release download v8.1.1 --repo EJWisner/ghost-local-delivery"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I verify the tarball before I install it?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The file is about to become a global command on your machine, so check it first: shasum -a 256 ghost-architect-local-8.1.1.tgz On Windows PowerShell: Get-FileHash -Algorithm SHA256 ghost-architect-local-8.1.1.tgz Expected for 8.1.1: c7ebb1bc1a46e6dab071989091cdeab5e88c7697b46d7ab57ded2a372d53ad26 If the hash does not match, stop. Do not install it. Email support@ghostarchitect.dev with what you got."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I upgrade?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Re-running the installer is the supported upgrade path. Your service account, data root and signing key are left alone."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the Windows installer safe to use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Honest answer: it runs on our own Windows hardware. Ghost Architect™ Local is installed on a Windows machine as two Windows Services, and the full test suite runs on that machine on every push. We have not yet watched a fresh install on a machine outside our own, so send us the console output of yours and we will work it through with you."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I add a machine?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Enroll it from Admin Console on the hub. On the new machine, run ghost, choose Spoke, and enter the hub address plus the activation token from your admin."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What do the roles mean?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "admin and architect see the full portal. developer works with assigned projects. viewer sees project health and reports. auditor sees the audit log and compliance exports."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does anything leave my network?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "One call, once: license activation sends the license key and an install id to ghostarchitect.dev and gets a signed license back. Nothing from your codebase is in it. After that you can turn on zero-egress mode, included with every license, and the product refuses every internet-bound destination at the code level. What stays reachable under zero egress are the LAN destinations you control: your model endpoint, your SMTP relay, your SIEM collector, and hub-to-spoke traffic between your own machines. Those do need to actually be on your network for the containment to hold."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I know what it can send?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Look in the product, not at a page like this one: Admin Console, System Settings, Egress Inventory lists every vector, its current on or off status, exactly what it would send, and how to turn it off. That screen is generated from the same code that gates the traffic, so it cannot drift from reality the way documentation can."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Activation fails with zero egress on. Is that a bug?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No, that is the design. License key activation is an outbound call, so zero egress blocks it and the product says so directly. Install the signed license file instead: ghost --install-license /path/to/license.json Ask us for the file rather than turning zero egress off."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I install a purchased license?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Two paths, both ending with a signed license.json in your data root, after which license checks run fully offline. With outbound access: run ghost, open Admin Console, then License Management, and enter your key. Fully offline: we send you the signed file and you run ghost --install-license."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does it cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "$80, $400, $1,000 or $2,000 a month for 1, 5, 15 or unlimited seats. No per-token bill, cancel any time, and the first month is half price when you convert during the trial. The details are on the pricing page; for questions about your setup, email support@ghostarchitect.dev and we will confirm it for you directly."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <meta name="theme-color" content="#0a0a0f" />
   <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />

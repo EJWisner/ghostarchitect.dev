@@ -20,18 +20,97 @@
   <meta name="twitter:title" content="Ghost Inheritance Audit&trade;: $497, report in 48 hours" />
   <meta name="twitter:description" content="Done-for-you codebase audit. Report and executive summary in 48 hours." />
   <meta name="twitter:image" content="https://ghostarchitect.dev/assets/audit-hero.png" />
+  <link rel="canonical" href="https://ghostarchitect.dev/audit.html" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Ghost Inheritance Audit™",
-    "description": "Done-for-you codebase audit delivered as a PDF report and a one-page written executive summary within 48 hours of payment.",
-    "image": "https://ghostarchitect.dev/assets/audit-hero.png",
-    "brand": { "@type": "Brand", "name": "Ghost Architect™" },
-    "offers": { "@type": "Offer", "price": "497.00", "priceCurrency": "USD", "url": "https://ghostarchitect.dev/audit.html", "availability": "https://schema.org/InStock" }
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "Ghost Inheritance Audit™",
+        "serviceType": "Codebase audit",
+        "description": "We run the Ghost Inheritance Audit™ on your vendor extensions and custom modules and hand you a report your deal committee can act on, plus a one-page summary for the person who signs.",
+        "provider": {
+          "@type": "Organization",
+          "@id": "https://ghostarchitect.dev/#organization",
+          "name": "Ghost Platform",
+          "url": "https://ghostarchitect.dev/"
+        },
+        "url": "https://ghostarchitect.dev/audit.html",
+        "offers": {
+          "@type": "Offer",
+          "name": "Ghost Inheritance Audit™, report within 48 hours",
+          "price": "497",
+          "priceCurrency": "USD",
+          "url": "https://ghostarchitect.dev/audit.html",
+          "availability": "https://schema.org/InStock"
+        },
+        "image": "https://ghostarchitect.dev/assets/audit-hero.png"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do I send you my codebase?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Three options. Easiest: a GitHub repository link (a private repository with a read-only collaborator invite works well). Alternatively, a Git clone URL with read-only credentials, or a ZIP file at a temporary cloud storage link. We sign an NDA on request before any code transfer."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where does my code go during the audit?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "To us, and to the model that does the synthesis step. Today that step runs through Anthropic’s Claude API, under Anthropic’s own data policy, and everything else runs on our own machines. Nothing is shared, sold or used for training by us, and a signed NDA is available on request. If your code may not go to any AI company, tell us before you order, or run the audit yourself in Ghost Architect™ Local on your own hardware."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if my codebase is huge?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No size cap. Whether it is one custom module or a hundred vendor extensions, your audit covers the complete scan. Larger codebases take longer to process, and the 48-hour window holds."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I get a custom scope?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. If you want the audit focused on a specific module, branch, pull request or extension set, tell us in your order confirmation email. Custom scope is included at the same $497. Larger engagements (several repositories, recurring audits, agency programs) are quoted separately. For repeat runs on the same code, priced per run and reviewed on our own machines with no cloud AI, see Ghost Architect™ On Demand."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if I am not satisfied?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Email support@ghostarchitect.dev within 7 days of delivery with what did not meet your expectations. If the report does not deliver substantive findings on your codebase, we will either re-run the audit at no charge or refund the order."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need this if I can run Inheritance Audit myself?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Maybe not. Ghost Architect™ Local runs Inheritance Audit across a team on your own hardware, and Ghost Open™ runs it for one person on your own Anthropic key. The $497 audit is for buyers who want it done for them and interpreted into deal-committee language: PE diligence teams, M&A advisors, agency owners doing pre-engagement reviews, or executive sponsors. If you are comfortable running it yourself, start the Ghost Architect™ Local trial."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this only work on Magento?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Ghost Architect™ runs on any codebase, any language, any platform. The sample focuses on Magento because the 2.4.9 upgrade is creating active demand. The same analyzers work on Laravel, Symfony, Drupal, WordPress, Node, Python, Go, Ruby, Java,.NET and more. Tell us your stack in the order email."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
-  <link rel="canonical" href="https://ghostarchitect.dev/audit.html" />
   <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />

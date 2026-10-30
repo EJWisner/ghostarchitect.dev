@@ -19,25 +19,305 @@
   <meta name="twitter:title" content="Ghost Architect&trade; pricing: fixed price, your hardware, no meter" />
   <meta name="twitter:description" content="From $80 a month for one seat to $2,000 for every engineer you have. No per-token bill." />
   <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
+  <link rel="canonical" href="https://ghostarchitect.dev/pricing.html" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Ghost Architect™",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "macOS, Windows, Linux",
-    "url": "https://ghostarchitect.dev",
-    "description": "Codebase intelligence that tells you what a codebase will cost you before you price it, buy it or inherit it, on your own hardware at a fixed monthly price.",
-    "offers": [
-      { "@type": "Offer", "name": "Ghost Architect™ Local Solo", "description": "1 seat. Monthly license.", "price": "80", "priceCurrency": "USD" },
-      { "@type": "Offer", "name": "Ghost Architect™ Local Small Team", "description": "5 seats. Monthly license.", "price": "400", "priceCurrency": "USD" },
-      { "@type": "Offer", "name": "Ghost Architect™ Local Agency", "description": "15 seats, Ghost Partner™ profiles and white-label reports. Monthly license.", "price": "1000", "priceCurrency": "USD" },
-      { "@type": "Offer", "name": "Ghost Architect™ Local Enterprise", "description": "Unlimited seats. Monthly license.", "price": "2000", "priceCurrency": "USD" },
-      { "@type": "Offer", "name": "Ghost Open™", "description": "No license fee for one person. Every mode, unlimited, on your own Anthropic API key.", "price": "0", "priceCurrency": "USD" }
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Ghost Architect™ Local",
+        "applicationCategory": "DeveloperApplication",
+        "softwareVersion": "8.1.1",
+        "url": "https://ghostarchitect.dev/local.html",
+        "description": "From $80 a month for one seat to $2,000 for every engineer you have.",
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://ghostarchitect.dev/#organization",
+          "name": "Ghost Platform",
+          "url": "https://ghostarchitect.dev/"
+        },
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Ghost Architect™ Local Solo, 1 seat",
+            "price": "80",
+            "priceCurrency": "USD",
+            "url": "https://ghostarchitect.dev/pricing.html#local",
+            "availability": "https://schema.org/InStock",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "80",
+              "priceCurrency": "USD",
+              "unitText": "MONTH"
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Ghost Architect™ Local Small Team, 5 seats",
+            "price": "400",
+            "priceCurrency": "USD",
+            "url": "https://ghostarchitect.dev/pricing.html#local",
+            "availability": "https://schema.org/InStock",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "400",
+              "priceCurrency": "USD",
+              "unitText": "MONTH"
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Ghost Architect™ Local Agency, 15 seats",
+            "price": "1000",
+            "priceCurrency": "USD",
+            "url": "https://ghostarchitect.dev/pricing.html#local",
+            "availability": "https://schema.org/InStock",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "1000",
+              "priceCurrency": "USD",
+              "unitText": "MONTH"
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Ghost Architect™ Local Enterprise, unlimited seats",
+            "price": "2000",
+            "priceCurrency": "USD",
+            "url": "https://ghostarchitect.dev/pricing.html#local",
+            "availability": "https://schema.org/InStock",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "2000",
+              "priceCurrency": "USD",
+              "unitText": "MONTH"
+            }
+          }
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Ghost Open™",
+        "applicationCategory": "DeveloperApplication",
+        "description": "Ghost Open™ is the single-user CLI on npm. Every mode runs unlimited on your own Anthropic API key, so the only cost is the model usage you already control.",
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://ghostarchitect.dev/#organization",
+          "name": "Ghost Platform",
+          "url": "https://ghostarchitect.dev/"
+        },
+        "offers": {
+          "@type": "Offer",
+          "name": "Ghost Open™, one person",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "Service",
+        "name": "Ghost Inheritance Audit™",
+        "serviceType": "Codebase audit",
+        "description": "Know what you are inheriting before you sign the SOW. We run the audit and deliver the report and a one-page executive summary within 48 hours of payment.",
+        "provider": {
+          "@type": "Organization",
+          "@id": "https://ghostarchitect.dev/#organization",
+          "name": "Ghost Platform",
+          "url": "https://ghostarchitect.dev/"
+        },
+        "url": "https://ghostarchitect.dev/audit.html",
+        "offers": {
+          "@type": "Offer",
+          "name": "Ghost Inheritance Audit™, report within 48 hours",
+          "price": "497",
+          "priceCurrency": "USD",
+          "url": "https://ghostarchitect.dev/audit.html",
+          "availability": "https://schema.org/InStock"
+        }
+      },
+      {
+        "@type": "Service",
+        "name": "Ghost Architect™ On Demand",
+        "serviceType": "Codebase review",
+        "description": "No install. We run the review on a read-only copy of your repository, on our own machines with no cloud AI, and deliver it under your brand.",
+        "provider": {
+          "@type": "Organization",
+          "@id": "https://ghostarchitect.dev/#organization",
+          "name": "Ghost Platform",
+          "url": "https://ghostarchitect.dev/"
+        },
+        "url": "https://ghostarchitect.dev/on-demand.html",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "One run, up to about 1,000 files",
+            "price": "495",
+            "priceCurrency": "USD",
+            "url": "https://ghostarchitect.dev/on-demand.html",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "One run, up to about 5,000 files",
+            "price": "995",
+            "priceCurrency": "USD",
+            "url": "https://ghostarchitect.dev/on-demand.html",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Pack of 5 runs",
+            "price": "1995",
+            "priceCurrency": "USD",
+            "url": "https://ghostarchitect.dev/on-demand.html",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Pack of 10 runs",
+            "price": "3495",
+            "priceCurrency": "USD",
+            "url": "https://ghostarchitect.dev/on-demand.html",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Rush run, up to about 1,000 files",
+            "price": "990",
+            "priceCurrency": "USD",
+            "url": "https://ghostarchitect.dev/on-demand.html",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Rush run, up to about 5,000 files",
+            "price": "1990",
+            "priceCurrency": "USD",
+            "url": "https://ghostarchitect.dev/on-demand.html",
+            "availability": "https://schema.org/InStock"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Ghost Architect™ Local, and how is it different from Ghost Open™?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Every Ghost Open™ mode plus teams, projects, Ghost Partner™ profiles and automatic checks on every commit, running on hardware you own against a model server you run. Ghost Open™ sends your code to Anthropic’s API with your own key. Local runs on your own model, and unless you turn on its Cloud API position, nothing about your code leaves your machines. Choose Local when the code cannot leave the building, or when a per-token bill is the wrong shape for your team."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need an Anthropic API key for Ghost Architect™ Local?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Local runs against your own model server: Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint. You need a cloud provider key only if you choose to turn on the Cloud API position, and then it is your own key."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does the evaluation trial work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Request the download, install it, and the trial starts inside the product on first use, registered against that install; the product tells you the day it ends. No card. Convert during the trial and your first month is half price."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which Local tiers include zero egress?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "All of them. Zero-egress mode comes with every license, Solo to Enterprise. It refuses every outbound destination at the code level and prints the egress inventory that proves what the product can and cannot reach."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I license it just for the month of a deal or a matter?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. It is monthly and you can cancel any time, so a deal advisor or an expert can license it for the month of a deal or a matter and stop when it closes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can you help us install it?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. We will walk through the install with you on a call: your hands on the keyboard, your code on your own machine. Ask for an install call."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is Local delivered, and how do I upgrade?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Directly from us, not through a package registry. Buy a license and your key and a download link arrive by email the moment you pay; for the trial, the download link is emailed to you straight away, or we give your GitHub account access to the delivery repository. Every tarball has a published SHA-256 to check before you unpack it. On Linux the installer provisions a service account and two systemd units (the portal and the scheduler). You upgrade by re-running the installer on the new tarball; your configuration, scan history and license persist. The changelog lists every release."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What hardware do I need?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Whatever runs your model server. Ghost Architect™ Local measures its own pass times on your machine and estimates from them, so every time estimate you see is yours and not a benchmark from ours. One measured example: an intellectual property evidence review of a 16-file open source library took 32 minutes 29 seconds on a MacBook Air (Apple M3, 24 GB) running qwen3.5:9b. Larger models read code more carefully and take longer per pass; the LLM Status page shows your machine’s speed, memory and context window so you can see the trade-off before a long scan."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does “no license fee for one person” mean?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ghost Open™ is source-available under the Business Source License 1.1. Its Additional Use Grant lets one person use it in production free of charge, on their own machines, for their own work or their employer’s or clients’ work. Every single-user mode is on, with no quotas, no trial clock and no license key. An organization using it through a shared, multi-user or hosted deployment needs a commercial license; for teams, that is Ghost Architect™ Local."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need my own Anthropic API key?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Ghost Open™ is BYOK (Bring Your Own Key) by design: your code goes directly from your machine to Anthropic’s API. Our public sample scan cost $0.2372 in Anthropic API usage, and the cost of every scan is printed in the output, so you see your own."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is not in Ghost Open™?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Anything that needs more than one person or a server: teams, projects and project tracking, the Project Dashboard, Ghost Partner™ profiles and white-label reports, and automatic checks on every commit. Those are in Ghost Architect™ Local, along with your own model on your own hardware."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I get a demo?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Email support@ghostarchitect.dev or connect on LinkedIn and we will schedule a 15-minute Teams call with a live scan of a sample codebase."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What languages and platforms does Ghost Architect™ support?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Any codebase, any language, any platform, including PHP, JavaScript, TypeScript, Python, Ruby, Java and more. It reads code structure, dependency relationships, configuration files and integration patterns whatever stack you run."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use Ghost Open™ on a client’s private repository?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, if your client allows its code to go to Anthropic. Ghost Open™ supports private GitHub, GitLab and Bitbucket repositories: authenticate with a personal access token, it clones the repository locally, runs the scan and removes the clone when done. The code goes to Anthropic’s API on your own key, which makes Anthropic a third party to it. If your client forbids that, use Ghost Architect™ Local."
+            }
+          }
+        ]
+      }
     ]
   }
   </script>
-  <link rel="canonical" href="https://ghostarchitect.dev/pricing.html" />
   <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
   <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
