@@ -30,7 +30,7 @@
   var PREVIEW = (function(){ var m = window.location.pathname.match(/^(.*?\/preview)(?:\/|$)/); return m ? m[1] : ''; })();
   var IN_PREVIEW = {
     'index.html': 1, 'local.html': 1, 'pricing.html': 1, 'download.html': 1, 'beta.html': 1,
-    'for-agency-owners.html': 1, 'for-ip-attorneys.html': 1, 'inheritance-audit.html': 1, 'audit.html': 1,
+    'for-agency-owners.html': 1, 'for-ip-attorneys.html': 1,
     'ghost-brief.html': 1, 'ghost-watcher.html': 1, 'prompt-triage.html': 1, 'triple-crown-process.html': 1,
     'security.html': 1, 'support.html': 1, 'contact.html': 1, 'on-demand.html': 1, 'snapshot.html': 1
   };
@@ -57,7 +57,7 @@
   // Which dropdown group is currently active?
   var activeGroup = null;
   if (path.indexOf('/local') === 0 || path.indexOf('/download') === 0 || path.indexOf('/beta') === 0) activeGroup = 'local';
-  else if (path.indexOf('for-agency-owners') !== -1 || path.indexOf('for-ip-attorneys') !== -1 || path.indexOf('inheritance-audit') !== -1 || path.indexOf('/audit') === 0 || path.indexOf('on-demand') !== -1 || path.indexOf('snapshot') !== -1) activeGroup = 'solutions';
+  else if (path.indexOf('for-agency-owners') !== -1 || path.indexOf('for-ip-attorneys') !== -1 || path.indexOf('on-demand') !== -1 || path.indexOf('snapshot') !== -1) activeGroup = 'solutions';
   else if (path.indexOf('prompt-triage') !== -1 || path.indexOf('ghost-brief') !== -1 || path.indexOf('ghost-watcher') !== -1 || path.indexOf('ghost-triple-crown') !== -1 || path.indexOf('triple-crown-process') !== -1) activeGroup = 'modes';
   else if (path.indexOf('blog') !== -1 || path.indexOf('support') !== -1 || path.indexOf('security') !== -1 || path.indexOf('changelog') !== -1) activeGroup = 'resources';
 
@@ -106,13 +106,12 @@
     + '      <div class="ga-dropdown">'
     + '        <div class="ga-dropdown-section-label">Who it pays for</div>'
     + item('/for-agency-owners.html', 'For agency owners', 'Bid on what is in the code, not on a guess. Protect the margin on every fixed bid.', '/for-agency-owners.html')
-    + item('/inheritance-audit.html', 'For deal advisors &amp; PE diligence', 'Know what you are buying before the LOI, even when the code cannot leave the target.', '/inheritance-audit.html')
+    + item('/on-demand.html', 'For deal advisors &amp; PE diligence', 'An intellectual property evidence review of the target&rsquo;s code inside the exclusivity window.', null)
     + item('/for-ip-attorneys.html', 'For intellectual property attorneys &amp; experts <span class="pill new">NEW</span>', 'Turn every software client into a monthly intellectual property watch, under your firm&rsquo;s name.', '/for-ip-attorneys.html')
     + item('/security.html', 'For CTOs &amp; security', 'Prove the code never left the building, with a printout instead of a promise.', '/security.html')
     + '        <div class="ga-dropdown-divider"></div>'
     + '        <div class="ga-dropdown-section-label">Done for you</div>'
-    + item('/audit.html', 'Ghost Inheritance Audit&trade;', 'We run the audit for you. Report in 48 hours, $497 flat.', '/audit.html')
-    + item('/on-demand.html', 'Ghost Architect&trade; On Demand', 'No install. We run the review on our machines and deliver it under your brand. From $495 a run.', '/on-demand.html')
+    + item('/on-demand.html', 'Ghost Architect&trade; On Demand', 'No install. We run the intellectual property evidence review on our machines, under your brand. From $495 a run.', '/on-demand.html')
     + item('/#ghost-partner', 'Ghost Partner&trade; ' + pillLocal, 'Sell the audit under your own brand, at your own rates.', null)
     + '      </div>'
     + '    </li>'
@@ -140,7 +139,6 @@
     + '        <div class="ga-dropdown-section-label">What it finds</div>'
     + item('/ghost-watcher.html', 'Ghost Watcher&trade; ' + pillLocal, 'Catch the risky change before it merges. Every commit checked, no per-commit bill.', '/ghost-watcher.html')
     + '        <a href="/blog/ghost-triple-crown.html" class="ga-dropdown-item' + act('/blog/ghost-triple-crown.html') + '"><div class="title">Ghost Triple Crown&trade;</div><div class="desc">What a change reaches, what it contradicts, and what to do about it.</div></a>'
-    + item('/inheritance-audit.html', 'Inheritance Audit', 'The stack, the people and the licenses you are about to inherit.', null)
     + item('/ghost-brief.html', 'Ghost Brief&trade;', 'Hand your coding assistant the fix plan, safest fixes first.', '/ghost-brief.html')
     + item('/prompt-triage.html', 'Prompt Triage&trade;', 'Find the prompt defects that inflate your AI bill.', '/prompt-triage.html')
     + item('/#what-it-does', 'Every scan mode', 'Recon, Points of Interest, Blast Radius&trade;, Conflict Detection&trade; and more.', null)
@@ -194,10 +192,9 @@
     + '    <button class="ga-mobile-group-header">Solutions' + chevron + '</button>'
     + '    <div class="ga-mobile-group-items">'
     + '      <a href="' + u('/for-agency-owners.html') + '"' + actAttr('/for-agency-owners.html') + '>For agency owners</a>'
-    + '      <a href="' + u('/inheritance-audit.html') + '"' + actAttr('/inheritance-audit.html') + '>For deal advisors &amp; PE diligence</a>'
+    + '      <a href="' + u('/on-demand.html') + '">For deal advisors &amp; PE diligence</a>'
     + '      <a href="' + u('/for-ip-attorneys.html') + '"' + actAttr('/for-ip-attorneys.html') + '>For intellectual property attorneys &amp; experts <span class="pill new">NEW</span></a>'
     + '      <a href="' + u('/security.html') + '"' + actAttr('/security.html') + '>For CTOs &amp; security</a>'
-    + '      <a href="' + u('/audit.html') + '"' + actAttr('/audit.html') + '>Ghost Inheritance Audit&trade; (done for you)</a>'
     + '      <a href="' + u('/on-demand.html') + '"' + actAttr('/on-demand.html') + '>Ghost Architect&trade; On Demand (done for you)</a>'
     + '      <a href="' + u('/#ghost-partner') + '">Ghost Partner&trade; ' + pillLocal + '</a>'
     + '    </div>'
@@ -218,7 +215,6 @@
     + '    <div class="ga-mobile-group-items">'
     + '      <a href="' + u('/ghost-watcher.html') + '"' + actAttr('/ghost-watcher.html') + '>Ghost Watcher&trade; ' + pillLocal + '</a>'
     + '      <a href="/blog/ghost-triple-crown.html"' + actAttr('/blog/ghost-triple-crown.html') + '>Ghost Triple Crown&trade;</a>'
-    + '      <a href="' + u('/inheritance-audit.html') + '">Inheritance Audit</a>'
     + '      <a href="' + u('/ghost-brief.html') + '"' + actAttr('/ghost-brief.html') + '>Ghost Brief&trade;</a>'
     + '      <a href="' + u('/prompt-triage.html') + '"' + actAttr('/prompt-triage.html') + '>Prompt Triage&trade;</a>'
     + '      <a href="' + u('/#what-it-does') + '">Every scan mode</a>'
