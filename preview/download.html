@@ -46,6 +46,10 @@
     .cards > .card { min-width: 0; }   /* lets the <pre> blocks inside a card scroll instead of widening the card past a phone screen */
     .sha p { margin: 0; }
     .page-hero .hero-cta { margin-top: 1.4rem; }
+    .f-more { border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.9rem; }
+    .f-more summary { cursor: pointer; color: var(--text-muted); font-size: 0.9rem; }
+    .f-more[open] { display: grid; gap: 1rem; }
+    .f-more[open] summary { margin-bottom: 0.2rem; }
     @media (max-width: 600px) { .f-row { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -85,23 +89,26 @@
     <div class="cards one">
       <div class="card" id="request">
         <h3>Request the download</h3>
-        <p>Fill this in and the download link is emailed to you straight away. It works once and expires after 72 hours; come back here for another if you need one. The GitHub username is in case you would rather have access to the delivery repository. Tell us your model and machine and we set the trial up for exactly what you have.</p>
+        <p>Your name and work email are all we need. The download link is emailed to you straight away; it works once and expires after 72 hours, and you can come back here for another.</p>
         <form id="trial-form" class="form" novalidate>
           <div class="f-row">
             <label>Name <input name="name" type="text" required autocomplete="name" maxlength="120"></label>
             <label>Work email <input name="email" type="email" required autocomplete="email" maxlength="200"></label>
           </div>
-          <div class="f-row">
-            <label>GitHub username <input name="github" type="text" required autocomplete="username" maxlength="80" placeholder="octocat"></label>
-            <label>Operating system <select name="os"><option value="">Choose one</option><option>macOS</option><option>Linux</option><option>Windows</option></select></label>
-          </div>
-          <fieldset class="f-radio">
-            <legend>Do you run your own model today?</legend>
-            <label><input type="radio" name="ownModel" value="yes" required> Yes</label>
-            <label><input type="radio" name="ownModel" value="no"> Not yet</label>
-          </fieldset>
-          <label id="model-wrap" hidden>Which model, and on what server? <input name="model" type="text" maxlength="200" placeholder="qwen3.5:9b on Ollama, or your model and server"></label>
-          <label>How many people will use it? <select name="teamSize"><option value="">Choose one</option><option>1</option><option>2 to 5</option><option>6 to 15</option><option>16 or more</option></select></label>
+          <details class="f-more">
+            <summary>Help us set up your trial (optional)</summary>
+            <div class="f-row">
+              <label>Operating system <select name="os"><option value="">Choose one</option><option>macOS</option><option>Linux</option><option>Windows</option></select></label>
+              <label>How many people will use it? <select name="teamSize"><option value="">Choose one</option><option>1</option><option>2 to 5</option><option>6 to 15</option><option>16 or more</option></select></label>
+            </div>
+            <fieldset class="f-radio">
+              <legend>Do you run your own model today?</legend>
+              <label><input type="radio" name="ownModel" value="yes"> Yes</label>
+              <label><input type="radio" name="ownModel" value="no"> Not yet</label>
+            </fieldset>
+            <label id="model-wrap" hidden>Which model, and on what server? <input name="model" type="text" maxlength="200" placeholder="qwen3.5:9b on Ollama, or your model and server"></label>
+            <label>GitHub username, if you would rather install from our delivery repository <input name="github" type="text" autocomplete="username" maxlength="80" placeholder="octocat"></label>
+          </details>
           <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
           <button type="submit" class="btn btn-local-solid">Email me Ghost Architect&trade; Local 8.1.1</button>
           <div class="f-msg" id="tf-msg" role="status" aria-live="polite"></div>
@@ -125,8 +132,9 @@
     <h2>2. What you need</h2>
     <div class="cards">
       <div class="card"><h3>macOS 13 or later, Linux, or Windows 10 or later</h3><p>The installer checks the OS floor and stops below it. Linux installs run as a service account with a data root the installer creates, and the Linux path is verified on a fresh machine for every release. Windows uses a PowerShell installer from an elevated prompt and registers Windows Services. Ghost Architect&trade; Local runs on our own Windows hardware as two Windows Services, and the full test suite runs on that machine on every push. We have not yet watched an install on a machine outside our own, so send us the console output and we will work it through with you.</p></div>
-      <div class="card"><h3>Node.js 24 or later</h3><p>The installer checks it and does not install it. Get it from nodejs.org or your version manager first.</p></div>
+      <div class="card"><h3>Node.js 24 or later</h3><p>On Linux the installer installs Node.js 24 for you if it is missing. On macOS and Windows it checks and does not install it: get it from nodejs.org or your version manager first.</p></div>
       <div class="card"><h3>A model server with a model pulled</h3><p>Ollama, vLLM, LM Studio, Jan.ai or any OpenAI-compatible endpoint on your network. Our own machines run qwen3.5:9b on Ollama. The installer asks which and checks it answers.</p></div>
+      <div class="card"><h3>No model yet? Two steps</h3><p>Install Ollama from ollama.com and start it, then pull a model: <code>ollama pull qwen3.5:9b</code> on a machine with 16 GB of memory or more. Ghost&rsquo;s first-run setup detects your memory and suggests a smaller model when it needs to, and walks you through it if Ollama is not running yet. Your code and your model stay on your machine.</p></div>
       <div class="card"><h3>A second machine, when you want the fleet</h3><p>Any of the three platforms can be a spoke. Enroll it from Admin Console on the hub and it runs scans and reports them back; the model calls go to the hub&rsquo;s model server over your LAN.</p></div>
     </div>
   </section>
@@ -197,8 +205,8 @@ sudo bash install/setup-linux.sh   # Linux
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var d = {}; new FormData(form).forEach(function(v, k){ d[k] = v; });
-    if (!d.name || !d.email || !d.github || !d.ownModel) {
-      msg.className = 'f-msg error'; msg.textContent = 'Name, email, GitHub username and the model question are needed.'; return;
+    if (!d.name || !d.email) {
+      msg.className = 'f-msg error'; msg.textContent = 'Your name and work email are needed.'; return;
     }
     var btn = form.querySelector('button'); btn.disabled = true; msg.className = 'f-msg'; msg.textContent = 'Sending...';
     fetch('https://signup.ghostarchitect.dev/local-trial-request', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
