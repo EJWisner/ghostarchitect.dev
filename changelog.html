@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.3, October 31, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.4, November 1, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">8.1.4</span>
+      <span class="release-date">November 1, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A scheduled backup runs once on the day the clocks go back</h2>
+    <p class="release-lede">8.1.4 -- 8.1.4 makes a daily, weekly or monthly backup count calendar days, so the day the clocks go back no longer runs it twice. A scheduled backup now counts calendar days to its next run, then the hour you set. In 8.1.3 it counted 24 hours, and on the 25-hour day the clocks go back, a backup that ran between midnight and 1 AM made the next one due at 2 AM the same morning. On every other day a backup comes due exactly as before, and what it holds and how long it is kept are unchanged. The manual inside the download is stamped 8.1.4.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">8.1.3</span>
       <span class="release-date">October 31, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">A pinned scan starts as soon as its model fits</h2>
     <p class="release-lede">8.1.3 -- 8.1.3 lets a pinned project's waiting call see memory free up, and says plainly when a scan is waiting for its model. When a pinned project's model does not fit in memory, its call waits. It now checks the hub's memory again about once a second, so it runs the moment memory frees, without a restart. Every other project, and how memory is counted, stays exactly as in 8.1.2. While a pinned scan waits, its progress line and its background log say so in the Scan Queue's own words, instead of "still reading". The manual inside the download is stamped 8.1.3.</p>
