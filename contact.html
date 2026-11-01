@@ -3,20 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="index, follow" />
-  <title>Contact &amp; Support: Ghost Architect™</title>
-  <meta name="description" content="Contact Ghost Architect™ support -- questions, issues, and help for the CLI codebase triage tool and companion mobile app." />
-  <link rel="canonical" href="https://ghostarchitect.dev/contact" />
+  <!-- Rebuilt (2026-10-29, benefit-first rebuild); approved by EJ and live 2026-10-31.
+       NOTE: this is the live contact form. Submitting it sends a real message. -->
+  <title>Contact Ghost Architect&trade;: ask us anything before you buy</title>
+  <meta name="description" content="Ask us anything before you buy: pricing, an install call, your security questionnaire or a quote. We answer directly, typically within one business day." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ghostarchitect.dev/contact.html" />
+  <meta property="og:title" content="Contact Ghost Architect&trade;: ask us anything before you buy" />
+  <meta property="og:description" content="Ask us anything before you buy: pricing, an install call, your security questionnaire or a quote. We answer directly, typically within one business day." />
+  <meta property="og:image" content="https://ghostarchitect.dev/og-image.png" />
+  <meta property="og:site_name" content="Ghost Architect&trade;" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Contact Ghost Architect&trade;: ask us anything before you buy" />
+  <meta name="twitter:description" content="Ask us anything before you buy: pricing, an install call, your security questionnaire or a quote. We answer directly, typically within one business day." />
+  <meta name="twitter:image" content="https://ghostarchitect.dev/og-image.png" />
+  <link rel="canonical" href="https://ghostarchitect.dev/contact.html" />
   <meta name="theme-color" content="#0a0a0f" />
-  <!-- Paths are relative to /next/ so the page also opens straight from the folder (file://).
-       When this replaces /contact.html, change ../ to / on these references. -->
-  <link rel="icon" type="image/jpeg" href="../GHOSTLOGO.JPG" />
-  <link rel="apple-touch-icon" href="../GHOSTLOGO.JPG" />
+  <link rel="icon" type="image/jpeg" href="GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="GHOSTLOGO.JPG" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
-  <link rel="stylesheet" href="../assets/ga-nav.css?v=20260920b" />
-  <link rel="stylesheet" href="site.css?v=20260928a" />
+  <link rel="stylesheet" href="assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="site.css?v=20261029p" />
   <!-- contact.html only: label + control as siblings (the page's own script rewrites the Tier label's innerHTML,
        so the control cannot live inside it), the honeypot field, the <button>, and the success / error message
        states the script toggles. site.css has none of these. -->
@@ -32,6 +41,8 @@
     .form-msg { display: none; margin-top: 1.25rem; padding: 0.9rem 1.1rem; border-radius: 8px; font-size: 0.92rem; line-height: 1.6; }
     .form-msg.success { display: block; background: rgba(74, 158, 255, 0.08); border: 1px solid var(--accent); color: var(--text); }
     .form-msg.error { display: block; background: rgba(255, 74, 107, 0.08); border: 1px solid var(--danger); color: var(--text); }
+    .topic-note { display: none; }
+    .topic-note.on { display: block; }
   </style>
 </head>
 <body data-product="open">
@@ -44,11 +55,12 @@
 
   <header class="page-hero">
     <p class="eyebrow">// contact &amp; support</p>
-    <h1>Contact &amp; Support</h1>
-    <p class="lede">Have a question or issue? We're here to help.</p>
+    <h1>Ask us anything before you buy.</h1>
+    <p class="lede">We answer pre-sales questions directly, typically within one business day: pricing, an install call, your security questionnaire, or a sample report on code like yours. Customers get the same people.</p>
   </header>
 
   <section class="band">
+    <div class="callout local topic-note" id="topic-note"><p id="topic-text"></p></div>
     <div class="card form-card">
       <div class="form">
         <div class="field">
@@ -64,8 +76,8 @@
         <div class="field">
           <label for="cf-product">Which product <span class="req">*</span></label>
           <select id="cf-product" name="product" required>
-            <option value="hosted">Ghost Open&trade; (free, npm)</option>
-            <option value="local">Ghost Architect&trade; Local (your hardware, monthly licence)</option>
+            <option value="local">Ghost Architect&trade; Local (your hardware, monthly license)</option>
+            <option value="hosted">Ghost Open&trade; (one person, npm)</option>
           </select>
         </div>
 
@@ -100,7 +112,7 @@
           <label for="cf-tier">Tier <span class="req">*</span></label>
           <select id="cf-tier" name="tier">
             <option value="" disabled selected>Select a tier</option>
-            <option value="Open">Ghost Open&trade; (free)</option>
+            <option value="Open">Ghost Open&trade;</option>
           </select>
         </div>
 
@@ -125,14 +137,16 @@
 
     <div class="prose">
       <p>
-        Want an answer now? <a id="cf-chat-link" href="../support-chat.html">Start a live chat</a>
+        Want an answer now? <a id="cf-chat-link" href="/support-chat.html">Start a live chat</a>
         and it will answer for the product selected above.
         Or browse the <a id="cf-faq-link" href="support.html">support FAQ</a>.
       </p>
-
       <p>
         Prefer email? Reach us directly at
         <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a>.
+      </p>
+      <p>
+        Ready to try it? <a href="download.html">Start the Ghost Architect&trade; Local trial</a>: no card, no account.
       </p>
     </div>
   </section>
@@ -140,11 +154,11 @@
 </main>
 
 <footer>
-  <a href="index.html" class="footer-logo"><img src="../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
-  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; <a href="support.html">Support</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="msa.html">Terms of Service</a></span>
+  <a href="index.html" class="footer-logo"><img src="GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; <a href="support.html">Support</a> &middot; <a href="/privacy.html">Privacy Policy</a> &middot; <a href="/msa.html">Terms of Service</a></span>
 </footer>
 
-<script src="../assets/ga-nav.js?v=20261005a" defer></script>
+<script src="ga-nav.js?v=20261030b" defer></script>
 <script>
   // Quiet text reveals. Falls back to visible if IntersectionObserver is missing.
   (function () {
@@ -169,7 +183,6 @@
     var ERROR = "Something went wrong. Please email support@ghostarchitect.dev directly.";
 
     // Version + Tier are only relevant for Technical Support requests.
-    // Show and require them only for that type; hide and un-require otherwise.
     function syncConditionalFields() {
       var isTech = typeEl.value === 'Technical Support';
       // Ghost Open(tm) has no tiers, so the Tier question only appears for Local.
@@ -182,19 +195,12 @@
 
     typeEl.addEventListener('change', syncConditionalFields);
 
-    // ── Which product this enquiry is about ──
-    // The nav's "Contact & Support" is the most-used way into support, and it
-    // used to offer hosted tiers and hosted version numbers only, so a Ghost
-    // Architect(TM) Local customer had to claim a tier they are not on and a
-    // version that does not exist for their product. Version and Tier now
-    // follow the product. Defaults from ?platform=local, which the Local side
-    // of the nav links here with.
+    // Which product this enquiry is about. Version and Tier follow the product.
     var productEl = document.getElementById('cf-product');
     var tierLabel = document.querySelector('label[for="cf-tier"]');
     var chatLink = document.getElementById('cf-chat-link');
     var faqLink = document.getElementById('cf-faq-link');
 
-    // Captured from the markup so the hosted lists stay in one place: the HTML.
     function snapshot(sel) {
       return Array.prototype.slice.call(sel.options).map(function (o) {
         return { value: o.value, text: o.text, disabled: o.disabled };
@@ -203,9 +209,7 @@
     var HOSTED_VERSIONS = snapshot(versionEl);
     var HOSTED_TIERS = snapshot(tierEl);
 
-    // Local ships as one product line at 8.1.3. Its licence wording stays off
-    // the tier names deliberately: Local commercial terms are settled with
-    // Ernst, so the form asks where they are in the process, not what they pay.
+    // Local ships as one product line at 8.1.3. The form asks where they are in the process, not what they pay.
     var LOCAL_VERSIONS = [
       { value: '', text: 'Select a version', disabled: true },
       { value: '8.1.3', text: '8.1.3' },
@@ -238,21 +242,51 @@
           '<span class="req">*</span>';
       }
       var q = '?platform=' + (isLocal ? 'local' : 'open');
-      // Paths relative to /next/ (live page used /support-chat.html and /support.html); support.html has a /next/ version.
-      if (chatLink) chatLink.href = '../support-chat.html' + q;
+      if (chatLink) chatLink.href = '/support-chat.html' + q;
       if (faqLink) faqLink.href = 'support.html' + q;
       if (typeof syncConditionalFields === 'function') syncConditionalFields();
     }
 
     productEl.addEventListener('change', syncProduct);
 
+    // ?platform= sets the product; ?topic= (from the calls to action on the other pages) fills in
+    // the inquiry type and subject so the visitor only has to add a name, an email and a sentence.
+    // The values sent to the form worker are unchanged: product is still local or hosted, type is one
+    // of the four existing types.
+    var TOPICS = {
+      'ip-sample': { subject: 'Sample intellectual property evidence review', note: 'Tell us which kind of code your clients have, and we will send the sample intellectual property evidence review.' },
+      'install': { subject: 'Install call for Ghost Architect™ Local', note: 'Tell us your operating system and whether you already run a model server. We will set up a call and install it with you: your hands, your code, your machine.' },
+      'enterprise': { subject: 'Ghost Architect™ Local Enterprise', note: 'Tell us roughly how many engineers and machines, and whether you need the formal MSA first.' },
+      'on-demand': { subject: 'Ghost Architect™ On Demand quote: intellectual property evidence review', note: 'Tell us which codebase you want the intellectual property evidence review on, about how many files it has, and when you need the report. We reply with the price, the delivery time and a payment link.', link: { href: 'on-demand-terms.html', text: 'Read the one-page agreement.' } },
+      'snapshot': { subject: 'Code Snapshot (planned service)', note: 'Code Snapshot is planned, not built. Tell us which codebase you would point it at first, and we will let you know when it is ready.' }
+    };
+
     (function () {
       try {
-        var p = (new URLSearchParams(window.location.search).get('platform') || '').toLowerCase();
+        var params = new URLSearchParams(window.location.search);
+        var p = (params.get('platform') || '').toLowerCase();
+        if (p === 'open' || p === 'hosted') productEl.value = 'hosted';
         if (p === 'local') productEl.value = 'local';
+        var t = TOPICS[(params.get('topic') || '').toLowerCase()];
+        if (t) {
+          productEl.value = 'local';
+          typeEl.value = 'Pre-sales Question';
+          document.getElementById('cf-subject').value = t.subject;
+          document.getElementById('topic-text').textContent = t.note;
+          if (t.link) {
+            var tl = document.createElement('a');
+            tl.href = t.link.href;
+            tl.textContent = t.link.text;
+            document.getElementById('topic-text').appendChild(document.createTextNode(' '));
+            document.getElementById('topic-text').appendChild(tl);
+          }
+          document.getElementById('topic-note').classList.add('on');
+        }
       } catch (e) {}
     })();
 
+    // Light the matching side of the menu's Open / Local switch (ga-nav.js runs after this and reads data-product).
+    document.body.setAttribute('data-product', productEl.value === 'local' ? 'local' : 'open');
     syncProduct();
     syncConditionalFields();
 
@@ -281,7 +315,6 @@
       var techVisible = type.value === 'Technical Support';
       var tierVisible = techVisible && productEl.value === 'local';
 
-      // Always-required fields, plus Version + Tier only when visible.
       var fields = [name, email, type, subject];
       if (techVisible) { fields.push(version); }
       if (tierVisible) { fields.push(tier); }
@@ -342,7 +375,6 @@
     });
   })();
 </script>
-<script src="next-nav.js" defer></script>
 <script src="scene.js" defer></script>
 </body>
 </html>
