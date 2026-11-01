@@ -141,7 +141,7 @@
             "name": "How do I verify the tarball before I install it?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The file is about to become a global command on your machine, so check it first: shasum -a 256 ghost-architect-local-8.1.5.tgz On Windows PowerShell: Get-FileHash -Algorithm SHA256 ghost-architect-local-8.1.5.tgz Expected for 8.1.5: 1a978f5937452fb8aee00b097945423b4c71b9ac6e4e110efb0ae56a69f693e7 If the hash does not match, stop. Do not install it. Email support@ghostarchitect.dev with what you got."
+              "text": "The file is about to become a global command on your machine, so check it first: shasum -a 256 ghost-architect-local-8.1.6.tgz On Windows PowerShell: Get-FileHash -Algorithm SHA256 ghost-architect-local-8.1.6.tgz Expected for 8.1.6: 1e79a8aab35b9299be55f7678656e4348b49b894e4e25ba1ff92709a0c641771 If the hash does not match, stop. Do not install it. Email support@ghostarchitect.dev with what you got."
             }
           },
           {
@@ -351,9 +351,9 @@
       <p>Local is delivered directly by us, not through a public package registry. Fill in the form on the <a href="download.html">download page</a> and the download link is emailed to you straight away.</p>
       <h3>How do I verify the tarball before I install it?</h3>
       <p>The file is about to become a global command on your machine, so check it first:</p>
-      <pre><code>shasum -a 256 ghost-architect-local-8.1.5.tgz</code></pre>
-      <p>On Windows PowerShell: <code>Get-FileHash -Algorithm SHA256 ghost-architect-local-8.1.5.tgz</code></p>
-      <p>Expected for 8.1.5: <code>1a978f5937452fb8aee00b097945423b4c71b9ac6e4e110efb0ae56a69f693e7</code></p>
+      <pre><code>shasum -a 256 ghost-architect-local-8.1.6.tgz</code></pre>
+      <p>On Windows PowerShell: <code>Get-FileHash -Algorithm SHA256 ghost-architect-local-8.1.6.tgz</code></p>
+      <p>Expected for 8.1.6: <code>1e79a8aab35b9299be55f7678656e4348b49b894e4e25ba1ff92709a0c641771</code></p>
       <p>If the hash does not match, stop. Do not install it. Email <a href="mailto:support@ghostarchitect.dev">support@ghostarchitect.dev</a> with what you got.</p>
     </div>
   </section>
@@ -376,7 +376,7 @@
     <h2 class="eyebrow">// installing</h2>
     <div class="prose">
       <p>Everything happens inside the directory you unpack. Keep that directory: the global <code>ghost</code> command links into it rather than copying it.</p>
-      <pre><code>tar -xzf ghost-architect-local-8.1.5.tgz
+      <pre><code>tar -xzf ghost-architect-local-8.1.6.tgz
 cd package
 bash install/setup.sh              # macOS
 sudo bash install/setup-linux.sh   # Linux
