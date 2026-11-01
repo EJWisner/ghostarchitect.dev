@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.2, October 30, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.3, October 31, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">8.1.3</span>
+      <span class="release-date">October 31, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A pinned scan starts as soon as its model fits</h2>
+    <p class="release-lede">8.1.3 -- 8.1.3 lets a pinned project's waiting call see memory free up, and says plainly when a scan is waiting for its model. When a pinned project's model does not fit in memory, its call waits. It now checks the hub's memory again about once a second, so it runs the moment memory frees, without a restart. Every other project, and how memory is counted, stays exactly as in 8.1.2. While a pinned scan waits, its progress line and its background log say so in the Scan Queue's own words, instead of "still reading". The manual inside the download is stamped 8.1.3.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">8.1.2</span>
       <span class="release-date">October 30, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">A project can be pinned to one model</h2>
     <p class="release-lede">8.1.2 -- 8.1.2 lets an administrator run every scan of a project on one chosen model, while every other project stays load balanced. Pin a project to one local model and every model call of its scans runs on that model, on whichever machine in your cluster serves it, and never on another. A difference between two scans is then the code, not the model, and a report that counsel may read can say which model wrote every word. An agency can serve one client on a larger model and another on a faster one from the same hub. With each pin you choose whether a call waits for the model or the scan is refused; it never runs on a substitute. The Dashboard, the Scan Queue, the scan log, the Fleet page and the report all say which model a project's scans ran on, and a pinned project reuses only what its own model wrote. Set it on the project's page, with ghost --project-model or with the REST API. The manual inside the download is stamped 8.1.2.</p>
