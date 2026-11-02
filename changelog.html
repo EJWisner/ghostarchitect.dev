@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.6, November 1, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.7, November 1, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">8.1.6</span>
+      <span class="release-version">8.1.7</span>
       <span class="release-date">November 1, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">An IP review is not marked for what it read from the files</h2>
+    <p class="release-lede">8.1.7 -- 8.1.7 stops an IP evidence review from marking a correct report "not ready to send" because of facts it read from the files. An IP evidence review checks that it prints none of the analysis model's own wording. In 8.1.6 that check also read the summary line Ghost Architect&trade; Local writes from the files, so a copyright holder or a file path the model had also quoted could mark a correct report not ready to send. Now it leaves that line out. A sentence the model wrote is still caught everywhere else in the report and in the findings file. The manual inside the download is stamped 8.1.7.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">8.1.6</span>
+      <span class="release-date">November 1, 2026</span>
     </div>
     <h2 class="release-headline">A scan longer than a day keeps its place</h2>
     <p class="release-lede">8.1.6 -- 8.1.6 keeps a scan in the queue for as long as it is running, however long that is. In 8.1.5 a scan still running after 24 hours lost its own place in the queue. It stopped checking in with the fleet, and its old place stayed in line until an administrator removed it by hand. Now the process running a scan checks in every five minutes, and an entry is let go only when the process that registered it has ended. When a scan moves on to writing its report, the report takes over the scan's turn and its place in line, so nothing is left waiting behind it. The manual inside the download is stamped 8.1.6.</p>
