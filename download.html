@@ -7,7 +7,7 @@
   <!-- Rebuilt (2026-10-29, benefit-first rebuild); approved by EJ and live 2026-10-31.
        NOTE: the request form below is the live form. Submitting it sends a real trial request. -->
   <title>Start the Ghost Architect&trade; Local trial on your hardware</title>
-  <meta name="description" content="See your own codebase&rsquo;s report on your own machines. Request Ghost Architect&trade; Local 8.1.7, verify its SHA-256 and install. No card, no account." />
+  <meta name="description" content="See your own codebase&rsquo;s report on your own machines. Request Ghost Architect&trade; Local 8.1.8, verify its SHA-256 and install. No card, no account." />
   <meta property="og:site_name" content="Ghost Architect&trade;" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Start the Ghost Architect&trade; Local trial" />
@@ -61,7 +61,7 @@
 <main class="page">
 
   <header class="page-hero">
-    <div class="version-badge"><b>Ghost Architect&trade; Local &middot; version 8.1.7</b> &nbsp;&middot;&nbsp; commercially released</div>
+    <div class="version-badge"><b>Ghost Architect&trade; Local &middot; version 8.1.8</b> &nbsp;&middot;&nbsp; commercially released</div>
     <h1>See your own codebase&rsquo;s report,<br><em>on your own hardware.</em></h1>
     <p class="lede">No card, no account, no sales call. Request the download and the link is emailed to you straight away. The trial starts inside the product on your machine, and when you convert during it your first month is half price.</p>
     <div class="hero-cta">
@@ -109,18 +109,18 @@
             <label>GitHub username, if you would rather install from our delivery repository <input name="github" type="text" autocomplete="username" maxlength="80" placeholder="octocat"></label>
           </details>
           <input type="text" name="honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-          <button type="submit" class="btn btn-local-solid">Email me Ghost Architect&trade; Local 8.1.7</button>
+          <button type="submit" class="btn btn-local-solid">Email me Ghost Architect&trade; Local 8.1.8</button>
           <div class="f-msg" id="tf-msg" role="status" aria-live="polite"></div>
         </form>
       </div>
       <div class="card">
         <h3>Verify it before you unpack it</h3>
         <p>The file is about to become a global command on your machine. Check it first.</p>
-        <pre class="code"><code>shasum -a 256 ghost-architect-local-8.1.7.tgz</code></pre>
+        <pre class="code"><code>shasum -a 256 ghost-architect-local-8.1.8.tgz</code></pre>
         <p>On Windows PowerShell:</p>
-        <pre class="code"><code>Get-FileHash -Algorithm SHA256 ghost-architect-local-8.1.7.tgz</code></pre>
-        <p>Expected for 8.1.7:</p>
-        <div class="sha"><p class="hash">87e97333e457ae35f51917331159f01deb8cffbff60f739daaaa208d1a211151</p></div>
+        <pre class="code"><code>Get-FileHash -Algorithm SHA256 ghost-architect-local-8.1.8.tgz</code></pre>
+        <p>Expected for 8.1.8:</p>
+        <div class="sha"><p class="hash">30e064d9699fcd1857dc26367f4e1b0371ed089346ec0e5e4d896b6c473b7488</p></div>
         <div class="callout amber"><p>If the hash does not match, stop. Do not install it. Email support@ghostarchitect.dev with what you got.</p></div>
       </div>
     </div>
@@ -141,7 +141,7 @@
     <h2>3. Install</h2>
     <div class="prose">
       <p>Everything happens inside the directory you unpack. Keep that directory; the global <code>ghost</code> command links into it rather than copying it.</p>
-      <pre><code>tar -xzf ghost-architect-local-8.1.7.tgz
+      <pre><code>tar -xzf ghost-architect-local-8.1.8.tgz
 cd package
 bash install/setup.sh              # macOS
 sudo bash install/setup-linux.sh   # Linux
