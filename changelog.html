@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.13, November 6, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.14, November 7, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">8.1.14</span>
+      <span class="release-date">November 7, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Keys stay hidden while an answer streams, and quoted certificates no longer hold it up</h2>
+    <p class="release-lede">8.1.14 -- 8.1.14 closes the last gaps found in the review of 8.1.13's credential protection, and keeps streamed answers moving. A private key stored as base64 in short wrapped lines, or in a service-account key.json after a name, is now redacted whole, on the screen as in the saved copy and in reports. A quoted certificate, certificate request, public key, PGP signature or digest no longer pauses a streamed answer. The manual inside the download is stamped 8.1.14.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">8.1.13</span>
       <span class="release-date">November 6, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">No access token or private key in anything Ghost writes or sends, and IP evidence reviews that agree with themselves</h2>
     <p class="release-lede">8.1.13 -- 8.1.13 keeps every access token, password and private key out of everything Ghost Architect&trade; Local writes or sends, and tightens the IP evidence review report for attorneys and their clients. A credential or private key in a file, a file or folder name, a git remote, a branch or a project label is replaced before it reaches a report, the findings file, SARIF, file names, logs, pages, the REST API, the terminal, emails, webhooks, SIEM lines, chat cards, PR comments, Jira issues or anything a spoke sends its hub. Private keys are caught in every common form, and a streamed answer that quotes one shows it only redacted. The IP evidence review's PDF now draws quotes, lists and tables as the Markdown marks them, its counts agree from the summary to the appendix and the findings file, hidden folders such as .github/ are read for copyright and license lines, and the report names the repository, commit and branch. The manual inside the download is stamped 8.1.13.</p>
