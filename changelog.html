@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.18, November 10, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.19, November 10, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">8.1.18</span>
+      <span class="release-version">8.1.19</span>
       <span class="release-date">November 10, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A key after a request header is redacted</h2>
+    <p class="release-lede">8.1.19 -- 8.1.19 replaces a key written after a request header such as x-api-key before your model sees the file, and in everything Ghost Architect&trade; writes. A key of sixteen characters or more after a request header that carries one (x-api-key, X-Auth-Token, PRIVATE-TOKEN, X-Vault-Token and the headers like them) is now replaced in a curl command, a request file, a log line or a line of code. Until now such a key was replaced only when it happened to read as random: your model was shown it in a script or a request file, and about one in twenty-five stayed in a report. The value is taken whole or not at all, and a variable, a placeholder or a name of words after the header is left as written. A key that holds a digit is remembered for the scan, so it is replaced where a model writes it back away from its header. One thing to know: a name that holds a digit inside a word, written after such a header in your code, is taken for a key and replaced wherever a report writes it. The redaction self-check, ghost --redaction-check, now plants such keys in every run and its dated report says what the rule does and does not do.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">8.1.18</span>
+      <span class="release-date">November 10, 2026</span>
     </div>
     <h2 class="release-headline">Check redaction on your own hub</h2>
     <p class="release-lede">8.1.18 -- 8.1.18 adds ghost --redaction-check: the test we run before each release, on your hub, with your settings, and a dated report your security team can file. ghost --redaction-check plants a few hundred freshly made fake credentials in a made-up codebase, scans it in every mode inside a private folder, and searches everything Ghost Architect&trade; wrote, printed, sent and answered for any of them. Then it sweeps the files already written and names each place today's redaction would replace something, so a report written by an older version is found. None of your files is scanned and nothing leaves the hub. It is a self-check, not a certification. Building it found five ways a credential could get past redaction, and this release closes them: a credential a model writes into a finding's title no longer reaches the finding's id; a scan now remembers every credential it found, not the first 200; a database password after a flag and the key of an Azure connection string are remembered on their own; a note that quotes the start of a line redacts it before cutting it; and two Azure connection strings on neighboring lines are both replaced.</p>
