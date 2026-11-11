@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.19, November 10, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.20, November 11, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">8.1.20</span>
+      <span class="release-date">November 11, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A password a person chose is redacted in most of the places that missed it</h2>
+    <p class="release-lede">8.1.20 -- 8.1.20 replaces a password such as Summer2024! in 84 more of the forms a password is written in, before your model sees the file and in everything Ghost Architect&trade; writes. A password a person chose is not random and has no service's shape, so it can be replaced only where the form of its line is known. We ran nine such passwords through each of 156 forms. Before this release your model was shown every one of them in 92 of the forms. Now it is shown none of them in 148: in code (Go's short assignment, typed declarations, names that end in pass, the name given as an argument), in commands (--password under any command, sshpass, docker login, redis-cli and more), in SQL (IDENTIFIED BY, CREATE and ALTER USER), in settings (make and batch files, PGPASSWORD, requirepass, .pgpass) and in documents. A password that holds an apostrophe, shown before in 74 of the 77 forms that write it between double quotes, is now replaced whole in all 77. This is not every form. Still shown to your model, among the commonest: a default handed to a lookup (os.getenv("DB_PASSWORD", "...")), a method that sets it (setPassword("...")), a comparison, the names pass and pw alone, and a password with no name beside it. A value a shell or a template fills in, help text, labels and prompts are left as written on purpose. A password of fewer than eight characters is replaced where it is written but not remembered for the scan. The redaction self-check, ghost --redaction-check, now plants 125 such passwords in twenty-five forms. Its dated report lists the forms and says what a passed run does not show. This release also moves node-forge, a library used only when the portal gets its certificate from Let's Encrypt, to 1.4.3, past four advisories published after 8.1.19 shipped.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">8.1.19</span>
       <span class="release-date">November 10, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">A key after a request header is redacted</h2>
     <p class="release-lede">8.1.19 -- 8.1.19 replaces a key written after a request header such as x-api-key before your model sees the file, and in everything Ghost Architect&trade; writes. A key of sixteen characters or more after a request header that carries one (x-api-key, X-Auth-Token, PRIVATE-TOKEN, X-Vault-Token and the headers like them) is now replaced in a curl command, a request file, a log line or a line of code. Until now such a key was replaced only when it happened to read as random: your model was shown it in a script or a request file, and about one in twenty-five stayed in a report. The value is taken whole or not at all, and a variable, a placeholder or a name of words after the header is left as written. A key that holds a digit is remembered for the scan, so it is replaced where a model writes it back away from its header. One thing to know: a name that holds a digit inside a word, written after such a header in your code, is taken for a key and replaced wherever a report writes it. The redaction self-check, ghost --redaction-check, now plants such keys in every run and its dated report says what the rule does and does not do.</p>
