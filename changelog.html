@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.23, November 12, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.24, November 12, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">8.1.23</span>
+      <span class="release-version">8.1.24</span>
       <span class="release-date">November 12, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A cloud scan works on the newest Claude models, and every answer is checked</h2>
+    <p class="release-lede">8.1.24 -- 8.1.24 builds each cloud request for the Claude model it goes to, counts what the provider bills, and reads every answer a scan asks a model for in code before it is used. In the Cloud API position, requests to Claude Sonnet 5.5, Opus 5.5 and the other newest models were refused, because they set a sampling temperature those models no longer take. Each request is now built for its model: temperature only where it is taken, an effort level where it is taken, and room for the model's thinking within its own limit. The cost estimate counts thinking, which is billed as output, and the newer tokenizer, which counts about 30% more tokens. The scan plan, the executive summary, a Ghost Partner&trade; profile, Prompt Triage's deep checks and the Ghost reviewer's verdicts are each read by code before they are used. An answer that cannot be used is asked for once more with what was wrong, and then falls back to what the code alone can say. The report's Analysis Completeness says when that happened. Our cloud tests now run against stand-ins that refuse what the real API refuses, so a request it would refuse fails a test before it reaches you.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">8.1.23</span>
+      <span class="release-date">November 12, 2026</span>
     </div>
     <h2 class="release-headline">A pinned model loads when the machine has room, and every finding keeps its file</h2>
     <p class="release-lede">8.1.23 -- 8.1.23 places a pinned model by what the hub has loaded now, counts the memory Ollama frees, stops false Ollama alerts, and keeps each finding's file when the model leaves out the Files: line. A project pinned to a model that was not loaded when its scan began could end after the first call, told the hub had no memory for a model it had just loaded. Each placement now reads what the hub has loaded at that moment, and the memory check counts what Ollama gives back when it replaces an idle model. On a Mac hub a refusal says how short the hub is, and administrators can allow a load that is slightly short with Load Shortfall, off by default. Larger models often name a finding's file only in its text. Such findings reached the report citing no file. Each pass now asks for the Files: line, and where a model leaves it out a finding takes the file its own text names, when that is a file the pass read. Merges, the summary and a scan you take up again keep those files. A health check that ran late because the portal was busy no longer counts as Ollama not answering, and an idle portal no longer reads every queued report each minute while the Ghost reviewer waits.</p>
