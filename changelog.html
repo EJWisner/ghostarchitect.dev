@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.22, November 11, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.23, November 12, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">8.1.23</span>
+      <span class="release-date">November 12, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A pinned model loads when the machine has room, and every finding keeps its file</h2>
+    <p class="release-lede">8.1.23 -- 8.1.23 places a pinned model by what the hub has loaded now, counts the memory Ollama frees, stops false Ollama alerts, and keeps each finding's file when the model leaves out the Files: line. A project pinned to a model that was not loaded when its scan began could end after the first call, told the hub had no memory for a model it had just loaded. Each placement now reads what the hub has loaded at that moment, and the memory check counts what Ollama gives back when it replaces an idle model. On a Mac hub a refusal says how short the hub is, and administrators can allow a load that is slightly short with Load Shortfall, off by default. Larger models often name a finding's file only in its text. Such findings reached the report citing no file. Each pass now asks for the Files: line, and where a model leaves it out a finding takes the file its own text names, when that is a file the pass read. Merges, the summary and a scan you take up again keep those files. A health check that ran late because the portal was busy no longer counts as Ollama not answering, and an idle portal no longer reads every queued report each minute while the Ghost reviewer waits.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">8.1.22</span>
       <span class="release-date">November 11, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">A password that holds a quote is redacted whole</h2>
     <p class="release-lede">8.1.22 -- 8.1.22 replaces a password such as pa"!ss1234, a quote written with a backslash inside it, whole, before your model sees the file and in everything Ghost Architect&trade; writes. JSON and most code write a quote inside a string with a backslash before it. Such a password was read only to that quote, and your model was shown the rest. We ran eight such passwords through each of 130 forms a password is written in: before this release part of one of them was shown in every form; now none is shown in any. A backslash before a quote can also be the end of a Windows path. Where the line says it may be one, by five signs the manual names, that string is written exactly as the release before wrote it. These values are read after everything the release before does and only add: nothing it replaced is shown, and what this reading takes is not remembered for the rest of the scan. This release also makes redaction faster on long lines: one rule that could take up to a minute on a long line of escaped quotes now takes under a second.</p>
