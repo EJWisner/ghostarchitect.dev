@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.21, November 11, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.22, November 11, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">8.1.21</span>
+      <span class="release-version">8.1.22</span>
       <span class="release-date">November 11, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A password that holds a quote is redacted whole</h2>
+    <p class="release-lede">8.1.22 -- 8.1.22 replaces a password such as pa"!ss1234, a quote written with a backslash inside it, whole, before your model sees the file and in everything Ghost Architect&trade; writes. JSON and most code write a quote inside a string with a backslash before it. Such a password was read only to that quote, and your model was shown the rest. We ran eight such passwords through each of 130 forms a password is written in: before this release part of one of them was shown in every form; now none is shown in any. A backslash before a quote can also be the end of a Windows path. Where the line says it may be one, by five signs the manual names, that string is written exactly as the release before wrote it. These values are read after everything the release before does and only add: nothing it replaced is shown, and what this reading takes is not remembered for the rest of the scan. This release also makes redaction faster on long lines: one rule that could take up to a minute on a long line of escaped quotes now takes under a second.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">8.1.21</span>
+      <span class="release-date">November 11, 2026</span>
     </div>
     <h2 class="release-headline">A password a person chose is redacted in the second set of forms</h2>
     <p class="release-lede">8.1.21 -- 8.1.21 replaces a password such as Summer2024! in the forms the release before named as not recognized, before your model sees the file and in everything Ghost Architect&trade; writes. We ran nine passwords a person might choose through each of 112 more forms. Before this release your model was shown every one of them in 92. Now it is shown none of them in 60, and in 51 only the ones that do not look chosen, which some forms leave because a mode, a version or a message is written that way far more often than a password. Now recognized: a fallback after a read of the environment (os.getenv("DB_PASSWORD", "..."), process.env.DB_PASSWORD || "..."), a method that sets it (setPassword("...")), a comparison with a password's name, the names pass and pw alone, a name beside its value in XML, a setting handed to another command (docker run -e, helm --set, systemd's Environment=), and other ways a name is bound to a value. Left as written on purpose: a path or a reference to where a password is kept, a version, a hash, a regular expression, and a value under a name that says it holds something else (forgot_password, MIN_PASSWORD). Chapter 6 of the manual lists what each form leaves. These rules run after everything the release before does, so a file is never shown more than it was, and what they take is not remembered for the rest of the scan.</p>
