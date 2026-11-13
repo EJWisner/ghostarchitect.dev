@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.26, November 13, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.27, November 13, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">8.1.26</span>
+      <span class="release-version">8.1.27</span>
       <span class="release-date">November 13, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">No more false "hub down" alerts from a busy hub</h2>
+    <p class="release-lede">8.1.27 -- 8.1.27 lets a hub answer its peers' health checks at once, however many projects and reports it holds. A hub with a few hundred projects and a few thousand reports took about four seconds to answer a peer's health check, against the five seconds a peer waits. Peers reported it as not answering, and sent emails about it, while it was working. A hub now makes the list of projects and reports it shares with its peers in the background and answers each check at once. The list its peers show is usually no more than a minute or two old. If a hub cannot read one of its own files, it keeps sharing the last list it made, its peers say it could not list its projects, and its own error log names the file to fix.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">8.1.26</span>
+      <span class="release-date">November 13, 2026</span>
     </div>
     <h2 class="release-headline">See each secret Ghost redacted, by file and line</h2>
     <p class="release-lede">8.1.26 -- 8.1.26 lists every secret Ghost replaced when it loads your code, so you can see what it took out before your code is read. When a scan loads your files, Ghost now lists each secret it replaced: its type, the file and the line, and at most the first four characters of a long value so you can recognize it. Nothing is shown for a short value or for a private key. A scan that runs in the background writes the same list to its log, so a scheduled or API scan has it too. Ghost says plainly what it does: it replaces the secrets it recognizes and may miss others. What it redacts has not changed in this release.</p>
