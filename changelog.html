@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.25, November 12, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.26, November 13, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">8.1.26</span>
+      <span class="release-date">November 13, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">See each secret Ghost redacted, by file and line</h2>
+    <p class="release-lede">8.1.26 -- 8.1.26 lists every secret Ghost replaced when it loads your code, so you can see what it took out before your code is read. When a scan loads your files, Ghost now lists each secret it replaced: its type, the file and the line, and at most the first four characters of a long value so you can recognize it. Nothing is shown for a short value or for a private key. A scan that runs in the background writes the same list to its log, so a scheduled or API scan has it too. Ghost says plainly what it does: it replaces the secrets it recognizes and may miss others. What it redacts has not changed in this release.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">8.1.25</span>
       <span class="release-date">November 12, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">Every finding the model wrote is in the report, once</h2>
     <p class="release-lede">8.1.25 -- 8.1.25 reads findings the report had been leaving out, stops counting some findings twice, and says plainly what it could not read. A finding whose title began with a category's own word, such as "Fault line between the cache and ...", was read as a category heading, and it and every finding after it in that category were left out of the report. They are read now, as are findings written one heading level up and a severity written at the end of a sentence. A finding that ended with its fields as a bullet was counted twice, once with no title, and the real one took its category's severity. It is one finding now, so some reports count fewer findings, and their severities are the ones the model wrote. Analysis Completeness now says how many findings took their section's severity because none was written, and an appendix prints any text the reader could not read as a finding, so nothing is dropped without a word.</p>
