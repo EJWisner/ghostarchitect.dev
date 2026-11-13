@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.24, November 12, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.25, November 12, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">8.1.24</span>
+      <span class="release-version">8.1.25</span>
       <span class="release-date">November 12, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Every finding the model wrote is in the report, once</h2>
+    <p class="release-lede">8.1.25 -- 8.1.25 reads findings the report had been leaving out, stops counting some findings twice, and says plainly what it could not read. A finding whose title began with a category's own word, such as "Fault line between the cache and ...", was read as a category heading, and it and every finding after it in that category were left out of the report. They are read now, as are findings written one heading level up and a severity written at the end of a sentence. A finding that ended with its fields as a bullet was counted twice, once with no title, and the real one took its category's severity. It is one finding now, so some reports count fewer findings, and their severities are the ones the model wrote. Analysis Completeness now says how many findings took their section's severity because none was written, and an appendix prints any text the reader could not read as a finding, so nothing is dropped without a word.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">8.1.24</span>
+      <span class="release-date">November 12, 2026</span>
     </div>
     <h2 class="release-headline">A cloud scan works on the newest Claude models, and every answer is checked</h2>
     <p class="release-lede">8.1.24 -- 8.1.24 builds each cloud request for the Claude model it goes to, counts what the provider bills, and reads every answer a scan asks a model for in code before it is used. In the Cloud API position, requests to Claude Sonnet 5.5, Opus 5.5 and the other newest models were refused, because they set a sampling temperature those models no longer take. Each request is now built for its model: temperature only where it is taken, an effort level where it is taken, and room for the model's thinking within its own limit. The cost estimate counts thinking, which is billed as output, and the newer tokenizer, which counts about 30% more tokens. The scan plan, the executive summary, a Ghost Partner&trade; profile, Prompt Triage's deep checks and the Ghost reviewer's verdicts are each read by code before they are used. An answer that cannot be used is asked for once more with what was wrong, and then falls back to what the code alone can say. The report's Analysis Completeness says when that happened. Our cloud tests now run against stand-ins that refuse what the real API refuses, so a request it would refuse fails a test before it reaches you.</p>
