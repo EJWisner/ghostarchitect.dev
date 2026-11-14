@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.27, November 13, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.28, November 13, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">8.1.27</span>
+      <span class="release-version">8.1.28</span>
       <span class="release-date">November 13, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Every private value of a multi-prime key is now redacted</h2>
+    <p class="release-lede">8.1.28 -- 8.1.28 replaces every private value in the list of extra primes of a JSON Web Key, not just some of them. A JSON Web Key with more than two primes keeps its extra primes in a list, and each prime's values are private. Ghost Architect&trade; Local replaced only some of them, so the rest could reach a model, a report or a cloud call as written. For a key written as JSON, JavaScript or Python in the usual way, 8.1.28 replaces every one of them: when it loads your files, in an answer as it streams, and in everything it writes or sends. Each such key is also listed by type, file and line, like any other secret Ghost replaces. A key written as YAML is not yet fully recognized, so keep one out of what you scan; that is our next fix. If you think a key like this was sent before 8.1.28, replace it.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">8.1.27</span>
+      <span class="release-date">November 13, 2026</span>
     </div>
     <h2 class="release-headline">No more false "hub down" alerts from a busy hub</h2>
     <p class="release-lede">8.1.27 -- 8.1.27 lets a hub answer its peers' health checks at once, however many projects and reports it holds. A hub with a few hundred projects and a few thousand reports took about four seconds to answer a peer's health check, against the five seconds a peer waits. Peers reported it as not answering, and sent emails about it, while it was working. A hub now makes the list of projects and reports it shares with its peers in the background and answers each check at once. The list its peers show is usually no more than a minute or two old. If a hub cannot read one of its own files, it keeps sharing the last list it made, its peers say it could not list its projects, and its own error log names the file to fix.</p>
