@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.28, November 13, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.29, November 14, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">8.1.29</span>
+      <span class="release-date">November 14, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A symmetric key's secret is now redacted</h2>
+    <p class="release-lede">8.1.29 -- 8.1.29 replaces the secret value of a symmetric JSON Web Key, which earlier versions sent as written. A JSON Web Key of type oct holds a single secret, its k value, which signs or encrypts. Ghost Architect&trade; Local did not treat k as private, so such a key could reach a model, a report or a cloud call as written. For a key written as JSON, JavaScript or Python in the usual way, 8.1.29 replaces k: when it loads your files, in an answer as it streams, and in everything it writes or sends. A k shorter than the standard allows may still show while an answer streams; the saved copy replaces it. A key written as YAML is not yet fully recognized, so keep one out of what you scan; that is our next fix. If you think a key like this was sent before 8.1.29, replace it.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">8.1.28</span>
       <span class="release-date">November 13, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">Every private value of a multi-prime key is now redacted</h2>
     <p class="release-lede">8.1.28 -- 8.1.28 replaces every private value in the list of extra primes of a JSON Web Key, not just some of them. A JSON Web Key with more than two primes keeps its extra primes in a list, and each prime's values are private. Ghost Architect&trade; Local replaced only some of them, so the rest could reach a model, a report or a cloud call as written. For a key written as JSON, JavaScript or Python in the usual way, 8.1.28 replaces every one of them: when it loads your files, in an answer as it streams, and in everything it writes or sends. Each such key is also listed by type, file and line, like any other secret Ghost replaces. A key written as YAML is not yet fully recognized, so keep one out of what you scan; that is our next fix. If you think a key like this was sent before 8.1.28, replace it.</p>
