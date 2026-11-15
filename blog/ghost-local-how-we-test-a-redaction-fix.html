@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>How deep we test one redaction fix · Ghost Architect™ Local</title>
+  <meta name="description" content="Ghost Architect™ Local 8.1.31 redacts a JSON Web Key stored as base64. Here is how we tested it: 4,642 real keys, every path a secret can take, three reviews, and a check that every part of the change is needed." />
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-local-how-we-test-a-redaction-fix" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-local-how-we-test-a-redaction-fix" />
+  <meta property="og:title" content="How deep we test one redaction fix" />
+  <meta property="og:description" content="Ghost Architect™ Local 8.1.31 redacts a JSON Web Key stored as base64. Here is how we tested it: 4,642 real keys, every path a secret can take, three reviews, and a check that every part of the change is needed." />
+  <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
+  <meta property="og:site_name" content="Ghost Architect™" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How deep we test one redaction fix",
+    "datePublished": "2026-11-14",
+    "dateModified": "2026-11-14",
+    "author": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "publisher": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "url": "https://ghostarchitect.dev/blog/ghost-local-how-we-test-a-redaction-fix",
+    "image": "https://ghostarchitect.dev/assets/local/og-local.png"
+  }
+  </script>
+  <meta name="theme-color" content="#0a0a0f" />
+  <link rel="icon" type="image/jpeg" href="../../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="../site.css?v=20260928a" />
+  <link rel="stylesheet" href="../blog.css" />
+</head>
+<body data-product="local">
+
+<canvas id="lattice" aria-hidden="true" data-ambient data-variant="local"></canvas>
+
+<div id="ga-nav-mount"></div>
+
+<main class="page">
+  <article class="article">
+
+  <a href="../blog.html?platform=local" class="back-link">&larr; All Local posts</a>
+
+  <div class="article-meta">
+    <span class="article-tag launch">Ghost Architect&trade; Local</span>
+    <span class="article-tag">8.1.31</span>
+    <span>November 14, 2026</span>
+    <span>5 min read</span>
+    <span>By Ernst J. Wisner</span>
+  </div>
+
+  <h1>How deep we test one redaction fix</h1>
+
+  <p class="lede">8.1.31 fixes one narrow thing: a JSON Web Key that was base64-encoded before it was stored, as Kubernetes Secrets store them, was sent as written. This is what "tested" means for a redaction change in Ghost Architect&trade; Local.</p>
+
+  <div class="article-body">
+    <h2>Real keys, not examples</h2>
+    <p>A redaction rule tested on a handful of examples passes the examples. So the test does not use examples. It makes real keys with real cryptography: RSA, RSA with extra primes, elliptic curve, Ed25519 and symmetric keys. It writes each one the ways real tools write keys, as JSON, YAML and flow YAML, then encodes each in every layout the test covers: base64 on one line or wrapped, base64url, inside a JSON string with <code>\n</code> escapes, folded in a quoted YAML value, inside a URL, as UTF-8, UTF-16 and Latin-1 text. That is 4,642 encoded keys.</p>
+
+    <h2>Every path a secret can take</h2>
+    <p>Each key goes through every path where Ghost Architect&trade; redacts: when it loads your files, in what it writes or sends, and in a model's answer as it streams. The answer is streamed in pieces of many sizes, and cut off after every line, because a secret split across two pieces is where redaction usually breaks.</p>
+    <p>The test then asks a few plain questions. Is any private value shown, anywhere? Is the key replaced by one marker, and only the key? Does running redaction twice change nothing?</p>
+
+    <h2>Against the release before</h2>
+    <p>The same keys go through 8.1.30. It showed a private value for 4,553 of the 4,642 cases. A test that the old release passes proves nothing, so this one has to fail on 8.1.30 and pass on 8.1.31. And 648 ordinary documents, base64-encoded, must come out exactly as 8.1.30 left them, so the fix does not start redacting things that are not keys.</p>
+
+    <h2>Every part of the change is needed</h2>
+    <p>The change has 34 parts. For each one, the test takes that part out of a copy of the code and runs again. Every time, some check must fail. A part that no check needs is either untested or not needed, and we found two of those and took them out. This is how we know the tests watch the code and not the other way around.</p>
+
+    <h2>Three reviews, each looking for a way past it</h2>
+    <p>Each review read the change fresh, with one job: find an input that gets a private value past it. The first review found layouts we had not tested: a run inside a JSON string, a word right next to a run, a key in a URL path, Latin-1 and UTF-16 text. The second found that one pattern took quadratic time on a crafted input, so a hostile file could slow a scan, and that random bytes could decode to text that looked like the start of a key. The third found one more limit, and the manual now names it. Each shape a review found became a permanent check, 17 in all. A last check proves the time stays linear: twice the text never takes more than three times as long.</p>
+
+    <h2>What it does not catch</h2>
+    <p>A key encoded twice, compressed or encrypted. A key written as TOML or as .env lines and then encoded. Base64 split across strings joined in code. Chapter 6 of the manual lists the rest. We would rather tell you the limits than let you find them.</p>
+
+    <h2>Why this much</h2>
+    <p>Ghost Architect&trade; Local reads your code so that a model can reason about it. The one promise underneath everything else is that your secrets stay yours. A fix that is right for the inputs we thought of is not good enough for that promise, so this is the standard for every redaction change, however small it looks. If you think a key stored this way was sent before 8.1.31, replace it.</p>
+
+    <div class="cta-band">
+      <h3>Ghost Architect&trade; Local runs on your own hardware.</h3>
+      <p>The download page tells you how to get the tarball, verify it, and start the evaluation trial on your own hardware.</p>
+      <a href="../download.html" class="cta-btn">Request Ghost Architect&trade; Local</a>
+    </div>
+
+    <p>EJ Wisner, founder of Ghost Architect&trade;. Local is a monthly license, per team size, with no per-token bill; the numbers are on the <a href="../pricing.html#local">pricing page</a>.</p>
+  </div>
+
+  </article>
+</main>
+
+<footer>
+  <a href="../index.html" class="footer-logo"><img src="../../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; <a href="../blog.html">Blog</a> &middot; <a href="../support.html?platform=local">Support</a> &middot; <a href="../privacy.html">Privacy Policy</a> &middot; <a href="../msa.html">Terms of Service</a></span>
+</footer>
+
+<script src="../../assets/ga-nav.js?v=20261005a" defer></script>
+<script src="../next-nav.js" defer></script>
+<script src="../scene.js" defer></script>
+</body>
+</html>
