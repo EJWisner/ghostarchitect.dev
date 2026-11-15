@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.31, November 14, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.32, November 15, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">8.1.32</span>
+      <span class="release-date">November 15, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A key's value that looks like a token is redacted whole</h2>
+    <p class="release-lede">8.1.32 -- 8.1.32 reads private keys before any token rule, so a key's private value that happens to hold a token's shape is replaced whole. A private value of a JSON Web Key is random, so now and then it holds the shape of another service's token, a Google API key or a GitHub token. Ghost Architect&trade; Local replaced that token first and then read the key's value only up to it, so when Ghost loaded your files the rest of the value could reach a model or a report as written. This release reads private keys before any token. The whole value is replaced when Ghost loads your files, in an answer as it streams, and in everything it writes or sends. We tested it by planting each of the 16 token shapes Ghost recognizes inside each private value of real keys, written as JSON, JavaScript, Python and YAML. If you think a key like this was sent before this release, replace it.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">8.1.31</span>
       <span class="release-date">November 14, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">A key stored as base64 is now redacted</h2>
     <p class="release-lede">8.1.31 -- 8.1.31 decodes a base64 value that holds a JSON Web Key and replaces it when the key has a private value. Kubernetes Secrets, environment files and deployment configs often hold a JSON Web Key base64-encoded. Ghost Architect&trade; Local decoded base64 only to look for a private key in PEM form, so a key stored this way could reach a model, a report or a cloud call as written. This release decodes such values, on one line or wrapped, in standard base64 or base64url, inside JSON strings and folded YAML values. When the key holds a private value the whole encoded value is replaced when Ghost loads your files, in an answer as it streams, and in everything it writes or sends. Public keys stored as base64 are kept. If you think a key like this was sent before this release, replace it.</p>
