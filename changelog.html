@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.33, November 15, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.34, November 16, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">8.1.34</span>
+      <span class="release-date">November 16, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">Three passwords and a token Ghost missed are redacted</h2>
+    <p class="release-lede">8.1.34 -- This release replaces an npm token written with an underscore before it, a SQL password that holds or ends in a backslash, and a batch file's password set with another command on its line. Each of these reached your model and Ghost's reports as written. An npm token written build_npm_ followed by the token was read by every token rule but npm's; a SQL password with a backslash in it stopped the SQL rules; and set "DB_PASSWORD=..." followed by &amp; echo done stopped the batch file rule. Every rule Ghost already had keeps its pattern and its place. Each new reading is a rule of its own that runs after them and reads only what they left, so nothing Ghost replaced before can be shown now. We tested that against the release before on more than 60,000 drawn lines. A password inside a string inside a string, such as JSON written inside code, is not covered yet. It is the next release.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">8.1.33</span>
       <span class="release-date">November 15, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">A secret in a file's name is not sent to a model</h2>
     <p class="release-lede">8.1.33 -- This release reads everything sent to a model once more, just before it is sent, so a token or password in a file's or folder's name is replaced like one in its contents. Ghost Architect&trade; Local redacted each file's contents as it loaded your files. But what a model reads names each file it holds, so a file called token-ghp_ followed by a real token sent that token to your local model as written. Calls to a cloud model were already covered. Now every model call is read for secrets just before it is sent, on every path a call can take, with each file read under its own name so nothing else changes. A call that cannot be read in full is not sent. We tested it by planting each of the 16 token shapes Ghost recognizes in file and folder names. If a name holding a secret reached a model that is not on a machine you control, replace the secret.</p>
