@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>A Recon report lists where the secrets are &middot; Ghost Architect&trade; Local</title>
+  <meta name="description" content="Run a Recon on a codebase you have just been handed, and its report lists every access token, password and private key Ghost recognizes, by file, line and type, with no part of any value sho" />
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-local-v8-1-36" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-local-v8-1-36" />
+  <meta property="og:title" content="A Recon report lists where the secrets are" />
+  <meta property="og:description" content="Run a Recon on a codebase you have just been handed, and its report lists every access token, password and private key Ghost recognizes, by file, line and type, with no part of any value sho" />
+  <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
+  <meta property="og:site_name" content="Ghost Architect&trade;" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "A Recon report lists where the secrets are",
+    "datePublished": "2026-11-17",
+    "dateModified": "2026-11-17",
+    "author": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "publisher": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "url": "https://ghostarchitect.dev/blog/ghost-local-v8-1-36",
+    "image": "https://ghostarchitect.dev/assets/local/og-local.png"
+  }
+  </script>
+  <meta name="theme-color" content="#0a0a0f" />
+  <!-- Paths are relative to /next/blog/ so the page also opens straight from the folder (file://).
+       When this replaces the live page, ../../ becomes / and ../ becomes /next-root-relative. -->
+  <link rel="icon" type="image/jpeg" href="../../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="../site.css?v=20260928a" />
+  <link rel="stylesheet" href="../blog.css" />
+</head>
+<body data-product="local">
+
+<canvas id="lattice" aria-hidden="true" data-ambient data-variant="local"></canvas>
+
+<div id="ga-nav-mount"></div>
+
+<main class="page">
+  <article class="article">
+
+  <a href="../blog.html?platform=local" class="back-link">&larr; All Local posts</a>
+
+  <div class="article-meta">
+    <span class="article-tag launch">Ghost Architect&trade; Local</span>
+    <span class="article-tag">8.1.36</span>
+    <span>November 17, 2026</span>
+    <span>2 min read</span>
+    <span>By Ernst J. Wisner</span>
+  </div>
+
+  <h1>A Recon report lists where the secrets are</h1>
+
+  <p class="lede">Run a Recon on a codebase you have just been handed, and its report lists every access token, password and private key Ghost recognizes, by file, line and type, with no part of any value shown.</p>
+
+  <div class="article-body">
+    <p>Ghost already read every file with the rules that remove secrets before any model sees your code, and showed you the first 40 on screen. Now the Recon report lists every one, and so does its JSON sidecar.</p>
+    <p>Besides the code, Recon reads the files where secrets are usually kept that a scan does not send to a model: .env, .npmrc and .netrc files, private key files, credentials and secrets files, Terraform, Docker and CI files. They are read for the list only.</p>
+    <p>The report says how many files were read, names any it read only in part, and says plainly that it lists only the secrets Ghost recognizes. It names no product, so a white-labeled report stays yours.</p>
+    <p>A scan run with --no-interactive now applies --exclude and --exclude-presets, as an interactive scan always has; before, the files you excluded were loaded anyway.</p>
+    <p>This release also gives back the escape a redacted value took inside a JSON string, so a JSON file keeps parsing, wherever it is certain the backslash is not part of the value.</p>
+    <div class="callout">
+      <p>Full technical release notes for 8.1.36 are on the <a href="../../changelog.html#local">changelog</a>, alongside every other Ghost Architect&trade; Local release.</p>
+    </div>
+
+    <div class="cta-band">
+      <h3>Ghost Architect&trade; Local runs on your own hardware.</h3>
+      <p>If you want an evaluation trial, the download page tells you how to get the tarball, verify it, and start the evaluation trial on your own hardware.</p>
+      <a href="../download.html" class="cta-btn">Request Ghost Architect&trade; Local</a>
+    </div>
+
+    <p>EJ Wisner, founder of Ghost Architect&trade;. Local is a monthly license, per team size, with no per-token bill; the numbers are on the <a href="../pricing.html#local">pricing page</a>.</p>
+  </div>
+
+  </article>
+</main>
+
+<footer>
+  <a href="../index.html" class="footer-logo"><img src="../../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; <a href="../blog.html">Blog</a> &middot; <a href="../support.html?platform=local">Support</a> &middot; <a href="../privacy.html">Privacy Policy</a> &middot; <a href="../msa.html">Terms of Service</a></span>
+</footer>
+
+<script src="../../assets/ga-nav.js?v=20261001a" defer></script>
+<script src="../next-nav.js" defer></script>
+<script src="../scene.js" defer></script>
+</body>
+</html>

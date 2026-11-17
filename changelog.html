@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.35, November 16, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.36, November 17, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">8.1.36</span>
+      <span class="release-date">November 17, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A Recon report lists where the secrets are</h2>
+    <p class="release-lede">8.1.36 -- Run a Recon on a codebase you have just been handed, and its report lists every access token, password and private key Ghost recognizes, by file, line and type, with no part of any value shown. Ghost already read every file with the rules that remove secrets before any model sees your code, and showed you the first 40 on screen. Now the Recon report lists every one, and so does its JSON sidecar. Besides the code, Recon reads the files where secrets are usually kept that a scan does not send to a model: .env, .npmrc and .netrc files, private key files, credentials and secrets files, Terraform, Docker and CI files. They are read for the list only. The report says how many files were read, names any it read only in part, and says plainly that it lists only the secrets Ghost recognizes. It names no product, so a white-labeled report stays yours. A scan run with --no-interactive now applies --exclude and --exclude-presets, as an interactive scan always has; before, the files you excluded were loaded anyway. This release also gives back the escape a redacted value took inside a JSON string, so a JSON file keeps parsing, wherever it is certain the backslash is not part of the value.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">8.1.35</span>
       <span class="release-date">November 16, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">A password in a string inside a string is redacted</h2>
     <p class="release-lede">8.1.35 -- JSON written inside code, a command written inside a string, and JSON in a JSON string are now read the way their program reads them, so a password inside them is replaced. Such a string writes its own quotes with a backslash. Ghost read it as written, so a password inside it reached your model and Ghost's reports. Of the password forms Ghost already recognized, written inside a JavaScript string, the release before showed the password in 96 of 105. This release shows it in none, and the same holds inside Java, Python, JSON, YAML and a shell's bash -c. The new reading runs after every rule and only adds: nothing Ghost replaced before can be shown now, and a line that holds no password is changed no more than the same line written out plainly. A line that a rule reads only in another kind of file, such as a Makefile line written inside a JavaScript string, may still be shown. Chapter 6 of the manual lists the limits. This release also replaces a key's private value that is mostly a token of small letters, where an answer is cut off in the middle of the key. Our release tests found it on a random draw; it is now checked every time.</p>
