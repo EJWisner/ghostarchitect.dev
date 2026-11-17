@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.34, November 16, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.35, November 16, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">8.1.34</span>
+      <span class="release-version">8.1.35</span>
       <span class="release-date">November 16, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A password in a string inside a string is redacted</h2>
+    <p class="release-lede">8.1.35 -- JSON written inside code, a command written inside a string, and JSON in a JSON string are now read the way their program reads them, so a password inside them is replaced. Such a string writes its own quotes with a backslash. Ghost read it as written, so a password inside it reached your model and Ghost's reports. Of the password forms Ghost already recognized, written inside a JavaScript string, the release before showed the password in 96 of 105. This release shows it in none, and the same holds inside Java, Python, JSON, YAML and a shell's bash -c. The new reading runs after every rule and only adds: nothing Ghost replaced before can be shown now, and a line that holds no password is changed no more than the same line written out plainly. A line that a rule reads only in another kind of file, such as a Makefile line written inside a JavaScript string, may still be shown. Chapter 6 of the manual lists the limits. This release also replaces a key's private value that is mostly a token of small letters, where an answer is cut off in the middle of the key. Our release tests found it on a random draw; it is now checked every time.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">8.1.34</span>
+      <span class="release-date">November 16, 2026</span>
     </div>
     <h2 class="release-headline">Three passwords and a token Ghost missed are redacted</h2>
     <p class="release-lede">8.1.34 -- This release replaces an npm token written with an underscore before it, a SQL password that holds or ends in a backslash, and a batch file's password set with another command on its line. Each of these reached your model and Ghost's reports as written. An npm token written build_npm_ followed by the token was read by every token rule but npm's; a SQL password with a backslash in it stopped the SQL rules; and set "DB_PASSWORD=..." followed by &amp; echo done stopped the batch file rule. Every rule Ghost already had keeps its pattern and its place. Each new reading is a rule of its own that runs after them and reads only what they left, so nothing Ghost replaced before can be shown now. We tested that against the release before on more than 60,000 drawn lines. A password inside a string inside a string, such as JSON written inside code, is not covered yet. It is the next release.</p>

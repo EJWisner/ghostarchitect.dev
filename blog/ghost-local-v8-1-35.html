@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <title>A password in a string inside a string is redacted &middot; Ghost Architect&trade; Local</title>
+  <meta name="description" content="JSON written inside code, a command written inside a string, and JSON in a JSON string are now read the way their program reads them, so a password inside them is replaced." />
+  <link rel="canonical" href="https://ghostarchitect.dev/blog/ghost-local-v8-1-35" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ghostarchitect.dev/blog/ghost-local-v8-1-35" />
+  <meta property="og:title" content="A password in a string inside a string is redacted" />
+  <meta property="og:description" content="JSON written inside code, a command written inside a string, and JSON in a JSON string are now read the way their program reads them, so a password inside them is replaced." />
+  <meta property="og:image" content="https://ghostarchitect.dev/assets/local/og-local.png" />
+  <meta property="og:site_name" content="Ghost Architect&trade;" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "A password in a string inside a string is redacted",
+    "datePublished": "2026-11-16",
+    "dateModified": "2026-11-16",
+    "author": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "publisher": { "@type": "Person", "name": "Ernst J. Wisner" },
+    "url": "https://ghostarchitect.dev/blog/ghost-local-v8-1-35",
+    "image": "https://ghostarchitect.dev/assets/local/og-local.png"
+  }
+  </script>
+  <meta name="theme-color" content="#0a0a0f" />
+  <!-- Paths are relative to /next/blog/ so the page also opens straight from the folder (file://).
+       When this replaces the live page, ../../ becomes / and ../ becomes /next-root-relative. -->
+  <link rel="icon" type="image/jpeg" href="../../GHOSTLOGO.JPG" />
+  <link rel="apple-touch-icon" href="../../GHOSTLOGO.JPG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="../../assets/ga-nav.css?v=20260920b" />
+  <link rel="stylesheet" href="../site.css?v=20260928a" />
+  <link rel="stylesheet" href="../blog.css" />
+</head>
+<body data-product="local">
+
+<canvas id="lattice" aria-hidden="true" data-ambient data-variant="local"></canvas>
+
+<div id="ga-nav-mount"></div>
+
+<main class="page">
+  <article class="article">
+
+  <a href="../blog.html?platform=local" class="back-link">&larr; All Local posts</a>
+
+  <div class="article-meta">
+    <span class="article-tag launch">Ghost Architect&trade; Local</span>
+    <span class="article-tag">8.1.35</span>
+    <span>November 16, 2026</span>
+    <span>2 min read</span>
+    <span>By Ernst J. Wisner</span>
+  </div>
+
+  <h1>A password in a string inside a string is redacted</h1>
+
+  <p class="lede">JSON written inside code, a command written inside a string, and JSON in a JSON string are now read the way their program reads them, so a password inside them is replaced.</p>
+
+  <div class="article-body">
+    <p>Such a string writes its own quotes with a backslash. Ghost read it as written, so a password inside it reached your model and Ghost's reports. Of the password forms Ghost already recognized, written inside a JavaScript string, the release before showed the password in 96 of 105. This release shows it in none, and the same holds inside Java, Python, JSON, YAML and a shell's bash -c.</p>
+    <p>The new reading runs after every rule and only adds: nothing Ghost replaced before can be shown now, and a line that holds no password is changed no more than the same line written out plainly.</p>
+    <p>A line that a rule reads only in another kind of file, such as a Makefile line written inside a JavaScript string, may still be shown. Chapter 6 of the manual lists the limits.</p>
+    <p>This release also replaces a key's private value that is mostly a token of small letters, where an answer is cut off in the middle of the key. Our release tests found it on a random draw; it is now checked every time.</p>
+    <div class="callout">
+      <p>Full technical release notes for 8.1.35 are on the <a href="../../changelog.html#local">changelog</a>, alongside every other Ghost Architect&trade; Local release.</p>
+    </div>
+
+    <div class="cta-band">
+      <h3>Ghost Architect&trade; Local runs on your own hardware.</h3>
+      <p>If you want an evaluation trial, the download page tells you how to get the tarball, verify it, and start the evaluation trial on your own hardware.</p>
+      <a href="../download.html" class="cta-btn">Request Ghost Architect&trade; Local</a>
+    </div>
+
+    <p>EJ Wisner, founder of Ghost Architect&trade;. Local is a monthly license, per team size, with no per-token bill; the numbers are on the <a href="../pricing.html#local">pricing page</a>.</p>
+  </div>
+
+  </article>
+</main>
+
+<footer>
+  <a href="../index.html" class="footer-logo"><img src="../../GHOSTLOGO.JPG" alt="" width="20" height="20" loading="lazy" /> Ghost Architect&trade;</a>
+  <span>&copy; 2026 EJ Wisner &middot; Ghost Architect&trade; &middot; All rights reserved. &middot; <a href="../blog.html">Blog</a> &middot; <a href="../support.html?platform=local">Support</a> &middot; <a href="../privacy.html">Privacy Policy</a> &middot; <a href="../msa.html">Terms of Service</a></span>
+</footer>
+
+<script src="../../assets/ga-nav.js?v=20261001a" defer></script>
+<script src="../next-nav.js" defer></script>
+<script src="../scene.js" defer></script>
+</body>
+</html>
