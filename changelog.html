@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.38, November 17, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.39, November 18, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
+      <span class="release-version">8.1.39</span>
+      <span class="release-date">November 18, 2026</span>
+      <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A scripted scan keeps --max-context</h2>
+    <p class="release-lede">8.1.39 -- A scan run from a script or a CI job now plans for the context size you give it with --max-context, as a scan from the menus always has. A scan run with --no-interactive accepted --max-context and then planned for the model's own window anyway, in the foreground and in the background. It now plans for the number you give, and its log says so. A background scan's log now records how much context the scan planned for and why, so a scripted run says as much as one started from the menus. --skip-redaction is still always refused. A scripted scan now carries it, so its refusal names the flag, as every other scan does.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
       <span class="release-version">8.1.38</span>
       <span class="release-date">November 17, 2026</span>
-      <span class="release-badge">Latest</span>
     </div>
     <h2 class="release-headline">Remediation velocity counts findings, from when they were first found</h2>
     <p class="release-lede">8.1.38 -- The Executive Weekly's remediation velocity now says what each number is a share of, and counts each finding once, timed from the day it was first found. The weekly email used to print a share of findings resolved within 30 days just under the count of open findings, where it read as a share of the whole backlog. It now reads, for example: of the 173 findings now resolved, 168 (97 percent) were resolved within 30 days of first being found. A finding that one scan missed and a later scan raised again used to count as fixed each time, usually within 30 days. Every figure in the section now counts each finding once, from the first time it was found, so a finding that was never fixed no longer reads as fixed quickly or as newly opened. The REST API carries the counts beside the share. Its velocity figures now count findings the same way, so they change on the day you upgrade.</p>
