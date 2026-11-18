@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.36, November 17, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.37, November 17, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">8.1.36</span>
+      <span class="release-version">8.1.37</span>
       <span class="release-date">November 17, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A Recon report lists where outside code runs</h2>
+    <p class="release-lede">8.1.37 -- Run a Recon on a codebase you have just been handed, and its report lists the scripts the site loads from other companies' servers, by file, line and server, and marks the tag managers and testing tools that can load code that is not in the codebase at all. Attacks on websites increasingly arrive through a trusted outside script: a testing tool, a tag manager or an analytics snippet that every page already allows. Recon now shows where those scripts are, read straight from the code with no model. Each script is marked when it is a tag manager or testing tool, when its file's name says checkout, login, payment or account, and when a script tag has no integrity check. The report also says which files name a Content Security Policy. Only the server's name is printed, never the rest of an address, and the report says plainly that it shows where outside code runs, not what that code does. It names no product, so a white-labeled report stays yours.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">8.1.36</span>
+      <span class="release-date">November 17, 2026</span>
     </div>
     <h2 class="release-headline">A Recon report lists where the secrets are</h2>
     <p class="release-lede">8.1.36 -- Run a Recon on a codebase you have just been handed, and its report lists every access token, password and private key Ghost recognizes, by file, line and type, with no part of any value shown. Ghost already read every file with the rules that remove secrets before any model sees your code, and showed you the first 40 on screen. Now the Recon report lists every one, and so does its JSON sidecar. Besides the code, Recon reads the files where secrets are usually kept that a scan does not send to a model: .env, .npmrc and .netrc files, private key files, credentials and secrets files, Terraform, Docker and CI files. They are read for the list only. The report says how many files were read, names any it read only in part, and says plainly that it lists only the secrets Ghost recognizes. It names no product, so a white-labeled report stays yours. A scan run with --no-interactive now applies --exclude and --exclude-presets, as an interactive scan always has; before, the files you excluded were loaded anyway. This release also gives back the escape a redacted value took inside a JSON string, so a JSON file keeps parsing, wherever it is certain the backslash is not part of the value.</p>
