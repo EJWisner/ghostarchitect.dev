@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.40, November 18, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.41, November 18, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">8.1.40</span>
+      <span class="release-version">8.1.41</span>
       <span class="release-date">November 18, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">ghost --update installs the release</h2>
+    <p class="release-lede">8.1.41 -- An update failed and rolled back on every install. It now installs the release, and checks the package before it changes anything on the hub. The release package keeps its files in a folder named package, and the update copied that folder into the install as it was. The install's own files never changed, so the update found the old version and rolled back. An update now installs the package's files in place of the install's own. It reads the package first, and refuses one that is damaged, that says another version, or that has a file outside its package folder, before anything on the hub is backed up or changed. An install from before this release runs the old update, so it moves to a new release by running the installer again from the new delivery. The installer keeps your license, your evaluation's start date and your settings.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">8.1.40</span>
+      <span class="release-date">November 18, 2026</span>
     </div>
     <h2 class="release-headline">A test that failed under load now passes every time</h2>
     <p class="release-lede">8.1.40 -- One of Ghost's own release tests depended on timing and could fail when the test machine was busy. It no longer does, and nothing Ghost does has changed. Every release runs the product's full set of tests before it ships. One of them, which checks that an unattended scan covers its whole plan, failed about one run in five when many tests ran at once. The cause was in the test, not the product: a stand-in model that dropped idle connections, and a price check that read pass times through a short cache. Both are fixed, and the check still fails if the product prices a capped scan wrongly. Nothing in this release changes what Ghost does. It keeps the release process honest: a release stops only for a real problem.</p>
