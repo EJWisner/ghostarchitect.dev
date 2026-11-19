@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.42, November 19, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.43, November 19, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">8.1.42</span>
+      <span class="release-version">8.1.43</span>
       <span class="release-date">November 19, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A cloud scan says it ran on the cloud</h2>
+    <p class="release-lede">8.1.43 -- A scan whose model calls went to a cloud model was shown as run on this machine. Its report, the Reports page and the Scan Queue now say the cloud model answered. With the Model Switch in its cloud position, a scan's calls go to the cloud model you chose. Ghost recorded each of those calls as answered by this machine, so the Run on line, the Reports page's Machine note and the Scan Queue's Recently ended row all read as a local scan. They now name the cloud model, for example "the Anthropic API (a cloud model) answered all 28 model calls". A call that was meant for the cloud but answered locally, because its project was made Local only while it waited, is still recorded as local. Recently ended also names a peer hub as the Reports page does, and only the machine that ran a scan can record where its calls ran.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">8.1.42</span>
+      <span class="release-date">November 19, 2026</span>
     </div>
     <h2 class="release-headline">A Windows folder typed with a lowercase drive letter is read</h2>
     <p class="release-lede">8.1.42 -- On Windows, a folder typed as c:\work\project found its files and kept none. Folder paths are now compared the way Windows compares them. A Local directory typed with a lowercase drive letter found every file and kept none, and the scan went on to plan for an empty codebase. Ghost compared folder paths letter for letter, and the drive letter came back from the file walk in capitals. Folder paths are now compared without regard to case, as Windows compares them, so c: and C: are one drive. In a folder Windows treats as case-sensitive, two files whose names differ only in case are both read. When files are found and none is kept, Ghost now says at which step they went and stops, and a scripted, queued or scheduled scan fails with that reason instead of reporting on nothing.</p>
