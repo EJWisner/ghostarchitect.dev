@@ -90,15 +90,26 @@
 <div class="log-col log-local" id="local">
   <div class="log-head">
     <div class="log-eyebrow">Ghost Architect&trade; Local &middot; your hardware <span class="log-new">NEW</span></div>
-    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.46, November 20, 2026. <a href="download.html">Request the download.</a></p>
+    <p>Delivered by us as a tarball with a published SHA-256 and installed on machines you own; not on npm. The model runs on your hardware. Latest 8.1.47, November 20, 2026. <a href="download.html">Request the download.</a></p>
   </div>
 
 <section class="section">
   <div class="release-card current">
     <div class="release-meta">
-      <span class="release-version">8.1.46</span>
+      <span class="release-version">8.1.47</span>
       <span class="release-date">November 20, 2026</span>
       <span class="release-badge">Latest</span>
+    </div>
+    <h2 class="release-headline">A credential with a fallback written in the code is no longer set aside</h2>
+    <p class="release-lede">8.1.47 -- The check that answers a hardcoded-credential finding about a function that reads its credential from the environment set aside real findings about functions that fall back to a value written in the code. Those findings now go to the verifier. A function that reads its token from the environment and falls back to a value written in the code holds a credential. The check now sees that fallback, and a value kept in a variable of any name, passed to a call, or held in a default, a template, a string over several lines or a constant. A finding is set aside only when every value the function can return comes from where it reads one, and the reason it gives never quotes a value from the code.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="release-card">
+    <div class="release-meta">
+      <span class="release-version">8.1.46</span>
+      <span class="release-date">November 20, 2026</span>
     </div>
     <h2 class="release-headline">Two kinds of made-up finding are answered by the code</h2>
     <p class="release-lede">8.1.46 -- A local model's verifier counted a CRITICAL hardcoded-credentials finding about a method that only stores what its caller passes, and an unused callback the code calls twice. The code now answers both kinds. In our hand check of six scans, the local model's verifier counted findings it had the code for that are not real. A hardcoded-credential finding about a function that only stores what its caller passes, writes no string and is called by nothing else in the product is now set aside with the lines that show it. A finding that calls a Go struct field unused is answered with the places its package reads it. Both checks favour keeping a finding: they set one aside only when the code itself shows the claim is wrong.</p>
